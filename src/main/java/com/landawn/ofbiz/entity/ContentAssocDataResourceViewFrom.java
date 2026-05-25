@@ -1,0 +1,251 @@
+package com.landawn.ofbiz.entity;
+
+import com.landawn.abacus.annotation.Column;
+import com.landawn.abacus.annotation.ReadOnly;
+import com.landawn.abacus.annotation.Table;
+
+import java.sql.Timestamp;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "content_assoc_data_resource_view_from")
+public class ContentAssocDataResourceViewFrom {
+    @ReadOnly
+    @Column(name = "content_id_start")
+    private String contentIdStart;
+
+    @ReadOnly
+    @Column(name = "content_id")
+    private String contentId;
+
+    @ReadOnly
+    @Column(name = "content_type_id")
+    private String contentTypeId;
+
+    @ReadOnly
+    @Column(name = "owner_content_id")
+    private String ownerContentId;
+
+    @ReadOnly
+    @Column(name = "decorator_content_id")
+    private String decoratorContentId;
+
+    @ReadOnly
+    @Column(name = "instance_of_content_id")
+    private String instanceOfContentId;
+
+    @ReadOnly
+    @Column(name = "data_resource_id")
+    private String dataResourceId;
+
+    @ReadOnly
+    @Column(name = "template_data_resource_id")
+    private String templateDataResourceId;
+
+    @ReadOnly
+    @Column(name = "data_source_id")
+    private String dataSourceId;
+
+    @ReadOnly
+    @Column(name = "status_id")
+    private String statusId;
+
+    @ReadOnly
+    @Column(name = "privilege_enum_id")
+    private String privilegeEnumId;
+
+    @ReadOnly
+    @Column(name = "service_name")
+    private String serviceName;
+
+    @ReadOnly
+    @Column(name = "custom_method_id")
+    private String customMethodId;
+
+    @ReadOnly
+    @Column(name = "content_name")
+    private String contentName;
+
+    @ReadOnly
+    @Column(name = "description")
+    private String description;
+
+    @ReadOnly
+    @Column(name = "locale_string")
+    private String localeString;
+
+    @ReadOnly
+    @Column(name = "mime_type_id")
+    private String mimeTypeId;
+
+    @ReadOnly
+    @Column(name = "character_set_id")
+    private String characterSetId;
+
+    @ReadOnly
+    @Column(name = "child_leaf_count")
+    private double childLeafCount;
+
+    @ReadOnly
+    @Column(name = "child_branch_count")
+    private double childBranchCount;
+
+    @ReadOnly
+    @Column(name = "created_date")
+    private Timestamp createdDate;
+
+    @ReadOnly
+    @Column(name = "created_by_user_login")
+    private String createdByUserLogin;
+
+    @ReadOnly
+    @Column(name = "last_modified_date")
+    private Timestamp lastModifiedDate;
+
+    @ReadOnly
+    @Column(name = "last_modified_by_user_login")
+    private String lastModifiedByUserLogin;
+
+    @ReadOnly
+    @Column(name = "ca_content_id")
+    private String caContentId;
+
+    @ReadOnly
+    @Column(name = "ca_content_id_to")
+    private String caContentIdTo;
+
+    @ReadOnly
+    @Column(name = "ca_content_assoc_type_id")
+    private String caContentAssocTypeId;
+
+    @ReadOnly
+    @Column(name = "ca_from_date")
+    private String caFromDate;
+
+    @ReadOnly
+    @Column(name = "ca_thru_date")
+    private String caThruDate;
+
+    @ReadOnly
+    @Column(name = "ca_content_assoc_predicate_id")
+    private String caContentAssocPredicateId;
+
+    @ReadOnly
+    @Column(name = "ca_data_source_id")
+    private String caDataSourceId;
+
+    @ReadOnly
+    @Column(name = "ca_sequence_num")
+    private String caSequenceNum;
+
+    @ReadOnly
+    @Column(name = "ca_map_key")
+    private String caMapKey;
+
+    @ReadOnly
+    @Column(name = "ca_upper_coordinate")
+    private String caUpperCoordinate;
+
+    @ReadOnly
+    @Column(name = "ca_left_coordinate")
+    private String caLeftCoordinate;
+
+    @ReadOnly
+    @Column(name = "ca_created_date")
+    private String caCreatedDate;
+
+    @ReadOnly
+    @Column(name = "ca_created_by_user_login")
+    private String caCreatedByUserLogin;
+
+    @ReadOnly
+    @Column(name = "ca_last_modified_date")
+    private String caLastModifiedDate;
+
+    @ReadOnly
+    @Column(name = "ca_last_modified_by_user_login")
+    private String caLastModifiedByUserLogin;
+
+    @ReadOnly
+    @Column(name = "dr_data_resource_id")
+    private String drDataResourceId;
+
+    @ReadOnly
+    @Column(name = "dr_data_resource_type_id")
+    private String drDataResourceTypeId;
+
+    @ReadOnly
+    @Column(name = "dr_data_template_type_id")
+    private String drDataTemplateTypeId;
+
+    @ReadOnly
+    @Column(name = "dr_data_category_id")
+    private String drDataCategoryId;
+
+    @ReadOnly
+    @Column(name = "dr_data_source_id")
+    private String drDataSourceId;
+
+    @ReadOnly
+    @Column(name = "dr_status_id")
+    private String drStatusId;
+
+    @ReadOnly
+    @Column(name = "dr_data_resource_name")
+    private String drDataResourceName;
+
+    @ReadOnly
+    @Column(name = "dr_locale_string")
+    private String drLocaleString;
+
+    @ReadOnly
+    @Column(name = "dr_mime_type_id")
+    private String drMimeTypeId;
+
+    @ReadOnly
+    @Column(name = "dr_character_set_id")
+    private String drCharacterSetId;
+
+    @ReadOnly
+    @Column(name = "dr_object_info")
+    private String drObjectInfo;
+
+    @ReadOnly
+    @Column(name = "dr_survey_id")
+    private String drSurveyId;
+
+    @ReadOnly
+    @Column(name = "dr_survey_response_id")
+    private String drSurveyResponseId;
+
+    @ReadOnly
+    @Column(name = "dr_related_detail_id")
+    private String drRelatedDetailId;
+
+    @ReadOnly
+    @Column(name = "dr_is_public")
+    private String drIsPublic;
+
+    @ReadOnly
+    @Column(name = "dr_created_date")
+    private String drCreatedDate;
+
+    @ReadOnly
+    @Column(name = "dr_created_by_user_login")
+    private String drCreatedByUserLogin;
+
+    @ReadOnly
+    @Column(name = "dr_last_modified_date")
+    private String drLastModifiedDate;
+
+    @ReadOnly
+    @Column(name = "dr_last_modified_by_user_login")
+    private String drLastModifiedByUserLogin;
+}

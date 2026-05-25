@@ -103,7 +103,7 @@
   Before starting, present me with:
   1. The exact annotations and imports detected in SampleSinglePKEntity/SampleCompositePKEntity and SampleSinglePKEntityDao/SampleCompositePKEntityDao so I can confirm they're the right templates.
   2. The total entity + DAO file count (expected ~856 + ~856 + ~271 view-entities = ~1,983 files) and the target directories.
-  3. 10 samples of one generated entity and 10 generated DAO (rendered from the templates against one real table from MySQL.sql) for me to approve before bulk generation.
+  3. generate ten sample entity and ten sample DAO classes (rendered from the templates against one real table from MySQL.sql) for me to approve before bulk generation.
 
   Do not start generation until I have reviewed and approved the prompt and the sample output.
   

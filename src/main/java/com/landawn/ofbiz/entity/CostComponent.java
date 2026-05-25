@@ -1,0 +1,59 @@
+package com.landawn.ofbiz.entity;
+
+import com.landawn.abacus.annotation.Column;
+import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.Table;
+
+import java.sql.Timestamp;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "cost_component")
+public class CostComponent {
+    @Id
+    @Column(name = "cost_component_id")
+    private String costComponentId;
+
+    @Column(name = "cost_component_type_id")
+    private String costComponentTypeId;
+
+    @Column(name = "product_id")
+    private String productId;
+
+    @Column(name = "product_feature_id")
+    private String productFeatureId;
+
+    @Column(name = "party_id")
+    private String partyId;
+
+    @Column(name = "geo_id")
+    private String geoId;
+
+    @Column(name = "work_effort_id")
+    private String workEffortId;
+
+    @Column(name = "fixed_asset_id")
+    private String fixedAssetId;
+
+    @Column(name = "cost_component_calc_id")
+    private String costComponentCalcId;
+
+    @Column(name = "from_date")
+    private Timestamp fromDate;
+
+    @Column(name = "thru_date")
+    private Timestamp thruDate;
+
+    @Column(name = "cost")
+    private double cost;
+
+    @Column(name = "cost_uom_id")
+    private String costUomId;
+}
