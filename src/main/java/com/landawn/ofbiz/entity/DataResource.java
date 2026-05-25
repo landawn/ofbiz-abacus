@@ -1,10 +1,11 @@
 package com.landawn.ofbiz.entity;
 
+import java.sql.Timestamp;
+
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
-
-import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,14 +25,26 @@ public class DataResource {
     @Column(name = "data_resource_type_id")
     private String dataResourceTypeId;
 
+    @JoinedBy("dataResourceTypeId=DataResourceType.dataResourceTypeId")
+    private DataResourceType dataResourceType;
+
     @Column(name = "data_template_type_id")
     private String dataTemplateTypeId;
+
+    @JoinedBy("dataTemplateType=DataTemplateType.dataTemplateTypeId")
+    private DataTemplateType dataTemplateType;
 
     @Column(name = "data_category_id")
     private String dataCategoryId;
 
+    @JoinedBy("dataCategoryId=DataCategory.dataCategoryId")
+    private DataCategory dataCategory;
+
     @Column(name = "data_source_id")
     private String dataSourceId;
+
+    @JoinedBy("dataSourceId=DataSource.dataSourceId")
+    private DataSource dataSource;
 
     @Column(name = "status_id")
     private String statusId;
