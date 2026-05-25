@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -28,7 +29,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.landawn.abacus.query.Filters;
 import com.landawn.abacus.query.condition.Condition;
 import com.landawn.abacus.util.Strings;
+import com.landawn.ofbiz.dao.CommunicationEventWorkEffDao;
 import com.landawn.ofbiz.dao.ContactMechDao;
+import com.landawn.ofbiz.dao.CustRequestContentDao;
+import com.landawn.ofbiz.dao.CustRequestDao;
+import com.landawn.ofbiz.dao.CustRequestWorkEffortDao;
 import com.landawn.ofbiz.dao.PartyContactMechDao;
 import com.landawn.ofbiz.dao.PartyRoleDao;
 import com.landawn.ofbiz.dao.StatusItemDao;
@@ -37,11 +42,17 @@ import com.landawn.ofbiz.dao.TimesheetDao;
 import com.landawn.ofbiz.dao.TimesheetRoleDao;
 import com.landawn.ofbiz.dao.WorkEffortAssocDao;
 import com.landawn.ofbiz.dao.WorkEffortContactMechDao;
+import com.landawn.ofbiz.dao.WorkEffortContentDao;
 import com.landawn.ofbiz.dao.WorkEffortDao;
 import com.landawn.ofbiz.dao.WorkEffortKeywordDao;
 import com.landawn.ofbiz.dao.WorkEffortPartyAssignmentDao;
 import com.landawn.ofbiz.dao.WorkEffortStatusDao;
+import com.landawn.ofbiz.dao.WorkRequirementFulfillmentDao;
+import com.landawn.ofbiz.entity.CommunicationEventWorkEff;
 import com.landawn.ofbiz.entity.ContactMech;
+import com.landawn.ofbiz.entity.CustRequest;
+import com.landawn.ofbiz.entity.CustRequestContent;
+import com.landawn.ofbiz.entity.CustRequestWorkEffort;
 import com.landawn.ofbiz.entity.PartyContactMech;
 import com.landawn.ofbiz.entity.PartyRole;
 import com.landawn.ofbiz.entity.StatusItem;
@@ -51,9 +62,11 @@ import com.landawn.ofbiz.entity.TimesheetRole;
 import com.landawn.ofbiz.entity.WorkEffort;
 import com.landawn.ofbiz.entity.WorkEffortAssoc;
 import com.landawn.ofbiz.entity.WorkEffortContactMech;
+import com.landawn.ofbiz.entity.WorkEffortContent;
 import com.landawn.ofbiz.entity.WorkEffortKeyword;
 import com.landawn.ofbiz.entity.WorkEffortPartyAssignment;
 import com.landawn.ofbiz.entity.WorkEffortStatus;
+import com.landawn.ofbiz.entity.WorkRequirementFulfillment;
 import com.landawn.ofbiz.util.SequenceUtil;
 import com.landawn.ofbiz.util.ServiceInput;
 
@@ -73,15 +86,26 @@ import com.landawn.ofbiz.util.ServiceInput;
 public class WorkeffortService {
 
     private static final String DEFAULT_TIMESHEET_STATUS = "TIMESHEET_IN_PROCESS";
+    private static final String DEFAULT_QUICK_ASSIGN_ROLE = "CAL_OWNER";
+    private static final String DEFAULT_QUICK_ASSIGN_STATUS = "PRTYASGN_ASSIGNED";
+    private static final String CRQ_ACCEPTED = "CRQ_ACCEPTED";
+    private static final String CRQ_REVIEWED = "CRQ_REVIEWED";
+    private static final String CUST_REQUEST_CONTENT_TYPE = "SUPPORTING_MEDIA";
+    private static final String PRIMARY_PERMISSION = "WORKEFFORTMGR";
+    /** Mirrors {@code UtilValidate.checkValidDatabaseId} — alphanumerics, '_' '-' '.' ':' only. */
+    private static final Pattern VALID_DB_ID = Pattern.compile("[A-Za-z0-9_\\-.:]+");
+
     private static final Set<String> KEYWORD_STOPWORDS = Set.of(
             "a", "an", "and", "or", "the", "of", "in", "to", "for", "with", "on", "at", "by", "is");
 
+    private final SecurityService securityService;
     private final WorkEffortDao workEffortDao;
     private final WorkEffortAssocDao workEffortAssocDao;
     private final WorkEffortContactMechDao workEffortContactMechDao;
     private final WorkEffortKeywordDao workEffortKeywordDao;
     private final WorkEffortStatusDao workEffortStatusDao;
     private final WorkEffortPartyAssignmentDao workEffortPartyAssignmentDao;
+    private final WorkEffortContentDao workEffortContentDao;
     private final TimesheetDao timesheetDao;
     private final TimesheetRoleDao timesheetRoleDao;
     private final TimeEntryDao timeEntryDao;
@@ -89,26 +113,40 @@ public class WorkeffortService {
     private final PartyRoleDao partyRoleDao;
     private final ContactMechDao contactMechDao;
     private final PartyContactMechDao partyContactMechDao;
+    private final CommunicationEventWorkEffDao communicationEventWorkEffDao;
+    private final CustRequestDao custRequestDao;
+    private final CustRequestWorkEffortDao custRequestWorkEffortDao;
+    private final CustRequestContentDao custRequestContentDao;
+    private final WorkRequirementFulfillmentDao workRequirementFulfillmentDao;
 
-    public WorkeffortService(WorkEffortDao workEffortDao,
+    public WorkeffortService(SecurityService securityService,
+                             WorkEffortDao workEffortDao,
                              WorkEffortAssocDao workEffortAssocDao,
                              WorkEffortContactMechDao workEffortContactMechDao,
                              WorkEffortKeywordDao workEffortKeywordDao,
                              WorkEffortStatusDao workEffortStatusDao,
                              WorkEffortPartyAssignmentDao workEffortPartyAssignmentDao,
+                             WorkEffortContentDao workEffortContentDao,
                              TimesheetDao timesheetDao,
                              TimesheetRoleDao timesheetRoleDao,
                              TimeEntryDao timeEntryDao,
                              StatusItemDao statusItemDao,
                              PartyRoleDao partyRoleDao,
                              ContactMechDao contactMechDao,
-                             PartyContactMechDao partyContactMechDao) {
+                             PartyContactMechDao partyContactMechDao,
+                             CommunicationEventWorkEffDao communicationEventWorkEffDao,
+                             CustRequestDao custRequestDao,
+                             CustRequestWorkEffortDao custRequestWorkEffortDao,
+                             CustRequestContentDao custRequestContentDao,
+                             WorkRequirementFulfillmentDao workRequirementFulfillmentDao) {
+        this.securityService = securityService;
         this.workEffortDao = workEffortDao;
         this.workEffortAssocDao = workEffortAssocDao;
         this.workEffortContactMechDao = workEffortContactMechDao;
         this.workEffortKeywordDao = workEffortKeywordDao;
         this.workEffortStatusDao = workEffortStatusDao;
         this.workEffortPartyAssignmentDao = workEffortPartyAssignmentDao;
+        this.workEffortContentDao = workEffortContentDao;
         this.timesheetDao = timesheetDao;
         this.timesheetRoleDao = timesheetRoleDao;
         this.timeEntryDao = timeEntryDao;
@@ -116,41 +154,245 @@ public class WorkeffortService {
         this.partyRoleDao = partyRoleDao;
         this.contactMechDao = contactMechDao;
         this.partyContactMechDao = partyContactMechDao;
+        this.communicationEventWorkEffDao = communicationEventWorkEffDao;
+        this.custRequestDao = custRequestDao;
+        this.custRequestWorkEffortDao = custRequestWorkEffortDao;
+        this.custRequestContentDao = custRequestContentDao;
+        this.workRequirementFulfillmentDao = workRequirementFulfillmentDao;
     }
 
     // =========================================================================
     // WorkEffort
     // =========================================================================
 
-    /** Service: createWorkEffort (groovy WorkEffortServicesScript#createWorkEffort) */
+    /**
+     * Ported from {@code WorkEffortServicesScript.groovy#createWorkEffort} (groovy) with the four
+     * {@code <eca service="createWorkEffort" event="commit">} fan-outs from {@code secas.xml}.
+     *
+     * <p>Flow:
+     * <ol>
+     *   <li>{@code workEffortGenericPermission} CREATE — see {@link SecurityService}</li>
+     *   <li>Validate {@code workEffortId} characters and generate one when missing</li>
+     *   <li>Stamp audit columns (createdDate, lastModifiedDate, lastStatusUpdate, revisionNumber,
+     *       createdByUserLogin, lastModifiedByUserLogin) and INSERT the {@code work_effort} row</li>
+     *   <li>Insert a {@code work_effort_status} history row reflecting the initial status</li>
+     *   <li>SECA: {@code quickAssignPartyId} set → {@link #quickAssignPartyToWorkEffort}</li>
+     *   <li>SECA: {@code communicationEventId} set &amp; {@code custRequestId} empty →
+     *       {@link #makeCommunicationEventWorkEffort}</li>
+     *   <li>SECA: {@code custRequestId} set → {@link #assocAcceptedCustRequestToWorkEffort}</li>
+     *   <li>SECA: {@code requirementId} set → {@link #createWorkRequirementFulfillment}</li>
+     * </ol>
+     */
     public Map<String, Object> createWorkEffort(Map<String, Object> body) throws SQLException {
-        // TODO permission check: workEffortGenericPermission main-action=CREATE
+        // 1) permission gate
+        String userLoginId = SecurityService.currentUserLoginId(body);
+        if (!securityService.hasEntityPermission(PRIMARY_PERMISSION, "CREATE", userLoginId)) {
+            throw new PermissionDeniedException(PRIMARY_PERMISSION, "CREATE", userLoginId);
+        }
+
+        // 2) build entity + validate ID
         WorkEffort we = new WorkEffort();
         ServiceInput.populate(we, body);
         if (Strings.isEmpty(we.getWorkEffortId())) {
             we.setWorkEffortId(SequenceUtil.next());
         }
+        if (!VALID_DB_ID.matcher(we.getWorkEffortId()).matches()) {
+            return Map.of("_error", "Invalid workEffortId: " + we.getWorkEffortId());
+        }
+
+        // 3) audit + INSERT
         Timestamp now = nowTs();
         we.setLastStatusUpdate(now);
         we.setLastModifiedDate(now);
         we.setCreatedDate(now);
         we.setRevisionNumber(1);
-        we.setCreatedByUserLogin(ServiceInput.str(body, "createdByUserLogin"));
-        we.setLastModifiedByUserLogin(we.getCreatedByUserLogin());
-
+        we.setCreatedByUserLogin(userLoginId);
+        we.setLastModifiedByUserLogin(userLoginId);
         workEffortDao.insert(we);
 
+        // 4) initial status history row
         if (Strings.isNotEmpty(we.getCurrentStatusId())) {
             workEffortStatusDao.insert(WorkEffortStatus.builder()
                     .workEffortId(we.getWorkEffortId())
                     .statusId(we.getCurrentStatusId())
                     .statusDatetime(now)
-                    .setByUserLogin(we.getCreatedByUserLogin())
+                    .setByUserLogin(userLoginId)
                     .build());
         }
-        // TODO secondary: ensure quickAssignPartyId → assignPartyToWorkEffort + ECA hooks
+
+        // 5-8) Service-Event-Condition-Action fan-outs (workeffort/servicedef/secas.xml)
+        runCreateWorkEffortSecas(body, we.getWorkEffortId(), userLoginId);
 
         return Map.of("workEffortId", we.getWorkEffortId());
+    }
+
+    /**
+     * Fires the four ECAs declared on {@code createWorkEffort event="commit"}. Extracted so the
+     * primary insert above stays readable and so other services that "implement createWorkEffort"
+     * (e.g. {@link #createWorkEffortAndPartyAssign}) can reuse the same fan-out semantics.
+     */
+    private void runCreateWorkEffortSecas(Map<String, Object> body, String workEffortId, String userLoginId)
+            throws SQLException {
+        String quickAssignPartyId = ServiceInput.str(body, "quickAssignPartyId");
+        String communicationEventId = ServiceInput.str(body, "communicationEventId");
+        String custRequestId = ServiceInput.str(body, "custRequestId");
+        String requirementId = ServiceInput.str(body, "requirementId");
+
+        if (Strings.isNotEmpty(quickAssignPartyId)) {
+            Map<String, Object> in = new HashMap<>(body);
+            in.put("workEffortId", workEffortId);
+            quickAssignPartyToWorkEffort(in);
+        }
+        if (Strings.isNotEmpty(communicationEventId) && Strings.isEmpty(custRequestId)) {
+            Map<String, Object> in = new HashMap<>(body);
+            in.put("workEffortId", workEffortId);
+            makeCommunicationEventWorkEffort(in);
+        }
+        if (Strings.isNotEmpty(custRequestId)) {
+            Map<String, Object> in = new HashMap<>(body);
+            in.put("workEffortId", workEffortId);
+            assocAcceptedCustRequestToWorkEffort(in, userLoginId);
+        }
+        if (Strings.isNotEmpty(requirementId)) {
+            Map<String, Object> in = new HashMap<>(body);
+            in.put("workEffortId", workEffortId);
+            createWorkRequirementFulfillment(in);
+        }
+    }
+
+    /**
+     * Ported from {@code WorkEffortServicesScript.groovy#quickAssignPartyToWorkEffort}:
+     * ensures a {@code PartyRole(quickAssignPartyId, roleTypeId)} row exists (creating it if not)
+     * and then creates a {@code WorkEffortPartyAssignment} with status {@code PRTYASGN_ASSIGNED}.
+     */
+    public Map<String, Object> quickAssignPartyToWorkEffort(Map<String, Object> body) throws SQLException {
+        String workEffortId = ServiceInput.str(body, "workEffortId");
+        String partyId = ServiceInput.str(body, "quickAssignPartyId");
+        String roleTypeId = Strings.firstNonEmpty(
+                ServiceInput.str(body, "roleTypeId"), DEFAULT_QUICK_ASSIGN_ROLE);
+        ensurePartyRole(partyId, roleTypeId);
+
+        WorkEffortPartyAssignment a = new WorkEffortPartyAssignment();
+        ServiceInput.populate(a, body);
+        a.setWorkEffortId(workEffortId);
+        a.setPartyId(partyId);
+        a.setRoleTypeId(roleTypeId);
+        a.setStatusId(DEFAULT_QUICK_ASSIGN_STATUS);
+        if (a.getFromDate() == null) {
+            a.setFromDate(nowTs());
+        }
+        // Composite-PK upsert: ignore if already exists.
+        if (workEffortPartyAssignmentDao.gett(a) == null) {
+            workEffortPartyAssignmentDao.insert(a);
+        }
+        return Map.of("workEffortId", workEffortId, "partyId", partyId, "roleTypeId", roleTypeId);
+    }
+
+    /**
+     * Ported from {@code WorkEffortSimpleServices.xml#makeCommunicationEventWorkEffort}:
+     * upserts a {@code CommunicationEventWorkEff} row keyed by (communicationEventId, workEffortId)
+     * with the {@code relationDescription} as its description.
+     */
+    public Map<String, Object> makeCommunicationEventWorkEffort(Map<String, Object> body) throws SQLException {
+        String workEffortId = ServiceInput.str(body, "workEffortId");
+        String communicationEventId = ServiceInput.str(body, "communicationEventId");
+        String description = ServiceInput.str(body, "relationDescription");
+
+        CommunicationEventWorkEff probe = CommunicationEventWorkEff.builder()
+                .workEffortId(workEffortId)
+                .communicationEventId(communicationEventId)
+                .build();
+        CommunicationEventWorkEff existing = communicationEventWorkEffDao.gett(probe);
+        if (existing != null) {
+            existing.setDescription(description);
+            communicationEventWorkEffDao.update(existing);
+        } else {
+            probe.setDescription(description);
+            communicationEventWorkEffDao.insert(probe);
+        }
+        return Map.of("workEffortId", workEffortId, "communicationEventId", communicationEventId);
+    }
+
+    /**
+     * Ported from {@code WorkEffortServicesScript.groovy#assocAcceptedCustRequestToWorkEffort}:
+     * verifies the {@code CustRequest} is in {@code CRQ_ACCEPTED}, links it to the workEffort,
+     * flips its status to {@code CRQ_REVIEWED}, and duplicates every {@code CustRequestContent}
+     * onto the workEffort as a {@code SUPPORTING_MEDIA} {@code WorkEffortContent} row.
+     */
+    public Map<String, Object> assocAcceptedCustRequestToWorkEffort(Map<String, Object> body, String userLoginId)
+            throws SQLException {
+        String custRequestId = ServiceInput.str(body, "custRequestId");
+        String workEffortId = ServiceInput.str(body, "workEffortId");
+
+        CustRequest cr = custRequestDao.gett(custRequestId);
+        if (cr == null) {
+            return Map.of("_error", "CustRequest not found: " + custRequestId);
+        }
+        if (!CRQ_ACCEPTED.equals(cr.getStatusId())) {
+            return Map.of("_error", "CustRequest status is not " + CRQ_ACCEPTED + ": " + cr.getStatusId());
+        }
+
+        // (a) link
+        CustRequestWorkEffort link = CustRequestWorkEffort.builder()
+                .custRequestId(custRequestId)
+                .workEffortId(workEffortId)
+                .build();
+        if (custRequestWorkEffortDao.gett(link) == null) {
+            custRequestWorkEffortDao.insert(link);
+        }
+
+        // (b) flip status to CRQ_REVIEWED
+        Timestamp now = nowTs();
+        cr.setStatusId(CRQ_REVIEWED);
+        cr.setLastModifiedDate(now);
+        cr.setLastModifiedByUserLogin(userLoginId);
+        custRequestDao.update(cr);
+
+        // (c) duplicate content
+        List<CustRequestContent> contents = custRequestContentDao.list(
+                Filters.eq("custRequestId", custRequestId));
+        for (CustRequestContent crc : contents) {
+            WorkEffortContent wec = WorkEffortContent.builder()
+                    .workEffortId(workEffortId)
+                    .contentId(crc.getContentId())
+                    .workEffortContentTypeId(CUST_REQUEST_CONTENT_TYPE)
+                    .fromDate(now)
+                    .build();
+            if (workEffortContentDao.gett(wec) == null) {
+                workEffortContentDao.insert(wec);
+            }
+        }
+        return Map.of("custRequestId", custRequestId, "workEffortId", workEffortId,
+                "contentRowsDuplicated", contents.size());
+    }
+
+    /**
+     * Service: {@code createWorkRequirementFulfillment} (engine="entity-auto" create on
+     * {@code WorkRequirementFulfillment}). Inserts {@code (requirementId, workEffortId)} idempotently.
+     */
+    public Map<String, Object> createWorkRequirementFulfillment(Map<String, Object> body) throws SQLException {
+        WorkRequirementFulfillment wrf = new WorkRequirementFulfillment();
+        ServiceInput.populate(wrf, body);
+        if (workRequirementFulfillmentDao.gett(wrf) == null) {
+            workRequirementFulfillmentDao.insert(wrf);
+        }
+        return Map.of(
+                "requirementId", wrf.getRequirementId(),
+                "workEffortId", wrf.getWorkEffortId());
+    }
+
+    /**
+     * Ported from {@code party/minilang/party/PartySimpleMethods.xml#ensureNaPartyRole}.
+     * Inserts a {@code PartyRole(partyId, roleTypeId)} row if one does not already exist.
+     */
+    private void ensurePartyRole(String partyId, String roleTypeId) throws SQLException {
+        if (Strings.isEmpty(partyId) || Strings.isEmpty(roleTypeId)) {
+            return;
+        }
+        PartyRole probe = PartyRole.builder().partyId(partyId).roleTypeId(roleTypeId).build();
+        if (partyRoleDao.gett(probe) == null) {
+            partyRoleDao.insert(probe);
+        }
     }
 
     /** Service: updateWorkEffort (groovy WorkEffortServicesScript#updateWorkEffort) */
