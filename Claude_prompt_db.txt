@@ -27,6 +27,84 @@
   - Included seed data (from *SeedData.xml / data/ files) as INSERT statements
   - Include a header comment in each file listing the source entitymodel*.xml files scanned and the total table count.
   
-  
+
+  Deliver as a re-runnable Python script at scripts/gen_ofbiz_sql.py plus the three SQL files.
   
   =================================================================================================================
+  
+  ---
+  Task: For every CREATE TABLE defined in ./docs/db/MySQL.sql, generate a matching Entity class and a matching DAO class using abacus-jdbc (NOT JPA), modeled exactly on the two sample classes provided in this repo.
+
+  Inputs (canonical sources — read these first, do not assume):
+  1. ./docs/db/MySQL.sql — the authoritative schema. Parse every CREATE TABLE to extract: table name, columns (name + MySQL type + nullability), primary-key columns, and foreign-key constraints (from the ALTER TABLE ... ADD CONSTRAINT
+  ... FOREIGN KEY block).
+  2. com.landawn.ofbiz.entity.SampleSinglePKEntity/SampleCompositePKEntity (locate via Glob) — the template for every generated entity. Copy its package layout, annotations, field/getter/setter style, naming, imports, and any superclass/interface usage verbatim.
+  Deviate only where the schema demands different fields/types.
+  3. com.landawn.ofbiz.dao.SampleSinglePKEntityDao/SampleCompositePKEntityDao (locate via Glob) — the template for every generated DAO. Copy its package, base class/interface, method signatures, annotations, and idioms.
+
+  Framework constraint — abacus-jdbc, NOT JPA:
+  - Use annotations from com.landawn.abacus.annotation and com.landawn.abacus.jdbc.annotation only.
+  - Do not import jakarta.persistence.* or javax.persistence.*.
+  - Mirror exactly which annotation classes the sample entity and sample DAO actually use — those are the source of truth. If something appears in the sample (e.g. @Table, @Column, @Id, @ReadOnlyId, @NonUpdatable, @JsonXmlConfig, etc.),
+   use it; if not, don't introduce it.
+
+  Naming conventions (must match OFBiz round-trip with the generator):
+  - Table PRODUCT_CATEGORY_MEMBER → Entity class ProductCategoryMember, DAO class ProductCategoryMemberDao.
+  - Column PRODUCT_ID → Java field productId (UPPER_SNAKE → camelCase).
+  - Preserve the original casing of acronyms exactly as the sample does (e.g., how it writes Id, Url).
+
+  Type mapping (MySQL → Java) — defer to the sample first; only fall back to these defaults when the sample doesn't cover a type:
+  - VARCHAR(n), CHAR(n), LONGTEXT, TEXT → String
+  - DECIMAL(p,s) → double (primitive)
+  - DATETIME, DATETIME(3), TIMESTAMP → java.sql.Timestamp
+  - DATE → java.sql.Date
+  - TIME, TIME(3) → java.sql.Time
+  - INTEGER/INT → Integer; BIGINT → Long; DOUBLE → Double
+  - LONGBLOB, BLOB → byte[]
+  - Do not use LocalDate/LocalDateTime/LocalTime/Instant/BigDecimal anywhere.
+  - Use boxed types for nullable columns; primitives only where the sample uses them for NOT NULL columns (double for DECIMAL is the explicit exception above).
+
+  Primary-key handling:
+  - Single PK column → annotate the field per the sample (typically @Id, or with @ReadOnlyId for read-only-by-default keys).
+  - Composite PK → annotate each PK field with @Id, or with @ReadOnlyId for read-only-by-default keys, following the sample's convention. Do not generate an @IdClass or @EmbeddedId wrapper.
+  - No PK declared → generate the entity without any @Id (do not fail, do not invent one).
+
+  Foreign keys: emit FK columns as plain scalar fields only — no @ManyToOne/@JoinColumn/relationship navigation, unless the sample demonstrates an abacus-jdbc equivalent (then mirror that exactly).
+
+  Entity requirements (per generated class):
+  - One class per table, in the same package as SampleSinglePKEntity/SampleCompositePKEntity.
+  - One field per column, in the declaration order from the SQL.
+  - Reuse the sample's equals/hashCode/toString/Lombok/builder/constructor style. Do not invent new patterns.
+
+  DAO requirements (per generated class):
+  - One DAO per entity, in the same package as SampleSinglePKEntityDao/SampleCompositePKEntityDao.
+  - Same base interface/class, same generics binding (entity type, PK type), same annotation set, same method surface as the sample.
+  - For composite-PK tables, follow the sample's pattern for the DAO's ID type parameter (e.g. Object[], Map<String, Object>, or whatever the sample uses). If the sample only shows single-PK and a composite-PK table arises, pause and
+  ask before generating.
+  - Do not add methods that aren't in the sample — keep the surface area identical.
+
+  Scope — confirmed answers:
+  1. Generate for all 856 tables.
+  2. Generate read-only entities for views as well (apply the sample's read-only pattern — @ReadOnlyId for PK fields, @NonUpdatable/equivalent for the rest, whatever the sample shows for read-only types).
+  3. Tables with no PK → generate the entity without @Id.
+  4. Composite PKs → annotate each PK field with @Id or @ReadOnlyId per the sample (no wrapper class).
+
+  Output layout:
+  - Entities → mirror the directory of SampleSinglePKEntity/SampleCompositePKEntity.
+  - DAOs → mirror the directory of SampleSinglePKEntityDao/SampleCompositePKEntityDao.
+  - Do not modify the sample files themselves.
+
+  Approach:
+  1. Locate and read both sample files; extract the exact set of imports, annotations, and structural patterns into a template.
+  2. Parse MySQL.sql once into an in-memory table model (tables + columns + PKs + views).
+  3. Write a generator script in Python (./scripts/gen_entities_daos.py), re-runnable when the schema changes.
+  4. Render and write all entity + DAO files in a single pass.
+
+  Before starting, present me with:
+  1. The exact annotations and imports detected in SampleSinglePKEntity/SampleCompositePKEntity and SampleSinglePKEntityDao/SampleCompositePKEntityDao so I can confirm they're the right templates.
+  2. The total entity + DAO file count (expected ~856 + ~856 + ~271 view-entities = ~1,983 files) and the target directories.
+  3. 10 samples of one generated entity and 10 generated DAO (rendered from the templates against one real table from MySQL.sql) for me to approve before bulk generation.
+
+  Do not start generation until I have reviewed and approved the prompt and the sample output.
+  
+  

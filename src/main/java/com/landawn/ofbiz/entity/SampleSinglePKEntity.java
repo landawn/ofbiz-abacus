@@ -1,8 +1,7 @@
 package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
-import com.landawn.abacus.annotation.Id;
-import com.landawn.abacus.annotation.NonUpdatable;
+import com.landawn.abacus.annotation.ReadOnlyId;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
@@ -14,11 +13,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "sample_entity")
-public class SampleEntity {
+@Table(name = "single_pk_entity")
+public class SampleSinglePKEntity {
 
-    @Id
-    @NonUpdatable
+    @ReadOnlyId
     @Column(name = "id")
     private long id;
 
