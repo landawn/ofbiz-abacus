@@ -3,22 +3,28 @@ spring:
     name: ofbiz-abacus
 
   datasource:
-    url: jdbc:h2:mem:ofbiz;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    url: jdbc:h2:mem:ofbiz;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
     driver-class-name: org.h2.Driver
     username: sa
     password: ""
 
+  # No JPA / Hibernate — persistence layer is abacus-jdbc.
   jpa:
-    hibernate:
-      ddl-auto: validate
-    properties:
-      hibernate.format_sql: true
     open-in-view: false
 
+  # Flyway is unused; schema is initialized from docs/db/H2.sql below.
   flyway:
-    enabled: true
-    locations: classpath:db/migration
-    baseline-on-migrate: true
+    enabled: false
+
+  # Load the generated OFBiz schema + seed data straight from the project docs
+  # folder. This is fine for the in-memory H2 used during development.
+  sql:
+    init:
+      mode: always
+      schema-locations: file:./docs/db/H2.sql
+      # The OFBiz seed data has a handful of duplicate rows (e.g. GEO_ASSOC IT-CB). Allow
+      # continue-on-error so a single bad row doesn't take down the whole boot.
+      continue-on-error: true
 
   h2:
     console:
@@ -38,4 +44,3 @@ logging:
   level:
     root: INFO
     com.landawn.ofbiz: DEBUG
-    org.hibernate.SQL: DEBUG

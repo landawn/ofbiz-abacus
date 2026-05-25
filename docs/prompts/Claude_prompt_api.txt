@@ -148,7 +148,7 @@
   - JSON / XML — N.toJson, N.fromJson, N.toXml, N.fromXml
   - DAO calls — built-in CrudDao methods (get, gett, insert, update, delete, list, stream, exists, count); join navigation via CrudJoinEntityHelper (loadJoinEntities, loadAllJoinEntities)
   - Custom queries — @Query from com.landawn.abacus.jdbc.annotation on DAO methods; build dynamic SQL with com.landawn.abacus.query.SqlBuilder / SQLBuilder.PSC
-  - Condition building — com.landawn.abacus.query.condition.* (CF, Criteria)
+  - Condition building — com.landawn.abacus.query.condition.* (Filters, Criteria)
 
   Tier 2 — Spring Boot ecosystem — only when Tier 1 doesn't cover it (HTTP binding, @Transactional, dependency injection, validation annotations).
 
