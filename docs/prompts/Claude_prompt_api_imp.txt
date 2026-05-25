@@ -1,0 +1,356 @@
+
+--- 2026/05/25
+  
+=================================================================================================================  
+  
+  
+  ---
+  Task: Implement every endpoint in src/main/java/com/landawn/ofbiz/controller/WorkeffortController.java from controller → service → DAO, replacing each throw new UnsupportedOperationException() stub with a working implementation. The
+  implementation must use OFBiz semantics as the reference (see the service: / entities: / auth: tag in each method's Javadoc) but the runtime stack is Spring Boot + abacus-jdbc + the generated entities/DAOs in this project.
+
+  ---
+  Source of behavior (what each endpoint must do)
+
+  For each method in WorkeffortController.java:
+  1. Read the Javadoc tag service: <name>  entities: <list>  auth: <true|false>.
+  2. Open apache-ofbiz-framework/applications/workeffort/servicedef/services*.xml and find <service name="<name>">.
+  3. Open the implementation pointed at by location + invoke:
+    - engine="java" → the FQCN class + method under apache-ofbiz-framework/.../src/main/java/...
+    - engine="groovy" → the .groovy script in apache-ofbiz-framework/.../src/main/groovy/...
+    - engine="simple" → the MiniLang <simple-method> block in .../minilang/.../*.xml
+    - engine="entity-auto" → trivial CRUD on default-entity-name (create/update/delete/expire); no further source needed
+  4. Implement the primary data effect only — the create/update/delete/expire the service is named after.
+  Secondary effects (audit log, status side-effects, ECA triggers, cache refresh, notification emails, etc.) get a single // TODO secondary: <brief description> comment per effect, in place.
+
+  If the upstream behavior depends on something we genuinely don't have ported, implement what we can and leave a // TODO unimplemented: <reason> for the missing piece — do not throw UnsupportedOperationException from a delivered
+  endpoint.
+
+  ---
+  Library priority (strict)
+
+  Tier 1 — abacus-common, abacus-jdbc, abacus-query — use these for everything they cover. Where to look:
+  - API docs: ./../abacus/docs/ai/**, ./../abacus-jdbc/docs/ai/**, ./../abacus-query/docs/ai/**
+  - Source: ./../abacus/src/main/java/**, ./../abacus-jdbc/src/main/java/**, ./../abacus-query/src/main/java/**
+
+  Examples to default to:
+  - Collections / utility — com.landawn.abacus.util.N, Strings, Numbers, IOUtil, DateUtil, Maps, CommonUtil
+  - JSON / XML — N.toJson, N.fromJson, N.toXml, N.fromXml
+  - DAO calls — built-in CrudDao methods (get, gett, insert, update, delete, list, stream, exists, count); join navigation via CrudJoinEntityHelper (loadJoinEntities, loadAllJoinEntities)
+  - Custom queries — @Query from com.landawn.abacus.jdbc.annotation on DAO methods; build dynamic SQL with com.landawn.abacus.query.SqlBuilder / SQLBuilder.PSC
+  - Condition building — com.landawn.abacus.query.condition.* (Filters, Criteria)
+
+  Tier 2 — Spring Boot ecosystem — only when Tier 1 doesn't cover it (HTTP binding, @Transactional, dependency injection, validation annotations).
+
+  Tier 3 — Apache Commons — only when neither Tier 1 nor Spring covers it. When used, do not call Apache Commons directly. Instead:
+  - Add (or extend) a delegating class under com.landawn.ofbiz.commons named after the source library:
+    - commons-lang3 → CommonsLang
+    - commons-codec → CommonsCodec
+    - commons-io → CommonsIo
+    - commons-collections4 → CommonsCollections
+    - etc.
+  - Expose the needed function as a public static method that delegates to the Apache class.
+  - Call only the delegation class from application code. No direct org.apache.commons.* imports outside the commons/ package.
+  - Add a one-line Javadoc on each delegation method pointing to the underlying Apache method.
+
+  If the abacus libraries already provide an equivalent (e.g. Strings.isBlank vs StringUtils.isBlank), prefer abacus — do not add a delegation.
+
+  ---
+  DAO usage
+
+  - Default to built-in DAO methods for single-entity CRUD, lookups by PK, simple list(Condition) / count(Condition) queries.
+  - For multi-table joins, aggregations, or anything not expressible via CrudDao + a single Condition: add a method to the relevant DAO interface annotated with @Query("SELECT ... FROM ... WHERE ...") (from
+  com.landawn.abacus.jdbc.annotation). Follow the @Query Javadoc for parameter binding (@Bind, positional ?, named :param).
+  - For FK navigation in returned payloads: the relevant DAOs already extend CrudJoinEntityHelper — use loadJoinEntities(entity, JoinedFieldType.class) rather than writing manual JOIN SQL.
+  - Transactions: annotate the service method (not the DAO method) with @Transactional from Spring; do not introduce abacus-jdbc transaction APIs unless required for a specific isolation level.
+
+  ---
+  Input handling
+
+  - Trust the inbound Map<String, Object> from @RequestBody / @RequestParam — no explicit optional="false" validation, no type-coercion shims. Let DAO failures bubble up to the controller and be returned as an HTTP 500 by default Spring
+   error handling.
+
+  ---
+  Permission checks
+
+  - For every <permission-service service-name="X" main-action="Y"/> in the OFBiz service definition, leave a one-line comment in the service method:
+  // TODO permission check: X main-action=Y
+  - followed by a no-op pass-through. Do not implement the actual check.
+
+  ---
+  Architecture for the workeffort endpoints
+
+  Introduce a service layer to keep controllers thin:
+  - Package: com.landawn.ofbiz.service
+  - One service class per controller: com.landawn.ofbiz.service.WorkeffortService (Spring @Service)
+  - Each controller method delegates to one service method.
+  - Service methods take primitive / Map<String, Object> inputs (matching the OFBiz IN attributes) and return a Map<String, Object> matching the OFBiz OUT attributes; the controller wraps the return in ResponseEntity.ok(...).
+  - DAOs are injected into the service (constructor injection preferred).
+
+  Wire-up:
+  - DAOs need to be Spring beans. Add (or extend) a @Configuration class under com.landawn.ofbiz.config (e.g. DaoConfig) that registers the workeffort-related DAOs via JdbcUtil.createDao(...) from abacus-jdbc, exposing them as @Beans.
+  Register only the DAOs the workeffort endpoints actually need — not all 1,117.
+
+  ---
+  Datasource & schema bootstrap
+
+  - Spring Boot is already configured with an H2 datasource in application.yml — confirm by reading it; do not modify it.
+  - There is no Flyway migration. The schema is loaded by executing ./docs/db/H2.sql against H2 at startup.
+  - Add Spring Boot's standard schema-init wiring so H2 runs ./docs/db/H2.sql on boot:
+    - Place (or symlink) the script at src/main/resources/schema.sql, or
+    - Add spring.sql.init.schema-locations=file:./docs/db/H2.sql (and spring.sql.init.mode=always) to application.yml
+  Pick whichever is cleaner given the existing config; if the schema is already being loaded, change nothing.
+
+  ---
+  Output / scope
+
+  - Modify: src/main/java/com/landawn/ofbiz/controller/WorkeffortController.java — replace every method body.
+  - Add: src/main/java/com/landawn/ofbiz/service/WorkeffortService.java (and any helper classes only if a single class becomes unwieldy).
+  - Add (only if used): src/main/java/com/landawn/ofbiz/util/apache/Commons*.java delegation classes.
+  - Add (as needed): @Query methods on the relevant DAOs under src/main/java/com/landawn/ofbiz/dao/ for queries that built-in DAO methods can't express.
+  - Add (as needed): src/main/java/com/landawn/ofbiz/config/DaoConfig.java to register the DAOs used by the workeffort endpoints as Spring beans.
+  - Adjust application.yml only if the schema-init wiring is not yet in place.
+
+  Do not touch the generated entity files unless a missing field surfaces as a true blocker. If that happens, surface the issue and ask before editing — the entity is generated from MySQL.sql and hand-edits would be lost on the next
+  regen.
+
+  No tests in this pass.
+
+  The 27 endpoints in WorkeffortController.java are a tractable starting set (vs. 1,743 across all components). After this works end-to-end, the same pattern can be applied to other controllers.
+
+  ---
+  Confirmed answers carried into this prompt
+
+  1. Behavior fidelity — primary data effect implemented; secondary effects stubbed with // TODO secondary: ... comments.
+  2. Datasource — H2 already in application.yml; init schema from ./docs/db/H2.sql on boot.
+  3. Permission checks — // TODO permission check: <name> + no-op pass; real checks only on explicit ask.
+  4. Validation — trust the inbound Map<String, Object>; DAO failures bubble up.
+  5. Tests — none in this pass.
+  
+  
+  
+ =================================================================================================================  
+ 
+— Full Parity Implementation of WorkeffortController.java
+
+  ---
+  Task: Replace every method body in src/main/java/com/landawn/ofbiz/controller/WorkeffortController.java with a complete, behavior-faithful
+   port of the OFBiz original under ./apache-ofbiz-framework/. Each Spring endpoint must accept the same HTTP request shape and produce the
+  same HTTP response shape as the OFBiz controller it replaces. The captured access logs at ./logs/apache-ofbiz-framework/api_<date>.log are
+   the ground-truth oracle — the Spring side must reproduce them byte-for-byte (modulo IDs and timestamps).
+
+  ---
+  Ground truth: the access log oracle
+
+  The OFBiz instance is instrumented with AccessLogFilter (apache-ofbiz-framework/framework/webapp/.../access/AccessLogFilter.java), writing
+   daily-rotated JSON lines to ./logs/apache-ofbiz-framework/api_yyyy_MM_dd.log. Three lines per request:
+
+  1. {"httpMethod":"POST","requestPath":"/workeffort/control/...","requestHttpHeaders":{...},"requestBody":"..."}
+  2. {"httpStatus":200,"requestPath":"...","responseHttpHeaders":{...},"responseBody":"..."}
+  3. curl -X POST '...' -H '...' --data '...'
+
+  For every endpoint in WorkeffortController.java, fish the corresponding triplet out of the log and treat it as the contract:
+
+  - Request contract = the headers + body OFBiz accepted.
+  - Response contract = the status + headers + body OFBiz produced.
+  - Reproducible = if you replay the curl line against the Spring port and the response body matches the OFBiz response body (after
+  normalizing IDs/timestamps), the endpoint is done.
+
+  If no log entry exists yet for an endpoint, drive OFBiz to produce one before implementing — don't guess the wire format.
+
+  ---
+  Source of behavior (where the OFBiz logic lives)
+
+  For each method in WorkeffortController.java, read the Javadoc tag service: <name>  entities: <list>  auth: <true|false> and trace:
+
+  1. Service definition — apache-ofbiz-framework/applications/workeffort/servicedef/services*.xml for the <service name="<name>"> element.
+  Capture: engine, location, invoke, permission-service, all IN/INOUT attributes (the wire shape).
+  2. Service implementation:
+    - engine="java" → FQCN under apache-ofbiz-framework/.../src/main/java/...
+    - engine="groovy" → .groovy script under .../src/main/groovy/...
+    - engine="simple" → MiniLang <simple-method> under .../minilang/.../*.xml
+    - engine="entity-auto" → trivial CRUD on default-entity-name
+    - engine="group" → invoke each service in service_groups.xml in order
+  3. ECA chain — secas.xml entries with service="<name>" that fire on commit (audit logs, status side-effects, downstream notifications).
+  These ran for every OFBiz response in the log, so the Spring port must run them too.
+  4. Permission service — invoke via the already-implemented SecurityService.hasEntityPermission(...). Endpoints called without a
+  userLoginId in the body are treated as anonymous and allowed (dev mode); the same convention already in place for createWorkEffort. No
+  stricter gating is added in this pass.
+  5. Controller request entry — applications/workeffort/webapp/workeffort/WEB-INF/controller.xml for the URL path, HTTP method, auth flag,
+  and the view-rendering convention used in OFBiz responses (HTML page render vs. JSON event response vs. redirect).
+
+  When two endpoints in WorkeffortController.java bind to the same service name, both must produce the same response shape — but they may
+  have different URL paths in the access log, so map each one by path.
+
+  ---
+  Response shape parity
+
+  OFBiz returns one of three shapes per request, and the access log shows which:
+
+  - HTML view (most browser-driven endpoints, e.g. <response type="view" value="someScreen"/>): OFBiz returns Content-Type: text/html with a
+   rendered screen. The Spring port does NOT replicate the HTML. It returns ResponseEntity.ok(Map<String, Object>) containing the service's
+  OUT attributes plus any field the OFBiz screen would have populated (most importantly the newly-created/updated entity's primary key —
+  e.g., workEffortId, timesheetId, timeEntryId, etc.). Document this in the controller method's Javadoc.
+  - JSON event response (AJAX-style endpoints like *Json request URIs): Content-Type: application/json. The Spring port must produce a JSON
+  body whose top-level keys match exactly what OFBiz returns.
+  - Redirect (3xx with Location: header): the Spring port returns a JSON envelope of the redirect target — e.g.,
+  {"redirectTo":"/workeffort/control/ViewWorkEffort?workEffortId=10042","responseMessage":"success"} — not an HTTP 302.
+
+  For error paths, OFBiz returns result is [error] with a flash message map. The Spring port returns HTTP 400 with the OFBiz error envelope
+  plus the offending condition:
+  {"responseMessage":"error","errorMessage":"<message>","errorMessageList":["..."]}
+  and matches the OFBiz error condition (e.g., missing required attribute, status-change-not-valid, permission-denied).
+
+  ---
+  OFBiz "result" envelope — included for parity
+
+  Every successful response wraps the OUT attributes in OFBiz's conventional envelope keys:
+  {
+    "responseMessage": "success",
+    "successMessage": "<optional human-readable success message if the OFBiz service set one>",
+    "<out-attr-1>": "...",
+    "<out-attr-2>": "...",
+    ...
+  }
+  Every error response uses:
+  {
+    "responseMessage": "error",
+    "errorMessage": "<single-line message>",
+    "errorMessageList": ["...", "..."]
+  }
+  For services that fail validation (error) the HTTP status is 400; for services that succeed-with-warnings (fail) it's 200 with
+  "responseMessage":"fail"; for clean success it's 200 with "responseMessage":"success". Permission denials surface as HTTP 403 via
+  PermissionDeniedException (already wired).
+
+  ---
+  Library priority (unchanged)
+
+  Tier 1 — abacus-common / abacus-jdbc / abacus-query. Built-in CrudDao first; @Query only when a query can't be expressed via Condition.
+  Filters.eq/and/or for predicates. LogManager.getLogger for any log calls. Strings, N, Maps, Beans, DateUtil for utilities.
+
+  Tier 2 — Spring Boot. Only for @RestController, @RequestBody, @RequestParam, @Transactional, dependency injection.
+
+  Tier 3 — Apache Commons. Only when neither Tier 1 nor Spring covers it. Always behind a delegation class under
+  com.landawn.ofbiz.util.apache.Commons* — no direct org.apache.commons.* imports outside that package.
+
+  ---
+  DAO usage
+
+  - Default to built-in CrudDao (get, gett, insert, update, delete, list(Condition), count(Condition), delete(Condition)).
+  - For FK navigation in returned payloads, use CrudJoinEntityHelper.loadJoinEntities(entity, JoinedFieldType.class) — every relevant DAO
+  already extends it.
+  - For multi-table joins/aggregations not expressible via Condition, add an @Query-annotated method on the relevant DAO.
+  - New DAOs needed by these endpoints must be registered as Spring beans in com.landawn.ofbiz.config.DaoConfig — register only the ones
+  actually consumed.
+  - Transactions: @Transactional from Spring on service methods, not on DAOs.
+
+  ---
+  Cross-component dependencies — register the DAOs and insert directly
+
+  Several workeffort services touch entities owned by other OFBiz components that have not been ported to Spring yet (no service classes).
+  Per policy: register their DAOs and insert/update rows directly from WorkeffortService — no upstream service port is required.
+  Specifically:
+
+  - Accounting — Invoice, InvoiceItem. Needed for addTimesheetToInvoice and addTimesheetToNewInvoice. addTimesheetToNewInvoice mints a new
+  Invoice row directly (status INVOICE_IN_PROCESS, type SALES_INVOICE, parties from the request) — no longer returns _error.
+  - Content — Content and any *Content link entities. Needed for createWorkEffortContent chain (already partially used by
+  assocAcceptedCustRequestToWorkEffort).
+  - Party/Order — PartyRole, WorkEffortPartyAssignment, CustRequest, CustRequestWorkEffort, CustRequestContent. DAOs for these are already
+  registered from the prior pass.
+  - Workeffort secondary entities — WorkEffortNote, RateAmount, WorkEffortAttribute, WorkEffortFixedAssetAssign, WorkEffortSkillStandard,
+  WorkOrderItemFulfillment, NoteData, RecurrenceInfo, RuntimeData. Needed by deleteWorkEffort (full cascade) and duplicateWorkEffort (full
+  clone). Register the DAOs and delete/clone directly.
+
+  Add a one-line Javadoc on each cross-component DAO bean noting which OFBiz service it stands in for, so a future agent porting that
+  component can wire it through a real service layer.
+
+  ---
+  Architecture (extend what exists)
+
+  com.landawn.ofbiz.service.WorkeffortService is already in place. Continue using it:
+
+  - One service method per backing OFBiz service. Reuse what's already implemented (createWorkEffort is complete end-to-end with permission
+  check + 4 SECAs).
+  - Each controller method delegates to one service method and wraps in ResponseEntity.ok(...) (or the appropriate error status).
+  - Permission gating goes through SecurityService; permission failures throw PermissionDeniedException (already maps to HTTP 403).
+  - Inputs are loosely-typed Map<String, Object> from @RequestBody; field-by-field validation is not required (DAO failures bubble up).
+
+  For each endpoint, replace the existing stub with a real implementation. Where the prior pass left // TODO secondary: comments inside
+  method bodies, those secondary effects must now be implemented — they're part of the contract the access log captured. Where the prior
+  pass left // TODO unimplemented: for cross-component dependencies, implement directly via the relevant DAOs per the section above.
+
+  ---
+  Input handling and IDs
+
+  - Input keys: OFBiz services accept the IN-attributes from services*.xml plus userLogin/userLoginId. The Spring endpoints must accept the
+  same keys in the request body. If the access log shows OFBiz accepting form-urlencoded body, the Spring port accepts both form and JSON:
+  JSON binds via @RequestBody Map<String, Object>; form data binds via @RequestParam Map<String, String> and is passed through.
+  - Generated IDs: OFBiz uses delegator.getNextSeqId('<EntityName>'). The Spring port uses SequenceUtil.next() (16-char timestamp+random).
+  If the access log expects the new ID echoed in the response ({"workEffortId":"10042"}), the Spring port echoes whatever ID it minted under
+   the same key.
+  - Timestamps: Spring port sets createdDate, lastModifiedDate, lastStatusUpdate, fromDate, etc. via Timestamp.from(Instant.now()). The
+  access log will show different timestamps per call — that's expected; the contract is the key, not the value.
+
+  ---
+  Scope — all 27 controller methods, 24 unique backing services
+
+  - 6 groovy in WorkEffortServicesScript.groovy: createWorkEffort (already done), updateWorkEffort, deleteWorkEffort, duplicateWorkEffort,
+  createWorkEffortAndPartyAssign, createWorkEffortContactMech
+  - 4 simple in WorkEffortSimpleServices.xml: createWorkEffortAssoc, createWorkEffortAndAssoc, createWorkEffortKeywords,
+  deleteWorkEffortKeywords
+  - 4 simple in TimesheetServices.xml: createTimesheetForThisWeek, addTimesheetToInvoice, addTimesheetToNewInvoice (now implemented
+  end-to-end with direct Invoice insert), updateTimeEntry
+  - 8 entity-auto: createTimesheet, updateTimesheet, createTimesheetRole, deleteTimesheetRole, createTimeEntry, deleteTimeEntry,
+  updateWorkEffortAssoc, deleteWorkEffortContactMech
+  - 1 group in service_groups.xml: updateWorkEffortAndAssoc (fan-out to updateWorkEffort + updateWorkEffortAssoc)
+  - 1 framework test service: test (no-op success)
+
+  ---
+  Output / scope
+
+  - Modify: src/main/java/com/landawn/ofbiz/controller/WorkeffortController.java.
+  - Modify: src/main/java/com/landawn/ofbiz/service/WorkeffortService.java — flesh out every stub; no // TODO secondary: or // TODO
+  unimplemented: may remain.
+  - Extend (as needed): src/main/java/com/landawn/ofbiz/config/DaoConfig.java with the new DAO beans listed in the cross-component section.
+  - Add (as needed): @Query methods on the relevant DAOs under src/main/java/com/landawn/ofbiz/dao/ for queries not expressible via
+  Condition.
+  - Add (only if needed): src/main/java/com/landawn/ofbiz/util/apache/Commons*.java delegation classes.
+  - Do not modify any generated entity file under src/main/java/com/landawn/ofbiz/entity/. If a missing field surfaces as a blocker, surface
+   it and ask before editing — the entity is generated from MySQL.sql and hand-edits would be lost on the next regen.
+
+  ---
+  Verification protocol — log-replay (no unit tests)
+
+  No unit/integration tests in this pass. The verification protocol is log replay.
+
+  For each of the 27 endpoints:
+
+  1. Capture the OFBiz access log triplet for that endpoint from logs/apache-ofbiz-framework/api_<date>.log. If no triplet exists for the
+  URL, drive OFBiz to produce one first.
+  2. Replay the curl line from the OFBiz log against the Spring port (adjust URL/host since Spring runs on a different port).
+  3. Diff the Spring response against the OFBiz response, normalizing:
+    - Generated IDs (any *Id field that came from a sequence)
+    - Timestamps (createdDate, lastModifiedDate, etc.)
+    - Server-specific headers (Server, Date, Set-Cookie JSESSIONID)
+  For HTML-rendering OFBiz endpoints: the OFBiz body is an HTML page; the Spring response is the OUT-attribute JSON envelope. In that case
+  the diff is on the OUT attribute keys, not the body shape — verify each OUT field declared by the OFBiz <service> definition is present in
+   the Spring JSON.
+  4. DB state — after the request, the rows OFBiz inserted/updated must match what the Spring port inserted/updated, table-for-table,
+  column-for-column (modulo the same IDs/timestamps). Inspect via H2 console.
+
+  After all 27 pass, run mvn -DskipTests compile (must be exit 0) and a final smoke test (mvn spring-boot:run) to confirm the app boots, all
+   beans wire, and a POST to createWorkEffort still succeeds end-to-end.
+
+  ---
+  Confirmed answers carried into this prompt
+
+  1. HTML view endpoints — Spring returns ResponseEntity.ok(Map<String, Object>) of the service's OUT attributes plus any screen-populated
+  field (esp. the new entity's PK). No HTML rendering attempted.
+  2. Cross-component deps — DAOs registered and rows inserted directly from WorkeffortService. No upstream service port.
+  addTimesheetToNewInvoice now mints Invoice rows inline.
+  3. Response envelope — Includes OFBiz's conventional {"responseMessage":"success"|"error"|"fail", "errorMessage":"...",
+  "errorMessageList":[...], "successMessage":"..."} keys alongside the OUT attributes.
+  4. Permission gating — SecurityService.hasEntityPermission(...) on every endpoint that has a <permission-service> in its services*.xml
+  definition. Anonymous (no userLoginId) is allowed in dev.
+  5. Tests — None. Verification is the log-replay protocol above.
+  
+  

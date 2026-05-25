@@ -20,23 +20,36 @@ import com.landawn.ofbiz.dao.ContactMechDao;
 import com.landawn.ofbiz.dao.CustRequestContentDao;
 import com.landawn.ofbiz.dao.CustRequestDao;
 import com.landawn.ofbiz.dao.CustRequestWorkEffortDao;
+import com.landawn.ofbiz.dao.InvoiceDao;
+import com.landawn.ofbiz.dao.InvoiceItemDao;
+import com.landawn.ofbiz.dao.NoteDataDao;
 import com.landawn.ofbiz.dao.PartyContactMechDao;
+import com.landawn.ofbiz.dao.PartyRateDao;
 import com.landawn.ofbiz.dao.PartyRoleDao;
+import com.landawn.ofbiz.dao.RateAmountDao;
+import com.landawn.ofbiz.dao.RecurrenceInfoDao;
 import com.landawn.ofbiz.dao.RequirementDao;
+import com.landawn.ofbiz.dao.RuntimeDataDao;
 import com.landawn.ofbiz.dao.SecurityGroupPermissionDao;
 import com.landawn.ofbiz.dao.StatusItemDao;
+import com.landawn.ofbiz.dao.StatusValidChangeDao;
 import com.landawn.ofbiz.dao.TimeEntryDao;
 import com.landawn.ofbiz.dao.TimesheetDao;
 import com.landawn.ofbiz.dao.TimesheetRoleDao;
 import com.landawn.ofbiz.dao.UserLoginDao;
 import com.landawn.ofbiz.dao.UserLoginSecurityGroupDao;
 import com.landawn.ofbiz.dao.WorkEffortAssocDao;
+import com.landawn.ofbiz.dao.WorkEffortAttributeDao;
 import com.landawn.ofbiz.dao.WorkEffortContactMechDao;
 import com.landawn.ofbiz.dao.WorkEffortContentDao;
 import com.landawn.ofbiz.dao.WorkEffortDao;
+import com.landawn.ofbiz.dao.WorkEffortFixedAssetAssignDao;
 import com.landawn.ofbiz.dao.WorkEffortKeywordDao;
+import com.landawn.ofbiz.dao.WorkEffortNoteDao;
 import com.landawn.ofbiz.dao.WorkEffortPartyAssignmentDao;
+import com.landawn.ofbiz.dao.WorkEffortSkillStandardDao;
 import com.landawn.ofbiz.dao.WorkEffortStatusDao;
+import com.landawn.ofbiz.dao.WorkOrderItemFulfillmentDao;
 import com.landawn.ofbiz.dao.WorkRequirementFulfillmentDao;
 
 /**
@@ -170,5 +183,90 @@ public class DaoConfig {
     @Bean
     public SecurityGroupPermissionDao securityGroupPermissionDao(DataSource ds) {
         return JdbcUtil.createDao(SecurityGroupPermissionDao.class, ds);
+    }
+
+    // -----------------------------------------------------------------------------------
+    // Cross-component DAOs — stand in for service ports we haven't done yet (Accounting,
+    // Content, workeffort secondary entities). WorkeffortService writes directly through
+    // these. Promote each to a proper service-layer call when the owning component is
+    // ported.
+    // -----------------------------------------------------------------------------------
+
+    /** Stand-in for Accounting's createInvoice — used by addTimesheetToNewInvoice. */
+    @Bean
+    public InvoiceDao invoiceDao(DataSource ds) {
+        return JdbcUtil.createDao(InvoiceDao.class, ds);
+    }
+
+    /** Stand-in for Accounting's createInvoiceItem — used by addTimesheet*ToInvoice. */
+    @Bean
+    public InvoiceItemDao invoiceItemDao(DataSource ds) {
+        return JdbcUtil.createDao(InvoiceItemDao.class, ds);
+    }
+
+    /** Stand-in for Accounting's PartyRate lookup — addTimesheetToInvoice rate adjustment. */
+    @Bean
+    public PartyRateDao partyRateDao(DataSource ds) {
+        return JdbcUtil.createDao(PartyRateDao.class, ds);
+    }
+
+    /** Workeffort secondary — deleteWorkEffort cascade + duplicateWorkEffortNotes. */
+    @Bean
+    public WorkEffortNoteDao workEffortNoteDao(DataSource ds) {
+        return JdbcUtil.createDao(WorkEffortNoteDao.class, ds);
+    }
+
+    /** Stand-in for Content's NoteData — WorkEffortNote depends on NoteData rows. */
+    @Bean
+    public NoteDataDao noteDataDao(DataSource ds) {
+        return JdbcUtil.createDao(NoteDataDao.class, ds);
+    }
+
+    /** Workeffort secondary — duplicateWorkEffortAssignmentRates + delete cascade. */
+    @Bean
+    public RateAmountDao rateAmountDao(DataSource ds) {
+        return JdbcUtil.createDao(RateAmountDao.class, ds);
+    }
+
+    /** Workeffort secondary — deleteWorkEffort cascade. */
+    @Bean
+    public WorkEffortAttributeDao workEffortAttributeDao(DataSource ds) {
+        return JdbcUtil.createDao(WorkEffortAttributeDao.class, ds);
+    }
+
+    /** Workeffort secondary — deleteWorkEffort cascade. */
+    @Bean
+    public WorkEffortFixedAssetAssignDao workEffortFixedAssetAssignDao(DataSource ds) {
+        return JdbcUtil.createDao(WorkEffortFixedAssetAssignDao.class, ds);
+    }
+
+    /** Workeffort secondary — deleteWorkEffort cascade. */
+    @Bean
+    public WorkEffortSkillStandardDao workEffortSkillStandardDao(DataSource ds) {
+        return JdbcUtil.createDao(WorkEffortSkillStandardDao.class, ds);
+    }
+
+    /** Order secondary — deleteWorkEffort cascade (WorkOrderItemFulfillment links). */
+    @Bean
+    public WorkOrderItemFulfillmentDao workOrderItemFulfillmentDao(DataSource ds) {
+        return JdbcUtil.createDao(WorkOrderItemFulfillmentDao.class, ds);
+    }
+
+    /** Workeffort secondary — deleteWorkEffort cascade. */
+    @Bean
+    public RecurrenceInfoDao recurrenceInfoDao(DataSource ds) {
+        return JdbcUtil.createDao(RecurrenceInfoDao.class, ds);
+    }
+
+    /** Service framework — deleteWorkEffort cascade (RuntimeData refs from workeffort). */
+    @Bean
+    public RuntimeDataDao runtimeDataDao(DataSource ds) {
+        return JdbcUtil.createDao(RuntimeDataDao.class, ds);
+    }
+
+    /** Used by updateWorkEffort to validate status-change transitions. */
+    @Bean
+    public StatusValidChangeDao statusValidChangeDao(DataSource ds) {
+        return JdbcUtil.createDao(StatusValidChangeDao.class, ds);
     }
 }

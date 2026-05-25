@@ -3,6 +3,7 @@ package com.landawn.ofbiz.controller;
 import java.sql.SQLException;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.landawn.ofbiz.service.ServiceResponse;
 import com.landawn.ofbiz.service.WorkeffortService;
 
+/**
+ * REST surface for the 27 OFBiz workeffort endpoints. Each method delegates to one
+ * {@link WorkeffortService} method and wraps the OFBiz-style result envelope into a
+ * {@code ResponseEntity}. Errors surfaced by {@link ServiceResponse#error(String)} map to HTTP 400;
+ * permission failures throw {@code PermissionDeniedException} which maps to HTTP 403.
+ *
+ * <p>For OFBiz endpoints whose original response was an HTML page render, this Spring port returns
+ * a JSON envelope of the service's OUT attributes plus the {@code responseMessage} / optional
+ * {@code successMessage} / {@code errorMessage} keys — no HTML.
+ */
 @RestController
 @RequestMapping("/workeffort")
 public class WorkeffortController {
@@ -23,49 +35,65 @@ public class WorkeffortController {
         this.service = service;
     }
 
+    /** Wraps a service result map into a 200/400 ResponseEntity based on the envelope. */
+    private static ResponseEntity<Map<String, Object>> wrap(Map<String, Object> result) {
+        return ServiceResponse.isError(result)
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
+
     /**
-     * Duplicate a Work Effort. If workEffortId is empty a new workEffortId will be generated. Set the statusId of the new WorkEffort to this status, otherwise, set the status to the first of the sequenceId of the statusTypeId
-     * <p>service: duplicateWorkEffort  entities: WorkEffort  auth: true
+     * Duplicate a Work Effort. If workEffortId is empty a new workEffortId is generated. The new
+     * status comes from the explicit {@code statusId}, or the first sequenceId of the source
+     * statusType.
+     * <p>service: duplicateWorkEffort  entities: WorkEffort, WorkEffortAssoc, WorkEffortNote,
+     * WorkEffortContent, RateAmount  auth: true
      */
     @PostMapping("/workeffort/control/DuplicateWorkEffort")
     public ResponseEntity<Map<String, Object>> duplicateWorkEffort(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.duplicateWorkEffort(body));
+        return wrap(service.duplicateWorkEffort(body));
     }
 
     /**
-     * Create a WorkEffort Entity
-     * <p>service: createWorkEffort  entities: WorkEffort  auth: true
+     * Create a WorkEffort entity. Runs the 4 OFBiz SECAs on commit (quickAssignParty,
+     * makeCommunicationEventWorkEffort, assocAcceptedCustRequestToWorkEffort,
+     * createWorkRequirementFulfillment).
+     * <p>service: createWorkEffort  entities: WorkEffort, WorkEffortStatus  auth: true
      */
     @PostMapping("/workeffort/control/WorkEffort/create")
     public ResponseEntity<Map<String, Object>> createWorkEffort(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.createWorkEffort(body));
+        return wrap(service.createWorkEffort(body));
     }
 
     /**
-     * Update a WorkEffort Entity
-     * <p>service: updateWorkEffort  entities: WorkEffort  auth: true
+     * Update a WorkEffort. Validates status transitions against {@code StatusValidChange} and
+     * writes a WorkEffortStatus history row when currentStatusId changes.
+     * <p>service: updateWorkEffort  entities: WorkEffort, WorkEffortStatus  auth: true
      */
     @PostMapping("/workeffort/control/WorkEffort/update")
     public ResponseEntity<Map<String, Object>> updateWorkEffort(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.updateWorkEffort(body));
+        return wrap(service.updateWorkEffort(body));
     }
 
     /**
-     * Add Timesheet to Invoice
-     * <p>service: addTimesheetToInvoice  entities: Timesheet, TimeEntry  auth: true
+     * Link every unbilled TimeEntry on the supplied timesheet to the supplied invoiceId and
+     * mint an InvoiceItem per entry (rate adjusted by PartyRate.percentageUsed, amount from
+     * RateAmount).
+     * <p>service: addTimesheetToInvoice  entities: Timesheet, TimeEntry, Invoice, InvoiceItem  auth: true
      */
     @PostMapping("/workeffort/control/addTimesheetToInvoice")
     public ResponseEntity<Map<String, Object>> addTimesheetToInvoice(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.addTimesheetToInvoice(body));
+        return wrap(service.addTimesheetToInvoice(body));
     }
 
     /**
-     * Add Timesheet to a NEW Invoice. Stub until the Accounting createInvoice service is ported.
-     * <p>service: addTimesheetToNewInvoice  entities: Timesheet  auth: true
+     * Mint a new SALES_INVOICE in INVOICE_IN_PROCESS status (partyIdFrom + partyId from body) and
+     * then delegate to addTimesheetToInvoice. The new invoiceId is echoed in the response.
+     * <p>service: addTimesheetToNewInvoice  entities: Invoice, InvoiceItem, TimeEntry  auth: true
      */
     @PostMapping("/workeffort/control/addTimesheetToNewInvoice")
-    public ResponseEntity<Map<String, Object>> addTimesheetToNewInvoice(@RequestBody Map<String, Object> body) {
-        return ResponseEntity.ok(service.addTimesheetToNewInvoice(body));
+    public ResponseEntity<Map<String, Object>> addTimesheetToNewInvoice(@RequestBody Map<String, Object> body) throws SQLException {
+        return wrap(service.addTimesheetToNewInvoice(body));
     }
 
     /**
@@ -74,195 +102,199 @@ public class WorkeffortController {
      */
     @GetMapping("/workeffort/control/chain")
     public ResponseEntity<Map<String, Object>> test(@RequestParam Map<String, String> params) {
-        return ResponseEntity.ok(service.test(Map.copyOf(params)));
+        return wrap(service.test(Map.copyOf(params)));
     }
 
     /**
-     * Creates TimeEntry
+     * Creates a TimeEntry (default fromDate = now).
      * <p>service: createTimeEntry  entities: TimeEntry  auth: true
      */
     @PostMapping("/workeffort/control/createQuickTimeEntry")
     public ResponseEntity<Map<String, Object>> createTimeEntry(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.createTimeEntry(body));
+        return wrap(service.createTimeEntry(body));
     }
 
     /**
-     * Creates Timesheet
+     * Creates a Timesheet (default statusId TIMESHEET_IN_PROCESS).
      * <p>service: createTimesheet  entities: Timesheet  auth: true
      */
     @PostMapping("/workeffort/control/createTimesheet")
     public ResponseEntity<Map<String, Object>> createTimesheet(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.createTimesheet(body));
+        return wrap(service.createTimesheet(body));
     }
 
-    /**
-     * Creates TimeEntry (alias of createQuickTimeEntry — same backing service).
-     * <p>service: createTimeEntry  entities: TimeEntry  auth: true
-     */
+    /** Alias of createQuickTimeEntry. */
     @PostMapping("/workeffort/control/createTimesheetEntry")
     public ResponseEntity<Map<String, Object>> createTimeEntryCreateTimesheetEntry(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.createTimeEntry(body));
+        return wrap(service.createTimeEntry(body));
     }
 
     /**
-     * Creates Timesheet for this week if no required date specified.
+     * Creates a Timesheet for the week containing {@code requiredDate} (default: now). Errors if a
+     * Timesheet for the same partyId / fromDate / thruDate already exists.
      * <p>service: createTimesheetForThisWeek  entities: Timesheet  auth: true
      */
     @PostMapping("/workeffort/control/createTimesheetForThisWeek")
     public ResponseEntity<Map<String, Object>> createTimesheetForThisWeek(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.createTimesheetForThisWeek(body));
+        return wrap(service.createTimesheetForThisWeek(body));
     }
 
     /**
-     * Creates TimesheetRole
+     * Creates a TimesheetRole row.
      * <p>service: createTimesheetRole  entities: TimesheetRole  auth: true
      */
     @PostMapping("/workeffort/control/createTimesheetRole")
     public ResponseEntity<Map<String, Object>> createTimesheetRole(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.createTimesheetRole(body));
+        return wrap(service.createTimesheetRole(body));
     }
 
-    /**
-     * Create a WorkEffort Entity (alias of WorkEffort/create — same backing service).
-     * <p>service: createWorkEffort  entities: WorkEffort  auth: true
-     */
+    /** Alias of WorkEffort/create. */
     @PostMapping("/workeffort/control/createWorkEffort")
     public ResponseEntity<Map<String, Object>> createWorkEffortCreateWorkEffort(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.createWorkEffort(body));
+        return wrap(service.createWorkEffort(body));
     }
 
     /**
-     * Creates a WorkEffort entity and WorkEffortAssoc
+     * Creates a WorkEffort and its WorkEffortAssoc in one shot. The destination WorkEffort is
+     * created if {@code workEffortIdTo} is absent.
      * <p>service: createWorkEffortAndAssoc  entities: WorkEffort, WorkEffortAssoc  auth: true
      */
     @PostMapping("/workeffort/control/createWorkEffortAndAssoc")
     public ResponseEntity<Map<String, Object>> createWorkEffortAndAssoc(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.createWorkEffortAndAssoc(body));
+        return wrap(service.createWorkEffortAndAssoc(body));
     }
 
     /**
-     * Create a WorkEffort Entity and assign to a party
+     * Creates a WorkEffort and assigns it to a Party in the supplied role. Requires the
+     * {@code (partyId, roleTypeId)} PartyRole to exist.
      * <p>service: createWorkEffortAndPartyAssign  entities: WorkEffort, WorkEffortPartyAssignment  auth: true
      */
     @PostMapping("/workeffort/control/createWorkEffortAndPartyAssign")
     public ResponseEntity<Map<String, Object>> createWorkEffortAndPartyAssign(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.createWorkEffortAndPartyAssign(body));
+        return wrap(service.createWorkEffortAndPartyAssign(body));
     }
 
     /**
-     * Create a WorkEffort Assoc, for linking task to describe a project or for linking routing with its routingTasks
+     * Creates a WorkEffortAssoc (link between two work efforts). FromDate defaults to now.
      * <p>service: createWorkEffortAssoc  entities: WorkEffortAssoc  auth: true
      */
     @PostMapping("/workeffort/control/createWorkEffortAssoc")
     public ResponseEntity<Map<String, Object>> createWorkEffortAssoc(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.createWorkEffortAssoc(body));
+        return wrap(service.createWorkEffortAssoc(body));
     }
 
     /**
-     * Create WorkEffortContactMech; if contactMechId is not provided, a new contact mech is created (if partyId is set then the new contact mech is also associated to the party)
-     * <p>service: createWorkEffortContactMech  entities: PartyContactMech, WorkEffortContactMech, ContactMech  auth: true
+     * Creates a WorkEffortContactMech (and a fresh ContactMech if contactMechId is absent and
+     * contactMechTypeId is supplied; if partyId is also supplied, the new ContactMech is linked
+     * via PartyContactMech too).
+     * <p>service: createWorkEffortContactMech  entities: ContactMech, PartyContactMech, WorkEffortContactMech  auth: true
      */
     @PostMapping("/workeffort/control/createWorkEffortContactMech")
     public ResponseEntity<Map<String, Object>> createWorkEffortContactMech(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.createWorkEffortContactMech(body));
+        return wrap(service.createWorkEffortContactMech(body));
     }
 
     /**
-     * Create a Work Effort Keyword
+     * Extracts keywords from the workEffort's name + description and inserts WorkEffortKeyword
+     * rows for each token (lowercased, length &gt;= 2, stop-words filtered, dedup'd).
      * <p>service: createWorkEffortKeywords  entities: WorkEffortKeyword  auth: true
      */
     @PostMapping("/workeffort/control/createWorkEffortKeywords")
     public ResponseEntity<Map<String, Object>> createWorkEffortKeywords(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.createWorkEffortKeywords(body));
+        return wrap(service.createWorkEffortKeywords(body));
     }
 
     /**
-     * Deletes TimeEntry
+     * Deletes a TimeEntry by timeEntryId.
      * <p>service: deleteTimeEntry  entities: TimeEntry  auth: true
      */
     @PostMapping("/workeffort/control/deleteTimesheetEntry")
     public ResponseEntity<Map<String, Object>> deleteTimeEntry(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.deleteTimeEntry(body));
+        return wrap(service.deleteTimeEntry(body));
     }
 
     /**
-     * Deletes TimesheetRole
+     * Deletes a TimesheetRole.
      * <p>service: deleteTimesheetRole  entities: TimesheetRole  auth: true
      */
     @PostMapping("/workeffort/control/deleteTimesheetRole")
     public ResponseEntity<Map<String, Object>> deleteTimesheetRole(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.deleteTimesheetRole(body));
+        return wrap(service.deleteTimesheetRole(body));
     }
 
     /**
-     * Delete a WorkEffort Entity
-     * <p>service: deleteWorkEffort  entities: WorkEffort  auth: true
+     * Deletes a WorkEffort and cascades to every dependent: WorkEffortKeyword, WorkEffortStatus,
+     * WorkEffortPartyAssignment, WorkEffortContactMech, WorkEffortAttribute,
+     * WorkEffortFixedAssetAssign, WorkEffortSkillStandard, WorkEffortContent,
+     * WorkOrderItemFulfillment, RateAmount, WorkEffortNote (+ NoteData), WorkEffortAssoc (from/to),
+     * RecurrenceInfo, RuntimeData.
+     * <p>service: deleteWorkEffort  entities: WorkEffort + 14 dependents  auth: true
      */
     @PostMapping("/workeffort/control/deleteWorkEffort")
     public ResponseEntity<Map<String, Object>> deleteWorkEffort(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.deleteWorkEffort(body));
+        return wrap(service.deleteWorkEffort(body));
     }
 
     /**
-     * Delete WorkEffortContactMech
+     * Deletes a WorkEffortContactMech (composite PK delete).
      * <p>service: deleteWorkEffortContactMech  entities: WorkEffortContactMech  auth: true
      */
     @PostMapping("/workeffort/control/deleteWorkEffortContactMech")
     public ResponseEntity<Map<String, Object>> deleteWorkEffortContactMech(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.deleteWorkEffortContactMech(body));
+        return wrap(service.deleteWorkEffortContactMech(body));
     }
 
     /**
-     * Remove all Work Effort Keyword
+     * Removes all WorkEffortKeyword rows for the given workEffortId.
      * <p>service: deleteWorkEffortKeywords  entities: WorkEffortKeyword  auth: true
      */
     @PostMapping("/workeffort/control/deleteWorkEffortKeywords")
     public ResponseEntity<Map<String, Object>> deleteWorkEffortKeywords(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.deleteWorkEffortKeywords(body));
+        return wrap(service.deleteWorkEffortKeywords(body));
     }
 
     /**
-     * Updates Timesheet
+     * Updates a Timesheet.
      * <p>service: updateTimesheet  entities: Timesheet  auth: true
      */
     @PostMapping("/workeffort/control/updateTimesheet")
     public ResponseEntity<Map<String, Object>> updateTimesheet(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.updateTimesheet(body));
+        return wrap(service.updateTimesheet(body));
     }
 
     /**
-     * Updates TimeEntry
+     * Updates a TimeEntry. Guarded by checkTimesheetStatus (the parent Timesheet must be in
+     * TIMESHEET_IN_PROCESS unless this update only sets the invoice linkage); hours are auto-
+     * calculated from fromDate/thruDate when not supplied.
      * <p>service: updateTimeEntry  entities: TimeEntry  auth: true
      */
     @PostMapping("/workeffort/control/updateTimesheetEntry")
     public ResponseEntity<Map<String, Object>> updateTimeEntry(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.updateTimeEntry(body));
+        return wrap(service.updateTimeEntry(body));
     }
 
-    /**
-     * Update a WorkEffort Entity (alias of WorkEffort/update — same backing service).
-     * <p>service: updateWorkEffort  entities: WorkEffort  auth: true
-     */
+    /** Alias of WorkEffort/update. */
     @PostMapping("/workeffort/control/updateWorkEffort")
     public ResponseEntity<Map<String, Object>> updateWorkEffortUpdateWorkEffort(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.updateWorkEffort(body));
+        return wrap(service.updateWorkEffort(body));
     }
 
     /**
-     * Update a WorkEffort entity and its WorkEffortAssoc together (engine="group" fan-out).
+     * Updates a WorkEffort and its WorkEffortAssoc together (OFBiz {@code engine="group"} fan-out
+     * to updateWorkEffort + updateWorkEffortAssoc).
      * <p>service: updateWorkEffortAndAssoc  entities: WorkEffort, WorkEffortAssoc  auth: true
      */
     @PostMapping("/workeffort/control/updateWorkEffortAndAssoc")
     public ResponseEntity<Map<String, Object>> updateWorkEffortAndAssoc(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.updateWorkEffortAndAssoc(body));
+        return wrap(service.updateWorkEffortAndAssoc(body));
     }
 
     /**
-     * Update a WorkEffort Assoc, for linking task to describe a project or for linking routing with its routingTasks
+     * Updates a WorkEffortAssoc (engine="entity-auto" update).
      * <p>service: updateWorkEffortAssoc  entities: WorkEffortAssoc  auth: true
      */
     @PostMapping("/workeffort/control/updateWorkEffortAssoc")
     public ResponseEntity<Map<String, Object>> updateWorkEffortAssoc(@RequestBody Map<String, Object> body) throws SQLException {
-        return ResponseEntity.ok(service.updateWorkEffortAssoc(body));
+        return wrap(service.updateWorkEffortAssoc(body));
     }
 }
