@@ -48,6 +48,7 @@
 		<abacus-common.version>7.7.2</abacus-common.version>
 		<abacus-jdbc.version>4.7.2</abacus-jdbc.version>
 		<abacus-query.version>4.7.2</abacus-query.version>
+		<guava.version>33.4.0-jre</guava.version>
 		<lombok.version>1.18.46</lombok.version>
 	</properties>
 
@@ -56,19 +57,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
 
 		<!-- Brings in spring-jdbc + spring-tx (for @Transactional) + HikariCP DataSource -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
 		<dependency>
@@ -97,6 +100,12 @@
 			<groupId>com.landawn.abacus</groupId>
 			<artifactId>abacus-query</artifactId>
 			<version>${abacus-query.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
 		</dependency>
 
 		<dependency>
