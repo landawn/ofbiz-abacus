@@ -1,0 +1,245 @@
+
+--- 2026/05/24
+
+  
+=================================================================================================================  
+
+  ---
+  Task: Inventory every backend web service and REST endpoint defined under ./apache-ofbiz-framework/, document them in ./docs/api/api.md, and scaffold matching empty Spring Boot controller classes under com.landawn.ofbiz.controller.
+
+  ---
+  Inputs to scan
+
+  Under ./apache-ofbiz-framework/, collect API surface from these OFBiz mechanisms (skip none unless explicitly excluded below):
+
+  1. REST endpoints — *.rest.xml configuration files, RestServlet-mounted resources, and any Jakarta/Jersey @Path annotations in .java files.
+  2. SOAP/XML-RPC/HTTP service exports — entries in services*.xml whose <service> has export="true" (these are publicly callable over webtools/control/SOAPService, xmlrpc, httpService).
+  3. Webapp controller.xml request maps — <request-map uri="..."> entries, especially those with <event type="service" ...> (these invoke services via HTTP) or <event type="java" ...>. Include the auth attribute (auth="true|false") and
+  the HTTP method if specified.
+  4. Service definitions (services*.xml) referenced by any of the above — capture the service name, engine (java, groovy, simple, entity-auto), location, and invoke method so the implementation class is named in the doc.
+
+  For each API, trace the call chain through three layers:
+
+  - Controller/Handler layer — the OFBiz request handler or REST resource class (e.g. org.apache.ofbiz.webapp.event.ServiceEventHandler, a Jersey resource, or the controller.xml request entry itself). Tag with auth=true|false where the
+  source declares it.
+  - Service layer — the Java/Groovy class + method that implements the service (<service location="..." invoke="..."/>). For engine="groovy" or engine="simple" (MiniLang) services, list the script path (e.g.
+  component://party/groovyScripts/party/CreateParty.groovy or component://party/minilang/party/PartyServices.xml#createParty).
+  - Persistence layer — the entity/entities the service reads or writes, listed by OFBiz entity name (e.g. Party, ProductPrice). Best-effort extraction:
+    - <entity-one entity-name="X"/> and similar in MiniLang
+    - EntityQuery.use(...).from("X"), delegator.findOne("X", ...), delegator.create("X", ...), delegator.store(...), etc. in Java/Groovy
+    - If not statically determinable, list as unknown.
+
+  Skip:
+  - Pure view-only request-map entries (no <event>, only <response type="view" .../> — these are page renders, not APIs).
+  - Static asset handlers.
+  - Test/fixture components under framework/base/src/test/**.
+
+  ---
+  Output 1 — ./docs/api/api.md
+
+  A single Markdown file with one section per OFBiz component (alphabetical), each containing a three-column table:
+
+  | Path | Implementation chain (Controller → Service → Persistence) | Description |
+
+  Column rules:
+
+  - Path — the URL the client calls. Forms:
+    - REST: GET /rest/products/{id} (include HTTP method)
+    - controller.xml request: POST /accounting/control/createInvoice (include the webapp mount + control servlet path + request URI)
+    - SOAP service export: POST /webtools/control/SOAPService  [service=createParty] (service name as a tag)
+  - Implementation chain — three segments joined by →:
+    a. Controller/handler class (FQCN) or the controller.xml-mounted servlet, suffixed with [auth=true|false].
+    b. Service name + implementation. For Java services: createParty → org.apache.ofbiz.party.party.PartyServices#createParty. For Groovy/MiniLang services: createParty → component://party/groovyScripts/.../CreateParty.groovy or
+  component://.../PartyServices.xml#createParty.
+    c. Touched entities by OFBiz entity name, comma-separated (Party, PartyType, PartyStatus). No Java type references. unknown when not statically derivable.
+  - Description — first non-empty <description> from the service definition, or the controller.xml <request-map> description, or — if absent.
+
+  File header should include: total API count, breakdown by component, and the date this was scanned. Also list the source files consulted (path + count).
+
+  Order tables by URL within each component for stable diffs.
+
+  ---
+  Output 2 — Controller scaffolds under com.landawn.ofbiz.controller
+
+  For each component that exports at least one API, generate one Spring @RestController class per component (grouping by component, not per endpoint, keeps the file count manageable and matches how OFBiz organizes services):
+
+  - Class name: {ComponentPascalCase}Controller (e.g. accounting → AccountingController, party → PartyController).
+  - Package: com.landawn.ofbiz.controller.
+  - Annotation: @RestController + @RequestMapping("/{component-lowercase}") (e.g. /accounting).
+  - One method per unique URI. If the same service backs two different URIs, generate two methods. If two URIs collide on the derived method name, suffix the duplicates with the URI's last path segment (camelCase) to disambiguate.
+  - Method naming: camelCase derived from the service name, or from the URI's last segment if no service is invoked.
+  - Method annotation: appropriate @GetMapping / @PostMapping / etc. with the path relative to the class-level @RequestMapping (so the full path matches OFBiz's URL).
+  - Method signature:
+    - Path params → @PathVariable
+    - Query params → @RequestParam (best-effort from the service's <attribute mode="IN" .../> definitions)
+    - Body params (for POST/PUT) → a single @RequestBody Map<String, Object> (OFBiz services are loosely typed; a Map keeps the scaffold honest)
+    - Return type → ResponseEntity<Map<String, Object>>
+  - Method body — exactly:
+  // TODO
+  throw new UnsupportedOperationException();
+  - Javadoc above each method:
+    - One-line description from the API doc
+    - // service: {serviceName}  entities: {entities}  auth: {true|false} so a maintainer can find the OFBiz original
+
+  Imports: Spring (org.springframework.web.bind.annotation.*, org.springframework.http.ResponseEntity) and java.util.Map. No Lombok.
+
+  Do not generate one controller per endpoint — group by OFBiz component.
+
+  ---
+  Approach
+
+  Write a Python script scripts/gen_api_inventory.py that:
+
+  1. Walks apache-ofbiz-framework/ once. Parses:
+    - All controller.xml files (locating webapp mounts via the containing ofbiz-component.xml + WEB-INF directory).
+    - All services*.xml (build a serviceName → {engine, class-or-script, method, description, IN-attrs, touched-entities} map).
+    - All *.rest.xml and any @Path-annotated .java files.
+  2. Joins request-maps to services by <event invoke="serviceName"/>.
+  3. Best-effort entity extraction (greps + regex on the service's implementing file/script). Results go into api.md as OFBiz entity names.
+  4. Writes docs/api/api.md.
+  5. Writes one controller per component to src/main/java/com/landawn/ofbiz/controller/.
+  6. Prints a summary: components processed, APIs found per layer (REST / SOAP-export / controller.xml-service / controller.xml-java), controllers written, methods written.
+
+  Re-runnable: the script always overwrites both api.md and the controller classes (idempotent).
+
+  ---
+  Confirmed answers carried into this prompt
+
+  1. Auth gating — include all APIs (both auth=true and auth=false); record the flag in the doc and as a // auth: … tag in each method's Javadoc.
+  2. Method-per-URI — one controller method per unique URI; collisions on derived method names get a suffix from the URI's last segment.
+  3. Entity references in api.md — original OFBiz entity names, no Java type references. Controllers don't reference entities at all (they throw).
+  4. Groovy / MiniLang services — list the script path as the "implementation."
+  
+  
+  
+=================================================================================================================  
+  
+  
+  ---
+  Task: Implement every endpoint in src/main/java/com/landawn/ofbiz/controller/WorkeffortController.java from controller → service → DAO, replacing each throw new UnsupportedOperationException() stub with a working implementation. The
+  implementation must use OFBiz semantics as the reference (see the service: / entities: / auth: tag in each method's Javadoc) but the runtime stack is Spring Boot + abacus-jdbc + the generated entities/DAOs in this project.
+
+  ---
+  Source of behavior (what each endpoint must do)
+
+  For each method in WorkeffortController.java:
+  1. Read the Javadoc tag service: <name>  entities: <list>  auth: <true|false>.
+  2. Open apache-ofbiz-framework/applications/workeffort/servicedef/services*.xml and find <service name="<name>">.
+  3. Open the implementation pointed at by location + invoke:
+    - engine="java" → the FQCN class + method under apache-ofbiz-framework/.../src/main/java/...
+    - engine="groovy" → the .groovy script in apache-ofbiz-framework/.../src/main/groovy/...
+    - engine="simple" → the MiniLang <simple-method> block in .../minilang/.../*.xml
+    - engine="entity-auto" → trivial CRUD on default-entity-name (create/update/delete/expire); no further source needed
+  4. Implement the primary data effect only — the create/update/delete/expire the service is named after.
+  Secondary effects (audit log, status side-effects, ECA triggers, cache refresh, notification emails, etc.) get a single // TODO secondary: <brief description> comment per effect, in place.
+
+  If the upstream behavior depends on something we genuinely don't have ported, implement what we can and leave a // TODO unimplemented: <reason> for the missing piece — do not throw UnsupportedOperationException from a delivered
+  endpoint.
+
+  ---
+  Library priority (strict)
+
+  Tier 1 — abacus-common, abacus-jdbc, abacus-query — use these for everything they cover. Where to look:
+  - API docs: ./../abacus/docs/ai/**, ./../abacus-jdbc/docs/ai/**, ./../abacus-query/docs/ai/**
+  - Source: ./../abacus/src/main/java/**, ./../abacus-jdbc/src/main/java/**, ./../abacus-query/src/main/java/**
+
+  Examples to default to:
+  - Collections / utility — com.landawn.abacus.util.N, Strings, Numbers, IOUtil, DateUtil, Maps, CommonUtil
+  - JSON / XML — N.toJson, N.fromJson, N.toXml, N.fromXml
+  - DAO calls — built-in CrudDao methods (get, gett, insert, update, delete, list, stream, exists, count); join navigation via CrudJoinEntityHelper (loadJoinEntities, loadAllJoinEntities)
+  - Custom queries — @Query from com.landawn.abacus.jdbc.annotation on DAO methods; build dynamic SQL with com.landawn.abacus.query.SqlBuilder / SQLBuilder.PSC
+  - Condition building — com.landawn.abacus.query.condition.* (CF, Criteria)
+
+  Tier 2 — Spring Boot ecosystem — only when Tier 1 doesn't cover it (HTTP binding, @Transactional, dependency injection, validation annotations).
+
+  Tier 3 — Apache Commons — only when neither Tier 1 nor Spring covers it. When used, do not call Apache Commons directly. Instead:
+  - Add (or extend) a delegating class under com.landawn.ofbiz.commons named after the source library:
+    - commons-lang3 → CommonsLang
+    - commons-codec → CommonsCodec
+    - commons-io → CommonsIo
+    - commons-collections4 → CommonsCollections
+    - etc.
+  - Expose the needed function as a public static method that delegates to the Apache class.
+  - Call only the delegation class from application code. No direct org.apache.commons.* imports outside the commons/ package.
+  - Add a one-line Javadoc on each delegation method pointing to the underlying Apache method.
+
+  If the abacus libraries already provide an equivalent (e.g. Strings.isBlank vs StringUtils.isBlank), prefer abacus — do not add a delegation.
+
+  ---
+  DAO usage
+
+  - Default to built-in DAO methods for single-entity CRUD, lookups by PK, simple list(Condition) / count(Condition) queries.
+  - For multi-table joins, aggregations, or anything not expressible via CrudDao + a single Condition: add a method to the relevant DAO interface annotated with @Query("SELECT ... FROM ... WHERE ...") (from
+  com.landawn.abacus.jdbc.annotation). Follow the @Query Javadoc for parameter binding (@Bind, positional ?, named :param).
+  - For FK navigation in returned payloads: the relevant DAOs already extend CrudJoinEntityHelper — use loadJoinEntities(entity, JoinedFieldType.class) rather than writing manual JOIN SQL.
+  - Transactions: annotate the service method (not the DAO method) with @Transactional from Spring; do not introduce abacus-jdbc transaction APIs unless required for a specific isolation level.
+
+  ---
+  Input handling
+
+  - Trust the inbound Map<String, Object> from @RequestBody / @RequestParam — no explicit optional="false" validation, no type-coercion shims. Let DAO failures bubble up to the controller and be returned as an HTTP 500 by default Spring
+   error handling.
+
+  ---
+  Permission checks
+
+  - For every <permission-service service-name="X" main-action="Y"/> in the OFBiz service definition, leave a one-line comment in the service method:
+  // TODO permission check: X main-action=Y
+  - followed by a no-op pass-through. Do not implement the actual check.
+
+  ---
+  Architecture for the workeffort endpoints
+
+  Introduce a service layer to keep controllers thin:
+  - Package: com.landawn.ofbiz.service
+  - One service class per controller: com.landawn.ofbiz.service.WorkeffortService (Spring @Service)
+  - Each controller method delegates to one service method.
+  - Service methods take primitive / Map<String, Object> inputs (matching the OFBiz IN attributes) and return a Map<String, Object> matching the OFBiz OUT attributes; the controller wraps the return in ResponseEntity.ok(...).
+  - DAOs are injected into the service (constructor injection preferred).
+
+  Wire-up:
+  - DAOs need to be Spring beans. Add (or extend) a @Configuration class under com.landawn.ofbiz.config (e.g. DaoConfig) that registers the workeffort-related DAOs via JdbcUtil.createDao(...) from abacus-jdbc, exposing them as @Beans.
+  Register only the DAOs the workeffort endpoints actually need — not all 1,117.
+
+  ---
+  Datasource & schema bootstrap
+
+  - Spring Boot is already configured with an H2 datasource in application.yml — confirm by reading it; do not modify it.
+  - There is no Flyway migration. The schema is loaded by executing ./docs/db/H2.sql against H2 at startup.
+  - Add Spring Boot's standard schema-init wiring so H2 runs ./docs/db/H2.sql on boot:
+    - Place (or symlink) the script at src/main/resources/schema.sql, or
+    - Add spring.sql.init.schema-locations=file:./docs/db/H2.sql (and spring.sql.init.mode=always) to application.yml
+  Pick whichever is cleaner given the existing config; if the schema is already being loaded, change nothing.
+
+  ---
+  Output / scope
+
+  - Modify: src/main/java/com/landawn/ofbiz/controller/WorkeffortController.java — replace every method body.
+  - Add: src/main/java/com/landawn/ofbiz/service/WorkeffortService.java (and any helper classes only if a single class becomes unwieldy).
+  - Add (only if used): src/main/java/com/landawn/ofbiz/util/apache/Commons*.java delegation classes.
+  - Add (as needed): @Query methods on the relevant DAOs under src/main/java/com/landawn/ofbiz/dao/ for queries that built-in DAO methods can't express.
+  - Add (as needed): src/main/java/com/landawn/ofbiz/config/DaoConfig.java to register the DAOs used by the workeffort endpoints as Spring beans.
+  - Adjust application.yml only if the schema-init wiring is not yet in place.
+
+  Do not touch the generated entity files unless a missing field surfaces as a true blocker. If that happens, surface the issue and ask before editing — the entity is generated from MySQL.sql and hand-edits would be lost on the next
+  regen.
+
+  No tests in this pass.
+
+  The 27 endpoints in WorkeffortController.java are a tractable starting set (vs. 1,743 across all components). After this works end-to-end, the same pattern can be applied to other controllers.
+
+  ---
+  Confirmed answers carried into this prompt
+
+  1. Behavior fidelity — primary data effect implemented; secondary effects stubbed with // TODO secondary: ... comments.
+  2. Datasource — H2 already in application.yml; init schema from ./docs/db/H2.sql on boot.
+  3. Permission checks — // TODO permission check: <name> + no-op pass; real checks only on explicit ask.
+  4. Validation — trust the inbound Map<String, Object>; DAO failures bubble up.
+  5. Tests — none in this pass.
+  
+  
+  
+  
+  
+  
+  
