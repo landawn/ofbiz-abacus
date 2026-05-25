@@ -36,16 +36,46 @@ public final class ServiceInput {
             return bean;
         }
         for (Map.Entry<String, Object> e : body.entrySet()) {
-            if (e.getValue() == null) {
+            Object value = e.getValue();
+            if (value == null) {
                 continue;
             }
+            // Pre-coerce ISO-8601 / JDBC-style timestamp strings: abacus's Beans.setPropValue does
+            // type conversion but doesn't accept the ISO-8601 "...Z" shape Jackson emits for
+            // java.sql.Timestamp. Detect a string that looks like a date-time and convert before
+            // handing off.
+            if (value instanceof String s && looksLikeTimestamp(s)) {
+                Timestamp ts = tryParseTimestamp(s);
+                if (ts != null) {
+                    value = ts;
+                }
+            }
             try {
-                Beans.setPropValue(bean, e.getKey(), e.getValue(), true);
+                Beans.setPropValue(bean, e.getKey(), value, true);
             } catch (RuntimeException ignored) {
                 // unknown property or type-coercion failure — skip and let downstream validation surface it
             }
         }
         return bean;
+    }
+
+    /** Heuristic: a date-time string starts with YYYY-MM-DD and has either a 'T' or a space at pos 10. */
+    private static boolean looksLikeTimestamp(String s) {
+        return s.length() >= 10
+                && s.charAt(4) == '-' && s.charAt(7) == '-'
+                && (s.length() == 10 || s.charAt(10) == 'T' || s.charAt(10) == ' ');
+    }
+
+    private static Timestamp tryParseTimestamp(String s) {
+        try {
+            return Timestamp.valueOf(s);  // "yyyy-MM-dd HH:mm:ss[.fffffffff]"
+        } catch (IllegalArgumentException e) {
+            try {
+                return Timestamp.from(java.time.Instant.parse(s));  // ISO-8601 with Z
+            } catch (RuntimeException e2) {
+                return null;
+            }
+        }
     }
 
     /** Returns the value at {@code key} as a String, or {@code null}. */

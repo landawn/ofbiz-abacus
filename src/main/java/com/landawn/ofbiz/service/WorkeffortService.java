@@ -353,6 +353,9 @@ public class WorkeffortService {
         workEffortContentDao.delete(Filters.eq("workEffortId", workEffortId));
         workOrderItemFulfillmentDao.delete(Filters.eq("workEffortId", workEffortId));
         rateAmountDao.delete(Filters.eq("workEffortId", workEffortId));
+        // TimeEntry references work_effort_id and must be cleared before deleting the work effort.
+        timeEntryDao.delete(Filters.eq("workEffortId", workEffortId));
+        workRequirementFulfillmentDao.delete(Filters.eq("workEffortId", workEffortId));
 
         // WorkEffortNote rows carry the noteId; collect them before delete so we can also remove
         // the NoteData rows they point at.
@@ -919,7 +922,15 @@ public class WorkeffortService {
         }
         List<TimeEntry> entries = timeEntryDao.list(Filters.eq("timesheetId", timesheetId));
         String description = "[Timesheet:" + timesheetId + "]";
-        int seq = 1;
+
+        // Continue the invoiceItemSeqId counter past whatever already exists on this invoice
+        // (the same invoice can collect items from multiple timesheets across calls).
+        List<InvoiceItem> existingItems = invoiceItemDao.list(Filters.eq("invoiceId", invoiceId));
+        int seq = existingItems.stream()
+                .map(InvoiceItem::getInvoiceItemSeqId)
+                .filter(Strings::isNotEmpty)
+                .mapToInt(s -> { try { return Integer.parseInt(s); } catch (NumberFormatException e) { return 0; } })
+                .max().orElse(0) + 1;
         int linked = 0;
         int items = 0;
         for (TimeEntry te : entries) {
@@ -1154,8 +1165,14 @@ public class WorkeffortService {
         return userLoginId;
     }
 
+    /**
+     * Truncated to millisecond precision intentionally. Jackson serializes {@code Timestamp} with
+     * millisecond resolution, so any client round-tripping a value back as a composite-PK field
+     * (e.g. WorkEffortAssoc.fromDate in updateWorkEffortAssoc) needs the stored value to match
+     * what they get back. Storing nanoseconds would make those lookups miss.
+     */
     private static Timestamp nowTs() {
-        return Timestamp.from(Instant.now());
+        return Timestamp.from(Instant.now().truncatedTo(ChronoUnit.MILLIS));
     }
 
     /** First-millisecond-of-Monday for the week containing {@code anchor} (system zone). */
