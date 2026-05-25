@@ -3,12 +3,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>4.0.6</version>
+		<relativePath />
+	</parent>
+
 	<groupId>com.landawn</groupId>
 	<artifactId>ofbiz-abacus</artifactId>
 	<version>0.8.0</version>
 	<packaging>jar</packaging>
 	<name>ofbiz-abacus</name>
-	<description>Abacus Data Access and Analysis</description>
+	<description>Apache OFBiz framework rewrite on Spring Boot</description>
 	<url>https://github.com/landawn/ofbiz-abacus</url>
 
 	<licenses>
@@ -36,131 +43,126 @@
 		<maven.compiler.source>25</maven.compiler.source>
 		<maven.compiler.target>25</maven.compiler.target>
 		<maven.compiler.release>25</maven.compiler.release>
-		<junit.jupiter.version>6.1.0</junit.jupiter.version>
-		<junit.platform.version>6.1.0</junit.platform.version>
-		<mockito.version>5.23.0</mockito.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<abacus-common.version>7.7.2</abacus-common.version>
+		<abacus-jdbc.version>4.7.2</abacus-jdbc.version>
+		<abacus-query.version>4.7.2</abacus-query.version>
+		<lombok.version>1.18.46</lombok.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>com.landawn.abacus</groupId>
 			<artifactId>abacus-common</artifactId>
-			<version>7.7.2</version>
-			<scope>provided</scope>
+			<version>${abacus-common.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.landawn.abacus</groupId>
+			<artifactId>abacus-jdbc</artifactId>
+			<version>${abacus-jdbc.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.landawn.abacus</groupId>
+			<artifactId>abacus-query</artifactId>
+			<version>${abacus-query.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.46</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>jakarta.xml.bind</groupId>
-			<artifactId>jakarta.xml.bind-api</artifactId>
-			<version>4.0.4</version>
-			<scope>provided</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>${junit.jupiter.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-suite-api</artifactId>
-			<version>${junit.platform.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-suite</artifactId>
-			<version>${junit.platform.version}</version>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-		    <groupId>org.mockito</groupId>
-		    <artifactId>mockito-core</artifactId>
-			<version>${mockito.version}</version>
-		    <scope>test</scope>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.15.0</version>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
-					<release>${maven.compiler.release}</release>
-			        <annotationProcessorPaths>
-			          <path>
-			            <groupId>org.projectlombok</groupId>
-			            <artifactId>lombok</artifactId>
-			            <version>1.18.46</version>
-			          </path>
-			        </annotationProcessorPaths>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>3.4.0</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.12.0</version>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<doctitle>ofbiz-abacus</doctitle>
-					<show>public</show>
-			        <source>25</source>
-			        <encoding>UTF-8</encoding>
-			        <doclint>all</doclint>    
 					<source>${maven.compiler.source}</source>
-					<detectJavaApiLink>false</detectJavaApiLink>
+					<target>${maven.compiler.target}</target>
+					<release>${maven.compiler.release}</release>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.5.5</version>
 				<configuration>
-					<includes>
-						<include>**/OfbizAbacusTestSuite.java</include>
-					</includes>
 					<useModulePath>false</useModulePath>
-					<testFailureIgnore>true</testFailureIgnore> <!-- set to false if you want failures to fail the build -->
+					<testFailureIgnore>false</testFailureIgnore>
 					<argLine>
-          				-Dfile.encoding=UTF-8
+						-Dfile.encoding=UTF-8
 						--add-opens java.base/java.lang=ALL-UNNAMED
 						--add-opens java.base/java.lang.reflect=ALL-UNNAMED
 						--add-opens java.base/java.io=ALL-UNNAMED
@@ -178,14 +180,12 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.14</version>
 				<executions>
-					<!-- Prepare agent in all modules via inheritance -->
 					<execution>
 						<id>prepare-agent</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
-					<!-- Generate a single aggregated report at the parent -->
 					<execution>
 						<id>report</id>
 						<phase>verify</phase>
@@ -195,32 +195,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-	        <plugin>
-	          <groupId>org.sonatype.central</groupId>
-	          <artifactId>central-publishing-maven-plugin</artifactId>
-	          <version>0.10.0</version>
-	          <extensions>true</extensions>
-	          <configuration>
-	             <publishingServerId>central</publishingServerId>
-	             <autoPublish>true</autoPublish>
-	          </configuration>
-	        </plugin>
-
-		    <plugin>
-		      <groupId>org.apache.maven.plugins</groupId>
-		      <artifactId>maven-gpg-plugin</artifactId>
-		      <version>3.2.8</version>
-		      <executions>
-		        <execution>
-		          <id>sign-artifacts</id>
-		          <phase>verify</phase> <!-- or deploy -->
-		          <goals>
-		            <goal>sign</goal>
-		          </goals>
-		        </execution>
-		      </executions>
-		    </plugin>
 		</plugins>
 	</build>
 </project>
