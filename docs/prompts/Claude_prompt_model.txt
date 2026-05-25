@@ -1,0 +1,190 @@
+
+--- 2026/05/25
+  
+=================================================================================================================
+ 
+
+— Generate Request/Response DTOs for WorkeffortController
+
+  ---
+  Task: For every endpoint method in src/main/java/com/landawn/ofbiz/controller/WorkeffortController.java, derive the exact request shape
+  (IN attributes) and response shape (OUT attributes) by scanning the OFBiz source under ./apache-ofbiz-framework/, then generate a typed
+  request DTO and response DTO per endpoint. Place them under package com.landawn.ofbiz.model.
+
+  ---
+  Source of truth for each endpoint's shape
+
+  For each method in WorkeffortController.java, follow its Javadoc tag service: <name> and trace:
+
+  1. Service definition in ./apache-ofbiz-framework/applications/workeffort/servicedef/services*.xml.
+    - The <service name="<name>"> element declares every IN, OUT, and INOUT attribute.
+    - Each <attribute> declares name, type (Java type), mode (IN/OUT/INOUT), optional (true/false), default-value, and possibly entity-name
+  (FK reference).
+    - <auto-attributes include="pk|nonpk" mode="..."/> expands to every PK/non-PK column of default-entity-name. Resolve by reading the
+  corresponding entity definition (apache-ofbiz-framework/applications/*/entitydef/*entitymodel*.xml or — easier — the already-generated
+  Java entity under src/main/java/com/landawn/ofbiz/entity/{EntityName}.java).
+    - <implements service="X"/> brings in all attributes from service X; recursively expand.
+    - <override name="X" .../> overrides an attribute brought in by auto-attributes / implements (e.g. flips optional, sets a default).
+  2. Service implementation (groovy / minilang / java / entity-auto) — only as a tie-breaker if the services.xml declaration is ambiguous
+  about what OUT attributes are populated.
+  3. The Spring service method in src/main/java/com/landawn/ofbiz/service/WorkeffortService.java — confirms the exact response keys the
+  Spring port actually emits (which always includes the responseMessage/successMessage/errorMessage/errorMessageList envelope keys via
+  ResponseDTOBase).
+
+  When two controller methods bind to the same service (e.g. createWorkEffort is exposed at two URLs), generate one shared pair of DTOs and
+  have both methods use them — do not duplicate.
+
+  ---
+  DTO base classes (you create them too)
+
+  Create both base classes under com.landawn.ofbiz.model (Lombok-annotated, no business logic):
+
+  - RequestDTOBase — common request fields that every IN body may carry:
+    - userLoginId (String) — extracted by SecurityService.currentUserLoginId(...); also accept the nested OFBiz-style userLogin map via a
+  separate userLogin field (Map<String,Object>) for backward compatibility.
+    - locale (String, optional) — OFBiz services occasionally read it.
+    - timeZone (String, optional) — same.
+  - ResponseDTOBase — common response envelope keys emitted by every service:
+    - responseMessage (String) — "success" | "error" | "fail"
+    - successMessage (String, optional)
+    - errorMessage (String, optional)
+    - errorMessageList (List, optional)
+  - Both base classes use Lombok @Data + @NoArgsConstructor so subclasses can be deserialized by Jackson and Lombok auto-generates
+  getters/setters across the inheritance chain.
+  - Subclasses use @Data + @EqualsAndHashCode(callSuper = true) + @ToString(callSuper = true) + @NoArgsConstructor to compose correctly with
+   the base.
+  - No @Builder on the base; subclasses can add @SuperBuilder if you want builders (use the same on the base if you do).
+
+  ---
+  DTO naming and field rules
+
+  - Per endpoint, one request and one response class. Name = {ServiceName}Request / {ServiceName}Response in PascalCase. E.g.
+  createWorkEffort → CreateWorkEffortRequest + CreateWorkEffortResponse.
+  - Field names match the OFBiz <attribute name="..."> exactly (camelCase). No renaming, no translation.
+  - Field types map from OFBiz <attribute type="..."> per the existing project-wide convention (same mapping the generator already uses for
+  entities):
+
+  | OFBiz type                       | Java type                                                                                 |
+  |----------------------------------|-------------------------------------------------------------------------------------------|
+  | String                           | String                                                                                    |
+  | Boolean                          | Boolean                                                                                   |
+  | Integer                          | Integer                                                                                   |
+  | Long                             | Long                                                                                      |
+  | Double / Float                   | Double                                                                                    |
+  | BigDecimal / currency-amount     | double (primitive — same as entity-generator convention)                                  |
+  | Timestamp / date-time            | java.sql.Timestamp                                                                        |
+  | Date                             | java.sql.Date                                                                             |
+  | Time                             | java.sql.Time                                                                             |
+  | Map                              | Map<String, Object>                                                                       |
+  | List                             | List<Object> (or List<String> if the service body makes it obvious — fall back to Object) |
+  | java.nio.ByteBuffer / byte-array | byte[]                                                                                    |
+  | anything else                    | String (with a // TODO type comment if it looks important)                                |
+
+  - Auto-attributes expand inline as individual fields. Don't reference the entity class — DTOs are flat. So <auto-attributes include="pk"
+  entity-name="WorkEffort"/> becomes a single field private String workEffortId.
+  - Nullable vs primitive: mirror the entity-generator rule — primitive only for non-null numeric PK fields (rare in DTOs); everything else
+  boxed (Integer, Long, Double) so optional fields can be null. The currency-amount / BigDecimal → double rule is the explicit exception.
+  - Don't include the envelope fields (responseMessage, etc.) in the response subclass — they live on ResponseDTOBase.
+  - Don't include userLoginId / userLogin in the request subclass — they live on RequestDTOBase.
+  - Drop deprecated attributes (<deprecated> element inside <attribute>). Log a // (omitted: deprecated) comment in the DTO so the omission
+  is visible.
+
+  ---
+  Lombok usage (mandatory)
+
+  Every DTO (base and subclasses) uses Lombok. Specifically:
+
+  - Base classes:
+  @Data
+  @NoArgsConstructor
+  public class RequestDTOBase { ... }
+  - Subclasses:
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  @ToString(callSuper = true)
+  public class CreateWorkEffortRequest extends RequestDTOBase { ... }
+  - Imports come from lombok.* only. No manual getters/setters/equals/hashCode/toString.
+  - If you add @Builder, use @SuperBuilder on both the base and the subclass — they must agree.
+
+  ---
+  Scope — every endpoint in WorkeffortController
+
+  All 27 controller methods. 24 unique backing services (3 endpoints are URL aliases for the same service), so 24 request DTOs + 24 response
+   DTOs = 48 DTO files, plus the 2 base classes. The 3 alias pairs (createWorkEffort exposed twice, updateWorkEffort exposed twice,
+  createTimeEntry exposed twice) share their DTOs.
+
+  ┌──────────────────────────────────────────────────┬──────────────────────────────────────────────────────────────────────────────────┐
+  │                     Service                      │                Backing source location (for tracing IN/OUT attrs)                │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ createWorkEffort                                 │ services.xml + groovy script                                                     │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ updateWorkEffort                                 │ same                                                                             │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ deleteWorkEffort                                 │ same                                                                             │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ duplicateWorkEffort                              │ same                                                                             │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ createWorkEffortAndPartyAssign                   │ same                                                                             │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ createWorkEffortContactMech                      │ same                                                                             │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ createWorkEffortAssoc                            │ services.xml + minilang                                                          │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ updateWorkEffortAssoc                            │ services.xml (entity-auto)                                                       │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ createWorkEffortAndAssoc                         │ services.xml + minilang                                                          │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ updateWorkEffortAndAssoc                         │ services.xml (group) → fan-out attributes from updateWorkEffort +                │
+  │                                                  │ updateWorkEffortAssoc                                                            │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ createWorkEffortKeywords /                       │ services.xml + minilang                                                          │
+  │ deleteWorkEffortKeywords                         │                                                                                  │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ deleteWorkEffortContactMech                      │ services.xml (entity-auto)                                                       │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ createTimesheet / updateTimesheet                │ services_timesheet.xml (entity-auto)                                             │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ createTimesheetForThisWeek                       │ services_timesheet.xml + minilang                                                │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ addTimesheetToInvoice / addTimesheetToNewInvoice │ services_timesheet.xml + minilang                                                │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ createTimesheetRole / deleteTimesheetRole        │ services_timesheet.xml (entity-auto)                                             │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ createTimeEntry / updateTimeEntry /              │ services_timesheet.xml                                                           │
+  │ deleteTimeEntry                                  │                                                                                  │
+  ├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
+  │ test                                             │ framework test endpoint — request DTO has no fields; response has just ok + echo │
+  └──────────────────────────────────────────────────┴──────────────────────────────────────────────────────────────────────────────────┘
+
+  ---
+  Output / scope
+
+  - Add: src/main/java/com/landawn/ofbiz/model/RequestDTOBase.java
+  - Add: src/main/java/com/landawn/ofbiz/model/ResponseDTOBase.java
+  - Add: 48 DTO files under src/main/java/com/landawn/ofbiz/model/ named per the rules above.
+  - Do not modify any controller, service, DAO, entity, or config. This task is purely additive — the DTOs are not yet wired into
+  WorkeffortController or WorkeffortService. (Wiring them in is a follow-up task.)
+  - Do not modify anything under apache-ofbiz-framework/ — only read for sourcing the attribute lists.
+  - The com.landawn.ofbiz.model/ directory currently appears empty per the prior session; the model/ package already exists as a
+  placeholder.
+
+  ---
+  Verification
+
+  After generation:
+  1. mvn -DskipTests compile → exit 0. Every DTO compiles, Lombok generates getters/setters across extends RequestDTOBase / extends
+  ResponseDTOBase.
+  2. Spot-check 3 DTOs against their OFBiz <service> definitions:
+    - CreateWorkEffortRequest — must have workEffortTypeId, workEffortName, currentStatusId (all optional="false"), plus every non-PK column
+   of WorkEffort (from <implements service="interfaceWorkEffort"/> + <auto-attributes mode="IN"/>), plus quickAssignPartyId, requirementId,
+  custRequestId, communicationEventId, webSiteId. Inherited: userLoginId, userLogin, locale, timeZone.
+    - CreateWorkEffortResponse — must have workEffortId (OUT). Inherited: responseMessage, successMessage, errorMessage, errorMessageList.
+    - AddTimesheetToInvoiceRequest — timesheetId + invoiceId (both optional="false").
+  3. git status shows only files under src/main/java/com/landawn/ofbiz/model/ are new.
+
+  If you hit an ambiguous service definition (e.g. an OUT attribute that's never set by the Spring service method), surface it before
+  generating that DTO so we can decide whether to include the field, omit it, or change the service.
+
+
+  
