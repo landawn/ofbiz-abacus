@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Pull in Spring Boot's default console + file appenders, level handling, etc. -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <!--
+        Dedicated access-log sink for com.landawn.ofbiz.web.AccessLogFilter. Each filter call
+        emits a fully-formed JSON line (request / response / curl), so the encoder pattern is
+        just %msg%n — no timestamp / level / thread prefix from Logback.
+
+        File name pattern: today's file is literally api_YYYY_MM_DD.log; on rollover, a new
+        file with tomorrow's date is opened. No renaming of the active file.
+    -->
+    <appender name="apiAccessLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- Empty file name + TimeBased policy => Logback writes directly to the resolved
+             filePattern, no renaming on rollover. -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/ofbiz-abacus/api_%d{yyyy_MM_dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Mirror to stdout using the same %msg%n pattern (no Logback prefix on our JSON lines). -->
+    <appender name="apiAccessConsole" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Per-request access log goes to api_<date>.log + stdout, NOT to the rest of the app log. -->
+    <logger name="com.landawn.ofbiz.web.AccessLog" level="INFO" additivity="false">
+        <appender-ref ref="apiAccessLog"/>
+        <appender-ref ref="apiAccessConsole"/>
+    </logger>
+
+    <!-- Application defaults: keep Spring Boot's CONSOLE for everything else. -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+    <logger name="com.landawn.ofbiz" level="DEBUG"/>
+</configuration>

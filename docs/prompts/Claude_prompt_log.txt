@@ -1,0 +1,147 @@
+
+--- 2026/05/25
+
+  
+================================================================================================================= 
+
+— Centralized Request/Response Logging in ofbiz-abacus
+
+  ---
+  Task: Add structured JSON request/response logging that fires for every HTTP request the Spring Boot app serves (i.e., every controller
+  endpoint under ./src/main/java/com/landawn/ofbiz/controller/). The logging logic lives in exactly one place — no edits to any controller,
+  service, or DAO.
+
+  This is for the Spring Boot project under ./src/main/java, NOT for the vendored ./apache-ofbiz-framework/ (which already has its own
+  AccessLogFilter). Do not touch anything under apache-ofbiz-framework/.
+
+  ---
+  Scope: which requests must be logged
+
+  Every HTTP request handled by a Spring @RestController / @Controller in this project. Concretely: every URL under any controller class in
+  com.landawn.ofbiz.controller.* (currently WorkeffortController, AccountingController, OrderController, PartyController, etc.).
+
+  Also log Actuator / static endpoints unless they match the skip list below.
+
+  Skip list (compile-time, in the filter source):
+  - Static asset suffixes: .ico, .css, .js, .png, .jpg, .jpeg, .gif, .svg, .woff, .woff2, .ttf, .eot, .map
+  - /h2-console/**
+  - /actuator/**
+
+  ---
+  Output format — three log lines per request
+
+  All three log lines share the same MDC correlation key (reqId) so an aggregator can group them.
+
+  1. Request log (JSON):
+  {
+    "httpMethod": "POST",
+    "requestPath": "/workeffort/workeffort/control/createWorkEffort",
+    "requestHttpHeaders": {"content-type": "application/json", "accept": "*/*", "...": "..."},
+    "requestBody": "raw JSON body as a string (or empty for GET)"
+  }
+  2. Response log (JSON):
+  {
+    "httpStatus": 200,
+    "requestPath": "/workeffort/workeffort/control/createWorkEffort",
+    "responseHttpHeaders": {"content-type": "application/json", "...": "..."},
+    "responseBody": "raw JSON response body as a string"
+  }
+  3. curl reproduction line:
+  curl -X POST 'http://<host>:<port>/workeffort/workeffort/control/createWorkEffort' \
+       -H 'content-type: application/json' \
+       -H 'accept: */*' \
+       --data-raw '{"workEffortTypeId":"TASK", ...}'
+    - Body (--data-raw for JSON, --data for form-urlencoded) is omitted for GET / HEAD.
+    - Scheme/host/port come from HttpServletRequest.getRequestURL() so the line is replayable against the originating server.
+    - For multipart, omit the body and emit a # multipart body omitted from curl line comment.
+
+  ---
+  Mandatory architecture constraints
+
+  - NO logging code in any controller, service, or DAO. Existing files in controller/, service/, dao/ stay untouched.
+  - Implement as a single Spring @Component filter (use OncePerRequestFilter — fires before/after every controller invocation, exactly once
+  even across forwards). Spring Boot auto-registers @Component-annotated filters; no manual FilterRegistrationBean needed unless ordering
+  matters.
+  - All three log items (request, response, curl) must come out of the same component — do not split into two filters.
+
+  If a single-place centralized solution turns out to be infeasible, do not silently introduce per-method or per-controller duplications.
+  Stop, explain the blocker, and ask before proceeding.
+
+  ---
+  Implementation requirements
+
+  - Body capture without breaking re-reads. Servlet streams can only be read once. Wrap the request/response in caching wrappers — for the
+  Spring side, use Spring's built-in ContentCachingRequestWrapper and ContentCachingResponseWrapper (no need to hand-roll like we did for
+  OFBiz; Spring is already on the classpath here).
+  - Content-Type aware body capture for the request. Spring's ContentCachingRequestWrapper already handles JSON / text bodies correctly. For
+   application/x-www-form-urlencoded and multipart/*, reconstruct the logged body from getParameterMap() (URL-encoded k=v&k=v) so Tomcat's
+  lazy form parameter parsing isn't broken downstream — same gotcha that bit the OFBiz filter.
+  - Header capture.
+    - Include all request and response headers. Lowercase header names in the emitted JSON.
+    - Do NOT redact any headers — including Authorization, Cookie, Set-Cookie, Proxy-Authorization, X-API-Key. These logs exist for local
+  debug/replay; the generated curl line must be runnable as-is. Document this in the filter's Javadoc with a "do not enable in production"
+  note.
+  - Body size guard. If the request or response body exceeds 64 KB, log "<elided: N bytes>" instead of the full payload.
+  - Binary / non-text bodies. If the content-type is non-textual (e.g. application/octet-stream, image/*, application/pdf, multipart/*),
+  emit "<binary: <content-type>, <N> bytes>".
+  - Encoding. Decode body bytes using the request/response character set when available, otherwise UTF-8.
+  - curl quoting. Single-quote the URL and headers. For body bytes use --data-raw with single quotes; escape any embedded ' as '\''. Strip
+  headers Tomcat/Spring synthesize that the client would recompute or that don't belong on a client request: host, content-length,
+  connection, transfer-encoding.
+  - Correlation id. Set MDC.put("reqId", <short base-36 sequence>) at the start of doFilterInternal, remove it in finally. All three log
+  lines for one request share the same id.
+  - JSON serialization. Use Jackson — already on the classpath via spring-boot-starter-web. Don't introduce a new JSON library.
+  - Performance hygiene. All logging runs in the request thread — no async dispatch handoff. Per-request overhead should be a few
+  milliseconds for normal payloads.
+  - Error path. If the controller throws and Spring sends a 4xx/5xx response, the response log line must still fire with the right status
+  code and (if any) body. The filter's logging is wrapped in try/finally so it always emits the response line.
+
+  ---
+  Log output destinations
+
+  Two sinks, both required:
+
+  1. File: ./logs/ofbiz-abacus/api_yyyy_MM_dd.log
+    - Daily-rotated, UTF-8, append mode, one log event per line.
+    - Path is relative to the JVM's working directory (which is the project root when launched via mvn spring-boot:run).
+    - Create the directory on startup if it doesn't exist (Log4j 2 RollingFile does this automatically when first writing).
+    - Active file name is literally api_<today>.log (not api.log that renames on rollover). Use Log4j 2's DirectWriteRolloverStrategy with
+  filePattern="logs/ofbiz-abacus/api_%d{yyyy_MM_dd}.log" and no fileName attribute.
+  2. Console (stdout) — same line format as the file.
+
+  Logger wiring (Logback, since Spring Boot defaults to it):
+  - Add src/main/resources/logback-spring.xml (or extend the existing one if present). Define an appender named apiAccessLog that writes to
+  logs/ofbiz-abacus/api_<today>.log with daily rolling, encoder pattern %msg%n (the filter emits a fully-formed JSON/curl line, so no
+  timestamp/level/thread prefix), UTF-8 charset. Also reference the standard CONSOLE appender (Spring Boot's default).
+  - Define a logger com.landawn.ofbiz.web.AccessLog with level="INFO", additivity="false", attached to both apiAccessLog and CONSOLE
+  appenders.
+  - The filter calls LoggerFactory.getLogger("com.landawn.ofbiz.web.AccessLog") (SLF4J — Spring Boot ships the SLF4J→Logback binding
+  correctly, so unlike OFBiz this works without going to the Log4j 2 API directly).
+
+  ---
+  Output / scope
+
+  - Add: one new filter at a sensible package location, e.g. src/main/java/com/landawn/ofbiz/web/AccessLogFilter.java. Annotated @Component
+  so Spring Boot auto-registers it.
+  - Add or modify: one logging config file at src/main/resources/logback-spring.xml (create if absent, extend if present).
+  - Optionally: a one-line addition to src/main/resources/application.yml to set logging.level.com.landawn.ofbiz.web.AccessLog=INFO (only
+  needed if the default root level would suppress it; Logback's <logger> element already sets it explicitly, so this is usually redundant).
+
+  Do not modify any controller, service, DAO, entity, configuration class (other than logging), or anything under apache-ofbiz-framework/.
+
+  ---
+  Verification
+
+  After implementing:
+  1. Run mvn -DskipTests compile → exit 0.
+  2. Start Spring Boot (mvn spring-boot:run).
+  3. POST to any controller endpoint, e.g.:
+  curl -X POST http://localhost:8080/workeffort/workeffort/control/WorkEffort/create \
+       -H 'Content-Type: application/json' \
+       -d '{"workEffortTypeId":"TASK","workEffortName":"smoke","currentStatusId":"_NA_","userLoginId":"system"}'
+  4. Confirm on the console three lines appear with the same reqId: the request JSON, the response JSON, and a copy-pastable curl
+  reproduction.
+  5. Confirm the same three lines were appended to ./logs/ofbiz-abacus/api_<today>.log.
+  6. Replay the captured curl line — it must succeed against the running server.
+  7. Verify git status shows only the two files listed above (AccessLogFilter.java + logback-spring.xml); no controller/service/DAO/entity
+  touched.  
