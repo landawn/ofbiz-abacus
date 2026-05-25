@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -31,4 +34,14 @@ public class TaxAuthority {
 
     @Column(name = "include_tax_in_price")
     private String includeTaxInPrice;
+
+    @JoinedBy("taxAuthGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo geo;
+
+    @JoinedBy("taxAuthPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
 }

@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -76,4 +79,44 @@ public class ProductSubscriptionResource {
 
     @Column(name = "grace_period_on_expiry_uom_id")
     private String gracePeriodOnExpiryUomId;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("subscriptionResourceId=SubscriptionResource.subscriptionResourceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SubscriptionResource subscriptionResource;
+
+    @JoinedBy("useRoleTypeId=RoleType.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RoleType roleType;
+
+    @JoinedBy("useTimeUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom useTimeUom;
+
+    @JoinedBy("canclAutmExtTimeUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom canclAutmExtTimeUom;
+
+    @JoinedBy("availableTimeUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom availableTimeUom;
+
+    @JoinedBy("maxLifeTimeUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom maxLifeTimeUom;
+
+    @JoinedBy("gracePeriodOnExpiryUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom gracePeriodOnExpiryUom;
 }

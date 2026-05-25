@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -46,4 +49,24 @@ public class UomConversionDated {
 
     @Column(name = "purpose_enum_id")
     private String purposeEnumId;
+
+    @JoinedBy("uomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("uomIdTo=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uomTo;
+
+    @JoinedBy("customMethodId=CustomMethod.customMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustomMethod customMethod;
+
+    @JoinedBy("purposeEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration enumeration;
 }

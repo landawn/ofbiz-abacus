@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -55,4 +58,19 @@ public class InvoiceItemAssoc {
 
     @Column(name = "amount")
     private double amount;
+
+    @JoinedBy("invoiceItemAssocTypeId=InvoiceItemAssocType.invoiceItemAssocTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InvoiceItemAssocType invoiceItemAssocType;
+
+    @JoinedBy("invoiceIdFrom=InvoiceItem.invoiceId, invoiceItemSeqIdFrom=InvoiceItem.invoiceItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InvoiceItem invoiceFrom;
+
+    @JoinedBy("invoiceIdTo=InvoiceItem.invoiceId, invoiceItemSeqIdTo=InvoiceItem.invoiceItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InvoiceItem invoiceTo;
 }

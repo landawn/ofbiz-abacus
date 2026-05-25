@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -101,4 +104,84 @@ public class AcctgTrans {
 
     @Column(name = "last_modified_by_user_login")
     private String lastModifiedByUserLogin;
+
+    @JoinedBy("acctgTransTypeId=AcctgTransType.acctgTransTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private AcctgTransType acctgTransType;
+
+    @JoinedBy("glJournalId=GlJournal.glJournalId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlJournal glJournal;
+
+    @JoinedBy("glFiscalTypeId=GlFiscalType.glFiscalTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlFiscalType glFiscalType;
+
+    @JoinedBy("groupStatusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
+
+    @JoinedBy("fixedAssetId=FixedAsset.fixedAssetId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FixedAsset fixedAsset;
+
+    @JoinedBy("physicalInventoryId=PhysicalInventory.physicalInventoryId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PhysicalInventory physicalInventory;
+
+    @JoinedBy("inventoryItemId=InventoryItem.inventoryItemId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItem inventoryItem;
+
+    @JoinedBy("inventoryItemId=InventoryItemVariance.inventoryItemId, physicalInventoryId=InventoryItemVariance.physicalInventoryId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItemVariance inventoryItemVariance;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("roleTypeId=RoleType.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RoleType roleType;
+
+    @JoinedBy("invoiceId=Invoice.invoiceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Invoice invoice;
+
+    @JoinedBy("paymentId=Payment.paymentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Payment payment;
+
+    @JoinedBy("finAccountTransId=FinAccountTrans.finAccountTransId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FinAccountTrans finAccountTrans;
+
+    @JoinedBy("shipmentId=Shipment.shipmentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Shipment shipment;
+
+    @JoinedBy("receiptId=ShipmentReceipt.receiptId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShipmentReceipt shipmentReceipt;
+
+    @JoinedBy("workEffortId=WorkEffort.workEffortId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private WorkEffort workEffort;
 }

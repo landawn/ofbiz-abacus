@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -80,4 +83,49 @@ public class Facility {
 
     @Column(name = "reconcile_prun_backorders")
     private String reconcilePrunBackorders;
+
+    @JoinedBy("facilityTypeId=FacilityType.facilityTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FacilityType facilityType;
+
+    @JoinedBy("parentFacilityId=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility facility;
+
+    @JoinedBy("primaryFacilityGroupId=FacilityGroup.facilityGroupId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FacilityGroup facilityGroup;
+
+    @JoinedBy("ownerPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("defaultInventoryItemTypeId=InventoryItemType.inventoryItemTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItemType inventoryItemType;
+
+    @JoinedBy("defaultDimensionUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom defaultDimensionUom;
+
+    @JoinedBy("defaultWeightUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom defaultWeightUom;
+
+    @JoinedBy("geoPointId=GeoPoint.geoPointId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GeoPoint geoPoint;
+
+    @JoinedBy("facilitySizeUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom facilitySizeUom;
 }

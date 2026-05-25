@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -52,4 +55,39 @@ public class PartyNeed {
 
     @Column(name = "description")
     private String description;
+
+    @JoinedBy("needTypeId=NeedType.needTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private NeedType needType;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("roleTypeId=RoleType.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RoleType roleType;
+
+    @JoinedBy("partyTypeId=PartyType.partyTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PartyType partyType;
+
+    @JoinedBy("communicationEventId=CommunicationEvent.communicationEventId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CommunicationEvent communicationEvent;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("productCategoryId=ProductCategory.productCategoryId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductCategory productCategory;
 }

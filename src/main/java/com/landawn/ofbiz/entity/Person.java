@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Date;
@@ -9,7 +10,9 @@ import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -116,4 +119,24 @@ public class Person {
 
     @Column(name = "card_id")
     private String cardId;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("employmentStatusEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration employmentStatusEnum;
+
+    @JoinedBy("residenceStatusEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration residenceStatusEnum;
+
+    @JoinedBy("maritalStatusTypeId=MaritalStatusType.maritalStatusTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private MaritalStatusType maritalStatusType;
 }

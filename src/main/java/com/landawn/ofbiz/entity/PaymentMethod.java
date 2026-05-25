@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -41,4 +44,24 @@ public class PaymentMethod {
 
     @Column(name = "thru_date")
     private Timestamp thruDate;
+
+    @JoinedBy("paymentMethodTypeId=PaymentMethodType.paymentMethodTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PaymentMethodType paymentMethodType;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("glAccountId=GlAccount.glAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccount glAccount;
+
+    @JoinedBy("finAccountId=FinAccount.finAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FinAccount finAccount;
 }

@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -227,4 +230,94 @@ public class Product {
 
     @Column(name = "order_decimal_quantity")
     private String orderDecimalQuantity;
+
+    @JoinedBy("productTypeId=ProductType.productTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductType productType;
+
+    @JoinedBy("primaryProductCategoryId=ProductCategory.productCategoryId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductCategory productCategory;
+
+    @JoinedBy("facilityId=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility facility;
+
+    @JoinedBy("quantityUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom quantityUom;
+
+    @JoinedBy("amountUomTypeId=UomType.uomTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UomType uomType;
+
+    @JoinedBy("weightUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom weightUom;
+
+    @JoinedBy("heightUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom heightUom;
+
+    @JoinedBy("widthUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom widthUom;
+
+    @JoinedBy("depthUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom depthUom;
+
+    @JoinedBy("diameterUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom diameterUom;
+
+    @JoinedBy("virtualVariantMethodEnum=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration virtualVariantMethodEnumEnumeration;
+
+    @JoinedBy("ratingTypeEnum=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration ratingTypeEnumEnumeration;
+
+    @JoinedBy("requirementMethodEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration requirementMethodEnum;
+
+    @JoinedBy("originGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo geo;
+
+    @JoinedBy("createdByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin createdByUserLoginRef;
+
+    @JoinedBy("lastModifiedByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin lastModifiedByUserLoginRef;
+
+    @JoinedBy("defaultShipmentBoxTypeId=ShipmentBoxType.shipmentBoxTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShipmentBoxType shipmentBoxType;
+
+    @JoinedBy("inventoryItemTypeId=InventoryItemType.inventoryItemTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItemType inventoryItemType;
 }

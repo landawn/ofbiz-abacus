@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -48,4 +51,14 @@ public class ProductCategory {
 
     @Column(name = "show_in_select")
     private String showInSelect;
+
+    @JoinedBy("productCategoryTypeId=ProductCategoryType.productCategoryTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductCategoryType productCategoryType;
+
+    @JoinedBy("primaryParentCategoryId=ProductCategory.productCategoryId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductCategory productCategory;
 }

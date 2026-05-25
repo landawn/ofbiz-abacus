@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Date;
@@ -9,7 +10,9 @@ import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -93,4 +96,64 @@ public class AcctgTransEntry {
 
     @Column(name = "is_summary")
     private String isSummary;
+
+    @JoinedBy("acctgTransEntryTypeId=AcctgTransEntryType.acctgTransEntryTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private AcctgTransEntryType acctgTransEntryType;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom currencyUom;
+
+    @JoinedBy("origCurrencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom origCurrencyUom;
+
+    @JoinedBy("acctgTransId=AcctgTrans.acctgTransId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private AcctgTrans acctgTrans;
+
+    @JoinedBy("inventoryItemId=InventoryItem.inventoryItemId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItem inventoryItem;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("roleTypeId=RoleType.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RoleType roleType;
+
+    @JoinedBy("glAccountTypeId=GlAccountType.glAccountTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccountType glAccountType;
+
+    @JoinedBy("glAccountId=GlAccount.glAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccount glAccount;
+
+    @JoinedBy("glAccountId=GlAccountOrganization.glAccountId, organizationPartyId=GlAccountOrganization.organizationPartyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccountOrganization glAccountOrganization;
+
+    @JoinedBy("reconcileStatusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
+
+    @JoinedBy("settlementTermId=SettlementTerm.settlementTermId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SettlementTerm settlementTerm;
 }

@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -41,4 +44,19 @@ public class BillingAccount {
 
     @Column(name = "external_account_id")
     private String externalAccountId;
+
+    @JoinedBy("contactMechId=ContactMech.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMech contactMech;
+
+    @JoinedBy("accountCurrencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("contactMechId=PostalAddress.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PostalAddress postalAddress;
 }

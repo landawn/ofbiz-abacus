@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -44,4 +47,19 @@ public class ProductPromoCategory {
 
     @Column(name = "include_sub_categories")
     private String includeSubCategories;
+
+    @JoinedBy("productPromoId=ProductPromo.productPromoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductPromo productPromo;
+
+    @JoinedBy("productCategoryId=ProductCategory.productCategoryId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductCategory productCategory;
+
+    @JoinedBy("productPromoApplEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration enumeration;
 }

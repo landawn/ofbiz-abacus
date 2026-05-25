@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -116,4 +119,49 @@ public class OrderAdjustment {
 
     @Column(name = "original_adjustment_id")
     private String originalAdjustmentId;
+
+    @JoinedBy("orderAdjustmentTypeId=OrderAdjustmentType.orderAdjustmentTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderAdjustmentType orderAdjustmentType;
+
+    @JoinedBy("orderId=OrderHeader.orderId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderHeader orderHeader;
+
+    @JoinedBy("createdByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin userLogin;
+
+    @JoinedBy("productPromoId=ProductPromo.productPromoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductPromo productPromo;
+
+    @JoinedBy("primaryGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo primaryGeo;
+
+    @JoinedBy("secondaryGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo secondaryGeo;
+
+    @JoinedBy("taxAuthGeoId=TaxAuthority.taxAuthGeoId, taxAuthPartyId=TaxAuthority.taxAuthPartyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TaxAuthority taxAuthority;
+
+    @JoinedBy("overrideGlAccountId=GlAccount.glAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccount glAccount;
+
+    @JoinedBy("taxAuthorityRateSeqId=TaxAuthorityRateProduct.taxAuthorityRateSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TaxAuthorityRateProduct taxAuthorityRateProduct;
 }

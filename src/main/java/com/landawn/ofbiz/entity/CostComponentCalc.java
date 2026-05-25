@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -42,4 +45,24 @@ public class CostComponentCalc {
 
     @Column(name = "cost_custom_method_id")
     private String costCustomMethodId;
+
+    @JoinedBy("costGlAccountTypeId=GlAccountType.glAccountTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccountType costGlAccountType;
+
+    @JoinedBy("offsettingGlAccountTypeId=GlAccountType.glAccountTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccountType offsettingGlAccountType;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("costCustomMethodId=CustomMethod.customMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustomMethod customMethod;
 }

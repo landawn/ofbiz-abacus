@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -110,4 +113,59 @@ public class ReturnAdjustment {
 
     @Column(name = "last_modified_by_user_login")
     private String lastModifiedByUserLogin;
+
+    @JoinedBy("returnAdjustmentTypeId=ReturnAdjustmentType.returnAdjustmentTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ReturnAdjustmentType returnAdjustmentType;
+
+    @JoinedBy("returnId=ReturnHeader.returnId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ReturnHeader returnHeader;
+
+    @JoinedBy("createdByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin userLogin;
+
+    @JoinedBy("productPromoId=ProductPromo.productPromoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductPromo productPromo;
+
+    @JoinedBy("primaryGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo primaryGeo;
+
+    @JoinedBy("secondaryGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo secondaryGeo;
+
+    @JoinedBy("taxAuthGeoId=TaxAuthority.taxAuthGeoId, taxAuthPartyId=TaxAuthority.taxAuthPartyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TaxAuthority taxAuthority;
+
+    @JoinedBy("overrideGlAccountId=GlAccount.glAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccount glAccount;
+
+    @JoinedBy("returnTypeId=ReturnType.returnTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ReturnType returnType;
+
+    @JoinedBy("orderAdjustmentId=OrderAdjustment.orderAdjustmentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderAdjustment orderAdjustment;
+
+    @JoinedBy("taxAuthorityRateSeqId=TaxAuthorityRateProduct.taxAuthorityRateSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TaxAuthorityRateProduct taxAuthorityRateProduct;
 }

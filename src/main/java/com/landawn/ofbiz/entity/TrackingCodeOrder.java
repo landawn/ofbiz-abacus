@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -39,4 +42,19 @@ public class TrackingCodeOrder {
 
     @Column(name = "affiliate_referred_time_stamp")
     private Timestamp affiliateReferredTimeStamp;
+
+    @JoinedBy("orderId=OrderHeader.orderId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderHeader orderHeader;
+
+    @JoinedBy("trackingCodeId=TrackingCode.trackingCodeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TrackingCode trackingCode;
+
+    @JoinedBy("trackingCodeTypeId=TrackingCodeType.trackingCodeTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TrackingCodeType trackingCodeType;
 }

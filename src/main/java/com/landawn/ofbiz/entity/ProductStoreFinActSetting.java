@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -61,4 +64,24 @@ public class ProductStoreFinActSetting {
 
     @Column(name = "replenish_method_enum_id")
     private String replenishMethodEnumId;
+
+    @JoinedBy("productStoreId=ProductStore.productStoreId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductStore productStore;
+
+    @JoinedBy("finAccountTypeId=FinAccountType.finAccountTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FinAccountType finAccountType;
+
+    @JoinedBy("purchaseSurveyId=Survey.surveyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Survey survey;
+
+    @JoinedBy("replenishMethodEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration enumeration;
 }

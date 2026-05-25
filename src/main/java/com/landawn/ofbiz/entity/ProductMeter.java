@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -28,4 +31,19 @@ public class ProductMeter {
 
     @Column(name = "meter_name")
     private String meterName;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("productMeterTypeId=ProductMeterType.productMeterTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductMeterType productMeterType;
+
+    @JoinedBy("meterUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
 }

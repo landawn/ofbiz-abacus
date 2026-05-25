@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -31,4 +34,9 @@ public class ProtectedView {
 
     @Column(name = "tarpit_duration")
     private double tarpitDuration;
+
+    @JoinedBy("groupId=SecurityGroup.groupId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SecurityGroup securityGroup;
 }

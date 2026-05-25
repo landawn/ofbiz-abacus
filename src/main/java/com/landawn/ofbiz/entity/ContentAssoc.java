@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -65,4 +68,39 @@ public class ContentAssoc {
 
     @Column(name = "last_modified_by_user_login")
     private String lastModifiedByUserLogin;
+
+    @JoinedBy("contentId=Content.contentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Content content;
+
+    @JoinedBy("contentIdTo=Content.contentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Content contentTo;
+
+    @JoinedBy("contentAssocTypeId=ContentAssocType.contentAssocTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContentAssocType contentAssocType;
+
+    @JoinedBy("createdByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin createdByUserLoginRef;
+
+    @JoinedBy("lastModifiedByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin lastModifiedByUserLoginRef;
+
+    @JoinedBy("contentAssocPredicateId=ContentAssocPredicate.contentAssocPredicateId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContentAssocPredicate contentAssocPredicate;
+
+    @JoinedBy("dataSourceId=DataSource.dataSourceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private DataSource dataSource;
 }

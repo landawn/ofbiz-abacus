@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -35,4 +38,19 @@ public class ReturnStatus {
 
     @Column(name = "status_datetime")
     private Timestamp statusDatetime;
+
+    @JoinedBy("statusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
+
+    @JoinedBy("returnId=ReturnHeader.returnId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ReturnHeader returnHeader;
+
+    @JoinedBy("changeByUserLoginId=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin userLogin;
 }

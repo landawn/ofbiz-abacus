@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -73,4 +76,69 @@ public class InvoiceItem {
 
     @Column(name = "sales_opportunity_id")
     private String salesOpportunityId;
+
+    @JoinedBy("invoiceItemTypeId=InvoiceItemType.invoiceItemTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InvoiceItemType invoiceItemType;
+
+    @JoinedBy("invoiceId=Invoice.invoiceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Invoice invoice;
+
+    @JoinedBy("inventoryItemId=InventoryItem.inventoryItemId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItem inventoryItem;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("productFeatureId=ProductFeature.productFeatureId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductFeature productFeature;
+
+    @JoinedBy("parentInvoiceId=InvoiceItem.invoiceId, parentInvoiceItemSeqId=InvoiceItem.invoiceItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InvoiceItem invoiceItem;
+
+    @JoinedBy("uomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("overrideGlAccountId=GlAccount.glAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccount glAccount;
+
+    @JoinedBy("taxAuthPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party taxAuthParty;
+
+    @JoinedBy("taxAuthGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo geo;
+
+    @JoinedBy("taxAuthorityRateSeqId=TaxAuthorityRateProduct.taxAuthorityRateSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TaxAuthorityRateProduct taxAuthorityRateProduct;
+
+    @JoinedBy("overrideOrgPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party overrideOrgParty;
+
+    @JoinedBy("salesOpportunityId=SalesOpportunity.salesOpportunityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SalesOpportunity salesOpportunity;
 }

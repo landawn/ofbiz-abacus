@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -69,4 +72,44 @@ public class PostalAddress {
 
     @Column(name = "geo_point_id")
     private String geoPointId;
+
+    @JoinedBy("contactMechId=ContactMech.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMech contactMech;
+
+    @JoinedBy("countryGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo countryGeo;
+
+    @JoinedBy("stateProvinceGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo stateProvinceGeo;
+
+    @JoinedBy("countyGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo countyGeo;
+
+    @JoinedBy("municipalityGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo municipalityGeo;
+
+    @JoinedBy("cityGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo cityGeo;
+
+    @JoinedBy("postalCodeGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo postalCodeGeo;
+
+    @JoinedBy("geoPointId=GeoPoint.geoPointId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GeoPoint geoPoint;
 }

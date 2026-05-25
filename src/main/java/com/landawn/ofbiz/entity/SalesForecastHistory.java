@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -65,4 +68,34 @@ public class SalesForecastHistory {
 
     @Column(name = "modified_timestamp")
     private Timestamp modifiedTimestamp;
+
+    @JoinedBy("salesForecastId=SalesForecast.salesForecastId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SalesForecast salesForecast;
+
+    @JoinedBy("organizationPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party organizationParty;
+
+    @JoinedBy("internalPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party internalParty;
+
+    @JoinedBy("customTimePeriodId=CustomTimePeriod.customTimePeriodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustomTimePeriod customTimePeriod;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("modifiedByUserLoginId=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin userLogin;
 }

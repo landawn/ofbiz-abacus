@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -62,4 +65,54 @@ public class ReturnHeader {
 
     @Column(name = "supplier_rma_id")
     private String supplierRmaId;
+
+    @JoinedBy("returnHeaderTypeId=ReturnHeaderType.returnHeaderTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ReturnHeaderType returnHeaderType;
+
+    @JoinedBy("fromPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party fromParty;
+
+    @JoinedBy("toPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party toParty;
+
+    @JoinedBy("billingAccountId=BillingAccount.billingAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private BillingAccount billingAccount;
+
+    @JoinedBy("finAccountId=FinAccount.finAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FinAccount finAccount;
+
+    @JoinedBy("paymentMethodId=PaymentMethod.paymentMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PaymentMethod paymentMethod;
+
+    @JoinedBy("destinationFacilityId=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility facility;
+
+    @JoinedBy("originContactMechId=ContactMech.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMech contactMech;
+
+    @JoinedBy("statusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
 }

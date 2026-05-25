@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Date;
@@ -9,7 +10,9 @@ import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -37,4 +40,14 @@ public class OrderSummaryEntry {
 
     @Column(name = "product_cost")
     private double productCost;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("facilityId=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility facility;
 }

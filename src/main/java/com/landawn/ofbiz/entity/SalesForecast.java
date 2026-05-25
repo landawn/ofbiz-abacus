@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -60,4 +63,39 @@ public class SalesForecast {
 
     @Column(name = "modified_by_user_login_id")
     private String modifiedByUserLoginId;
+
+    @JoinedBy("parentSalesForecastId=SalesForecast.salesForecastId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SalesForecast salesForecast;
+
+    @JoinedBy("organizationPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party organizationParty;
+
+    @JoinedBy("internalPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party internalParty;
+
+    @JoinedBy("customTimePeriodId=CustomTimePeriod.customTimePeriodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustomTimePeriod customTimePeriod;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("createdByUserLoginId=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin createdByUserLogin;
+
+    @JoinedBy("modifiedByUserLoginId=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin modifiedByUserLogin;
 }

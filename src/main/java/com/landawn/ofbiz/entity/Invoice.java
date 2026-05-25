@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -65,4 +68,49 @@ public class Invoice {
 
     @Column(name = "recurrence_info_id")
     private String recurrenceInfoId;
+
+    @JoinedBy("invoiceTypeId=InvoiceType.invoiceTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InvoiceType invoiceType;
+
+    @JoinedBy("partyIdFrom=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party partyFrom;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("roleTypeId=RoleType.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RoleType roleType;
+
+    @JoinedBy("statusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
+
+    @JoinedBy("billingAccountId=BillingAccount.billingAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private BillingAccount billingAccount;
+
+    @JoinedBy("contactMechId=ContactMech.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMech contactMech;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("recurrenceInfoId=RecurrenceInfo.recurrenceInfoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RecurrenceInfo recurrenceInfo;
 }

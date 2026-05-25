@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -74,4 +77,34 @@ public class Requirement {
 
     @Column(name = "facility_id_to")
     private String facilityIdTo;
+
+    @JoinedBy("requirementTypeId=RequirementType.requirementTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RequirementType requirementType;
+
+    @JoinedBy("facilityId=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility facility;
+
+    @JoinedBy("deliverableId=Deliverable.deliverableId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Deliverable deliverable;
+
+    @JoinedBy("fixedAssetId=FixedAsset.fixedAssetId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FixedAsset fixedAsset;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("statusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
 }

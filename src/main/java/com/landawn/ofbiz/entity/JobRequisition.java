@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Date;
@@ -9,7 +10,9 @@ import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -59,4 +62,19 @@ public class JobRequisition {
 
     @Column(name = "required_on_date")
     private Date requiredOnDate;
+
+    @JoinedBy("skillTypeId=SkillType.skillTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SkillType skillType;
+
+    @JoinedBy("examTypeEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration examTypeEnum;
+
+    @JoinedBy("jobPostingTypeEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration jobPostingTypeEnum;
 }

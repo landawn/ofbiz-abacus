@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -32,4 +35,14 @@ public class PortalPagePortlet {
 
     @Column(name = "sequence_num")
     private double sequenceNum;
+
+    @JoinedBy("portalPageId=PortalPage.portalPageId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PortalPage portalPage;
+
+    @JoinedBy("portalPortletId=PortalPortlet.portalPortletId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PortalPortlet portalPortlet;
 }

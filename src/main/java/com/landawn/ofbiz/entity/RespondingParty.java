@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -34,4 +37,19 @@ public class RespondingParty {
 
     @Column(name = "date_sent")
     private Timestamp dateSent;
+
+    @JoinedBy("custRequestId=CustRequest.custRequestId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustRequest custRequest;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("contactMechId=ContactMech.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMech contactMech;
 }

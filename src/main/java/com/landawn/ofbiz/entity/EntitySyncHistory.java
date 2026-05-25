@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -96,4 +99,9 @@ public class EntitySyncHistory {
 
     @Column(name = "per_split_max_items")
     private double perSplitMaxItems;
+
+    @JoinedBy("entitySyncId=EntitySync.entitySyncId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private EntitySync entitySync;
 }

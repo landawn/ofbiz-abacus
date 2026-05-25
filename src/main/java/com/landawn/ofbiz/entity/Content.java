@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -86,4 +89,69 @@ public class Content {
 
     @Column(name = "last_modified_by_user_login")
     private String lastModifiedByUserLogin;
+
+    @JoinedBy("contentTypeId=ContentType.contentTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContentType contentType;
+
+    @JoinedBy("dataResourceId=DataResource.dataResourceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private DataResource dataResource;
+
+    @JoinedBy("templateDataResourceId=DataResource.dataResourceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private DataResource templateDataResource;
+
+    @JoinedBy("statusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
+
+    @JoinedBy("privilegeEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration enumeration;
+
+    @JoinedBy("customMethodId=CustomMethod.customMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustomMethod customMethod;
+
+    @JoinedBy("characterSetId=CharacterSet.characterSetId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CharacterSet characterSet;
+
+    @JoinedBy("createdByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin createdByUserLoginRef;
+
+    @JoinedBy("lastModifiedByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin lastModifiedByUserLoginRef;
+
+    @JoinedBy("dataSourceId=DataSource.dataSourceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private DataSource dataSource;
+
+    @JoinedBy("decoratorContentId=Content.contentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Content decoratorContent;
+
+    @JoinedBy("ownerContentId=Content.contentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Content ownerContent;
+
+    @JoinedBy("instanceOfContentId=Content.contentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Content instanceOfContent;
 }

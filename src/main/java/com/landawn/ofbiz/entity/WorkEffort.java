@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -170,4 +173,79 @@ public class WorkEffort {
 
     @Column(name = "last_modified_by_user_login")
     private String lastModifiedByUserLogin;
+
+    @JoinedBy("workEffortTypeId=WorkEffortType.workEffortTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private WorkEffortType workEffortType;
+
+    @JoinedBy("workEffortPurposeTypeId=WorkEffortPurposeType.workEffortPurposeTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private WorkEffortPurposeType workEffortPurposeType;
+
+    @JoinedBy("workEffortParentId=WorkEffort.workEffortId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private WorkEffort workEffort;
+
+    @JoinedBy("currentStatusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
+
+    @JoinedBy("scopeEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration enumeration;
+
+    @JoinedBy("fixedAssetId=FixedAsset.fixedAssetId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FixedAsset fixedAsset;
+
+    @JoinedBy("facilityId=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility facility;
+
+    @JoinedBy("moneyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("recurrenceInfoId=RecurrenceInfo.recurrenceInfoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RecurrenceInfo recurrenceInfo;
+
+    @JoinedBy("tempExprId=TemporalExpression.tempExprId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TemporalExpression temporalExpression;
+
+    @JoinedBy("runtimeDataId=RuntimeData.runtimeDataId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RuntimeData runtimeData;
+
+    @JoinedBy("noteId=NoteData.noteId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private NoteData noteData;
+
+    @JoinedBy("estimateCalcMethod=CustomMethod.customMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustomMethod customMethod;
+
+    @JoinedBy("accommodationMapId=AccommodationMap.accommodationMapId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private AccommodationMap accommodationMap;
+
+    @JoinedBy("accommodationSpotId=AccommodationSpot.accommodationSpotId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private AccommodationSpot accommodationSpot;
 }

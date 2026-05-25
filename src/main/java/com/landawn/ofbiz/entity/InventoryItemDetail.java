@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -84,4 +87,39 @@ public class InventoryItemDetail {
 
     @Column(name = "description")
     private String description;
+
+    @JoinedBy("inventoryItemId=InventoryItem.inventoryItemId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItem inventoryItem;
+
+    @JoinedBy("workEffortId=WorkEffort.workEffortId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private WorkEffort workEffort;
+
+    @JoinedBy("fixedAssetId=FixedAssetMaint.fixedAssetId, maintHistSeqId=FixedAssetMaint.maintHistSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FixedAssetMaint fixedAssetMaint;
+
+    @JoinedBy("itemIssuanceId=ItemIssuance.itemIssuanceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ItemIssuance itemIssuance;
+
+    @JoinedBy("receiptId=ShipmentReceipt.receiptId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShipmentReceipt shipmentReceipt;
+
+    @JoinedBy("physicalInventoryId=PhysicalInventory.physicalInventoryId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PhysicalInventory physicalInventory;
+
+    @JoinedBy("reasonEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration enumeration;
 }

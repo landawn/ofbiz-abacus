@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -42,4 +45,29 @@ public class OrderItemBilling {
 
     @Column(name = "amount")
     private double amount;
+
+    @JoinedBy("orderId=OrderHeader.orderId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderHeader orderHeader;
+
+    @JoinedBy("orderId=OrderItem.orderId, orderItemSeqId=OrderItem.orderItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderItem orderItem;
+
+    @JoinedBy("invoiceId=InvoiceItem.invoiceId, invoiceItemSeqId=InvoiceItem.invoiceItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InvoiceItem invoiceItem;
+
+    @JoinedBy("shipmentReceiptId=ShipmentReceipt.receiptId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShipmentReceipt shipmentReceipt;
+
+    @JoinedBy("itemIssuanceId=ItemIssuance.itemIssuanceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ItemIssuance itemIssuance;
 }

@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -65,4 +68,19 @@ public class ShipmentPackageRouteSeg {
 
     @Column(name = "currency_uom_id")
     private String currencyUomId;
+
+    @JoinedBy("shipmentId=ShipmentPackage.shipmentId, shipmentPackageSeqId=ShipmentPackage.shipmentPackageSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShipmentPackage shipmentPackage;
+
+    @JoinedBy("shipmentId=ShipmentRouteSegment.shipmentId, shipmentRouteSegmentId=ShipmentRouteSegment.shipmentRouteSegmentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShipmentRouteSegment shipmentRouteSegment;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
 }

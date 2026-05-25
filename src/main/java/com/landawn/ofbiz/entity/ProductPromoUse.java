@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -37,4 +40,24 @@ public class ProductPromoUse {
 
     @Column(name = "quantity_left_in_actions")
     private double quantityLeftInActions;
+
+    @JoinedBy("productPromoId=ProductPromo.productPromoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductPromo productPromo;
+
+    @JoinedBy("productPromoCodeId=ProductPromoCode.productPromoCodeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductPromoCode productPromoCode;
+
+    @JoinedBy("orderId=OrderHeader.orderId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderHeader orderHeader;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
 }

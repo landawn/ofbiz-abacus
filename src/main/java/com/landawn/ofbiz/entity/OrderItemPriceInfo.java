@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -39,4 +42,14 @@ public class OrderItemPriceInfo {
 
     @Column(name = "rate_code")
     private String rateCode;
+
+    @JoinedBy("orderId=OrderItem.orderId, orderItemSeqId=OrderItem.orderItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderItem orderItem;
+
+    @JoinedBy("productPriceRuleId=ProductPriceAction.productPriceRuleId, productPriceActionSeqId=ProductPriceAction.productPriceActionSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductPriceAction productPriceAction;
 }

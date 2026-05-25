@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -86,4 +89,49 @@ public class CustRequest {
 
     @Column(name = "last_modified_by_user_login")
     private String lastModifiedByUserLogin;
+
+    @JoinedBy("custRequestTypeId=CustRequestType.custRequestTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustRequestType custRequestType;
+
+    @JoinedBy("custRequestCategoryId=CustRequestCategory.custRequestCategoryId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustRequestCategory custRequestCategory;
+
+    @JoinedBy("statusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
+
+    @JoinedBy("fromPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("maximumAmountUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom maximumAmountUom;
+
+    @JoinedBy("productStoreId=ProductStore.productStoreId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductStore productStore;
+
+    @JoinedBy("salesChannelEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration enumeration;
+
+    @JoinedBy("fulfillContactMechId=ContactMech.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMech contactMech;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom currencyUom;
 }

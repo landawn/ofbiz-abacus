@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -29,4 +32,14 @@ public class GlReconciliationEntry {
 
     @Column(name = "reconciled_amount")
     private double reconciledAmount;
+
+    @JoinedBy("glReconciliationId=GlReconciliation.glReconciliationId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlReconciliation glReconciliation;
+
+    @JoinedBy("acctgTransId=AcctgTransEntry.acctgTransId, acctgTransEntrySeqId=AcctgTransEntry.acctgTransEntrySeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private AcctgTransEntry acctgTransEntry;
 }

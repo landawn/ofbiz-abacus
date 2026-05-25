@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -81,4 +84,49 @@ public class QuoteItem {
 
     @Column(name = "lead_time_days")
     private double leadTimeDays;
+
+    @JoinedBy("quoteId=Quote.quoteId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Quote quote;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("productFeatureId=ProductFeature.productFeatureId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductFeature productFeature;
+
+    @JoinedBy("deliverableTypeId=DeliverableType.deliverableTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private DeliverableType deliverableType;
+
+    @JoinedBy("skillTypeId=SkillType.skillTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SkillType skillType;
+
+    @JoinedBy("uomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("workEffortId=WorkEffort.workEffortId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private WorkEffort workEffort;
+
+    @JoinedBy("custRequestId=CustRequest.custRequestId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustRequest custRequest;
+
+    @JoinedBy("custRequestId=CustRequestItem.custRequestId, custRequestItemSeqId=CustRequestItem.custRequestItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustRequestItem custRequestItem;
 }

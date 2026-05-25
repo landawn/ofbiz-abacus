@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -41,4 +44,24 @@ public class PicklistRole {
 
     @Column(name = "last_modified_by_user_login")
     private String lastModifiedByUserLogin;
+
+    @JoinedBy("picklistId=Picklist.picklistId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Picklist picklist;
+
+    @JoinedBy("partyId=PartyRole.partyId, roleTypeId=PartyRole.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PartyRole partyRole;
+
+    @JoinedBy("createdByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin createdByUserLoginRef;
+
+    @JoinedBy("lastModifiedByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin lastModifiedByUserLoginRef;
 }

@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -33,4 +36,29 @@ public class UserAgent {
 
     @Column(name = "user_agent_method_type_id")
     private String userAgentMethodTypeId;
+
+    @JoinedBy("browserTypeId=BrowserType.browserTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private BrowserType browserType;
+
+    @JoinedBy("platformTypeId=PlatformType.platformTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PlatformType platformType;
+
+    @JoinedBy("protocolTypeId=ProtocolType.protocolTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProtocolType protocolType;
+
+    @JoinedBy("userAgentTypeId=UserAgentType.userAgentTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserAgentType userAgentType;
+
+    @JoinedBy("userAgentMethodTypeId=UserAgentMethodType.userAgentMethodTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserAgentMethodType userAgentMethodType;
 }

@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -122,4 +125,89 @@ public class Subscription {
 
     @Column(name = "expiration_completed_date")
     private Timestamp expirationCompletedDate;
+
+    @JoinedBy("subscriptionResourceId=SubscriptionResource.subscriptionResourceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SubscriptionResource subscriptionResource;
+
+    @JoinedBy("contactMechId=ContactMech.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMech contactMech;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("useTimeUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom useTimeUom;
+
+    @JoinedBy("canclAutmExtTimeUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom canclAutmExtTimeUom;
+
+    @JoinedBy("availableTimeUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom availableTimeUom;
+
+    @JoinedBy("maxLifeTimeUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom maxLifeTimeUom;
+
+    @JoinedBy("roleTypeId=RoleType.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RoleType roleType;
+
+    @JoinedBy("originatedFromPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party originatedFromParty;
+
+    @JoinedBy("originatedFromRoleTypeId=RoleType.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RoleType originatedFromRoleType;
+
+    @JoinedBy("needTypeId=NeedType.needTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private NeedType needType;
+
+    @JoinedBy("orderId=OrderItem.orderId, orderItemSeqId=OrderItem.orderItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderItem orderItem;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("productCategoryId=ProductCategory.productCategoryId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductCategory productCategory;
+
+    @JoinedBy("inventoryItemId=InventoryItem.inventoryItemId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItem inventoryItem;
+
+    @JoinedBy("subscriptionTypeId=SubscriptionType.subscriptionTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SubscriptionType subscriptionType;
+
+    @JoinedBy("gracePeriodOnExpiryUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom gracePeriodOnExpiryUom;
 }

@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -39,4 +42,24 @@ public class ReturnItemBilling {
 
     @Column(name = "amount")
     private double amount;
+
+    @JoinedBy("returnId=ReturnHeader.returnId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ReturnHeader returnHeader;
+
+    @JoinedBy("returnId=ReturnItem.returnId, returnItemSeqId=ReturnItem.returnItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ReturnItem returnItem;
+
+    @JoinedBy("invoiceId=InvoiceItem.invoiceId, invoiceItemSeqId=InvoiceItem.invoiceItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InvoiceItem invoiceItem;
+
+    @JoinedBy("shipmentReceiptId=ShipmentReceipt.receiptId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShipmentReceipt shipmentReceipt;
 }

@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -68,4 +71,34 @@ public class FinAccount {
 
     @Column(name = "available_balance")
     private double availableBalance;
+
+    @JoinedBy("finAccountTypeId=FinAccountType.finAccountTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FinAccountType finAccountType;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("organizationPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party organizationParty;
+
+    @JoinedBy("ownerPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party ownerParty;
+
+    @JoinedBy("postToGlAccountId=GlAccount.glAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccount glAccount;
+
+    @JoinedBy("replenishPaymentId=PaymentMethod.paymentMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PaymentMethod paymentMethod;
 }

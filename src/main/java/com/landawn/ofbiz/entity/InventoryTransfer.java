@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -56,4 +59,39 @@ public class InventoryTransfer {
 
     @Column(name = "comments")
     private String comments;
+
+    @JoinedBy("inventoryItemId=InventoryItem.inventoryItemId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItem inventoryItem;
+
+    @JoinedBy("statusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
+
+    @JoinedBy("facilityId=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility facility;
+
+    @JoinedBy("containerId=Container.containerId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Container container;
+
+    @JoinedBy("facilityIdTo=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility facilityTo;
+
+    @JoinedBy("containerIdTo=Container.containerId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Container containerTo;
+
+    @JoinedBy("itemIssuanceId=ItemIssuance.itemIssuanceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ItemIssuance itemIssuance;
 }

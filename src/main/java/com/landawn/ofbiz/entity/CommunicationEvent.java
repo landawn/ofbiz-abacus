@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -98,4 +101,64 @@ public class CommunicationEvent {
 
     @Column(name = "message_id")
     private String messageId;
+
+    @JoinedBy("communicationEventTypeId=CommunicationEventType.communicationEventTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CommunicationEventType communicationEventType;
+
+    @JoinedBy("partyIdTo=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party partyTo;
+
+    @JoinedBy("roleTypeIdTo=RoleType.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RoleType roleTypeTo;
+
+    @JoinedBy("partyIdFrom=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party partyFrom;
+
+    @JoinedBy("roleTypeIdFrom=RoleType.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RoleType roleTypeFrom;
+
+    @JoinedBy("statusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
+
+    @JoinedBy("contactMechTypeId=ContactMechType.contactMechTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMechType contactMechType;
+
+    @JoinedBy("contactMechIdFrom=ContactMech.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMech contactMechFrom;
+
+    @JoinedBy("contactMechIdTo=ContactMech.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMech contactMechTo;
+
+    @JoinedBy("contactListId=ContactList.contactListId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactList contactList;
+
+    @JoinedBy("contentMimeTypeId=MimeType.mimeTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private MimeType mimeType;
+
+    @JoinedBy("reasonEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration enumeration;
 }

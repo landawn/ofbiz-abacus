@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -61,4 +64,54 @@ public class ReturnItem {
 
     @Column(name = "return_item_response_id")
     private String returnItemResponseId;
+
+    @JoinedBy("returnId=ReturnHeader.returnId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ReturnHeader returnHeader;
+
+    @JoinedBy("returnReasonId=ReturnReason.returnReasonId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ReturnReason returnReason;
+
+    @JoinedBy("returnTypeId=ReturnType.returnTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ReturnType returnType;
+
+    @JoinedBy("returnItemTypeId=ReturnItemType.returnItemTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ReturnItemType returnItemType;
+
+    @JoinedBy("returnItemResponseId=ReturnItemResponse.returnItemResponseId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ReturnItemResponse returnItemResponse;
+
+    @JoinedBy("orderId=OrderHeader.orderId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderHeader orderHeader;
+
+    @JoinedBy("orderId=OrderItem.orderId, orderItemSeqId=OrderItem.orderItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderItem orderItem;
+
+    @JoinedBy("statusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem status;
+
+    @JoinedBy("expectedItemStatus=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem expectedItemStatusStatusItem;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
 }

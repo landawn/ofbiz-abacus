@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Date;
@@ -9,7 +10,9 @@ import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -30,4 +33,14 @@ public class TechDataCalendarExcWeek {
 
     @Column(name = "description")
     private String description;
+
+    @JoinedBy("calendarId=TechDataCalendar.calendarId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TechDataCalendar techDataCalendar;
+
+    @JoinedBy("calendarWeekId=TechDataCalendarWeek.calendarWeekId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TechDataCalendarWeek techDataCalendarWeek;
 }

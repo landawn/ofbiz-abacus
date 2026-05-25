@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -59,4 +62,34 @@ public class ProductAssoc {
 
     @Column(name = "recurrence_info_id")
     private String recurrenceInfoId;
+
+    @JoinedBy("productAssocTypeId=ProductAssocType.productAssocTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductAssocType productAssocType;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("productIdTo=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product productTo;
+
+    @JoinedBy("routingWorkEffortId=WorkEffort.workEffortId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private WorkEffort workEffort;
+
+    @JoinedBy("estimateCalcMethod=CustomMethod.customMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustomMethod customMethod;
+
+    @JoinedBy("recurrenceInfoId=RecurrenceInfo.recurrenceInfoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RecurrenceInfo recurrenceInfo;
 }

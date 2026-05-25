@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -50,4 +53,34 @@ public class RateAmount {
 
     @Column(name = "rate_amount")
     private double rateAmount;
+
+    @JoinedBy("rateTypeId=RateType.rateTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RateType rateType;
+
+    @JoinedBy("rateCurrencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("workEffortId=WorkEffort.workEffortId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private WorkEffort workEffort;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("emplPositionTypeId=EmplPositionType.emplPositionTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private EmplPositionType emplPositionType;
+
+    @JoinedBy("periodTypeId=PeriodType.periodTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PeriodType periodType;
 }

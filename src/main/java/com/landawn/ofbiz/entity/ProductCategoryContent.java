@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -47,4 +50,19 @@ public class ProductCategoryContent {
 
     @Column(name = "use_days_limit")
     private double useDaysLimit;
+
+    @JoinedBy("productCategoryId=ProductCategory.productCategoryId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductCategory productCategory;
+
+    @JoinedBy("contentId=Content.contentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Content content;
+
+    @JoinedBy("prodCatContentTypeId=ProductCategoryContentType.prodCatContentTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductCategoryContentType productCategoryContentType;
 }

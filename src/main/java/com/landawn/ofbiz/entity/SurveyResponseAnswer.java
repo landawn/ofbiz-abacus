@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -73,4 +76,24 @@ public class SurveyResponseAnswer {
 
     @Column(name = "sequence_num")
     private double sequenceNum;
+
+    @JoinedBy("surveyResponseId=SurveyResponse.surveyResponseId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SurveyResponse surveyResponse;
+
+    @JoinedBy("surveyQuestionId=SurveyQuestion.surveyQuestionId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SurveyQuestion surveyQuestion;
+
+    @JoinedBy("surveyQuestionId=SurveyQuestionOption.surveyQuestionId, surveyOptionSeqId=SurveyQuestionOption.surveyOptionSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SurveyQuestionOption surveyQuestionOption;
+
+    @JoinedBy("contentId=Content.contentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Content content;
 }

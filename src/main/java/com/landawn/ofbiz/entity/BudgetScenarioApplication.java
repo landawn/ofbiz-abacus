@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -34,4 +37,19 @@ public class BudgetScenarioApplication {
 
     @Column(name = "percentage_change")
     private double percentageChange;
+
+    @JoinedBy("budgetScenarioId=BudgetScenario.budgetScenarioId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private BudgetScenario budgetScenario;
+
+    @JoinedBy("budgetId=Budget.budgetId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Budget budget;
+
+    @JoinedBy("budgetId=BudgetItem.budgetId, budgetItemSeqId=BudgetItem.budgetItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private BudgetItem budgetItem;
 }

@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -48,4 +51,29 @@ public class GlAccount {
 
     @Column(name = "external_id")
     private String externalId;
+
+    @JoinedBy("glAccountTypeId=GlAccountType.glAccountTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccountType glAccountType;
+
+    @JoinedBy("glAccountClassId=GlAccountClass.glAccountClassId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccountClass glAccountClass;
+
+    @JoinedBy("glResourceTypeId=GlResourceType.glResourceTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlResourceType glResourceType;
+
+    @JoinedBy("glXbrlClassId=GlXbrlClass.glXbrlClassId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlXbrlClass glXbrlClass;
+
+    @JoinedBy("parentGlAccountId=GlAccount.glAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccount glAccount;
 }

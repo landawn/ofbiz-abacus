@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -28,4 +31,19 @@ public class InventoryItemLabelAppl {
 
     @Column(name = "sequence_num")
     private double sequenceNum;
+
+    @JoinedBy("inventoryItemId=InventoryItem.inventoryItemId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItem inventoryItem;
+
+    @JoinedBy("inventoryItemLabelTypeId=InventoryItemLabelType.inventoryItemLabelTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItemLabelType inventoryItemLabelType;
+
+    @JoinedBy("inventoryItemLabelId=InventoryItemLabel.inventoryItemLabelId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItemLabel inventoryItemLabel;
 }

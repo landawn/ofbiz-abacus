@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -52,4 +55,24 @@ public class ShipmentTimeEstimate {
 
     @Column(name = "sequence_number")
     private double sequenceNumber;
+
+    @JoinedBy("shipmentMethodTypeId=CarrierShipmentMethod.shipmentMethodTypeId, partyId=CarrierShipmentMethod.partyId, roleTypeId=CarrierShipmentMethod.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CarrierShipmentMethod carrierShipmentMethod;
+
+    @JoinedBy("geoIdTo=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo geoTo;
+
+    @JoinedBy("geoIdFrom=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo geoFrom;
+
+    @JoinedBy("leadTimeUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
 }

@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -99,4 +102,64 @@ public class ShipmentCostEstimate {
 
     @Column(name = "feature_price")
     private double featurePrice;
+
+    @JoinedBy("shipmentMethodTypeId=CarrierShipmentMethod.shipmentMethodTypeId, carrierPartyId=CarrierShipmentMethod.partyId, carrierRoleTypeId=CarrierShipmentMethod.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CarrierShipmentMethod carrierShipmentMethod;
+
+    @JoinedBy("productStoreShipMethId=ProductStoreShipmentMeth.productStoreShipMethId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductStoreShipmentMeth productStoreShipmentMeth;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("roleTypeId=RoleType.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RoleType roleType;
+
+    @JoinedBy("weightUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom weightUom;
+
+    @JoinedBy("quantityUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom quantityUom;
+
+    @JoinedBy("priceUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom priceUom;
+
+    @JoinedBy("geoIdTo=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo geoTo;
+
+    @JoinedBy("geoIdFrom=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo geoFrom;
+
+    @JoinedBy("weightBreakId=QuantityBreak.quantityBreakId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private QuantityBreak weightBreak;
+
+    @JoinedBy("quantityBreakId=QuantityBreak.quantityBreakId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private QuantityBreak quantityBreak;
+
+    @JoinedBy("priceBreakId=QuantityBreak.quantityBreakId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private QuantityBreak priceBreak;
 }

@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -42,4 +45,19 @@ public class SurveyQuestion {
 
     @Column(name = "format_string")
     private String formatString;
+
+    @JoinedBy("surveyQuestionTypeId=SurveyQuestionType.surveyQuestionTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SurveyQuestionType surveyQuestionType;
+
+    @JoinedBy("surveyQuestionCategoryId=SurveyQuestionCategory.surveyQuestionCategoryId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SurveyQuestionCategory surveyQuestionCategory;
+
+    @JoinedBy("geoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo geo;
 }

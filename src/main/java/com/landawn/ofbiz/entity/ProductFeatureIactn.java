@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -28,4 +31,19 @@ public class ProductFeatureIactn {
 
     @Column(name = "product_id")
     private String productId;
+
+    @JoinedBy("productFeatureIactnTypeId=ProductFeatureIactnType.productFeatureIactnTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductFeatureIactnType productFeatureIactnType;
+
+    @JoinedBy("productFeatureId=ProductFeature.productFeatureId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductFeature productFeature;
+
+    @JoinedBy("productFeatureIdTo=ProductFeature.productFeatureId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductFeature productFeatureTo;
 }

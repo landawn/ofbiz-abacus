@@ -108,3 +108,107 @@
   Do not start generation until I have reviewed and approved the prompt and the sample output.
   
   
+ 
+  
+
+  
+  =================================================================================================================  
+  
+  ---
+  Task: For every foreign-key constraint declared in ./docs/db/MySQL.sql, modify the matching generated Entity class and DAO class under src/main/java/com/landawn/ofbiz/{entity,dao}/ to add reverse-navigation fields and join helpers.
+
+  Input — canonical FK source:
+  Parse the -- FOREIGN KEYS section of ./docs/db/MySQL.sql. Each FK has the form:
+  ALTER TABLE `LOCAL_TABLE` ADD CONSTRAINT `FK_NAME`
+    FOREIGN KEY (`LOCAL_COL[, LOCAL_COL2, ...]`)
+    REFERENCES `REF_TABLE` (`REF_COL[, REF_COL2, ...]`);
+  Use the table → entity class mapping already established by scripts/gen_entities_daos.py (UPPER_SNAKE table → PascalCase class; UPPER_SNAKE column → camelCase field).
+
+  ---
+  Entity changes (per FK):
+
+  In the local entity class (the table holding the FK column), add a field representing the referenced entity:
+
+  @JoinedBy("localFkField=ReferencedEntity.referencedField")
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
+  private ReferencedEntity referencedEntityFieldName;
+
+  Rules:
+  - Import com.landawn.abacus.annotation.JoinedBy, lombok.EqualsAndHashCode, and lombok.ToString.
+  - Annotation value format: "localFkCol1=RefEntity.refCol1, localFkCol2=RefEntity.refCol2" (comma-joined for composite FKs, both sides in camelCase Java field names — NOT SQL column names).
+  - Always add @ToString.Exclude and @EqualsAndHashCode.Exclude on every @JoinedBy field to prevent recursion (Lombok's @Data would otherwise pull joined entities into toString/equals/hashCode).
+  - Field-naming rules:
+    - Default (single FK to a target entity): plain camelCase of the referenced entity class. E.g., FK productId → Product.productId becomes field product.
+    - Disambiguation (2+ FKs from the same local entity to the same target entity): strip a trailing Id/IdFrom/IdTo/etc. from the local FK column's camelCase form, then concatenate with the target entity name. E.g., PARTY_RELATIONSHIP
+  has partyIdFrom and partyIdTo both → Party, giving fields partyFrom and partyTo.
+    - General disambiguation: derive a prefix by stripping the trailing referenced field name (Id, EnumId, TypeId, etc.) from the local FK column, lowercase-first, then append the target entity name in PascalCase. Examples: originGeoId
+  + Geo → originGeo; destinationGeoId + Geo → destinationGeo; partyIdFrom + Party → partyFrom.
+  - Place the new @JoinedBy fields after all existing @Column fields, in the order FKs appear in MySQL.sql.
+  - Do NOT add @Column to these — they are joined references, not columns.
+  - Do NOT touch view entities (views have no FKs anyway, and they're read-only).
+
+  Example A — common case: for DATA_RESOURCE.DATA_RESOURCE_TYPE_ID → DATA_RESOURCE_TYPE.DATA_RESOURCE_TYPE_ID, add to DataResource.java:
+  @JoinedBy("dataResourceTypeId=DataResourceType.dataResourceTypeId")
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
+  private DataResourceType dataResourceType;
+
+  Example B — disambiguation case: PARTY_RELATIONSHIP has FKs partyIdFrom → Party.partyId and partyIdTo → Party.partyId, so PartyRelationship.java gets:
+  @JoinedBy("partyIdFrom=Party.partyId")
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
+  private Party partyFrom;
+
+  @JoinedBy("partyIdTo=Party.partyId")
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
+  private Party partyTo;
+
+  ---
+  DAO changes (per entity that has at least one FK):
+
+  Extend the DAO interface with CrudJoinEntityHelper alongside its existing CrudDao super-interface, using the same four type parameters:
+
+  public interface DataSourceDao
+          extends CrudDao<DataSource, String, SqlBuilder.PSC, DataSourceDao>,
+                  CrudJoinEntityHelper<DataSource, String, SqlBuilder.PSC, DataSourceDao> {
+  }
+
+  Rules:
+  - Import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper, placed alphabetically after CrudDao.
+  - Only add CrudJoinEntityHelper if the DAO already extends CrudDao (or a sub-interface of it). If a DAO doesn't extend CrudDao for some reason, skip it.
+  - Only modify DAOs whose entity has at least one outgoing FK. DAOs with no FKs on their entity remain unchanged.
+  - Use the exact same <Entity, IdType, SqlBuilder.PSC, EntityDao> type parameters as the existing CrudDao extends clause — copy them verbatim.
+
+  ---
+  Scope:
+  - All 856 base-table entities/DAOs. Views and their DAOs are not touched (no FKs from views).
+  - The four sample template files (SampleSinglePKEntity*, SampleCompositePKEntity*) must remain untouched.
+
+  Output / approach:
+  1. Extend scripts/gen_entities_daos.py to parse FK constraints, build the in-memory FK graph, and emit @JoinedBy fields + CrudJoinEntityHelper as part of the standard render. Do not create a separate post-processor script — keep the
+  generator as the single source of truth.
+  2. The generator must remain re-runnable: a re-run produces identical output (idempotent), not appended duplicates.
+  3. Imports are placed in the existing import groupings:
+    - Entity abacus block: alphabetical, so JoinedBy goes between Id and ReadOnly/ReadOnlyId/Table as applicable.
+    - Entity lombok block: alphabetical, so EqualsAndHashCode and ToString are added in order.
+    - DAO abacus.jdbc.dao block: CrudJoinEntityHelper goes after CrudDao.
+
+  ---
+  Before starting, the generator will:
+
+  1. Re-parse MySQL.sql for tables + FKs.
+  2. For each entity, build its FK list and compute join-field names with the disambiguation rule above.
+  3. Re-render and overwrite all 1,117 entity files and all 1,117 DAO files (only FK-bearing ones gain the new bits; the rest are byte-identical to the previous run).
+  4. Print a summary: total FKs processed, entities gaining join fields, entities with disambiguated fields, DAOs gaining CrudJoinEntityHelper.
+
+  Then I will pause and show you:
+  - The summary numbers.
+  - 3 sample updated entities (one simple FK, one with disambiguation like PartyRelationship, one with many FKs like Product or OrderItem).
+  - 2 sample updated DAOs.
+
+  You can approve those before I treat the bulk write as final, or roll back if something looks off (the previous render is reproducible — just remove the new logic and re-run).
+  
+
+  

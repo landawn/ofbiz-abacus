@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -78,4 +81,69 @@ public class OrderItemShipGroup {
 
     @Column(name = "estimated_delivery_date")
     private Timestamp estimatedDeliveryDate;
+
+    @JoinedBy("orderId=OrderHeader.orderId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderHeader orderHeader;
+
+    @JoinedBy("supplierPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party supplierParty;
+
+    @JoinedBy("supplierAgreementId=Agreement.agreementId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Agreement agreement;
+
+    @JoinedBy("vendorPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party vendorParty;
+
+    @JoinedBy("shipmentMethodTypeId=CarrierShipmentMethod.shipmentMethodTypeId, carrierPartyId=CarrierShipmentMethod.partyId, carrierRoleTypeId=CarrierShipmentMethod.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CarrierShipmentMethod carrierShipmentMethod;
+
+    @JoinedBy("carrierPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party carrierParty;
+
+    @JoinedBy("carrierPartyId=PartyRole.partyId, carrierRoleTypeId=PartyRole.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PartyRole partyRole;
+
+    @JoinedBy("facilityId=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility facility;
+
+    @JoinedBy("shipmentMethodTypeId=ShipmentMethodType.shipmentMethodTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShipmentMethodType shipmentMethodType;
+
+    @JoinedBy("contactMechId=ContactMech.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMech contactMech;
+
+    @JoinedBy("contactMechId=PostalAddress.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PostalAddress postalAddress;
+
+    @JoinedBy("telecomContactMechId=ContactMech.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMech telecomContactMech;
+
+    @JoinedBy("telecomContactMechId=TelecomNumber.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TelecomNumber telecomNumber;
 }

@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -65,4 +68,39 @@ public class ShipmentReceipt {
 
     @Column(name = "quantity_rejected")
     private double quantityRejected;
+
+    @JoinedBy("inventoryItemId=InventoryItem.inventoryItemId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItem inventoryItem;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("shipmentId=ShipmentPackage.shipmentId, shipmentPackageSeqId=ShipmentPackage.shipmentPackageSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShipmentPackage shipmentPackage;
+
+    @JoinedBy("orderId=OrderItem.orderId, orderItemSeqId=OrderItem.orderItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderItem orderItem;
+
+    @JoinedBy("rejectionId=RejectionReason.rejectionId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RejectionReason rejectionReason;
+
+    @JoinedBy("receivedByUserLoginId=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin userLogin;
+
+    @JoinedBy("returnId=ReturnItem.returnId, returnItemSeqId=ReturnItem.returnItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ReturnItem returnItem;
 }

@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -77,4 +80,49 @@ public class ShoppingList {
 
     @Column(name = "product_promo_code_id")
     private String productPromoCodeId;
+
+    @JoinedBy("parentShoppingListId=ShoppingList.shoppingListId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShoppingList shoppingList;
+
+    @JoinedBy("shoppingListTypeId=ShoppingListType.shoppingListTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShoppingListType shoppingListType;
+
+    @JoinedBy("productStoreId=ProductStore.productStoreId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductStore productStore;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("shipmentMethodTypeId=CarrierShipmentMethod.shipmentMethodTypeId, carrierPartyId=CarrierShipmentMethod.partyId, carrierRoleTypeId=CarrierShipmentMethod.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CarrierShipmentMethod carrierShipmentMethod;
+
+    @JoinedBy("contactMechId=ContactMech.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMech contactMech;
+
+    @JoinedBy("paymentMethodId=PaymentMethod.paymentMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PaymentMethod paymentMethod;
+
+    @JoinedBy("recurrenceInfoId=RecurrenceInfo.recurrenceInfoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RecurrenceInfo recurrenceInfo;
+
+    @JoinedBy("productPromoCodeId=ProductPromoCode.productPromoCodeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductPromoCode productPromoCode;
 }

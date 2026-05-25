@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -89,4 +92,39 @@ public class OrderPaymentPreference {
 
     @Column(name = "last_modified_by_user_login")
     private String lastModifiedByUserLogin;
+
+    @JoinedBy("orderId=OrderHeader.orderId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderHeader orderHeader;
+
+    @JoinedBy("productPricePurposeId=ProductPricePurpose.productPricePurposeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductPricePurpose productPricePurpose;
+
+    @JoinedBy("paymentMethodTypeId=PaymentMethodType.paymentMethodTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PaymentMethodType paymentMethodType;
+
+    @JoinedBy("paymentMethodId=PaymentMethod.paymentMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PaymentMethod paymentMethod;
+
+    @JoinedBy("finAccountId=FinAccount.finAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FinAccount finAccount;
+
+    @JoinedBy("statusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
+
+    @JoinedBy("createdByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin userLogin;
 }

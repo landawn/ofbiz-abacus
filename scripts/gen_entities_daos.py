@@ -8,6 +8,9 @@ Mirrors the templates:
     src/main/java/com/landawn/ofbiz/dao/SampleSinglePKEntityDao.java
     src/main/java/com/landawn/ofbiz/dao/SampleCompositePKEntityDao.java
 
+Also emits @JoinedBy fields for each FK and extends each FK-bearing DAO with
+CrudJoinEntityHelper.
+
 Usage:
     py scripts/gen_entities_daos.py --preview   # write 10 sample entities + DAOs to scripts/_preview/
     py scripts/gen_entities_daos.py             # generate full set into src/main/java/...
@@ -41,6 +44,14 @@ class Table:
     pk: list[str] = field(default_factory=list)   # column names
     is_view: bool = False
 
+@dataclass
+class ForeignKey:
+    local_table: str        # UPPER_SNAKE
+    fk_name: str
+    local_cols: list[str]   # UPPER_SNAKE
+    ref_table: str          # UPPER_SNAKE
+    ref_cols: list[str]     # UPPER_SNAKE
+
 # -----------------------------------------------------------------------------
 # SQL parsing
 # -----------------------------------------------------------------------------
@@ -62,8 +73,15 @@ PK_RE = re.compile(
 VIEW_COL_RE = re.compile(
     r"AS `([A-Z0-9_]+)`"
 )
+FK_RE = re.compile(
+    r"ALTER TABLE `([A-Z0-9_]+)` ADD CONSTRAINT `([A-Z0-9_]+)` "
+    r"FOREIGN KEY \(([^)]+)\) REFERENCES `([A-Z0-9_]+)` \(([^)]+)\);"
+)
 
-def parse_mysql_sql(path: Path) -> tuple[list[Table], list[Table]]:
+def _split_col_list(s: str) -> list[str]:
+    return [c.strip(" `") for c in s.split(",")]
+
+def parse_mysql_sql(path: Path) -> tuple[list[Table], list[Table], list[ForeignKey]]:
     text = path.read_text(encoding="utf-8")
 
     tables: list[Table] = []
@@ -77,8 +95,7 @@ def parse_mysql_sql(path: Path) -> tuple[list[Table], list[Table]]:
             if line.startswith("CONSTRAINT"):
                 pkm = PK_RE.search(line)
                 if pkm:
-                    cols = [c.strip(" `") for c in pkm.group(1).split(",")]
-                    t.pk = cols
+                    t.pk = _split_col_list(pkm.group(1))
                 continue
             cm = COL_RE.match(line)
             if cm:
@@ -99,15 +116,22 @@ def parse_mysql_sql(path: Path) -> tuple[list[Table], list[Table]]:
             if cname in seen:
                 continue
             seen.add(cname)
-            # View columns have no declared SQL type in the CREATE VIEW; default to VARCHAR(255).
-            # We can't know without resolving the underlying table column. Use a sentinel for fallback.
             v.columns.append(Column(name=cname, sql_type="__VIEW__", not_null=False))
         views.append(v)
 
-    return tables, views
+    fks: list[ForeignKey] = []
+    for m in FK_RE.finditer(text):
+        fks.append(ForeignKey(
+            local_table=m.group(1),
+            fk_name=m.group(2),
+            local_cols=_split_col_list(m.group(3)),
+            ref_table=m.group(4),
+            ref_cols=_split_col_list(m.group(5)),
+        ))
+
+    return tables, views, fks
 
 def resolve_view_column_types(views: list[Table], tables: list[Table]) -> None:
-    """For each view column, search for a same-named column in any table and copy its type."""
     by_col: dict[str, Column] = {}
     for t in tables:
         for c in t.columns:
@@ -116,10 +140,7 @@ def resolve_view_column_types(views: list[Table], tables: list[Table]) -> None:
         for c in v.columns:
             if c.sql_type == "__VIEW__":
                 ref = by_col.get(c.name)
-                if ref:
-                    c.sql_type = ref.sql_type
-                else:
-                    c.sql_type = "VARCHAR(255)"  # last-resort fallback
+                c.sql_type = ref.sql_type if ref else "VARCHAR(255)"
 
 # -----------------------------------------------------------------------------
 # Naming
@@ -131,14 +152,24 @@ def upper_snake_to_camel(name: str) -> str:
     parts = name.split("_")
     return parts[0].lower() + "".join(p.capitalize() for p in parts[1:])
 
-def upper_snake_to_lower_snake(name: str) -> str:
-    return name.lower()
+def lower_first(s: str) -> str:
+    return s[:1].lower() + s[1:] if s else s
+
+def strip_id_marker(camel_col: str) -> str:
+    """
+    Strip "Id" from a camelCase column name to produce a join field name.
+    Examples:
+      partyIdFrom -> partyFrom
+      partyIdTo   -> partyTo
+      originGeoId -> originGeo
+      productId   -> product
+    """
+    return re.sub(r"Id(?=[A-Z]|$)", "", camel_col)
 
 # -----------------------------------------------------------------------------
 # Type mapping (MySQL -> Java)
 # -----------------------------------------------------------------------------
 def java_type_for(col: Column, is_pk: bool) -> str:
-    """Return Java type string. For NOT NULL numeric PK we may use primitive (sample uses `long`)."""
     t = col.sql_type.upper()
     base = re.sub(r"\(.*\)$", "", t)
 
@@ -162,12 +193,11 @@ def java_type_for(col: Column, is_pk: bool) -> str:
         return "byte[]"
     if base == "BIT":
         return "Boolean"
-    return "String"  # safe fallback
+    return "String"
 
 JAVA_LANG_IMPLICIT = {"String", "Integer", "Long", "Double", "Boolean", "Byte", "Short", "Float", "Character"}
 
 def needs_import(java_type: str) -> str | None:
-    """Return the import string needed for this Java type, or None if implicit/primitive/array."""
     if java_type in JAVA_LANG_IMPLICIT:
         return None
     if java_type in ("double", "long", "int", "boolean", "byte", "short", "float", "char"):
@@ -182,6 +212,74 @@ def needs_import(java_type: str) -> str | None:
 
 def short_name(java_type: str) -> str:
     return java_type.rsplit(".", 1)[-1] if "." in java_type else java_type
+
+# -----------------------------------------------------------------------------
+# Join field naming
+# -----------------------------------------------------------------------------
+@dataclass
+class JoinField:
+    fk: ForeignKey
+    ref_entity: str           # PascalCase class name
+    field_name: str           # camelCase final field name
+    annotation_value: str     # contents inside @JoinedBy("...")
+
+def compute_join_fields_for_table(
+    table: Table,
+    fks: list[ForeignKey],
+    all_table_names: set[str],
+) -> tuple[list[JoinField], int]:
+    """
+    Return (join_fields_in_declared_order, disambiguated_count).
+    Skips FKs whose ref table doesn't exist in `all_table_names`.
+    Avoids name collisions with existing column fields.
+    """
+    table_fks = [fk for fk in fks if fk.local_table == table.name and fk.ref_table in all_table_names]
+
+    target_counts: dict[str, int] = {}
+    for fk in table_fks:
+        target_counts[fk.ref_table] = target_counts.get(fk.ref_table, 0) + 1
+
+    # Pre-seed used_names with column field names so join fields never collide.
+    used_names: set[str] = {upper_snake_to_camel(c.name) for c in table.columns}
+
+    out: list[JoinField] = []
+    disambiguated = 0
+
+    for fk in table_fks:
+        ref_entity = upper_snake_to_pascal(fk.ref_table)
+        need_disambig = target_counts[fk.ref_table] > 1
+        if need_disambig:
+            base = strip_id_marker(upper_snake_to_camel(fk.local_cols[0]))
+            disambiguated += 1
+        else:
+            base = lower_first(ref_entity)
+
+        # Ensure uniqueness; if `base` collides (with another join field OR with a column),
+        # append "Ref" when base already ends with the entity name (to avoid `XxxUserLoginUserLogin`),
+        # otherwise append the entity name. Then numeric suffix as last resort.
+        name = base
+        if name in used_names:
+            candidate = (base + "Ref") if base.endswith(ref_entity) else (base + ref_entity)
+            name = candidate
+            n = 2
+            while name in used_names:
+                name = f"{candidate}{n}"
+                n += 1
+        used_names.add(name)
+
+        # Build annotation value: "localCol1=RefEntity.refCol1, localCol2=RefEntity.refCol2"
+        pairs = []
+        for lc, rc in zip(fk.local_cols, fk.ref_cols):
+            pairs.append(f"{upper_snake_to_camel(lc)}={ref_entity}.{upper_snake_to_camel(rc)}")
+        annot = ", ".join(pairs)
+
+        out.append(JoinField(
+            fk=fk,
+            ref_entity=ref_entity,
+            field_name=name,
+            annotation_value=annot,
+        ))
+    return out, disambiguated
 
 # -----------------------------------------------------------------------------
 # Rendering — Entity
@@ -201,14 +299,12 @@ public class {ClassName} {{
 }}
 '''
 
-def render_entity(t: Table) -> str:
+def render_entity(t: Table, join_fields: list[JoinField]) -> str:
     class_name = upper_snake_to_pascal(t.name)
     is_view = t.is_view
     pk_set = set(t.pk)
     needs_id = False
-    needs_readonly_id = False
     needs_readonly = False
-    needs_non_updatable = False
     field_lines: list[str] = []
     type_imports: set[str] = set()
 
@@ -222,47 +318,56 @@ def render_entity(t: Table) -> str:
 
         annot_lines = []
         if is_view:
-            # Views: read-only; no PK in OFBiz views, mark every field @ReadOnly
             annot_lines.append("    @ReadOnly")
             needs_readonly = True
         else:
             if is_pk:
-                # OFBiz PKs are application-supplied (not DB-auto-generated),
-                # so use @Id for both single and composite PK fields.
                 annot_lines.append("    @Id")
                 needs_id = True
         annot_lines.append(f'    @Column(name = "{c.name.lower()}")')
 
-        # primitive for NOT NULL single-PK numeric (sample uses `long id`)
-        # AND for DECIMAL (user rule: double primitive)
         java_field_type = st
         if st == "double":
-            pass  # already primitive
+            pass
         elif is_pk and len(t.pk) == 1 and c.not_null and st in ("Integer", "Long", "Double"):
             java_field_type = {"Integer": "int", "Long": "long", "Double": "double"}[st]
 
         field_lines.append("\n".join(annot_lines) + f"\n    private {java_field_type} {upper_snake_to_camel(c.name)};")
 
-    # Build imports
-    abacus_imports: list[str] = []
-    abacus_imports.append("import com.landawn.abacus.annotation.Column;")
+    # Append @JoinedBy fields after all @Column fields
+    has_joined = bool(join_fields)
+    for jf in join_fields:
+        block = (
+            f'    @JoinedBy("{jf.annotation_value}")\n'
+            f'    @ToString.Exclude\n'
+            f'    @EqualsAndHashCode.Exclude\n'
+            f'    private {jf.ref_entity} {jf.field_name};'
+        )
+        field_lines.append(block)
+
+    # Abacus imports
+    abacus_imports: list[str] = ["import com.landawn.abacus.annotation.Column;"]
     if needs_id:
         abacus_imports.append("import com.landawn.abacus.annotation.Id;")
+    if has_joined:
+        abacus_imports.append("import com.landawn.abacus.annotation.JoinedBy;")
     if needs_readonly:
         abacus_imports.append("import com.landawn.abacus.annotation.ReadOnly;")
-    if needs_readonly_id:
-        abacus_imports.append("import com.landawn.abacus.annotation.ReadOnlyId;")
     abacus_imports.append("import com.landawn.abacus.annotation.Table;")
     abacus_imports.sort()
 
     other_imports = sorted({f"import {i};" for i in type_imports if not i.startswith("java.lang.")})
 
-    lombok_imports = [
+    lombok_set = {
         "import lombok.AllArgsConstructor;",
         "import lombok.Builder;",
         "import lombok.Data;",
         "import lombok.NoArgsConstructor;",
-    ]
+    }
+    if has_joined:
+        lombok_set.add("import lombok.EqualsAndHashCode;")
+        lombok_set.add("import lombok.ToString;")
+    lombok_imports = sorted(lombok_set)
 
     import_blocks = ["\n".join(abacus_imports)]
     if other_imports:
@@ -270,13 +375,12 @@ def render_entity(t: Table) -> str:
     import_blocks.append("\n".join(lombok_imports))
     imports_str = "\n\n".join(import_blocks)
 
-    body = ENTITY_TEMPLATE_BODY.format(
+    return ENTITY_TEMPLATE_BODY.format(
         imports=imports_str,
         table_name_lower=t.name.lower(),
         ClassName=class_name,
         fields="\n\n".join(field_lines),
     )
-    return body
 
 # -----------------------------------------------------------------------------
 # Rendering — DAO
@@ -301,36 +405,45 @@ def boxed(j: str) -> str:
     return {"long": "Long", "int": "Integer", "double": "Double",
             "boolean": "Boolean", "float": "Float", "short": "Short", "byte": "Byte"}.get(j, j)
 
-def render_dao(t: Table) -> str:
+def render_dao(t: Table, has_fks: bool) -> str:
     class_name = upper_snake_to_pascal(t.name)
     dao_name = class_name + "Dao"
+    id_import_block = ""
+
     if t.is_view or not t.pk:
-        # No PK → mirror composite sample: use entity itself as ID type
         id_type = class_name
-        id_import_block = ""  # entity class already imported
     elif len(t.pk) == 1:
         pk_col = next(c for c in t.columns if c.name == t.pk[0])
         jt = java_type_for(pk_col, is_pk=True)
         st = short_name(jt)
-        # box: sample uses Long for `long` PK
         id_type = boxed(st)
-        id_import_block = ""
-        # if type is java.sql.* we need import
         if "." in jt and not jt.startswith("java.lang."):
             id_import_block = f"import {jt};\n"
     else:
-        # composite PK: use entity itself as ID type, per sample
         id_type = class_name
-        id_import_block = ""
+
+    abacus_jdbc_imports = ["import com.landawn.abacus.jdbc.dao.CrudDao;"]
+    if has_fks:
+        abacus_jdbc_imports.append("import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;")
+    abacus_jdbc_imports.sort()
+    abacus_jdbc_block = "\n".join(abacus_jdbc_imports) + "\n"
+
+    if has_fks:
+        extends_clause = (
+            f"CrudDao<{class_name}, {id_type}, SqlBuilder.PSC, {dao_name}>, "
+            f"CrudJoinEntityHelper<{class_name}, {id_type}, SqlBuilder.PSC, {dao_name}>"
+        )
+    else:
+        extends_clause = f"CrudDao<{class_name}, {id_type}, SqlBuilder.PSC, {dao_name}>"
 
     body = (
         f"{DAO_LICENSE}"
         f"package com.landawn.ofbiz.dao;\n\n"
-        f"import com.landawn.abacus.jdbc.dao.CrudDao;\n"
+        f"{abacus_jdbc_block}"
         f"import com.landawn.abacus.query.SqlBuilder;\n"
         f"{id_import_block}"
         f"import com.landawn.ofbiz.entity.{class_name};\n\n"
-        f"public interface {dao_name} extends CrudDao<{class_name}, {id_type}, SqlBuilder.PSC, {dao_name}> {{\n"
+        f"public interface {dao_name} extends {extends_clause} {{\n"
         f"}}\n"
     )
     return body
@@ -339,39 +452,24 @@ def render_dao(t: Table) -> str:
 # Main
 # -----------------------------------------------------------------------------
 def pick_samples(tables: list[Table], views: list[Table]) -> list[Table]:
-    """Pick 10 representative tables and views."""
     out: list[Table] = []
-    # 1) a tiny single-PK string table
-    out.append(next(t for t in tables if t.name == "DATA_SOURCE_TYPE"))
-    # 2) catalina session (single PK + binary + numeric)
-    out.append(next(t for t in tables if t.name == "CATALINA_SESSION"))
-    # 3) Product (common big single-PK table) if exists
-    out.append(next((t for t in tables if t.name == "PRODUCT"), tables[0]))
-    # 4) Composite PK table — pick the first one with len(pk) >= 2
-    composite = next((t for t in tables if len(t.pk) >= 2), None)
-    if composite: out.append(composite)
-    # 5) Composite PK with date-time
-    composite_dt = next((t for t in tables if len(t.pk) >= 2 and any(c.sql_type.startswith("DATETIME") for c in t.columns)), None)
-    if composite_dt and composite_dt not in out: out.append(composite_dt)
-    # 6) A table with DECIMAL columns
-    dec = next((t for t in tables if any(c.sql_type.startswith("DECIMAL") for c in t.columns) and t not in out), None)
-    if dec: out.append(dec)
-    # 7) A table with TEXT/LONGTEXT
-    lt = next((t for t in tables if any(c.sql_type in ("LONGTEXT", "TEXT") for c in t.columns) and t not in out), None)
-    if lt: out.append(lt)
-    # 8) A table with no PK (rare)
-    no_pk = next((t for t in tables if not t.pk and t not in out), None)
-    if no_pk: out.append(no_pk)
-    # 9) A view
-    if views: out.append(views[0])
-    # 10) A view with many columns
-    if len(views) > 1:
-        big_view = max(views, key=lambda v: len(v.columns))
-        if big_view not in out:
-            out.append(big_view)
-    # Fill up if still short
+    name_to_t = {t.name: t for t in tables}
+    name_to_v = {v.name: v for v in views}
+
+    for name in ("DATA_SOURCE", "DATA_RESOURCE", "PARTY_RELATIONSHIP", "PRODUCT", "ORDER_ITEM"):
+        if name in name_to_t and name_to_t[name] not in out:
+            out.append(name_to_t[name])
+    composite = next((t for t in tables if len(t.pk) >= 2 and t not in out), None)
+    if composite:
+        out.append(composite)
+    if views:
+        out.append(views[0])
+    big_view = max(views, key=lambda v: len(v.columns)) if views else None
+    if big_view and big_view not in out:
+        out.append(big_view)
     for t in tables:
-        if len(out) >= 10: break
+        if len(out) >= 10:
+            break
         if t not in out:
             out.append(t)
     return out[:10]
@@ -383,12 +481,31 @@ def main() -> None:
     args = ap.parse_args()
 
     print(f"Parsing {MYSQL_SQL} ...")
-    tables, views = parse_mysql_sql(MYSQL_SQL)
+    tables, views, fks = parse_mysql_sql(MYSQL_SQL)
     resolve_view_column_types(views, tables)
-    print(f"  tables: {len(tables)}  views: {len(views)}")
+
+    all_table_names = {t.name for t in tables}
+    print(f"  tables: {len(tables)}  views: {len(views)}  FKs: {len(fks)}")
     print(f"  single-PK: {sum(1 for t in tables if len(t.pk) == 1)}  "
           f"composite-PK: {sum(1 for t in tables if len(t.pk) >= 2)}  "
           f"no-PK: {sum(1 for t in tables if not t.pk)}")
+
+    # Pre-compute join fields per table
+    join_fields_by_table: dict[str, list[JoinField]] = {}
+    disambig_total = 0
+    for t in tables:
+        jfs, dcount = compute_join_fields_for_table(t, fks, all_table_names)
+        join_fields_by_table[t.name] = jfs
+        disambig_total += dcount
+
+    fk_bearing_tables = sum(1 for t in tables if join_fields_by_table[t.name])
+    fk_fields_total = sum(len(v) for v in join_fields_by_table.values())
+    print(f"  FK-bearing entities: {fk_bearing_tables}  "
+          f"@JoinedBy fields emitted: {fk_fields_total}  "
+          f"disambiguated names: {disambig_total}")
+
+    def jfs_for(t: Table) -> list[JoinField]:
+        return [] if t.is_view else join_fields_by_table.get(t.name, [])
 
     if args.preview:
         out_dir = ROOT / "scripts" / "_preview"
@@ -398,22 +515,32 @@ def main() -> None:
         dao_dir.mkdir(parents=True, exist_ok=True)
         samples = pick_samples(tables, views)
         for t in samples:
-            (ent_dir / f"{upper_snake_to_pascal(t.name)}.java").write_text(render_entity(t), encoding="utf-8")
-            (dao_dir / f"{upper_snake_to_pascal(t.name)}Dao.java").write_text(render_dao(t), encoding="utf-8")
+            jfs = jfs_for(t)
+            (ent_dir / f"{upper_snake_to_pascal(t.name)}.java").write_text(
+                render_entity(t, jfs), encoding="utf-8")
+            (dao_dir / f"{upper_snake_to_pascal(t.name)}Dao.java").write_text(
+                render_dao(t, has_fks=bool(jfs)), encoding="utf-8")
         print(f"Wrote {len(samples)} sample entities to {ent_dir}")
         print(f"Wrote {len(samples)} sample DAOs to {dao_dir}")
         print("Picked:", [t.name for t in samples])
         return
 
-    # Full generation
     ENTITY_DIR.mkdir(parents=True, exist_ok=True)
     DAO_DIR.mkdir(parents=True, exist_ok=True)
     all_things = tables + views
+    daos_with_helper = 0
     for t in all_things:
-        (ENTITY_DIR / f"{upper_snake_to_pascal(t.name)}.java").write_text(render_entity(t), encoding="utf-8")
-        (DAO_DIR / f"{upper_snake_to_pascal(t.name)}Dao.java").write_text(render_dao(t), encoding="utf-8")
+        jfs = jfs_for(t)
+        (ENTITY_DIR / f"{upper_snake_to_pascal(t.name)}.java").write_text(
+            render_entity(t, jfs), encoding="utf-8")
+        has_fks = bool(jfs)
+        if has_fks:
+            daos_with_helper += 1
+        (DAO_DIR / f"{upper_snake_to_pascal(t.name)}Dao.java").write_text(
+            render_dao(t, has_fks=has_fks), encoding="utf-8")
     print(f"Wrote {len(all_things)} entities to {ENTITY_DIR}")
     print(f"Wrote {len(all_things)} DAOs to {DAO_DIR}")
+    print(f"  DAOs with CrudJoinEntityHelper: {daos_with_helper}")
 
 if __name__ == "__main__":
     main()

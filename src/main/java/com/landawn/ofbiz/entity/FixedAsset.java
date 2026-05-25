@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Date;
@@ -10,7 +11,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -93,4 +96,59 @@ public class FixedAsset {
 
     @Column(name = "purchase_cost_uom_id")
     private String purchaseCostUomId;
+
+    @JoinedBy("fixedAssetTypeId=FixedAssetType.fixedAssetTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FixedAssetType fixedAssetType;
+
+    @JoinedBy("parentFixedAssetId=FixedAsset.fixedAssetId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FixedAsset fixedAsset;
+
+    @JoinedBy("instanceOfProductId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("classEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration enumeration;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("roleTypeId=RoleType.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RoleType roleType;
+
+    @JoinedBy("acquireOrderId=OrderHeader.orderId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderHeader orderHeader;
+
+    @JoinedBy("acquireOrderId=OrderItem.orderId, acquireOrderItemSeqId=OrderItem.orderItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderItem orderItem;
+
+    @JoinedBy("uomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("calendarId=TechDataCalendar.calendarId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TechDataCalendar techDataCalendar;
+
+    @JoinedBy("locatedAtFacilityId=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility facility;
 }

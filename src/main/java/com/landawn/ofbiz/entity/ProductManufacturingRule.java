@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -53,4 +56,29 @@ public class ProductManufacturingRule {
 
     @Column(name = "thru_date")
     private Timestamp thruDate;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("productIdFor=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product productFor;
+
+    @JoinedBy("productIdIn=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product productIn;
+
+    @JoinedBy("productIdInSubst=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product productInSubst;
+
+    @JoinedBy("productFeature=ProductFeature.productFeatureId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductFeature productFeatureProductFeature;
 }

@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -35,4 +38,19 @@ public class ProductFeatureApplAttr {
 
     @Column(name = "attr_value")
     private String attrValue;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("productFeatureId=ProductFeature.productFeatureId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductFeature productFeature;
+
+    @JoinedBy("productId=ProductFeatureAppl.productId, productFeatureId=ProductFeatureAppl.productFeatureId, fromDate=ProductFeatureAppl.fromDate")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductFeatureAppl productFeatureAppl;
 }

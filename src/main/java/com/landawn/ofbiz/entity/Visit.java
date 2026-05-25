@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -95,4 +98,14 @@ public class Visit {
 
     @Column(name = "role_type_id")
     private String roleTypeId;
+
+    @JoinedBy("visitorId=Visitor.visitorId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Visitor visitor;
+
+    @JoinedBy("userAgentId=UserAgent.userAgentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserAgent userAgent;
 }

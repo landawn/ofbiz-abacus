@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -59,4 +62,34 @@ public class SalesOpportunity {
 
     @Column(name = "created_by_user_login")
     private String createdByUserLogin;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("opportunityStageId=SalesOpportunityStage.opportunityStageId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SalesOpportunityStage salesOpportunityStage;
+
+    @JoinedBy("typeEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration enumeration;
+
+    @JoinedBy("marketingCampaignId=MarketingCampaign.marketingCampaignId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private MarketingCampaign marketingCampaign;
+
+    @JoinedBy("createdByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin userLogin;
+
+    @JoinedBy("dataSourceId=DataSource.dataSourceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private DataSource dataSource;
 }

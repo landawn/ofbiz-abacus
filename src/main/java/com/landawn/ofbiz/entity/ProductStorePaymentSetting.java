@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -41,4 +44,29 @@ public class ProductStorePaymentSetting {
 
     @Column(name = "apply_to_all_products")
     private String applyToAllProducts;
+
+    @JoinedBy("productStoreId=ProductStore.productStoreId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductStore productStore;
+
+    @JoinedBy("paymentMethodTypeId=PaymentMethodType.paymentMethodTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PaymentMethodType paymentMethodType;
+
+    @JoinedBy("paymentServiceTypeEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration enumeration;
+
+    @JoinedBy("paymentGatewayConfigId=PaymentGatewayConfig.paymentGatewayConfigId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PaymentGatewayConfig paymentGatewayConfig;
+
+    @JoinedBy("paymentCustomMethodId=CustomMethod.customMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustomMethod customMethod;
 }

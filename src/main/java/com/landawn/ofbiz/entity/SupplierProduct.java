@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -81,4 +84,39 @@ public class SupplierProduct {
 
     @Column(name = "comments")
     private String comments;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("supplierPrefOrderId=SupplierPrefOrder.supplierPrefOrderId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SupplierPrefOrder supplierPrefOrder;
+
+    @JoinedBy("supplierRatingTypeId=SupplierRatingType.supplierRatingTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SupplierRatingType supplierRatingType;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom currencyUom;
+
+    @JoinedBy("quantityUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom quantityUom;
+
+    @JoinedBy("agreementId=AgreementItem.agreementId, agreementItemSeqId=AgreementItem.agreementItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private AgreementItem agreementItem;
 }

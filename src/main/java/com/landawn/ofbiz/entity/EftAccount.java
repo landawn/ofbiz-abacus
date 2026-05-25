@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -42,4 +45,19 @@ public class EftAccount {
 
     @Column(name = "years_at_bank")
     private double yearsAtBank;
+
+    @JoinedBy("paymentMethodId=PaymentMethod.paymentMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PaymentMethod paymentMethod;
+
+    @JoinedBy("contactMechId=ContactMech.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMech contactMech;
+
+    @JoinedBy("contactMechId=PostalAddress.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PostalAddress postalAddress;
 }

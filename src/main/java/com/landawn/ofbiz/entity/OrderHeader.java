@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -107,4 +110,59 @@ public class OrderHeader {
 
     @Column(name = "invoice_per_shipment")
     private String invoicePerShipment;
+
+    @JoinedBy("orderTypeId=OrderType.orderTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderType orderType;
+
+    @JoinedBy("salesChannelEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration enumeration;
+
+    @JoinedBy("originFacilityId=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility facility;
+
+    @JoinedBy("billingAccountId=BillingAccount.billingAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private BillingAccount billingAccount;
+
+    @JoinedBy("productStoreId=ProductStore.productStoreId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductStore productStore;
+
+    @JoinedBy("autoOrderShoppingListId=ShoppingList.shoppingListId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShoppingList shoppingList;
+
+    @JoinedBy("createdBy=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin userLogin;
+
+    @JoinedBy("statusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem status;
+
+    @JoinedBy("syncStatusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem syncStatus;
+
+    @JoinedBy("currencyUom=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("webSiteId=WebSite.webSiteId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private WebSite webSite;
 }

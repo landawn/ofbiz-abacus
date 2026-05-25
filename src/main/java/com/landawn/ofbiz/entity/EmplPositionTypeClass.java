@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -34,4 +37,14 @@ public class EmplPositionTypeClass {
 
     @Column(name = "standard_hours_per_week")
     private Double standardHoursPerWeek;
+
+    @JoinedBy("emplPositionTypeId=EmplPositionType.emplPositionTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private EmplPositionType emplPositionType;
+
+    @JoinedBy("emplPositionClassTypeId=EmplPositionClassType.emplPositionClassTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private EmplPositionClassType emplPositionClassType;
 }

@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -34,4 +37,19 @@ public class InventoryItemVariance {
 
     @Column(name = "comments")
     private String comments;
+
+    @JoinedBy("physicalInventoryId=PhysicalInventory.physicalInventoryId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PhysicalInventory physicalInventory;
+
+    @JoinedBy("varianceReasonId=VarianceReason.varianceReasonId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private VarianceReason varianceReason;
+
+    @JoinedBy("inventoryItemId=InventoryItem.inventoryItemId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private InventoryItem inventoryItem;
 }

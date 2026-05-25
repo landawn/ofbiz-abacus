@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -85,4 +88,59 @@ public class ProductPrice {
 
     @Column(name = "last_modified_by_user_login")
     private String lastModifiedByUserLogin;
+
+    @JoinedBy("productId=Product.productId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Product product;
+
+    @JoinedBy("productPriceTypeId=ProductPriceType.productPriceTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductPriceType productPriceType;
+
+    @JoinedBy("productPricePurposeId=ProductPricePurpose.productPricePurposeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductPricePurpose productPricePurpose;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom currencyUom;
+
+    @JoinedBy("termUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom termUom;
+
+    @JoinedBy("productStoreGroupId=ProductStoreGroup.productStoreGroupId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductStoreGroup productStoreGroup;
+
+    @JoinedBy("customPriceCalcService=CustomMethod.customMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustomMethod customMethod;
+
+    @JoinedBy("taxAuthPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("taxAuthGeoId=Geo.geoId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Geo geo;
+
+    @JoinedBy("createdByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin createdByUserLoginRef;
+
+    @JoinedBy("lastModifiedByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin lastModifiedByUserLoginRef;
 }

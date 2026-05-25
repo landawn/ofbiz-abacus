@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -41,4 +44,29 @@ public class ReturnItemResponse {
 
     @Column(name = "response_date")
     private Timestamp responseDate;
+
+    @JoinedBy("orderPaymentPreferenceId=OrderPaymentPreference.orderPaymentPreferenceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderPaymentPreference orderPaymentPreference;
+
+    @JoinedBy("replacementOrderId=OrderHeader.orderId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderHeader orderHeader;
+
+    @JoinedBy("paymentId=Payment.paymentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Payment payment;
+
+    @JoinedBy("billingAccountId=BillingAccount.billingAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private BillingAccount billingAccount;
+
+    @JoinedBy("finAccountTransId=FinAccountTrans.finAccountTransId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FinAccountTrans finAccountTrans;
 }

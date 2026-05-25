@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -126,4 +129,69 @@ public class ShipmentRouteSegment {
 
     @Column(name = "ups_high_value_report")
     private byte[] upsHighValueReport;
+
+    @JoinedBy("shipmentId=Shipment.shipmentId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Shipment shipment;
+
+    @JoinedBy("deliveryId=Delivery.deliveryId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Delivery delivery;
+
+    @JoinedBy("carrierPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("shipmentMethodTypeId=ShipmentMethodType.shipmentMethodTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShipmentMethodType shipmentMethodType;
+
+    @JoinedBy("originFacilityId=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility originFacility;
+
+    @JoinedBy("destFacilityId=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility destFacility;
+
+    @JoinedBy("originContactMechId=PostalAddress.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PostalAddress originContactMech;
+
+    @JoinedBy("originTelecomNumberId=TelecomNumber.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TelecomNumber originTelecomNumber;
+
+    @JoinedBy("destContactMechId=PostalAddress.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PostalAddress destContactMech;
+
+    @JoinedBy("destTelecomNumberId=TelecomNumber.contactMechId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TelecomNumber destTelecomNumber;
+
+    @JoinedBy("carrierServiceStatusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom currencyUom;
+
+    @JoinedBy("billingWeightUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom billingWeightUom;
 }

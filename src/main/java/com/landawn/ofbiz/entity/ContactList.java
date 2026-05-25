@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -66,4 +69,34 @@ public class ContactList {
 
     @Column(name = "last_modified_by_user_login")
     private String lastModifiedByUserLogin;
+
+    @JoinedBy("marketingCampaignId=MarketingCampaign.marketingCampaignId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private MarketingCampaign marketingCampaign;
+
+    @JoinedBy("contactListTypeId=ContactListType.contactListTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactListType contactListType;
+
+    @JoinedBy("contactMechTypeId=ContactMechType.contactMechTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactMechType contactMechType;
+
+    @JoinedBy("createdByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin createdByUserLoginRef;
+
+    @JoinedBy("lastModifiedByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin lastModifiedByUserLoginRef;
+
+    @JoinedBy("ownerPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
 }

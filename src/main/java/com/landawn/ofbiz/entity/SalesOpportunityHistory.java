@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -53,4 +56,24 @@ public class SalesOpportunityHistory {
 
     @Column(name = "modified_timestamp")
     private Timestamp modifiedTimestamp;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("opportunityStageId=SalesOpportunityStage.opportunityStageId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SalesOpportunityStage salesOpportunityStage;
+
+    @JoinedBy("salesOpportunityId=SalesOpportunity.salesOpportunityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SalesOpportunity salesOpportunity;
+
+    @JoinedBy("modifiedByUserLogin=UserLogin.userLoginId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private UserLogin userLogin;
 }

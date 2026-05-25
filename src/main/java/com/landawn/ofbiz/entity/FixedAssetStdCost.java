@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -37,4 +40,19 @@ public class FixedAssetStdCost {
 
     @Column(name = "amount")
     private double amount;
+
+    @JoinedBy("fixedAssetId=FixedAsset.fixedAssetId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FixedAsset fixedAsset;
+
+    @JoinedBy("fixedAssetStdCostTypeId=FixedAssetStdCostType.fixedAssetStdCostTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FixedAssetStdCostType fixedAssetStdCostType;
+
+    @JoinedBy("amountUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
 }

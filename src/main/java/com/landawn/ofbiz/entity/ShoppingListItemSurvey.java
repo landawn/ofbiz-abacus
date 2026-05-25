@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -26,4 +29,19 @@ public class ShoppingListItemSurvey {
     @Id
     @Column(name = "survey_response_id")
     private String surveyResponseId;
+
+    @JoinedBy("shoppingListId=ShoppingList.shoppingListId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShoppingList shoppingList;
+
+    @JoinedBy("shoppingListId=ShoppingListItem.shoppingListId, shoppingListItemSeqId=ShoppingListItem.shoppingListItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShoppingListItem shoppingListItem;
+
+    @JoinedBy("surveyResponseId=SurveyResponse.surveyResponseId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SurveyResponse surveyResponse;
 }

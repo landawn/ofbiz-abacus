@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -27,4 +30,14 @@ public class SegmentGroup {
 
     @Column(name = "product_store_id")
     private String productStoreId;
+
+    @JoinedBy("segmentGroupTypeId=SegmentGroupType.segmentGroupTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private SegmentGroupType segmentGroupType;
+
+    @JoinedBy("productStoreId=ProductStore.productStoreId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductStore productStore;
 }

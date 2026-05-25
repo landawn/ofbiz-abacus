@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -36,4 +39,9 @@ public class OrderTermAttribute {
 
     @Column(name = "attr_description")
     private String attrDescription;
+
+    @JoinedBy("termTypeId=OrderTerm.termTypeId, orderId=OrderTerm.orderId, orderItemSeqId=OrderTerm.orderItemSeqId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderTerm orderTerm;
 }

@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -41,4 +44,9 @@ public class ContactListPartyStatus {
 
     @Column(name = "opt_in_verify_code")
     private String optInVerifyCode;
+
+    @JoinedBy("contactListId=ContactListParty.contactListId, partyId=ContactListParty.partyId, fromDate=ContactListParty.fromDate")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ContactListParty contactListParty;
 }

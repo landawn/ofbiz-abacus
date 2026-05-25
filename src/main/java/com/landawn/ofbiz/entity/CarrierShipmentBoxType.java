@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -28,4 +31,14 @@ public class CarrierShipmentBoxType {
 
     @Column(name = "oversize_code")
     private String oversizeCode;
+
+    @JoinedBy("shipmentBoxTypeId=ShipmentBoxType.shipmentBoxTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ShipmentBoxType shipmentBoxType;
+
+    @JoinedBy("partyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
 }

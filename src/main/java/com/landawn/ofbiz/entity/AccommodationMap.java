@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -30,4 +33,19 @@ public class AccommodationMap {
 
     @Column(name = "number_of_spaces")
     private double numberOfSpaces;
+
+    @JoinedBy("accommodationClassId=AccommodationClass.accommodationClassId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private AccommodationClass accommodationClass;
+
+    @JoinedBy("fixedAssetId=FixedAsset.fixedAssetId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FixedAsset fixedAsset;
+
+    @JoinedBy("accommodationMapTypeId=AccommodationMapType.accommodationMapTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private AccommodationMapType accommodationMapType;
 }

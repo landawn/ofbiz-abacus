@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -74,4 +77,69 @@ public class Payment {
 
     @Column(name = "actual_currency_uom_id")
     private String actualCurrencyUomId;
+
+    @JoinedBy("paymentTypeId=PaymentType.paymentTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PaymentType paymentType;
+
+    @JoinedBy("paymentMethodTypeId=PaymentMethodType.paymentMethodTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PaymentMethodType paymentMethodType;
+
+    @JoinedBy("paymentMethodId=PaymentMethod.paymentMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PaymentMethod paymentMethod;
+
+    @JoinedBy("currencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom currencyUom;
+
+    @JoinedBy("actualCurrencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom actualCurrencyUom;
+
+    @JoinedBy("paymentPreferenceId=OrderPaymentPreference.orderPaymentPreferenceId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private OrderPaymentPreference orderPaymentPreference;
+
+    @JoinedBy("paymentGatewayResponseId=PaymentGatewayResponse.paymentGatewayResponseId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private PaymentGatewayResponse paymentGatewayResponse;
+
+    @JoinedBy("partyIdFrom=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party partyFrom;
+
+    @JoinedBy("partyIdTo=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party partyTo;
+
+    @JoinedBy("roleTypeIdTo=RoleType.roleTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private RoleType roleType;
+
+    @JoinedBy("statusId=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem statusItem;
+
+    @JoinedBy("finAccountTransId=FinAccountTrans.finAccountTransId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private FinAccountTrans finAccountTrans;
+
+    @JoinedBy("overrideGlAccountId=GlAccount.glAccountId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private GlAccount glAccount;
 }

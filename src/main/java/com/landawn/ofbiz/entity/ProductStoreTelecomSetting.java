@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -32,4 +35,29 @@ public class ProductStoreTelecomSetting {
 
     @Column(name = "telecom_gateway_config_id")
     private String telecomGatewayConfigId;
+
+    @JoinedBy("productStoreId=ProductStore.productStoreId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductStore productStore;
+
+    @JoinedBy("telecomMethodTypeId=TelecomMethodType.telecomMethodTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TelecomMethodType telecomMethodType;
+
+    @JoinedBy("telecomMsgTypeEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration enumeration;
+
+    @JoinedBy("telecomGatewayConfigId=TelecomGatewayConfig.telecomGatewayConfigId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TelecomGatewayConfig telecomGatewayConfig;
+
+    @JoinedBy("telecomCustomMethodId=CustomMethod.customMethodId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CustomMethod customMethod;
 }

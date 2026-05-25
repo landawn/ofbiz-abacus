@@ -2,12 +2,15 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -249,4 +252,84 @@ public class ProductStore {
 
     @Column(name = "allocate_inventory")
     private String allocateInventory;
+
+    @JoinedBy("primaryStoreGroupId=ProductStoreGroup.productStoreGroupId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private ProductStoreGroup productStoreGroup;
+
+    @JoinedBy("inventoryFacilityId=Facility.facilityId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Facility facility;
+
+    @JoinedBy("reserveOrderEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration reserveOrderEnum;
+
+    @JoinedBy("requirementMethodEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration requirementMethodEnum;
+
+    @JoinedBy("payToPartyId=Party.partyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Party party;
+
+    @JoinedBy("defaultCurrencyUomId=Uom.uomId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Uom uom;
+
+    @JoinedBy("defaultSalesChannelEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration defaultSalesChannelEnum;
+
+    @JoinedBy("headerApprovedStatus=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem headerApprovedStatusStatusItem;
+
+    @JoinedBy("itemApprovedStatus=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem itemApprovedStatusStatusItem;
+
+    @JoinedBy("digitalItemApprovedStatus=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem digitalItemApprovedStatusStatusItem;
+
+    @JoinedBy("headerDeclinedStatus=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem headerDeclinedStatusStatusItem;
+
+    @JoinedBy("itemDeclinedStatus=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem itemDeclinedStatusStatusItem;
+
+    @JoinedBy("headerCancelStatus=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem headerCancelStatusStatusItem;
+
+    @JoinedBy("itemCancelStatus=StatusItem.statusId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private StatusItem itemCancelStatusStatusItem;
+
+    @JoinedBy("vatTaxAuthGeoId=TaxAuthority.taxAuthGeoId, vatTaxAuthPartyId=TaxAuthority.taxAuthPartyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TaxAuthority taxAuthority;
+
+    @JoinedBy("storeCreditAccountEnumId=Enumeration.enumId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Enumeration storeCreditAccountEnum;
 }

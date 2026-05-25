@@ -2,6 +2,7 @@ package com.landawn.ofbiz.entity;
 
 import com.landawn.abacus.annotation.Column;
 import com.landawn.abacus.annotation.Id;
+import com.landawn.abacus.annotation.JoinedBy;
 import com.landawn.abacus.annotation.Table;
 
 import java.sql.Timestamp;
@@ -9,7 +10,9 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -42,4 +45,19 @@ public class TaxAuthorityAssoc {
 
     @Column(name = "tax_authority_assoc_type_id")
     private String taxAuthorityAssocTypeId;
+
+    @JoinedBy("taxAuthGeoId=TaxAuthority.taxAuthGeoId, taxAuthPartyId=TaxAuthority.taxAuthPartyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TaxAuthority taxAuthGeo;
+
+    @JoinedBy("toTaxAuthGeoId=TaxAuthority.taxAuthGeoId, toTaxAuthPartyId=TaxAuthority.taxAuthPartyId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TaxAuthority toTaxAuthGeo;
+
+    @JoinedBy("taxAuthorityAssocTypeId=TaxAuthorityAssocType.taxAuthorityAssocTypeId")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private TaxAuthorityAssocType taxAuthorityAssocType;
 }
