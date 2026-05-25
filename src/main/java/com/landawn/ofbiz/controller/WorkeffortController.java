@@ -12,18 +12,68 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.landawn.ofbiz.model.AddTimesheetToInvoiceRequest;
+import com.landawn.ofbiz.model.AddTimesheetToInvoiceResponse;
+import com.landawn.ofbiz.model.AddTimesheetToNewInvoiceRequest;
+import com.landawn.ofbiz.model.AddTimesheetToNewInvoiceResponse;
+import com.landawn.ofbiz.model.CreateTimeEntryRequest;
+import com.landawn.ofbiz.model.CreateTimeEntryResponse;
+import com.landawn.ofbiz.model.CreateTimesheetForThisWeekRequest;
+import com.landawn.ofbiz.model.CreateTimesheetForThisWeekResponse;
+import com.landawn.ofbiz.model.CreateTimesheetRequest;
+import com.landawn.ofbiz.model.CreateTimesheetResponse;
+import com.landawn.ofbiz.model.CreateTimesheetRoleRequest;
+import com.landawn.ofbiz.model.CreateTimesheetRoleResponse;
+import com.landawn.ofbiz.model.CreateWorkEffortAndAssocRequest;
+import com.landawn.ofbiz.model.CreateWorkEffortAndAssocResponse;
+import com.landawn.ofbiz.model.CreateWorkEffortAndPartyAssignRequest;
+import com.landawn.ofbiz.model.CreateWorkEffortAndPartyAssignResponse;
+import com.landawn.ofbiz.model.CreateWorkEffortAssocRequest;
+import com.landawn.ofbiz.model.CreateWorkEffortAssocResponse;
+import com.landawn.ofbiz.model.CreateWorkEffortContactMechRequest;
+import com.landawn.ofbiz.model.CreateWorkEffortContactMechResponse;
+import com.landawn.ofbiz.model.CreateWorkEffortKeywordsRequest;
+import com.landawn.ofbiz.model.CreateWorkEffortKeywordsResponse;
+import com.landawn.ofbiz.model.CreateWorkEffortRequest;
+import com.landawn.ofbiz.model.CreateWorkEffortResponse;
+import com.landawn.ofbiz.model.DeleteTimeEntryRequest;
+import com.landawn.ofbiz.model.DeleteTimeEntryResponse;
+import com.landawn.ofbiz.model.DeleteTimesheetRoleRequest;
+import com.landawn.ofbiz.model.DeleteTimesheetRoleResponse;
+import com.landawn.ofbiz.model.DeleteWorkEffortContactMechRequest;
+import com.landawn.ofbiz.model.DeleteWorkEffortContactMechResponse;
+import com.landawn.ofbiz.model.DeleteWorkEffortKeywordsRequest;
+import com.landawn.ofbiz.model.DeleteWorkEffortKeywordsResponse;
+import com.landawn.ofbiz.model.DeleteWorkEffortRequest;
+import com.landawn.ofbiz.model.DeleteWorkEffortResponse;
+import com.landawn.ofbiz.model.DuplicateWorkEffortRequest;
+import com.landawn.ofbiz.model.DuplicateWorkEffortResponse;
+import com.landawn.ofbiz.model.ResponseBase;
+import com.landawn.ofbiz.model.TestResponse;
+import com.landawn.ofbiz.model.UpdateTimeEntryRequest;
+import com.landawn.ofbiz.model.UpdateTimeEntryResponse;
+import com.landawn.ofbiz.model.UpdateTimesheetRequest;
+import com.landawn.ofbiz.model.UpdateTimesheetResponse;
+import com.landawn.ofbiz.model.UpdateWorkEffortAndAssocRequest;
+import com.landawn.ofbiz.model.UpdateWorkEffortAndAssocResponse;
+import com.landawn.ofbiz.model.UpdateWorkEffortAssocRequest;
+import com.landawn.ofbiz.model.UpdateWorkEffortAssocResponse;
+import com.landawn.ofbiz.model.UpdateWorkEffortRequest;
+import com.landawn.ofbiz.model.UpdateWorkEffortResponse;
 import com.landawn.ofbiz.service.ServiceResponse;
 import com.landawn.ofbiz.service.WorkeffortService;
 
 /**
  * REST surface for the 27 OFBiz workeffort endpoints. Each method delegates to one
- * {@link WorkeffortService} method and wraps the OFBiz-style result envelope into a
- * {@code ResponseEntity}. Errors surfaced by {@link ServiceResponse#error(String)} map to HTTP 400;
- * permission failures throw {@code PermissionDeniedException} which maps to HTTP 403.
+ * {@link WorkeffortService} method and wraps the typed response DTO into a {@code ResponseEntity}.
+ * Errors surfaced by the service (DTO with {@code errorMessage} set or {@code responseMessage} =
+ * {@code "error"}/{@code "fail"}) map to HTTP 400; permission failures throw
+ * {@code PermissionDeniedException} which maps to HTTP 403.
  *
- * <p>For OFBiz endpoints whose original response was an HTML page render, this Spring port returns
- * a JSON envelope of the service's OUT attributes plus the {@code responseMessage} / optional
- * {@code successMessage} / {@code errorMessage} keys — no HTML.
+ * <p>The success / error envelope keys ({@code responseMessage}, {@code successMessage},
+ * {@code errorMessage}, {@code errorMessageList}) live on
+ * {@link com.landawn.ofbiz.model.ResponseBase}, so a client always sees the same shape per
+ * endpoint regardless of outcome.
  */
 @RestController
 @RequestMapping("/workeffort")
@@ -35,8 +85,8 @@ public class WorkeffortController {
         this.service = service;
     }
 
-    /** Wraps a service result map into a 200/400 ResponseEntity based on the envelope. */
-    private static ResponseEntity<Map<String, Object>> wrap(Map<String, Object> result) {
+    /** 200/400 routing decided by the response DTO's envelope state. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
         return ServiceResponse.isError(result)
                 ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result)
                 : ResponseEntity.ok(result);
@@ -50,8 +100,9 @@ public class WorkeffortController {
      * WorkEffortContent, RateAmount  auth: true
      */
     @PostMapping("/workeffort/control/DuplicateWorkEffort")
-    public ResponseEntity<Map<String, Object>> duplicateWorkEffort(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.duplicateWorkEffort(body));
+    public ResponseEntity<DuplicateWorkEffortResponse> duplicateWorkEffort(
+            @RequestBody DuplicateWorkEffortRequest request) throws SQLException {
+        return wrap(service.duplicateWorkEffort(request));
     }
 
     /**
@@ -61,8 +112,9 @@ public class WorkeffortController {
      * <p>service: createWorkEffort  entities: WorkEffort, WorkEffortStatus  auth: true
      */
     @PostMapping("/workeffort/control/WorkEffort/create")
-    public ResponseEntity<Map<String, Object>> createWorkEffort(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.createWorkEffort(body));
+    public ResponseEntity<CreateWorkEffortResponse> createWorkEffort(
+            @RequestBody CreateWorkEffortRequest request) throws SQLException {
+        return wrap(service.createWorkEffort(request));
     }
 
     /**
@@ -71,8 +123,9 @@ public class WorkeffortController {
      * <p>service: updateWorkEffort  entities: WorkEffort, WorkEffortStatus  auth: true
      */
     @PostMapping("/workeffort/control/WorkEffort/update")
-    public ResponseEntity<Map<String, Object>> updateWorkEffort(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.updateWorkEffort(body));
+    public ResponseEntity<UpdateWorkEffortResponse> updateWorkEffort(
+            @RequestBody UpdateWorkEffortRequest request) throws SQLException {
+        return wrap(service.updateWorkEffort(request));
     }
 
     /**
@@ -82,8 +135,9 @@ public class WorkeffortController {
      * <p>service: addTimesheetToInvoice  entities: Timesheet, TimeEntry, Invoice, InvoiceItem  auth: true
      */
     @PostMapping("/workeffort/control/addTimesheetToInvoice")
-    public ResponseEntity<Map<String, Object>> addTimesheetToInvoice(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.addTimesheetToInvoice(body));
+    public ResponseEntity<AddTimesheetToInvoiceResponse> addTimesheetToInvoice(
+            @RequestBody AddTimesheetToInvoiceRequest request) throws SQLException {
+        return wrap(service.addTimesheetToInvoice(request));
     }
 
     /**
@@ -92,16 +146,19 @@ public class WorkeffortController {
      * <p>service: addTimesheetToNewInvoice  entities: Invoice, InvoiceItem, TimeEntry  auth: true
      */
     @PostMapping("/workeffort/control/addTimesheetToNewInvoice")
-    public ResponseEntity<Map<String, Object>> addTimesheetToNewInvoice(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.addTimesheetToNewInvoice(body));
+    public ResponseEntity<AddTimesheetToNewInvoiceResponse> addTimesheetToNewInvoice(
+            @RequestBody AddTimesheetToNewInvoiceRequest request) throws SQLException {
+        return wrap(service.addTimesheetToNewInvoice(request));
     }
 
     /**
-     * Chain test endpoint — OFBiz framework's no-op self-test service.
+     * Chain test endpoint — OFBiz framework's no-op self-test service. Free-form: query params are
+     * echoed back unchanged, so the request stays as {@code Map<String,String>} rather than a
+     * fixed schema.
      * <p>service: test  entities: -  auth: false
      */
     @GetMapping("/workeffort/control/chain")
-    public ResponseEntity<Map<String, Object>> test(@RequestParam Map<String, String> params) {
+    public ResponseEntity<TestResponse> test(@RequestParam Map<String, String> params) {
         return wrap(service.test(Map.copyOf(params)));
     }
 
@@ -110,8 +167,9 @@ public class WorkeffortController {
      * <p>service: createTimeEntry  entities: TimeEntry  auth: true
      */
     @PostMapping("/workeffort/control/createQuickTimeEntry")
-    public ResponseEntity<Map<String, Object>> createTimeEntry(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.createTimeEntry(body));
+    public ResponseEntity<CreateTimeEntryResponse> createTimeEntry(
+            @RequestBody CreateTimeEntryRequest request) throws SQLException {
+        return wrap(service.createTimeEntry(request));
     }
 
     /**
@@ -119,14 +177,16 @@ public class WorkeffortController {
      * <p>service: createTimesheet  entities: Timesheet  auth: true
      */
     @PostMapping("/workeffort/control/createTimesheet")
-    public ResponseEntity<Map<String, Object>> createTimesheet(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.createTimesheet(body));
+    public ResponseEntity<CreateTimesheetResponse> createTimesheet(
+            @RequestBody CreateTimesheetRequest request) throws SQLException {
+        return wrap(service.createTimesheet(request));
     }
 
     /** Alias of createQuickTimeEntry. */
     @PostMapping("/workeffort/control/createTimesheetEntry")
-    public ResponseEntity<Map<String, Object>> createTimeEntryCreateTimesheetEntry(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.createTimeEntry(body));
+    public ResponseEntity<CreateTimeEntryResponse> createTimeEntryCreateTimesheetEntry(
+            @RequestBody CreateTimeEntryRequest request) throws SQLException {
+        return wrap(service.createTimeEntry(request));
     }
 
     /**
@@ -135,8 +195,9 @@ public class WorkeffortController {
      * <p>service: createTimesheetForThisWeek  entities: Timesheet  auth: true
      */
     @PostMapping("/workeffort/control/createTimesheetForThisWeek")
-    public ResponseEntity<Map<String, Object>> createTimesheetForThisWeek(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.createTimesheetForThisWeek(body));
+    public ResponseEntity<CreateTimesheetForThisWeekResponse> createTimesheetForThisWeek(
+            @RequestBody CreateTimesheetForThisWeekRequest request) throws SQLException {
+        return wrap(service.createTimesheetForThisWeek(request));
     }
 
     /**
@@ -144,14 +205,16 @@ public class WorkeffortController {
      * <p>service: createTimesheetRole  entities: TimesheetRole  auth: true
      */
     @PostMapping("/workeffort/control/createTimesheetRole")
-    public ResponseEntity<Map<String, Object>> createTimesheetRole(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.createTimesheetRole(body));
+    public ResponseEntity<CreateTimesheetRoleResponse> createTimesheetRole(
+            @RequestBody CreateTimesheetRoleRequest request) throws SQLException {
+        return wrap(service.createTimesheetRole(request));
     }
 
     /** Alias of WorkEffort/create. */
     @PostMapping("/workeffort/control/createWorkEffort")
-    public ResponseEntity<Map<String, Object>> createWorkEffortCreateWorkEffort(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.createWorkEffort(body));
+    public ResponseEntity<CreateWorkEffortResponse> createWorkEffortCreateWorkEffort(
+            @RequestBody CreateWorkEffortRequest request) throws SQLException {
+        return wrap(service.createWorkEffort(request));
     }
 
     /**
@@ -160,8 +223,9 @@ public class WorkeffortController {
      * <p>service: createWorkEffortAndAssoc  entities: WorkEffort, WorkEffortAssoc  auth: true
      */
     @PostMapping("/workeffort/control/createWorkEffortAndAssoc")
-    public ResponseEntity<Map<String, Object>> createWorkEffortAndAssoc(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.createWorkEffortAndAssoc(body));
+    public ResponseEntity<CreateWorkEffortAndAssocResponse> createWorkEffortAndAssoc(
+            @RequestBody CreateWorkEffortAndAssocRequest request) throws SQLException {
+        return wrap(service.createWorkEffortAndAssoc(request));
     }
 
     /**
@@ -170,8 +234,9 @@ public class WorkeffortController {
      * <p>service: createWorkEffortAndPartyAssign  entities: WorkEffort, WorkEffortPartyAssignment  auth: true
      */
     @PostMapping("/workeffort/control/createWorkEffortAndPartyAssign")
-    public ResponseEntity<Map<String, Object>> createWorkEffortAndPartyAssign(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.createWorkEffortAndPartyAssign(body));
+    public ResponseEntity<CreateWorkEffortAndPartyAssignResponse> createWorkEffortAndPartyAssign(
+            @RequestBody CreateWorkEffortAndPartyAssignRequest request) throws SQLException {
+        return wrap(service.createWorkEffortAndPartyAssign(request));
     }
 
     /**
@@ -179,8 +244,9 @@ public class WorkeffortController {
      * <p>service: createWorkEffortAssoc  entities: WorkEffortAssoc  auth: true
      */
     @PostMapping("/workeffort/control/createWorkEffortAssoc")
-    public ResponseEntity<Map<String, Object>> createWorkEffortAssoc(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.createWorkEffortAssoc(body));
+    public ResponseEntity<CreateWorkEffortAssocResponse> createWorkEffortAssoc(
+            @RequestBody CreateWorkEffortAssocRequest request) throws SQLException {
+        return wrap(service.createWorkEffortAssoc(request));
     }
 
     /**
@@ -190,8 +256,9 @@ public class WorkeffortController {
      * <p>service: createWorkEffortContactMech  entities: ContactMech, PartyContactMech, WorkEffortContactMech  auth: true
      */
     @PostMapping("/workeffort/control/createWorkEffortContactMech")
-    public ResponseEntity<Map<String, Object>> createWorkEffortContactMech(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.createWorkEffortContactMech(body));
+    public ResponseEntity<CreateWorkEffortContactMechResponse> createWorkEffortContactMech(
+            @RequestBody CreateWorkEffortContactMechRequest request) throws SQLException {
+        return wrap(service.createWorkEffortContactMech(request));
     }
 
     /**
@@ -200,8 +267,9 @@ public class WorkeffortController {
      * <p>service: createWorkEffortKeywords  entities: WorkEffortKeyword  auth: true
      */
     @PostMapping("/workeffort/control/createWorkEffortKeywords")
-    public ResponseEntity<Map<String, Object>> createWorkEffortKeywords(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.createWorkEffortKeywords(body));
+    public ResponseEntity<CreateWorkEffortKeywordsResponse> createWorkEffortKeywords(
+            @RequestBody CreateWorkEffortKeywordsRequest request) throws SQLException {
+        return wrap(service.createWorkEffortKeywords(request));
     }
 
     /**
@@ -209,8 +277,9 @@ public class WorkeffortController {
      * <p>service: deleteTimeEntry  entities: TimeEntry  auth: true
      */
     @PostMapping("/workeffort/control/deleteTimesheetEntry")
-    public ResponseEntity<Map<String, Object>> deleteTimeEntry(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.deleteTimeEntry(body));
+    public ResponseEntity<DeleteTimeEntryResponse> deleteTimeEntry(
+            @RequestBody DeleteTimeEntryRequest request) throws SQLException {
+        return wrap(service.deleteTimeEntry(request));
     }
 
     /**
@@ -218,8 +287,9 @@ public class WorkeffortController {
      * <p>service: deleteTimesheetRole  entities: TimesheetRole  auth: true
      */
     @PostMapping("/workeffort/control/deleteTimesheetRole")
-    public ResponseEntity<Map<String, Object>> deleteTimesheetRole(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.deleteTimesheetRole(body));
+    public ResponseEntity<DeleteTimesheetRoleResponse> deleteTimesheetRole(
+            @RequestBody DeleteTimesheetRoleRequest request) throws SQLException {
+        return wrap(service.deleteTimesheetRole(request));
     }
 
     /**
@@ -231,8 +301,9 @@ public class WorkeffortController {
      * <p>service: deleteWorkEffort  entities: WorkEffort + 14 dependents  auth: true
      */
     @PostMapping("/workeffort/control/deleteWorkEffort")
-    public ResponseEntity<Map<String, Object>> deleteWorkEffort(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.deleteWorkEffort(body));
+    public ResponseEntity<DeleteWorkEffortResponse> deleteWorkEffort(
+            @RequestBody DeleteWorkEffortRequest request) throws SQLException {
+        return wrap(service.deleteWorkEffort(request));
     }
 
     /**
@@ -240,8 +311,9 @@ public class WorkeffortController {
      * <p>service: deleteWorkEffortContactMech  entities: WorkEffortContactMech  auth: true
      */
     @PostMapping("/workeffort/control/deleteWorkEffortContactMech")
-    public ResponseEntity<Map<String, Object>> deleteWorkEffortContactMech(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.deleteWorkEffortContactMech(body));
+    public ResponseEntity<DeleteWorkEffortContactMechResponse> deleteWorkEffortContactMech(
+            @RequestBody DeleteWorkEffortContactMechRequest request) throws SQLException {
+        return wrap(service.deleteWorkEffortContactMech(request));
     }
 
     /**
@@ -249,8 +321,9 @@ public class WorkeffortController {
      * <p>service: deleteWorkEffortKeywords  entities: WorkEffortKeyword  auth: true
      */
     @PostMapping("/workeffort/control/deleteWorkEffortKeywords")
-    public ResponseEntity<Map<String, Object>> deleteWorkEffortKeywords(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.deleteWorkEffortKeywords(body));
+    public ResponseEntity<DeleteWorkEffortKeywordsResponse> deleteWorkEffortKeywords(
+            @RequestBody DeleteWorkEffortKeywordsRequest request) throws SQLException {
+        return wrap(service.deleteWorkEffortKeywords(request));
     }
 
     /**
@@ -258,8 +331,9 @@ public class WorkeffortController {
      * <p>service: updateTimesheet  entities: Timesheet  auth: true
      */
     @PostMapping("/workeffort/control/updateTimesheet")
-    public ResponseEntity<Map<String, Object>> updateTimesheet(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.updateTimesheet(body));
+    public ResponseEntity<UpdateTimesheetResponse> updateTimesheet(
+            @RequestBody UpdateTimesheetRequest request) throws SQLException {
+        return wrap(service.updateTimesheet(request));
     }
 
     /**
@@ -269,14 +343,16 @@ public class WorkeffortController {
      * <p>service: updateTimeEntry  entities: TimeEntry  auth: true
      */
     @PostMapping("/workeffort/control/updateTimesheetEntry")
-    public ResponseEntity<Map<String, Object>> updateTimeEntry(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.updateTimeEntry(body));
+    public ResponseEntity<UpdateTimeEntryResponse> updateTimeEntry(
+            @RequestBody UpdateTimeEntryRequest request) throws SQLException {
+        return wrap(service.updateTimeEntry(request));
     }
 
     /** Alias of WorkEffort/update. */
     @PostMapping("/workeffort/control/updateWorkEffort")
-    public ResponseEntity<Map<String, Object>> updateWorkEffortUpdateWorkEffort(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.updateWorkEffort(body));
+    public ResponseEntity<UpdateWorkEffortResponse> updateWorkEffortUpdateWorkEffort(
+            @RequestBody UpdateWorkEffortRequest request) throws SQLException {
+        return wrap(service.updateWorkEffort(request));
     }
 
     /**
@@ -285,8 +361,9 @@ public class WorkeffortController {
      * <p>service: updateWorkEffortAndAssoc  entities: WorkEffort, WorkEffortAssoc  auth: true
      */
     @PostMapping("/workeffort/control/updateWorkEffortAndAssoc")
-    public ResponseEntity<Map<String, Object>> updateWorkEffortAndAssoc(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.updateWorkEffortAndAssoc(body));
+    public ResponseEntity<UpdateWorkEffortAndAssocResponse> updateWorkEffortAndAssoc(
+            @RequestBody UpdateWorkEffortAndAssocRequest request) throws SQLException {
+        return wrap(service.updateWorkEffortAndAssoc(request));
     }
 
     /**
@@ -294,7 +371,8 @@ public class WorkeffortController {
      * <p>service: updateWorkEffortAssoc  entities: WorkEffortAssoc  auth: true
      */
     @PostMapping("/workeffort/control/updateWorkEffortAssoc")
-    public ResponseEntity<Map<String, Object>> updateWorkEffortAssoc(@RequestBody Map<String, Object> body) throws SQLException {
-        return wrap(service.updateWorkEffortAssoc(body));
+    public ResponseEntity<UpdateWorkEffortAssocResponse> updateWorkEffortAssoc(
+            @RequestBody UpdateWorkEffortAssocRequest request) throws SQLException {
+        return wrap(service.updateWorkEffortAssoc(request));
     }
 }

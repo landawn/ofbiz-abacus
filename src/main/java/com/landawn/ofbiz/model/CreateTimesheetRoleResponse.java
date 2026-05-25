@@ -19,5 +19,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class CreateTimesheetRoleResponse extends ResponseBase {
 
-    // (no service-specific fields beyond the base envelope)
+    private String timesheetId;
+    private String partyId;
+    private String roleTypeId;
 }

@@ -69,10 +69,44 @@ TARGET_SERVICES = [
     "test",  # framework chain-test — hand-modeled below
 ]
 
-# Universal fields that live on RequestDTOBase / ResponseDTOBase. Subclasses must NOT redeclare.
+# Universal fields that live on RequestBase / ResponseBase. Subclasses must NOT redeclare.
 UNIVERSAL_REQUEST_FIELDS = {"userLoginId", "userLogin", "locale", "timeZone"}
 UNIVERSAL_RESPONSE_FIELDS = {"responseMessage", "successMessage", "errorMessage",
                              "errorMessageList"}
+
+# ---------------------------------------------------------------------------
+# Implementation-emitted OUT fields not declared in the OFBiz service definition. The OFBiz
+# minilang / groovy bodies for these services emit additional result-map keys that the OFBiz
+# <service> XML doesn't formalize as <attribute mode="OUT">. Our Spring port preserves the
+# emission (the replay script asserts these keys), so the typed response DTOs must carry them.
+#
+# service -> list of (fieldName, javaType) pairs.
+# ---------------------------------------------------------------------------
+IMPL_EXTRA_OUT_FIELDS = {
+    "updateWorkEffort":             [("workEffortId", "String")],
+    "deleteWorkEffort":             [("workEffortId", "String")],
+    "createWorkEffortAssoc":        [("workEffortIdFrom", "String"),
+                                     ("workEffortIdTo", "String"),
+                                     ("workEffortAssocTypeId", "String"),
+                                     ("fromDate", "java.sql.Timestamp")],
+    "updateWorkEffortAssoc":        [("workEffortIdFrom", "String")],
+    "createWorkEffortKeywords":     [("workEffortId", "String"),
+                                     ("keywordsAdded", "Integer")],
+    "deleteWorkEffortKeywords":     [("workEffortId", "String"),
+                                     ("deletedRows", "Integer")],
+    "deleteWorkEffortContactMech":  [("deletedRows", "Integer")],
+    "updateTimesheet":              [("timesheetId", "String")],
+    "addTimesheetToInvoice":        [("timesheetId", "String"),
+                                     ("invoiceId", "String"),
+                                     ("linkedTimeEntries", "Integer"),
+                                     ("invoiceItemsCreated", "Integer")],
+    "createTimesheetRole":          [("timesheetId", "String"),
+                                     ("partyId", "String"),
+                                     ("roleTypeId", "String")],
+    "deleteTimesheetRole":          [("deletedRows", "Integer")],
+    "updateTimeEntry":              [("timeEntryId", "String")],
+    "deleteTimeEntry":              [("deletedRows", "Integer")],
+}
 
 # ---------------------------------------------------------------------------
 # OFBiz type -> Java type mapping
@@ -445,7 +479,7 @@ def render_dto(service_name: str, role: str, attrs: dict[str, Attr],
                header_note: str = "") -> str:
     """role: 'Request' or 'Response'."""
     class_name = pascal(service_name) + role
-    base_class = "RequestDTOBase" if role == "Request" else "ResponseDTOBase"
+    base_class = "RequestBase" if role == "Request" else "ResponseBase"
     skip = UNIVERSAL_REQUEST_FIELDS if role == "Request" else UNIVERSAL_RESPONSE_FIELDS
 
     field_lines: list[str] = []
@@ -506,6 +540,12 @@ def main() -> int:
 
         if svc.raw is not None:
             resolve_service(svc, all_services)
+
+        # Inject implementation-emitted OUT fields that the OFBiz service def doesn't declare.
+        for fname, ftype in IMPL_EXTRA_OUT_FIELDS.get(svc_name, []):
+            svc.attrs_out.setdefault(
+                fname, Attr(name=fname, java_type=map_ofbiz_type(ftype, fname),
+                            mode="OUT", optional=True))
 
         header_note = f"Generated from OFBiz service definition; default-entity-name=" \
                       f"{svc.default_entity or '(none)'}."

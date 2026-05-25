@@ -11,13 +11,17 @@ package com.landawn.ofbiz.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
+
+import com.landawn.abacus.util.Beans;
+import com.landawn.ofbiz.model.ResponseBase;
 
 /**
- * Builds OFBiz-style service result envelopes. Every WorkeffortService method returns a
- * {@code Map<String, Object>} shaped like the OFBiz {@code Map result} convention, so the
- * controller can serialize it as-is.
+ * Builds OFBiz-style service result envelopes. Internally services still pass {@code Map<String, Object>}
+ * around for the OFBiz interop seams (SECA chains, putAll merges, etc.); the public service methods
+ * convert those maps into typed {@link ResponseBase} subclasses at the boundary via {@link #toDto}.
  *
- * <p>Conventional keys:
+ * <p>Conventional envelope keys:
  * <ul>
  *   <li>{@code responseMessage} — {@code "success"} | {@code "error"} | {@code "fail"}</li>
  *   <li>{@code successMessage} — single-line success message (optional)</li>
@@ -81,8 +85,73 @@ public final class ServiceResponse {
         return out;
     }
 
-    /** Marks a result map as an error (used by controllers to decide HTTP status). */
+    /** True when an envelope is an error envelope. Used by service-to-service short-circuits. */
     public static boolean isError(Map<String, Object> result) {
         return result != null && ERROR.equals(result.get(RESPONSE_MESSAGE));
+    }
+
+    /**
+     * True when a typed response is an error envelope. Used by the controller's {@code wrap()}
+     * to route to HTTP 400.
+     */
+    public static boolean isError(ResponseBase result) {
+        if (result == null) {
+            return false;
+        }
+        return ERROR.equals(result.getResponseMessage())
+                || FAIL.equals(result.getResponseMessage())
+                || result.getErrorMessage() != null
+                || (result.getErrorMessageList() != null && !result.getErrorMessageList().isEmpty());
+    }
+
+    /** Build a typed success envelope. Caller populates OUT fields on the returned DTO. */
+    public static <T extends ResponseBase> T ok(Supplier<T> factory) {
+        T r = factory.get();
+        r.setResponseMessage(SUCCESS);
+        return r;
+    }
+
+    /** Build a typed error envelope (responseMessage=error, errorMessage + errorMessageList set). */
+    public static <T extends ResponseBase> T error(String message, Supplier<T> factory) {
+        T r = factory.get();
+        r.setResponseMessage(ERROR);
+        r.setErrorMessage(message);
+        r.setErrorMessageList(List.of(message));
+        return r;
+    }
+
+    /**
+     * Boundary converter: copy every entry of {@code envelope} (a {@link ServiceResponse}-shaped map)
+     * onto a freshly-instantiated {@code T}. Unknown map keys are silently ignored. Used by service
+     * methods to convert their internal map-shaped result into the per-endpoint typed DTO.
+     */
+    public static <T extends ResponseBase> T toDto(Map<String, Object> envelope, Supplier<T> factory) {
+        T dto = factory.get();
+        if (envelope == null) {
+            return dto;
+        }
+        for (Map.Entry<String, Object> e : envelope.entrySet()) {
+            try {
+                Beans.setPropValue(dto, e.getKey(), e.getValue(), true);
+            } catch (RuntimeException ignored) {
+                // unknown property or type-coercion failure — skip
+            }
+        }
+        return dto;
+    }
+
+    /**
+     * Project an error envelope from one typed response onto another — used by service-to-service
+     * composition to propagate a sub-service's error to its caller's response type.
+     */
+    public static <T extends ResponseBase> T errorOf(ResponseBase source, Supplier<T> factory) {
+        T dst = factory.get();
+        if (source == null) {
+            return dst;
+        }
+        dst.setResponseMessage(source.getResponseMessage());
+        dst.setErrorMessage(source.getErrorMessage());
+        dst.setErrorMessageList(source.getErrorMessageList());
+        return dst;
     }
 }

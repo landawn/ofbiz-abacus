@@ -19,5 +19,5 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class DeleteWorkEffortResponse extends ResponseBase {
 
-    // (no service-specific fields beyond the base envelope)
+    private String workEffortId;
 }

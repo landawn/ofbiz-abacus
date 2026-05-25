@@ -19,5 +19,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class AddTimesheetToInvoiceResponse extends ResponseBase {
 
-    // (no service-specific fields beyond the base envelope)
+    private String timesheetId;
+    private String invoiceId;
+    private Integer linkedTimeEntries;
+    private Integer invoiceItemsCreated;
 }

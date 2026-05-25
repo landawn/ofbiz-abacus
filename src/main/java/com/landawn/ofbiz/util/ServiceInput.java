@@ -9,9 +9,13 @@
 package com.landawn.ofbiz.util;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import com.landawn.abacus.util.Beans;
+import com.landawn.abacus.util.Strings;
+import com.landawn.ofbiz.model.RequestBase;
 
 /**
  * Helpers for mapping the loosely-typed {@code Map<String, Object>} bodies that arrive from the
@@ -76,6 +80,46 @@ public final class ServiceInput {
                 return null;
             }
         }
+    }
+
+    /**
+     * Boundary converter: project a typed {@link RequestBase} DTO into the loose
+     * {@code Map<String, Object>} shape that the service internals still operate on. Null property
+     * values are dropped so default-value handling on entity builders stays correct. The OFBiz-style
+     * nested {@code userLogin} object is flattened into a {@code userLoginId} key so the existing
+     * map-based {@link com.landawn.ofbiz.service.SecurityService#currentUserLoginId} logic still works.
+     */
+    public static Map<String, Object> toMap(RequestBase request) {
+        if (request == null) {
+            return new HashMap<>();
+        }
+        Map<String, Object> out = Beans.beanToMap(request, true);
+        // Flatten userLogin.userLoginId so map-based extraction in services keeps working.
+        if (Strings.isEmpty(str(out, "userLoginId")) && request.getUserLogin() != null
+                && Strings.isNotEmpty(request.getUserLogin().getUserLoginId())) {
+            out.put("userLoginId", request.getUserLogin().getUserLoginId());
+        }
+        return out;
+    }
+
+    /**
+     * Project a source request DTO onto a different request DTO type — used by service-to-service
+     * composition (e.g. {@code createWorkEffortAndPartyAssign} delegating to {@code createWorkEffort}).
+     * Copies every overlapping property by name; properties absent on the target are silently skipped.
+     */
+    public static <T extends RequestBase> T narrow(RequestBase source, Supplier<T> factory) {
+        T dst = factory.get();
+        if (source == null) {
+            return dst;
+        }
+        for (Map.Entry<String, Object> e : Beans.beanToMap(source, true).entrySet()) {
+            try {
+                Beans.setPropValue(dst, e.getKey(), e.getValue(), true);
+            } catch (RuntimeException ignored) {
+                // target lacks this property — drop silently (intentional narrowing).
+            }
+        }
+        return dst;
     }
 
     /** Returns the value at {@code key} as a String, or {@code null}. */

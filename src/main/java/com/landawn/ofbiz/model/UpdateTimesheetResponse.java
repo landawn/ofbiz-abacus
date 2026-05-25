@@ -19,5 +19,5 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class UpdateTimesheetResponse extends ResponseBase {
 
-    // (no service-specific fields beyond the base envelope)
+    private String timesheetId;
 }

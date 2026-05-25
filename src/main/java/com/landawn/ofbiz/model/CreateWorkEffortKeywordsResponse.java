@@ -19,5 +19,6 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class CreateWorkEffortKeywordsResponse extends ResponseBase {
 
-    // (no service-specific fields beyond the base envelope)
+    private String workEffortId;
+    private Integer keywordsAdded;
 }

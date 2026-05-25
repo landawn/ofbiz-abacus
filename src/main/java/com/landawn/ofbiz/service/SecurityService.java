@@ -21,6 +21,7 @@ import com.landawn.abacus.query.condition.Condition;
 import com.landawn.abacus.util.Strings;
 import com.landawn.ofbiz.dao.SecurityGroupPermissionDao;
 import com.landawn.ofbiz.dao.UserLoginSecurityGroupDao;
+import com.landawn.ofbiz.model.RequestBase;
 
 /**
  * Ports OFBiz's {@code security.hasEntityPermission(...)} check used by
@@ -67,6 +68,17 @@ public class SecurityService {
             return id == null ? null : id.toString();
         }
         return null;
+    }
+
+    /** Typed variant: extract the userLoginId from a typed request DTO. */
+    public static String currentUserLoginId(RequestBase request) {
+        if (request == null) {
+            return null;
+        }
+        if (Strings.isNotEmpty(request.getUserLoginId())) {
+            return request.getUserLoginId();
+        }
+        return request.getUserLogin() == null ? null : request.getUserLogin().getUserLoginId();
     }
 
     /**

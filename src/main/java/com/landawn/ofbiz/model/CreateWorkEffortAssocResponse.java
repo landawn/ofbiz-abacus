@@ -4,6 +4,8 @@
  */
 package com.landawn.ofbiz.model;
 
+import java.sql.Timestamp;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,5 +21,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class CreateWorkEffortAssocResponse extends ResponseBase {
 
-    // (no service-specific fields beyond the base envelope)
+    private String workEffortIdFrom;
+    private String workEffortIdTo;
+    private String workEffortAssocTypeId;
+    private Timestamp fromDate;
 }
