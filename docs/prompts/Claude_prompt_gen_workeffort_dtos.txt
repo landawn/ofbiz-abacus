@@ -1,0 +1,229 @@
+
+--- 2026/05/25
+  
+=================================================================================================================
+ 
+
+— Generate Request/Response DTOs for WorkeffortController
+
+  ---
+  Task: For every endpoint method in src/main/java/com/landawn/ofbiz/controller/WorkeffortController.java, derive the exact request shape
+  (IN attributes) and response shape (OUT attributes) by scanning the OFBiz source under ./apache-ofbiz-framework/, then generate a typed
+  request DTO and response DTO per endpoint. Place them under package com.landawn.ofbiz.model.
+
+  ---
+  Source of truth for each endpoint's shape
+
+  For each method in WorkeffortController.java, follow its Javadoc tag service: <name> and trace:
+
+  1. Service definition in ./apache-ofbiz-framework/applications/workeffort/servicedef/services*.xml.
+    - The <service name="<name>"> element declares every IN, OUT, and INOUT attribute.
+    - Each <attribute> declares name, type (Java type), mode (IN/OUT/INOUT), optional, default-value, and possibly entity-name.
+    - <auto-attributes include="pk|nonpk" mode="..."/> expands to every PK / non-PK column of default-entity-name. Resolve by reading the
+  corresponding entity definition (apache-ofbiz-framework/applications/*/entitydef/*entitymodel*.xml or — easier — the already-generated
+  Java entity under src/main/java/com/landawn/ofbiz/entity/{EntityName}.java).
+    - <implements service="X"/> brings in all attributes from service X; recursively expand.
+    - <override name="X" .../> overrides an attribute brought in by auto-attributes / implements (flips optional, sets a default).
+  2. Service implementation (groovy / minilang / java / entity-auto) — only as a tie-breaker if the services.xml declaration is ambiguous
+  about what OUT attributes are populated.
+  3. The Spring service method in src/main/java/com/landawn/ofbiz/service/WorkeffortService.java — confirms the exact response keys the
+  Spring port actually emits (which always includes the envelope keys via ResponseBase).
+
+  When two controller methods bind to the same service (e.g. createWorkEffort is exposed at two URLs), generate one shared pair of DTOs and
+  have both methods conceptually share them — do not duplicate.
+
+  ---
+  DTO base classes
+
+  Create three base/shared classes under com.landawn.ofbiz.model:
+
+  - RequestBase — fields shared across every request DTO:
+    - userLoginId (String) — read by SecurityService.currentUserLoginId(...).
+    - userLogin (UserLoginRef) — OFBiz-style nested object kept for backward compatibility.
+    - locale (String, optional) — OFBiz services occasionally read it.
+    - timeZone (String, optional) — same.
+  - ResponseBase — fields shared across every response DTO (the OFBiz envelope keys):
+    - responseMessage (String) — "success" | "error" | "fail"
+    - successMessage (String, optional)
+    - errorMessage (String, optional)
+    - errorMessageList (List<String>, optional)
+  - UserLoginRef — dedicated typed DTO for the nested userLogin map OFBiz services pass around. Minimal field set actually used by callers:
+    - userLoginId (String)
+    - partyId (String)
+    - currentPassword (String, optional) — only when login flows pass it through
+    - enabled (String, optional)
+
+  Promotion rule: any field that turns out to appear on every generated request DTO (or every response DTO) after scanning all 24 services
+  should be promoted out of the per-service subclass and into RequestBase / ResponseBase. The script must enforce this — count
+  occurrences across all 24 subclasses and lift the universal fields into the base. (The four envelope keys are known universal; everything
+  else is discovered by the scan.)
+
+  All three classes use Lombok:
+  - Base classes: @Data + @NoArgsConstructor.
+  - Subclasses: @Data + @NoArgsConstructor + @EqualsAndHashCode(callSuper = true) + @ToString(callSuper = true).
+  - No manual getters/setters/equals/hashCode/toString — Lombok handles them across the inheritance chain.
+  - No @Builder on the base; if a subclass wants a builder, use @SuperBuilder on both base and subclass to compose correctly.
+
+  ---
+  DTO naming and field rules
+
+  - Per endpoint, one request and one response class. Name = {ServiceName}Request / {ServiceName}Response in PascalCase. E.g.
+  createWorkEffort → CreateWorkEffortRequest + CreateWorkEffortResponse.
+  - Field names match the OFBiz <attribute name="..."> exactly (camelCase). No renaming, no translation.
+  - Field types map from OFBiz <attribute type="..."> per the existing project-wide convention:
+
+  | OFBiz type                       | Java type
+                                                                                 |
+  |----------------------------------|------------------------------------------------------------------------------------------------------
+  -------------------------------------------------------------------------------|
+  | String                           | String
+                                                                                 |
+  | Boolean                          | Boolean
+                                                                                 |
+  | Integer                          | Integer
+                                                                                 |
+  | Long                             | Long
+                                                                                 |
+  | Double / Float                   | Double
+                                                                                 |
+  | BigDecimal / currency-amount     | double (primitive — same as entity-generator convention)
+                                                                                 |
+  | Timestamp / date-time            | java.sql.Timestamp
+                                                                                 |
+  | Date                             | java.sql.Date
+                                                                                 |
+  | Time                             | java.sql.Time
+                                                                                 |
+  | Map                              | Map<String, Object> (try to narrow per next rule)
+                                                                                 |
+  | List                             | List<String> when the attribute name (partyIdList, messageIds, keywords, contentIds, etc.) or the IN
+  attributes around it make the element type unambiguous; otherwise List<Object> |
+  | java.nio.ByteBuffer / byte-array | byte[]
+                                                                                 |
+  | anything else                    | String (with a // TODO type comment if it looks important)
+                                                                                 |
+
+  - Collection / Map narrowing: the script must attempt to figure out the concrete element/value type rather than defaulting to Object.
+  Heuristics, in order:
+    a. Field name suffix: *IdList / *Ids / *Names / *Keys → List<String>.
+    b. Sibling attribute referring to the same entity (e.g. partyIdList next to partyId of type String) → element type = the sibling's type.
+    c. A nearby entity-name attribute on the <attribute> itself or a related <auto-attributes> block → element/value type = that entity's PK
+   type (almost always String).
+    d. Fall back to Object only when none of the above resolves.
+  - Auto-attributes expand inline as individual fields. Don't reference the entity class — DTOs are flat. So <auto-attributes include="pk"
+  entity-name="WorkEffort"/> becomes a single field private String workEffortId.
+  - Nullable vs primitive: mirror the entity-generator rule — primitive only for non-null numeric PK fields (rare in DTOs); everything else
+  boxed (Integer, Long, Double) so optional fields can be null. The currency-amount / BigDecimal → double rule is the explicit exception.
+  - Don't include the envelope fields (responseMessage, etc.) in the response subclass — they live on ResponseBase.
+  - Don't include userLoginId / userLogin / locale / timeZone in the request subclass — they live on RequestBase.
+  - Drop deprecated attributes (<deprecated> element inside <attribute>). Leave a // (omitted: deprecated) comment in the DTO so the
+  omission is visible.
+
+  ---
+  Generation approach
+
+  Both deliverables are produced in the same pass:
+
+  1. Write the 50 files by hand (the 48 endpoint DTOs + 2 base classes + 1 UserLoginRef). Hand-writing during this initial pass surfaces
+  ambiguities in the OFBiz service defs faster than running a script blindly.
+  2. Also write scripts/gen_workeffort_dtos.py — a Python script that reproduces the same output. The script parses services*.xml, applies
+  the type-mapping and inheritance rules, performs the universal-field promotion across all 24 subclasses, and regenerates the same DTO
+  files. Running it on a clean tree must produce byte-identical output to the hand-written DTOs (modulo whitespace).
+  3. The hand-written pass is the reference; the script must match it. If the script's output diverges, iterate until it matches.
+
+  ---
+  Scope — every endpoint in WorkeffortController
+
+  All 27 controller methods. 24 unique backing services (3 endpoints are URL aliases for the same service), so 24 request DTOs + 24 response
+   DTOs = 48 DTO files, plus the 3 shared classes (RequestBase, ResponseBase, UserLoginRef). The 3 alias pairs (createWorkEffort
+  exposed twice, updateWorkEffort exposed twice, createTimeEntry exposed twice) share their DTOs.
+
+  ┌───────────────────────────────────────────┬─────────────────────────────────────────────────────────────────────────────────────────┐
+  │                  Service                  │                   Backing source location (for tracing IN/OUT attrs)                    │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ createWorkEffort                          │ services.xml + groovy script                                                            │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ updateWorkEffort                          │ same                                                                                    │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ deleteWorkEffort                          │ same                                                                                    │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ duplicateWorkEffort                       │ same                                                                                    │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ createWorkEffortAndPartyAssign            │ same                                                                                    │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ createWorkEffortContactMech               │ same                                                                                    │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ createWorkEffortAssoc                     │ services.xml + minilang                                                                 │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ updateWorkEffortAssoc                     │ services.xml (entity-auto)                                                              │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ createWorkEffortAndAssoc                  │ services.xml + minilang                                                                 │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ updateWorkEffortAndAssoc                  │ services.xml (group) → fan-out attributes from updateWorkEffort + updateWorkEffortAssoc │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ createWorkEffortKeywords /                │ services.xml + minilang                                                                 │
+  │ deleteWorkEffortKeywords                  │                                                                                         │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ deleteWorkEffortContactMech               │ services.xml (entity-auto)                                                              │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ createTimesheet / updateTimesheet         │ services_timesheet.xml (entity-auto)                                                    │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ createTimesheetForThisWeek                │ services_timesheet.xml + minilang                                                       │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ addTimesheetToInvoice /                   │ services_timesheet.xml + minilang                                                       │
+  │ addTimesheetToNewInvoice                  │                                                                                         │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ createTimesheetRole / deleteTimesheetRole │ services_timesheet.xml (entity-auto)                                                    │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ createTimeEntry / updateTimeEntry /       │ services_timesheet.xml                                                                  │
+  │ deleteTimeEntry                           │                                                                                         │
+  ├───────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+  │ test                                      │ framework test endpoint — request DTO has no extra fields beyond RequestBase;        │
+  │                                           │ response has just ok (Boolean) + echo (Map<String, Object>)                             │
+  └───────────────────────────────────────────┴─────────────────────────────────────────────────────────────────────────────────────────┘
+
+  ---
+  Output / scope
+
+  - Add: src/main/java/com/landawn/ofbiz/model/RequestBase.java
+  - Add: src/main/java/com/landawn/ofbiz/model/ResponseBase.java
+  - Add: src/main/java/com/landawn/ofbiz/model/UserLoginRef.java
+  - Add: 48 endpoint DTO files under src/main/java/com/landawn/ofbiz/model/ named per the rules above.
+  - Add: scripts/gen_workeffort_dtos.py — regenerates the 48 endpoint DTOs (the 3 shared classes are stable and can be hand-maintained, but
+  the script is welcome to regenerate them too if it keeps the script self-contained).
+  - Do not modify any controller, service, DAO, entity, or config. This task is purely additive — the DTOs are not yet wired into
+  WorkeffortController or WorkeffortService. (Wiring them in is a follow-up task.)
+  - Do not modify anything under apache-ofbiz-framework/ — only read for sourcing the attribute lists.
+
+  ---
+  Verification
+
+  After generation:
+  1. mvn -DskipTests compile → exit 0. Every DTO compiles, Lombok generates getters/setters across extends RequestBase / extends
+  ResponseBase.
+  2. py scripts/gen_workeffort_dtos.py produces output byte-identical (modulo whitespace) to the hand-written DTOs, then mvn -DskipTests
+  compile still passes.
+  3. Spot-check 3 DTOs against their OFBiz <service> definitions:
+    - CreateWorkEffortRequest — must have workEffortTypeId, workEffortName, currentStatusId (all optional="false"), plus every non-PK column
+   of WorkEffort (from <implements service="interfaceWorkEffort"/> + <auto-attributes mode="IN"/>), plus quickAssignPartyId, requirementId,
+  custRequestId, communicationEventId, webSiteId. Inherited: userLoginId, userLogin, locale, timeZone.
+    - CreateWorkEffortResponse — must have workEffortId (OUT). Inherited: responseMessage, successMessage, errorMessage, errorMessageList.
+    - AddTimesheetToInvoiceRequest — timesheetId + invoiceId (both optional="false").
+  4. git status shows only files under src/main/java/com/landawn/ofbiz/model/ and scripts/gen_workeffort_dtos.py are new.
+
+  If you hit an ambiguous service definition (e.g. an OUT attribute that's never set by the Spring service method, or a List/Map whose
+  element type can't be inferred), surface it before generating that DTO so we can decide whether to include the field, narrow the type, or
+  fall back to Object.
+
+  ---
+  Confirmed answers carried into this prompt
+
+  1. Collection / Map element types — try to infer the concrete type per the heuristics above; fall back to Object only when no signal is
+  available.
+  2. Generation approach — hand-write the 48 endpoint DTOs and produce scripts/gen_workeffort_dtos.py that reproduces them. Re-running the
+  script must yield identical output.
+  3. userLogin representation — dedicated UserLoginRef DTO (not Map<String, Object>).
+  4. Universal fields — promote any field that appears in every subclass to RequestBase / ResponseBase. The known universal fields are
+   the envelope keys + userLoginId / userLogin / locale / timeZone; the script must verify and lift any others it discovers.
+
+  
