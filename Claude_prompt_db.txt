@@ -1,0 +1,32 @@
+
+--- 2026/05/24
+
+=================================================================================================================
+
+  ---
+  Task: Extract all database table schemas from the Apache OFBiz framework and generate equivalent SQL DDL files for
+  three database engines.
+
+  Scope:
+  - Scan all files under ./apache-ofbiz-framework/ to discover every entity/table definition used by OFBiz (typically
+  defined in entitymodel*.xml files, plus any view-entities, indexes, and key constraints).
+  - Capture: table names, columns (with types and nullability), primary keys, foreign keys, and indexes.
+
+  Output: Generate three standalone, runnable SQL schema files:
+  1. ./docs/db/H2.sql — H2-compatible DDL
+  2. ./docs/db/MySQL.sql — MySQL 8.x-compatible DDL (InnoDB, utf8mb4)
+  3. ./docs/db/PostgreSQL.sql — PostgreSQL 14+-compatible DDL
+
+  Requirements:
+  - Map OFBiz generic field types (e.g., id, id-long, currency-amount, date-time, very-long, blob) to each target DB's
+  native types.
+  - Preserve CREATE TABLE, PRIMARY KEY, FOREIGN KEY, and CREATE INDEX statements.
+  - Order statements so foreign-key dependencies resolve cleanly (or wrap with SET FOREIGN_KEY_CHECKS=0 / deferred
+  constraints as appropriate per engine).
+  - Include view-entities be emitted as SQL CREATE VIEW statements.
+  - Included seed data (from *SeedData.xml / data/ files) as INSERT statements
+  - Include a header comment in each file listing the source entitymodel*.xml files scanned and the total table count.
+  
+  
+  
+  =================================================================================================================
