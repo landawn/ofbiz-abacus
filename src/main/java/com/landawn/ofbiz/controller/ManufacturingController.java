@@ -1,5 +1,87 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.model.ResponseBase;
+import com.landawn.ofbiz.model.manufacturing.AddProductManufacturingRuleRequest;
+import com.landawn.ofbiz.model.manufacturing.AddProductManufacturingRuleResponse;
+import com.landawn.ofbiz.model.manufacturing.AddProductionRunComponentRequest;
+import com.landawn.ofbiz.model.manufacturing.AddProductionRunComponentResponse;
+import com.landawn.ofbiz.model.manufacturing.AddProductionRunRoutingTaskResponse;
+import com.landawn.ofbiz.model.manufacturing.CancelProductionRunRequest;
+import com.landawn.ofbiz.model.manufacturing.CancelProductionRunResponse;
+import com.landawn.ofbiz.model.manufacturing.ChangeProductionRunStatusRequest;
+import com.landawn.ofbiz.model.manufacturing.ChangeProductionRunStatusResponse;
+import com.landawn.ofbiz.model.manufacturing.ChangeProductionRunTaskStatusRequest;
+import com.landawn.ofbiz.model.manufacturing.ChangeProductionRunTaskStatusResponse;
+import com.landawn.ofbiz.model.manufacturing.CreateCalendarExceptionDayRequest;
+import com.landawn.ofbiz.model.manufacturing.CreateCalendarExceptionDayResponse;
+import com.landawn.ofbiz.model.manufacturing.CreateCalendarExceptionWeekRequest;
+import com.landawn.ofbiz.model.manufacturing.CreateCalendarExceptionWeekResponse;
+import com.landawn.ofbiz.model.manufacturing.CreateCalendarRequest;
+import com.landawn.ofbiz.model.manufacturing.CreateCalendarResponse;
+import com.landawn.ofbiz.model.manufacturing.CreateCalendarWeekRequest;
+import com.landawn.ofbiz.model.manufacturing.CreateCalendarWeekResponse;
+import com.landawn.ofbiz.model.manufacturing.CreateProductionRunAssocRequest;
+import com.landawn.ofbiz.model.manufacturing.CreateProductionRunAssocResponse;
+import com.landawn.ofbiz.model.manufacturing.CreateProductionRunPartyAssignRequest;
+import com.landawn.ofbiz.model.manufacturing.CreateProductionRunPartyAssignResponse;
+import com.landawn.ofbiz.model.manufacturing.CreateProductionRunRequest;
+import com.landawn.ofbiz.model.manufacturing.CreateProductionRunResponse;
+import com.landawn.ofbiz.model.manufacturing.CreateProductionRunsForProductBomRequest;
+import com.landawn.ofbiz.model.manufacturing.CreateProductionRunsForProductBomResponse;
+import com.landawn.ofbiz.model.manufacturing.DeleteProductManufacturingRuleRequest;
+import com.landawn.ofbiz.model.manufacturing.DeleteProductManufacturingRuleResponse;
+import com.landawn.ofbiz.model.manufacturing.ExecuteMrpRequest;
+import com.landawn.ofbiz.model.manufacturing.ExecuteMrpResponse;
+import com.landawn.ofbiz.model.manufacturing.GetBOMTreeRequest;
+import com.landawn.ofbiz.model.manufacturing.GetBOMTreeResponse;
+import com.landawn.ofbiz.model.manufacturing.IssueProductionRunTaskComponentRequest;
+import com.landawn.ofbiz.model.manufacturing.IssueProductionRunTaskComponentResponse;
+import com.landawn.ofbiz.model.manufacturing.IssueProductionRunTaskRequest;
+import com.landawn.ofbiz.model.manufacturing.IssueProductionRunTaskResponse;
+import com.landawn.ofbiz.model.manufacturing.ProductionRunDeclareAndProduceResponse;
+import com.landawn.ofbiz.model.manufacturing.ProductionRunProduceRequest;
+import com.landawn.ofbiz.model.manufacturing.ProductionRunProduceResponse;
+import com.landawn.ofbiz.model.manufacturing.ProductionRunTaskProduceRequest;
+import com.landawn.ofbiz.model.manufacturing.ProductionRunTaskProduceResponse;
+import com.landawn.ofbiz.model.manufacturing.ProductionRunTaskReturnMaterialResponse;
+import com.landawn.ofbiz.model.manufacturing.QuickChangeProductionRunStatusRequest;
+import com.landawn.ofbiz.model.manufacturing.QuickChangeProductionRunStatusResponse;
+import com.landawn.ofbiz.model.manufacturing.QuickRunAllProductionRunTasksRequest;
+import com.landawn.ofbiz.model.manufacturing.QuickRunAllProductionRunTasksResponse;
+import com.landawn.ofbiz.model.manufacturing.QuickRunProductionRunTaskRequest;
+import com.landawn.ofbiz.model.manufacturing.QuickRunProductionRunTaskResponse;
+import com.landawn.ofbiz.model.manufacturing.QuickStartAllProductionRunTasksRequest;
+import com.landawn.ofbiz.model.manufacturing.QuickStartAllProductionRunTasksResponse;
+import com.landawn.ofbiz.model.manufacturing.ReallocateAndIssueInventoryRequest;
+import com.landawn.ofbiz.model.manufacturing.ReallocateAndIssueInventoryResponse;
+import com.landawn.ofbiz.model.manufacturing.ReleaseProductionRunTaskComponentRequest;
+import com.landawn.ofbiz.model.manufacturing.ReleaseProductionRunTaskComponentResponse;
+import com.landawn.ofbiz.model.manufacturing.RemoveCalendarExceptionDayRequest;
+import com.landawn.ofbiz.model.manufacturing.RemoveCalendarExceptionDayResponse;
+import com.landawn.ofbiz.model.manufacturing.RemoveCalendarExceptionWeekRequest;
+import com.landawn.ofbiz.model.manufacturing.RemoveCalendarExceptionWeekResponse;
+import com.landawn.ofbiz.model.manufacturing.RemoveCalendarRequest;
+import com.landawn.ofbiz.model.manufacturing.RemoveCalendarResponse;
+import com.landawn.ofbiz.model.manufacturing.RemoveCalendarWeekRequest;
+import com.landawn.ofbiz.model.manufacturing.RemoveCalendarWeekResponse;
+import com.landawn.ofbiz.model.manufacturing.ReserveWorkEffortInventoryItemRequest;
+import com.landawn.ofbiz.model.manufacturing.ReserveWorkEffortInventoryItemResponse;
+import com.landawn.ofbiz.model.manufacturing.UpdateCalendarExceptionDayRequest;
+import com.landawn.ofbiz.model.manufacturing.UpdateCalendarExceptionDayResponse;
+import com.landawn.ofbiz.model.manufacturing.UpdateCalendarExceptionWeekRequest;
+import com.landawn.ofbiz.model.manufacturing.UpdateCalendarExceptionWeekResponse;
+import com.landawn.ofbiz.model.manufacturing.UpdateCalendarRequest;
+import com.landawn.ofbiz.model.manufacturing.UpdateCalendarResponse;
+import com.landawn.ofbiz.model.manufacturing.UpdateCalendarWeekRequest;
+import com.landawn.ofbiz.model.manufacturing.UpdateCalendarWeekResponse;
+import com.landawn.ofbiz.model.manufacturing.UpdateProductManufacturingRuleRequest;
+import com.landawn.ofbiz.model.manufacturing.UpdateProductManufacturingRuleResponse;
+import com.landawn.ofbiz.model.manufacturing.UpdateProductionRunComponentRequest;
+import com.landawn.ofbiz.model.manufacturing.UpdateProductionRunComponentResponse;
+import com.landawn.ofbiz.model.manufacturing.UpdateProductionRunRequest;
+import com.landawn.ofbiz.model.manufacturing.UpdateProductionRunResponse;
+import com.landawn.ofbiz.model.manufacturing.UpdateProductionRunTaskRequest;
+import com.landawn.ofbiz.model.manufacturing.UpdateProductionRunTaskResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,12 +96,19 @@ import java.util.Map;
 @RequestMapping("/manufacturing")
 public class ManufacturingController {
 
+    /** 200/400 routing decided by the response DTO's envelope state. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
+
     /**
      * Create a Product Manufacturing Rule
      * <p>service: addProductManufacturingRule  entities: ProductManufacturingRule  auth: true
      */
     @PostMapping("/manufacturing/control/AddProductManufacturingRule")
-    public ResponseEntity<Map<String, Object>> addProductManufacturingRule(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddProductManufacturingRuleResponse> addProductManufacturingRule(@RequestBody AddProductManufacturingRuleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -49,7 +138,7 @@ public class ManufacturingController {
      * <p>service: createCalendar  entities: TechDataCalendar  auth: true
      */
     @PostMapping("/manufacturing/control/CreateCalendar")
-    public ResponseEntity<Map<String, Object>> createCalendar(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCalendarResponse> createCalendar(@RequestBody CreateCalendarRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -59,7 +148,7 @@ public class ManufacturingController {
      * <p>service: createCalendarExceptionDay  entities: TechDataCalendarExcDay  auth: true
      */
     @PostMapping("/manufacturing/control/CreateCalendarExceptionDay")
-    public ResponseEntity<Map<String, Object>> createCalendarExceptionDay(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCalendarExceptionDayResponse> createCalendarExceptionDay(@RequestBody CreateCalendarExceptionDayRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -69,7 +158,7 @@ public class ManufacturingController {
      * <p>service: createCalendarExceptionWeek  entities: TechDataCalendarExcWeek  auth: true
      */
     @PostMapping("/manufacturing/control/CreateCalendarExceptionWeek")
-    public ResponseEntity<Map<String, Object>> createCalendarExceptionWeek(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCalendarExceptionWeekResponse> createCalendarExceptionWeek(@RequestBody CreateCalendarExceptionWeekRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -99,7 +188,7 @@ public class ManufacturingController {
      * <p>service: deleteProductManufacturingRule  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/DeleteProductManufacturingRule")
-    public ResponseEntity<Map<String, Object>> deleteProductManufacturingRule(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductManufacturingRuleResponse> deleteProductManufacturingRule(@RequestBody DeleteProductManufacturingRuleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -109,7 +198,7 @@ public class ManufacturingController {
      * <p>service: removeCalendar  entities: TechDataCalendar  auth: true
      */
     @PostMapping("/manufacturing/control/RemoveCalendar")
-    public ResponseEntity<Map<String, Object>> removeCalendar(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveCalendarResponse> removeCalendar(@RequestBody RemoveCalendarRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -119,7 +208,7 @@ public class ManufacturingController {
      * <p>service: removeCalendarExceptionDay  entities: TechDataCalendarExcDay  auth: true
      */
     @PostMapping("/manufacturing/control/RemoveCalendarExceptionDay")
-    public ResponseEntity<Map<String, Object>> removeCalendarExceptionDay(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveCalendarExceptionDayResponse> removeCalendarExceptionDay(@RequestBody RemoveCalendarExceptionDayRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -129,7 +218,7 @@ public class ManufacturingController {
      * <p>service: removeCalendarExceptionWeek  entities: TechDataCalendarExcWeek  auth: true
      */
     @PostMapping("/manufacturing/control/RemoveCalendarExceptionWeek")
-    public ResponseEntity<Map<String, Object>> removeCalendarExceptionWeek(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveCalendarExceptionWeekResponse> removeCalendarExceptionWeek(@RequestBody RemoveCalendarExceptionWeekRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -139,7 +228,7 @@ public class ManufacturingController {
      * <p>service: removeCalendarWeek  entities: TechDataCalendarWeek  auth: true
      */
     @PostMapping("/manufacturing/control/RemoveCalendarWeek")
-    public ResponseEntity<Map<String, Object>> removeCalendarWeek(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveCalendarWeekResponse> removeCalendarWeek(@RequestBody RemoveCalendarWeekRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -179,7 +268,7 @@ public class ManufacturingController {
      * <p>service: updateCalendar  entities: TechDataCalendar  auth: true
      */
     @PostMapping("/manufacturing/control/UpdateCalendar")
-    public ResponseEntity<Map<String, Object>> updateCalendar(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateCalendarResponse> updateCalendar(@RequestBody UpdateCalendarRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -189,7 +278,7 @@ public class ManufacturingController {
      * <p>service: updateCalendarExceptionDay  entities: TechDataCalendarExcDay  auth: true
      */
     @PostMapping("/manufacturing/control/UpdateCalendarExceptionDay")
-    public ResponseEntity<Map<String, Object>> updateCalendarExceptionDay(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateCalendarExceptionDayResponse> updateCalendarExceptionDay(@RequestBody UpdateCalendarExceptionDayRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -199,7 +288,7 @@ public class ManufacturingController {
      * <p>service: updateCalendarExceptionWeek  entities: TechDataCalendarExcWeek  auth: true
      */
     @PostMapping("/manufacturing/control/UpdateCalendarExceptionWeek")
-    public ResponseEntity<Map<String, Object>> updateCalendarExceptionWeek(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateCalendarExceptionWeekResponse> updateCalendarExceptionWeek(@RequestBody UpdateCalendarExceptionWeekRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -219,7 +308,7 @@ public class ManufacturingController {
      * <p>service: updateProductManufacturingRule  entities: ProductManufacturingRule  auth: true
      */
     @PostMapping("/manufacturing/control/UpdateProductManufacturingRule")
-    public ResponseEntity<Map<String, Object>> updateProductManufacturingRule(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductManufacturingRuleResponse> updateProductManufacturingRule(@RequestBody UpdateProductManufacturingRuleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -279,7 +368,7 @@ public class ManufacturingController {
      * <p>service: addProductionRunComponent  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/addProductionRunComponent")
-    public ResponseEntity<Map<String, Object>> addProductionRunComponent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddProductionRunComponentResponse> addProductionRunComponent(@RequestBody AddProductionRunComponentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -289,7 +378,7 @@ public class ManufacturingController {
      * <p>service: addProductionRunRoutingTask  entities: unknown  auth: true
      */
     @GetMapping("/manufacturing/control/addProductionRunRoutingTask")
-    public ResponseEntity<Map<String, Object>> addProductionRunRoutingTask(@RequestParam Map<String, String> params) {
+    public ResponseEntity<AddProductionRunRoutingTaskResponse> addProductionRunRoutingTask(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -319,7 +408,7 @@ public class ManufacturingController {
      * <p>service: cancelProductionRun  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/cancelProductionRun")
-    public ResponseEntity<Map<String, Object>> cancelProductionRun(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CancelProductionRunResponse> cancelProductionRun(@RequestBody CancelProductionRunRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -329,7 +418,7 @@ public class ManufacturingController {
      * <p>service: changeProductionRunStatus  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/changeProductionRunStatusToClosed")
-    public ResponseEntity<Map<String, Object>> changeProductionRunStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ChangeProductionRunStatusResponse> changeProductionRunStatus(@RequestBody ChangeProductionRunStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -339,7 +428,7 @@ public class ManufacturingController {
      * <p>service: changeProductionRunStatus  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/changeProductionRunStatusToPrinted")
-    public ResponseEntity<Map<String, Object>> changeProductionRunStatusChangeProductionRunStatusToPrinted(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ChangeProductionRunStatusResponse> changeProductionRunStatusChangeProductionRunStatusToPrinted(@RequestBody ChangeProductionRunStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -349,7 +438,7 @@ public class ManufacturingController {
      * <p>service: changeProductionRunTaskStatus  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/changeProductionRunTaskStatus")
-    public ResponseEntity<Map<String, Object>> changeProductionRunTaskStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ChangeProductionRunTaskStatusResponse> changeProductionRunTaskStatus(@RequestBody ChangeProductionRunTaskStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -359,7 +448,7 @@ public class ManufacturingController {
      * <p>service: createCalendarWeek  entities: TechDataCalendarWeek  auth: true
      */
     @PostMapping("/manufacturing/control/createCalendarWeek")
-    public ResponseEntity<Map<String, Object>> createCalendarWeek(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCalendarWeekResponse> createCalendarWeek(@RequestBody CreateCalendarWeekRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -379,7 +468,7 @@ public class ManufacturingController {
      * <p>service: createProductionRun  entities: unknown  auth: true
      */
     @GetMapping("/manufacturing/control/createProductionRun")
-    public ResponseEntity<Map<String, Object>> createProductionRun(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateProductionRunResponse> createProductionRun(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -389,7 +478,7 @@ public class ManufacturingController {
      * <p>service: createProductionRunAssoc  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/createProductionRunAssoc")
-    public ResponseEntity<Map<String, Object>> createProductionRunAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductionRunAssocResponse> createProductionRunAssoc(@RequestBody CreateProductionRunAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -409,7 +498,7 @@ public class ManufacturingController {
      * <p>service: createProductionRunPartyAssign  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/createProductionRunPartyAssign")
-    public ResponseEntity<Map<String, Object>> createProductionRunPartyAssign(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductionRunPartyAssignResponse> createProductionRunPartyAssign(@RequestBody CreateProductionRunPartyAssignRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -419,7 +508,7 @@ public class ManufacturingController {
      * <p>service: createProductionRun  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/createProductionRunSingle")
-    public ResponseEntity<Map<String, Object>> createProductionRunCreateProductionRunSingle(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductionRunResponse> createProductionRunCreateProductionRunSingle(@RequestBody CreateProductionRunRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -429,7 +518,7 @@ public class ManufacturingController {
      * <p>service: productionRunTaskProduce  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/createProductionRunTaskProduct")
-    public ResponseEntity<Map<String, Object>> productionRunTaskProduce(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ProductionRunTaskProduceResponse> productionRunTaskProduce(@RequestBody ProductionRunTaskProduceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -439,7 +528,7 @@ public class ManufacturingController {
      * <p>service: createProductionRunsForProductBom  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/createProductionRunsForProductBom")
-    public ResponseEntity<Map<String, Object>> createProductionRunsForProductBom(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductionRunsForProductBomResponse> createProductionRunsForProductBom(@RequestBody CreateProductionRunsForProductBomRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -499,7 +588,7 @@ public class ManufacturingController {
      * <p>service: reserveWorkEffortInventoryItem  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/createWorkEffortInvRes")
-    public ResponseEntity<Map<String, Object>> reserveWorkEffortInventoryItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ReserveWorkEffortInventoryItemResponse> reserveWorkEffortInventoryItem(@RequestBody ReserveWorkEffortInventoryItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -549,7 +638,7 @@ public class ManufacturingController {
      * <p>service: releaseProductionRunTaskComponent  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/deleteWorkEffortInvRes")
-    public ResponseEntity<Map<String, Object>> releaseProductionRunTaskComponent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ReleaseProductionRunTaskComponentResponse> releaseProductionRunTaskComponent(@RequestBody ReleaseProductionRunTaskComponentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -559,7 +648,7 @@ public class ManufacturingController {
      * <p>service: issueProductionRunTask  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/issueProductionRunRoutingTask")
-    public ResponseEntity<Map<String, Object>> issueProductionRunTask(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<IssueProductionRunTaskResponse> issueProductionRunTask(@RequestBody IssueProductionRunTaskRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -569,7 +658,7 @@ public class ManufacturingController {
      * <p>service: issueProductionRunTaskComponent  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/issueProductionRunTaskComponent")
-    public ResponseEntity<Map<String, Object>> issueProductionRunTaskComponent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<IssueProductionRunTaskComponentResponse> issueProductionRunTaskComponent(@RequestBody IssueProductionRunTaskComponentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -579,7 +668,7 @@ public class ManufacturingController {
      * <p>service: issueProductionRunTaskComponent  entities: unknown  auth: true
      */
     @GetMapping("/manufacturing/control/issueProductionRunTaskComponents")
-    public ResponseEntity<Map<String, Object>> issueProductionRunTaskComponentIssueProductionRunTaskComponents(@RequestParam Map<String, String> params) {
+    public ResponseEntity<IssueProductionRunTaskComponentResponse> issueProductionRunTaskComponentIssueProductionRunTaskComponents(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -589,7 +678,7 @@ public class ManufacturingController {
      * <p>service: productionRunDeclareAndProduce  entities: unknown  auth: true
      */
     @GetMapping("/manufacturing/control/productionRunDeclareAndProduce")
-    public ResponseEntity<Map<String, Object>> productionRunDeclareAndProduce(@RequestParam Map<String, String> params) {
+    public ResponseEntity<ProductionRunDeclareAndProduceResponse> productionRunDeclareAndProduce(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -599,7 +688,7 @@ public class ManufacturingController {
      * <p>service: productionRunProduce  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/productionRunProduce")
-    public ResponseEntity<Map<String, Object>> productionRunProduce(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ProductionRunProduceResponse> productionRunProduce(@RequestBody ProductionRunProduceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -609,7 +698,7 @@ public class ManufacturingController {
      * <p>service: productionRunTaskReturnMaterial  entities: unknown  auth: true
      */
     @GetMapping("/manufacturing/control/productionRunTaskReturnMaterials")
-    public ResponseEntity<Map<String, Object>> productionRunTaskReturnMaterial(@RequestParam Map<String, String> params) {
+    public ResponseEntity<ProductionRunTaskReturnMaterialResponse> productionRunTaskReturnMaterial(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -619,7 +708,7 @@ public class ManufacturingController {
      * <p>service: quickChangeProductionRunStatus  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/quickChangeProductionRunStatus")
-    public ResponseEntity<Map<String, Object>> quickChangeProductionRunStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<QuickChangeProductionRunStatusResponse> quickChangeProductionRunStatus(@RequestBody QuickChangeProductionRunStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -629,7 +718,7 @@ public class ManufacturingController {
      * <p>service: quickRunAllProductionRunTasks  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/quickRunAllProductionRunTasks")
-    public ResponseEntity<Map<String, Object>> quickRunAllProductionRunTasks(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<QuickRunAllProductionRunTasksResponse> quickRunAllProductionRunTasks(@RequestBody QuickRunAllProductionRunTasksRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -639,7 +728,7 @@ public class ManufacturingController {
      * <p>service: quickRunProductionRunTask  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/quickRunProductionRunTask")
-    public ResponseEntity<Map<String, Object>> quickRunProductionRunTask(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<QuickRunProductionRunTaskResponse> quickRunProductionRunTask(@RequestBody QuickRunProductionRunTaskRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -649,7 +738,7 @@ public class ManufacturingController {
      * <p>service: quickStartAllProductionRunTasks  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/quickStartAllProductionRunTasks")
-    public ResponseEntity<Map<String, Object>> quickStartAllProductionRunTasks(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<QuickStartAllProductionRunTasksResponse> quickStartAllProductionRunTasks(@RequestBody QuickStartAllProductionRunTasksRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -659,7 +748,7 @@ public class ManufacturingController {
      * <p>service: reallocateAndIssueInventory  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/reallocateAndIssueInventory")
-    public ResponseEntity<Map<String, Object>> reallocateAndIssueInventory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ReallocateAndIssueInventoryResponse> reallocateAndIssueInventory(@RequestBody ReallocateAndIssueInventoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -739,7 +828,7 @@ public class ManufacturingController {
      * <p>service: getBOMTree  entities: ProductAssoc  auth: true
      */
     @PostMapping("/manufacturing/control/runBomSimulation")
-    public ResponseEntity<Map<String, Object>> getBOMTree(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<GetBOMTreeResponse> getBOMTree(@RequestBody GetBOMTreeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -749,7 +838,7 @@ public class ManufacturingController {
      * <p>service: executeMrp  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/runMrpGo")
-    public ResponseEntity<Map<String, Object>> executeMrp(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ExecuteMrpResponse> executeMrp(@RequestBody ExecuteMrpRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -759,7 +848,7 @@ public class ManufacturingController {
      * <p>service: quickChangeProductionRunStatus  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/scheduleProductionRun")
-    public ResponseEntity<Map<String, Object>> quickChangeProductionRunStatusScheduleProductionRun(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<QuickChangeProductionRunStatusResponse> quickChangeProductionRunStatusScheduleProductionRun(@RequestBody QuickChangeProductionRunStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -769,7 +858,7 @@ public class ManufacturingController {
      * <p>service: updateCalendarWeek  entities: TechDataCalendarWeek  auth: true
      */
     @PostMapping("/manufacturing/control/updateCalendarWeek")
-    public ResponseEntity<Map<String, Object>> updateCalendarWeek(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateCalendarWeekResponse> updateCalendarWeek(@RequestBody UpdateCalendarWeekRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -789,7 +878,7 @@ public class ManufacturingController {
      * <p>service: updateProductionRun  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/updateProductionRun")
-    public ResponseEntity<Map<String, Object>> updateProductionRun(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductionRunResponse> updateProductionRun(@RequestBody UpdateProductionRunRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -799,7 +888,7 @@ public class ManufacturingController {
      * <p>service: updateProductionRunComponent  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/updateProductionRunComponent")
-    public ResponseEntity<Map<String, Object>> updateProductionRunComponent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductionRunComponentResponse> updateProductionRunComponent(@RequestBody UpdateProductionRunComponentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -819,7 +908,7 @@ public class ManufacturingController {
      * <p>service: updateProductionRunTask  entities: unknown  auth: true
      */
     @PostMapping("/manufacturing/control/updateProductionRunTask")
-    public ResponseEntity<Map<String, Object>> updateProductionRunTask(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductionRunTaskResponse> updateProductionRunTask(@RequestBody UpdateProductionRunTaskRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }

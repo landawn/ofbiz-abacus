@@ -1,5 +1,202 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.model.ResponseBase;
+import com.landawn.ofbiz.model.humanres.ApplyTrainingRequest;
+import com.landawn.ofbiz.model.humanres.ApplyTrainingResponse;
+import com.landawn.ofbiz.model.humanres.AssignTrainingRequest;
+import com.landawn.ofbiz.model.humanres.AssignTrainingResponse;
+import com.landawn.ofbiz.model.humanres.CreateAgreementEmploymentApplRequest;
+import com.landawn.ofbiz.model.humanres.CreateAgreementEmploymentApplResponse;
+import com.landawn.ofbiz.model.humanres.CreateEmplLeaveReasonTypeRequest;
+import com.landawn.ofbiz.model.humanres.CreateEmplLeaveReasonTypeResponse;
+import com.landawn.ofbiz.model.humanres.CreateEmplLeaveRequest;
+import com.landawn.ofbiz.model.humanres.CreateEmplLeaveResponse;
+import com.landawn.ofbiz.model.humanres.CreateEmplLeaveTypeRequest;
+import com.landawn.ofbiz.model.humanres.CreateEmplLeaveTypeResponse;
+import com.landawn.ofbiz.model.humanres.CreateEmplPositionFulfillmentRequest;
+import com.landawn.ofbiz.model.humanres.CreateEmplPositionFulfillmentResponse;
+import com.landawn.ofbiz.model.humanres.CreateEmplPositionReportingStructRequest;
+import com.landawn.ofbiz.model.humanres.CreateEmplPositionReportingStructResponse;
+import com.landawn.ofbiz.model.humanres.CreateEmplPositionRequest;
+import com.landawn.ofbiz.model.humanres.CreateEmplPositionResponse;
+import com.landawn.ofbiz.model.humanres.CreateEmplPositionResponsibilityRequest;
+import com.landawn.ofbiz.model.humanres.CreateEmplPositionResponsibilityResponse;
+import com.landawn.ofbiz.model.humanres.CreateEmplPositionTypeRequest;
+import com.landawn.ofbiz.model.humanres.CreateEmplPositionTypeResponse;
+import com.landawn.ofbiz.model.humanres.CreateEmployeeRequest;
+import com.landawn.ofbiz.model.humanres.CreateEmployeeResponse;
+import com.landawn.ofbiz.model.humanres.CreateEmploymentAppRequest;
+import com.landawn.ofbiz.model.humanres.CreateEmploymentAppResponse;
+import com.landawn.ofbiz.model.humanres.CreateEmploymentRequest;
+import com.landawn.ofbiz.model.humanres.CreateEmploymentResponse;
+import com.landawn.ofbiz.model.humanres.CreateInternalJobPostingRequest;
+import com.landawn.ofbiz.model.humanres.CreateInternalJobPostingResponse;
+import com.landawn.ofbiz.model.humanres.CreateJobInterviewRequest;
+import com.landawn.ofbiz.model.humanres.CreateJobInterviewResponse;
+import com.landawn.ofbiz.model.humanres.CreateJobInterviewTypeRequest;
+import com.landawn.ofbiz.model.humanres.CreateJobInterviewTypeResponse;
+import com.landawn.ofbiz.model.humanres.CreateJobRequisitionRequest;
+import com.landawn.ofbiz.model.humanres.CreateJobRequisitionResponse;
+import com.landawn.ofbiz.model.humanres.CreatePartyBenefitRequest;
+import com.landawn.ofbiz.model.humanres.CreatePartyBenefitResponse;
+import com.landawn.ofbiz.model.humanres.CreatePartyQualRequest;
+import com.landawn.ofbiz.model.humanres.CreatePartyQualResponse;
+import com.landawn.ofbiz.model.humanres.CreatePartyResumeRequest;
+import com.landawn.ofbiz.model.humanres.CreatePartyResumeResponse;
+import com.landawn.ofbiz.model.humanres.CreatePartySkillRequest;
+import com.landawn.ofbiz.model.humanres.CreatePartySkillResponse;
+import com.landawn.ofbiz.model.humanres.CreatePayGradeRequest;
+import com.landawn.ofbiz.model.humanres.CreatePayGradeResponse;
+import com.landawn.ofbiz.model.humanres.CreatePayrollPreferenceRequest;
+import com.landawn.ofbiz.model.humanres.CreatePayrollPreferenceResponse;
+import com.landawn.ofbiz.model.humanres.CreatePerfReviewItemRequest;
+import com.landawn.ofbiz.model.humanres.CreatePerfReviewItemResponse;
+import com.landawn.ofbiz.model.humanres.CreatePerfReviewRequest;
+import com.landawn.ofbiz.model.humanres.CreatePerfReviewResponse;
+import com.landawn.ofbiz.model.humanres.CreatePerformanceNoteRequest;
+import com.landawn.ofbiz.model.humanres.CreatePerformanceNoteResponse;
+import com.landawn.ofbiz.model.humanres.CreateResponsibilityTypeRequest;
+import com.landawn.ofbiz.model.humanres.CreateResponsibilityTypeResponse;
+import com.landawn.ofbiz.model.humanres.CreateSalaryStepRequest;
+import com.landawn.ofbiz.model.humanres.CreateSalaryStepResponse;
+import com.landawn.ofbiz.model.humanres.CreateSkillTypeRequest;
+import com.landawn.ofbiz.model.humanres.CreateSkillTypeResponse;
+import com.landawn.ofbiz.model.humanres.CreateTerminationReasonRequest;
+import com.landawn.ofbiz.model.humanres.CreateTerminationReasonResponse;
+import com.landawn.ofbiz.model.humanres.CreateTerminationTypeRequest;
+import com.landawn.ofbiz.model.humanres.CreateTerminationTypeResponse;
+import com.landawn.ofbiz.model.humanres.CreateTrainingTypesRequest;
+import com.landawn.ofbiz.model.humanres.CreateTrainingTypesResponse;
+import com.landawn.ofbiz.model.humanres.CreateUnemploymentClaimRequest;
+import com.landawn.ofbiz.model.humanres.CreateUnemploymentClaimResponse;
+import com.landawn.ofbiz.model.humanres.CreateValidResponsibilityRequest;
+import com.landawn.ofbiz.model.humanres.CreateValidResponsibilityResponse;
+import com.landawn.ofbiz.model.humanres.DeleteAgreementEmploymentApplRequest;
+import com.landawn.ofbiz.model.humanres.DeleteAgreementEmploymentApplResponse;
+import com.landawn.ofbiz.model.humanres.DeleteEmplLeaveReasonTypeRequest;
+import com.landawn.ofbiz.model.humanres.DeleteEmplLeaveReasonTypeResponse;
+import com.landawn.ofbiz.model.humanres.DeleteEmplLeaveRequest;
+import com.landawn.ofbiz.model.humanres.DeleteEmplLeaveResponse;
+import com.landawn.ofbiz.model.humanres.DeleteEmplLeaveTypeRequest;
+import com.landawn.ofbiz.model.humanres.DeleteEmplLeaveTypeResponse;
+import com.landawn.ofbiz.model.humanres.DeleteEmplPositionFulfillmentRequest;
+import com.landawn.ofbiz.model.humanres.DeleteEmplPositionFulfillmentResponse;
+import com.landawn.ofbiz.model.humanres.DeleteEmplPositionReportingStructRequest;
+import com.landawn.ofbiz.model.humanres.DeleteEmplPositionReportingStructResponse;
+import com.landawn.ofbiz.model.humanres.DeleteEmplPositionRequest;
+import com.landawn.ofbiz.model.humanres.DeleteEmplPositionResponse;
+import com.landawn.ofbiz.model.humanres.DeleteEmplPositionResponsibilityRequest;
+import com.landawn.ofbiz.model.humanres.DeleteEmplPositionResponsibilityResponse;
+import com.landawn.ofbiz.model.humanres.DeleteEmplPositionTypeRateRequest;
+import com.landawn.ofbiz.model.humanres.DeleteEmplPositionTypeRateResponse;
+import com.landawn.ofbiz.model.humanres.DeleteEmplPositionTypeRequest;
+import com.landawn.ofbiz.model.humanres.DeleteEmplPositionTypeResponse;
+import com.landawn.ofbiz.model.humanres.DeleteEmploymentAppRequest;
+import com.landawn.ofbiz.model.humanres.DeleteEmploymentAppResponse;
+import com.landawn.ofbiz.model.humanres.DeleteEmploymentRequest;
+import com.landawn.ofbiz.model.humanres.DeleteEmploymentResponse;
+import com.landawn.ofbiz.model.humanres.DeleteInternalJobPostingRequest;
+import com.landawn.ofbiz.model.humanres.DeleteInternalJobPostingResponse;
+import com.landawn.ofbiz.model.humanres.DeleteJobInterviewRequest;
+import com.landawn.ofbiz.model.humanres.DeleteJobInterviewResponse;
+import com.landawn.ofbiz.model.humanres.DeleteJobInterviewTypeRequest;
+import com.landawn.ofbiz.model.humanres.DeleteJobInterviewTypeResponse;
+import com.landawn.ofbiz.model.humanres.DeleteJobRequisitionRequest;
+import com.landawn.ofbiz.model.humanres.DeleteJobRequisitionResponse;
+import com.landawn.ofbiz.model.humanres.DeletePartyBenefitRequest;
+import com.landawn.ofbiz.model.humanres.DeletePartyBenefitResponse;
+import com.landawn.ofbiz.model.humanres.DeletePartyQualRequest;
+import com.landawn.ofbiz.model.humanres.DeletePartyQualResponse;
+import com.landawn.ofbiz.model.humanres.DeletePartyResumeRequest;
+import com.landawn.ofbiz.model.humanres.DeletePartyResumeResponse;
+import com.landawn.ofbiz.model.humanres.DeletePartySkillRequest;
+import com.landawn.ofbiz.model.humanres.DeletePartySkillResponse;
+import com.landawn.ofbiz.model.humanres.DeletePayGradeRequest;
+import com.landawn.ofbiz.model.humanres.DeletePayGradeResponse;
+import com.landawn.ofbiz.model.humanres.DeletePayHistoryRequest;
+import com.landawn.ofbiz.model.humanres.DeletePayHistoryResponse;
+import com.landawn.ofbiz.model.humanres.DeletePayrollPreferenceRequest;
+import com.landawn.ofbiz.model.humanres.DeletePayrollPreferenceResponse;
+import com.landawn.ofbiz.model.humanres.DeletePerfReviewItemRequest;
+import com.landawn.ofbiz.model.humanres.DeletePerfReviewItemResponse;
+import com.landawn.ofbiz.model.humanres.DeletePerfReviewRequest;
+import com.landawn.ofbiz.model.humanres.DeletePerfReviewResponse;
+import com.landawn.ofbiz.model.humanres.DeleteResponsibilityTypeRequest;
+import com.landawn.ofbiz.model.humanres.DeleteResponsibilityTypeResponse;
+import com.landawn.ofbiz.model.humanres.DeleteSalaryStepRequest;
+import com.landawn.ofbiz.model.humanres.DeleteSalaryStepResponse;
+import com.landawn.ofbiz.model.humanres.DeleteSkillTypeRequest;
+import com.landawn.ofbiz.model.humanres.DeleteSkillTypeResponse;
+import com.landawn.ofbiz.model.humanres.DeleteTerminationReasonRequest;
+import com.landawn.ofbiz.model.humanres.DeleteTerminationReasonResponse;
+import com.landawn.ofbiz.model.humanres.DeleteTerminationTypeRequest;
+import com.landawn.ofbiz.model.humanres.DeleteTerminationTypeResponse;
+import com.landawn.ofbiz.model.humanres.DeleteTrainingTypesRequest;
+import com.landawn.ofbiz.model.humanres.DeleteTrainingTypesResponse;
+import com.landawn.ofbiz.model.humanres.DeleteUnemploymentClaimRequest;
+import com.landawn.ofbiz.model.humanres.DeleteUnemploymentClaimResponse;
+import com.landawn.ofbiz.model.humanres.DeleteValidResponsibilityRequest;
+import com.landawn.ofbiz.model.humanres.DeleteValidResponsibilityResponse;
+import com.landawn.ofbiz.model.humanres.ExpirePayHistoryRequest;
+import com.landawn.ofbiz.model.humanres.ExpirePayHistoryResponse;
+import com.landawn.ofbiz.model.humanres.UpdateAgreementEmploymentApplResponse;
+import com.landawn.ofbiz.model.humanres.UpdateApprovalStatusRequest;
+import com.landawn.ofbiz.model.humanres.UpdateApprovalStatusResponse;
+import com.landawn.ofbiz.model.humanres.UpdateEmplLeaveReasonTypeResponse;
+import com.landawn.ofbiz.model.humanres.UpdateEmplLeaveRequest;
+import com.landawn.ofbiz.model.humanres.UpdateEmplLeaveResponse;
+import com.landawn.ofbiz.model.humanres.UpdateEmplLeaveStatusRequest;
+import com.landawn.ofbiz.model.humanres.UpdateEmplLeaveStatusResponse;
+import com.landawn.ofbiz.model.humanres.UpdateEmplLeaveTypeResponse;
+import com.landawn.ofbiz.model.humanres.UpdateEmplPositionFulfillmentRequest;
+import com.landawn.ofbiz.model.humanres.UpdateEmplPositionFulfillmentResponse;
+import com.landawn.ofbiz.model.humanres.UpdateEmplPositionReportingStructRequest;
+import com.landawn.ofbiz.model.humanres.UpdateEmplPositionReportingStructResponse;
+import com.landawn.ofbiz.model.humanres.UpdateEmplPositionRequest;
+import com.landawn.ofbiz.model.humanres.UpdateEmplPositionResponse;
+import com.landawn.ofbiz.model.humanres.UpdateEmplPositionResponsibilityRequest;
+import com.landawn.ofbiz.model.humanres.UpdateEmplPositionResponsibilityResponse;
+import com.landawn.ofbiz.model.humanres.UpdateEmplPositionTypeRateRequest;
+import com.landawn.ofbiz.model.humanres.UpdateEmplPositionTypeRateResponse;
+import com.landawn.ofbiz.model.humanres.UpdateEmplPositionTypeRequest;
+import com.landawn.ofbiz.model.humanres.UpdateEmplPositionTypeResponse;
+import com.landawn.ofbiz.model.humanres.UpdateEmploymentAppResponse;
+import com.landawn.ofbiz.model.humanres.UpdateEmploymentRequest;
+import com.landawn.ofbiz.model.humanres.UpdateEmploymentResponse;
+import com.landawn.ofbiz.model.humanres.UpdateInternalJobPostingRequest;
+import com.landawn.ofbiz.model.humanres.UpdateInternalJobPostingResponse;
+import com.landawn.ofbiz.model.humanres.UpdateJobInterviewRequest;
+import com.landawn.ofbiz.model.humanres.UpdateJobInterviewResponse;
+import com.landawn.ofbiz.model.humanres.UpdateJobInterviewTypeResponse;
+import com.landawn.ofbiz.model.humanres.UpdateJobRequisitionRequest;
+import com.landawn.ofbiz.model.humanres.UpdateJobRequisitionResponse;
+import com.landawn.ofbiz.model.humanres.UpdatePartyBenefitResponse;
+import com.landawn.ofbiz.model.humanres.UpdatePartyQualRequest;
+import com.landawn.ofbiz.model.humanres.UpdatePartyQualResponse;
+import com.landawn.ofbiz.model.humanres.UpdatePartyResumeRequest;
+import com.landawn.ofbiz.model.humanres.UpdatePartyResumeResponse;
+import com.landawn.ofbiz.model.humanres.UpdatePartySkillRequest;
+import com.landawn.ofbiz.model.humanres.UpdatePartySkillResponse;
+import com.landawn.ofbiz.model.humanres.UpdatePayGradeRequest;
+import com.landawn.ofbiz.model.humanres.UpdatePayGradeResponse;
+import com.landawn.ofbiz.model.humanres.UpdatePayHistoryRequest;
+import com.landawn.ofbiz.model.humanres.UpdatePayHistoryResponse;
+import com.landawn.ofbiz.model.humanres.UpdatePayrollPreferenceResponse;
+import com.landawn.ofbiz.model.humanres.UpdatePerfReviewItemRequest;
+import com.landawn.ofbiz.model.humanres.UpdatePerfReviewItemResponse;
+import com.landawn.ofbiz.model.humanres.UpdatePerfReviewRequest;
+import com.landawn.ofbiz.model.humanres.UpdatePerfReviewResponse;
+import com.landawn.ofbiz.model.humanres.UpdateResponsibilityTypeResponse;
+import com.landawn.ofbiz.model.humanres.UpdateSalaryStepResponse;
+import com.landawn.ofbiz.model.humanres.UpdateSkillTypeResponse;
+import com.landawn.ofbiz.model.humanres.UpdateTerminationReasonResponse;
+import com.landawn.ofbiz.model.humanres.UpdateTerminationTypeResponse;
+import com.landawn.ofbiz.model.humanres.UpdateTrainingStatusRequest;
+import com.landawn.ofbiz.model.humanres.UpdateTrainingStatusResponse;
+import com.landawn.ofbiz.model.humanres.UpdateTrainingTypesResponse;
+import com.landawn.ofbiz.model.humanres.UpdateUnemploymentClaimResponse;
+import com.landawn.ofbiz.model.humanres.UpdateValidResponsibilityRequest;
+import com.landawn.ofbiz.model.humanres.UpdateValidResponsibilityResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,12 +211,19 @@ import java.util.Map;
 @RequestMapping("/humanres")
 public class HumanresController {
 
+    /** 200/400 routing decided by the response DTO's envelope state. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
+
     /**
      * Create Training Request
      * <p>service: applyTraining  entities: PersonTraining  auth: true
      */
     @PostMapping("/humanres/control/applyTraining")
-    public ResponseEntity<Map<String, Object>> applyTraining(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ApplyTrainingResponse> applyTraining(@RequestBody ApplyTrainingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -29,7 +233,7 @@ public class HumanresController {
      * <p>service: assignTraining  entities: PersonTraining  auth: true
      */
     @PostMapping("/humanres/control/assignTraining")
-    public ResponseEntity<Map<String, Object>> assignTraining(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AssignTrainingResponse> assignTraining(@RequestBody AssignTrainingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -39,7 +243,7 @@ public class HumanresController {
      * <p>service: createAgreementEmploymentAppl  entities: AgreementEmploymentAppl  auth: true
      */
     @PostMapping("/humanres/control/createAgreementEmploymentAppl")
-    public ResponseEntity<Map<String, Object>> createAgreementEmploymentAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateAgreementEmploymentApplResponse> createAgreementEmploymentAppl(@RequestBody CreateAgreementEmploymentApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -49,7 +253,7 @@ public class HumanresController {
      * <p>service: createEmplLeave  entities: EmplLeave  auth: true
      */
     @PostMapping("/humanres/control/createEmplLeave")
-    public ResponseEntity<Map<String, Object>> createEmplLeave(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmplLeaveResponse> createEmplLeave(@RequestBody CreateEmplLeaveRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -59,7 +263,7 @@ public class HumanresController {
      * <p>service: createEmplLeave  entities: EmplLeave  auth: true
      */
     @PostMapping("/humanres/control/createEmplLeaveExt")
-    public ResponseEntity<Map<String, Object>> createEmplLeaveCreateEmplLeaveExt(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmplLeaveResponse> createEmplLeaveCreateEmplLeaveExt(@RequestBody CreateEmplLeaveRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -69,7 +273,7 @@ public class HumanresController {
      * <p>service: createEmplLeaveReasonType  entities: EmplLeaveReasonType  auth: true
      */
     @PostMapping("/humanres/control/createEmplLeaveReasonType")
-    public ResponseEntity<Map<String, Object>> createEmplLeaveReasonType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmplLeaveReasonTypeResponse> createEmplLeaveReasonType(@RequestBody CreateEmplLeaveReasonTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -79,7 +283,7 @@ public class HumanresController {
      * <p>service: createEmplLeaveType  entities: EmplLeaveType  auth: true
      */
     @PostMapping("/humanres/control/createEmplLeaveType")
-    public ResponseEntity<Map<String, Object>> createEmplLeaveType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmplLeaveTypeResponse> createEmplLeaveType(@RequestBody CreateEmplLeaveTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -89,7 +293,7 @@ public class HumanresController {
      * <p>service: createEmplPosition  entities: EmplPosition  auth: true
      */
     @PostMapping("/humanres/control/createEmplPosition")
-    public ResponseEntity<Map<String, Object>> createEmplPosition(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmplPositionResponse> createEmplPosition(@RequestBody CreateEmplPositionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -99,7 +303,7 @@ public class HumanresController {
      * <p>service: createEmplPositionFulfillment  entities: EmplPositionFulfillment  auth: true
      */
     @PostMapping("/humanres/control/createEmplPositionFulfillment")
-    public ResponseEntity<Map<String, Object>> createEmplPositionFulfillment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmplPositionFulfillmentResponse> createEmplPositionFulfillment(@RequestBody CreateEmplPositionFulfillmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -109,7 +313,7 @@ public class HumanresController {
      * <p>service: createEmplPositionReportingStruct  entities: EmplPositionReportingStruct  auth: true
      */
     @PostMapping("/humanres/control/createEmplPositionReportingStruct")
-    public ResponseEntity<Map<String, Object>> createEmplPositionReportingStruct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmplPositionReportingStructResponse> createEmplPositionReportingStruct(@RequestBody CreateEmplPositionReportingStructRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -119,7 +323,7 @@ public class HumanresController {
      * <p>service: createEmplPositionResponsibility  entities: EmplPositionResponsibility  auth: true
      */
     @PostMapping("/humanres/control/createEmplPositionResponsibility")
-    public ResponseEntity<Map<String, Object>> createEmplPositionResponsibility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmplPositionResponsibilityResponse> createEmplPositionResponsibility(@RequestBody CreateEmplPositionResponsibilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -129,7 +333,7 @@ public class HumanresController {
      * <p>service: createEmplPositionType  entities: EmplPositionType  auth: true
      */
     @PostMapping("/humanres/control/createEmplPositionType")
-    public ResponseEntity<Map<String, Object>> createEmplPositionType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmplPositionTypeResponse> createEmplPositionType(@RequestBody CreateEmplPositionTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -139,7 +343,7 @@ public class HumanresController {
      * <p>service: createEmployee  entities: Person, PostalAddress, TelecomNumber  auth: true
      */
     @PostMapping("/humanres/control/createEmployee")
-    public ResponseEntity<Map<String, Object>> createEmployee(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmployeeResponse> createEmployee(@RequestBody CreateEmployeeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -149,7 +353,7 @@ public class HumanresController {
      * <p>service: createPartyQual  entities: PartyQual  auth: true
      */
     @PostMapping("/humanres/control/createEmployeeQualification")
-    public ResponseEntity<Map<String, Object>> createPartyQual(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyQualResponse> createPartyQual(@RequestBody CreatePartyQualRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -159,7 +363,7 @@ public class HumanresController {
      * <p>service: createPartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/createEmployeeSkill")
-    public ResponseEntity<Map<String, Object>> createPartySkill(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartySkillResponse> createPartySkill(@RequestBody CreatePartySkillRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -169,7 +373,7 @@ public class HumanresController {
      * <p>service: createEmployment  entities: Employment  auth: true
      */
     @PostMapping("/humanres/control/createEmployment")
-    public ResponseEntity<Map<String, Object>> createEmployment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmploymentResponse> createEmployment(@RequestBody CreateEmploymentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -179,7 +383,7 @@ public class HumanresController {
      * <p>service: createEmploymentApp  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/createEmploymentApp")
-    public ResponseEntity<Map<String, Object>> createEmploymentApp(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmploymentAppResponse> createEmploymentApp(@RequestBody CreateEmploymentAppRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -189,7 +393,7 @@ public class HumanresController {
      * <p>service: createEmploymentApp  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/createEmploymentAppExt")
-    public ResponseEntity<Map<String, Object>> createEmploymentAppCreateEmploymentAppExt(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmploymentAppResponse> createEmploymentAppCreateEmploymentAppExt(@RequestBody CreateEmploymentAppRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -199,7 +403,7 @@ public class HumanresController {
      * <p>service: createInternalJobPosting  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/createInternalJobPosting")
-    public ResponseEntity<Map<String, Object>> createInternalJobPosting(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateInternalJobPostingResponse> createInternalJobPosting(@RequestBody CreateInternalJobPostingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -219,7 +423,7 @@ public class HumanresController {
      * <p>service: createJobInterview  entities: JobInterview  auth: true
      */
     @PostMapping("/humanres/control/createJobInterview")
-    public ResponseEntity<Map<String, Object>> createJobInterview(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateJobInterviewResponse> createJobInterview(@RequestBody CreateJobInterviewRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -229,7 +433,7 @@ public class HumanresController {
      * <p>service: createJobInterviewType  entities: JobInterviewType  auth: true
      */
     @PostMapping("/humanres/control/createJobInterviewType")
-    public ResponseEntity<Map<String, Object>> createJobInterviewType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateJobInterviewTypeResponse> createJobInterviewType(@RequestBody CreateJobInterviewTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -239,7 +443,7 @@ public class HumanresController {
      * <p>service: createJobRequisition  entities: JobRequisition  auth: true
      */
     @PostMapping("/humanres/control/createJobRequisition")
-    public ResponseEntity<Map<String, Object>> createJobRequisition(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateJobRequisitionResponse> createJobRequisition(@RequestBody CreateJobRequisitionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -249,7 +453,7 @@ public class HumanresController {
      * <p>service: createPartyBenefit  entities: PartyBenefit  auth: true
      */
     @PostMapping("/humanres/control/createPartyBenefit")
-    public ResponseEntity<Map<String, Object>> createPartyBenefit(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyBenefitResponse> createPartyBenefit(@RequestBody CreatePartyBenefitRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -259,7 +463,7 @@ public class HumanresController {
      * <p>service: createPartyQual  entities: PartyQual  auth: true
      */
     @PostMapping("/humanres/control/createPartyQual")
-    public ResponseEntity<Map<String, Object>> createPartyQualCreatePartyQual(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyQualResponse> createPartyQualCreatePartyQual(@RequestBody CreatePartyQualRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -269,7 +473,7 @@ public class HumanresController {
      * <p>service: createPartyQual  entities: PartyQual  auth: true
      */
     @PostMapping("/humanres/control/createPartyQualExt")
-    public ResponseEntity<Map<String, Object>> createPartyQualCreatePartyQualExt(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyQualResponse> createPartyQualCreatePartyQualExt(@RequestBody CreatePartyQualRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -279,7 +483,7 @@ public class HumanresController {
      * <p>service: createPartyResume  entities: PartyResume  auth: true
      */
     @PostMapping("/humanres/control/createPartyResume")
-    public ResponseEntity<Map<String, Object>> createPartyResume(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyResumeResponse> createPartyResume(@RequestBody CreatePartyResumeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -289,7 +493,7 @@ public class HumanresController {
      * <p>service: createPartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/createPartySkill")
-    public ResponseEntity<Map<String, Object>> createPartySkillCreatePartySkill(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartySkillResponse> createPartySkillCreatePartySkill(@RequestBody CreatePartySkillRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -299,7 +503,7 @@ public class HumanresController {
      * <p>service: createPartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/createPartySkillExt")
-    public ResponseEntity<Map<String, Object>> createPartySkillCreatePartySkillExt(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartySkillResponse> createPartySkillCreatePartySkillExt(@RequestBody CreatePartySkillRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -309,7 +513,7 @@ public class HumanresController {
      * <p>service: createPayGrade  entities: PayGrade  auth: true
      */
     @PostMapping("/humanres/control/createPayGrade")
-    public ResponseEntity<Map<String, Object>> createPayGrade(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePayGradeResponse> createPayGrade(@RequestBody CreatePayGradeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -319,7 +523,7 @@ public class HumanresController {
      * <p>service: createPayrollPreference  entities: PayrollPreference  auth: true
      */
     @PostMapping("/humanres/control/createPayrollPreference")
-    public ResponseEntity<Map<String, Object>> createPayrollPreference(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePayrollPreferenceResponse> createPayrollPreference(@RequestBody CreatePayrollPreferenceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -329,7 +533,7 @@ public class HumanresController {
      * <p>service: createPerfReview  entities: PerfReview  auth: true
      */
     @PostMapping("/humanres/control/createPerfReview")
-    public ResponseEntity<Map<String, Object>> createPerfReview(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePerfReviewResponse> createPerfReview(@RequestBody CreatePerfReviewRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -339,7 +543,7 @@ public class HumanresController {
      * <p>service: createPerfReviewItem  entities: PerfReviewItem  auth: true
      */
     @PostMapping("/humanres/control/createPerfReviewItem")
-    public ResponseEntity<Map<String, Object>> createPerfReviewItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePerfReviewItemResponse> createPerfReviewItem(@RequestBody CreatePerfReviewItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -349,7 +553,7 @@ public class HumanresController {
      * <p>service: createPerformanceNote  entities: PerformanceNote  auth: true
      */
     @PostMapping("/humanres/control/createPerformanceNote")
-    public ResponseEntity<Map<String, Object>> createPerformanceNote(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePerformanceNoteResponse> createPerformanceNote(@RequestBody CreatePerformanceNoteRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -369,7 +573,7 @@ public class HumanresController {
      * <p>service: createResponsibilityType  entities: ResponsibilityType  auth: true
      */
     @PostMapping("/humanres/control/createResponsibilityType")
-    public ResponseEntity<Map<String, Object>> createResponsibilityType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateResponsibilityTypeResponse> createResponsibilityType(@RequestBody CreateResponsibilityTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -379,7 +583,7 @@ public class HumanresController {
      * <p>service: createSalaryStep  entities: SalaryStep  auth: true
      */
     @PostMapping("/humanres/control/createSalaryStep")
-    public ResponseEntity<Map<String, Object>> createSalaryStep(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSalaryStepResponse> createSalaryStep(@RequestBody CreateSalaryStepRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -389,7 +593,7 @@ public class HumanresController {
      * <p>service: createSkillType  entities: SkillType  auth: true
      */
     @PostMapping("/humanres/control/createSkillType")
-    public ResponseEntity<Map<String, Object>> createSkillType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSkillTypeResponse> createSkillType(@RequestBody CreateSkillTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -399,7 +603,7 @@ public class HumanresController {
      * <p>service: createTerminationReason  entities: TerminationReason  auth: true
      */
     @PostMapping("/humanres/control/createTerminationReason")
-    public ResponseEntity<Map<String, Object>> createTerminationReason(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateTerminationReasonResponse> createTerminationReason(@RequestBody CreateTerminationReasonRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -409,7 +613,7 @@ public class HumanresController {
      * <p>service: createTerminationType  entities: TerminationType  auth: true
      */
     @PostMapping("/humanres/control/createTerminationType")
-    public ResponseEntity<Map<String, Object>> createTerminationType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateTerminationTypeResponse> createTerminationType(@RequestBody CreateTerminationTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -429,7 +633,7 @@ public class HumanresController {
      * <p>service: createTrainingTypes  entities: TrainingClassType  auth: true
      */
     @PostMapping("/humanres/control/createTrainingTypes")
-    public ResponseEntity<Map<String, Object>> createTrainingTypes(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateTrainingTypesResponse> createTrainingTypes(@RequestBody CreateTrainingTypesRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -439,7 +643,7 @@ public class HumanresController {
      * <p>service: createUnemploymentClaim  entities: UnemploymentClaim  auth: true
      */
     @PostMapping("/humanres/control/createUnemploymentClaim")
-    public ResponseEntity<Map<String, Object>> createUnemploymentClaim(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateUnemploymentClaimResponse> createUnemploymentClaim(@RequestBody CreateUnemploymentClaimRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -449,7 +653,7 @@ public class HumanresController {
      * <p>service: createValidResponsibility  entities: ValidResponsibility  auth: true
      */
     @PostMapping("/humanres/control/createValidResponsibility")
-    public ResponseEntity<Map<String, Object>> createValidResponsibility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateValidResponsibilityResponse> createValidResponsibility(@RequestBody CreateValidResponsibilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -459,7 +663,7 @@ public class HumanresController {
      * <p>service: deleteAgreementEmploymentAppl  entities: AgreementEmploymentAppl  auth: true
      */
     @PostMapping("/humanres/control/deleteAgreementEmploymentAppl")
-    public ResponseEntity<Map<String, Object>> deleteAgreementEmploymentAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteAgreementEmploymentApplResponse> deleteAgreementEmploymentAppl(@RequestBody DeleteAgreementEmploymentApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -469,7 +673,7 @@ public class HumanresController {
      * <p>service: deleteEmplLeave  entities: EmplLeave  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplLeave")
-    public ResponseEntity<Map<String, Object>> deleteEmplLeave(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteEmplLeaveResponse> deleteEmplLeave(@RequestBody DeleteEmplLeaveRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -479,7 +683,7 @@ public class HumanresController {
      * <p>service: deleteEmplLeaveReasonType  entities: EmplLeaveReasonType  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplLeaveReasonType")
-    public ResponseEntity<Map<String, Object>> deleteEmplLeaveReasonType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteEmplLeaveReasonTypeResponse> deleteEmplLeaveReasonType(@RequestBody DeleteEmplLeaveReasonTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -489,7 +693,7 @@ public class HumanresController {
      * <p>service: deleteEmplLeaveType  entities: EmplLeaveType  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplLeaveType")
-    public ResponseEntity<Map<String, Object>> deleteEmplLeaveType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteEmplLeaveTypeResponse> deleteEmplLeaveType(@RequestBody DeleteEmplLeaveTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -499,7 +703,7 @@ public class HumanresController {
      * <p>service: deleteEmplPosition  entities: EmplPosition  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplPosition")
-    public ResponseEntity<Map<String, Object>> deleteEmplPosition(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteEmplPositionResponse> deleteEmplPosition(@RequestBody DeleteEmplPositionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -509,7 +713,7 @@ public class HumanresController {
      * <p>service: deleteEmplPositionFulfillment  entities: EmplPositionFulfillment  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplPositionFulfillment")
-    public ResponseEntity<Map<String, Object>> deleteEmplPositionFulfillment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteEmplPositionFulfillmentResponse> deleteEmplPositionFulfillment(@RequestBody DeleteEmplPositionFulfillmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -519,7 +723,7 @@ public class HumanresController {
      * <p>service: deleteEmplPositionReportingStruct  entities: EmplPositionReportingStruct  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplPositionReportingStruct")
-    public ResponseEntity<Map<String, Object>> deleteEmplPositionReportingStruct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteEmplPositionReportingStructResponse> deleteEmplPositionReportingStruct(@RequestBody DeleteEmplPositionReportingStructRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -529,7 +733,7 @@ public class HumanresController {
      * <p>service: deleteEmplPositionResponsibility  entities: EmplPositionResponsibility  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplPositionResponsibility")
-    public ResponseEntity<Map<String, Object>> deleteEmplPositionResponsibility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteEmplPositionResponsibilityResponse> deleteEmplPositionResponsibility(@RequestBody DeleteEmplPositionResponsibilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -539,7 +743,7 @@ public class HumanresController {
      * <p>service: deleteEmplPositionType  entities: EmplPositionType  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplPositionType")
-    public ResponseEntity<Map<String, Object>> deleteEmplPositionType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteEmplPositionTypeResponse> deleteEmplPositionType(@RequestBody DeleteEmplPositionTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -549,7 +753,7 @@ public class HumanresController {
      * <p>service: deleteEmplPositionTypeRate  entities: EmplPositionTypeRate  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplPositionTypeRate")
-    public ResponseEntity<Map<String, Object>> deleteEmplPositionTypeRate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteEmplPositionTypeRateResponse> deleteEmplPositionTypeRate(@RequestBody DeleteEmplPositionTypeRateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -559,7 +763,7 @@ public class HumanresController {
      * <p>service: deletePartyQual  entities: PartyQual  auth: true
      */
     @PostMapping("/humanres/control/deleteEmployeeQualification")
-    public ResponseEntity<Map<String, Object>> deletePartyQual(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartyQualResponse> deletePartyQual(@RequestBody DeletePartyQualRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -569,7 +773,7 @@ public class HumanresController {
      * <p>service: deletePartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/deleteEmployeeSkill")
-    public ResponseEntity<Map<String, Object>> deletePartySkill(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartySkillResponse> deletePartySkill(@RequestBody DeletePartySkillRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -579,7 +783,7 @@ public class HumanresController {
      * <p>service: deleteEmployment  entities: Employment  auth: true
      */
     @PostMapping("/humanres/control/deleteEmployment")
-    public ResponseEntity<Map<String, Object>> deleteEmployment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteEmploymentResponse> deleteEmployment(@RequestBody DeleteEmploymentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -589,7 +793,7 @@ public class HumanresController {
      * <p>service: deleteEmploymentApp  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/deleteEmploymentApp")
-    public ResponseEntity<Map<String, Object>> deleteEmploymentApp(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteEmploymentAppResponse> deleteEmploymentApp(@RequestBody DeleteEmploymentAppRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -599,7 +803,7 @@ public class HumanresController {
      * <p>service: deleteInternalJobPosting  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/deleteInternalJobPosting")
-    public ResponseEntity<Map<String, Object>> deleteInternalJobPosting(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteInternalJobPostingResponse> deleteInternalJobPosting(@RequestBody DeleteInternalJobPostingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -609,7 +813,7 @@ public class HumanresController {
      * <p>service: deleteJobInterview  entities: JobInterview  auth: true
      */
     @PostMapping("/humanres/control/deleteJobInterview")
-    public ResponseEntity<Map<String, Object>> deleteJobInterview(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteJobInterviewResponse> deleteJobInterview(@RequestBody DeleteJobInterviewRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -619,7 +823,7 @@ public class HumanresController {
      * <p>service: deleteJobInterviewType  entities: JobInterviewType  auth: true
      */
     @PostMapping("/humanres/control/deleteJobInterviewType")
-    public ResponseEntity<Map<String, Object>> deleteJobInterviewType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteJobInterviewTypeResponse> deleteJobInterviewType(@RequestBody DeleteJobInterviewTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -629,7 +833,7 @@ public class HumanresController {
      * <p>service: deleteJobRequisition  entities: JobRequisition  auth: true
      */
     @PostMapping("/humanres/control/deleteJobRequisition")
-    public ResponseEntity<Map<String, Object>> deleteJobRequisition(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteJobRequisitionResponse> deleteJobRequisition(@RequestBody DeleteJobRequisitionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -639,7 +843,7 @@ public class HumanresController {
      * <p>service: deletePartyBenefit  entities: PartyBenefit  auth: true
      */
     @PostMapping("/humanres/control/deletePartyBenefit")
-    public ResponseEntity<Map<String, Object>> deletePartyBenefit(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartyBenefitResponse> deletePartyBenefit(@RequestBody DeletePartyBenefitRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -649,7 +853,7 @@ public class HumanresController {
      * <p>service: deletePartyQual  entities: PartyQual  auth: true
      */
     @PostMapping("/humanres/control/deletePartyQual")
-    public ResponseEntity<Map<String, Object>> deletePartyQualDeletePartyQual(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartyQualResponse> deletePartyQualDeletePartyQual(@RequestBody DeletePartyQualRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -659,7 +863,7 @@ public class HumanresController {
      * <p>service: deletePartyResume  entities: PartyResume  auth: true
      */
     @PostMapping("/humanres/control/deletePartyResume")
-    public ResponseEntity<Map<String, Object>> deletePartyResume(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartyResumeResponse> deletePartyResume(@RequestBody DeletePartyResumeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -669,7 +873,7 @@ public class HumanresController {
      * <p>service: deletePartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/deletePartySkill")
-    public ResponseEntity<Map<String, Object>> deletePartySkillDeletePartySkill(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartySkillResponse> deletePartySkillDeletePartySkill(@RequestBody DeletePartySkillRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -679,7 +883,7 @@ public class HumanresController {
      * <p>service: deletePayGrade  entities: PayGrade  auth: true
      */
     @PostMapping("/humanres/control/deletePayGrade")
-    public ResponseEntity<Map<String, Object>> deletePayGrade(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePayGradeResponse> deletePayGrade(@RequestBody DeletePayGradeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -689,7 +893,7 @@ public class HumanresController {
      * <p>service: deletePayHistory  entities: PayHistory  auth: true
      */
     @PostMapping("/humanres/control/deletePayHistory")
-    public ResponseEntity<Map<String, Object>> deletePayHistory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePayHistoryResponse> deletePayHistory(@RequestBody DeletePayHistoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -699,7 +903,7 @@ public class HumanresController {
      * <p>service: deletePayrollPreference  entities: PayrollPreference  auth: true
      */
     @PostMapping("/humanres/control/deletePayrollPreference")
-    public ResponseEntity<Map<String, Object>> deletePayrollPreference(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePayrollPreferenceResponse> deletePayrollPreference(@RequestBody DeletePayrollPreferenceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -709,7 +913,7 @@ public class HumanresController {
      * <p>service: deletePerfReview  entities: PerfReview  auth: true
      */
     @PostMapping("/humanres/control/deletePerfReview")
-    public ResponseEntity<Map<String, Object>> deletePerfReview(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePerfReviewResponse> deletePerfReview(@RequestBody DeletePerfReviewRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -719,7 +923,7 @@ public class HumanresController {
      * <p>service: deletePerfReviewItem  entities: PerfReviewItem  auth: true
      */
     @PostMapping("/humanres/control/deletePerfReviewItem")
-    public ResponseEntity<Map<String, Object>> deletePerfReviewItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePerfReviewItemResponse> deletePerfReviewItem(@RequestBody DeletePerfReviewItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -739,7 +943,7 @@ public class HumanresController {
      * <p>service: deleteResponsibilityType  entities: ResponsibilityType  auth: true
      */
     @PostMapping("/humanres/control/deleteResponsibilityType")
-    public ResponseEntity<Map<String, Object>> deleteResponsibilityType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteResponsibilityTypeResponse> deleteResponsibilityType(@RequestBody DeleteResponsibilityTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -749,7 +953,7 @@ public class HumanresController {
      * <p>service: deleteSalaryStep  entities: SalaryStep  auth: true
      */
     @PostMapping("/humanres/control/deleteSalaryStep")
-    public ResponseEntity<Map<String, Object>> deleteSalaryStep(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteSalaryStepResponse> deleteSalaryStep(@RequestBody DeleteSalaryStepRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -759,7 +963,7 @@ public class HumanresController {
      * <p>service: deleteSkillType  entities: SkillType  auth: true
      */
     @PostMapping("/humanres/control/deleteSkillType")
-    public ResponseEntity<Map<String, Object>> deleteSkillType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteSkillTypeResponse> deleteSkillType(@RequestBody DeleteSkillTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -769,7 +973,7 @@ public class HumanresController {
      * <p>service: deleteTerminationReason  entities: TerminationReason  auth: true
      */
     @PostMapping("/humanres/control/deleteTerminationReason")
-    public ResponseEntity<Map<String, Object>> deleteTerminationReason(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteTerminationReasonResponse> deleteTerminationReason(@RequestBody DeleteTerminationReasonRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -779,7 +983,7 @@ public class HumanresController {
      * <p>service: deleteTerminationType  entities: TerminationType  auth: true
      */
     @PostMapping("/humanres/control/deleteTerminationType")
-    public ResponseEntity<Map<String, Object>> deleteTerminationType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteTerminationTypeResponse> deleteTerminationType(@RequestBody DeleteTerminationTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -789,7 +993,7 @@ public class HumanresController {
      * <p>service: deleteTrainingTypes  entities: TrainingClassType  auth: true
      */
     @PostMapping("/humanres/control/deleteTrainingTypes")
-    public ResponseEntity<Map<String, Object>> deleteTrainingTypes(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteTrainingTypesResponse> deleteTrainingTypes(@RequestBody DeleteTrainingTypesRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -799,7 +1003,7 @@ public class HumanresController {
      * <p>service: deleteUnemploymentClaim  entities: UnemploymentClaim  auth: true
      */
     @PostMapping("/humanres/control/deleteUnemploymentClaim")
-    public ResponseEntity<Map<String, Object>> deleteUnemploymentClaim(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteUnemploymentClaimResponse> deleteUnemploymentClaim(@RequestBody DeleteUnemploymentClaimRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -809,7 +1013,7 @@ public class HumanresController {
      * <p>service: deleteValidResponsibility  entities: ValidResponsibility  auth: true
      */
     @PostMapping("/humanres/control/deleteValidResponsibility")
-    public ResponseEntity<Map<String, Object>> deleteValidResponsibility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteValidResponsibilityResponse> deleteValidResponsibility(@RequestBody DeleteValidResponsibilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -819,7 +1023,7 @@ public class HumanresController {
      * <p>service: expirePayHistory  entities: PayHistory  auth: true
      */
     @PostMapping("/humanres/control/expirePayHistory")
-    public ResponseEntity<Map<String, Object>> expirePayHistory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ExpirePayHistoryResponse> expirePayHistory(@RequestBody ExpirePayHistoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -849,7 +1053,7 @@ public class HumanresController {
      * <p>service: updateAgreementEmploymentAppl  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateAgreementEmploymentAppl")
-    public ResponseEntity<Map<String, Object>> updateAgreementEmploymentAppl(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateAgreementEmploymentApplResponse> updateAgreementEmploymentAppl(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -859,7 +1063,7 @@ public class HumanresController {
      * <p>service: updateApprovalStatus  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/updateApprovalStatus")
-    public ResponseEntity<Map<String, Object>> updateApprovalStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateApprovalStatusResponse> updateApprovalStatus(@RequestBody UpdateApprovalStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -869,7 +1073,7 @@ public class HumanresController {
      * <p>service: updateEmplLeave  entities: EmplLeave  auth: true
      */
     @PostMapping("/humanres/control/updateEmplLeave")
-    public ResponseEntity<Map<String, Object>> updateEmplLeave(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateEmplLeaveResponse> updateEmplLeave(@RequestBody UpdateEmplLeaveRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -879,7 +1083,7 @@ public class HumanresController {
      * <p>service: updateEmplLeave  entities: EmplLeave  auth: true
      */
     @PostMapping("/humanres/control/updateEmplLeaveExt")
-    public ResponseEntity<Map<String, Object>> updateEmplLeaveUpdateEmplLeaveExt(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateEmplLeaveResponse> updateEmplLeaveUpdateEmplLeaveExt(@RequestBody UpdateEmplLeaveRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -889,7 +1093,7 @@ public class HumanresController {
      * <p>service: updateEmplLeaveReasonType  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateEmplLeaveReasonType")
-    public ResponseEntity<Map<String, Object>> updateEmplLeaveReasonType(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateEmplLeaveReasonTypeResponse> updateEmplLeaveReasonType(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -899,7 +1103,7 @@ public class HumanresController {
      * <p>service: updateEmplLeaveStatus  entities: EmplLeave  auth: true
      */
     @PostMapping("/humanres/control/updateEmplLeaveStatus")
-    public ResponseEntity<Map<String, Object>> updateEmplLeaveStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateEmplLeaveStatusResponse> updateEmplLeaveStatus(@RequestBody UpdateEmplLeaveStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -909,7 +1113,7 @@ public class HumanresController {
      * <p>service: updateEmplLeaveType  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateEmplLeaveType")
-    public ResponseEntity<Map<String, Object>> updateEmplLeaveType(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateEmplLeaveTypeResponse> updateEmplLeaveType(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -919,7 +1123,7 @@ public class HumanresController {
      * <p>service: updateEmplPosition  entities: EmplPosition  auth: true
      */
     @PostMapping("/humanres/control/updateEmplPosition")
-    public ResponseEntity<Map<String, Object>> updateEmplPosition(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateEmplPositionResponse> updateEmplPosition(@RequestBody UpdateEmplPositionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -929,7 +1133,7 @@ public class HumanresController {
      * <p>service: updateEmplPositionFulfillment  entities: EmplPositionFulfillment  auth: true
      */
     @PostMapping("/humanres/control/updateEmplPositionFulfillment")
-    public ResponseEntity<Map<String, Object>> updateEmplPositionFulfillment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateEmplPositionFulfillmentResponse> updateEmplPositionFulfillment(@RequestBody UpdateEmplPositionFulfillmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -939,7 +1143,7 @@ public class HumanresController {
      * <p>service: updateEmplPositionReportingStruct  entities: EmplPositionReportingStruct  auth: true
      */
     @PostMapping("/humanres/control/updateEmplPositionReportingStruct")
-    public ResponseEntity<Map<String, Object>> updateEmplPositionReportingStruct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateEmplPositionReportingStructResponse> updateEmplPositionReportingStruct(@RequestBody UpdateEmplPositionReportingStructRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -949,7 +1153,7 @@ public class HumanresController {
      * <p>service: updateEmplPositionResponsibility  entities: EmplPositionResponsibility  auth: true
      */
     @PostMapping("/humanres/control/updateEmplPositionResponsibility")
-    public ResponseEntity<Map<String, Object>> updateEmplPositionResponsibility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateEmplPositionResponsibilityResponse> updateEmplPositionResponsibility(@RequestBody UpdateEmplPositionResponsibilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -959,7 +1163,7 @@ public class HumanresController {
      * <p>service: updateEmplPositionType  entities: EmplPositionType  auth: true
      */
     @PostMapping("/humanres/control/updateEmplPositionType")
-    public ResponseEntity<Map<String, Object>> updateEmplPositionType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateEmplPositionTypeResponse> updateEmplPositionType(@RequestBody UpdateEmplPositionTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -969,7 +1173,7 @@ public class HumanresController {
      * <p>service: updateEmplPositionTypeRate  entities: EmplPositionTypeRate  auth: true
      */
     @PostMapping("/humanres/control/updateEmplPositionTypeRate")
-    public ResponseEntity<Map<String, Object>> updateEmplPositionTypeRate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateEmplPositionTypeRateResponse> updateEmplPositionTypeRate(@RequestBody UpdateEmplPositionTypeRateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -979,7 +1183,7 @@ public class HumanresController {
      * <p>service: updatePartyQual  entities: PartyQual  auth: true
      */
     @PostMapping("/humanres/control/updateEmployeeQualification")
-    public ResponseEntity<Map<String, Object>> updatePartyQual(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyQualResponse> updatePartyQual(@RequestBody UpdatePartyQualRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -989,7 +1193,7 @@ public class HumanresController {
      * <p>service: updatePartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/updateEmployeeSkill")
-    public ResponseEntity<Map<String, Object>> updatePartySkill(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartySkillResponse> updatePartySkill(@RequestBody UpdatePartySkillRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -999,7 +1203,7 @@ public class HumanresController {
      * <p>service: updateEmployment  entities: Employment  auth: true
      */
     @PostMapping("/humanres/control/updateEmployment")
-    public ResponseEntity<Map<String, Object>> updateEmployment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateEmploymentResponse> updateEmployment(@RequestBody UpdateEmploymentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1009,7 +1213,7 @@ public class HumanresController {
      * <p>service: updateEmploymentApp  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateEmploymentApp")
-    public ResponseEntity<Map<String, Object>> updateEmploymentApp(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateEmploymentAppResponse> updateEmploymentApp(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1019,7 +1223,7 @@ public class HumanresController {
      * <p>service: updateEmploymentApp  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateEmploymentAppExt")
-    public ResponseEntity<Map<String, Object>> updateEmploymentAppUpdateEmploymentAppExt(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateEmploymentAppResponse> updateEmploymentAppUpdateEmploymentAppExt(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1029,7 +1233,7 @@ public class HumanresController {
      * <p>service: updateInternalJobPosting  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/updateInternalJobPosting")
-    public ResponseEntity<Map<String, Object>> updateInternalJobPosting(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateInternalJobPostingResponse> updateInternalJobPosting(@RequestBody UpdateInternalJobPostingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1039,7 +1243,7 @@ public class HumanresController {
      * <p>service: updateJobInterview  entities: JobInterview  auth: true
      */
     @PostMapping("/humanres/control/updateJobInterview")
-    public ResponseEntity<Map<String, Object>> updateJobInterview(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateJobInterviewResponse> updateJobInterview(@RequestBody UpdateJobInterviewRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1049,7 +1253,7 @@ public class HumanresController {
      * <p>service: updateJobInterviewType  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateJobInterviewType")
-    public ResponseEntity<Map<String, Object>> updateJobInterviewType(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateJobInterviewTypeResponse> updateJobInterviewType(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1059,7 +1263,7 @@ public class HumanresController {
      * <p>service: updateJobRequisition  entities: JobRequisition  auth: true
      */
     @PostMapping("/humanres/control/updateJobRequisition")
-    public ResponseEntity<Map<String, Object>> updateJobRequisition(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateJobRequisitionResponse> updateJobRequisition(@RequestBody UpdateJobRequisitionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1069,7 +1273,7 @@ public class HumanresController {
      * <p>service: updatePartyBenefit  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updatePartyBenefit")
-    public ResponseEntity<Map<String, Object>> updatePartyBenefit(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdatePartyBenefitResponse> updatePartyBenefit(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1079,7 +1283,7 @@ public class HumanresController {
      * <p>service: updatePartyQual  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updatePartyQual")
-    public ResponseEntity<Map<String, Object>> updatePartyQualUpdatePartyQual(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdatePartyQualResponse> updatePartyQualUpdatePartyQual(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1089,7 +1293,7 @@ public class HumanresController {
      * <p>service: updatePartyQual  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updatePartyQualExt")
-    public ResponseEntity<Map<String, Object>> updatePartyQualUpdatePartyQualExt(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdatePartyQualResponse> updatePartyQualUpdatePartyQualExt(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1099,7 +1303,7 @@ public class HumanresController {
      * <p>service: updatePartyResume  entities: PartyResume  auth: true
      */
     @PostMapping("/humanres/control/updatePartyResume")
-    public ResponseEntity<Map<String, Object>> updatePartyResume(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyResumeResponse> updatePartyResume(@RequestBody UpdatePartyResumeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1109,7 +1313,7 @@ public class HumanresController {
      * <p>service: updatePartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/updatePartySkill")
-    public ResponseEntity<Map<String, Object>> updatePartySkillUpdatePartySkill(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartySkillResponse> updatePartySkillUpdatePartySkill(@RequestBody UpdatePartySkillRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1119,7 +1323,7 @@ public class HumanresController {
      * <p>service: updatePartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/updatePartySkillExt")
-    public ResponseEntity<Map<String, Object>> updatePartySkillUpdatePartySkillExt(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartySkillResponse> updatePartySkillUpdatePartySkillExt(@RequestBody UpdatePartySkillRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1129,7 +1333,7 @@ public class HumanresController {
      * <p>service: updatePayGrade  entities: PayGrade  auth: true
      */
     @PostMapping("/humanres/control/updatePayGrade")
-    public ResponseEntity<Map<String, Object>> updatePayGrade(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePayGradeResponse> updatePayGrade(@RequestBody UpdatePayGradeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1139,7 +1343,7 @@ public class HumanresController {
      * <p>service: updatePayHistory  entities: PayHistory  auth: true
      */
     @PostMapping("/humanres/control/updatePayHistory")
-    public ResponseEntity<Map<String, Object>> updatePayHistory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePayHistoryResponse> updatePayHistory(@RequestBody UpdatePayHistoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1149,7 +1353,7 @@ public class HumanresController {
      * <p>service: updatePayrollPreference  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updatePayrollPreference")
-    public ResponseEntity<Map<String, Object>> updatePayrollPreference(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdatePayrollPreferenceResponse> updatePayrollPreference(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1159,7 +1363,7 @@ public class HumanresController {
      * <p>service: updatePerfReview  entities: PerfReview  auth: true
      */
     @PostMapping("/humanres/control/updatePerfReview")
-    public ResponseEntity<Map<String, Object>> updatePerfReview(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePerfReviewResponse> updatePerfReview(@RequestBody UpdatePerfReviewRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1169,7 +1373,7 @@ public class HumanresController {
      * <p>service: updatePerfReviewItem  entities: PerfReviewItem  auth: true
      */
     @PostMapping("/humanres/control/updatePerfReviewItem")
-    public ResponseEntity<Map<String, Object>> updatePerfReviewItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePerfReviewItemResponse> updatePerfReviewItem(@RequestBody UpdatePerfReviewItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1189,7 +1393,7 @@ public class HumanresController {
      * <p>service: updateResponsibilityType  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateResponsibilityType")
-    public ResponseEntity<Map<String, Object>> updateResponsibilityType(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateResponsibilityTypeResponse> updateResponsibilityType(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1199,7 +1403,7 @@ public class HumanresController {
      * <p>service: updateSalaryStep  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateSalaryStep")
-    public ResponseEntity<Map<String, Object>> updateSalaryStep(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateSalaryStepResponse> updateSalaryStep(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1209,7 +1413,7 @@ public class HumanresController {
      * <p>service: updateSkillType  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateSkillType")
-    public ResponseEntity<Map<String, Object>> updateSkillType(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateSkillTypeResponse> updateSkillType(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1219,7 +1423,7 @@ public class HumanresController {
      * <p>service: updateTerminationReason  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateTerminationReason")
-    public ResponseEntity<Map<String, Object>> updateTerminationReason(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateTerminationReasonResponse> updateTerminationReason(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1229,7 +1433,7 @@ public class HumanresController {
      * <p>service: updateTerminationType  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateTerminationType")
-    public ResponseEntity<Map<String, Object>> updateTerminationType(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateTerminationTypeResponse> updateTerminationType(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1249,7 +1453,7 @@ public class HumanresController {
      * <p>service: updateTrainingStatus  entities: PersonTraining  auth: true
      */
     @PostMapping("/humanres/control/updateTrainingStatus")
-    public ResponseEntity<Map<String, Object>> updateTrainingStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateTrainingStatusResponse> updateTrainingStatus(@RequestBody UpdateTrainingStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1259,7 +1463,7 @@ public class HumanresController {
      * <p>service: updateTrainingTypes  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateTrainingTypes")
-    public ResponseEntity<Map<String, Object>> updateTrainingTypes(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateTrainingTypesResponse> updateTrainingTypes(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1269,7 +1473,7 @@ public class HumanresController {
      * <p>service: updateUnemploymentClaim  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateUnemploymentClaim")
-    public ResponseEntity<Map<String, Object>> updateUnemploymentClaim(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateUnemploymentClaimResponse> updateUnemploymentClaim(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1279,7 +1483,7 @@ public class HumanresController {
      * <p>service: updateValidResponsibility  entities: ValidResponsibility  auth: true
      */
     @PostMapping("/humanres/control/updateValidResponsibility")
-    public ResponseEntity<Map<String, Object>> updateValidResponsibility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateValidResponsibilityResponse> updateValidResponsibility(@RequestBody UpdateValidResponsibilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }

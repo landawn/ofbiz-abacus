@@ -1,5 +1,789 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.model.ResponseBase;
+import com.landawn.ofbiz.model.product.AddAdditionalViewForProductRequest;
+import com.landawn.ofbiz.model.product.AddAdditionalViewForProductResponse;
+import com.landawn.ofbiz.model.product.AddFacilityGroupToGroupRequest;
+import com.landawn.ofbiz.model.product.AddFacilityGroupToGroupResponse;
+import com.landawn.ofbiz.model.product.AddFacilityToGroupRequest;
+import com.landawn.ofbiz.model.product.AddFacilityToGroupResponse;
+import com.landawn.ofbiz.model.product.AddImageForProductPromoRequest;
+import com.landawn.ofbiz.model.product.AddImageForProductPromoResponse;
+import com.landawn.ofbiz.model.product.AddImageFrameRequest;
+import com.landawn.ofbiz.model.product.AddImageFrameResponse;
+import com.landawn.ofbiz.model.product.AddOrderShipmentToShipmentResponse;
+import com.landawn.ofbiz.model.product.AddPartyToCategoryRequest;
+import com.landawn.ofbiz.model.product.AddPartyToCategoryResponse;
+import com.landawn.ofbiz.model.product.AddPartyToFacilityGroupRequest;
+import com.landawn.ofbiz.model.product.AddPartyToFacilityGroupResponse;
+import com.landawn.ofbiz.model.product.AddPartyToFacilityRequest;
+import com.landawn.ofbiz.model.product.AddPartyToFacilityResponse;
+import com.landawn.ofbiz.model.product.AddPartyToProductRequest;
+import com.landawn.ofbiz.model.product.AddPartyToProductResponse;
+import com.landawn.ofbiz.model.product.AddProdCatalogToPartyRequest;
+import com.landawn.ofbiz.model.product.AddProdCatalogToPartyResponse;
+import com.landawn.ofbiz.model.product.AddProductCategoryToProdCatalogRequest;
+import com.landawn.ofbiz.model.product.AddProductCategoryToProdCatalogResponse;
+import com.landawn.ofbiz.model.product.AddProductToCategoriesResponse;
+import com.landawn.ofbiz.model.product.AddRejectedReasonImageManagementResponse;
+import com.landawn.ofbiz.model.product.ApplyFeatureToProductFromTypeAndCodeRequest;
+import com.landawn.ofbiz.model.product.ApplyFeatureToProductFromTypeAndCodeResponse;
+import com.landawn.ofbiz.model.product.ApplyFeatureToProductRequest;
+import com.landawn.ofbiz.model.product.ApplyFeatureToProductResponse;
+import com.landawn.ofbiz.model.product.AttachProductFeaturesToCategoryRequest;
+import com.landawn.ofbiz.model.product.AttachProductFeaturesToCategoryResponse;
+import com.landawn.ofbiz.model.product.CalcPackSessionAdditionalShippingChargeRequest;
+import com.landawn.ofbiz.model.product.CalcPackSessionAdditionalShippingChargeResponse;
+import com.landawn.ofbiz.model.product.CalculateProductCostsRequest;
+import com.landawn.ofbiz.model.product.CalculateProductCostsResponse;
+import com.landawn.ofbiz.model.product.CancelAllRowsRequest;
+import com.landawn.ofbiz.model.product.CancelAllRowsResponse;
+import com.landawn.ofbiz.model.product.CancelReceivedItemsRequest;
+import com.landawn.ofbiz.model.product.CancelReceivedItemsResponse;
+import com.landawn.ofbiz.model.product.ClearPackAllRequest;
+import com.landawn.ofbiz.model.product.ClearPackAllResponse;
+import com.landawn.ofbiz.model.product.ClearPackLineRequest;
+import com.landawn.ofbiz.model.product.ClearPackLineResponse;
+import com.landawn.ofbiz.model.product.CompletePackRequest;
+import com.landawn.ofbiz.model.product.CompletePackResponse;
+import com.landawn.ofbiz.model.product.CompletePackageRequest;
+import com.landawn.ofbiz.model.product.CompletePackageResponse;
+import com.landawn.ofbiz.model.product.CompleteShipmentRequest;
+import com.landawn.ofbiz.model.product.CompleteShipmentResponse;
+import com.landawn.ofbiz.model.product.CompleteVerifiedPickRequest;
+import com.landawn.ofbiz.model.product.CompleteVerifiedPickResponse;
+import com.landawn.ofbiz.model.product.CopyCategoryProductMembersRequest;
+import com.landawn.ofbiz.model.product.CopyCategoryProductMembersResponse;
+import com.landawn.ofbiz.model.product.CopyToProductVariantsRequest;
+import com.landawn.ofbiz.model.product.CopyToProductVariantsResponse;
+import com.landawn.ofbiz.model.product.CreateBulkProductPromoCodeEmailRequest;
+import com.landawn.ofbiz.model.product.CreateBulkProductPromoCodeEmailResponse;
+import com.landawn.ofbiz.model.product.CreateBulkProductPromoCodeRequest;
+import com.landawn.ofbiz.model.product.CreateBulkProductPromoCodeResponse;
+import com.landawn.ofbiz.model.product.CreateCarrierShipmentMethodRequest;
+import com.landawn.ofbiz.model.product.CreateCarrierShipmentMethodResponse;
+import com.landawn.ofbiz.model.product.CreateCategoryContentRequest;
+import com.landawn.ofbiz.model.product.CreateCategoryContentResponse;
+import com.landawn.ofbiz.model.product.CreateCostComponentRequest;
+import com.landawn.ofbiz.model.product.CreateCostComponentResponse;
+import com.landawn.ofbiz.model.product.CreateDownloadContentForCategoryRequest;
+import com.landawn.ofbiz.model.product.CreateDownloadContentForCategoryResponse;
+import com.landawn.ofbiz.model.product.CreateDownloadContentForProductRequest;
+import com.landawn.ofbiz.model.product.CreateDownloadContentForProductResponse;
+import com.landawn.ofbiz.model.product.CreateEmailContentForProductRequest;
+import com.landawn.ofbiz.model.product.CreateEmailContentForProductResponse;
+import com.landawn.ofbiz.model.product.CreateFacilityContactMechPurposeRequest;
+import com.landawn.ofbiz.model.product.CreateFacilityContactMechPurposeResponse;
+import com.landawn.ofbiz.model.product.CreateFacilityContactMechRequest;
+import com.landawn.ofbiz.model.product.CreateFacilityContactMechResponse;
+import com.landawn.ofbiz.model.product.CreateFacilityContentResponse;
+import com.landawn.ofbiz.model.product.CreateFacilityEmailAddressRequest;
+import com.landawn.ofbiz.model.product.CreateFacilityEmailAddressResponse;
+import com.landawn.ofbiz.model.product.CreateFacilityGroupRequest;
+import com.landawn.ofbiz.model.product.CreateFacilityGroupResponse;
+import com.landawn.ofbiz.model.product.CreateFacilityLocationRequest;
+import com.landawn.ofbiz.model.product.CreateFacilityLocationResponse;
+import com.landawn.ofbiz.model.product.CreateFacilityPostalAddressRequest;
+import com.landawn.ofbiz.model.product.CreateFacilityPostalAddressResponse;
+import com.landawn.ofbiz.model.product.CreateFacilityRequest;
+import com.landawn.ofbiz.model.product.CreateFacilityResponse;
+import com.landawn.ofbiz.model.product.CreateFacilityTelecomNumberRequest;
+import com.landawn.ofbiz.model.product.CreateFacilityTelecomNumberResponse;
+import com.landawn.ofbiz.model.product.CreateFeaturePriceRequest;
+import com.landawn.ofbiz.model.product.CreateFeaturePriceResponse;
+import com.landawn.ofbiz.model.product.CreateGoodIdentificationRequest;
+import com.landawn.ofbiz.model.product.CreateGoodIdentificationResponse;
+import com.landawn.ofbiz.model.product.CreateInventoryItemLabelApplRequest;
+import com.landawn.ofbiz.model.product.CreateInventoryItemLabelApplResponse;
+import com.landawn.ofbiz.model.product.CreateInventoryItemLabelRequest;
+import com.landawn.ofbiz.model.product.CreateInventoryItemLabelResponse;
+import com.landawn.ofbiz.model.product.CreateInventoryItemLabelTypeRequest;
+import com.landawn.ofbiz.model.product.CreateInventoryItemLabelTypeResponse;
+import com.landawn.ofbiz.model.product.CreateInventoryItemRequest;
+import com.landawn.ofbiz.model.product.CreateInventoryItemResponse;
+import com.landawn.ofbiz.model.product.CreateInventoryTransferRequest;
+import com.landawn.ofbiz.model.product.CreateInventoryTransferResponse;
+import com.landawn.ofbiz.model.product.CreateInventoryTransfersForProductRequest;
+import com.landawn.ofbiz.model.product.CreateInventoryTransfersForProductResponse;
+import com.landawn.ofbiz.model.product.CreateMissingCategoryAndProductAltUrlsRequest;
+import com.landawn.ofbiz.model.product.CreateMissingCategoryAndProductAltUrlsResponse;
+import com.landawn.ofbiz.model.product.CreatePhysicalInventoryAndVarianceRequest;
+import com.landawn.ofbiz.model.product.CreatePhysicalInventoryAndVarianceResponse;
+import com.landawn.ofbiz.model.product.CreatePicklistFromOrdersRequest;
+import com.landawn.ofbiz.model.product.CreatePicklistFromOrdersResponse;
+import com.landawn.ofbiz.model.product.CreatePicklistRoleRequest;
+import com.landawn.ofbiz.model.product.CreatePicklistRoleResponse;
+import com.landawn.ofbiz.model.product.CreateProdCatalogRequest;
+import com.landawn.ofbiz.model.product.CreateProdCatalogResponse;
+import com.landawn.ofbiz.model.product.CreateProductAssocRequest;
+import com.landawn.ofbiz.model.product.CreateProductAssocResponse;
+import com.landawn.ofbiz.model.product.CreateProductAttributeRequest;
+import com.landawn.ofbiz.model.product.CreateProductAttributeResponse;
+import com.landawn.ofbiz.model.product.CreateProductCategoryAttributeRequest;
+import com.landawn.ofbiz.model.product.CreateProductCategoryAttributeResponse;
+import com.landawn.ofbiz.model.product.CreateProductCategoryLinkRequest;
+import com.landawn.ofbiz.model.product.CreateProductCategoryLinkResponse;
+import com.landawn.ofbiz.model.product.CreateProductCategoryRequest;
+import com.landawn.ofbiz.model.product.CreateProductCategoryResponse;
+import com.landawn.ofbiz.model.product.CreateProductConfigItemContentRequest;
+import com.landawn.ofbiz.model.product.CreateProductConfigItemContentResponse;
+import com.landawn.ofbiz.model.product.CreateProductConfigItemRequest;
+import com.landawn.ofbiz.model.product.CreateProductConfigItemResponse;
+import com.landawn.ofbiz.model.product.CreateProductConfigOptionRequest;
+import com.landawn.ofbiz.model.product.CreateProductConfigOptionResponse;
+import com.landawn.ofbiz.model.product.CreateProductConfigProductRequest;
+import com.landawn.ofbiz.model.product.CreateProductConfigProductResponse;
+import com.landawn.ofbiz.model.product.CreateProductConfigRequest;
+import com.landawn.ofbiz.model.product.CreateProductConfigResponse;
+import com.landawn.ofbiz.model.product.CreateProductContentRequest;
+import com.landawn.ofbiz.model.product.CreateProductContentResponse;
+import com.landawn.ofbiz.model.product.CreateProductCostComponentCalcRequest;
+import com.landawn.ofbiz.model.product.CreateProductCostComponentCalcResponse;
+import com.landawn.ofbiz.model.product.CreateProductFacilityLocationRequest;
+import com.landawn.ofbiz.model.product.CreateProductFacilityLocationResponse;
+import com.landawn.ofbiz.model.product.CreateProductFacilityRequest;
+import com.landawn.ofbiz.model.product.CreateProductFacilityResponse;
+import com.landawn.ofbiz.model.product.CreateProductFeatureApplAttrRequest;
+import com.landawn.ofbiz.model.product.CreateProductFeatureApplAttrResponse;
+import com.landawn.ofbiz.model.product.CreateProductFeatureCatGrpApplRequest;
+import com.landawn.ofbiz.model.product.CreateProductFeatureCatGrpApplResponse;
+import com.landawn.ofbiz.model.product.CreateProductFeatureCategoryApplRequest;
+import com.landawn.ofbiz.model.product.CreateProductFeatureCategoryApplResponse;
+import com.landawn.ofbiz.model.product.CreateProductFeatureCategoryRequest;
+import com.landawn.ofbiz.model.product.CreateProductFeatureCategoryResponse;
+import com.landawn.ofbiz.model.product.CreateProductFeatureGroupApplRequest;
+import com.landawn.ofbiz.model.product.CreateProductFeatureGroupApplResponse;
+import com.landawn.ofbiz.model.product.CreateProductFeatureGroupRequest;
+import com.landawn.ofbiz.model.product.CreateProductFeatureGroupResponse;
+import com.landawn.ofbiz.model.product.CreateProductFeatureIactnRequest;
+import com.landawn.ofbiz.model.product.CreateProductFeatureIactnResponse;
+import com.landawn.ofbiz.model.product.CreateProductFeatureRequest;
+import com.landawn.ofbiz.model.product.CreateProductFeatureResponse;
+import com.landawn.ofbiz.model.product.CreateProductFeatureTypeRequest;
+import com.landawn.ofbiz.model.product.CreateProductFeatureTypeResponse;
+import com.landawn.ofbiz.model.product.CreateProductGeoRequest;
+import com.landawn.ofbiz.model.product.CreateProductGeoResponse;
+import com.landawn.ofbiz.model.product.CreateProductGlAccountRequest;
+import com.landawn.ofbiz.model.product.CreateProductGlAccountResponse;
+import com.landawn.ofbiz.model.product.CreateProductGroupOrderRequest;
+import com.landawn.ofbiz.model.product.CreateProductGroupOrderResponse;
+import com.landawn.ofbiz.model.product.CreateProductInCategoryRequest;
+import com.landawn.ofbiz.model.product.CreateProductInCategoryResponse;
+import com.landawn.ofbiz.model.product.CreateProductKeywordRequest;
+import com.landawn.ofbiz.model.product.CreateProductKeywordResponse;
+import com.landawn.ofbiz.model.product.CreateProductMaintRequest;
+import com.landawn.ofbiz.model.product.CreateProductMaintResponse;
+import com.landawn.ofbiz.model.product.CreateProductMeterRequest;
+import com.landawn.ofbiz.model.product.CreateProductMeterResponse;
+import com.landawn.ofbiz.model.product.CreateProductPaymentMethodTypeRequest;
+import com.landawn.ofbiz.model.product.CreateProductPaymentMethodTypeResponse;
+import com.landawn.ofbiz.model.product.CreateProductPriceActionRequest;
+import com.landawn.ofbiz.model.product.CreateProductPriceActionResponse;
+import com.landawn.ofbiz.model.product.CreateProductPriceCondRequest;
+import com.landawn.ofbiz.model.product.CreateProductPriceCondResponse;
+import com.landawn.ofbiz.model.product.CreateProductPriceRequest;
+import com.landawn.ofbiz.model.product.CreateProductPriceResponse;
+import com.landawn.ofbiz.model.product.CreateProductPriceRuleRequest;
+import com.landawn.ofbiz.model.product.CreateProductPriceRuleResponse;
+import com.landawn.ofbiz.model.product.CreateProductPromoActionRequest;
+import com.landawn.ofbiz.model.product.CreateProductPromoActionResponse;
+import com.landawn.ofbiz.model.product.CreateProductPromoCategoryRequest;
+import com.landawn.ofbiz.model.product.CreateProductPromoCategoryResponse;
+import com.landawn.ofbiz.model.product.CreateProductPromoCodePartyRequest;
+import com.landawn.ofbiz.model.product.CreateProductPromoCodePartyResponse;
+import com.landawn.ofbiz.model.product.CreateProductPromoCodeRequest;
+import com.landawn.ofbiz.model.product.CreateProductPromoCodeResponse;
+import com.landawn.ofbiz.model.product.CreateProductPromoCodeSetRequest;
+import com.landawn.ofbiz.model.product.CreateProductPromoCodeSetResponse;
+import com.landawn.ofbiz.model.product.CreateProductPromoCondRequest;
+import com.landawn.ofbiz.model.product.CreateProductPromoCondResponse;
+import com.landawn.ofbiz.model.product.CreateProductPromoProductRequest;
+import com.landawn.ofbiz.model.product.CreateProductPromoProductResponse;
+import com.landawn.ofbiz.model.product.CreateProductPromoRequest;
+import com.landawn.ofbiz.model.product.CreateProductPromoResponse;
+import com.landawn.ofbiz.model.product.CreateProductPromoRuleRequest;
+import com.landawn.ofbiz.model.product.CreateProductPromoRuleResponse;
+import com.landawn.ofbiz.model.product.CreateProductRequest;
+import com.landawn.ofbiz.model.product.CreateProductResponse;
+import com.landawn.ofbiz.model.product.CreateProductStoreCatalogRequest;
+import com.landawn.ofbiz.model.product.CreateProductStoreCatalogResponse;
+import com.landawn.ofbiz.model.product.CreateProductStoreEmailSettingRequest;
+import com.landawn.ofbiz.model.product.CreateProductStoreEmailSettingResponse;
+import com.landawn.ofbiz.model.product.CreateProductStoreFacilityRequest;
+import com.landawn.ofbiz.model.product.CreateProductStoreFacilityResponse;
+import com.landawn.ofbiz.model.product.CreateProductStoreFinActSettingRequest;
+import com.landawn.ofbiz.model.product.CreateProductStoreFinActSettingResponse;
+import com.landawn.ofbiz.model.product.CreateProductStoreGroupMemberRequest;
+import com.landawn.ofbiz.model.product.CreateProductStoreGroupMemberResponse;
+import com.landawn.ofbiz.model.product.CreateProductStoreGroupRequest;
+import com.landawn.ofbiz.model.product.CreateProductStoreGroupResponse;
+import com.landawn.ofbiz.model.product.CreateProductStoreKeywordOvrdRequest;
+import com.landawn.ofbiz.model.product.CreateProductStoreKeywordOvrdResponse;
+import com.landawn.ofbiz.model.product.CreateProductStorePaymentSettingRequest;
+import com.landawn.ofbiz.model.product.CreateProductStorePaymentSettingResponse;
+import com.landawn.ofbiz.model.product.CreateProductStorePromoApplRequest;
+import com.landawn.ofbiz.model.product.CreateProductStorePromoApplResponse;
+import com.landawn.ofbiz.model.product.CreateProductStoreRequest;
+import com.landawn.ofbiz.model.product.CreateProductStoreResponse;
+import com.landawn.ofbiz.model.product.CreateProductStoreRoleRequest;
+import com.landawn.ofbiz.model.product.CreateProductStoreRoleResponse;
+import com.landawn.ofbiz.model.product.CreateProductStoreShipMethRequest;
+import com.landawn.ofbiz.model.product.CreateProductStoreShipMethResponse;
+import com.landawn.ofbiz.model.product.CreateProductStoreSurveyApplRequest;
+import com.landawn.ofbiz.model.product.CreateProductStoreSurveyApplResponse;
+import com.landawn.ofbiz.model.product.CreateProductStoreVendorPaymentRequest;
+import com.landawn.ofbiz.model.product.CreateProductStoreVendorPaymentResponse;
+import com.landawn.ofbiz.model.product.CreateProductStoreVendorShipmentRequest;
+import com.landawn.ofbiz.model.product.CreateProductStoreVendorShipmentResponse;
+import com.landawn.ofbiz.model.product.CreateProductSubscriptionResourceRequest;
+import com.landawn.ofbiz.model.product.CreateProductSubscriptionResourceResponse;
+import com.landawn.ofbiz.model.product.CreateQuantityBreakRequest;
+import com.landawn.ofbiz.model.product.CreateQuantityBreakResponse;
+import com.landawn.ofbiz.model.product.CreateRelatedUrlContentForCategoryRequest;
+import com.landawn.ofbiz.model.product.CreateRelatedUrlContentForCategoryResponse;
+import com.landawn.ofbiz.model.product.CreateSalesAgreementRequest;
+import com.landawn.ofbiz.model.product.CreateSalesAgreementResponse;
+import com.landawn.ofbiz.model.product.CreateShipmentAndItemsForVendorReturnRequest;
+import com.landawn.ofbiz.model.product.CreateShipmentAndItemsForVendorReturnResponse;
+import com.landawn.ofbiz.model.product.CreateShipmentEstimateRequest;
+import com.landawn.ofbiz.model.product.CreateShipmentEstimateResponse;
+import com.landawn.ofbiz.model.product.CreateShipmentItemRequest;
+import com.landawn.ofbiz.model.product.CreateShipmentItemResponse;
+import com.landawn.ofbiz.model.product.CreateShipmentMethodTypeRequest;
+import com.landawn.ofbiz.model.product.CreateShipmentMethodTypeResponse;
+import com.landawn.ofbiz.model.product.CreateShipmentPackageContentRequest;
+import com.landawn.ofbiz.model.product.CreateShipmentPackageContentResponse;
+import com.landawn.ofbiz.model.product.CreateShipmentPackageRequest;
+import com.landawn.ofbiz.model.product.CreateShipmentPackageResponse;
+import com.landawn.ofbiz.model.product.CreateShipmentPackageRouteSegRequest;
+import com.landawn.ofbiz.model.product.CreateShipmentPackageRouteSegResponse;
+import com.landawn.ofbiz.model.product.CreateShipmentRequest;
+import com.landawn.ofbiz.model.product.CreateShipmentResponse;
+import com.landawn.ofbiz.model.product.CreateShipmentRouteSegmentRequest;
+import com.landawn.ofbiz.model.product.CreateShipmentRouteSegmentResponse;
+import com.landawn.ofbiz.model.product.CreateShipmentTimeEstimateRequest;
+import com.landawn.ofbiz.model.product.CreateShipmentTimeEstimateResponse;
+import com.landawn.ofbiz.model.product.CreateSimpleTextContentForAlternateLocaleRequest;
+import com.landawn.ofbiz.model.product.CreateSimpleTextContentForAlternateLocaleResponse;
+import com.landawn.ofbiz.model.product.CreateSimpleTextContentForCategoryRequest;
+import com.landawn.ofbiz.model.product.CreateSimpleTextContentForCategoryResponse;
+import com.landawn.ofbiz.model.product.CreateSimpleTextContentForProductConfigItemRequest;
+import com.landawn.ofbiz.model.product.CreateSimpleTextContentForProductConfigItemResponse;
+import com.landawn.ofbiz.model.product.CreateSimpleTextContentForProductRequest;
+import com.landawn.ofbiz.model.product.CreateSimpleTextContentForProductResponse;
+import com.landawn.ofbiz.model.product.CreateSubscriptionCommEventRequest;
+import com.landawn.ofbiz.model.product.CreateSubscriptionCommEventResponse;
+import com.landawn.ofbiz.model.product.CreateSubscriptionRequest;
+import com.landawn.ofbiz.model.product.CreateSubscriptionResourceRequest;
+import com.landawn.ofbiz.model.product.CreateSubscriptionResourceResponse;
+import com.landawn.ofbiz.model.product.CreateSubscriptionResponse;
+import com.landawn.ofbiz.model.product.CreateSupplierProductFeatureRequest;
+import com.landawn.ofbiz.model.product.CreateSupplierProductFeatureResponse;
+import com.landawn.ofbiz.model.product.CreateSupplierProductRequest;
+import com.landawn.ofbiz.model.product.CreateSupplierProductResponse;
+import com.landawn.ofbiz.model.product.CreateUpdateFacilityGeoPointRequest;
+import com.landawn.ofbiz.model.product.CreateUpdateFacilityGeoPointResponse;
+import com.landawn.ofbiz.model.product.CreateVendorProductRequest;
+import com.landawn.ofbiz.model.product.CreateVendorProductResponse;
+import com.landawn.ofbiz.model.product.DeleteCarrierShipmentMethodRequest;
+import com.landawn.ofbiz.model.product.DeleteCarrierShipmentMethodResponse;
+import com.landawn.ofbiz.model.product.DeleteCostComponentRequest;
+import com.landawn.ofbiz.model.product.DeleteCostComponentResponse;
+import com.landawn.ofbiz.model.product.DeleteFacilityContactMechPurposeRequest;
+import com.landawn.ofbiz.model.product.DeleteFacilityContactMechPurposeResponse;
+import com.landawn.ofbiz.model.product.DeleteFacilityContactMechRequest;
+import com.landawn.ofbiz.model.product.DeleteFacilityContactMechResponse;
+import com.landawn.ofbiz.model.product.DeleteFacilityContentRequest;
+import com.landawn.ofbiz.model.product.DeleteFacilityContentResponse;
+import com.landawn.ofbiz.model.product.DeleteFeaturePriceRequest;
+import com.landawn.ofbiz.model.product.DeleteFeaturePriceResponse;
+import com.landawn.ofbiz.model.product.DeleteGoodIdentificationRequest;
+import com.landawn.ofbiz.model.product.DeleteGoodIdentificationResponse;
+import com.landawn.ofbiz.model.product.DeleteInventoryItemLabelApplRequest;
+import com.landawn.ofbiz.model.product.DeleteInventoryItemLabelApplResponse;
+import com.landawn.ofbiz.model.product.DeleteInventoryItemLabelRequest;
+import com.landawn.ofbiz.model.product.DeleteInventoryItemLabelResponse;
+import com.landawn.ofbiz.model.product.DeleteInventoryItemLabelTypeRequest;
+import com.landawn.ofbiz.model.product.DeleteInventoryItemLabelTypeResponse;
+import com.landawn.ofbiz.model.product.DeleteItemIssuanceRequest;
+import com.landawn.ofbiz.model.product.DeleteItemIssuanceResponse;
+import com.landawn.ofbiz.model.product.DeletePackedLineRequest;
+import com.landawn.ofbiz.model.product.DeletePackedLineResponse;
+import com.landawn.ofbiz.model.product.DeletePicklistBinRequest;
+import com.landawn.ofbiz.model.product.DeletePicklistBinResponse;
+import com.landawn.ofbiz.model.product.DeletePicklistItemRequest;
+import com.landawn.ofbiz.model.product.DeletePicklistItemResponse;
+import com.landawn.ofbiz.model.product.DeleteProductAssocRequest;
+import com.landawn.ofbiz.model.product.DeleteProductAssocResponse;
+import com.landawn.ofbiz.model.product.DeleteProductAttributeRequest;
+import com.landawn.ofbiz.model.product.DeleteProductAttributeResponse;
+import com.landawn.ofbiz.model.product.DeleteProductCategoryAttributeRequest;
+import com.landawn.ofbiz.model.product.DeleteProductCategoryAttributeResponse;
+import com.landawn.ofbiz.model.product.DeleteProductCategoryLinkRequest;
+import com.landawn.ofbiz.model.product.DeleteProductCategoryLinkResponse;
+import com.landawn.ofbiz.model.product.DeleteProductConfigItemRequest;
+import com.landawn.ofbiz.model.product.DeleteProductConfigItemResponse;
+import com.landawn.ofbiz.model.product.DeleteProductConfigOptionRequest;
+import com.landawn.ofbiz.model.product.DeleteProductConfigOptionResponse;
+import com.landawn.ofbiz.model.product.DeleteProductConfigProductRequest;
+import com.landawn.ofbiz.model.product.DeleteProductConfigProductResponse;
+import com.landawn.ofbiz.model.product.DeleteProductConfigRequest;
+import com.landawn.ofbiz.model.product.DeleteProductConfigResponse;
+import com.landawn.ofbiz.model.product.DeleteProductCostComponentCalcRequest;
+import com.landawn.ofbiz.model.product.DeleteProductCostComponentCalcResponse;
+import com.landawn.ofbiz.model.product.DeleteProductFacilityLocationRequest;
+import com.landawn.ofbiz.model.product.DeleteProductFacilityLocationResponse;
+import com.landawn.ofbiz.model.product.DeleteProductFacilityRequest;
+import com.landawn.ofbiz.model.product.DeleteProductFacilityResponse;
+import com.landawn.ofbiz.model.product.DeleteProductGeoRequest;
+import com.landawn.ofbiz.model.product.DeleteProductGeoResponse;
+import com.landawn.ofbiz.model.product.DeleteProductGlAccountRequest;
+import com.landawn.ofbiz.model.product.DeleteProductGlAccountResponse;
+import com.landawn.ofbiz.model.product.DeleteProductGroupOrderRequest;
+import com.landawn.ofbiz.model.product.DeleteProductGroupOrderResponse;
+import com.landawn.ofbiz.model.product.DeleteProductKeywordRequest;
+import com.landawn.ofbiz.model.product.DeleteProductKeywordResponse;
+import com.landawn.ofbiz.model.product.DeleteProductKeywordsRequest;
+import com.landawn.ofbiz.model.product.DeleteProductKeywordsResponse;
+import com.landawn.ofbiz.model.product.DeleteProductMaintRequest;
+import com.landawn.ofbiz.model.product.DeleteProductMaintResponse;
+import com.landawn.ofbiz.model.product.DeleteProductMeterRequest;
+import com.landawn.ofbiz.model.product.DeleteProductMeterResponse;
+import com.landawn.ofbiz.model.product.DeleteProductPaymentMethodTypeRequest;
+import com.landawn.ofbiz.model.product.DeleteProductPaymentMethodTypeResponse;
+import com.landawn.ofbiz.model.product.DeleteProductPriceActionRequest;
+import com.landawn.ofbiz.model.product.DeleteProductPriceActionResponse;
+import com.landawn.ofbiz.model.product.DeleteProductPriceCondRequest;
+import com.landawn.ofbiz.model.product.DeleteProductPriceCondResponse;
+import com.landawn.ofbiz.model.product.DeleteProductPriceRequest;
+import com.landawn.ofbiz.model.product.DeleteProductPriceResponse;
+import com.landawn.ofbiz.model.product.DeleteProductPriceRuleRequest;
+import com.landawn.ofbiz.model.product.DeleteProductPriceRuleResponse;
+import com.landawn.ofbiz.model.product.DeleteProductPromoActionRequest;
+import com.landawn.ofbiz.model.product.DeleteProductPromoActionResponse;
+import com.landawn.ofbiz.model.product.DeleteProductPromoCategoryRequest;
+import com.landawn.ofbiz.model.product.DeleteProductPromoCategoryResponse;
+import com.landawn.ofbiz.model.product.DeleteProductPromoCodeContactMechRequest;
+import com.landawn.ofbiz.model.product.DeleteProductPromoCodeContactMechResponse;
+import com.landawn.ofbiz.model.product.DeleteProductPromoCodePartyRequest;
+import com.landawn.ofbiz.model.product.DeleteProductPromoCodePartyResponse;
+import com.landawn.ofbiz.model.product.DeleteProductPromoCodeRequest;
+import com.landawn.ofbiz.model.product.DeleteProductPromoCodeResponse;
+import com.landawn.ofbiz.model.product.DeleteProductPromoCondRequest;
+import com.landawn.ofbiz.model.product.DeleteProductPromoCondResponse;
+import com.landawn.ofbiz.model.product.DeleteProductPromoProductRequest;
+import com.landawn.ofbiz.model.product.DeleteProductPromoProductResponse;
+import com.landawn.ofbiz.model.product.DeleteProductPromoRuleRequest;
+import com.landawn.ofbiz.model.product.DeleteProductPromoRuleResponse;
+import com.landawn.ofbiz.model.product.DeleteProductStoreCatalogRequest;
+import com.landawn.ofbiz.model.product.DeleteProductStoreCatalogResponse;
+import com.landawn.ofbiz.model.product.DeleteProductStoreFacilityRequest;
+import com.landawn.ofbiz.model.product.DeleteProductStoreFacilityResponse;
+import com.landawn.ofbiz.model.product.DeleteProductStoreKeywordOvrdRequest;
+import com.landawn.ofbiz.model.product.DeleteProductStoreKeywordOvrdResponse;
+import com.landawn.ofbiz.model.product.DeleteProductStorePaymentSettingRequest;
+import com.landawn.ofbiz.model.product.DeleteProductStorePaymentSettingResponse;
+import com.landawn.ofbiz.model.product.DeleteProductStorePromoApplRequest;
+import com.landawn.ofbiz.model.product.DeleteProductStorePromoApplResponse;
+import com.landawn.ofbiz.model.product.DeleteProductStoreSurveyApplRequest;
+import com.landawn.ofbiz.model.product.DeleteProductStoreSurveyApplResponse;
+import com.landawn.ofbiz.model.product.DeleteProductStoreVendorPaymentRequest;
+import com.landawn.ofbiz.model.product.DeleteProductStoreVendorPaymentResponse;
+import com.landawn.ofbiz.model.product.DeleteProductStoreVendorShipmentRequest;
+import com.landawn.ofbiz.model.product.DeleteProductStoreVendorShipmentResponse;
+import com.landawn.ofbiz.model.product.DeleteProductSubscriptionResourceRequest;
+import com.landawn.ofbiz.model.product.DeleteProductSubscriptionResourceResponse;
+import com.landawn.ofbiz.model.product.DeleteQuantityBreakRequest;
+import com.landawn.ofbiz.model.product.DeleteQuantityBreakResponse;
+import com.landawn.ofbiz.model.product.DeleteShipmentItemRequest;
+import com.landawn.ofbiz.model.product.DeleteShipmentItemResponse;
+import com.landawn.ofbiz.model.product.DeleteShipmentMethodTypeRequest;
+import com.landawn.ofbiz.model.product.DeleteShipmentMethodTypeResponse;
+import com.landawn.ofbiz.model.product.DeleteShipmentPackageContentRequest;
+import com.landawn.ofbiz.model.product.DeleteShipmentPackageContentResponse;
+import com.landawn.ofbiz.model.product.DeleteShipmentPackageRequest;
+import com.landawn.ofbiz.model.product.DeleteShipmentPackageResponse;
+import com.landawn.ofbiz.model.product.DeleteShipmentPackageRouteSegRequest;
+import com.landawn.ofbiz.model.product.DeleteShipmentPackageRouteSegResponse;
+import com.landawn.ofbiz.model.product.DeleteShipmentRouteSegmentRequest;
+import com.landawn.ofbiz.model.product.DeleteShipmentRouteSegmentResponse;
+import com.landawn.ofbiz.model.product.DeleteVendorProductRequest;
+import com.landawn.ofbiz.model.product.DeleteVendorProductResponse;
+import com.landawn.ofbiz.model.product.DhlShipmentConfirmRequest;
+import com.landawn.ofbiz.model.product.DhlShipmentConfirmResponse;
+import com.landawn.ofbiz.model.product.DuplicateProductCategoryRequest;
+import com.landawn.ofbiz.model.product.DuplicateProductCategoryResponse;
+import com.landawn.ofbiz.model.product.DuplicateProductRequest;
+import com.landawn.ofbiz.model.product.DuplicateProductResponse;
+import com.landawn.ofbiz.model.product.DuplicateShipmentRouteSegmentRequest;
+import com.landawn.ofbiz.model.product.DuplicateShipmentRouteSegmentResponse;
+import com.landawn.ofbiz.model.product.EditPicklistItemRequest;
+import com.landawn.ofbiz.model.product.EditPicklistItemResponse;
+import com.landawn.ofbiz.model.product.ExpireAllCategoryProductMembersRequest;
+import com.landawn.ofbiz.model.product.ExpireAllCategoryProductMembersResponse;
+import com.landawn.ofbiz.model.product.ExpireShipmentTimeEstimateRequest;
+import com.landawn.ofbiz.model.product.ExpireShipmentTimeEstimateResponse;
+import com.landawn.ofbiz.model.product.FedexShipRequestRequest;
+import com.landawn.ofbiz.model.product.FedexShipRequestResponse;
+import com.landawn.ofbiz.model.product.ForceIndexProductKeywordsRequest;
+import com.landawn.ofbiz.model.product.ForceIndexProductKeywordsResponse;
+import com.landawn.ofbiz.model.product.GetAssociatedPriceRulesCondsRequest;
+import com.landawn.ofbiz.model.product.GetAssociatedPriceRulesCondsResponse;
+import com.landawn.ofbiz.model.product.ImageCropRequest;
+import com.landawn.ofbiz.model.product.ImageCropResponse;
+import com.landawn.ofbiz.model.product.ImageRotateRequest;
+import com.landawn.ofbiz.model.product.ImageRotateResponse;
+import com.landawn.ofbiz.model.product.IssueInventoryItemToShipmentRequest;
+import com.landawn.ofbiz.model.product.IssueInventoryItemToShipmentResponse;
+import com.landawn.ofbiz.model.product.IssueOrderItemShipGrpInvResToShipmentResponse;
+import com.landawn.ofbiz.model.product.IssueOrderItemToShipmentResponse;
+import com.landawn.ofbiz.model.product.MultipleUploadProductImagesRequest;
+import com.landawn.ofbiz.model.product.MultipleUploadProductImagesResponse;
+import com.landawn.ofbiz.model.product.PackBulkItemsRequest;
+import com.landawn.ofbiz.model.product.PackBulkItemsResponse;
+import com.landawn.ofbiz.model.product.PackSingleItemRequest;
+import com.landawn.ofbiz.model.product.PackSingleItemResponse;
+import com.landawn.ofbiz.model.product.PrintPickSheetsRequest;
+import com.landawn.ofbiz.model.product.PrintPickSheetsResponse;
+import com.landawn.ofbiz.model.product.ProcessPhysicalStockMoveRequest;
+import com.landawn.ofbiz.model.product.ProcessPhysicalStockMoveResponse;
+import com.landawn.ofbiz.model.product.QuickAddVariantResponse;
+import com.landawn.ofbiz.model.product.QuickCreateVirtualWithVariantsRequest;
+import com.landawn.ofbiz.model.product.QuickCreateVirtualWithVariantsResponse;
+import com.landawn.ofbiz.model.product.QuickReceivePurchaseOrderRequest;
+import com.landawn.ofbiz.model.product.QuickReceivePurchaseOrderResponse;
+import com.landawn.ofbiz.model.product.QuickScheduleShipmentRouteSegmentResponse;
+import com.landawn.ofbiz.model.product.QuickShipEntireOrderRequest;
+import com.landawn.ofbiz.model.product.QuickShipEntireOrderResponse;
+import com.landawn.ofbiz.model.product.ReceiveInventoryProductRequest;
+import com.landawn.ofbiz.model.product.ReceiveInventoryProductResponse;
+import com.landawn.ofbiz.model.product.RemoveCategoryContentRequest;
+import com.landawn.ofbiz.model.product.RemoveCategoryContentResponse;
+import com.landawn.ofbiz.model.product.RemoveExpiredCategoryProductMembersRequest;
+import com.landawn.ofbiz.model.product.RemoveExpiredCategoryProductMembersResponse;
+import com.landawn.ofbiz.model.product.RemoveFacilityFromGroupRequest;
+import com.landawn.ofbiz.model.product.RemoveFacilityFromGroupResponse;
+import com.landawn.ofbiz.model.product.RemoveFacilityGroupFromGroupRequest;
+import com.landawn.ofbiz.model.product.RemoveFacilityGroupFromGroupResponse;
+import com.landawn.ofbiz.model.product.RemoveFeatureFromProductRequest;
+import com.landawn.ofbiz.model.product.RemoveFeatureFromProductResponse;
+import com.landawn.ofbiz.model.product.RemoveImageBySizeRequest;
+import com.landawn.ofbiz.model.product.RemoveImageBySizeResponse;
+import com.landawn.ofbiz.model.product.RemoveOrderShipmentFromShipmentRequest;
+import com.landawn.ofbiz.model.product.RemoveOrderShipmentFromShipmentResponse;
+import com.landawn.ofbiz.model.product.RemovePartyFromCategoryRequest;
+import com.landawn.ofbiz.model.product.RemovePartyFromCategoryResponse;
+import com.landawn.ofbiz.model.product.RemovePartyFromFacilityGroupRequest;
+import com.landawn.ofbiz.model.product.RemovePartyFromFacilityGroupResponse;
+import com.landawn.ofbiz.model.product.RemovePartyFromFacilityRequest;
+import com.landawn.ofbiz.model.product.RemovePartyFromFacilityResponse;
+import com.landawn.ofbiz.model.product.RemovePartyFromProductRequest;
+import com.landawn.ofbiz.model.product.RemovePartyFromProductResponse;
+import com.landawn.ofbiz.model.product.RemoveProdCatalogFromPartyRequest;
+import com.landawn.ofbiz.model.product.RemoveProdCatalogFromPartyResponse;
+import com.landawn.ofbiz.model.product.RemoveProductCategoryFromCategoryRequest;
+import com.landawn.ofbiz.model.product.RemoveProductCategoryFromCategoryResponse;
+import com.landawn.ofbiz.model.product.RemoveProductCategoryFromProdCatalogRequest;
+import com.landawn.ofbiz.model.product.RemoveProductCategoryFromProdCatalogResponse;
+import com.landawn.ofbiz.model.product.RemoveProductConfigItemContentRequest;
+import com.landawn.ofbiz.model.product.RemoveProductConfigItemContentResponse;
+import com.landawn.ofbiz.model.product.RemoveProductContentAndImageFileRequest;
+import com.landawn.ofbiz.model.product.RemoveProductContentAndImageFileResponse;
+import com.landawn.ofbiz.model.product.RemoveProductContentRequest;
+import com.landawn.ofbiz.model.product.RemoveProductContentResponse;
+import com.landawn.ofbiz.model.product.RemoveProductFeatureApplAttrRequest;
+import com.landawn.ofbiz.model.product.RemoveProductFeatureApplAttrResponse;
+import com.landawn.ofbiz.model.product.RemoveProductFeatureCatGrpApplRequest;
+import com.landawn.ofbiz.model.product.RemoveProductFeatureCatGrpApplResponse;
+import com.landawn.ofbiz.model.product.RemoveProductFeatureCategoryApplRequest;
+import com.landawn.ofbiz.model.product.RemoveProductFeatureCategoryApplResponse;
+import com.landawn.ofbiz.model.product.RemoveProductFeatureGroupApplRequest;
+import com.landawn.ofbiz.model.product.RemoveProductFeatureGroupApplResponse;
+import com.landawn.ofbiz.model.product.RemoveProductFeatureIactnRequest;
+import com.landawn.ofbiz.model.product.RemoveProductFeatureIactnResponse;
+import com.landawn.ofbiz.model.product.RemoveProductFeatureTypeRequest;
+import com.landawn.ofbiz.model.product.RemoveProductFeatureTypeResponse;
+import com.landawn.ofbiz.model.product.RemoveProductFromCategoryRequest;
+import com.landawn.ofbiz.model.product.RemoveProductFromCategoryResponse;
+import com.landawn.ofbiz.model.product.RemoveProductPromoContentRequest;
+import com.landawn.ofbiz.model.product.RemoveProductPromoContentResponse;
+import com.landawn.ofbiz.model.product.RemoveProductStoreEmailSettingRequest;
+import com.landawn.ofbiz.model.product.RemoveProductStoreEmailSettingResponse;
+import com.landawn.ofbiz.model.product.RemoveProductStoreFinActSettingRequest;
+import com.landawn.ofbiz.model.product.RemoveProductStoreFinActSettingResponse;
+import com.landawn.ofbiz.model.product.RemoveProductStoreRoleRequest;
+import com.landawn.ofbiz.model.product.RemoveProductStoreRoleResponse;
+import com.landawn.ofbiz.model.product.RemoveProductStoreShipMethRequest;
+import com.landawn.ofbiz.model.product.RemoveProductStoreShipMethResponse;
+import com.landawn.ofbiz.model.product.RemoveShipmentEstimateRequest;
+import com.landawn.ofbiz.model.product.RemoveShipmentEstimateResponse;
+import com.landawn.ofbiz.model.product.RemoveSubscriptionCommEventRequest;
+import com.landawn.ofbiz.model.product.RemoveSubscriptionCommEventResponse;
+import com.landawn.ofbiz.model.product.RemoveSupplierProductFeatureRequest;
+import com.landawn.ofbiz.model.product.RemoveSupplierProductFeatureResponse;
+import com.landawn.ofbiz.model.product.RemoveSupplierProductRequest;
+import com.landawn.ofbiz.model.product.RemoveSupplierProductResponse;
+import com.landawn.ofbiz.model.product.RenameImageRequest;
+import com.landawn.ofbiz.model.product.RenameImageResponse;
+import com.landawn.ofbiz.model.product.ReplaceImageToExistImageRequest;
+import com.landawn.ofbiz.model.product.ReplaceImageToExistImageResponse;
+import com.landawn.ofbiz.model.product.ResizeImagesRequest;
+import com.landawn.ofbiz.model.product.ResizeImagesResponse;
+import com.landawn.ofbiz.model.product.SafeAddProductCategoryToCategoryRequest;
+import com.landawn.ofbiz.model.product.SafeAddProductCategoryToCategoryResponse;
+import com.landawn.ofbiz.model.product.SafeAddProductToCategoryRequest;
+import com.landawn.ofbiz.model.product.SafeAddProductToCategoryResponse;
+import com.landawn.ofbiz.model.product.SavePackagesInfoRequest;
+import com.landawn.ofbiz.model.product.SavePackagesInfoResponse;
+import com.landawn.ofbiz.model.product.SetImageDetailResponse;
+import com.landawn.ofbiz.model.product.SetNextPackageSeqRequest;
+import com.landawn.ofbiz.model.product.SetNextPackageSeqResponse;
+import com.landawn.ofbiz.model.product.SetPackageInfoRequest;
+import com.landawn.ofbiz.model.product.SetPackageInfoResponse;
+import com.landawn.ofbiz.model.product.SetProductReviewStatusRequest;
+import com.landawn.ofbiz.model.product.SetProductReviewStatusResponse;
+import com.landawn.ofbiz.model.product.SetShipmentSettingsFromPrimaryOrderRequest;
+import com.landawn.ofbiz.model.product.SetShipmentSettingsFromPrimaryOrderResponse;
+import com.landawn.ofbiz.model.product.UpdateCarrierShipmentMethodRequest;
+import com.landawn.ofbiz.model.product.UpdateCarrierShipmentMethodResponse;
+import com.landawn.ofbiz.model.product.UpdateCategoryContentRequest;
+import com.landawn.ofbiz.model.product.UpdateCategoryContentResponse;
+import com.landawn.ofbiz.model.product.UpdateContentSEOForCategoryRequest;
+import com.landawn.ofbiz.model.product.UpdateContentSEOForCategoryResponse;
+import com.landawn.ofbiz.model.product.UpdateContentSEOForProductRequest;
+import com.landawn.ofbiz.model.product.UpdateContentSEOForProductResponse;
+import com.landawn.ofbiz.model.product.UpdateCostComponentRequest;
+import com.landawn.ofbiz.model.product.UpdateCostComponentResponse;
+import com.landawn.ofbiz.model.product.UpdateDownloadContentForCategoryRequest;
+import com.landawn.ofbiz.model.product.UpdateDownloadContentForCategoryResponse;
+import com.landawn.ofbiz.model.product.UpdateDownloadContentForProductRequest;
+import com.landawn.ofbiz.model.product.UpdateDownloadContentForProductResponse;
+import com.landawn.ofbiz.model.product.UpdateEmailContentForProductRequest;
+import com.landawn.ofbiz.model.product.UpdateEmailContentForProductResponse;
+import com.landawn.ofbiz.model.product.UpdateFacilityContactMechRequest;
+import com.landawn.ofbiz.model.product.UpdateFacilityContactMechResponse;
+import com.landawn.ofbiz.model.product.UpdateFacilityEmailAddressRequest;
+import com.landawn.ofbiz.model.product.UpdateFacilityEmailAddressResponse;
+import com.landawn.ofbiz.model.product.UpdateFacilityGroupRequest;
+import com.landawn.ofbiz.model.product.UpdateFacilityGroupResponse;
+import com.landawn.ofbiz.model.product.UpdateFacilityGroupToGroupRequest;
+import com.landawn.ofbiz.model.product.UpdateFacilityGroupToGroupResponse;
+import com.landawn.ofbiz.model.product.UpdateFacilityLocationRequest;
+import com.landawn.ofbiz.model.product.UpdateFacilityLocationResponse;
+import com.landawn.ofbiz.model.product.UpdateFacilityPartyRequest;
+import com.landawn.ofbiz.model.product.UpdateFacilityPartyResponse;
+import com.landawn.ofbiz.model.product.UpdateFacilityPostalAddressRequest;
+import com.landawn.ofbiz.model.product.UpdateFacilityPostalAddressResponse;
+import com.landawn.ofbiz.model.product.UpdateFacilityRequest;
+import com.landawn.ofbiz.model.product.UpdateFacilityResponse;
+import com.landawn.ofbiz.model.product.UpdateFacilityTelecomNumberRequest;
+import com.landawn.ofbiz.model.product.UpdateFacilityTelecomNumberResponse;
+import com.landawn.ofbiz.model.product.UpdateFacilityToGroupRequest;
+import com.landawn.ofbiz.model.product.UpdateFacilityToGroupResponse;
+import com.landawn.ofbiz.model.product.UpdateFeaturePriceRequest;
+import com.landawn.ofbiz.model.product.UpdateFeaturePriceResponse;
+import com.landawn.ofbiz.model.product.UpdateFeatureToProductApplicationResponse;
+import com.landawn.ofbiz.model.product.UpdateGoodIdentificationRequest;
+import com.landawn.ofbiz.model.product.UpdateGoodIdentificationResponse;
+import com.landawn.ofbiz.model.product.UpdateInventoryItemLabelApplRequest;
+import com.landawn.ofbiz.model.product.UpdateInventoryItemLabelApplResponse;
+import com.landawn.ofbiz.model.product.UpdateInventoryItemLabelRequest;
+import com.landawn.ofbiz.model.product.UpdateInventoryItemLabelResponse;
+import com.landawn.ofbiz.model.product.UpdateInventoryItemLabelTypeRequest;
+import com.landawn.ofbiz.model.product.UpdateInventoryItemLabelTypeResponse;
+import com.landawn.ofbiz.model.product.UpdateInventoryItemRequest;
+import com.landawn.ofbiz.model.product.UpdateInventoryItemResponse;
+import com.landawn.ofbiz.model.product.UpdateInventoryTransferRequest;
+import com.landawn.ofbiz.model.product.UpdateInventoryTransferResponse;
+import com.landawn.ofbiz.model.product.UpdatePackedLineRequest;
+import com.landawn.ofbiz.model.product.UpdatePackedLineResponse;
+import com.landawn.ofbiz.model.product.UpdatePartyToCategoryRequest;
+import com.landawn.ofbiz.model.product.UpdatePartyToCategoryResponse;
+import com.landawn.ofbiz.model.product.UpdatePartyToProductRequest;
+import com.landawn.ofbiz.model.product.UpdatePartyToProductResponse;
+import com.landawn.ofbiz.model.product.UpdatePicklistBinRequest;
+import com.landawn.ofbiz.model.product.UpdatePicklistBinResponse;
+import com.landawn.ofbiz.model.product.UpdatePicklistRequest;
+import com.landawn.ofbiz.model.product.UpdatePicklistResponse;
+import com.landawn.ofbiz.model.product.UpdateProdCatalogRequest;
+import com.landawn.ofbiz.model.product.UpdateProdCatalogResponse;
+import com.landawn.ofbiz.model.product.UpdateProdCatalogToPartyRequest;
+import com.landawn.ofbiz.model.product.UpdateProdCatalogToPartyResponse;
+import com.landawn.ofbiz.model.product.UpdateProductAssocRequest;
+import com.landawn.ofbiz.model.product.UpdateProductAssocResponse;
+import com.landawn.ofbiz.model.product.UpdateProductAttributeRequest;
+import com.landawn.ofbiz.model.product.UpdateProductAttributeResponse;
+import com.landawn.ofbiz.model.product.UpdateProductCategoryAttributeRequest;
+import com.landawn.ofbiz.model.product.UpdateProductCategoryAttributeResponse;
+import com.landawn.ofbiz.model.product.UpdateProductCategoryLinkRequest;
+import com.landawn.ofbiz.model.product.UpdateProductCategoryLinkResponse;
+import com.landawn.ofbiz.model.product.UpdateProductCategoryRequest;
+import com.landawn.ofbiz.model.product.UpdateProductCategoryResponse;
+import com.landawn.ofbiz.model.product.UpdateProductCategoryToCategoryResponse;
+import com.landawn.ofbiz.model.product.UpdateProductCategoryToProdCatalogRequest;
+import com.landawn.ofbiz.model.product.UpdateProductCategoryToProdCatalogResponse;
+import com.landawn.ofbiz.model.product.UpdateProductConfigItemContentRequest;
+import com.landawn.ofbiz.model.product.UpdateProductConfigItemContentResponse;
+import com.landawn.ofbiz.model.product.UpdateProductConfigItemRequest;
+import com.landawn.ofbiz.model.product.UpdateProductConfigItemResponse;
+import com.landawn.ofbiz.model.product.UpdateProductConfigOptionRequest;
+import com.landawn.ofbiz.model.product.UpdateProductConfigOptionResponse;
+import com.landawn.ofbiz.model.product.UpdateProductConfigProductRequest;
+import com.landawn.ofbiz.model.product.UpdateProductConfigProductResponse;
+import com.landawn.ofbiz.model.product.UpdateProductConfigRequest;
+import com.landawn.ofbiz.model.product.UpdateProductConfigResponse;
+import com.landawn.ofbiz.model.product.UpdateProductContentRequest;
+import com.landawn.ofbiz.model.product.UpdateProductContentResponse;
+import com.landawn.ofbiz.model.product.UpdateProductCostComponentCalcRequest;
+import com.landawn.ofbiz.model.product.UpdateProductCostComponentCalcResponse;
+import com.landawn.ofbiz.model.product.UpdateProductFacilityLocationRequest;
+import com.landawn.ofbiz.model.product.UpdateProductFacilityLocationResponse;
+import com.landawn.ofbiz.model.product.UpdateProductFacilityRequest;
+import com.landawn.ofbiz.model.product.UpdateProductFacilityResponse;
+import com.landawn.ofbiz.model.product.UpdateProductFeatureCatGrpApplRequest;
+import com.landawn.ofbiz.model.product.UpdateProductFeatureCatGrpApplResponse;
+import com.landawn.ofbiz.model.product.UpdateProductFeatureCategoryApplRequest;
+import com.landawn.ofbiz.model.product.UpdateProductFeatureCategoryApplResponse;
+import com.landawn.ofbiz.model.product.UpdateProductFeatureCategoryRequest;
+import com.landawn.ofbiz.model.product.UpdateProductFeatureCategoryResponse;
+import com.landawn.ofbiz.model.product.UpdateProductFeatureGroupApplResponse;
+import com.landawn.ofbiz.model.product.UpdateProductFeatureGroupRequest;
+import com.landawn.ofbiz.model.product.UpdateProductFeatureGroupResponse;
+import com.landawn.ofbiz.model.product.UpdateProductFeatureRequest;
+import com.landawn.ofbiz.model.product.UpdateProductFeatureResponse;
+import com.landawn.ofbiz.model.product.UpdateProductFeatureTypeRequest;
+import com.landawn.ofbiz.model.product.UpdateProductFeatureTypeResponse;
+import com.landawn.ofbiz.model.product.UpdateProductGeoRequest;
+import com.landawn.ofbiz.model.product.UpdateProductGeoResponse;
+import com.landawn.ofbiz.model.product.UpdateProductGlAccountRequest;
+import com.landawn.ofbiz.model.product.UpdateProductGlAccountResponse;
+import com.landawn.ofbiz.model.product.UpdateProductGroupOrderRequest;
+import com.landawn.ofbiz.model.product.UpdateProductGroupOrderResponse;
+import com.landawn.ofbiz.model.product.UpdateProductKeywordRequest;
+import com.landawn.ofbiz.model.product.UpdateProductKeywordResponse;
+import com.landawn.ofbiz.model.product.UpdateProductMaintRequest;
+import com.landawn.ofbiz.model.product.UpdateProductMaintResponse;
+import com.landawn.ofbiz.model.product.UpdateProductMeterRequest;
+import com.landawn.ofbiz.model.product.UpdateProductMeterResponse;
+import com.landawn.ofbiz.model.product.UpdateProductPaymentMethodTypeRequest;
+import com.landawn.ofbiz.model.product.UpdateProductPaymentMethodTypeResponse;
+import com.landawn.ofbiz.model.product.UpdateProductPriceActionRequest;
+import com.landawn.ofbiz.model.product.UpdateProductPriceActionResponse;
+import com.landawn.ofbiz.model.product.UpdateProductPriceCondRequest;
+import com.landawn.ofbiz.model.product.UpdateProductPriceCondResponse;
+import com.landawn.ofbiz.model.product.UpdateProductPriceRequest;
+import com.landawn.ofbiz.model.product.UpdateProductPriceResponse;
+import com.landawn.ofbiz.model.product.UpdateProductPriceRuleRequest;
+import com.landawn.ofbiz.model.product.UpdateProductPriceRuleResponse;
+import com.landawn.ofbiz.model.product.UpdateProductPromoActionRequest;
+import com.landawn.ofbiz.model.product.UpdateProductPromoActionResponse;
+import com.landawn.ofbiz.model.product.UpdateProductPromoCategoryRequest;
+import com.landawn.ofbiz.model.product.UpdateProductPromoCategoryResponse;
+import com.landawn.ofbiz.model.product.UpdateProductPromoCodeRequest;
+import com.landawn.ofbiz.model.product.UpdateProductPromoCodeResponse;
+import com.landawn.ofbiz.model.product.UpdateProductPromoCondRequest;
+import com.landawn.ofbiz.model.product.UpdateProductPromoCondResponse;
+import com.landawn.ofbiz.model.product.UpdateProductPromoProductRequest;
+import com.landawn.ofbiz.model.product.UpdateProductPromoProductResponse;
+import com.landawn.ofbiz.model.product.UpdateProductPromoRequest;
+import com.landawn.ofbiz.model.product.UpdateProductPromoResponse;
+import com.landawn.ofbiz.model.product.UpdateProductPromoRuleRequest;
+import com.landawn.ofbiz.model.product.UpdateProductPromoRuleResponse;
+import com.landawn.ofbiz.model.product.UpdateProductQuickAdminNameRequest;
+import com.landawn.ofbiz.model.product.UpdateProductQuickAdminNameResponse;
+import com.landawn.ofbiz.model.product.UpdateProductQuickAdminShippingResponse;
+import com.landawn.ofbiz.model.product.UpdateProductRequest;
+import com.landawn.ofbiz.model.product.UpdateProductResponse;
+import com.landawn.ofbiz.model.product.UpdateProductReviewRequest;
+import com.landawn.ofbiz.model.product.UpdateProductReviewResponse;
+import com.landawn.ofbiz.model.product.UpdateProductStoreCatalogRequest;
+import com.landawn.ofbiz.model.product.UpdateProductStoreCatalogResponse;
+import com.landawn.ofbiz.model.product.UpdateProductStoreEmailSettingRequest;
+import com.landawn.ofbiz.model.product.UpdateProductStoreEmailSettingResponse;
+import com.landawn.ofbiz.model.product.UpdateProductStoreFacilityRequest;
+import com.landawn.ofbiz.model.product.UpdateProductStoreFacilityResponse;
+import com.landawn.ofbiz.model.product.UpdateProductStoreFinActSettingRequest;
+import com.landawn.ofbiz.model.product.UpdateProductStoreFinActSettingResponse;
+import com.landawn.ofbiz.model.product.UpdateProductStoreGroupRequest;
+import com.landawn.ofbiz.model.product.UpdateProductStoreGroupResponse;
+import com.landawn.ofbiz.model.product.UpdateProductStoreGroupRollupRequest;
+import com.landawn.ofbiz.model.product.UpdateProductStoreGroupRollupResponse;
+import com.landawn.ofbiz.model.product.UpdateProductStoreKeywordOvrdRequest;
+import com.landawn.ofbiz.model.product.UpdateProductStoreKeywordOvrdResponse;
+import com.landawn.ofbiz.model.product.UpdateProductStorePaymentSettingRequest;
+import com.landawn.ofbiz.model.product.UpdateProductStorePaymentSettingResponse;
+import com.landawn.ofbiz.model.product.UpdateProductStorePromoApplRequest;
+import com.landawn.ofbiz.model.product.UpdateProductStorePromoApplResponse;
+import com.landawn.ofbiz.model.product.UpdateProductStoreRequest;
+import com.landawn.ofbiz.model.product.UpdateProductStoreResponse;
+import com.landawn.ofbiz.model.product.UpdateProductStoreRoleRequest;
+import com.landawn.ofbiz.model.product.UpdateProductStoreRoleResponse;
+import com.landawn.ofbiz.model.product.UpdateProductStoreShipMethRequest;
+import com.landawn.ofbiz.model.product.UpdateProductStoreShipMethResponse;
+import com.landawn.ofbiz.model.product.UpdateProductSubscriptionResourceRequest;
+import com.landawn.ofbiz.model.product.UpdateProductSubscriptionResourceResponse;
+import com.landawn.ofbiz.model.product.UpdateProductToCategoryRequest;
+import com.landawn.ofbiz.model.product.UpdateProductToCategoryResponse;
+import com.landawn.ofbiz.model.product.UpdateQuantityBreakRequest;
+import com.landawn.ofbiz.model.product.UpdateQuantityBreakResponse;
+import com.landawn.ofbiz.model.product.UpdateRelatedUrlContentForCategoryRequest;
+import com.landawn.ofbiz.model.product.UpdateRelatedUrlContentForCategoryResponse;
+import com.landawn.ofbiz.model.product.UpdateShipmentGatewayConfigRequest;
+import com.landawn.ofbiz.model.product.UpdateShipmentGatewayConfigResponse;
+import com.landawn.ofbiz.model.product.UpdateShipmentGatewayConfigTypeRequest;
+import com.landawn.ofbiz.model.product.UpdateShipmentGatewayConfigTypeResponse;
+import com.landawn.ofbiz.model.product.UpdateShipmentGatewayDhlRequest;
+import com.landawn.ofbiz.model.product.UpdateShipmentGatewayDhlResponse;
+import com.landawn.ofbiz.model.product.UpdateShipmentGatewayFedexRequest;
+import com.landawn.ofbiz.model.product.UpdateShipmentGatewayFedexResponse;
+import com.landawn.ofbiz.model.product.UpdateShipmentGatewayUpsRequest;
+import com.landawn.ofbiz.model.product.UpdateShipmentGatewayUpsResponse;
+import com.landawn.ofbiz.model.product.UpdateShipmentGatewayUspsRequest;
+import com.landawn.ofbiz.model.product.UpdateShipmentGatewayUspsResponse;
+import com.landawn.ofbiz.model.product.UpdateShipmentMethodTypeRequest;
+import com.landawn.ofbiz.model.product.UpdateShipmentMethodTypeResponse;
+import com.landawn.ofbiz.model.product.UpdateShipmentPackageRequest;
+import com.landawn.ofbiz.model.product.UpdateShipmentPackageResponse;
+import com.landawn.ofbiz.model.product.UpdateShipmentPackageRouteSegRequest;
+import com.landawn.ofbiz.model.product.UpdateShipmentPackageRouteSegResponse;
+import com.landawn.ofbiz.model.product.UpdateShipmentRequest;
+import com.landawn.ofbiz.model.product.UpdateShipmentResponse;
+import com.landawn.ofbiz.model.product.UpdateShipmentRouteSegmentRequest;
+import com.landawn.ofbiz.model.product.UpdateShipmentRouteSegmentResponse;
+import com.landawn.ofbiz.model.product.UpdateShipmentTimeEstimateRequest;
+import com.landawn.ofbiz.model.product.UpdateShipmentTimeEstimateResponse;
+import com.landawn.ofbiz.model.product.UpdateSimpleTextContentForCategoryRequest;
+import com.landawn.ofbiz.model.product.UpdateSimpleTextContentForCategoryResponse;
+import com.landawn.ofbiz.model.product.UpdateSimpleTextContentForProductConfigItemRequest;
+import com.landawn.ofbiz.model.product.UpdateSimpleTextContentForProductConfigItemResponse;
+import com.landawn.ofbiz.model.product.UpdateSimpleTextContentForProductRequest;
+import com.landawn.ofbiz.model.product.UpdateSimpleTextContentForProductResponse;
+import com.landawn.ofbiz.model.product.UpdateStatusImageManagementResponse;
+import com.landawn.ofbiz.model.product.UpdateSubscriptionAttributeRequest;
+import com.landawn.ofbiz.model.product.UpdateSubscriptionAttributeResponse;
+import com.landawn.ofbiz.model.product.UpdateSubscriptionRequest;
+import com.landawn.ofbiz.model.product.UpdateSubscriptionResourceRequest;
+import com.landawn.ofbiz.model.product.UpdateSubscriptionResourceResponse;
+import com.landawn.ofbiz.model.product.UpdateSubscriptionResponse;
+import com.landawn.ofbiz.model.product.UpdateSupplierProductFeatureRequest;
+import com.landawn.ofbiz.model.product.UpdateSupplierProductFeatureResponse;
+import com.landawn.ofbiz.model.product.UpdateSupplierProductRequest;
+import com.landawn.ofbiz.model.product.UpdateSupplierProductResponse;
+import com.landawn.ofbiz.model.product.UploadFrameResponse;
+import com.landawn.ofbiz.model.product.UploadProductAdditionalViewImagesRequest;
+import com.landawn.ofbiz.model.product.UploadProductAdditionalViewImagesResponse;
+import com.landawn.ofbiz.model.product.UpsShipmentAcceptRequest;
+import com.landawn.ofbiz.model.product.UpsShipmentAcceptResponse;
+import com.landawn.ofbiz.model.product.UpsShipmentConfirmRequest;
+import com.landawn.ofbiz.model.product.UpsShipmentConfirmResponse;
+import com.landawn.ofbiz.model.product.UpsTrackShipmentRequest;
+import com.landawn.ofbiz.model.product.UpsTrackShipmentResponse;
+import com.landawn.ofbiz.model.product.UpsVoidShipmentRequest;
+import com.landawn.ofbiz.model.product.UpsVoidShipmentResponse;
+import com.landawn.ofbiz.model.product.VerifyBulkItemRequest;
+import com.landawn.ofbiz.model.product.VerifyBulkItemResponse;
+import com.landawn.ofbiz.model.product.VerifySingleItemRequest;
+import com.landawn.ofbiz.model.product.VerifySingleItemResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,12 +798,19 @@ import java.util.Map;
 @RequestMapping("/product")
 public class ProductController {
 
+    /** 200/400 routing decided by the response DTO's envelope state. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
+
     /**
      * Create a ProductFeatureIactn
      * <p>service: createProductFeatureIactn  entities: ProductFeatureIactn  auth: true
      */
     @PostMapping("/catalog/control/AddProductFeatureIactn")
-    public ResponseEntity<Map<String, Object>> createProductFeatureIactn(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductFeatureIactnResponse> createProductFeatureIactn(@RequestBody CreateProductFeatureIactnRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -29,7 +820,7 @@ public class ProductController {
      * <p>service: createProductStoreGroupMember  entities: ProductStoreGroupMember  auth: true
      */
     @PostMapping("/catalog/control/AddProductStoreToGroup")
-    public ResponseEntity<Map<String, Object>> createProductStoreGroupMember(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreGroupMemberResponse> createProductStoreGroupMember(@RequestBody CreateProductStoreGroupMemberRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -39,7 +830,7 @@ public class ProductController {
      * <p>service: applyFeatureToProduct  entities: ProductFeatureAppl  auth: true
      */
     @PostMapping("/catalog/control/ApplyFeatureToProduct")
-    public ResponseEntity<Map<String, Object>> applyFeatureToProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ApplyFeatureToProductResponse> applyFeatureToProduct(@RequestBody ApplyFeatureToProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -49,7 +840,7 @@ public class ProductController {
      * <p>service: applyFeatureToProductFromTypeAndCode  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/ApplyFeatureToProductFromTypeAndCode")
-    public ResponseEntity<Map<String, Object>> applyFeatureToProductFromTypeAndCode(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ApplyFeatureToProductFromTypeAndCodeResponse> applyFeatureToProductFromTypeAndCode(@RequestBody ApplyFeatureToProductFromTypeAndCodeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -59,7 +850,7 @@ public class ProductController {
      * <p>service: createProductFeatureGroupAppl  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/ApplyFeaturesFromCategoryToGroup")
-    public ResponseEntity<Map<String, Object>> createProductFeatureGroupAppl(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateProductFeatureGroupApplResponse> createProductFeatureGroupAppl(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -69,7 +860,7 @@ public class ProductController {
      * <p>service: applyFeatureToProduct  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/ApplyFeaturesToProduct")
-    public ResponseEntity<Map<String, Object>> applyFeatureToProductApplyFeaturesToProduct(@RequestParam Map<String, String> params) {
+    public ResponseEntity<ApplyFeatureToProductResponse> applyFeatureToProductApplyFeaturesToProduct(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -79,7 +870,7 @@ public class ProductController {
      * <p>service: createProductFeature  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/BulkAddProductFeatures")
-    public ResponseEntity<Map<String, Object>> createProductFeature(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateProductFeatureResponse> createProductFeature(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -89,7 +880,7 @@ public class ProductController {
      * <p>service: createProductFeatureCategory  entities: ProductFeatureCategory  auth: true
      */
     @PostMapping("/catalog/control/CreateFeatureCategory")
-    public ResponseEntity<Map<String, Object>> createProductFeatureCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductFeatureCategoryResponse> createProductFeatureCategory(@RequestBody CreateProductFeatureCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -99,7 +890,7 @@ public class ProductController {
      * <p>service: createProductFeatureGroup  entities: ProductFeatureGroup  auth: true
      */
     @PostMapping("/catalog/control/CreateProductFeatureGroup")
-    public ResponseEntity<Map<String, Object>> createProductFeatureGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductFeatureGroupResponse> createProductFeatureGroup(@RequestBody CreateProductFeatureGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -109,7 +900,7 @@ public class ProductController {
      * <p>service: createProductFeatureGroupAppl  entities: ProductFeatureGroupAppl  auth: true
      */
     @PostMapping("/catalog/control/CreateProductFeatureGroupAppl")
-    public ResponseEntity<Map<String, Object>> createProductFeatureGroupApplCreateProductFeatureGroupAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductFeatureGroupApplResponse> createProductFeatureGroupApplCreateProductFeatureGroupAppl(@RequestBody CreateProductFeatureGroupApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -119,7 +910,7 @@ public class ProductController {
      * <p>service: createProductStoreFinActSetting  entities: ProductStoreFinActSetting  auth: true
      */
     @PostMapping("/catalog/control/CreateProductStoreFinAccountSettings")
-    public ResponseEntity<Map<String, Object>> createProductStoreFinActSetting(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreFinActSettingResponse> createProductStoreFinActSetting(@RequestBody CreateProductStoreFinActSettingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -129,7 +920,7 @@ public class ProductController {
      * <p>service: createMissingCategoryAndProductAltUrls  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/CreateSeoProdCatalog")
-    public ResponseEntity<Map<String, Object>> createMissingCategoryAndProductAltUrls(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateMissingCategoryAndProductAltUrlsResponse> createMissingCategoryAndProductAltUrls(@RequestBody CreateMissingCategoryAndProductAltUrlsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -139,7 +930,7 @@ public class ProductController {
      * <p>service: imageCrop  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/CropImage")
-    public ResponseEntity<Map<String, Object>> imageCrop(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ImageCropResponse> imageCrop(@RequestBody ImageCropRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -149,7 +940,7 @@ public class ProductController {
      * <p>service: duplicateProduct  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/DuplicateProduct")
-    public ResponseEntity<Map<String, Object>> duplicateProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DuplicateProductResponse> duplicateProduct(@RequestBody DuplicateProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -159,7 +950,7 @@ public class ProductController {
      * <p>service: duplicateProductCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/DuplicateProductCategory")
-    public ResponseEntity<Map<String, Object>> duplicateProductCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DuplicateProductCategoryResponse> duplicateProductCategory(@RequestBody DuplicateProductCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -179,7 +970,7 @@ public class ProductController {
      * <p>service: quickAddVariant  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/QuickAddChosenVariants")
-    public ResponseEntity<Map<String, Object>> quickAddVariant(@RequestParam Map<String, String> params) {
+    public ResponseEntity<QuickAddVariantResponse> quickAddVariant(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -189,7 +980,7 @@ public class ProductController {
      * <p>service: removeFeatureFromProduct  entities: ProductFeatureAppl  auth: true
      */
     @PostMapping("/catalog/control/RemoveFeatureFromProduct")
-    public ResponseEntity<Map<String, Object>> removeFeatureFromProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveFeatureFromProductResponse> removeFeatureFromProduct(@RequestBody RemoveFeatureFromProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -199,7 +990,7 @@ public class ProductController {
      * <p>service: removeProductFeatureGroupAppl  entities: ProductFeatureGroupAppl  auth: true
      */
     @PostMapping("/catalog/control/RemoveProductFeatureGroupAppl")
-    public ResponseEntity<Map<String, Object>> removeProductFeatureGroupAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductFeatureGroupApplResponse> removeProductFeatureGroupAppl(@RequestBody RemoveProductFeatureGroupApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -209,7 +1000,7 @@ public class ProductController {
      * <p>service: removeProductStoreFinActSetting  entities: ProductStoreFinActSetting  auth: true
      */
     @PostMapping("/catalog/control/RemoveProductStoreFinAccountSettings")
-    public ResponseEntity<Map<String, Object>> removeProductStoreFinActSetting(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductStoreFinActSettingResponse> removeProductStoreFinActSetting(@RequestBody RemoveProductStoreFinActSettingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -219,7 +1010,7 @@ public class ProductController {
      * <p>service: imageRotate  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/RotateImage")
-    public ResponseEntity<Map<String, Object>> imageRotate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ImageRotateResponse> imageRotate(@RequestBody ImageRotateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -239,7 +1030,7 @@ public class ProductController {
      * <p>service: updateProductFeatureCategory  entities: ProductFeatureCategory  auth: true
      */
     @PostMapping("/catalog/control/UpdateFeatureCategory")
-    public ResponseEntity<Map<String, Object>> updateProductFeatureCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductFeatureCategoryResponse> updateProductFeatureCategory(@RequestBody UpdateProductFeatureCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -249,7 +1040,7 @@ public class ProductController {
      * <p>service: updateFeatureToProductApplication  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/UpdateFeatureToProductApplication")
-    public ResponseEntity<Map<String, Object>> updateFeatureToProductApplication(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateFeatureToProductApplicationResponse> updateFeatureToProductApplication(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -259,7 +1050,7 @@ public class ProductController {
      * <p>service: updateProductFeatureGroup  entities: ProductFeatureGroup  auth: true
      */
     @PostMapping("/catalog/control/UpdateProductFeatureGroup")
-    public ResponseEntity<Map<String, Object>> updateProductFeatureGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductFeatureGroupResponse> updateProductFeatureGroup(@RequestBody UpdateProductFeatureGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -269,7 +1060,7 @@ public class ProductController {
      * <p>service: updateProductFeatureGroupAppl  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/UpdateProductFeatureGroupAppl")
-    public ResponseEntity<Map<String, Object>> updateProductFeatureGroupAppl(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateProductFeatureGroupApplResponse> updateProductFeatureGroupAppl(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -279,7 +1070,7 @@ public class ProductController {
      * <p>service: updateProductFeature  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/UpdateProductFeatureInCategory")
-    public ResponseEntity<Map<String, Object>> updateProductFeature(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateProductFeatureResponse> updateProductFeature(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -289,7 +1080,7 @@ public class ProductController {
      * <p>service: updateProductStoreFinActSetting  entities: ProductStoreFinActSetting  auth: true
      */
     @PostMapping("/catalog/control/UpdateProductStoreFinAccountSettings")
-    public ResponseEntity<Map<String, Object>> updateProductStoreFinActSetting(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStoreFinActSettingResponse> updateProductStoreFinActSetting(@RequestBody UpdateProductStoreFinActSettingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -299,7 +1090,7 @@ public class ProductController {
      * <p>service: copyToProductVariants  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/UpdateProductVariants")
-    public ResponseEntity<Map<String, Object>> copyToProductVariants(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CopyToProductVariantsResponse> copyToProductVariants(@RequestBody CopyToProductVariantsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -309,7 +1100,7 @@ public class ProductController {
      * <p>service: updateSubscriptionAttribute  entities: SubscriptionAttribute  auth: true
      */
     @PostMapping("/catalog/control/UpdateSubscriptionAttribute")
-    public ResponseEntity<Map<String, Object>> updateSubscriptionAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSubscriptionAttributeResponse> updateSubscriptionAttribute(@RequestBody UpdateSubscriptionAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -319,7 +1110,7 @@ public class ProductController {
      * <p>service: addAdditionalViewForProduct  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/addAdditionalImageContentForProduct")
-    public ResponseEntity<Map<String, Object>> addAdditionalViewForProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddAdditionalViewForProductResponse> addAdditionalViewForProduct(@RequestBody AddAdditionalViewForProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -329,7 +1120,7 @@ public class ProductController {
      * <p>service: uploadProductAdditionalViewImages  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/addAdditionalImagesForProduct")
-    public ResponseEntity<Map<String, Object>> uploadProductAdditionalViewImages(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UploadProductAdditionalViewImagesResponse> uploadProductAdditionalViewImages(@RequestBody UploadProductAdditionalViewImagesRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -339,7 +1130,7 @@ public class ProductController {
      * <p>service: safeAddProductToCategory  entities: ProductCategoryMember  auth: true
      */
     @PostMapping("/catalog/control/addCategoryProductMember")
-    public ResponseEntity<Map<String, Object>> safeAddProductToCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SafeAddProductToCategoryResponse> safeAddProductToCategory(@RequestBody SafeAddProductToCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -349,7 +1140,7 @@ public class ProductController {
      * <p>service: createCategoryContent  entities: Content, ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/addContentToCategory")
-    public ResponseEntity<Map<String, Object>> createCategoryContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCategoryContentResponse> createCategoryContent(@RequestBody CreateCategoryContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -359,7 +1150,7 @@ public class ProductController {
      * <p>service: createProductContent  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/addContentToProduct")
-    public ResponseEntity<Map<String, Object>> createProductContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductContentResponse> createProductContent(@RequestBody CreateProductContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -369,7 +1160,7 @@ public class ProductController {
      * <p>service: createProductConfigItemContent  entities: Content, ProdConfItemContent  auth: true
      */
     @PostMapping("/catalog/control/addContentToProductConfigItem")
-    public ResponseEntity<Map<String, Object>> createProductConfigItemContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductConfigItemContentResponse> createProductConfigItemContent(@RequestBody CreateProductConfigItemContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -389,7 +1180,7 @@ public class ProductController {
      * <p>service: addImageForProductPromo  entities: ProductPromoContent  auth: true
      */
     @PostMapping("/catalog/control/addImageContentForProductPromo")
-    public ResponseEntity<Map<String, Object>> addImageForProductPromo(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddImageForProductPromoResponse> addImageForProductPromo(@RequestBody AddImageForProductPromoRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -399,7 +1190,7 @@ public class ProductController {
      * <p>service: multipleUploadProductImages  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/addImageForProduct")
-    public ResponseEntity<Map<String, Object>> multipleUploadProductImages(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<MultipleUploadProductImagesResponse> multipleUploadProductImages(@RequestBody MultipleUploadProductImagesRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -409,7 +1200,7 @@ public class ProductController {
      * <p>service: addPartyToCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/addPartyToCategory")
-    public ResponseEntity<Map<String, Object>> addPartyToCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddPartyToCategoryResponse> addPartyToCategory(@RequestBody AddPartyToCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -419,7 +1210,7 @@ public class ProductController {
      * <p>service: addPartyToProduct  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/addPartyToProduct")
-    public ResponseEntity<Map<String, Object>> addPartyToProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddPartyToProductResponse> addPartyToProduct(@RequestBody AddPartyToProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -429,7 +1220,7 @@ public class ProductController {
      * <p>service: addProdCatalogToParty  entities: ProdCatalogRole  auth: true
      */
     @PostMapping("/catalog/control/addProdCatalogToParty")
-    public ResponseEntity<Map<String, Object>> addProdCatalogToParty(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddProdCatalogToPartyResponse> addProdCatalogToParty(@RequestBody AddProdCatalogToPartyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -439,7 +1230,7 @@ public class ProductController {
      * <p>service: safeAddProductCategoryToCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/addProductCategoryToCategory")
-    public ResponseEntity<Map<String, Object>> safeAddProductCategoryToCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SafeAddProductCategoryToCategoryResponse> safeAddProductCategoryToCategory(@RequestBody SafeAddProductCategoryToCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -449,7 +1240,7 @@ public class ProductController {
      * <p>service: addProductCategoryToProdCatalog  entities: ProdCatalogCategory  auth: true
      */
     @PostMapping("/catalog/control/addProductCategoryToProdCatalog")
-    public ResponseEntity<Map<String, Object>> addProductCategoryToProdCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddProductCategoryToProdCatalogResponse> addProductCategoryToProdCatalog(@RequestBody AddProductCategoryToProdCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -459,7 +1250,7 @@ public class ProductController {
      * <p>service: createProductStoreFacility  entities: ProductStoreFacility  auth: true
      */
     @PostMapping("/catalog/control/addProductStoreFacility")
-    public ResponseEntity<Map<String, Object>> createProductStoreFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreFacilityResponse> createProductStoreFacility(@RequestBody CreateProductStoreFacilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -469,7 +1260,7 @@ public class ProductController {
      * <p>service: safeAddProductToCategory  entities: ProductCategoryMember  auth: true
      */
     @PostMapping("/catalog/control/addProductToCategory")
-    public ResponseEntity<Map<String, Object>> safeAddProductToCategoryAddProductToCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SafeAddProductToCategoryResponse> safeAddProductToCategoryAddProductToCategory(@RequestBody SafeAddProductToCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -479,7 +1270,7 @@ public class ProductController {
      * <p>service: addRejectedReasonImageManagement  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/addRejectedReasonImageManagement")
-    public ResponseEntity<Map<String, Object>> addRejectedReasonImageManagement(@RequestParam Map<String, String> params) {
+    public ResponseEntity<AddRejectedReasonImageManagementResponse> addRejectedReasonImageManagement(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -489,7 +1280,7 @@ public class ProductController {
      * <p>service: quickCreateVirtualWithVariants  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/addVariantsToVirtual")
-    public ResponseEntity<Map<String, Object>> quickCreateVirtualWithVariants(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<QuickCreateVirtualWithVariantsResponse> quickCreateVirtualWithVariants(@RequestBody QuickCreateVirtualWithVariantsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -499,7 +1290,7 @@ public class ProductController {
      * <p>service: attachProductFeaturesToCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/attachProductFeaturesToCategory")
-    public ResponseEntity<Map<String, Object>> attachProductFeaturesToCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AttachProductFeaturesToCategoryResponse> attachProductFeaturesToCategory(@RequestBody AttachProductFeaturesToCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -509,7 +1300,7 @@ public class ProductController {
      * <p>service: calculateProductCosts  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/calculateProductCosts")
-    public ResponseEntity<Map<String, Object>> calculateProductCosts(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CalculateProductCostsResponse> calculateProductCosts(@RequestBody CalculateProductCostsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -519,7 +1310,7 @@ public class ProductController {
      * <p>service: addProductCategoryToProdCatalog  entities: ProdCatalogCategory  auth: true
      */
     @PostMapping("/catalog/control/category_addProductCategoryToProdCatalog")
-    public ResponseEntity<Map<String, Object>> addProductCategoryToProdCatalogCategoryAddProductCategoryToProdCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddProductCategoryToProdCatalogResponse> addProductCategoryToProdCatalogCategoryAddProductCategoryToProdCatalog(@RequestBody AddProductCategoryToProdCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -529,7 +1320,7 @@ public class ProductController {
      * <p>service: removeProductCategoryFromProdCatalog  entities: ProdCatalogCategory  auth: true
      */
     @PostMapping("/catalog/control/category_removeProductCategoryFromProdCatalog")
-    public ResponseEntity<Map<String, Object>> removeProductCategoryFromProdCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductCategoryFromProdCatalogResponse> removeProductCategoryFromProdCatalog(@RequestBody RemoveProductCategoryFromProdCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -539,7 +1330,7 @@ public class ProductController {
      * <p>service: updateProductCategoryToProdCatalog  entities: ProdCatalogCategory  auth: true
      */
     @PostMapping("/catalog/control/category_updateProductCategoryToProdCatalog")
-    public ResponseEntity<Map<String, Object>> updateProductCategoryToProdCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductCategoryToProdCatalogResponse> updateProductCategoryToProdCatalog(@RequestBody UpdateProductCategoryToProdCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -559,7 +1350,7 @@ public class ProductController {
      * <p>service: -  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/checkAction")
-    public ResponseEntity<Map<String, Object>> checkAction(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateProductFeatureIactnResponse> checkAction(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -589,7 +1380,7 @@ public class ProductController {
      * <p>service: copyCategoryProductMembers  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/copyCategoryProductMembers")
-    public ResponseEntity<Map<String, Object>> copyCategoryProductMembers(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CopyCategoryProductMembersResponse> copyCategoryProductMembers(@RequestBody CopyCategoryProductMembersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -599,7 +1390,7 @@ public class ProductController {
      * <p>service: createBulkProductPromoCode  entities: ProductPromoCode  auth: true
      */
     @PostMapping("/catalog/control/createBulkProductPromoCode")
-    public ResponseEntity<Map<String, Object>> createBulkProductPromoCode(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateBulkProductPromoCodeResponse> createBulkProductPromoCode(@RequestBody CreateBulkProductPromoCodeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -609,7 +1400,7 @@ public class ProductController {
      * <p>service: createBulkProductPromoCodeEmail  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/createBulkProductPromoCodeEmail")
-    public ResponseEntity<Map<String, Object>> createBulkProductPromoCodeEmail(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateBulkProductPromoCodeEmailResponse> createBulkProductPromoCodeEmail(@RequestBody CreateBulkProductPromoCodeEmailRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -619,7 +1410,7 @@ public class ProductController {
      * <p>service: createCarrierShipmentMethod  entities: CarrierShipmentMethod  auth: true
      */
     @PostMapping("/catalog/control/createCarrierShipmentMethod")
-    public ResponseEntity<Map<String, Object>> createCarrierShipmentMethod(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCarrierShipmentMethodResponse> createCarrierShipmentMethod(@RequestBody CreateCarrierShipmentMethodRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -639,7 +1430,7 @@ public class ProductController {
      * <p>service: createCostComponent  entities: CostComponent  auth: true
      */
     @PostMapping("/catalog/control/createCostComponent")
-    public ResponseEntity<Map<String, Object>> createCostComponent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCostComponentResponse> createCostComponent(@RequestBody CreateCostComponentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -649,7 +1440,7 @@ public class ProductController {
      * <p>service: createDownloadContentForCategory  entities: Content, ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/createDownloadContentForCategory")
-    public ResponseEntity<Map<String, Object>> createDownloadContentForCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateDownloadContentForCategoryResponse> createDownloadContentForCategory(@RequestBody CreateDownloadContentForCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -659,7 +1450,7 @@ public class ProductController {
      * <p>service: createDownloadContentForProduct  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/createDownloadContentForProduct")
-    public ResponseEntity<Map<String, Object>> createDownloadContentForProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateDownloadContentForProductResponse> createDownloadContentForProduct(@RequestBody CreateDownloadContentForProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -669,7 +1460,7 @@ public class ProductController {
      * <p>service: createEmailContentForProduct  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/createEmailContentForProduct")
-    public ResponseEntity<Map<String, Object>> createEmailContentForProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateEmailContentForProductResponse> createEmailContentForProduct(@RequestBody CreateEmailContentForProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -679,7 +1470,7 @@ public class ProductController {
      * <p>service: createProductContent  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/createExternalContentForProduct")
-    public ResponseEntity<Map<String, Object>> createProductContentCreateExternalContentForProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductContentResponse> createProductContentCreateExternalContentForProduct(@RequestBody CreateProductContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -689,7 +1480,7 @@ public class ProductController {
      * <p>service: createFeaturePrice  entities: ProductFeaturePrice  auth: true
      */
     @PostMapping("/catalog/control/createFeaturePrice")
-    public ResponseEntity<Map<String, Object>> createFeaturePrice(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateFeaturePriceResponse> createFeaturePrice(@RequestBody CreateFeaturePriceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -699,7 +1490,7 @@ public class ProductController {
      * <p>service: createGoodIdentification  entities: GoodIdentification  auth: true
      */
     @PostMapping("/catalog/control/createGoodIdentification")
-    public ResponseEntity<Map<String, Object>> createGoodIdentification(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateGoodIdentificationResponse> createGoodIdentification(@RequestBody CreateGoodIdentificationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -709,7 +1500,7 @@ public class ProductController {
      * <p>service: addImageFrame  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/createImageFrame")
-    public ResponseEntity<Map<String, Object>> addImageFrame(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddImageFrameResponse> addImageFrame(@RequestBody AddImageFrameRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -729,7 +1520,7 @@ public class ProductController {
      * <p>service: createProdCatalog  entities: ProdCatalog  auth: true
      */
     @PostMapping("/catalog/control/createProdCatalog")
-    public ResponseEntity<Map<String, Object>> createProdCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProdCatalogResponse> createProdCatalog(@RequestBody CreateProdCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -739,7 +1530,7 @@ public class ProductController {
      * <p>service: createProductStoreCatalog  entities: ProductStoreCatalog  auth: true
      */
     @PostMapping("/catalog/control/createProdCatalogStore")
-    public ResponseEntity<Map<String, Object>> createProductStoreCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreCatalogResponse> createProductStoreCatalog(@RequestBody CreateProductStoreCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -749,7 +1540,7 @@ public class ProductController {
      * <p>service: createProduct  entities: Product  auth: true
      */
     @PostMapping("/catalog/control/createProduct")
-    public ResponseEntity<Map<String, Object>> createProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductResponse> createProduct(@RequestBody CreateProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -759,7 +1550,7 @@ public class ProductController {
      * <p>service: createProductAssoc  entities: ProductAssoc  auth: true
      */
     @PostMapping("/catalog/control/createProductAssoc")
-    public ResponseEntity<Map<String, Object>> createProductAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductAssocResponse> createProductAssoc(@RequestBody CreateProductAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -769,7 +1560,7 @@ public class ProductController {
      * <p>service: createProductAttribute  entities: ProductAttribute  auth: true
      */
     @PostMapping("/catalog/control/createProductAttribute")
-    public ResponseEntity<Map<String, Object>> createProductAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductAttributeResponse> createProductAttribute(@RequestBody CreateProductAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -779,7 +1570,7 @@ public class ProductController {
      * <p>service: createProductCategory  entities: ProductCategory  auth: true
      */
     @PostMapping("/catalog/control/createProductCategory")
-    public ResponseEntity<Map<String, Object>> createProductCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductCategoryResponse> createProductCategory(@RequestBody CreateProductCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -789,7 +1580,7 @@ public class ProductController {
      * <p>service: createProductCategoryAttribute  entities: ProductCategoryAttribute  auth: true
      */
     @PostMapping("/catalog/control/createProductCategoryAttribute")
-    public ResponseEntity<Map<String, Object>> createProductCategoryAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductCategoryAttributeResponse> createProductCategoryAttribute(@RequestBody CreateProductCategoryAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -799,7 +1590,7 @@ public class ProductController {
      * <p>service: createProductCategoryLink  entities: ProductCategoryLink  auth: true
      */
     @PostMapping("/catalog/control/createProductCategoryLink")
-    public ResponseEntity<Map<String, Object>> createProductCategoryLink(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductCategoryLinkResponse> createProductCategoryLink(@RequestBody CreateProductCategoryLinkRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -809,7 +1600,7 @@ public class ProductController {
      * <p>service: createProductConfig  entities: ProductConfig  auth: true
      */
     @PostMapping("/catalog/control/createProductConfig")
-    public ResponseEntity<Map<String, Object>> createProductConfig(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductConfigResponse> createProductConfig(@RequestBody CreateProductConfigRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -819,7 +1610,7 @@ public class ProductController {
      * <p>service: createProductConfigItem  entities: ProductConfigItem  auth: true
      */
     @PostMapping("/catalog/control/createProductConfigItem")
-    public ResponseEntity<Map<String, Object>> createProductConfigItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductConfigItemResponse> createProductConfigItem(@RequestBody CreateProductConfigItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -829,7 +1620,7 @@ public class ProductController {
      * <p>service: createProductConfigOption  entities: ProductConfigOption  auth: true
      */
     @PostMapping("/catalog/control/createProductConfigOption")
-    public ResponseEntity<Map<String, Object>> createProductConfigOption(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductConfigOptionResponse> createProductConfigOption(@RequestBody CreateProductConfigOptionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -839,7 +1630,7 @@ public class ProductController {
      * <p>service: createProductConfigProduct  entities: ProductConfigProduct  auth: true
      */
     @PostMapping("/catalog/control/createProductConfigProduct")
-    public ResponseEntity<Map<String, Object>> createProductConfigProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductConfigProductResponse> createProductConfigProduct(@RequestBody CreateProductConfigProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -849,7 +1640,7 @@ public class ProductController {
      * <p>service: createProductCostComponentCalc  entities: ProductCostComponentCalc  auth: true
      */
     @PostMapping("/catalog/control/createProductCostComponentCalc")
-    public ResponseEntity<Map<String, Object>> createProductCostComponentCalc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductCostComponentCalcResponse> createProductCostComponentCalc(@RequestBody CreateProductCostComponentCalcRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -859,7 +1650,7 @@ public class ProductController {
      * <p>service: createProductFacility  entities: ProductFacility  auth: true
      */
     @PostMapping("/catalog/control/createProductFacility")
-    public ResponseEntity<Map<String, Object>> createProductFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductFacilityResponse> createProductFacility(@RequestBody CreateProductFacilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -869,7 +1660,7 @@ public class ProductController {
      * <p>service: createProductFacilityLocation  entities: ProductFacilityLocation  auth: true
      */
     @PostMapping("/catalog/control/createProductFacilityLocation")
-    public ResponseEntity<Map<String, Object>> createProductFacilityLocation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductFacilityLocationResponse> createProductFacilityLocation(@RequestBody CreateProductFacilityLocationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -879,7 +1670,7 @@ public class ProductController {
      * <p>service: createProductFeature  entities: ProductFeature  auth: true
      */
     @PostMapping("/catalog/control/createProductFeature")
-    public ResponseEntity<Map<String, Object>> createProductFeatureCreateProductFeature(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductFeatureResponse> createProductFeatureCreateProductFeature(@RequestBody CreateProductFeatureRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -889,7 +1680,7 @@ public class ProductController {
      * <p>service: createProductFeatureApplAttr  entities: ProductFeatureApplAttr  auth: true
      */
     @PostMapping("/catalog/control/createProductFeatureApplAttr")
-    public ResponseEntity<Map<String, Object>> createProductFeatureApplAttr(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductFeatureApplAttrResponse> createProductFeatureApplAttr(@RequestBody CreateProductFeatureApplAttrRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -899,7 +1690,7 @@ public class ProductController {
      * <p>service: createProductFeatureCatGrpAppl  entities: ProductFeatureCatGrpAppl  auth: true
      */
     @PostMapping("/catalog/control/createProductFeatureCatGrpAppl")
-    public ResponseEntity<Map<String, Object>> createProductFeatureCatGrpAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductFeatureCatGrpApplResponse> createProductFeatureCatGrpAppl(@RequestBody CreateProductFeatureCatGrpApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -909,7 +1700,7 @@ public class ProductController {
      * <p>service: createProductFeatureCategoryAppl  entities: ProductFeatureCategoryAppl  auth: true
      */
     @PostMapping("/catalog/control/createProductFeatureCategoryAppl")
-    public ResponseEntity<Map<String, Object>> createProductFeatureCategoryAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductFeatureCategoryApplResponse> createProductFeatureCategoryAppl(@RequestBody CreateProductFeatureCategoryApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -919,7 +1710,7 @@ public class ProductController {
      * <p>service: createProductFeatureIactn  entities: ProductFeatureIactn  auth: true
      */
     @PostMapping("/catalog/control/createProductFeatureIactn")
-    public ResponseEntity<Map<String, Object>> createProductFeatureIactnCreateProductFeatureIactn(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductFeatureIactnResponse> createProductFeatureIactnCreateProductFeatureIactn(@RequestBody CreateProductFeatureIactnRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -929,7 +1720,7 @@ public class ProductController {
      * <p>service: createProductFeatureType  entities: ProductFeatureType  auth: true
      */
     @PostMapping("/catalog/control/createProductFeatureType")
-    public ResponseEntity<Map<String, Object>> createProductFeatureType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductFeatureTypeResponse> createProductFeatureType(@RequestBody CreateProductFeatureTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -939,7 +1730,7 @@ public class ProductController {
      * <p>service: createProductGeo  entities: ProductGeo  auth: true
      */
     @PostMapping("/catalog/control/createProductGeo")
-    public ResponseEntity<Map<String, Object>> createProductGeo(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductGeoResponse> createProductGeo(@RequestBody CreateProductGeoRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -949,7 +1740,7 @@ public class ProductController {
      * <p>service: createProductGlAccount  entities: ProductGlAccount  auth: true
      */
     @PostMapping("/catalog/control/createProductGlAccount")
-    public ResponseEntity<Map<String, Object>> createProductGlAccount(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductGlAccountResponse> createProductGlAccount(@RequestBody CreateProductGlAccountRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -959,7 +1750,7 @@ public class ProductController {
      * <p>service: createProductGroupOrder  entities: ProductGroupOrder  auth: true
      */
     @PostMapping("/catalog/control/createProductGroupOrder")
-    public ResponseEntity<Map<String, Object>> createProductGroupOrder(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductGroupOrderResponse> createProductGroupOrder(@RequestBody CreateProductGroupOrderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -969,7 +1760,7 @@ public class ProductController {
      * <p>service: createProductInCategory  entities: Product, ProductCategory  auth: true
      */
     @PostMapping("/catalog/control/createProductInCategory")
-    public ResponseEntity<Map<String, Object>> createProductInCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductInCategoryResponse> createProductInCategory(@RequestBody CreateProductInCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -979,7 +1770,7 @@ public class ProductController {
      * <p>service: createProductKeyword  entities: ProductKeyword  auth: true
      */
     @PostMapping("/catalog/control/createProductKeyword")
-    public ResponseEntity<Map<String, Object>> createProductKeyword(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductKeywordResponse> createProductKeyword(@RequestBody CreateProductKeywordRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -989,7 +1780,7 @@ public class ProductController {
      * <p>service: createProductMaint  entities: ProductMaint  auth: true
      */
     @PostMapping("/catalog/control/createProductMaint")
-    public ResponseEntity<Map<String, Object>> createProductMaint(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductMaintResponse> createProductMaint(@RequestBody CreateProductMaintRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -999,7 +1790,7 @@ public class ProductController {
      * <p>service: createProductMeter  entities: ProductMeter  auth: true
      */
     @PostMapping("/catalog/control/createProductMeter")
-    public ResponseEntity<Map<String, Object>> createProductMeter(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductMeterResponse> createProductMeter(@RequestBody CreateProductMeterRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1009,7 +1800,7 @@ public class ProductController {
      * <p>service: createProductPaymentMethodType  entities: ProductPaymentMethodType  auth: true
      */
     @PostMapping("/catalog/control/createProductPaymentMethodType")
-    public ResponseEntity<Map<String, Object>> createProductPaymentMethodType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPaymentMethodTypeResponse> createProductPaymentMethodType(@RequestBody CreateProductPaymentMethodTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1019,7 +1810,7 @@ public class ProductController {
      * <p>service: createProductPrice  entities: ProductPrice  auth: true
      */
     @PostMapping("/catalog/control/createProductPrice")
-    public ResponseEntity<Map<String, Object>> createProductPrice(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPriceResponse> createProductPrice(@RequestBody CreateProductPriceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1029,7 +1820,7 @@ public class ProductController {
      * <p>service: createProductPriceAction  entities: ProductPriceAction  auth: true
      */
     @PostMapping("/catalog/control/createProductPriceAction")
-    public ResponseEntity<Map<String, Object>> createProductPriceAction(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPriceActionResponse> createProductPriceAction(@RequestBody CreateProductPriceActionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1039,7 +1830,7 @@ public class ProductController {
      * <p>service: createProductPriceCond  entities: ProductPriceCond  auth: true
      */
     @PostMapping("/catalog/control/createProductPriceCond")
-    public ResponseEntity<Map<String, Object>> createProductPriceCond(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPriceCondResponse> createProductPriceCond(@RequestBody CreateProductPriceCondRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1049,7 +1840,7 @@ public class ProductController {
      * <p>service: createProductPriceRule  entities: ProductPriceRule  auth: true
      */
     @PostMapping("/catalog/control/createProductPriceRule")
-    public ResponseEntity<Map<String, Object>> createProductPriceRule(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPriceRuleResponse> createProductPriceRule(@RequestBody CreateProductPriceRuleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1059,7 +1850,7 @@ public class ProductController {
      * <p>service: createProductPromo  entities: ProductPromo  auth: true
      */
     @PostMapping("/catalog/control/createProductPromo")
-    public ResponseEntity<Map<String, Object>> createProductPromo(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPromoResponse> createProductPromo(@RequestBody CreateProductPromoRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1069,7 +1860,7 @@ public class ProductController {
      * <p>service: createProductPromoAction  entities: ProductPromoAction  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoAction")
-    public ResponseEntity<Map<String, Object>> createProductPromoAction(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPromoActionResponse> createProductPromoAction(@RequestBody CreateProductPromoActionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1079,7 +1870,7 @@ public class ProductController {
      * <p>service: createProductPromoCategory  entities: ProductPromoCategory  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoCategory")
-    public ResponseEntity<Map<String, Object>> createProductPromoCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPromoCategoryResponse> createProductPromoCategory(@RequestBody CreateProductPromoCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1089,7 +1880,7 @@ public class ProductController {
      * <p>service: createProductPromoCode  entities: ProductPromoCode  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoCode")
-    public ResponseEntity<Map<String, Object>> createProductPromoCode(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPromoCodeResponse> createProductPromoCode(@RequestBody CreateProductPromoCodeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1109,7 +1900,7 @@ public class ProductController {
      * <p>service: createProductPromoCodeParty  entities: ProductPromoCodeParty  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoCodeParty")
-    public ResponseEntity<Map<String, Object>> createProductPromoCodeParty(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPromoCodePartyResponse> createProductPromoCodeParty(@RequestBody CreateProductPromoCodePartyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1119,7 +1910,7 @@ public class ProductController {
      * <p>service: createProductPromoCodeSet  entities: ProductPromoCode  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoCodeSet")
-    public ResponseEntity<Map<String, Object>> createProductPromoCodeSet(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPromoCodeSetResponse> createProductPromoCodeSet(@RequestBody CreateProductPromoCodeSetRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1129,7 +1920,7 @@ public class ProductController {
      * <p>service: createProductPromoCond  entities: ProductPromoCond  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoCond")
-    public ResponseEntity<Map<String, Object>> createProductPromoCond(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPromoCondResponse> createProductPromoCond(@RequestBody CreateProductPromoCondRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1139,7 +1930,7 @@ public class ProductController {
      * <p>service: createProductPromoProduct  entities: ProductPromoProduct  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoProduct")
-    public ResponseEntity<Map<String, Object>> createProductPromoProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPromoProductResponse> createProductPromoProduct(@RequestBody CreateProductPromoProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1149,7 +1940,7 @@ public class ProductController {
      * <p>service: createProductPromoRule  entities: ProductPromoRule  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoRule")
-    public ResponseEntity<Map<String, Object>> createProductPromoRule(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductPromoRuleResponse> createProductPromoRule(@RequestBody CreateProductPromoRuleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1159,7 +1950,7 @@ public class ProductController {
      * <p>service: createProductStore  entities: ProductStore  auth: true
      */
     @PostMapping("/catalog/control/createProductStore")
-    public ResponseEntity<Map<String, Object>> createProductStore(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreResponse> createProductStore(@RequestBody CreateProductStoreRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1169,7 +1960,7 @@ public class ProductController {
      * <p>service: createProductStoreCatalog  entities: ProductStoreCatalog  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreCatalog")
-    public ResponseEntity<Map<String, Object>> createProductStoreCatalogCreateProductStoreCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreCatalogResponse> createProductStoreCatalogCreateProductStoreCatalog(@RequestBody CreateProductStoreCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1179,7 +1970,7 @@ public class ProductController {
      * <p>service: createProductStoreEmailSetting  entities: ProductStoreEmailSetting  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreEmail")
-    public ResponseEntity<Map<String, Object>> createProductStoreEmailSetting(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreEmailSettingResponse> createProductStoreEmailSetting(@RequestBody CreateProductStoreEmailSettingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1189,7 +1980,7 @@ public class ProductController {
      * <p>service: createProductStoreGroup  entities: ProductStoreGroup  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreGroup")
-    public ResponseEntity<Map<String, Object>> createProductStoreGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreGroupResponse> createProductStoreGroup(@RequestBody CreateProductStoreGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1199,7 +1990,7 @@ public class ProductController {
      * <p>service: createProductStoreKeywordOvrd  entities: ProductStoreKeywordOvrd  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreKeywordOvrd")
-    public ResponseEntity<Map<String, Object>> createProductStoreKeywordOvrd(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreKeywordOvrdResponse> createProductStoreKeywordOvrd(@RequestBody CreateProductStoreKeywordOvrdRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1209,7 +2000,7 @@ public class ProductController {
      * <p>service: createProductStorePromoAppl  entities: ProductStorePromoAppl  auth: true
      */
     @PostMapping("/catalog/control/createProductStorePromoAppl")
-    public ResponseEntity<Map<String, Object>> createProductStorePromoAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStorePromoApplResponse> createProductStorePromoAppl(@RequestBody CreateProductStorePromoApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1219,7 +2010,7 @@ public class ProductController {
      * <p>service: createProductStoreSurveyAppl  entities: ProductStoreSurveyAppl  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreSurveyAppl")
-    public ResponseEntity<Map<String, Object>> createProductStoreSurveyAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreSurveyApplResponse> createProductStoreSurveyAppl(@RequestBody CreateProductStoreSurveyApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1229,7 +2020,7 @@ public class ProductController {
      * <p>service: createProductStoreVendorPayment  entities: ProductStoreVendorPayment  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreVendorPayment")
-    public ResponseEntity<Map<String, Object>> createProductStoreVendorPayment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreVendorPaymentResponse> createProductStoreVendorPayment(@RequestBody CreateProductStoreVendorPaymentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1239,7 +2030,7 @@ public class ProductController {
      * <p>service: createProductStoreVendorShipment  entities: ProductStoreVendorShipment  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreVendorShipment")
-    public ResponseEntity<Map<String, Object>> createProductStoreVendorShipment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreVendorShipmentResponse> createProductStoreVendorShipment(@RequestBody CreateProductStoreVendorShipmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1249,7 +2040,7 @@ public class ProductController {
      * <p>service: createProductSubscriptionResource  entities: ProductSubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/createProductSubscriptionResource")
-    public ResponseEntity<Map<String, Object>> createProductSubscriptionResource(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductSubscriptionResourceResponse> createProductSubscriptionResource(@RequestBody CreateProductSubscriptionResourceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1259,7 +2050,7 @@ public class ProductController {
      * <p>service: createProductSubscriptionResource  entities: ProductSubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/createProductSubscriptionResourceSr")
-    public ResponseEntity<Map<String, Object>> createProductSubscriptionResourceCreateProductSubscriptionResourceSr(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductSubscriptionResourceResponse> createProductSubscriptionResourceCreateProductSubscriptionResourceSr(@RequestBody CreateProductSubscriptionResourceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1269,7 +2060,7 @@ public class ProductController {
      * <p>service: createQuantityBreak  entities: QuantityBreak  auth: true
      */
     @PostMapping("/catalog/control/createQuantityBreak")
-    public ResponseEntity<Map<String, Object>> createQuantityBreak(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuantityBreakResponse> createQuantityBreak(@RequestBody CreateQuantityBreakRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1279,7 +2070,7 @@ public class ProductController {
      * <p>service: createRelatedUrlContentForCategory  entities: ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/createRelatedUrlContentForCategory")
-    public ResponseEntity<Map<String, Object>> createRelatedUrlContentForCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateRelatedUrlContentForCategoryResponse> createRelatedUrlContentForCategory(@RequestBody CreateRelatedUrlContentForCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1289,7 +2080,7 @@ public class ProductController {
      * <p>service: createSalesAgreement  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/createSalesAgreement")
-    public ResponseEntity<Map<String, Object>> createSalesAgreement(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSalesAgreementResponse> createSalesAgreement(@RequestBody CreateSalesAgreementRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1299,7 +2090,7 @@ public class ProductController {
      * <p>service: createShipmentMethodType  entities: ShipmentMethodType  auth: true
      */
     @PostMapping("/catalog/control/createShipmentMethodType")
-    public ResponseEntity<Map<String, Object>> createShipmentMethodType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateShipmentMethodTypeResponse> createShipmentMethodType(@RequestBody CreateShipmentMethodTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1309,7 +2100,7 @@ public class ProductController {
      * <p>service: createShipmentTimeEstimate  entities: ShipmentTimeEstimate  auth: true
      */
     @PostMapping("/catalog/control/createShipmentTimeEstimate")
-    public ResponseEntity<Map<String, Object>> createShipmentTimeEstimate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateShipmentTimeEstimateResponse> createShipmentTimeEstimate(@RequestBody CreateShipmentTimeEstimateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1319,7 +2110,7 @@ public class ProductController {
      * <p>service: createSimpleTextContentForAlternateLocale  entities: Content  auth: true
      */
     @PostMapping("/catalog/control/createSimpleTextContentForAlternateLocale")
-    public ResponseEntity<Map<String, Object>> createSimpleTextContentForAlternateLocale(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSimpleTextContentForAlternateLocaleResponse> createSimpleTextContentForAlternateLocale(@RequestBody CreateSimpleTextContentForAlternateLocaleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1329,7 +2120,7 @@ public class ProductController {
      * <p>service: createSimpleTextContentForAlternateLocale  entities: Content  auth: true
      */
     @PostMapping("/catalog/control/createSimpleTextContentForAlternateLocaleInCategory")
-    public ResponseEntity<Map<String, Object>> createSimpleTextContentForAlternateLocaleCreateSimpleTextContentForAlternateLocaleInCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSimpleTextContentForAlternateLocaleResponse> createSimpleTextContentForAlternateLocaleCreateSimpleTextContentForAlternateLocaleInCategory(@RequestBody CreateSimpleTextContentForAlternateLocaleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1339,7 +2130,7 @@ public class ProductController {
      * <p>service: createSimpleTextContentForCategory  entities: Content, ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/createSimpleTextContentForCategory")
-    public ResponseEntity<Map<String, Object>> createSimpleTextContentForCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSimpleTextContentForCategoryResponse> createSimpleTextContentForCategory(@RequestBody CreateSimpleTextContentForCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1349,7 +2140,7 @@ public class ProductController {
      * <p>service: createSimpleTextContentForProduct  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/createSimpleTextContentForProduct")
-    public ResponseEntity<Map<String, Object>> createSimpleTextContentForProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSimpleTextContentForProductResponse> createSimpleTextContentForProduct(@RequestBody CreateSimpleTextContentForProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1359,7 +2150,7 @@ public class ProductController {
      * <p>service: createSimpleTextContentForProductConfigItem  entities: Content, ProdConfItemContent  auth: true
      */
     @PostMapping("/catalog/control/createSimpleTextContentForProductConfigItem")
-    public ResponseEntity<Map<String, Object>> createSimpleTextContentForProductConfigItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSimpleTextContentForProductConfigItemResponse> createSimpleTextContentForProductConfigItem(@RequestBody CreateSimpleTextContentForProductConfigItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1369,7 +2160,7 @@ public class ProductController {
      * <p>service: createSubscription  entities: Subscription  auth: true
      */
     @PostMapping("/catalog/control/createSubscription")
-    public ResponseEntity<Map<String, Object>> createSubscription(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSubscriptionResponse> createSubscription(@RequestBody CreateSubscriptionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1379,7 +2170,7 @@ public class ProductController {
      * <p>service: createSubscriptionCommEvent  entities: SubscriptionCommEvent  auth: true
      */
     @PostMapping("/catalog/control/createSubscriptionCommEvent")
-    public ResponseEntity<Map<String, Object>> createSubscriptionCommEvent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSubscriptionCommEventResponse> createSubscriptionCommEvent(@RequestBody CreateSubscriptionCommEventRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1389,7 +2180,7 @@ public class ProductController {
      * <p>service: createSubscriptionResource  entities: SubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/createSubscriptionResource")
-    public ResponseEntity<Map<String, Object>> createSubscriptionResource(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSubscriptionResourceResponse> createSubscriptionResource(@RequestBody CreateSubscriptionResourceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1399,7 +2190,7 @@ public class ProductController {
      * <p>service: createSupplierProduct  entities: SupplierProduct  auth: true
      */
     @PostMapping("/catalog/control/createSupplierProduct")
-    public ResponseEntity<Map<String, Object>> createSupplierProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSupplierProductResponse> createSupplierProduct(@RequestBody CreateSupplierProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1409,7 +2200,7 @@ public class ProductController {
      * <p>service: createSupplierProductFeature  entities: SupplierProductFeature  auth: true
      */
     @PostMapping("/catalog/control/createSupplierProductFeature")
-    public ResponseEntity<Map<String, Object>> createSupplierProductFeature(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSupplierProductFeatureResponse> createSupplierProductFeature(@RequestBody CreateSupplierProductFeatureRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1419,7 +2210,7 @@ public class ProductController {
      * <p>service: createVendorProduct  entities: VendorProduct  auth: true
      */
     @PostMapping("/catalog/control/createVendorProduct")
-    public ResponseEntity<Map<String, Object>> createVendorProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateVendorProductResponse> createVendorProduct(@RequestBody CreateVendorProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1439,7 +2230,7 @@ public class ProductController {
      * <p>service: deleteCarrierShipmentMethod  entities: CarrierShipmentMethod  auth: true
      */
     @PostMapping("/catalog/control/deleteCarrierShipmentMethod")
-    public ResponseEntity<Map<String, Object>> deleteCarrierShipmentMethod(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteCarrierShipmentMethodResponse> deleteCarrierShipmentMethod(@RequestBody DeleteCarrierShipmentMethodRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1449,7 +2240,7 @@ public class ProductController {
      * <p>service: deleteCostComponent  entities: CostComponent  auth: true
      */
     @PostMapping("/catalog/control/deleteCostComponent")
-    public ResponseEntity<Map<String, Object>> deleteCostComponent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteCostComponentResponse> deleteCostComponent(@RequestBody DeleteCostComponentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1459,7 +2250,7 @@ public class ProductController {
      * <p>service: deleteFeaturePrice  entities: ProductFeaturePrice  auth: true
      */
     @PostMapping("/catalog/control/deleteFeaturePrice")
-    public ResponseEntity<Map<String, Object>> deleteFeaturePrice(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteFeaturePriceResponse> deleteFeaturePrice(@RequestBody DeleteFeaturePriceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1469,7 +2260,7 @@ public class ProductController {
      * <p>service: deleteGoodIdentification  entities: GoodIdentification  auth: true
      */
     @PostMapping("/catalog/control/deleteGoodIdentification")
-    public ResponseEntity<Map<String, Object>> deleteGoodIdentification(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteGoodIdentificationResponse> deleteGoodIdentification(@RequestBody DeleteGoodIdentificationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1489,7 +2280,7 @@ public class ProductController {
      * <p>service: deleteProductStoreCatalog  entities: ProductStoreCatalog  auth: true
      */
     @PostMapping("/catalog/control/deleteProdCatalogStore")
-    public ResponseEntity<Map<String, Object>> deleteProductStoreCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductStoreCatalogResponse> deleteProductStoreCatalog(@RequestBody DeleteProductStoreCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1499,7 +2290,7 @@ public class ProductController {
      * <p>service: deleteProductAssoc  entities: ProductAssoc  auth: true
      */
     @PostMapping("/catalog/control/deleteProductAssoc")
-    public ResponseEntity<Map<String, Object>> deleteProductAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductAssocResponse> deleteProductAssoc(@RequestBody DeleteProductAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1509,7 +2300,7 @@ public class ProductController {
      * <p>service: deleteProductAttribute  entities: ProductAttribute  auth: true
      */
     @PostMapping("/catalog/control/deleteProductAttribute")
-    public ResponseEntity<Map<String, Object>> deleteProductAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductAttributeResponse> deleteProductAttribute(@RequestBody DeleteProductAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1519,7 +2310,7 @@ public class ProductController {
      * <p>service: deleteProductCategoryAttribute  entities: ProductCategoryAttribute  auth: true
      */
     @PostMapping("/catalog/control/deleteProductCategoryAttribute")
-    public ResponseEntity<Map<String, Object>> deleteProductCategoryAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductCategoryAttributeResponse> deleteProductCategoryAttribute(@RequestBody DeleteProductCategoryAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1529,7 +2320,7 @@ public class ProductController {
      * <p>service: deleteProductCategoryLink  entities: ProductCategoryLink  auth: true
      */
     @PostMapping("/catalog/control/deleteProductCategoryLink")
-    public ResponseEntity<Map<String, Object>> deleteProductCategoryLink(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductCategoryLinkResponse> deleteProductCategoryLink(@RequestBody DeleteProductCategoryLinkRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1539,7 +2330,7 @@ public class ProductController {
      * <p>service: deleteProductConfig  entities: ProductConfig  auth: true
      */
     @PostMapping("/catalog/control/deleteProductConfig")
-    public ResponseEntity<Map<String, Object>> deleteProductConfig(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductConfigResponse> deleteProductConfig(@RequestBody DeleteProductConfigRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1549,7 +2340,7 @@ public class ProductController {
      * <p>service: deleteProductConfigItem  entities: ProductConfigItem  auth: true
      */
     @PostMapping("/catalog/control/deleteProductConfigItem")
-    public ResponseEntity<Map<String, Object>> deleteProductConfigItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductConfigItemResponse> deleteProductConfigItem(@RequestBody DeleteProductConfigItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1559,7 +2350,7 @@ public class ProductController {
      * <p>service: deleteProductConfigOption  entities: ProductConfigOption  auth: true
      */
     @PostMapping("/catalog/control/deleteProductConfigOption")
-    public ResponseEntity<Map<String, Object>> deleteProductConfigOption(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductConfigOptionResponse> deleteProductConfigOption(@RequestBody DeleteProductConfigOptionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1569,7 +2360,7 @@ public class ProductController {
      * <p>service: deleteProductConfigProduct  entities: ProductConfigProduct  auth: true
      */
     @PostMapping("/catalog/control/deleteProductConfigProduct")
-    public ResponseEntity<Map<String, Object>> deleteProductConfigProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductConfigProductResponse> deleteProductConfigProduct(@RequestBody DeleteProductConfigProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1579,7 +2370,7 @@ public class ProductController {
      * <p>service: deleteProductCostComponentCalc  entities: ProductCostComponentCalc  auth: true
      */
     @PostMapping("/catalog/control/deleteProductCostComponentCalc")
-    public ResponseEntity<Map<String, Object>> deleteProductCostComponentCalc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductCostComponentCalcResponse> deleteProductCostComponentCalc(@RequestBody DeleteProductCostComponentCalcRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1589,7 +2380,7 @@ public class ProductController {
      * <p>service: deleteProductFacility  entities: ProductFacility  auth: true
      */
     @PostMapping("/catalog/control/deleteProductFacility")
-    public ResponseEntity<Map<String, Object>> deleteProductFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductFacilityResponse> deleteProductFacility(@RequestBody DeleteProductFacilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1599,7 +2390,7 @@ public class ProductController {
      * <p>service: deleteProductFacilityLocation  entities: ProductFacilityLocation  auth: true
      */
     @PostMapping("/catalog/control/deleteProductFacilityLocation")
-    public ResponseEntity<Map<String, Object>> deleteProductFacilityLocation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductFacilityLocationResponse> deleteProductFacilityLocation(@RequestBody DeleteProductFacilityLocationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1609,7 +2400,7 @@ public class ProductController {
      * <p>service: removeProductFeatureApplAttr  entities: ProductFeatureApplAttr  auth: true
      */
     @PostMapping("/catalog/control/deleteProductFeatureApplAttr")
-    public ResponseEntity<Map<String, Object>> removeProductFeatureApplAttr(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductFeatureApplAttrResponse> removeProductFeatureApplAttr(@RequestBody RemoveProductFeatureApplAttrRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1619,7 +2410,7 @@ public class ProductController {
      * <p>service: deleteProductGeo  entities: ProductGeo  auth: true
      */
     @PostMapping("/catalog/control/deleteProductGeo")
-    public ResponseEntity<Map<String, Object>> deleteProductGeo(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductGeoResponse> deleteProductGeo(@RequestBody DeleteProductGeoRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1629,7 +2420,7 @@ public class ProductController {
      * <p>service: deleteProductGlAccount  entities: ProductGlAccount  auth: true
      */
     @PostMapping("/catalog/control/deleteProductGlAccount")
-    public ResponseEntity<Map<String, Object>> deleteProductGlAccount(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductGlAccountResponse> deleteProductGlAccount(@RequestBody DeleteProductGlAccountRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1639,7 +2430,7 @@ public class ProductController {
      * <p>service: deleteProductGroupOrder  entities: ProductGroupOrder  auth: true
      */
     @PostMapping("/catalog/control/deleteProductGroupOrder")
-    public ResponseEntity<Map<String, Object>> deleteProductGroupOrder(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductGroupOrderResponse> deleteProductGroupOrder(@RequestBody DeleteProductGroupOrderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1649,7 +2440,7 @@ public class ProductController {
      * <p>service: deleteProductKeyword  entities: ProductKeyword  auth: true
      */
     @PostMapping("/catalog/control/deleteProductKeyword")
-    public ResponseEntity<Map<String, Object>> deleteProductKeyword(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductKeywordResponse> deleteProductKeyword(@RequestBody DeleteProductKeywordRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1659,7 +2450,7 @@ public class ProductController {
      * <p>service: deleteProductKeywords  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/deleteProductKeywords")
-    public ResponseEntity<Map<String, Object>> deleteProductKeywords(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductKeywordsResponse> deleteProductKeywords(@RequestBody DeleteProductKeywordsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1669,7 +2460,7 @@ public class ProductController {
      * <p>service: deleteProductMaint  entities: ProductMaint  auth: true
      */
     @PostMapping("/catalog/control/deleteProductMaint")
-    public ResponseEntity<Map<String, Object>> deleteProductMaint(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductMaintResponse> deleteProductMaint(@RequestBody DeleteProductMaintRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1679,7 +2470,7 @@ public class ProductController {
      * <p>service: deleteProductMeter  entities: ProductMeter  auth: true
      */
     @PostMapping("/catalog/control/deleteProductMeter")
-    public ResponseEntity<Map<String, Object>> deleteProductMeter(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductMeterResponse> deleteProductMeter(@RequestBody DeleteProductMeterRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1689,7 +2480,7 @@ public class ProductController {
      * <p>service: deleteProductPaymentMethodType  entities: ProductPaymentMethodType  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPaymentMethodType")
-    public ResponseEntity<Map<String, Object>> deleteProductPaymentMethodType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductPaymentMethodTypeResponse> deleteProductPaymentMethodType(@RequestBody DeleteProductPaymentMethodTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1699,7 +2490,7 @@ public class ProductController {
      * <p>service: deleteProductPrice  entities: ProductPrice  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPrice")
-    public ResponseEntity<Map<String, Object>> deleteProductPrice(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductPriceResponse> deleteProductPrice(@RequestBody DeleteProductPriceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1709,7 +2500,7 @@ public class ProductController {
      * <p>service: deleteProductPriceAction  entities: ProductPriceAction  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPriceAction")
-    public ResponseEntity<Map<String, Object>> deleteProductPriceAction(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductPriceActionResponse> deleteProductPriceAction(@RequestBody DeleteProductPriceActionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1719,7 +2510,7 @@ public class ProductController {
      * <p>service: deleteProductPriceCond  entities: ProductPriceCond  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPriceCond")
-    public ResponseEntity<Map<String, Object>> deleteProductPriceCond(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductPriceCondResponse> deleteProductPriceCond(@RequestBody DeleteProductPriceCondRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1729,7 +2520,7 @@ public class ProductController {
      * <p>service: deleteProductPriceRule  entities: ProductPriceRule  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPriceRule")
-    public ResponseEntity<Map<String, Object>> deleteProductPriceRule(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductPriceRuleResponse> deleteProductPriceRule(@RequestBody DeleteProductPriceRuleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1739,7 +2530,7 @@ public class ProductController {
      * <p>service: deleteProductPromoAction  entities: ProductPromoAction  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoAction")
-    public ResponseEntity<Map<String, Object>> deleteProductPromoAction(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductPromoActionResponse> deleteProductPromoAction(@RequestBody DeleteProductPromoActionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1749,7 +2540,7 @@ public class ProductController {
      * <p>service: deleteProductPromoCategory  entities: ProductPromoCategory  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoCategory")
-    public ResponseEntity<Map<String, Object>> deleteProductPromoCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductPromoCategoryResponse> deleteProductPromoCategory(@RequestBody DeleteProductPromoCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1759,7 +2550,7 @@ public class ProductController {
      * <p>service: deleteProductPromoCode  entities: ProductPromoCode  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoCode")
-    public ResponseEntity<Map<String, Object>> deleteProductPromoCode(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductPromoCodeResponse> deleteProductPromoCode(@RequestBody DeleteProductPromoCodeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1769,7 +2560,7 @@ public class ProductController {
      * <p>service: deleteProductPromoCodeContactMech  entities: ProdPromoCodeContactMech  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoCodeEmail")
-    public ResponseEntity<Map<String, Object>> deleteProductPromoCodeContactMech(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductPromoCodeContactMechResponse> deleteProductPromoCodeContactMech(@RequestBody DeleteProductPromoCodeContactMechRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1779,7 +2570,7 @@ public class ProductController {
      * <p>service: deleteProductPromoCodeParty  entities: ProductPromoCodeParty  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoCodeParty")
-    public ResponseEntity<Map<String, Object>> deleteProductPromoCodeParty(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductPromoCodePartyResponse> deleteProductPromoCodeParty(@RequestBody DeleteProductPromoCodePartyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1789,7 +2580,7 @@ public class ProductController {
      * <p>service: deleteProductPromoCond  entities: ProductPromoCond  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoCond")
-    public ResponseEntity<Map<String, Object>> deleteProductPromoCond(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductPromoCondResponse> deleteProductPromoCond(@RequestBody DeleteProductPromoCondRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1799,7 +2590,7 @@ public class ProductController {
      * <p>service: deleteProductPromoProduct  entities: ProductPromoProduct  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoProduct")
-    public ResponseEntity<Map<String, Object>> deleteProductPromoProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductPromoProductResponse> deleteProductPromoProduct(@RequestBody DeleteProductPromoProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1809,7 +2600,7 @@ public class ProductController {
      * <p>service: deleteProductPromoRule  entities: ProductPromoRule  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoRule")
-    public ResponseEntity<Map<String, Object>> deleteProductPromoRule(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductPromoRuleResponse> deleteProductPromoRule(@RequestBody DeleteProductPromoRuleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1819,7 +2610,7 @@ public class ProductController {
      * <p>service: deleteProductStoreCatalog  entities: ProductStoreCatalog  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStoreCatalog")
-    public ResponseEntity<Map<String, Object>> deleteProductStoreCatalogDeleteProductStoreCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductStoreCatalogResponse> deleteProductStoreCatalogDeleteProductStoreCatalog(@RequestBody DeleteProductStoreCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1829,7 +2620,7 @@ public class ProductController {
      * <p>service: deleteProductStoreFacility  entities: ProductStoreFacility  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStoreFacility")
-    public ResponseEntity<Map<String, Object>> deleteProductStoreFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductStoreFacilityResponse> deleteProductStoreFacility(@RequestBody DeleteProductStoreFacilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1839,7 +2630,7 @@ public class ProductController {
      * <p>service: deleteProductStoreKeywordOvrd  entities: ProductStoreKeywordOvrd  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStoreKeywordOvrd")
-    public ResponseEntity<Map<String, Object>> deleteProductStoreKeywordOvrd(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductStoreKeywordOvrdResponse> deleteProductStoreKeywordOvrd(@RequestBody DeleteProductStoreKeywordOvrdRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1849,7 +2640,7 @@ public class ProductController {
      * <p>service: deleteProductStorePromoAppl  entities: ProductStorePromoAppl  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStorePromoAppl")
-    public ResponseEntity<Map<String, Object>> deleteProductStorePromoAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductStorePromoApplResponse> deleteProductStorePromoAppl(@RequestBody DeleteProductStorePromoApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1859,7 +2650,7 @@ public class ProductController {
      * <p>service: deleteProductStoreSurveyAppl  entities: ProductStoreSurveyAppl  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStoreSurveyAppl")
-    public ResponseEntity<Map<String, Object>> deleteProductStoreSurveyAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductStoreSurveyApplResponse> deleteProductStoreSurveyAppl(@RequestBody DeleteProductStoreSurveyApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1869,7 +2660,7 @@ public class ProductController {
      * <p>service: deleteProductStoreVendorPayment  entities: ProductStoreVendorPayment  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStoreVendorPayment")
-    public ResponseEntity<Map<String, Object>> deleteProductStoreVendorPayment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductStoreVendorPaymentResponse> deleteProductStoreVendorPayment(@RequestBody DeleteProductStoreVendorPaymentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1879,7 +2670,7 @@ public class ProductController {
      * <p>service: deleteProductStoreVendorShipment  entities: ProductStoreVendorShipment  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStoreVendorShipment")
-    public ResponseEntity<Map<String, Object>> deleteProductStoreVendorShipment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductStoreVendorShipmentResponse> deleteProductStoreVendorShipment(@RequestBody DeleteProductStoreVendorShipmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1889,7 +2680,7 @@ public class ProductController {
      * <p>service: deleteProductSubscriptionResource  entities: ProductSubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/deleteProductSubscriptionResource")
-    public ResponseEntity<Map<String, Object>> deleteProductSubscriptionResource(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductSubscriptionResourceResponse> deleteProductSubscriptionResource(@RequestBody DeleteProductSubscriptionResourceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1899,7 +2690,7 @@ public class ProductController {
      * <p>service: deleteProductSubscriptionResource  entities: ProductSubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/deleteProductSubscriptionResourceSr")
-    public ResponseEntity<Map<String, Object>> deleteProductSubscriptionResourceDeleteProductSubscriptionResourceSr(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductSubscriptionResourceResponse> deleteProductSubscriptionResourceDeleteProductSubscriptionResourceSr(@RequestBody DeleteProductSubscriptionResourceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1909,7 +2700,7 @@ public class ProductController {
      * <p>service: deleteQuantityBreak  entities: QuantityBreak  auth: true
      */
     @PostMapping("/catalog/control/deleteQuantityBreak")
-    public ResponseEntity<Map<String, Object>> deleteQuantityBreak(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteQuantityBreakResponse> deleteQuantityBreak(@RequestBody DeleteQuantityBreakRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1919,7 +2710,7 @@ public class ProductController {
      * <p>service: deleteShipmentMethodType  entities: ShipmentMethodType  auth: true
      */
     @PostMapping("/catalog/control/deleteShipmentMethodType")
-    public ResponseEntity<Map<String, Object>> deleteShipmentMethodType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteShipmentMethodTypeResponse> deleteShipmentMethodType(@RequestBody DeleteShipmentMethodTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1929,7 +2720,7 @@ public class ProductController {
      * <p>service: deleteVendorProduct  entities: VendorProduct  auth: true
      */
     @PostMapping("/catalog/control/deleteVendorProduct")
-    public ResponseEntity<Map<String, Object>> deleteVendorProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteVendorProductResponse> deleteVendorProduct(@RequestBody DeleteVendorProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1939,7 +2730,7 @@ public class ProductController {
      * <p>service: expireAllCategoryProductMembers  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/expireAllCategoryProductMembers")
-    public ResponseEntity<Map<String, Object>> expireAllCategoryProductMembers(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ExpireAllCategoryProductMembersResponse> expireAllCategoryProductMembers(@RequestBody ExpireAllCategoryProductMembersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1949,7 +2740,7 @@ public class ProductController {
      * <p>service: expireShipmentTimeEstimate  entities: ShipmentTimeEstimate  auth: true
      */
     @PostMapping("/catalog/control/expireShipmentTimeEstimate")
-    public ResponseEntity<Map<String, Object>> expireShipmentTimeEstimate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ExpireShipmentTimeEstimateResponse> expireShipmentTimeEstimate(@RequestBody ExpireShipmentTimeEstimateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1959,7 +2750,7 @@ public class ProductController {
      * <p>service: forceIndexProductKeywords  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/forceIndexProductKeywords")
-    public ResponseEntity<Map<String, Object>> forceIndexProductKeywords(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ForceIndexProductKeywordsResponse> forceIndexProductKeywords(@RequestBody ForceIndexProductKeywordsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1969,7 +2760,7 @@ public class ProductController {
      * <p>service: getAssociatedPriceRulesConds  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/getAssociatedPriceRulesConds")
-    public ResponseEntity<Map<String, Object>> getAssociatedPriceRulesConds(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<GetAssociatedPriceRulesCondsResponse> getAssociatedPriceRulesConds(@RequestBody GetAssociatedPriceRulesCondsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2029,7 +2820,7 @@ public class ProductController {
      * <p>service: createProductStorePromoAppl  entities: ProductStorePromoAppl  auth: true
      */
     @PostMapping("/catalog/control/promo_createProductStorePromoAppl")
-    public ResponseEntity<Map<String, Object>> createProductStorePromoApplPromoCreateProductStorePromoAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStorePromoApplResponse> createProductStorePromoApplPromoCreateProductStorePromoAppl(@RequestBody CreateProductStorePromoApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2039,7 +2830,7 @@ public class ProductController {
      * <p>service: deleteProductStorePromoAppl  entities: ProductStorePromoAppl  auth: true
      */
     @PostMapping("/catalog/control/promo_deleteProductStorePromoAppl")
-    public ResponseEntity<Map<String, Object>> deleteProductStorePromoApplPromoDeleteProductStorePromoAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductStorePromoApplResponse> deleteProductStorePromoApplPromoDeleteProductStorePromoAppl(@RequestBody DeleteProductStorePromoApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2049,7 +2840,7 @@ public class ProductController {
      * <p>service: updateProductStorePromoAppl  entities: ProductStorePromoAppl  auth: true
      */
     @PostMapping("/catalog/control/promo_updateProductStorePromoAppl")
-    public ResponseEntity<Map<String, Object>> updateProductStorePromoAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStorePromoApplResponse> updateProductStorePromoAppl(@RequestBody UpdateProductStorePromoApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2059,7 +2850,7 @@ public class ProductController {
      * <p>service: addProductToCategories  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/quickAdminAddCategories")
-    public ResponseEntity<Map<String, Object>> addProductToCategories(@RequestParam Map<String, String> params) {
+    public ResponseEntity<AddProductToCategoriesResponse> addProductToCategories(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2079,7 +2870,7 @@ public class ProductController {
      * <p>service: removeFeatureFromProduct  entities: ProductFeatureAppl  auth: true
      */
     @PostMapping("/catalog/control/quickAdminRemoveFeatureFromProduct")
-    public ResponseEntity<Map<String, Object>> removeFeatureFromProductQuickAdminRemoveFeatureFromProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveFeatureFromProductResponse> removeFeatureFromProductQuickAdminRemoveFeatureFromProduct(@RequestBody RemoveFeatureFromProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2099,7 +2890,7 @@ public class ProductController {
      * <p>service: removeProductFromCategory  entities: ProductCategoryMember  auth: true
      */
     @PostMapping("/catalog/control/quickAdminRemoveProductFromCategory")
-    public ResponseEntity<Map<String, Object>> removeProductFromCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductFromCategoryResponse> removeProductFromCategory(@RequestBody RemoveProductFromCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2119,7 +2910,7 @@ public class ProductController {
      * <p>service: updateProductAssoc  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/quickAdminUpdateProductAssoc")
-    public ResponseEntity<Map<String, Object>> updateProductAssoc(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateProductAssocResponse> updateProductAssoc(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2129,7 +2920,7 @@ public class ProductController {
      * <p>service: quickCreateVirtualWithVariants  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/quickCreateVirtualWithVariants")
-    public ResponseEntity<Map<String, Object>> quickCreateVirtualWithVariantsQuickCreateVirtualWithVariants(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<QuickCreateVirtualWithVariantsResponse> quickCreateVirtualWithVariantsQuickCreateVirtualWithVariants(@RequestBody QuickCreateVirtualWithVariantsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2139,7 +2930,7 @@ public class ProductController {
      * <p>service: removeProductFromCategory  entities: ProductCategoryMember  auth: true
      */
     @PostMapping("/catalog/control/removeCategoryProductMember")
-    public ResponseEntity<Map<String, Object>> removeProductFromCategoryRemoveCategoryProductMember(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductFromCategoryResponse> removeProductFromCategoryRemoveCategoryProductMember(@RequestBody RemoveProductFromCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2149,7 +2940,7 @@ public class ProductController {
      * <p>service: removeCategoryContent  entities: ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/removeContentFromCategory")
-    public ResponseEntity<Map<String, Object>> removeCategoryContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveCategoryContentResponse> removeCategoryContent(@RequestBody RemoveCategoryContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2159,7 +2950,7 @@ public class ProductController {
      * <p>service: removeProductContent  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/removeContentFromProduct")
-    public ResponseEntity<Map<String, Object>> removeProductContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductContentResponse> removeProductContent(@RequestBody RemoveProductContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2169,7 +2960,7 @@ public class ProductController {
      * <p>service: removeProductConfigItemContent  entities: ProdConfItemContent  auth: true
      */
     @PostMapping("/catalog/control/removeContentFromProductConfigItem")
-    public ResponseEntity<Map<String, Object>> removeProductConfigItemContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductConfigItemContentResponse> removeProductConfigItemContent(@RequestBody RemoveProductConfigItemContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2179,7 +2970,7 @@ public class ProductController {
      * <p>service: removeProductPromoContent  entities: ProductPromoContent  auth: true
      */
     @PostMapping("/catalog/control/removeContentFromProductPromo")
-    public ResponseEntity<Map<String, Object>> removeProductPromoContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductPromoContentResponse> removeProductPromoContent(@RequestBody RemoveProductPromoContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2189,7 +2980,7 @@ public class ProductController {
      * <p>service: removeExpiredCategoryProductMembers  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/removeExpiredCategoryProductMembers")
-    public ResponseEntity<Map<String, Object>> removeExpiredCategoryProductMembers(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveExpiredCategoryProductMembersResponse> removeExpiredCategoryProductMembers(@RequestBody RemoveExpiredCategoryProductMembersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2199,7 +2990,7 @@ public class ProductController {
      * <p>service: removeProductFeatureIactn  entities: ProductFeatureIactn  auth: true
      */
     @PostMapping("/catalog/control/removeFeatureIactn")
-    public ResponseEntity<Map<String, Object>> removeProductFeatureIactn(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductFeatureIactnResponse> removeProductFeatureIactn(@RequestBody RemoveProductFeatureIactnRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2219,7 +3010,7 @@ public class ProductController {
      * <p>service: removeProductContentAndImageFile  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/removeImage")
-    public ResponseEntity<Map<String, Object>> removeProductContentAndImageFile(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductContentAndImageFileResponse> removeProductContentAndImageFile(@RequestBody RemoveProductContentAndImageFileRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2229,7 +3020,7 @@ public class ProductController {
      * <p>service: removeImageBySize  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/removeImageBySize")
-    public ResponseEntity<Map<String, Object>> removeImageBySize(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveImageBySizeResponse> removeImageBySize(@RequestBody RemoveImageBySizeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2239,7 +3030,7 @@ public class ProductController {
      * <p>service: removeProductContentAndImageFile  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/removeImageUpload")
-    public ResponseEntity<Map<String, Object>> removeProductContentAndImageFileRemoveImageUpload(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductContentAndImageFileResponse> removeProductContentAndImageFileRemoveImageUpload(@RequestBody RemoveProductContentAndImageFileRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2249,7 +3040,7 @@ public class ProductController {
      * <p>service: removePartyFromCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/removePartyFromCategory")
-    public ResponseEntity<Map<String, Object>> removePartyFromCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemovePartyFromCategoryResponse> removePartyFromCategory(@RequestBody RemovePartyFromCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2259,7 +3050,7 @@ public class ProductController {
      * <p>service: removePartyFromProduct  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/removePartyFromProduct")
-    public ResponseEntity<Map<String, Object>> removePartyFromProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemovePartyFromProductResponse> removePartyFromProduct(@RequestBody RemovePartyFromProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2269,7 +3060,7 @@ public class ProductController {
      * <p>service: removeProdCatalogFromParty  entities: ProdCatalogRole  auth: true
      */
     @PostMapping("/catalog/control/removeProdCatalogFromParty")
-    public ResponseEntity<Map<String, Object>> removeProdCatalogFromParty(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProdCatalogFromPartyResponse> removeProdCatalogFromParty(@RequestBody RemoveProdCatalogFromPartyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2279,7 +3070,7 @@ public class ProductController {
      * <p>service: removeProductCategoryFromCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/removeProductCategoryFromCategory")
-    public ResponseEntity<Map<String, Object>> removeProductCategoryFromCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductCategoryFromCategoryResponse> removeProductCategoryFromCategory(@RequestBody RemoveProductCategoryFromCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2289,7 +3080,7 @@ public class ProductController {
      * <p>service: removeProductCategoryFromProdCatalog  entities: ProdCatalogCategory  auth: true
      */
     @PostMapping("/catalog/control/removeProductCategoryFromProdCatalog")
-    public ResponseEntity<Map<String, Object>> removeProductCategoryFromProdCatalogRemoveProductCategoryFromProdCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductCategoryFromProdCatalogResponse> removeProductCategoryFromProdCatalogRemoveProductCategoryFromProdCatalog(@RequestBody RemoveProductCategoryFromProdCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2299,7 +3090,7 @@ public class ProductController {
      * <p>service: removeProductFeatureCatGrpAppl  entities: ProductFeatureCatGrpAppl  auth: true
      */
     @PostMapping("/catalog/control/removeProductFeatureCatGrpAppl")
-    public ResponseEntity<Map<String, Object>> removeProductFeatureCatGrpAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductFeatureCatGrpApplResponse> removeProductFeatureCatGrpAppl(@RequestBody RemoveProductFeatureCatGrpApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2309,7 +3100,7 @@ public class ProductController {
      * <p>service: removeProductFeatureCategoryAppl  entities: ProductFeatureCategoryAppl  auth: true
      */
     @PostMapping("/catalog/control/removeProductFeatureCategoryAppl")
-    public ResponseEntity<Map<String, Object>> removeProductFeatureCategoryAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductFeatureCategoryApplResponse> removeProductFeatureCategoryAppl(@RequestBody RemoveProductFeatureCategoryApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2319,7 +3110,7 @@ public class ProductController {
      * <p>service: removeProductFeatureIactn  entities: ProductFeatureIactn  auth: true
      */
     @PostMapping("/catalog/control/removeProductFeatureIactn")
-    public ResponseEntity<Map<String, Object>> removeProductFeatureIactnRemoveProductFeatureIactn(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductFeatureIactnResponse> removeProductFeatureIactnRemoveProductFeatureIactn(@RequestBody RemoveProductFeatureIactnRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2329,7 +3120,7 @@ public class ProductController {
      * <p>service: removeProductFeatureType  entities: ProductFeatureType  auth: true
      */
     @PostMapping("/catalog/control/removeProductFeatureType")
-    public ResponseEntity<Map<String, Object>> removeProductFeatureType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductFeatureTypeResponse> removeProductFeatureType(@RequestBody RemoveProductFeatureTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2339,7 +3130,7 @@ public class ProductController {
      * <p>service: removeProductFromCategory  entities: ProductCategoryMember  auth: true
      */
     @PostMapping("/catalog/control/removeProductFromCategory")
-    public ResponseEntity<Map<String, Object>> removeProductFromCategoryRemoveProductFromCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductFromCategoryResponse> removeProductFromCategoryRemoveProductFromCategory(@RequestBody RemoveProductFromCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2349,7 +3140,7 @@ public class ProductController {
      * <p>service: removeProductStoreEmailSetting  entities: ProductStoreEmailSetting  auth: true
      */
     @PostMapping("/catalog/control/removeProductStoreEmail")
-    public ResponseEntity<Map<String, Object>> removeProductStoreEmailSetting(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductStoreEmailSettingResponse> removeProductStoreEmailSetting(@RequestBody RemoveProductStoreEmailSettingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2359,7 +3150,7 @@ public class ProductController {
      * <p>service: removeSubscriptionCommEvent  entities: SubscriptionCommEvent  auth: true
      */
     @PostMapping("/catalog/control/removeSubscriptionCommEvent")
-    public ResponseEntity<Map<String, Object>> removeSubscriptionCommEvent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveSubscriptionCommEventResponse> removeSubscriptionCommEvent(@RequestBody RemoveSubscriptionCommEventRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2369,7 +3160,7 @@ public class ProductController {
      * <p>service: removeSupplierProduct  entities: SupplierProduct  auth: true
      */
     @PostMapping("/catalog/control/removeSupplierProduct")
-    public ResponseEntity<Map<String, Object>> removeSupplierProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveSupplierProductResponse> removeSupplierProduct(@RequestBody RemoveSupplierProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2379,7 +3170,7 @@ public class ProductController {
      * <p>service: removeSupplierProductFeature  entities: SupplierProductFeature  auth: true
      */
     @PostMapping("/catalog/control/removeSupplierProductFeature")
-    public ResponseEntity<Map<String, Object>> removeSupplierProductFeature(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveSupplierProductFeatureResponse> removeSupplierProductFeature(@RequestBody RemoveSupplierProductFeatureRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2399,7 +3190,7 @@ public class ProductController {
      * <p>service: renameImage  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/renameImage")
-    public ResponseEntity<Map<String, Object>> renameImage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RenameImageResponse> renameImage(@RequestBody RenameImageRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2409,7 +3200,7 @@ public class ProductController {
      * <p>service: replaceImageToExistImage  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/replaceImageToExistImage")
-    public ResponseEntity<Map<String, Object>> replaceImageToExistImage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ReplaceImageToExistImageResponse> replaceImageToExistImage(@RequestBody ReplaceImageToExistImageRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2419,7 +3210,7 @@ public class ProductController {
      * <p>service: resizeImages  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/resizeImages")
-    public ResponseEntity<Map<String, Object>> resizeImages(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ResizeImagesResponse> resizeImages(@RequestBody ResizeImagesRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2499,7 +3290,7 @@ public class ProductController {
      * <p>service: setImageDetail  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/setImageDetail")
-    public ResponseEntity<Map<String, Object>> setImageDetail(@RequestParam Map<String, String> params) {
+    public ResponseEntity<SetImageDetailResponse> setImageDetail(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2509,7 +3300,7 @@ public class ProductController {
      * <p>service: createProductStorePaymentSetting  entities: ProductStorePaymentSetting  auth: true
      */
     @PostMapping("/catalog/control/storeCreatePaySetting")
-    public ResponseEntity<Map<String, Object>> createProductStorePaymentSetting(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStorePaymentSettingResponse> createProductStorePaymentSetting(@RequestBody CreateProductStorePaymentSettingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2519,7 +3310,7 @@ public class ProductController {
      * <p>service: createProductStoreRole  entities: ProductStoreRole  auth: true
      */
     @PostMapping("/catalog/control/storeCreateRole")
-    public ResponseEntity<Map<String, Object>> createProductStoreRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreRoleResponse> createProductStoreRole(@RequestBody CreateProductStoreRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2529,7 +3320,7 @@ public class ProductController {
      * <p>service: createProductStoreShipMeth  entities: ProductStoreShipmentMeth  auth: true
      */
     @PostMapping("/catalog/control/storeCreateShipMeth")
-    public ResponseEntity<Map<String, Object>> createProductStoreShipMeth(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductStoreShipMethResponse> createProductStoreShipMeth(@RequestBody CreateProductStoreShipMethRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2539,7 +3330,7 @@ public class ProductController {
      * <p>service: createShipmentEstimate  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/storeCreateShipRate")
-    public ResponseEntity<Map<String, Object>> createShipmentEstimate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateShipmentEstimateResponse> createShipmentEstimate(@RequestBody CreateShipmentEstimateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2549,7 +3340,7 @@ public class ProductController {
      * <p>service: deleteProductStorePaymentSetting  entities: ProductStorePaymentSetting  auth: true
      */
     @PostMapping("/catalog/control/storeRemovePaySetting")
-    public ResponseEntity<Map<String, Object>> deleteProductStorePaymentSetting(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductStorePaymentSettingResponse> deleteProductStorePaymentSetting(@RequestBody DeleteProductStorePaymentSettingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2559,7 +3350,7 @@ public class ProductController {
      * <p>service: removeProductStoreRole  entities: ProductStoreRole  auth: true
      */
     @PostMapping("/catalog/control/storeRemoveRole")
-    public ResponseEntity<Map<String, Object>> removeProductStoreRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductStoreRoleResponse> removeProductStoreRole(@RequestBody RemoveProductStoreRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2569,7 +3360,7 @@ public class ProductController {
      * <p>service: removeProductStoreShipMeth  entities: ProductStoreShipmentMeth  auth: true
      */
     @PostMapping("/catalog/control/storeRemoveShipMeth")
-    public ResponseEntity<Map<String, Object>> removeProductStoreShipMeth(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveProductStoreShipMethResponse> removeProductStoreShipMeth(@RequestBody RemoveProductStoreShipMethRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2579,7 +3370,7 @@ public class ProductController {
      * <p>service: removeShipmentEstimate  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/storeRemoveShipRate")
-    public ResponseEntity<Map<String, Object>> removeShipmentEstimate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveShipmentEstimateResponse> removeShipmentEstimate(@RequestBody RemoveShipmentEstimateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2589,7 +3380,7 @@ public class ProductController {
      * <p>service: updateProductStorePaymentSetting  entities: ProductStorePaymentSetting  auth: true
      */
     @PostMapping("/catalog/control/storeUpdatePaySetting")
-    public ResponseEntity<Map<String, Object>> updateProductStorePaymentSetting(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStorePaymentSettingResponse> updateProductStorePaymentSetting(@RequestBody UpdateProductStorePaymentSettingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2599,7 +3390,7 @@ public class ProductController {
      * <p>service: updateProductStoreRole  entities: ProductStoreRole  auth: true
      */
     @PostMapping("/catalog/control/storeUpdateRole")
-    public ResponseEntity<Map<String, Object>> updateProductStoreRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStoreRoleResponse> updateProductStoreRole(@RequestBody UpdateProductStoreRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2609,7 +3400,7 @@ public class ProductController {
      * <p>service: updateProductStoreShipMeth  entities: ProductStoreShipmentMeth  auth: true
      */
     @PostMapping("/catalog/control/storeUpdateShipMeth")
-    public ResponseEntity<Map<String, Object>> updateProductStoreShipMeth(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStoreShipMethResponse> updateProductStoreShipMeth(@RequestBody UpdateProductStoreShipMethRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2639,7 +3430,7 @@ public class ProductController {
      * <p>service: updateCarrierShipmentMethod  entities: CarrierShipmentMethod  auth: true
      */
     @PostMapping("/catalog/control/updateCarrierShipmentMethod")
-    public ResponseEntity<Map<String, Object>> updateCarrierShipmentMethod(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateCarrierShipmentMethodResponse> updateCarrierShipmentMethod(@RequestBody UpdateCarrierShipmentMethodRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2649,7 +3440,7 @@ public class ProductController {
      * <p>service: updateProductCategory  entities: ProductCategory  auth: true
      */
     @PostMapping("/catalog/control/updateCategoryContent")
-    public ResponseEntity<Map<String, Object>> updateProductCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductCategoryResponse> updateProductCategory(@RequestBody UpdateProductCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2659,7 +3450,7 @@ public class ProductController {
      * <p>service: updateProductToCategory  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/updateCategoryProductMember")
-    public ResponseEntity<Map<String, Object>> updateProductToCategory(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateProductToCategoryResponse> updateProductToCategory(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2669,7 +3460,7 @@ public class ProductController {
      * <p>service: updateContentSEOForCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/updateContentSEOForCategory")
-    public ResponseEntity<Map<String, Object>> updateContentSEOForCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentSEOForCategoryResponse> updateContentSEOForCategory(@RequestBody UpdateContentSEOForCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2679,7 +3470,7 @@ public class ProductController {
      * <p>service: updateContentSEOForProduct  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/updateContentSEOForProduct")
-    public ResponseEntity<Map<String, Object>> updateContentSEOForProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentSEOForProductResponse> updateContentSEOForProduct(@RequestBody UpdateContentSEOForProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2689,7 +3480,7 @@ public class ProductController {
      * <p>service: updateCategoryContent  entities: Content, ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/updateContentToCategory")
-    public ResponseEntity<Map<String, Object>> updateCategoryContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateCategoryContentResponse> updateCategoryContent(@RequestBody UpdateCategoryContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2699,7 +3490,7 @@ public class ProductController {
      * <p>service: updateProductContent  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/updateContentToProduct")
-    public ResponseEntity<Map<String, Object>> updateProductContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductContentResponse> updateProductContent(@RequestBody UpdateProductContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2709,7 +3500,7 @@ public class ProductController {
      * <p>service: updateProductConfigItemContent  entities: Content, ProdConfItemContent  auth: true
      */
     @PostMapping("/catalog/control/updateContentToProductConfigItem")
-    public ResponseEntity<Map<String, Object>> updateProductConfigItemContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductConfigItemContentResponse> updateProductConfigItemContent(@RequestBody UpdateProductConfigItemContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2719,7 +3510,7 @@ public class ProductController {
      * <p>service: updateCostComponent  entities: CostComponent  auth: true
      */
     @PostMapping("/catalog/control/updateCostComponent")
-    public ResponseEntity<Map<String, Object>> updateCostComponent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateCostComponentResponse> updateCostComponent(@RequestBody UpdateCostComponentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2729,7 +3520,7 @@ public class ProductController {
      * <p>service: updateDownloadContentForCategory  entities: Content, ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/updateDownloadContentForCategory")
-    public ResponseEntity<Map<String, Object>> updateDownloadContentForCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateDownloadContentForCategoryResponse> updateDownloadContentForCategory(@RequestBody UpdateDownloadContentForCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2739,7 +3530,7 @@ public class ProductController {
      * <p>service: updateDownloadContentForProduct  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/updateDownloadContentForProduct")
-    public ResponseEntity<Map<String, Object>> updateDownloadContentForProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateDownloadContentForProductResponse> updateDownloadContentForProduct(@RequestBody UpdateDownloadContentForProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2749,7 +3540,7 @@ public class ProductController {
      * <p>service: updateEmailContentForProduct  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/updateEmailContentForProduct")
-    public ResponseEntity<Map<String, Object>> updateEmailContentForProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateEmailContentForProductResponse> updateEmailContentForProduct(@RequestBody UpdateEmailContentForProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2759,7 +3550,7 @@ public class ProductController {
      * <p>service: updateProductContent  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/updateExternalContentForProduct")
-    public ResponseEntity<Map<String, Object>> updateProductContentUpdateExternalContentForProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductContentResponse> updateProductContentUpdateExternalContentForProduct(@RequestBody UpdateProductContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2769,7 +3560,7 @@ public class ProductController {
      * <p>service: updateFeaturePrice  entities: ProductFeaturePrice  auth: true
      */
     @PostMapping("/catalog/control/updateFeaturePrice")
-    public ResponseEntity<Map<String, Object>> updateFeaturePrice(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFeaturePriceResponse> updateFeaturePrice(@RequestBody UpdateFeaturePriceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2779,7 +3570,7 @@ public class ProductController {
      * <p>service: updateGoodIdentification  entities: GoodIdentification  auth: true
      */
     @PostMapping("/catalog/control/updateGoodIdentification")
-    public ResponseEntity<Map<String, Object>> updateGoodIdentification(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateGoodIdentificationResponse> updateGoodIdentification(@RequestBody UpdateGoodIdentificationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2789,7 +3580,7 @@ public class ProductController {
      * <p>service: updatePartyToCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/updatePartyToCategory")
-    public ResponseEntity<Map<String, Object>> updatePartyToCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyToCategoryResponse> updatePartyToCategory(@RequestBody UpdatePartyToCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2799,7 +3590,7 @@ public class ProductController {
      * <p>service: updatePartyToProduct  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/updatePartyToProduct")
-    public ResponseEntity<Map<String, Object>> updatePartyToProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyToProductResponse> updatePartyToProduct(@RequestBody UpdatePartyToProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2809,7 +3600,7 @@ public class ProductController {
      * <p>service: updateProdCatalog  entities: ProdCatalog  auth: true
      */
     @PostMapping("/catalog/control/updateProdCatalog")
-    public ResponseEntity<Map<String, Object>> updateProdCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProdCatalogResponse> updateProdCatalog(@RequestBody UpdateProdCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2819,7 +3610,7 @@ public class ProductController {
      * <p>service: updateProductStoreCatalog  entities: ProductStoreCatalog  auth: true
      */
     @PostMapping("/catalog/control/updateProdCatalogStore")
-    public ResponseEntity<Map<String, Object>> updateProductStoreCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStoreCatalogResponse> updateProductStoreCatalog(@RequestBody UpdateProductStoreCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2829,7 +3620,7 @@ public class ProductController {
      * <p>service: updateProdCatalogToParty  entities: ProdCatalogRole  auth: true
      */
     @PostMapping("/catalog/control/updateProdCatalogToParty")
-    public ResponseEntity<Map<String, Object>> updateProdCatalogToParty(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProdCatalogToPartyResponse> updateProdCatalogToParty(@RequestBody UpdateProdCatalogToPartyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2839,7 +3630,7 @@ public class ProductController {
      * <p>service: updateProduct  entities: Product  auth: true
      */
     @PostMapping("/catalog/control/updateProduct")
-    public ResponseEntity<Map<String, Object>> updateProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductResponse> updateProduct(@RequestBody UpdateProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2849,7 +3640,7 @@ public class ProductController {
      * <p>service: updateProduct  entities: Product  auth: true
      */
     @PostMapping("/catalog/control/updateProductAssetUsage")
-    public ResponseEntity<Map<String, Object>> updateProductUpdateProductAssetUsage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductResponse> updateProductUpdateProductAssetUsage(@RequestBody UpdateProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2859,7 +3650,7 @@ public class ProductController {
      * <p>service: updateProductAssoc  entities: ProductAssoc  auth: true
      */
     @PostMapping("/catalog/control/updateProductAssoc")
-    public ResponseEntity<Map<String, Object>> updateProductAssocUpdateProductAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductAssocResponse> updateProductAssocUpdateProductAssoc(@RequestBody UpdateProductAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2869,7 +3660,7 @@ public class ProductController {
      * <p>service: updateProductAttribute  entities: ProductAttribute  auth: true
      */
     @PostMapping("/catalog/control/updateProductAttribute")
-    public ResponseEntity<Map<String, Object>> updateProductAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductAttributeResponse> updateProductAttribute(@RequestBody UpdateProductAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2879,7 +3670,7 @@ public class ProductController {
      * <p>service: updateProductCategory  entities: ProductCategory  auth: true
      */
     @PostMapping("/catalog/control/updateProductCategory")
-    public ResponseEntity<Map<String, Object>> updateProductCategoryUpdateProductCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductCategoryResponse> updateProductCategoryUpdateProductCategory(@RequestBody UpdateProductCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2889,7 +3680,7 @@ public class ProductController {
      * <p>service: updateProductCategoryAttribute  entities: ProductCategoryAttribute  auth: true
      */
     @PostMapping("/catalog/control/updateProductCategoryAttribute")
-    public ResponseEntity<Map<String, Object>> updateProductCategoryAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductCategoryAttributeResponse> updateProductCategoryAttribute(@RequestBody UpdateProductCategoryAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2899,7 +3690,7 @@ public class ProductController {
      * <p>service: updateProductCategoryLink  entities: ProductCategoryLink  auth: true
      */
     @PostMapping("/catalog/control/updateProductCategoryLink")
-    public ResponseEntity<Map<String, Object>> updateProductCategoryLink(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductCategoryLinkResponse> updateProductCategoryLink(@RequestBody UpdateProductCategoryLinkRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2909,7 +3700,7 @@ public class ProductController {
      * <p>service: updateProductCategoryToCategory  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/updateProductCategoryToCategory")
-    public ResponseEntity<Map<String, Object>> updateProductCategoryToCategory(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateProductCategoryToCategoryResponse> updateProductCategoryToCategory(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2919,7 +3710,7 @@ public class ProductController {
      * <p>service: updateProductCategoryToProdCatalog  entities: ProdCatalogCategory  auth: true
      */
     @PostMapping("/catalog/control/updateProductCategoryToProdCatalog")
-    public ResponseEntity<Map<String, Object>> updateProductCategoryToProdCatalogUpdateProductCategoryToProdCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductCategoryToProdCatalogResponse> updateProductCategoryToProdCatalogUpdateProductCategoryToProdCatalog(@RequestBody UpdateProductCategoryToProdCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2929,7 +3720,7 @@ public class ProductController {
      * <p>service: updateProductConfig  entities: ProductConfig  auth: true
      */
     @PostMapping("/catalog/control/updateProductConfig")
-    public ResponseEntity<Map<String, Object>> updateProductConfig(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductConfigResponse> updateProductConfig(@RequestBody UpdateProductConfigRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2939,7 +3730,7 @@ public class ProductController {
      * <p>service: updateProductConfigItem  entities: ProductConfigItem  auth: true
      */
     @PostMapping("/catalog/control/updateProductConfigItem")
-    public ResponseEntity<Map<String, Object>> updateProductConfigItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductConfigItemResponse> updateProductConfigItem(@RequestBody UpdateProductConfigItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2949,7 +3740,7 @@ public class ProductController {
      * <p>service: updateProductConfigItem  entities: ProductConfigItem  auth: true
      */
     @PostMapping("/catalog/control/updateProductConfigItemContent")
-    public ResponseEntity<Map<String, Object>> updateProductConfigItemUpdateProductConfigItemContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductConfigItemResponse> updateProductConfigItemUpdateProductConfigItemContent(@RequestBody UpdateProductConfigItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2959,7 +3750,7 @@ public class ProductController {
      * <p>service: updateProductConfigOption  entities: ProductConfigOption  auth: true
      */
     @PostMapping("/catalog/control/updateProductConfigOption")
-    public ResponseEntity<Map<String, Object>> updateProductConfigOption(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductConfigOptionResponse> updateProductConfigOption(@RequestBody UpdateProductConfigOptionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2969,7 +3760,7 @@ public class ProductController {
      * <p>service: updateProductConfigProduct  entities: ProductConfigProduct  auth: true
      */
     @PostMapping("/catalog/control/updateProductConfigProduct")
-    public ResponseEntity<Map<String, Object>> updateProductConfigProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductConfigProductResponse> updateProductConfigProduct(@RequestBody UpdateProductConfigProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2979,7 +3770,7 @@ public class ProductController {
      * <p>service: updateProduct  entities: Product  auth: true
      */
     @PostMapping("/catalog/control/updateProductContent")
-    public ResponseEntity<Map<String, Object>> updateProductUpdateProductContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductResponse> updateProductUpdateProductContent(@RequestBody UpdateProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2989,7 +3780,7 @@ public class ProductController {
      * <p>service: updateProductCostComponentCalc  entities: ProductCostComponentCalc  auth: true
      */
     @PostMapping("/catalog/control/updateProductCostComponentCalc")
-    public ResponseEntity<Map<String, Object>> updateProductCostComponentCalc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductCostComponentCalcResponse> updateProductCostComponentCalc(@RequestBody UpdateProductCostComponentCalcRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2999,7 +3790,7 @@ public class ProductController {
      * <p>service: updateProductFacility  entities: ProductFacility  auth: true
      */
     @PostMapping("/catalog/control/updateProductFacility")
-    public ResponseEntity<Map<String, Object>> updateProductFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductFacilityResponse> updateProductFacility(@RequestBody UpdateProductFacilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3009,7 +3800,7 @@ public class ProductController {
      * <p>service: updateProductFacilityLocation  entities: ProductFacilityLocation  auth: true
      */
     @PostMapping("/catalog/control/updateProductFacilityLocation")
-    public ResponseEntity<Map<String, Object>> updateProductFacilityLocation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductFacilityLocationResponse> updateProductFacilityLocation(@RequestBody UpdateProductFacilityLocationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3019,7 +3810,7 @@ public class ProductController {
      * <p>service: updateProductFeature  entities: ProductFeature  auth: true
      */
     @PostMapping("/catalog/control/updateProductFeature")
-    public ResponseEntity<Map<String, Object>> updateProductFeatureUpdateProductFeature(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductFeatureResponse> updateProductFeatureUpdateProductFeature(@RequestBody UpdateProductFeatureRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3029,7 +3820,7 @@ public class ProductController {
      * <p>service: updateProductFeatureCatGrpAppl  entities: ProductFeatureCatGrpAppl  auth: true
      */
     @PostMapping("/catalog/control/updateProductFeatureCatGrpAppl")
-    public ResponseEntity<Map<String, Object>> updateProductFeatureCatGrpAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductFeatureCatGrpApplResponse> updateProductFeatureCatGrpAppl(@RequestBody UpdateProductFeatureCatGrpApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3039,7 +3830,7 @@ public class ProductController {
      * <p>service: updateProductFeatureCategoryAppl  entities: ProductFeatureCategoryAppl  auth: true
      */
     @PostMapping("/catalog/control/updateProductFeatureCategoryAppl")
-    public ResponseEntity<Map<String, Object>> updateProductFeatureCategoryAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductFeatureCategoryApplResponse> updateProductFeatureCategoryAppl(@RequestBody UpdateProductFeatureCategoryApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3049,7 +3840,7 @@ public class ProductController {
      * <p>service: updateProductFeatureType  entities: ProductFeatureType  auth: true
      */
     @PostMapping("/catalog/control/updateProductFeatureType")
-    public ResponseEntity<Map<String, Object>> updateProductFeatureType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductFeatureTypeResponse> updateProductFeatureType(@RequestBody UpdateProductFeatureTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3059,7 +3850,7 @@ public class ProductController {
      * <p>service: updateProductGeo  entities: ProductGeo  auth: true
      */
     @PostMapping("/catalog/control/updateProductGeo")
-    public ResponseEntity<Map<String, Object>> updateProductGeo(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductGeoResponse> updateProductGeo(@RequestBody UpdateProductGeoRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3069,7 +3860,7 @@ public class ProductController {
      * <p>service: updateProductGlAccount  entities: ProductGlAccount  auth: true
      */
     @PostMapping("/catalog/control/updateProductGlAccount")
-    public ResponseEntity<Map<String, Object>> updateProductGlAccount(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductGlAccountResponse> updateProductGlAccount(@RequestBody UpdateProductGlAccountRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3079,7 +3870,7 @@ public class ProductController {
      * <p>service: updateProductGroupOrder  entities: ProductGroupOrder  auth: true
      */
     @PostMapping("/catalog/control/updateProductGroupOrder")
-    public ResponseEntity<Map<String, Object>> updateProductGroupOrder(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductGroupOrderResponse> updateProductGroupOrder(@RequestBody UpdateProductGroupOrderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3089,7 +3880,7 @@ public class ProductController {
      * <p>service: updateProductKeyword  entities: ProductKeyword  auth: true
      */
     @PostMapping("/catalog/control/updateProductKeyword")
-    public ResponseEntity<Map<String, Object>> updateProductKeyword(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductKeywordResponse> updateProductKeyword(@RequestBody UpdateProductKeywordRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3099,7 +3890,7 @@ public class ProductController {
      * <p>service: updateProductMaint  entities: ProductMaint  auth: true
      */
     @PostMapping("/catalog/control/updateProductMaint")
-    public ResponseEntity<Map<String, Object>> updateProductMaint(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductMaintResponse> updateProductMaint(@RequestBody UpdateProductMaintRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3109,7 +3900,7 @@ public class ProductController {
      * <p>service: updateProductMeter  entities: ProductMeter  auth: true
      */
     @PostMapping("/catalog/control/updateProductMeter")
-    public ResponseEntity<Map<String, Object>> updateProductMeter(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductMeterResponse> updateProductMeter(@RequestBody UpdateProductMeterRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3119,7 +3910,7 @@ public class ProductController {
      * <p>service: updateProductPaymentMethodType  entities: ProductPaymentMethodType  auth: true
      */
     @PostMapping("/catalog/control/updateProductPaymentMethodType")
-    public ResponseEntity<Map<String, Object>> updateProductPaymentMethodType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductPaymentMethodTypeResponse> updateProductPaymentMethodType(@RequestBody UpdateProductPaymentMethodTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3129,7 +3920,7 @@ public class ProductController {
      * <p>service: updateProductPrice  entities: ProductPrice  auth: true
      */
     @PostMapping("/catalog/control/updateProductPrice")
-    public ResponseEntity<Map<String, Object>> updateProductPrice(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductPriceResponse> updateProductPrice(@RequestBody UpdateProductPriceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3139,7 +3930,7 @@ public class ProductController {
      * <p>service: updateProductPriceAction  entities: ProductPriceAction  auth: true
      */
     @PostMapping("/catalog/control/updateProductPriceAction")
-    public ResponseEntity<Map<String, Object>> updateProductPriceAction(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductPriceActionResponse> updateProductPriceAction(@RequestBody UpdateProductPriceActionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3149,7 +3940,7 @@ public class ProductController {
      * <p>service: updateProductPriceCond  entities: ProductPriceCond  auth: true
      */
     @PostMapping("/catalog/control/updateProductPriceCond")
-    public ResponseEntity<Map<String, Object>> updateProductPriceCond(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductPriceCondResponse> updateProductPriceCond(@RequestBody UpdateProductPriceCondRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3159,7 +3950,7 @@ public class ProductController {
      * <p>service: updateProductPriceRule  entities: ProductPriceRule  auth: true
      */
     @PostMapping("/catalog/control/updateProductPriceRule")
-    public ResponseEntity<Map<String, Object>> updateProductPriceRule(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductPriceRuleResponse> updateProductPriceRule(@RequestBody UpdateProductPriceRuleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3169,7 +3960,7 @@ public class ProductController {
      * <p>service: updateProductPromo  entities: ProductPromo  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromo")
-    public ResponseEntity<Map<String, Object>> updateProductPromo(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductPromoResponse> updateProductPromo(@RequestBody UpdateProductPromoRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3179,7 +3970,7 @@ public class ProductController {
      * <p>service: updateProductPromoAction  entities: ProductPromoAction  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromoAction")
-    public ResponseEntity<Map<String, Object>> updateProductPromoAction(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductPromoActionResponse> updateProductPromoAction(@RequestBody UpdateProductPromoActionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3189,7 +3980,7 @@ public class ProductController {
      * <p>service: updateProductPromoCategory  entities: ProductPromoCategory  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromoCategory")
-    public ResponseEntity<Map<String, Object>> updateProductPromoCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductPromoCategoryResponse> updateProductPromoCategory(@RequestBody UpdateProductPromoCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3199,7 +3990,7 @@ public class ProductController {
      * <p>service: updateProductPromoCode  entities: ProductPromoCode  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromoCode")
-    public ResponseEntity<Map<String, Object>> updateProductPromoCode(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductPromoCodeResponse> updateProductPromoCode(@RequestBody UpdateProductPromoCodeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3209,7 +4000,7 @@ public class ProductController {
      * <p>service: updateProductPromoCond  entities: ProductPromoCond  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromoCond")
-    public ResponseEntity<Map<String, Object>> updateProductPromoCond(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductPromoCondResponse> updateProductPromoCond(@RequestBody UpdateProductPromoCondRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3219,7 +4010,7 @@ public class ProductController {
      * <p>service: updateProductPromoProduct  entities: ProductPromoProduct  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromoProduct")
-    public ResponseEntity<Map<String, Object>> updateProductPromoProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductPromoProductResponse> updateProductPromoProduct(@RequestBody UpdateProductPromoProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3229,7 +4020,7 @@ public class ProductController {
      * <p>service: updateProductPromoRule  entities: ProductPromoRule  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromoRule")
-    public ResponseEntity<Map<String, Object>> updateProductPromoRule(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductPromoRuleResponse> updateProductPromoRule(@RequestBody UpdateProductPromoRuleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3249,7 +4040,7 @@ public class ProductController {
      * <p>service: updateProductQuickAdminName  entities: Product  auth: true
      */
     @PostMapping("/catalog/control/updateProductQuickAdminName")
-    public ResponseEntity<Map<String, Object>> updateProductQuickAdminName(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductQuickAdminNameResponse> updateProductQuickAdminName(@RequestBody UpdateProductQuickAdminNameRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3269,7 +4060,7 @@ public class ProductController {
      * <p>service: updateProductQuickAdminShipping  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/updateProductQuickAdminShipping")
-    public ResponseEntity<Map<String, Object>> updateProductQuickAdminShipping(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateProductQuickAdminShippingResponse> updateProductQuickAdminShipping(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3279,7 +4070,7 @@ public class ProductController {
      * <p>service: updateProductReview  entities: ProductReview  auth: true
      */
     @PostMapping("/catalog/control/updateProductReview")
-    public ResponseEntity<Map<String, Object>> updateProductReview(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductReviewResponse> updateProductReview(@RequestBody UpdateProductReviewRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3289,7 +4080,7 @@ public class ProductController {
      * <p>service: setProductReviewStatus  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/updateProductReviewStatus")
-    public ResponseEntity<Map<String, Object>> setProductReviewStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SetProductReviewStatusResponse> setProductReviewStatus(@RequestBody SetProductReviewStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3299,7 +4090,7 @@ public class ProductController {
      * <p>service: updateProductStore  entities: ProductStore  auth: true
      */
     @PostMapping("/catalog/control/updateProductStore")
-    public ResponseEntity<Map<String, Object>> updateProductStore(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStoreResponse> updateProductStore(@RequestBody UpdateProductStoreRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3309,7 +4100,7 @@ public class ProductController {
      * <p>service: updateProductStoreCatalog  entities: ProductStoreCatalog  auth: true
      */
     @PostMapping("/catalog/control/updateProductStoreCatalog")
-    public ResponseEntity<Map<String, Object>> updateProductStoreCatalogUpdateProductStoreCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStoreCatalogResponse> updateProductStoreCatalogUpdateProductStoreCatalog(@RequestBody UpdateProductStoreCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3319,7 +4110,7 @@ public class ProductController {
      * <p>service: updateProductStoreEmailSetting  entities: ProductStoreEmailSetting  auth: true
      */
     @PostMapping("/catalog/control/updateProductStoreEmail")
-    public ResponseEntity<Map<String, Object>> updateProductStoreEmailSetting(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStoreEmailSettingResponse> updateProductStoreEmailSetting(@RequestBody UpdateProductStoreEmailSettingRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3329,7 +4120,7 @@ public class ProductController {
      * <p>service: updateProductStoreFacility  entities: ProductStoreFacility  auth: true
      */
     @PostMapping("/catalog/control/updateProductStoreFacility")
-    public ResponseEntity<Map<String, Object>> updateProductStoreFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStoreFacilityResponse> updateProductStoreFacility(@RequestBody UpdateProductStoreFacilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3339,7 +4130,7 @@ public class ProductController {
      * <p>service: updateProductStoreGroup  entities: ProductStoreGroup  auth: true
      */
     @PostMapping("/catalog/control/updateProductStoreGroup")
-    public ResponseEntity<Map<String, Object>> updateProductStoreGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStoreGroupResponse> updateProductStoreGroup(@RequestBody UpdateProductStoreGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3349,7 +4140,7 @@ public class ProductController {
      * <p>service: updateProductStoreGroupRollup  entities: ProductStoreGroupRollup  auth: true
      */
     @PostMapping("/catalog/control/updateProductStoreGroupRollup")
-    public ResponseEntity<Map<String, Object>> updateProductStoreGroupRollup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStoreGroupRollupResponse> updateProductStoreGroupRollup(@RequestBody UpdateProductStoreGroupRollupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3359,7 +4150,7 @@ public class ProductController {
      * <p>service: updateProductStoreKeywordOvrd  entities: ProductStoreKeywordOvrd  auth: true
      */
     @PostMapping("/catalog/control/updateProductStoreKeywordOvrd")
-    public ResponseEntity<Map<String, Object>> updateProductStoreKeywordOvrd(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStoreKeywordOvrdResponse> updateProductStoreKeywordOvrd(@RequestBody UpdateProductStoreKeywordOvrdRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3369,7 +4160,7 @@ public class ProductController {
      * <p>service: updateProductStorePromoAppl  entities: ProductStorePromoAppl  auth: true
      */
     @PostMapping("/catalog/control/updateProductStorePromoAppl")
-    public ResponseEntity<Map<String, Object>> updateProductStorePromoApplUpdateProductStorePromoAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStorePromoApplResponse> updateProductStorePromoApplUpdateProductStorePromoAppl(@RequestBody UpdateProductStorePromoApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3379,7 +4170,7 @@ public class ProductController {
      * <p>service: updateProductSubscriptionResource  entities: ProductSubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/updateProductSubscriptionResource")
-    public ResponseEntity<Map<String, Object>> updateProductSubscriptionResource(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductSubscriptionResourceResponse> updateProductSubscriptionResource(@RequestBody UpdateProductSubscriptionResourceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3389,7 +4180,7 @@ public class ProductController {
      * <p>service: updateProductSubscriptionResource  entities: ProductSubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/updateProductSubscriptionResourceSr")
-    public ResponseEntity<Map<String, Object>> updateProductSubscriptionResourceUpdateProductSubscriptionResourceSr(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductSubscriptionResourceResponse> updateProductSubscriptionResourceUpdateProductSubscriptionResourceSr(@RequestBody UpdateProductSubscriptionResourceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3399,7 +4190,7 @@ public class ProductController {
      * <p>service: updateProductKeyword  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/updateProductTag")
-    public ResponseEntity<Map<String, Object>> updateProductKeywordUpdateProductTag(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateProductKeywordResponse> updateProductKeywordUpdateProductTag(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3409,7 +4200,7 @@ public class ProductController {
      * <p>service: updateProductToCategory  entities: ProductCategoryMember  auth: true
      */
     @PostMapping("/catalog/control/updateProductToCategory")
-    public ResponseEntity<Map<String, Object>> updateProductToCategoryUpdateProductToCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductToCategoryResponse> updateProductToCategoryUpdateProductToCategory(@RequestBody UpdateProductToCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3419,7 +4210,7 @@ public class ProductController {
      * <p>service: updateQuantityBreak  entities: QuantityBreak  auth: true
      */
     @PostMapping("/catalog/control/updateQuantityBreak")
-    public ResponseEntity<Map<String, Object>> updateQuantityBreak(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateQuantityBreakResponse> updateQuantityBreak(@RequestBody UpdateQuantityBreakRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3429,7 +4220,7 @@ public class ProductController {
      * <p>service: updateRelatedUrlContentForCategory  entities: ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/updateRelatedUrlContentForCategory")
-    public ResponseEntity<Map<String, Object>> updateRelatedUrlContentForCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateRelatedUrlContentForCategoryResponse> updateRelatedUrlContentForCategory(@RequestBody UpdateRelatedUrlContentForCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3439,7 +4230,7 @@ public class ProductController {
      * <p>service: updateShipmentMethodType  entities: ShipmentMethodType  auth: true
      */
     @PostMapping("/catalog/control/updateShipmentMethodType")
-    public ResponseEntity<Map<String, Object>> updateShipmentMethodType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentMethodTypeResponse> updateShipmentMethodType(@RequestBody UpdateShipmentMethodTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3449,7 +4240,7 @@ public class ProductController {
      * <p>service: updateShipmentTimeEstimate  entities: ShipmentTimeEstimate  auth: true
      */
     @PostMapping("/catalog/control/updateShipmentTimeEstimate")
-    public ResponseEntity<Map<String, Object>> updateShipmentTimeEstimate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentTimeEstimateResponse> updateShipmentTimeEstimate(@RequestBody UpdateShipmentTimeEstimateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3459,7 +4250,7 @@ public class ProductController {
      * <p>service: updateSimpleTextContentForCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/updateSimpleTextContentForCategory")
-    public ResponseEntity<Map<String, Object>> updateSimpleTextContentForCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSimpleTextContentForCategoryResponse> updateSimpleTextContentForCategory(@RequestBody UpdateSimpleTextContentForCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3469,7 +4260,7 @@ public class ProductController {
      * <p>service: updateSimpleTextContentForProduct  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/updateSimpleTextContentForProduct")
-    public ResponseEntity<Map<String, Object>> updateSimpleTextContentForProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSimpleTextContentForProductResponse> updateSimpleTextContentForProduct(@RequestBody UpdateSimpleTextContentForProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3479,7 +4270,7 @@ public class ProductController {
      * <p>service: updateSimpleTextContentForProductConfigItem  entities: ProdConfItemContent  auth: true
      */
     @PostMapping("/catalog/control/updateSimpleTextContentForProductConfigItem")
-    public ResponseEntity<Map<String, Object>> updateSimpleTextContentForProductConfigItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSimpleTextContentForProductConfigItemResponse> updateSimpleTextContentForProductConfigItem(@RequestBody UpdateSimpleTextContentForProductConfigItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3489,7 +4280,7 @@ public class ProductController {
      * <p>service: updateStatusImageManagement  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/updateStatusImageManagement")
-    public ResponseEntity<Map<String, Object>> updateStatusImageManagement(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateStatusImageManagementResponse> updateStatusImageManagement(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3499,7 +4290,7 @@ public class ProductController {
      * <p>service: updateSubscription  entities: Subscription  auth: true
      */
     @PostMapping("/catalog/control/updateSubscription")
-    public ResponseEntity<Map<String, Object>> updateSubscription(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSubscriptionResponse> updateSubscription(@RequestBody UpdateSubscriptionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3509,7 +4300,7 @@ public class ProductController {
      * <p>service: updateSubscriptionResource  entities: SubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/updateSubscriptionResource")
-    public ResponseEntity<Map<String, Object>> updateSubscriptionResource(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSubscriptionResourceResponse> updateSubscriptionResource(@RequestBody UpdateSubscriptionResourceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3519,7 +4310,7 @@ public class ProductController {
      * <p>service: updateSupplierProduct  entities: SupplierProduct  auth: true
      */
     @PostMapping("/catalog/control/updateSupplierProduct")
-    public ResponseEntity<Map<String, Object>> updateSupplierProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSupplierProductResponse> updateSupplierProduct(@RequestBody UpdateSupplierProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3529,7 +4320,7 @@ public class ProductController {
      * <p>service: updateSupplierProductFeature  entities: SupplierProductFeature  auth: true
      */
     @PostMapping("/catalog/control/updateSupplierProductFeature")
-    public ResponseEntity<Map<String, Object>> updateSupplierProductFeature(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSupplierProductFeatureResponse> updateSupplierProductFeature(@RequestBody UpdateSupplierProductFeatureRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3549,7 +4340,7 @@ public class ProductController {
      * <p>service: uploadFrame  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/uploadFrame")
-    public ResponseEntity<Map<String, Object>> uploadFrame(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UploadFrameResponse> uploadFrame(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3569,7 +4360,7 @@ public class ProductController {
      * <p>service: updateShipmentRouteSegment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/BatchScheduleShipmentRouteSegments")
-    public ResponseEntity<Map<String, Object>> updateShipmentRouteSegment(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateShipmentRouteSegmentResponse> updateShipmentRouteSegment(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3579,7 +4370,7 @@ public class ProductController {
      * <p>service: updateShipmentRouteSegment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/BatchUpdateShipmentRouteSegments")
-    public ResponseEntity<Map<String, Object>> updateShipmentRouteSegmentBatchUpdateShipmentRouteSegments(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateShipmentRouteSegmentResponse> updateShipmentRouteSegmentBatchUpdateShipmentRouteSegments(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3589,7 +4380,7 @@ public class ProductController {
      * <p>service: clearPackAll  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/ClearPackAll")
-    public ResponseEntity<Map<String, Object>> clearPackAll(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ClearPackAllResponse> clearPackAll(@RequestBody ClearPackAllRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3599,7 +4390,7 @@ public class ProductController {
      * <p>service: clearPackLine  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/ClearPackLine")
-    public ResponseEntity<Map<String, Object>> clearPackLine(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ClearPackLineResponse> clearPackLine(@RequestBody ClearPackLineRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3609,7 +4400,7 @@ public class ProductController {
      * <p>service: completePack  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/CompletePack")
-    public ResponseEntity<Map<String, Object>> completePack(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CompletePackResponse> completePack(@RequestBody CompletePackRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3619,7 +4410,7 @@ public class ProductController {
      * <p>service: updateInventoryTransfer  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/CompleteRequestedTransfers")
-    public ResponseEntity<Map<String, Object>> updateInventoryTransfer(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateInventoryTransferResponse> updateInventoryTransfer(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3629,7 +4420,7 @@ public class ProductController {
      * <p>service: createFacility  entities: Facility  auth: true
      */
     @PostMapping("/facility/control/CreateFacility")
-    public ResponseEntity<Map<String, Object>> createFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateFacilityResponse> createFacility(@RequestBody CreateFacilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3639,7 +4430,7 @@ public class ProductController {
      * <p>service: createFacilityLocation  entities: FacilityLocation  auth: true
      */
     @PostMapping("/facility/control/CreateFacilityLocation")
-    public ResponseEntity<Map<String, Object>> createFacilityLocation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateFacilityLocationResponse> createFacilityLocation(@RequestBody CreateFacilityLocationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3649,7 +4440,7 @@ public class ProductController {
      * <p>service: createInventoryItem  entities: InventoryItem  auth: true
      */
     @PostMapping("/facility/control/CreateInventoryItem")
-    public ResponseEntity<Map<String, Object>> createInventoryItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateInventoryItemResponse> createInventoryItem(@RequestBody CreateInventoryItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3659,7 +4450,7 @@ public class ProductController {
      * <p>service: createInventoryTransfer  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/CreateInventoryTransfer")
-    public ResponseEntity<Map<String, Object>> createInventoryTransfer(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateInventoryTransferResponse> createInventoryTransfer(@RequestBody CreateInventoryTransferRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3669,7 +4460,7 @@ public class ProductController {
      * <p>service: packBulkItems  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/ProcessBulkPackOrder")
-    public ResponseEntity<Map<String, Object>> packBulkItems(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PackBulkItemsResponse> packBulkItems(@RequestBody PackBulkItemsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3679,7 +4470,7 @@ public class ProductController {
      * <p>service: packSingleItem  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/ProcessPackOrder")
-    public ResponseEntity<Map<String, Object>> packSingleItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PackSingleItemResponse> packSingleItem(@RequestBody PackSingleItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3689,7 +4480,7 @@ public class ProductController {
      * <p>service: quickScheduleShipmentRouteSegment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/ScheduleShipmentsWithCarriers")
-    public ResponseEntity<Map<String, Object>> quickScheduleShipmentRouteSegment(@RequestParam Map<String, String> params) {
+    public ResponseEntity<QuickScheduleShipmentRouteSegmentResponse> quickScheduleShipmentRouteSegment(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3699,7 +4490,7 @@ public class ProductController {
      * <p>service: setNextPackageSeq  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/SetNextPackageSeq")
-    public ResponseEntity<Map<String, Object>> setNextPackageSeq(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SetNextPackageSeqResponse> setNextPackageSeq(@RequestBody SetNextPackageSeqRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3709,7 +4500,7 @@ public class ProductController {
      * <p>service: updateFacility  entities: Facility  auth: true
      */
     @PostMapping("/facility/control/UpdateFacility")
-    public ResponseEntity<Map<String, Object>> updateFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFacilityResponse> updateFacility(@RequestBody UpdateFacilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3719,7 +4510,7 @@ public class ProductController {
      * <p>service: updateFacilityLocation  entities: FacilityLocation  auth: true
      */
     @PostMapping("/facility/control/UpdateFacilityLocation")
-    public ResponseEntity<Map<String, Object>> updateFacilityLocation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFacilityLocationResponse> updateFacilityLocation(@RequestBody UpdateFacilityLocationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3729,7 +4520,7 @@ public class ProductController {
      * <p>service: updateInventoryItem  entities: InventoryItem  auth: true
      */
     @PostMapping("/facility/control/UpdateInventoryItem")
-    public ResponseEntity<Map<String, Object>> updateInventoryItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateInventoryItemResponse> updateInventoryItem(@RequestBody UpdateInventoryItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3739,7 +4530,7 @@ public class ProductController {
      * <p>service: updateInventoryTransfer  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/UpdateInventoryTransfer")
-    public ResponseEntity<Map<String, Object>> updateInventoryTransferUpdateInventoryTransfer(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateInventoryTransferResponse> updateInventoryTransferUpdateInventoryTransfer(@RequestBody UpdateInventoryTransferRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3749,7 +4540,7 @@ public class ProductController {
      * <p>service: updateShipmentGatewayConfig  entities: ShipmentGatewayConfig  auth: true
      */
     @PostMapping("/facility/control/UpdateShipmentGatewayConfig")
-    public ResponseEntity<Map<String, Object>> updateShipmentGatewayConfig(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentGatewayConfigResponse> updateShipmentGatewayConfig(@RequestBody UpdateShipmentGatewayConfigRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3759,7 +4550,7 @@ public class ProductController {
      * <p>service: updateShipmentGatewayConfigType  entities: ShipmentGatewayConfigType  auth: true
      */
     @PostMapping("/facility/control/UpdateShipmentGatewayConfigType")
-    public ResponseEntity<Map<String, Object>> updateShipmentGatewayConfigType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentGatewayConfigTypeResponse> updateShipmentGatewayConfigType(@RequestBody UpdateShipmentGatewayConfigTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3769,7 +4560,7 @@ public class ProductController {
      * <p>service: addFacilityGroupToGroup  entities: FacilityGroupRollup  auth: true
      */
     @PostMapping("/facility/control/addFacilityGroupToGroup")
-    public ResponseEntity<Map<String, Object>> addFacilityGroupToGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddFacilityGroupToGroupResponse> addFacilityGroupToGroup(@RequestBody AddFacilityGroupToGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3779,7 +4570,7 @@ public class ProductController {
      * <p>service: addFacilityToGroup  entities: FacilityGroupMember  auth: true
      */
     @PostMapping("/facility/control/addFacilityToGroup")
-    public ResponseEntity<Map<String, Object>> addFacilityToGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddFacilityToGroupResponse> addFacilityToGroup(@RequestBody AddFacilityToGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3789,7 +4580,7 @@ public class ProductController {
      * <p>service: addFacilityToGroup  entities: FacilityGroupMember  auth: true
      */
     @PostMapping("/facility/control/addGroupToFacility")
-    public ResponseEntity<Map<String, Object>> addFacilityToGroupAddGroupToFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddFacilityToGroupResponse> addFacilityToGroupAddGroupToFacility(@RequestBody AddFacilityToGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3799,7 +4590,7 @@ public class ProductController {
      * <p>service: addPartyToFacility  entities: FacilityParty  auth: true
      */
     @PostMapping("/facility/control/addPartyToFacility")
-    public ResponseEntity<Map<String, Object>> addPartyToFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddPartyToFacilityResponse> addPartyToFacility(@RequestBody AddPartyToFacilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3809,7 +4600,7 @@ public class ProductController {
      * <p>service: addPartyToFacilityGroup  entities: FacilityGroupRole  auth: true
      */
     @PostMapping("/facility/control/addPartyToFacilityGroup")
-    public ResponseEntity<Map<String, Object>> addPartyToFacilityGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddPartyToFacilityGroupResponse> addPartyToFacilityGroup(@RequestBody AddPartyToFacilityGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3819,7 +4610,7 @@ public class ProductController {
      * <p>service: addOrderShipmentToShipment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/addToShipmentPlan")
-    public ResponseEntity<Map<String, Object>> addOrderShipmentToShipment(@RequestParam Map<String, String> params) {
+    public ResponseEntity<AddOrderShipmentToShipmentResponse> addOrderShipmentToShipment(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3829,7 +4620,7 @@ public class ProductController {
      * <p>service: calcPackSessionAdditionalShippingCharge  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/calcPackSessionAdditionalShippingCharge")
-    public ResponseEntity<Map<String, Object>> calcPackSessionAdditionalShippingCharge(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CalcPackSessionAdditionalShippingChargeResponse> calcPackSessionAdditionalShippingCharge(@RequestBody CalcPackSessionAdditionalShippingChargeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3839,7 +4630,7 @@ public class ProductController {
      * <p>service: cancelAllRows  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/cancelAllRows")
-    public ResponseEntity<Map<String, Object>> cancelAllRows(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CancelAllRowsResponse> cancelAllRows(@RequestBody CancelAllRowsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3849,7 +4640,7 @@ public class ProductController {
      * <p>service: cancelReceivedItems  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/cancelReceivedItems")
-    public ResponseEntity<Map<String, Object>> cancelReceivedItems(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CancelReceivedItemsResponse> cancelReceivedItems(@RequestBody CancelReceivedItemsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3869,7 +4660,7 @@ public class ProductController {
      * <p>service: completePackage  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/completePackage")
-    public ResponseEntity<Map<String, Object>> completePackage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CompletePackageResponse> completePackage(@RequestBody CompletePackageRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3889,7 +4680,7 @@ public class ProductController {
      * <p>service: completeVerifiedPick  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/completeVerifiedPick")
-    public ResponseEntity<Map<String, Object>> completeVerifiedPick(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CompleteVerifiedPickResponse> completeVerifiedPick(@RequestBody CompleteVerifiedPickRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3899,7 +4690,7 @@ public class ProductController {
      * <p>service: createFacilityContactMech  entities: ContactMech, FacilityContactMech  auth: true
      */
     @PostMapping("/facility/control/createContactMech")
-    public ResponseEntity<Map<String, Object>> createFacilityContactMech(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateFacilityContactMechResponse> createFacilityContactMech(@RequestBody CreateFacilityContactMechRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3909,7 +4700,7 @@ public class ProductController {
      * <p>service: createFacilityEmailAddress  entities: ContactMech, FacilityContactMech  auth: true
      */
     @PostMapping("/facility/control/createEmailAddress")
-    public ResponseEntity<Map<String, Object>> createFacilityEmailAddress(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateFacilityEmailAddressResponse> createFacilityEmailAddress(@RequestBody CreateFacilityEmailAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3919,7 +4710,7 @@ public class ProductController {
      * <p>service: createFacilityContactMechPurpose  entities: FacilityContactMechPurpose  auth: true
      */
     @PostMapping("/facility/control/createFacilityContactMechPurpose")
-    public ResponseEntity<Map<String, Object>> createFacilityContactMechPurpose(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateFacilityContactMechPurposeResponse> createFacilityContactMechPurpose(@RequestBody CreateFacilityContactMechPurposeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3929,7 +4720,7 @@ public class ProductController {
      * <p>service: createFacilityContent  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/createFacilityContent")
-    public ResponseEntity<Map<String, Object>> createFacilityContent(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateFacilityContentResponse> createFacilityContent(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3939,7 +4730,7 @@ public class ProductController {
      * <p>service: createFacilityGroup  entities: FacilityGroup  auth: true
      */
     @PostMapping("/facility/control/createFacilityGroup")
-    public ResponseEntity<Map<String, Object>> createFacilityGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateFacilityGroupResponse> createFacilityGroup(@RequestBody CreateFacilityGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3949,7 +4740,7 @@ public class ProductController {
      * <p>service: createInventoryItemLabel  entities: InventoryItemLabel  auth: true
      */
     @PostMapping("/facility/control/createInventoryItemLabel")
-    public ResponseEntity<Map<String, Object>> createInventoryItemLabel(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateInventoryItemLabelResponse> createInventoryItemLabel(@RequestBody CreateInventoryItemLabelRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3959,7 +4750,7 @@ public class ProductController {
      * <p>service: createInventoryItemLabelAppl  entities: InventoryItemLabelAppl  auth: true
      */
     @PostMapping("/facility/control/createInventoryItemLabelAppl")
-    public ResponseEntity<Map<String, Object>> createInventoryItemLabelAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateInventoryItemLabelApplResponse> createInventoryItemLabelAppl(@RequestBody CreateInventoryItemLabelApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3969,7 +4760,7 @@ public class ProductController {
      * <p>service: createInventoryItemLabelAppl  entities: InventoryItemLabelAppl  auth: true
      */
     @PostMapping("/facility/control/createInventoryItemLabelApplFromItem")
-    public ResponseEntity<Map<String, Object>> createInventoryItemLabelApplCreateInventoryItemLabelApplFromItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateInventoryItemLabelApplResponse> createInventoryItemLabelApplCreateInventoryItemLabelApplFromItem(@RequestBody CreateInventoryItemLabelApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3979,7 +4770,7 @@ public class ProductController {
      * <p>service: createInventoryItemLabelType  entities: InventoryItemLabelType  auth: true
      */
     @PostMapping("/facility/control/createInventoryItemLabelType")
-    public ResponseEntity<Map<String, Object>> createInventoryItemLabelType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateInventoryItemLabelTypeResponse> createInventoryItemLabelType(@RequestBody CreateInventoryItemLabelTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3989,7 +4780,7 @@ public class ProductController {
      * <p>service: createInventoryTransfersForProduct  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/createInventoryTransfersForProduct")
-    public ResponseEntity<Map<String, Object>> createInventoryTransfersForProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateInventoryTransfersForProductResponse> createInventoryTransfersForProduct(@RequestBody CreateInventoryTransfersForProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -3999,7 +4790,7 @@ public class ProductController {
      * <p>service: createPhysicalInventoryAndVariance  entities: InventoryItemVariance, PhysicalInventory  auth: true
      */
     @PostMapping("/facility/control/createPhysicalInventoryAndVariance")
-    public ResponseEntity<Map<String, Object>> createPhysicalInventoryAndVariance(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePhysicalInventoryAndVarianceResponse> createPhysicalInventoryAndVariance(@RequestBody CreatePhysicalInventoryAndVarianceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4009,7 +4800,7 @@ public class ProductController {
      * <p>service: createPhysicalInventoryAndVariance  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/createPhysicalVariances")
-    public ResponseEntity<Map<String, Object>> createPhysicalInventoryAndVarianceCreatePhysicalVariances(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreatePhysicalInventoryAndVarianceResponse> createPhysicalInventoryAndVarianceCreatePhysicalVariances(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4019,7 +4810,7 @@ public class ProductController {
      * <p>service: createPicklistFromOrders  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/createPicklistFromOrders")
-    public ResponseEntity<Map<String, Object>> createPicklistFromOrders(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePicklistFromOrdersResponse> createPicklistFromOrders(@RequestBody CreatePicklistFromOrdersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4029,7 +4820,7 @@ public class ProductController {
      * <p>service: createPicklistRole  entities: PicklistRole  auth: true
      */
     @PostMapping("/facility/control/createPicklistRole")
-    public ResponseEntity<Map<String, Object>> createPicklistRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePicklistRoleResponse> createPicklistRole(@RequestBody CreatePicklistRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4039,7 +4830,7 @@ public class ProductController {
      * <p>service: createFacilityPostalAddress  entities: FacilityContactMech, PostalAddress  auth: true
      */
     @PostMapping("/facility/control/createPostalAddress")
-    public ResponseEntity<Map<String, Object>> createFacilityPostalAddress(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateFacilityPostalAddressResponse> createFacilityPostalAddress(@RequestBody CreateFacilityPostalAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4049,7 +4840,7 @@ public class ProductController {
      * <p>service: createFacilityPostalAddress  entities: FacilityContactMech, PostalAddress  auth: true
      */
     @PostMapping("/facility/control/createPostalAddressAndPurpose")
-    public ResponseEntity<Map<String, Object>> createFacilityPostalAddressCreatePostalAddressAndPurpose(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateFacilityPostalAddressResponse> createFacilityPostalAddressCreatePostalAddressAndPurpose(@RequestBody CreateFacilityPostalAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4059,7 +4850,7 @@ public class ProductController {
      * <p>service: createProductFacilityLocation  entities: ProductFacilityLocation  auth: true
      */
     @PostMapping("/facility/control/createProductFacilityLocation")
-    public ResponseEntity<Map<String, Object>> createProductFacilityLocationCreateProductFacilityLocation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateProductFacilityLocationResponse> createProductFacilityLocationCreateProductFacilityLocation(@RequestBody CreateProductFacilityLocationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4069,7 +4860,7 @@ public class ProductController {
      * <p>service: quickShipEntireOrder  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/createQuickShipment")
-    public ResponseEntity<Map<String, Object>> quickShipEntireOrder(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<QuickShipEntireOrderResponse> quickShipEntireOrder(@RequestBody QuickShipEntireOrderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4079,7 +4870,7 @@ public class ProductController {
      * <p>service: createShipmentPackageRouteSeg  entities: ShipmentPackageRouteSeg  auth: true
      */
     @PostMapping("/facility/control/createRouteSegmentShipmentPackage")
-    public ResponseEntity<Map<String, Object>> createShipmentPackageRouteSeg(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateShipmentPackageRouteSegResponse> createShipmentPackageRouteSeg(@RequestBody CreateShipmentPackageRouteSegRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4089,7 +4880,7 @@ public class ProductController {
      * <p>service: createShipment  entities: Shipment  auth: true
      */
     @PostMapping("/facility/control/createShipment")
-    public ResponseEntity<Map<String, Object>> createShipment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateShipmentResponse> createShipment(@RequestBody CreateShipmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4099,7 +4890,7 @@ public class ProductController {
      * <p>service: createShipmentAndItemsForVendorReturn  entities: Shipment  auth: true
      */
     @PostMapping("/facility/control/createShipmentAndItemsForVendorReturn")
-    public ResponseEntity<Map<String, Object>> createShipmentAndItemsForVendorReturn(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateShipmentAndItemsForVendorReturnResponse> createShipmentAndItemsForVendorReturn(@RequestBody CreateShipmentAndItemsForVendorReturnRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4109,7 +4900,7 @@ public class ProductController {
      * <p>service: createShipmentItem  entities: ShipmentItem  auth: true
      */
     @PostMapping("/facility/control/createShipmentItem")
-    public ResponseEntity<Map<String, Object>> createShipmentItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateShipmentItemResponse> createShipmentItem(@RequestBody CreateShipmentItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4119,7 +4910,7 @@ public class ProductController {
      * <p>service: createShipmentPackageContent  entities: ShipmentPackageContent  auth: true
      */
     @PostMapping("/facility/control/createShipmentItemPackageContent")
-    public ResponseEntity<Map<String, Object>> createShipmentPackageContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateShipmentPackageContentResponse> createShipmentPackageContent(@RequestBody CreateShipmentPackageContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4129,7 +4920,7 @@ public class ProductController {
      * <p>service: createShipmentPackage  entities: ShipmentPackage  auth: true
      */
     @PostMapping("/facility/control/createShipmentPackage")
-    public ResponseEntity<Map<String, Object>> createShipmentPackage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateShipmentPackageResponse> createShipmentPackage(@RequestBody CreateShipmentPackageRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4139,7 +4930,7 @@ public class ProductController {
      * <p>service: createShipmentPackageContent  entities: ShipmentPackageContent  auth: true
      */
     @PostMapping("/facility/control/createShipmentPackageContent")
-    public ResponseEntity<Map<String, Object>> createShipmentPackageContentCreateShipmentPackageContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateShipmentPackageContentResponse> createShipmentPackageContentCreateShipmentPackageContent(@RequestBody CreateShipmentPackageContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4149,7 +4940,7 @@ public class ProductController {
      * <p>service: createShipmentPackageRouteSeg  entities: ShipmentPackageRouteSeg  auth: true
      */
     @PostMapping("/facility/control/createShipmentPackageRouteSeg")
-    public ResponseEntity<Map<String, Object>> createShipmentPackageRouteSegCreateShipmentPackageRouteSeg(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateShipmentPackageRouteSegResponse> createShipmentPackageRouteSegCreateShipmentPackageRouteSeg(@RequestBody CreateShipmentPackageRouteSegRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4159,7 +4950,7 @@ public class ProductController {
      * <p>service: createShipmentRouteSegment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/createShipmentRouteSegment")
-    public ResponseEntity<Map<String, Object>> createShipmentRouteSegment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateShipmentRouteSegmentResponse> createShipmentRouteSegment(@RequestBody CreateShipmentRouteSegmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4169,7 +4960,7 @@ public class ProductController {
      * <p>service: createFacilityTelecomNumber  entities: FacilityContactMech, TelecomNumber  auth: true
      */
     @PostMapping("/facility/control/createTelecomNumber")
-    public ResponseEntity<Map<String, Object>> createFacilityTelecomNumber(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateFacilityTelecomNumberResponse> createFacilityTelecomNumber(@RequestBody CreateFacilityTelecomNumberRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4179,7 +4970,7 @@ public class ProductController {
      * <p>service: createUpdateFacilityGeoPoint  entities: GeoPoint  auth: true
      */
     @PostMapping("/facility/control/createUpdateFacilityGeoPoint")
-    public ResponseEntity<Map<String, Object>> createUpdateFacilityGeoPoint(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateUpdateFacilityGeoPointResponse> createUpdateFacilityGeoPoint(@RequestBody CreateUpdateFacilityGeoPointRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4189,7 +4980,7 @@ public class ProductController {
      * <p>service: deleteFacilityContactMech  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/deleteContactMech")
-    public ResponseEntity<Map<String, Object>> deleteFacilityContactMech(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteFacilityContactMechResponse> deleteFacilityContactMech(@RequestBody DeleteFacilityContactMechRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4199,7 +4990,7 @@ public class ProductController {
      * <p>service: deleteFacilityContactMechPurpose  entities: FacilityContactMechPurpose  auth: true
      */
     @PostMapping("/facility/control/deleteFacilityContactMechPurpose")
-    public ResponseEntity<Map<String, Object>> deleteFacilityContactMechPurpose(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteFacilityContactMechPurposeResponse> deleteFacilityContactMechPurpose(@RequestBody DeleteFacilityContactMechPurposeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4209,7 +5000,7 @@ public class ProductController {
      * <p>service: deleteFacilityContent  entities: FacilityContent  auth: true
      */
     @PostMapping("/facility/control/deleteFacilityContent")
-    public ResponseEntity<Map<String, Object>> deleteFacilityContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteFacilityContentResponse> deleteFacilityContent(@RequestBody DeleteFacilityContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4219,7 +5010,7 @@ public class ProductController {
      * <p>service: deleteInventoryItemLabel  entities: InventoryItemLabel  auth: true
      */
     @PostMapping("/facility/control/deleteInventoryItemLabel")
-    public ResponseEntity<Map<String, Object>> deleteInventoryItemLabel(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteInventoryItemLabelResponse> deleteInventoryItemLabel(@RequestBody DeleteInventoryItemLabelRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4229,7 +5020,7 @@ public class ProductController {
      * <p>service: deleteInventoryItemLabelAppl  entities: InventoryItemLabelAppl  auth: true
      */
     @PostMapping("/facility/control/deleteInventoryItemLabelAppl")
-    public ResponseEntity<Map<String, Object>> deleteInventoryItemLabelAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteInventoryItemLabelApplResponse> deleteInventoryItemLabelAppl(@RequestBody DeleteInventoryItemLabelApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4239,7 +5030,7 @@ public class ProductController {
      * <p>service: deleteInventoryItemLabelAppl  entities: InventoryItemLabelAppl  auth: true
      */
     @PostMapping("/facility/control/deleteInventoryItemLabelApplFromItem")
-    public ResponseEntity<Map<String, Object>> deleteInventoryItemLabelApplDeleteInventoryItemLabelApplFromItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteInventoryItemLabelApplResponse> deleteInventoryItemLabelApplDeleteInventoryItemLabelApplFromItem(@RequestBody DeleteInventoryItemLabelApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4249,7 +5040,7 @@ public class ProductController {
      * <p>service: deleteInventoryItemLabelType  entities: InventoryItemLabelType  auth: true
      */
     @PostMapping("/facility/control/deleteInventoryItemLabelType")
-    public ResponseEntity<Map<String, Object>> deleteInventoryItemLabelType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteInventoryItemLabelTypeResponse> deleteInventoryItemLabelType(@RequestBody DeleteInventoryItemLabelTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4259,7 +5050,7 @@ public class ProductController {
      * <p>service: deletePackedLine  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/deletePackedLine")
-    public ResponseEntity<Map<String, Object>> deletePackedLine(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePackedLineResponse> deletePackedLine(@RequestBody DeletePackedLineRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4269,7 +5060,7 @@ public class ProductController {
      * <p>service: deletePicklistBin  entities: PicklistBin  auth: true
      */
     @PostMapping("/facility/control/deletePicklistBin")
-    public ResponseEntity<Map<String, Object>> deletePicklistBin(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePicklistBinResponse> deletePicklistBin(@RequestBody DeletePicklistBinRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4279,7 +5070,7 @@ public class ProductController {
      * <p>service: deletePicklistItem  entities: PicklistItem  auth: true
      */
     @PostMapping("/facility/control/deletePicklistItem")
-    public ResponseEntity<Map<String, Object>> deletePicklistItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePicklistItemResponse> deletePicklistItem(@RequestBody DeletePicklistItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4289,7 +5080,7 @@ public class ProductController {
      * <p>service: deleteProductFacilityLocation  entities: ProductFacilityLocation  auth: true
      */
     @PostMapping("/facility/control/deleteProductFacilityLocation")
-    public ResponseEntity<Map<String, Object>> deleteProductFacilityLocationDeleteProductFacilityLocation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteProductFacilityLocationResponse> deleteProductFacilityLocationDeleteProductFacilityLocation(@RequestBody DeleteProductFacilityLocationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4299,7 +5090,7 @@ public class ProductController {
      * <p>service: deleteShipmentPackageRouteSeg  entities: ShipmentPackageRouteSeg  auth: true
      */
     @PostMapping("/facility/control/deleteRouteSegmentShipmentPackage")
-    public ResponseEntity<Map<String, Object>> deleteShipmentPackageRouteSeg(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteShipmentPackageRouteSegResponse> deleteShipmentPackageRouteSeg(@RequestBody DeleteShipmentPackageRouteSegRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4309,7 +5100,7 @@ public class ProductController {
      * <p>service: deleteShipmentItem  entities: ShipmentItem  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentItem")
-    public ResponseEntity<Map<String, Object>> deleteShipmentItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteShipmentItemResponse> deleteShipmentItem(@RequestBody DeleteShipmentItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4319,7 +5110,7 @@ public class ProductController {
      * <p>service: deleteItemIssuance  entities: ItemIssuance  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentItemIssuance")
-    public ResponseEntity<Map<String, Object>> deleteItemIssuance(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteItemIssuanceResponse> deleteItemIssuance(@RequestBody DeleteItemIssuanceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4329,7 +5120,7 @@ public class ProductController {
      * <p>service: deleteShipmentPackageContent  entities: ShipmentPackageContent  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentItemPackageContent")
-    public ResponseEntity<Map<String, Object>> deleteShipmentPackageContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteShipmentPackageContentResponse> deleteShipmentPackageContent(@RequestBody DeleteShipmentPackageContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4339,7 +5130,7 @@ public class ProductController {
      * <p>service: deleteShipmentPackage  entities: ShipmentPackage  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentPackage")
-    public ResponseEntity<Map<String, Object>> deleteShipmentPackage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteShipmentPackageResponse> deleteShipmentPackage(@RequestBody DeleteShipmentPackageRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4349,7 +5140,7 @@ public class ProductController {
      * <p>service: deleteShipmentPackageContent  entities: ShipmentPackageContent  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentPackageContent")
-    public ResponseEntity<Map<String, Object>> deleteShipmentPackageContentDeleteShipmentPackageContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteShipmentPackageContentResponse> deleteShipmentPackageContentDeleteShipmentPackageContent(@RequestBody DeleteShipmentPackageContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4359,7 +5150,7 @@ public class ProductController {
      * <p>service: deleteShipmentPackageRouteSeg  entities: ShipmentPackageRouteSeg  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentPackageRouteSeg")
-    public ResponseEntity<Map<String, Object>> deleteShipmentPackageRouteSegDeleteShipmentPackageRouteSeg(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteShipmentPackageRouteSegResponse> deleteShipmentPackageRouteSegDeleteShipmentPackageRouteSeg(@RequestBody DeleteShipmentPackageRouteSegRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4369,7 +5160,7 @@ public class ProductController {
      * <p>service: deleteShipmentRouteSegment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentRouteSegment")
-    public ResponseEntity<Map<String, Object>> deleteShipmentRouteSegment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteShipmentRouteSegmentResponse> deleteShipmentRouteSegment(@RequestBody DeleteShipmentRouteSegmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4379,7 +5170,7 @@ public class ProductController {
      * <p>service: dhlShipmentConfirm  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/dhlShipmentConfirm")
-    public ResponseEntity<Map<String, Object>> dhlShipmentConfirm(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DhlShipmentConfirmResponse> dhlShipmentConfirm(@RequestBody DhlShipmentConfirmRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4389,7 +5180,7 @@ public class ProductController {
      * <p>service: duplicateShipmentRouteSegment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/duplicateShipmentRouteSegment")
-    public ResponseEntity<Map<String, Object>> duplicateShipmentRouteSegment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DuplicateShipmentRouteSegmentResponse> duplicateShipmentRouteSegment(@RequestBody DuplicateShipmentRouteSegmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4399,7 +5190,7 @@ public class ProductController {
      * <p>service: editPicklistItem  entities: PicklistItem  auth: true
      */
     @PostMapping("/facility/control/editPicklistItem")
-    public ResponseEntity<Map<String, Object>> editPicklistItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<EditPicklistItemResponse> editPicklistItem(@RequestBody EditPicklistItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4409,7 +5200,7 @@ public class ProductController {
      * <p>service: fedexShipRequest  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/fedexShipmentConfirm")
-    public ResponseEntity<Map<String, Object>> fedexShipRequest(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<FedexShipRequestResponse> fedexShipRequest(@RequestBody FedexShipRequestRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4429,7 +5220,7 @@ public class ProductController {
      * <p>service: issueInventoryItemToShipment  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/issueInventoryItemToShipment")
-    public ResponseEntity<Map<String, Object>> issueInventoryItemToShipment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<IssueInventoryItemToShipmentResponse> issueInventoryItemToShipment(@RequestBody IssueInventoryItemToShipmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4439,7 +5230,7 @@ public class ProductController {
      * <p>service: issueOrderItemShipGrpInvResToShipment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/issueOrderItemShipGrpInvResToShipment")
-    public ResponseEntity<Map<String, Object>> issueOrderItemShipGrpInvResToShipment(@RequestParam Map<String, String> params) {
+    public ResponseEntity<IssueOrderItemShipGrpInvResToShipmentResponse> issueOrderItemShipGrpInvResToShipment(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4449,7 +5240,7 @@ public class ProductController {
      * <p>service: issueOrderItemToShipment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/issueOrderItemToShipment")
-    public ResponseEntity<Map<String, Object>> issueOrderItemToShipment(@RequestParam Map<String, String> params) {
+    public ResponseEntity<IssueOrderItemToShipmentResponse> issueOrderItemToShipment(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4459,7 +5250,7 @@ public class ProductController {
      * <p>service: issueOrderItemToShipment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/issueOrderItemToShipmentAndReceiveAgainstPO")
-    public ResponseEntity<Map<String, Object>> issueOrderItemToShipmentIssueOrderItemToShipmentAndReceiveAgainstPO(@RequestParam Map<String, String> params) {
+    public ResponseEntity<IssueOrderItemToShipmentResponse> issueOrderItemToShipmentIssueOrderItemToShipmentAndReceiveAgainstPO(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4469,7 +5260,7 @@ public class ProductController {
      * <p>service: printPickSheets  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/printPickSheets")
-    public ResponseEntity<Map<String, Object>> printPickSheets(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PrintPickSheetsResponse> printPickSheets(@RequestBody PrintPickSheetsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4479,7 +5270,7 @@ public class ProductController {
      * <p>service: verifyBulkItem  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/processBulkVerifyPick")
-    public ResponseEntity<Map<String, Object>> verifyBulkItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<VerifyBulkItemResponse> verifyBulkItem(@RequestBody VerifyBulkItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4489,7 +5280,7 @@ public class ProductController {
      * <p>service: processPhysicalStockMove  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/processPhysicalStockMove")
-    public ResponseEntity<Map<String, Object>> processPhysicalStockMove(@RequestParam Map<String, String> params) {
+    public ResponseEntity<ProcessPhysicalStockMoveResponse> processPhysicalStockMove(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4499,7 +5290,7 @@ public class ProductController {
      * <p>service: processPhysicalStockMove  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/processQuickStockMove")
-    public ResponseEntity<Map<String, Object>> processPhysicalStockMoveProcessQuickStockMove(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ProcessPhysicalStockMoveResponse> processPhysicalStockMoveProcessQuickStockMove(@RequestBody ProcessPhysicalStockMoveRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4509,7 +5300,7 @@ public class ProductController {
      * <p>service: verifySingleItem  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/processVerifyPick")
-    public ResponseEntity<Map<String, Object>> verifySingleItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<VerifySingleItemResponse> verifySingleItem(@RequestBody VerifySingleItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4519,7 +5310,7 @@ public class ProductController {
      * <p>service: dhlShipmentConfirm  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/quickDhlConfirm")
-    public ResponseEntity<Map<String, Object>> dhlShipmentConfirmQuickDhlConfirm(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DhlShipmentConfirmResponse> dhlShipmentConfirmQuickDhlConfirm(@RequestBody DhlShipmentConfirmRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4529,7 +5320,7 @@ public class ProductController {
      * <p>service: quickReceivePurchaseOrder  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/quickReceivePurchaseOrder")
-    public ResponseEntity<Map<String, Object>> quickReceivePurchaseOrder(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<QuickReceivePurchaseOrderResponse> quickReceivePurchaseOrder(@RequestBody QuickReceivePurchaseOrderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4539,7 +5330,7 @@ public class ProductController {
      * <p>service: upsShipmentAccept  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/quickUpsAccept")
-    public ResponseEntity<Map<String, Object>> upsShipmentAccept(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpsShipmentAcceptResponse> upsShipmentAccept(@RequestBody UpsShipmentAcceptRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4549,7 +5340,7 @@ public class ProductController {
      * <p>service: upsShipmentConfirm  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/quickUpsConfirm")
-    public ResponseEntity<Map<String, Object>> upsShipmentConfirm(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpsShipmentConfirmResponse> upsShipmentConfirm(@RequestBody UpsShipmentConfirmRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4559,7 +5350,7 @@ public class ProductController {
      * <p>service: receiveInventoryProduct  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/receiveInventoryProduct")
-    public ResponseEntity<Map<String, Object>> receiveInventoryProduct(@RequestParam Map<String, String> params) {
+    public ResponseEntity<ReceiveInventoryProductResponse> receiveInventoryProduct(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4569,7 +5360,7 @@ public class ProductController {
      * <p>service: receiveInventoryProduct  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/receiveInventoryProductsFromShipment")
-    public ResponseEntity<Map<String, Object>> receiveInventoryProductReceiveInventoryProductsFromShipment(@RequestParam Map<String, String> params) {
+    public ResponseEntity<ReceiveInventoryProductResponse> receiveInventoryProductReceiveInventoryProductsFromShipment(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4579,7 +5370,7 @@ public class ProductController {
      * <p>service: receiveInventoryProduct  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/receiveReturnedProduct")
-    public ResponseEntity<Map<String, Object>> receiveInventoryProductReceiveReturnedProduct(@RequestParam Map<String, String> params) {
+    public ResponseEntity<ReceiveInventoryProductResponse> receiveInventoryProductReceiveReturnedProduct(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4589,7 +5380,7 @@ public class ProductController {
      * <p>service: receiveInventoryProduct  entities: InventoryItem, InventoryItemDetail, ShipmentReceipt  auth: true
      */
     @PostMapping("/facility/control/receiveSingleInventoryProduct")
-    public ResponseEntity<Map<String, Object>> receiveInventoryProductReceiveSingleInventoryProduct(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ReceiveInventoryProductResponse> receiveInventoryProductReceiveSingleInventoryProduct(@RequestBody ReceiveInventoryProductRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4599,7 +5390,7 @@ public class ProductController {
      * <p>service: removeFacilityFromGroup  entities: FacilityGroupMember  auth: true
      */
     @PostMapping("/facility/control/removeFacilityFromGroup")
-    public ResponseEntity<Map<String, Object>> removeFacilityFromGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveFacilityFromGroupResponse> removeFacilityFromGroup(@RequestBody RemoveFacilityFromGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4609,7 +5400,7 @@ public class ProductController {
      * <p>service: removeFacilityGroupFromGroup  entities: FacilityGroupRollup  auth: true
      */
     @PostMapping("/facility/control/removeFacilityGroupFromGroup")
-    public ResponseEntity<Map<String, Object>> removeFacilityGroupFromGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveFacilityGroupFromGroupResponse> removeFacilityGroupFromGroup(@RequestBody RemoveFacilityGroupFromGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4619,7 +5410,7 @@ public class ProductController {
      * <p>service: removeFacilityFromGroup  entities: FacilityGroupMember  auth: true
      */
     @PostMapping("/facility/control/removeGroupFromFacility")
-    public ResponseEntity<Map<String, Object>> removeFacilityFromGroupRemoveGroupFromFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveFacilityFromGroupResponse> removeFacilityFromGroupRemoveGroupFromFacility(@RequestBody RemoveFacilityFromGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4629,7 +5420,7 @@ public class ProductController {
      * <p>service: removeOrderShipmentFromShipment  entities: OrderShipment  auth: true
      */
     @PostMapping("/facility/control/removeOrderShipmentFromShipment")
-    public ResponseEntity<Map<String, Object>> removeOrderShipmentFromShipment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveOrderShipmentFromShipmentResponse> removeOrderShipmentFromShipment(@RequestBody RemoveOrderShipmentFromShipmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4639,7 +5430,7 @@ public class ProductController {
      * <p>service: removePartyFromFacility  entities: FacilityParty  auth: true
      */
     @PostMapping("/facility/control/removePartyFromFacility")
-    public ResponseEntity<Map<String, Object>> removePartyFromFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemovePartyFromFacilityResponse> removePartyFromFacility(@RequestBody RemovePartyFromFacilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4649,7 +5440,7 @@ public class ProductController {
      * <p>service: removePartyFromFacilityGroup  entities: FacilityGroupRole  auth: true
      */
     @PostMapping("/facility/control/removePartyFromFacilityGroup")
-    public ResponseEntity<Map<String, Object>> removePartyFromFacilityGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemovePartyFromFacilityGroupResponse> removePartyFromFacilityGroup(@RequestBody RemovePartyFromFacilityGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4659,7 +5450,7 @@ public class ProductController {
      * <p>service: savePackagesInfo  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/savePackagesInfo")
-    public ResponseEntity<Map<String, Object>> savePackagesInfo(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SavePackagesInfoResponse> savePackagesInfo(@RequestBody SavePackagesInfoRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4669,7 +5460,7 @@ public class ProductController {
      * <p>service: setPackageInfo  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/setPackageInfo")
-    public ResponseEntity<Map<String, Object>> setPackageInfo(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SetPackageInfoResponse> setPackageInfo(@RequestBody SetPackageInfoRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4679,7 +5470,7 @@ public class ProductController {
      * <p>service: updateShipmentPackage  entities: ShipmentPackage  auth: true
      */
     @PostMapping("/facility/control/setQuickPackageWeight")
-    public ResponseEntity<Map<String, Object>> updateShipmentPackage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentPackageResponse> updateShipmentPackage(@RequestBody UpdateShipmentPackageRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4689,7 +5480,7 @@ public class ProductController {
      * <p>service: updateShipmentRouteSegment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/setQuickRouteInfo")
-    public ResponseEntity<Map<String, Object>> updateShipmentRouteSegmentSetQuickRouteInfo(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentRouteSegmentResponse> updateShipmentRouteSegmentSetQuickRouteInfo(@RequestBody UpdateShipmentRouteSegmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4699,7 +5490,7 @@ public class ProductController {
      * <p>service: setShipmentSettingsFromPrimaryOrder  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/setShipmentSettingsFromPrimaryOrder")
-    public ResponseEntity<Map<String, Object>> setShipmentSettingsFromPrimaryOrder(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SetShipmentSettingsFromPrimaryOrderResponse> setShipmentSettingsFromPrimaryOrder(@RequestBody SetShipmentSettingsFromPrimaryOrderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4709,7 +5500,7 @@ public class ProductController {
      * <p>service: completeShipment  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/shipNow")
-    public ResponseEntity<Map<String, Object>> completeShipment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CompleteShipmentResponse> completeShipment(@RequestBody CompleteShipmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4719,7 +5510,7 @@ public class ProductController {
      * <p>service: updateFacilityContactMech  entities: FacilityContactMech  auth: true
      */
     @PostMapping("/facility/control/updateContactMech")
-    public ResponseEntity<Map<String, Object>> updateFacilityContactMech(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFacilityContactMechResponse> updateFacilityContactMech(@RequestBody UpdateFacilityContactMechRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4729,7 +5520,7 @@ public class ProductController {
      * <p>service: updateFacilityEmailAddress  entities: FacilityContactMech  auth: true
      */
     @PostMapping("/facility/control/updateEmailAddress")
-    public ResponseEntity<Map<String, Object>> updateFacilityEmailAddress(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFacilityEmailAddressResponse> updateFacilityEmailAddress(@RequestBody UpdateFacilityEmailAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4739,7 +5530,7 @@ public class ProductController {
      * <p>service: updateFacilityGroup  entities: FacilityGroup  auth: true
      */
     @PostMapping("/facility/control/updateFacilityGroup")
-    public ResponseEntity<Map<String, Object>> updateFacilityGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFacilityGroupResponse> updateFacilityGroup(@RequestBody UpdateFacilityGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4749,7 +5540,7 @@ public class ProductController {
      * <p>service: updateFacilityGroupToGroup  entities: FacilityGroupRollup  auth: true
      */
     @PostMapping("/facility/control/updateFacilityGroupToGroup")
-    public ResponseEntity<Map<String, Object>> updateFacilityGroupToGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFacilityGroupToGroupResponse> updateFacilityGroupToGroup(@RequestBody UpdateFacilityGroupToGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4759,7 +5550,7 @@ public class ProductController {
      * <p>service: updateFacilityParty  entities: FacilityParty  auth: true
      */
     @PostMapping("/facility/control/updateFacilityParty")
-    public ResponseEntity<Map<String, Object>> updateFacilityParty(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFacilityPartyResponse> updateFacilityParty(@RequestBody UpdateFacilityPartyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4769,7 +5560,7 @@ public class ProductController {
      * <p>service: updateFacilityToGroup  entities: FacilityGroupMember  auth: true
      */
     @PostMapping("/facility/control/updateFacilityToGroup")
-    public ResponseEntity<Map<String, Object>> updateFacilityToGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFacilityToGroupResponse> updateFacilityToGroup(@RequestBody UpdateFacilityToGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4779,7 +5570,7 @@ public class ProductController {
      * <p>service: updateFacilityToGroup  entities: FacilityGroupMember  auth: true
      */
     @PostMapping("/facility/control/updateGroupToFacility")
-    public ResponseEntity<Map<String, Object>> updateFacilityToGroupUpdateGroupToFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFacilityToGroupResponse> updateFacilityToGroupUpdateGroupToFacility(@RequestBody UpdateFacilityToGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4789,7 +5580,7 @@ public class ProductController {
      * <p>service: updateInventoryItemLabel  entities: InventoryItemLabel  auth: true
      */
     @PostMapping("/facility/control/updateInventoryItemLabel")
-    public ResponseEntity<Map<String, Object>> updateInventoryItemLabel(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateInventoryItemLabelResponse> updateInventoryItemLabel(@RequestBody UpdateInventoryItemLabelRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4799,7 +5590,7 @@ public class ProductController {
      * <p>service: updateInventoryItemLabelAppl  entities: InventoryItemLabelAppl  auth: true
      */
     @PostMapping("/facility/control/updateInventoryItemLabelAppl")
-    public ResponseEntity<Map<String, Object>> updateInventoryItemLabelAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateInventoryItemLabelApplResponse> updateInventoryItemLabelAppl(@RequestBody UpdateInventoryItemLabelApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4809,7 +5600,7 @@ public class ProductController {
      * <p>service: updateInventoryItemLabelAppl  entities: InventoryItemLabelAppl  auth: true
      */
     @PostMapping("/facility/control/updateInventoryItemLabelApplFromItem")
-    public ResponseEntity<Map<String, Object>> updateInventoryItemLabelApplUpdateInventoryItemLabelApplFromItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateInventoryItemLabelApplResponse> updateInventoryItemLabelApplUpdateInventoryItemLabelApplFromItem(@RequestBody UpdateInventoryItemLabelApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4819,7 +5610,7 @@ public class ProductController {
      * <p>service: updateInventoryItemLabelType  entities: InventoryItemLabelType  auth: true
      */
     @PostMapping("/facility/control/updateInventoryItemLabelType")
-    public ResponseEntity<Map<String, Object>> updateInventoryItemLabelType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateInventoryItemLabelTypeResponse> updateInventoryItemLabelType(@RequestBody UpdateInventoryItemLabelTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4829,7 +5620,7 @@ public class ProductController {
      * <p>service: updatePackedLine  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/updatePackedLine")
-    public ResponseEntity<Map<String, Object>> updatePackedLine(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePackedLineResponse> updatePackedLine(@RequestBody UpdatePackedLineRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4839,7 +5630,7 @@ public class ProductController {
      * <p>service: updatePicklist  entities: Picklist  auth: true
      */
     @PostMapping("/facility/control/updatePicklist")
-    public ResponseEntity<Map<String, Object>> updatePicklist(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePicklistResponse> updatePicklist(@RequestBody UpdatePicklistRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4849,7 +5640,7 @@ public class ProductController {
      * <p>service: updatePicklistBin  entities: PicklistBin  auth: true
      */
     @PostMapping("/facility/control/updatePicklistBin")
-    public ResponseEntity<Map<String, Object>> updatePicklistBin(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePicklistBinResponse> updatePicklistBin(@RequestBody UpdatePicklistBinRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4859,7 +5650,7 @@ public class ProductController {
      * <p>service: updateFacilityPostalAddress  entities: FacilityContactMech, PostalAddress  auth: true
      */
     @PostMapping("/facility/control/updatePostalAddress")
-    public ResponseEntity<Map<String, Object>> updateFacilityPostalAddress(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFacilityPostalAddressResponse> updateFacilityPostalAddress(@RequestBody UpdateFacilityPostalAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4869,7 +5660,7 @@ public class ProductController {
      * <p>service: updateProductFacilityLocation  entities: ProductFacilityLocation  auth: true
      */
     @PostMapping("/facility/control/updateProductFacilityLocation")
-    public ResponseEntity<Map<String, Object>> updateProductFacilityLocationUpdateProductFacilityLocation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductFacilityLocationResponse> updateProductFacilityLocationUpdateProductFacilityLocation(@RequestBody UpdateProductFacilityLocationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4879,7 +5670,7 @@ public class ProductController {
      * <p>service: updateShipmentPackageRouteSeg  entities: ShipmentPackageRouteSeg  auth: true
      */
     @PostMapping("/facility/control/updateRouteSegmentShipmentPackage")
-    public ResponseEntity<Map<String, Object>> updateShipmentPackageRouteSeg(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentPackageRouteSegResponse> updateShipmentPackageRouteSeg(@RequestBody UpdateShipmentPackageRouteSegRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4889,7 +5680,7 @@ public class ProductController {
      * <p>service: updateShipment  entities: Shipment  auth: true
      */
     @PostMapping("/facility/control/updateShipment")
-    public ResponseEntity<Map<String, Object>> updateShipment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentResponse> updateShipment(@RequestBody UpdateShipmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4899,7 +5690,7 @@ public class ProductController {
      * <p>service: updateShipmentGatewayDhl  entities: ShipmentGatewayDhl  auth: true
      */
     @PostMapping("/facility/control/updateShipmentGatewayDhl")
-    public ResponseEntity<Map<String, Object>> updateShipmentGatewayDhl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentGatewayDhlResponse> updateShipmentGatewayDhl(@RequestBody UpdateShipmentGatewayDhlRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4909,7 +5700,7 @@ public class ProductController {
      * <p>service: updateShipmentGatewayFedex  entities: ShipmentGatewayFedex  auth: true
      */
     @PostMapping("/facility/control/updateShipmentGatewayFedex")
-    public ResponseEntity<Map<String, Object>> updateShipmentGatewayFedex(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentGatewayFedexResponse> updateShipmentGatewayFedex(@RequestBody UpdateShipmentGatewayFedexRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4919,7 +5710,7 @@ public class ProductController {
      * <p>service: updateShipmentGatewayUps  entities: ShipmentGatewayUps  auth: true
      */
     @PostMapping("/facility/control/updateShipmentGatewayUps")
-    public ResponseEntity<Map<String, Object>> updateShipmentGatewayUps(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentGatewayUpsResponse> updateShipmentGatewayUps(@RequestBody UpdateShipmentGatewayUpsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4929,7 +5720,7 @@ public class ProductController {
      * <p>service: updateShipmentGatewayUsps  entities: ShipmentGatewayUsps  auth: true
      */
     @PostMapping("/facility/control/updateShipmentGatewayUsps")
-    public ResponseEntity<Map<String, Object>> updateShipmentGatewayUsps(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentGatewayUspsResponse> updateShipmentGatewayUsps(@RequestBody UpdateShipmentGatewayUspsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4939,7 +5730,7 @@ public class ProductController {
      * <p>service: updateShipmentPackage  entities: ShipmentPackage  auth: true
      */
     @PostMapping("/facility/control/updateShipmentPackage")
-    public ResponseEntity<Map<String, Object>> updateShipmentPackageUpdateShipmentPackage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentPackageResponse> updateShipmentPackageUpdateShipmentPackage(@RequestBody UpdateShipmentPackageRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4949,7 +5740,7 @@ public class ProductController {
      * <p>service: updateShipmentPackageRouteSeg  entities: ShipmentPackageRouteSeg  auth: true
      */
     @PostMapping("/facility/control/updateShipmentPackageRouteSeg")
-    public ResponseEntity<Map<String, Object>> updateShipmentPackageRouteSegUpdateShipmentPackageRouteSeg(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentPackageRouteSegResponse> updateShipmentPackageRouteSegUpdateShipmentPackageRouteSeg(@RequestBody UpdateShipmentPackageRouteSegRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4959,7 +5750,7 @@ public class ProductController {
      * <p>service: updateShipmentRouteSegment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/updateShipmentRouteSegment")
-    public ResponseEntity<Map<String, Object>> updateShipmentRouteSegmentUpdateShipmentRouteSegment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipmentRouteSegmentResponse> updateShipmentRouteSegmentUpdateShipmentRouteSegment(@RequestBody UpdateShipmentRouteSegmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4969,7 +5760,7 @@ public class ProductController {
      * <p>service: updateFacilityTelecomNumber  entities: FacilityContactMech, TelecomNumber  auth: true
      */
     @PostMapping("/facility/control/updateTelecomNumber")
-    public ResponseEntity<Map<String, Object>> updateFacilityTelecomNumber(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFacilityTelecomNumberResponse> updateFacilityTelecomNumber(@RequestBody UpdateFacilityTelecomNumberRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4979,7 +5770,7 @@ public class ProductController {
      * <p>service: upsShipmentAccept  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/upsShipmentAccept")
-    public ResponseEntity<Map<String, Object>> upsShipmentAcceptUpsShipmentAccept(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpsShipmentAcceptResponse> upsShipmentAcceptUpsShipmentAccept(@RequestBody UpsShipmentAcceptRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4989,7 +5780,7 @@ public class ProductController {
      * <p>service: upsShipmentConfirm  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/upsShipmentConfirm")
-    public ResponseEntity<Map<String, Object>> upsShipmentConfirmUpsShipmentConfirm(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpsShipmentConfirmResponse> upsShipmentConfirmUpsShipmentConfirm(@RequestBody UpsShipmentConfirmRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -4999,7 +5790,7 @@ public class ProductController {
      * <p>service: upsTrackShipment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/upsTrackShipment")
-    public ResponseEntity<Map<String, Object>> upsTrackShipment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpsTrackShipmentResponse> upsTrackShipment(@RequestBody UpsTrackShipmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -5009,7 +5800,7 @@ public class ProductController {
      * <p>service: upsVoidShipment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/upsVoidShipment")
-    public ResponseEntity<Map<String, Object>> upsVoidShipment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpsVoidShipmentResponse> upsVoidShipment(@RequestBody UpsVoidShipmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }

@@ -1,5 +1,20 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.model.ResponseBase;
+import com.landawn.ofbiz.model.content.UpdateWebSiteRequest;
+import com.landawn.ofbiz.model.content.UpdateWebSiteResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyGroupRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyGroupResponse;
+import com.landawn.ofbiz.model.product.UpdateFacilityRequest;
+import com.landawn.ofbiz.model.product.UpdateFacilityResponse;
+import com.landawn.ofbiz.model.product.UpdateProdCatalogRequest;
+import com.landawn.ofbiz.model.product.UpdateProdCatalogResponse;
+import com.landawn.ofbiz.model.product.UpdateProductCategoryRequest;
+import com.landawn.ofbiz.model.product.UpdateProductCategoryResponse;
+import com.landawn.ofbiz.model.product.UpdateProductStoreRequest;
+import com.landawn.ofbiz.model.product.UpdateProductStoreResponse;
+import com.landawn.ofbiz.model.webtools.EntityExportAllRequest;
+import com.landawn.ofbiz.model.webtools.EntityExportAllResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +28,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/commonext")
 public class CommonextController {
+
+    /** 200/400 routing decided by the response DTO's envelope state. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
 
     /**
      * No description.
@@ -39,7 +61,7 @@ public class CommonextController {
      * <p>service: updateFacility  entities: Facility  auth: true
      */
     @PostMapping("/ofbizsetup/control/UpdateFacility")
-    public ResponseEntity<Map<String, Object>> updateFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFacilityResponse> updateFacility(@RequestBody UpdateFacilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -119,7 +141,7 @@ public class CommonextController {
      * <p>service: entityExportAll  entities: unknown  auth: true
      */
     @PostMapping("/ofbizsetup/control/entityExportAll")
-    public ResponseEntity<Map<String, Object>> entityExportAll(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<EntityExportAllResponse> entityExportAll(@RequestBody EntityExportAllRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -129,7 +151,7 @@ public class CommonextController {
      * <p>service: updatePartyGroup  entities: PartyGroup  auth: true
      */
     @PostMapping("/ofbizsetup/control/updatePartyGroup")
-    public ResponseEntity<Map<String, Object>> updatePartyGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyGroupResponse> updatePartyGroup(@RequestBody UpdatePartyGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -139,7 +161,7 @@ public class CommonextController {
      * <p>service: updateProdCatalog  entities: ProdCatalog  auth: true
      */
     @PostMapping("/ofbizsetup/control/updateProdCatalog")
-    public ResponseEntity<Map<String, Object>> updateProdCatalog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProdCatalogResponse> updateProdCatalog(@RequestBody UpdateProdCatalogRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -149,7 +171,7 @@ public class CommonextController {
      * <p>service: updateProductCategory  entities: ProductCategory  auth: true
      */
     @PostMapping("/ofbizsetup/control/updateProductCategory")
-    public ResponseEntity<Map<String, Object>> updateProductCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductCategoryResponse> updateProductCategory(@RequestBody UpdateProductCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -159,7 +181,7 @@ public class CommonextController {
      * <p>service: updateProductStore  entities: ProductStore  auth: true
      */
     @PostMapping("/ofbizsetup/control/updateProductStore")
-    public ResponseEntity<Map<String, Object>> updateProductStore(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateProductStoreResponse> updateProductStore(@RequestBody UpdateProductStoreRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -169,7 +191,7 @@ public class CommonextController {
      * <p>service: updateWebSite  entities: WebSite  auth: true
      */
     @PostMapping("/ofbizsetup/control/updateWebSite")
-    public ResponseEntity<Map<String, Object>> updateWebSite(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateWebSiteResponse> updateWebSite(@RequestBody UpdateWebSiteRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }

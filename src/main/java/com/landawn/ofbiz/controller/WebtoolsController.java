@@ -1,5 +1,20 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.model.ResponseBase;
+import com.landawn.ofbiz.model.webtools.EntityExportAllRequest;
+import com.landawn.ofbiz.model.webtools.EntityExportAllResponse;
+import com.landawn.ofbiz.model.webtools.EntityImportDirRequest;
+import com.landawn.ofbiz.model.webtools.EntityImportDirResponse;
+import com.landawn.ofbiz.model.webtools.EntityImportReadersRequest;
+import com.landawn.ofbiz.model.webtools.EntityImportReadersResponse;
+import com.landawn.ofbiz.model.webtools.EntityImportRequest;
+import com.landawn.ofbiz.model.webtools.EntityImportResponse;
+import com.landawn.ofbiz.model.webtools.ExportEntityEoModelBundleRequest;
+import com.landawn.ofbiz.model.webtools.ExportEntityEoModelBundleResponse;
+import com.landawn.ofbiz.model.webtools.ExportServiceEoModelBundleRequest;
+import com.landawn.ofbiz.model.webtools.ExportServiceEoModelBundleResponse;
+import com.landawn.ofbiz.model.webtools.SaveLabelsToXmlFileRequest;
+import com.landawn.ofbiz.model.webtools.SaveLabelsToXmlFileResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +30,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/webtools")
 public class WebtoolsController {
+
+    /** 200/400 routing decided by the response DTO's envelope state. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
 
     /**
      * Sets/Updates cached debugging levels
@@ -141,7 +163,7 @@ public class WebtoolsController {
      * <p>service: saveLabelsToXmlFile  entities: unknown  auth: true
      */
     @PostMapping("/webtools/control/SaveLabelsToXmlFile")
-    public ResponseEntity<Map<String, Object>> saveLabelsToXmlFile(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SaveLabelsToXmlFileResponse> saveLabelsToXmlFile(@RequestBody SaveLabelsToXmlFileRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -261,7 +283,7 @@ public class WebtoolsController {
      * <p>service: entityExportAll  entities: unknown  auth: true
      */
     @PostMapping("/webtools/control/entityExportAll")
-    public ResponseEntity<Map<String, Object>> entityExportAll(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<EntityExportAllResponse> entityExportAll(@RequestBody EntityExportAllRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -271,7 +293,7 @@ public class WebtoolsController {
      * <p>service: entityImport  entities: unknown  auth: true
      */
     @PostMapping("/webtools/control/entityImport")
-    public ResponseEntity<Map<String, Object>> entityImport(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<EntityImportResponse> entityImport(@RequestBody EntityImportRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -281,7 +303,7 @@ public class WebtoolsController {
      * <p>service: entityImportDir  entities: unknown  auth: true
      */
     @PostMapping("/webtools/control/entityImportDir")
-    public ResponseEntity<Map<String, Object>> entityImportDir(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<EntityImportDirResponse> entityImportDir(@RequestBody EntityImportDirRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -291,7 +313,7 @@ public class WebtoolsController {
      * <p>service: entityImportReaders  entities: unknown  auth: true
      */
     @PostMapping("/webtools/control/entityImportReaders")
-    public ResponseEntity<Map<String, Object>> entityImportReaders(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<EntityImportReadersResponse> entityImportReaders(@RequestBody EntityImportReadersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -301,7 +323,7 @@ public class WebtoolsController {
      * <p>service: exportEntityEoModelBundle  entities: unknown  auth: true
      */
     @PostMapping("/webtools/control/exportEntityEoModelBundle")
-    public ResponseEntity<Map<String, Object>> exportEntityEoModelBundle(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ExportEntityEoModelBundleResponse> exportEntityEoModelBundle(@RequestBody ExportEntityEoModelBundleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -311,7 +333,7 @@ public class WebtoolsController {
      * <p>service: exportServiceEoModelBundle  entities: unknown  auth: true
      */
     @PostMapping("/webtools/control/exportServiceEoModelBundle")
-    public ResponseEntity<Map<String, Object>> exportServiceEoModelBundle(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ExportServiceEoModelBundleResponse> exportServiceEoModelBundle(@RequestBody ExportServiceEoModelBundleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }

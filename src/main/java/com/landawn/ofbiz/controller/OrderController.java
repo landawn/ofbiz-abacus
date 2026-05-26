@@ -1,5 +1,247 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.model.ResponseBase;
+import com.landawn.ofbiz.model.order.AddOrderItemShipGroupAssocRequest;
+import com.landawn.ofbiz.model.order.AddOrderItemShipGroupAssocResponse;
+import com.landawn.ofbiz.model.order.AddOrderItemShipGroupRequest;
+import com.landawn.ofbiz.model.order.AddOrderItemShipGroupResponse;
+import com.landawn.ofbiz.model.order.AddPaymentMethodToOrderRequest;
+import com.landawn.ofbiz.model.order.AddPaymentMethodToOrderResponse;
+import com.landawn.ofbiz.model.order.AppendOrderItemRequest;
+import com.landawn.ofbiz.model.order.AppendOrderItemResponse;
+import com.landawn.ofbiz.model.order.ApproveRequirementResponse;
+import com.landawn.ofbiz.model.order.AssignItemShipGroupRequest;
+import com.landawn.ofbiz.model.order.AssignItemShipGroupResponse;
+import com.landawn.ofbiz.model.order.AutoAssignRequirementToSupplierRequest;
+import com.landawn.ofbiz.model.order.AutoAssignRequirementToSupplierResponse;
+import com.landawn.ofbiz.model.order.AutoCreateQuoteAdjustmentsRequest;
+import com.landawn.ofbiz.model.order.AutoCreateQuoteAdjustmentsResponse;
+import com.landawn.ofbiz.model.order.AutoUpdateQuotePriceResponse;
+import com.landawn.ofbiz.model.order.CancelOrderItemRequest;
+import com.landawn.ofbiz.model.order.CancelOrderItemResponse;
+import com.landawn.ofbiz.model.order.ChangeAllocationPlanStatusRequest;
+import com.landawn.ofbiz.model.order.ChangeAllocationPlanStatusResponse;
+import com.landawn.ofbiz.model.order.ChangeOrderItemStatusRequest;
+import com.landawn.ofbiz.model.order.ChangeOrderItemStatusResponse;
+import com.landawn.ofbiz.model.order.ChangeOrderStatusRequest;
+import com.landawn.ofbiz.model.order.ChangeOrderStatusResponse;
+import com.landawn.ofbiz.model.order.CompletePurchaseOrderRequest;
+import com.landawn.ofbiz.model.order.CompletePurchaseOrderResponse;
+import com.landawn.ofbiz.model.order.CopyCustRequestItemRequest;
+import com.landawn.ofbiz.model.order.CopyCustRequestItemResponse;
+import com.landawn.ofbiz.model.order.CopyQuoteRequest;
+import com.landawn.ofbiz.model.order.CopyQuoteResponse;
+import com.landawn.ofbiz.model.order.CreateAllocationPlanAndItemsRequest;
+import com.landawn.ofbiz.model.order.CreateAllocationPlanAndItemsResponse;
+import com.landawn.ofbiz.model.order.CreateCustRequestContentResponse;
+import com.landawn.ofbiz.model.order.CreateCustRequestFromCartResponse;
+import com.landawn.ofbiz.model.order.CreateCustRequestFromShoppingListRequest;
+import com.landawn.ofbiz.model.order.CreateCustRequestFromShoppingListResponse;
+import com.landawn.ofbiz.model.order.CreateCustRequestItemNoteRequest;
+import com.landawn.ofbiz.model.order.CreateCustRequestItemNoteResponse;
+import com.landawn.ofbiz.model.order.CreateCustRequestItemRequest;
+import com.landawn.ofbiz.model.order.CreateCustRequestItemResponse;
+import com.landawn.ofbiz.model.order.CreateCustRequestPartyRequest;
+import com.landawn.ofbiz.model.order.CreateCustRequestPartyResponse;
+import com.landawn.ofbiz.model.order.CreateCustRequestRequest;
+import com.landawn.ofbiz.model.order.CreateCustRequestResponse;
+import com.landawn.ofbiz.model.order.CreateOrderAdjustmentRequest;
+import com.landawn.ofbiz.model.order.CreateOrderAdjustmentResponse;
+import com.landawn.ofbiz.model.order.CreateOrderConversationRequest;
+import com.landawn.ofbiz.model.order.CreateOrderConversationResponse;
+import com.landawn.ofbiz.model.order.CreateOrderDeliveryScheduleRequest;
+import com.landawn.ofbiz.model.order.CreateOrderDeliveryScheduleResponse;
+import com.landawn.ofbiz.model.order.CreateOrderHeaderRequest;
+import com.landawn.ofbiz.model.order.CreateOrderHeaderResponse;
+import com.landawn.ofbiz.model.order.CreateOrderItemShipGroupRequest;
+import com.landawn.ofbiz.model.order.CreateOrderItemShipGroupResponse;
+import com.landawn.ofbiz.model.order.CreateOrderNoteRequest;
+import com.landawn.ofbiz.model.order.CreateOrderNoteResponse;
+import com.landawn.ofbiz.model.order.CreateOrderTermRequest;
+import com.landawn.ofbiz.model.order.CreateOrderTermResponse;
+import com.landawn.ofbiz.model.order.CreateQuoteAdjustmentRequest;
+import com.landawn.ofbiz.model.order.CreateQuoteAdjustmentResponse;
+import com.landawn.ofbiz.model.order.CreateQuoteAndQuoteItemForRequestRequest;
+import com.landawn.ofbiz.model.order.CreateQuoteAndQuoteItemForRequestResponse;
+import com.landawn.ofbiz.model.order.CreateQuoteAttributeRequest;
+import com.landawn.ofbiz.model.order.CreateQuoteAttributeResponse;
+import com.landawn.ofbiz.model.order.CreateQuoteCoefficientRequest;
+import com.landawn.ofbiz.model.order.CreateQuoteCoefficientResponse;
+import com.landawn.ofbiz.model.order.CreateQuoteFromCartResponse;
+import com.landawn.ofbiz.model.order.CreateQuoteFromCustRequestRequest;
+import com.landawn.ofbiz.model.order.CreateQuoteFromCustRequestResponse;
+import com.landawn.ofbiz.model.order.CreateQuoteFromShoppingListRequest;
+import com.landawn.ofbiz.model.order.CreateQuoteFromShoppingListResponse;
+import com.landawn.ofbiz.model.order.CreateQuoteItemRequest;
+import com.landawn.ofbiz.model.order.CreateQuoteItemResponse;
+import com.landawn.ofbiz.model.order.CreateQuoteNoteRequest;
+import com.landawn.ofbiz.model.order.CreateQuoteNoteResponse;
+import com.landawn.ofbiz.model.order.CreateQuoteRequest;
+import com.landawn.ofbiz.model.order.CreateQuoteResponse;
+import com.landawn.ofbiz.model.order.CreateQuoteRoleRequest;
+import com.landawn.ofbiz.model.order.CreateQuoteRoleResponse;
+import com.landawn.ofbiz.model.order.CreateQuoteTermRequest;
+import com.landawn.ofbiz.model.order.CreateQuoteTermResponse;
+import com.landawn.ofbiz.model.order.CreateRequirementRequest;
+import com.landawn.ofbiz.model.order.CreateRequirementResponse;
+import com.landawn.ofbiz.model.order.CreateRequirementRoleRequest;
+import com.landawn.ofbiz.model.order.CreateRequirementRoleResponse;
+import com.landawn.ofbiz.model.order.CreateReturnAndItemOrAdjustmentResponse;
+import com.landawn.ofbiz.model.order.CreateReturnHeaderRequest;
+import com.landawn.ofbiz.model.order.CreateReturnHeaderResponse;
+import com.landawn.ofbiz.model.order.CreateReturnItemOrAdjustmentResponse;
+import com.landawn.ofbiz.model.order.CreateShoppingListItemRequest;
+import com.landawn.ofbiz.model.order.CreateShoppingListItemResponse;
+import com.landawn.ofbiz.model.order.CreateTransferFromRequirementResponse;
+import com.landawn.ofbiz.model.order.CreateUpdateShippingAddressRequest;
+import com.landawn.ofbiz.model.order.CreateUpdateShippingAddressResponse;
+import com.landawn.ofbiz.model.order.DeleteAllocationPlanItemRequest;
+import com.landawn.ofbiz.model.order.DeleteAllocationPlanItemResponse;
+import com.landawn.ofbiz.model.order.DeleteCustRequestPartyRequest;
+import com.landawn.ofbiz.model.order.DeleteCustRequestPartyResponse;
+import com.landawn.ofbiz.model.order.DeleteOrderAdjustmentRequest;
+import com.landawn.ofbiz.model.order.DeleteOrderAdjustmentResponse;
+import com.landawn.ofbiz.model.order.DeleteOrderItemShipGroupAssocRequest;
+import com.landawn.ofbiz.model.order.DeleteOrderItemShipGroupAssocResponse;
+import com.landawn.ofbiz.model.order.DeleteOrderItemShipGroupRequest;
+import com.landawn.ofbiz.model.order.DeleteOrderItemShipGroupResponse;
+import com.landawn.ofbiz.model.order.DeleteQuoteTermRequest;
+import com.landawn.ofbiz.model.order.DeleteQuoteTermResponse;
+import com.landawn.ofbiz.model.order.DeleteQuoteWorkEffortRequest;
+import com.landawn.ofbiz.model.order.DeleteQuoteWorkEffortResponse;
+import com.landawn.ofbiz.model.order.DeleteRequirementAndRelatedRequest;
+import com.landawn.ofbiz.model.order.DeleteRequirementAndRelatedResponse;
+import com.landawn.ofbiz.model.order.EnsureWorkEffortAndCreateQuoteWorkEffortRequest;
+import com.landawn.ofbiz.model.order.EnsureWorkEffortAndCreateQuoteWorkEffortResponse;
+import com.landawn.ofbiz.model.order.ExpireCustRequestContentRequest;
+import com.landawn.ofbiz.model.order.ExpireCustRequestContentResponse;
+import com.landawn.ofbiz.model.order.ExpireCustRequestPartyRequest;
+import com.landawn.ofbiz.model.order.ExpireCustRequestPartyResponse;
+import com.landawn.ofbiz.model.order.FindOrdersRequest;
+import com.landawn.ofbiz.model.order.FindOrdersResponse;
+import com.landawn.ofbiz.model.order.GetStatusItemsForReturnRequest;
+import com.landawn.ofbiz.model.order.GetStatusItemsForReturnResponse;
+import com.landawn.ofbiz.model.order.LoadCartFromOrderResponse;
+import com.landawn.ofbiz.model.order.LoadCartFromQuoteResponse;
+import com.landawn.ofbiz.model.order.LoadCartFromShoppingListResponse;
+import com.landawn.ofbiz.model.order.MassCancelOrdersRequest;
+import com.landawn.ofbiz.model.order.MassCancelOrdersResponse;
+import com.landawn.ofbiz.model.order.MassCancelRemainingPurchaseOrderItemsRequest;
+import com.landawn.ofbiz.model.order.MassCancelRemainingPurchaseOrderItemsResponse;
+import com.landawn.ofbiz.model.order.MassChangeOrderApprovedRequest;
+import com.landawn.ofbiz.model.order.MassChangeOrderApprovedResponse;
+import com.landawn.ofbiz.model.order.MassCreateFileForOrdersRequest;
+import com.landawn.ofbiz.model.order.MassCreateFileForOrdersResponse;
+import com.landawn.ofbiz.model.order.MassHoldOrdersRequest;
+import com.landawn.ofbiz.model.order.MassHoldOrdersResponse;
+import com.landawn.ofbiz.model.order.MassPickOrdersRequest;
+import com.landawn.ofbiz.model.order.MassPickOrdersResponse;
+import com.landawn.ofbiz.model.order.MassPrintOrdersRequest;
+import com.landawn.ofbiz.model.order.MassPrintOrdersResponse;
+import com.landawn.ofbiz.model.order.MassProcessOrdersRequest;
+import com.landawn.ofbiz.model.order.MassProcessOrdersResponse;
+import com.landawn.ofbiz.model.order.MassQuickShipOrdersRequest;
+import com.landawn.ofbiz.model.order.MassQuickShipOrdersResponse;
+import com.landawn.ofbiz.model.order.MassRejectOrdersRequest;
+import com.landawn.ofbiz.model.order.MassRejectOrdersResponse;
+import com.landawn.ofbiz.model.order.ProductAvailabilityByFacilityRequest;
+import com.landawn.ofbiz.model.order.ProductAvailabilityByFacilityResponse;
+import com.landawn.ofbiz.model.order.QuickReturnOrderRequest;
+import com.landawn.ofbiz.model.order.QuickReturnOrderResponse;
+import com.landawn.ofbiz.model.order.RecalcTaxTotalRequest;
+import com.landawn.ofbiz.model.order.RecalcTaxTotalResponse;
+import com.landawn.ofbiz.model.order.RemoveOrderTermRequest;
+import com.landawn.ofbiz.model.order.RemoveOrderTermResponse;
+import com.landawn.ofbiz.model.order.RemoveQuoteAdjustmentRequest;
+import com.landawn.ofbiz.model.order.RemoveQuoteAdjustmentResponse;
+import com.landawn.ofbiz.model.order.RemoveQuoteAttributeRequest;
+import com.landawn.ofbiz.model.order.RemoveQuoteAttributeResponse;
+import com.landawn.ofbiz.model.order.RemoveQuoteCoefficientRequest;
+import com.landawn.ofbiz.model.order.RemoveQuoteCoefficientResponse;
+import com.landawn.ofbiz.model.order.RemoveQuoteItemRequest;
+import com.landawn.ofbiz.model.order.RemoveQuoteItemResponse;
+import com.landawn.ofbiz.model.order.RemoveQuoteRoleRequest;
+import com.landawn.ofbiz.model.order.RemoveQuoteRoleResponse;
+import com.landawn.ofbiz.model.order.RemoveRequirementRoleRequest;
+import com.landawn.ofbiz.model.order.RemoveRequirementRoleResponse;
+import com.landawn.ofbiz.model.order.RemoveReturnAdjustmentRequest;
+import com.landawn.ofbiz.model.order.RemoveReturnAdjustmentResponse;
+import com.landawn.ofbiz.model.order.RemoveReturnItemRequest;
+import com.landawn.ofbiz.model.order.RemoveReturnItemResponse;
+import com.landawn.ofbiz.model.order.SendOrderConfirmationRequest;
+import com.landawn.ofbiz.model.order.SendOrderConfirmationResponse;
+import com.landawn.ofbiz.model.order.SendPOEmailRequest;
+import com.landawn.ofbiz.model.order.SendPOEmailResponse;
+import com.landawn.ofbiz.model.order.SendQuoteReportMailRequest;
+import com.landawn.ofbiz.model.order.SendQuoteReportMailResponse;
+import com.landawn.ofbiz.model.order.SetAllowOrderSplitRequest;
+import com.landawn.ofbiz.model.order.SetAllowOrderSplitResponse;
+import com.landawn.ofbiz.model.order.SetCartShippingAddressRequest;
+import com.landawn.ofbiz.model.order.SetCartShippingAddressResponse;
+import com.landawn.ofbiz.model.order.SetCartShippingOptionsRequest;
+import com.landawn.ofbiz.model.order.SetCartShippingOptionsResponse;
+import com.landawn.ofbiz.model.order.SetCustRequestStatusRequest;
+import com.landawn.ofbiz.model.order.SetCustRequestStatusResponse;
+import com.landawn.ofbiz.model.order.SetGiftMessageRequest;
+import com.landawn.ofbiz.model.order.SetGiftMessageResponse;
+import com.landawn.ofbiz.model.order.SetShippingInstructionsRequest;
+import com.landawn.ofbiz.model.order.SetShippingInstructionsResponse;
+import com.landawn.ofbiz.model.order.UpdateAllocationPlanItemsRequest;
+import com.landawn.ofbiz.model.order.UpdateAllocationPlanItemsResponse;
+import com.landawn.ofbiz.model.order.UpdateCustRequestItemRequest;
+import com.landawn.ofbiz.model.order.UpdateCustRequestItemResponse;
+import com.landawn.ofbiz.model.order.UpdateCustRequestPartyRequest;
+import com.landawn.ofbiz.model.order.UpdateCustRequestPartyResponse;
+import com.landawn.ofbiz.model.order.UpdateCustRequestRequest;
+import com.landawn.ofbiz.model.order.UpdateCustRequestResponse;
+import com.landawn.ofbiz.model.order.UpdateOrderAdjustmentRequest;
+import com.landawn.ofbiz.model.order.UpdateOrderAdjustmentResponse;
+import com.landawn.ofbiz.model.order.UpdateOrderContactMechRequest;
+import com.landawn.ofbiz.model.order.UpdateOrderContactMechResponse;
+import com.landawn.ofbiz.model.order.UpdateOrderDeliveryScheduleRequest;
+import com.landawn.ofbiz.model.order.UpdateOrderDeliveryScheduleResponse;
+import com.landawn.ofbiz.model.order.UpdateOrderHeaderRequest;
+import com.landawn.ofbiz.model.order.UpdateOrderHeaderResponse;
+import com.landawn.ofbiz.model.order.UpdateOrderItemShipGroupAssocResponse;
+import com.landawn.ofbiz.model.order.UpdateOrderItemShipGroupRequest;
+import com.landawn.ofbiz.model.order.UpdateOrderItemShipGroupResponse;
+import com.landawn.ofbiz.model.order.UpdateOrderItemsRequest;
+import com.landawn.ofbiz.model.order.UpdateOrderItemsResponse;
+import com.landawn.ofbiz.model.order.UpdateOrderNoteRequest;
+import com.landawn.ofbiz.model.order.UpdateOrderNoteResponse;
+import com.landawn.ofbiz.model.order.UpdateOrderPaymentPreferenceRequest;
+import com.landawn.ofbiz.model.order.UpdateOrderPaymentPreferenceResponse;
+import com.landawn.ofbiz.model.order.UpdateOrderTermRequest;
+import com.landawn.ofbiz.model.order.UpdateOrderTermResponse;
+import com.landawn.ofbiz.model.order.UpdateQuoteAdjustmentRequest;
+import com.landawn.ofbiz.model.order.UpdateQuoteAdjustmentResponse;
+import com.landawn.ofbiz.model.order.UpdateQuoteAttributeRequest;
+import com.landawn.ofbiz.model.order.UpdateQuoteAttributeResponse;
+import com.landawn.ofbiz.model.order.UpdateQuoteCoefficientRequest;
+import com.landawn.ofbiz.model.order.UpdateQuoteCoefficientResponse;
+import com.landawn.ofbiz.model.order.UpdateQuoteItemRequest;
+import com.landawn.ofbiz.model.order.UpdateQuoteItemResponse;
+import com.landawn.ofbiz.model.order.UpdateQuoteRequest;
+import com.landawn.ofbiz.model.order.UpdateQuoteResponse;
+import com.landawn.ofbiz.model.order.UpdateQuoteRoleRequest;
+import com.landawn.ofbiz.model.order.UpdateQuoteRoleResponse;
+import com.landawn.ofbiz.model.order.UpdateQuoteTermRequest;
+import com.landawn.ofbiz.model.order.UpdateQuoteTermResponse;
+import com.landawn.ofbiz.model.order.UpdateRequirementRequest;
+import com.landawn.ofbiz.model.order.UpdateRequirementResponse;
+import com.landawn.ofbiz.model.order.UpdateRequirementRoleRequest;
+import com.landawn.ofbiz.model.order.UpdateRequirementRoleResponse;
+import com.landawn.ofbiz.model.order.UpdateReturnHeaderRequest;
+import com.landawn.ofbiz.model.order.UpdateReturnHeaderResponse;
+import com.landawn.ofbiz.model.order.UpdateReturnItemOrAdjustmentResponse;
+import com.landawn.ofbiz.model.order.UpdateShipGroupShipInfoRequest;
+import com.landawn.ofbiz.model.order.UpdateShipGroupShipInfoResponse;
+import com.landawn.ofbiz.model.order.UpdateShippingMethodAndChargesRequest;
+import com.landawn.ofbiz.model.order.UpdateShippingMethodAndChargesResponse;
+import com.landawn.ofbiz.model.order.UpdateTrackingNumberRequest;
+import com.landawn.ofbiz.model.order.UpdateTrackingNumberResponse;
+import com.landawn.ofbiz.model.order.UploadOrderContentFileRequest;
+import com.landawn.ofbiz.model.order.UploadOrderContentFileResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,12 +256,19 @@ import java.util.Map;
 @RequestMapping("/order")
 public class OrderController {
 
+    /** 200/400 routing decided by the response DTO's envelope state. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
+
     /**
      * Creates a new OrderItemShipGroup with maySplit and isGift filled.
      * <p>service: addOrderItemShipGroup  entities: OrderItemShipGroup  auth: true
      */
     @PostMapping("/ordermgr/control/AddOrderItemShipGroup")
-    public ResponseEntity<Map<String, Object>> addOrderItemShipGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddOrderItemShipGroupResponse> addOrderItemShipGroup(@RequestBody AddOrderItemShipGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -29,7 +278,7 @@ public class OrderController {
      * <p>service: addOrderItemShipGroupAssoc  entities: OrderItemShipGroupAssoc  auth: true
      */
     @PostMapping("/ordermgr/control/AddOrderItemShipGroupAssoc")
-    public ResponseEntity<Map<String, Object>> addOrderItemShipGroupAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddOrderItemShipGroupAssocResponse> addOrderItemShipGroupAssoc(@RequestBody AddOrderItemShipGroupAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -49,7 +298,7 @@ public class OrderController {
      * <p>service: deleteOrderItemShipGroup  entities: OrderItemShipGroup  auth: true
      */
     @PostMapping("/ordermgr/control/DeleteOrderItemShipGroup")
-    public ResponseEntity<Map<String, Object>> deleteOrderItemShipGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteOrderItemShipGroupResponse> deleteOrderItemShipGroup(@RequestBody DeleteOrderItemShipGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -59,7 +308,7 @@ public class OrderController {
      * <p>service: deleteOrderItemShipGroupAssoc  entities: OrderItemShipGroupAssoc  auth: true
      */
     @PostMapping("/ordermgr/control/DeleteOrderItemShipGroupAssoc")
-    public ResponseEntity<Map<String, Object>> deleteOrderItemShipGroupAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteOrderItemShipGroupAssocResponse> deleteOrderItemShipGroupAssoc(@RequestBody DeleteOrderItemShipGroupAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -69,7 +318,7 @@ public class OrderController {
      * <p>service: updateOrderItemShipGroupAssoc  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/UpdateOrderItemShipGroupAssoc")
-    public ResponseEntity<Map<String, Object>> updateOrderItemShipGroupAssoc(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateOrderItemShipGroupAssocResponse> updateOrderItemShipGroupAssoc(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -129,7 +378,7 @@ public class OrderController {
      * <p>service: createShoppingListItem  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/addItemToShoppingList")
-    public ResponseEntity<Map<String, Object>> createShoppingListItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateShoppingListItemResponse> createShoppingListItem(@RequestBody CreateShoppingListItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -139,7 +388,7 @@ public class OrderController {
      * <p>service: uploadOrderContentFile  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/addOrderAttachments")
-    public ResponseEntity<Map<String, Object>> uploadOrderContentFile(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UploadOrderContentFileResponse> uploadOrderContentFile(@RequestBody UploadOrderContentFileRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -159,7 +408,7 @@ public class OrderController {
      * <p>service: addPaymentMethodToOrder  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/addPaymentMethodToOrder")
-    public ResponseEntity<Map<String, Object>> addPaymentMethodToOrder(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AddPaymentMethodToOrderResponse> addPaymentMethodToOrder(@RequestBody AddPaymentMethodToOrderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -179,7 +428,7 @@ public class OrderController {
      * <p>service: createUpdateShippingAddress  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/addShippingAddress")
-    public ResponseEntity<Map<String, Object>> createUpdateShippingAddress(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateUpdateShippingAddressResponse> createUpdateShippingAddress(@RequestBody CreateUpdateShippingAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -249,7 +498,7 @@ public class OrderController {
      * <p>service: setAllowOrderSplit  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/allowordersplit")
-    public ResponseEntity<Map<String, Object>> setAllowOrderSplit(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SetAllowOrderSplitResponse> setAllowOrderSplit(@RequestBody SetAllowOrderSplitRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -259,7 +508,7 @@ public class OrderController {
      * <p>service: appendOrderItem  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/appendItemToOrder")
-    public ResponseEntity<Map<String, Object>> appendOrderItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AppendOrderItemResponse> appendOrderItem(@RequestBody AppendOrderItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -269,7 +518,7 @@ public class OrderController {
      * <p>service: approveRequirement  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/approveRequirements")
-    public ResponseEntity<Map<String, Object>> approveRequirement(@RequestParam Map<String, String> params) {
+    public ResponseEntity<ApproveRequirementResponse> approveRequirement(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -279,7 +528,7 @@ public class OrderController {
      * <p>service: assignItemShipGroup  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/assignItemToShipGroups")
-    public ResponseEntity<Map<String, Object>> assignItemShipGroup(@RequestParam Map<String, String> params) {
+    public ResponseEntity<AssignItemShipGroupResponse> assignItemShipGroup(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -299,7 +548,7 @@ public class OrderController {
      * <p>service: autoAssignRequirementToSupplier  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/autoAssignRequirementToSupplier")
-    public ResponseEntity<Map<String, Object>> autoAssignRequirementToSupplier(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AutoAssignRequirementToSupplierResponse> autoAssignRequirementToSupplier(@RequestBody AutoAssignRequirementToSupplierRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -309,7 +558,7 @@ public class OrderController {
      * <p>service: autoCreateQuoteAdjustments  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/autoCreateQuoteAdjustments")
-    public ResponseEntity<Map<String, Object>> autoCreateQuoteAdjustments(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AutoCreateQuoteAdjustmentsResponse> autoCreateQuoteAdjustments(@RequestBody AutoCreateQuoteAdjustmentsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -319,7 +568,7 @@ public class OrderController {
      * <p>service: autoUpdateQuotePrice  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/autoUpdateQuotePrices")
-    public ResponseEntity<Map<String, Object>> autoUpdateQuotePrice(@RequestParam Map<String, String> params) {
+    public ResponseEntity<AutoUpdateQuotePriceResponse> autoUpdateQuotePrice(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -389,7 +638,7 @@ public class OrderController {
      * <p>service: cancelOrderItem  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/cancelOrderItem")
-    public ResponseEntity<Map<String, Object>> cancelOrderItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CancelOrderItemResponse> cancelOrderItem(@RequestBody CancelOrderItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -419,7 +668,7 @@ public class OrderController {
      * <p>service: changeAllocationPlanStatus  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/changeAllocationPlanStatus")
-    public ResponseEntity<Map<String, Object>> changeAllocationPlanStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ChangeAllocationPlanStatusResponse> changeAllocationPlanStatus(@RequestBody ChangeAllocationPlanStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -429,7 +678,7 @@ public class OrderController {
      * <p>service: changeOrderItemStatus  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/changeOrderItemStatus")
-    public ResponseEntity<Map<String, Object>> changeOrderItemStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ChangeOrderItemStatusResponse> changeOrderItemStatus(@RequestBody ChangeOrderItemStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -439,7 +688,7 @@ public class OrderController {
      * <p>service: changeOrderStatus  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/changeOrderStatus")
-    public ResponseEntity<Map<String, Object>> changeOrderStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ChangeOrderStatusResponse> changeOrderStatus(@RequestBody ChangeOrderStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -519,7 +768,7 @@ public class OrderController {
      * <p>service: completePurchaseOrder  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/completePurchaseOrder")
-    public ResponseEntity<Map<String, Object>> completePurchaseOrder(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CompletePurchaseOrderResponse> completePurchaseOrder(@RequestBody CompletePurchaseOrderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -529,7 +778,7 @@ public class OrderController {
      * <p>service: copyCustRequestItem  entities: CustRequestItem  auth: true
      */
     @PostMapping("/ordermgr/control/copyCustRequestItem")
-    public ResponseEntity<Map<String, Object>> copyCustRequestItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CopyCustRequestItemResponse> copyCustRequestItem(@RequestBody CopyCustRequestItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -539,7 +788,7 @@ public class OrderController {
      * <p>service: copyQuote  entities: Quote  auth: true
      */
     @PostMapping("/ordermgr/control/copyQuote")
-    public ResponseEntity<Map<String, Object>> copyQuote(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CopyQuoteResponse> copyQuote(@RequestBody CopyQuoteRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -549,7 +798,7 @@ public class OrderController {
      * <p>service: createAllocationPlanAndItems  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/createAllocationPlanAndItems")
-    public ResponseEntity<Map<String, Object>> createAllocationPlanAndItems(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateAllocationPlanAndItemsResponse> createAllocationPlanAndItems(@RequestBody CreateAllocationPlanAndItemsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -589,7 +838,7 @@ public class OrderController {
      * <p>service: createCustRequestContent  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/createCustRequestContent")
-    public ResponseEntity<Map<String, Object>> createCustRequestContent(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateCustRequestContentResponse> createCustRequestContent(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -599,7 +848,7 @@ public class OrderController {
      * <p>service: createCustRequestFromCart  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/createCustRequestFromCart")
-    public ResponseEntity<Map<String, Object>> createCustRequestFromCart(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateCustRequestFromCartResponse> createCustRequestFromCart(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -609,7 +858,7 @@ public class OrderController {
      * <p>service: createCustRequestFromShoppingList  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/createCustRequestFromShoppingList")
-    public ResponseEntity<Map<String, Object>> createCustRequestFromShoppingList(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCustRequestFromShoppingListResponse> createCustRequestFromShoppingList(@RequestBody CreateCustRequestFromShoppingListRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -629,7 +878,7 @@ public class OrderController {
      * <p>service: createCustRequestParty  entities: CustRequestParty  auth: true
      */
     @PostMapping("/ordermgr/control/createCustRequestParty")
-    public ResponseEntity<Map<String, Object>> createCustRequestParty(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCustRequestPartyResponse> createCustRequestParty(@RequestBody CreateCustRequestPartyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -669,7 +918,7 @@ public class OrderController {
      * <p>service: createOrderAdjustment  entities: OrderAdjustment  auth: true
      */
     @PostMapping("/ordermgr/control/createOrderAdjustment")
-    public ResponseEntity<Map<String, Object>> createOrderAdjustment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateOrderAdjustmentResponse> createOrderAdjustment(@RequestBody CreateOrderAdjustmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -679,7 +928,7 @@ public class OrderController {
      * <p>service: createOrderConversation  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/createOrderConversation")
-    public ResponseEntity<Map<String, Object>> createOrderConversation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateOrderConversationResponse> createOrderConversation(@RequestBody CreateOrderConversationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -689,7 +938,7 @@ public class OrderController {
      * <p>service: createOrderDeliverySchedule  entities: OrderDeliverySchedule  auth: true
      */
     @PostMapping("/ordermgr/control/createOrderDeliverySchedule")
-    public ResponseEntity<Map<String, Object>> createOrderDeliverySchedule(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateOrderDeliveryScheduleResponse> createOrderDeliverySchedule(@RequestBody CreateOrderDeliveryScheduleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -699,7 +948,7 @@ public class OrderController {
      * <p>service: createOrderHeader  entities: OrderHeader  auth: true
      */
     @PostMapping("/ordermgr/control/createOrderHeader")
-    public ResponseEntity<Map<String, Object>> createOrderHeader(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateOrderHeaderResponse> createOrderHeader(@RequestBody CreateOrderHeaderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -709,7 +958,7 @@ public class OrderController {
      * <p>service: createOrderItemShipGroup  entities: OrderItemShipGroup  auth: true
      */
     @PostMapping("/ordermgr/control/createOrderItemShipGroup")
-    public ResponseEntity<Map<String, Object>> createOrderItemShipGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateOrderItemShipGroupResponse> createOrderItemShipGroup(@RequestBody CreateOrderItemShipGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -719,7 +968,7 @@ public class OrderController {
      * <p>service: createOrderTerm  entities: OrderTerm  auth: true
      */
     @PostMapping("/ordermgr/control/createOrderTerm")
-    public ResponseEntity<Map<String, Object>> createOrderTerm(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateOrderTermResponse> createOrderTerm(@RequestBody CreateOrderTermRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -769,7 +1018,7 @@ public class OrderController {
      * <p>service: createQuote  entities: Quote  auth: true
      */
     @PostMapping("/ordermgr/control/createQuote")
-    public ResponseEntity<Map<String, Object>> createQuote(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuoteResponse> createQuote(@RequestBody CreateQuoteRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -779,7 +1028,7 @@ public class OrderController {
      * <p>service: createQuoteAdjustment  entities: QuoteAdjustment  auth: true
      */
     @PostMapping("/ordermgr/control/createQuoteAdjustment")
-    public ResponseEntity<Map<String, Object>> createQuoteAdjustment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuoteAdjustmentResponse> createQuoteAdjustment(@RequestBody CreateQuoteAdjustmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -789,7 +1038,7 @@ public class OrderController {
      * <p>service: createQuoteAndQuoteItemForRequest  entities: QuoteItem  auth: true
      */
     @PostMapping("/ordermgr/control/createQuoteAndQuoteItemForRequest")
-    public ResponseEntity<Map<String, Object>> createQuoteAndQuoteItemForRequest(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuoteAndQuoteItemForRequestResponse> createQuoteAndQuoteItemForRequest(@RequestBody CreateQuoteAndQuoteItemForRequestRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -799,7 +1048,7 @@ public class OrderController {
      * <p>service: createQuoteAttribute  entities: QuoteAttribute  auth: true
      */
     @PostMapping("/ordermgr/control/createQuoteAttribute")
-    public ResponseEntity<Map<String, Object>> createQuoteAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuoteAttributeResponse> createQuoteAttribute(@RequestBody CreateQuoteAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -809,7 +1058,7 @@ public class OrderController {
      * <p>service: createQuoteCoefficient  entities: QuoteCoefficient  auth: true
      */
     @PostMapping("/ordermgr/control/createQuoteCoefficient")
-    public ResponseEntity<Map<String, Object>> createQuoteCoefficient(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuoteCoefficientResponse> createQuoteCoefficient(@RequestBody CreateQuoteCoefficientRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -819,7 +1068,7 @@ public class OrderController {
      * <p>service: createQuoteFromCart  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/createQuoteFromCart")
-    public ResponseEntity<Map<String, Object>> createQuoteFromCart(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateQuoteFromCartResponse> createQuoteFromCart(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -829,7 +1078,7 @@ public class OrderController {
      * <p>service: createQuoteFromCustRequest  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/createQuoteFromCustRequest")
-    public ResponseEntity<Map<String, Object>> createQuoteFromCustRequest(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuoteFromCustRequestResponse> createQuoteFromCustRequest(@RequestBody CreateQuoteFromCustRequestRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -839,7 +1088,7 @@ public class OrderController {
      * <p>service: createQuoteFromShoppingList  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/createQuoteFromShoppingList")
-    public ResponseEntity<Map<String, Object>> createQuoteFromShoppingList(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuoteFromShoppingListResponse> createQuoteFromShoppingList(@RequestBody CreateQuoteFromShoppingListRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -849,7 +1098,7 @@ public class OrderController {
      * <p>service: createQuoteItem  entities: QuoteItem  auth: true
      */
     @PostMapping("/ordermgr/control/createQuoteItem")
-    public ResponseEntity<Map<String, Object>> createQuoteItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuoteItemResponse> createQuoteItem(@RequestBody CreateQuoteItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -859,7 +1108,7 @@ public class OrderController {
      * <p>service: createQuoteItem  entities: QuoteItem  auth: true
      */
     @PostMapping("/ordermgr/control/createQuoteItemForRequest")
-    public ResponseEntity<Map<String, Object>> createQuoteItemCreateQuoteItemForRequest(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuoteItemResponse> createQuoteItemCreateQuoteItemForRequest(@RequestBody CreateQuoteItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -869,7 +1118,7 @@ public class OrderController {
      * <p>service: createQuoteRole  entities: QuoteRole  auth: true
      */
     @PostMapping("/ordermgr/control/createQuoteRole")
-    public ResponseEntity<Map<String, Object>> createQuoteRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuoteRoleResponse> createQuoteRole(@RequestBody CreateQuoteRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -879,7 +1128,7 @@ public class OrderController {
      * <p>service: createQuoteTerm  entities: QuoteTerm  auth: true
      */
     @PostMapping("/ordermgr/control/createQuoteTerm")
-    public ResponseEntity<Map<String, Object>> createQuoteTerm(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuoteTermResponse> createQuoteTerm(@RequestBody CreateQuoteTermRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -889,7 +1138,7 @@ public class OrderController {
      * <p>service: createQuoteTerm  entities: QuoteTerm  auth: true
      */
     @PostMapping("/ordermgr/control/createQuoteTermFromItem")
-    public ResponseEntity<Map<String, Object>> createQuoteTermCreateQuoteTermFromItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuoteTermResponse> createQuoteTermCreateQuoteTermFromItem(@RequestBody CreateQuoteTermRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -909,7 +1158,7 @@ public class OrderController {
      * <p>service: createRequirement  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/createRequirement")
-    public ResponseEntity<Map<String, Object>> createRequirement(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateRequirementResponse> createRequirement(@RequestBody CreateRequirementRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -919,7 +1168,7 @@ public class OrderController {
      * <p>service: createRequirementRole  entities: RequirementRole  auth: true
      */
     @PostMapping("/ordermgr/control/createRequirementRole")
-    public ResponseEntity<Map<String, Object>> createRequirementRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateRequirementRoleResponse> createRequirementRole(@RequestBody CreateRequirementRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -929,7 +1178,7 @@ public class OrderController {
      * <p>service: createReturnHeader  entities: ReturnHeader  auth: true
      */
     @PostMapping("/ordermgr/control/createReturn")
-    public ResponseEntity<Map<String, Object>> createReturnHeader(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateReturnHeaderResponse> createReturnHeader(@RequestBody CreateReturnHeaderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -939,7 +1188,7 @@ public class OrderController {
      * <p>service: createReturnItemOrAdjustment  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/createReturnItems")
-    public ResponseEntity<Map<String, Object>> createReturnItemOrAdjustment(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateReturnItemOrAdjustmentResponse> createReturnItemOrAdjustment(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -949,7 +1198,7 @@ public class OrderController {
      * <p>service: createTransferFromRequirement  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/createTransfersFromRequirements")
-    public ResponseEntity<Map<String, Object>> createTransferFromRequirement(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateTransferFromRequirementResponse> createTransferFromRequirement(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -959,7 +1208,7 @@ public class OrderController {
      * <p>service: createOrderNote  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/createordernote")
-    public ResponseEntity<Map<String, Object>> createOrderNote(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateOrderNoteResponse> createOrderNote(@RequestBody CreateOrderNoteRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -969,7 +1218,7 @@ public class OrderController {
      * <p>service: createQuoteNote  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/createquotenote")
-    public ResponseEntity<Map<String, Object>> createQuoteNote(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateQuoteNoteResponse> createQuoteNote(@RequestBody CreateQuoteNoteRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -979,7 +1228,7 @@ public class OrderController {
      * <p>service: createCustRequest  entities: CustRequest, CustRequestItem  auth: true
      */
     @PostMapping("/ordermgr/control/createrequest")
-    public ResponseEntity<Map<String, Object>> createCustRequest(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCustRequestResponse> createCustRequest(@RequestBody CreateCustRequestRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -989,7 +1238,7 @@ public class OrderController {
      * <p>service: createCustRequestItem  entities: CustRequestItem  auth: true
      */
     @PostMapping("/ordermgr/control/createrequestitem")
-    public ResponseEntity<Map<String, Object>> createCustRequestItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCustRequestItemResponse> createCustRequestItem(@RequestBody CreateCustRequestItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -999,7 +1248,7 @@ public class OrderController {
      * <p>service: createCustRequestItemNote  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/createrequestitemnote")
-    public ResponseEntity<Map<String, Object>> createCustRequestItemNote(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCustRequestItemNoteResponse> createCustRequestItemNote(@RequestBody CreateCustRequestItemNoteRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1009,7 +1258,7 @@ public class OrderController {
      * <p>service: deleteAllocationPlanItem  entities: AllocationPlanItem  auth: true
      */
     @PostMapping("/ordermgr/control/deleteAllocationPlanItem")
-    public ResponseEntity<Map<String, Object>> deleteAllocationPlanItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteAllocationPlanItemResponse> deleteAllocationPlanItem(@RequestBody DeleteAllocationPlanItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1029,7 +1278,7 @@ public class OrderController {
      * <p>service: deleteCustRequestParty  entities: CustRequestParty  auth: true
      */
     @PostMapping("/ordermgr/control/deleteCustRequestParty")
-    public ResponseEntity<Map<String, Object>> deleteCustRequestParty(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteCustRequestPartyResponse> deleteCustRequestParty(@RequestBody DeleteCustRequestPartyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1049,7 +1298,7 @@ public class OrderController {
      * <p>service: deleteOrderAdjustment  entities: OrderAdjustment  auth: true
      */
     @PostMapping("/ordermgr/control/deleteOrderAdjustment")
-    public ResponseEntity<Map<String, Object>> deleteOrderAdjustment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteOrderAdjustmentResponse> deleteOrderAdjustment(@RequestBody DeleteOrderAdjustmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1059,7 +1308,7 @@ public class OrderController {
      * <p>service: deleteQuoteTerm  entities: QuoteTerm  auth: true
      */
     @PostMapping("/ordermgr/control/deleteQuoteTerm")
-    public ResponseEntity<Map<String, Object>> deleteQuoteTerm(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteQuoteTermResponse> deleteQuoteTerm(@RequestBody DeleteQuoteTermRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1069,7 +1318,7 @@ public class OrderController {
      * <p>service: deleteQuoteTerm  entities: QuoteTerm  auth: true
      */
     @PostMapping("/ordermgr/control/deleteQuoteTermFromItem")
-    public ResponseEntity<Map<String, Object>> deleteQuoteTermDeleteQuoteTermFromItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteQuoteTermResponse> deleteQuoteTermDeleteQuoteTermFromItem(@RequestBody DeleteQuoteTermRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1079,7 +1328,7 @@ public class OrderController {
      * <p>service: deleteQuoteWorkEffort  entities: QuoteWorkEffort  auth: true
      */
     @PostMapping("/ordermgr/control/deleteQuoteWorkEffort")
-    public ResponseEntity<Map<String, Object>> deleteQuoteWorkEffort(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteQuoteWorkEffortResponse> deleteQuoteWorkEffort(@RequestBody DeleteQuoteWorkEffortRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1089,7 +1338,7 @@ public class OrderController {
      * <p>service: deleteRequirementAndRelated  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/deleteRequirement")
-    public ResponseEntity<Map<String, Object>> deleteRequirementAndRelated(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteRequirementAndRelatedResponse> deleteRequirementAndRelated(@RequestBody DeleteRequirementAndRelatedRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1109,7 +1358,7 @@ public class OrderController {
      * <p>service: sendOrderConfirmation  entities: unknown  auth: false
      */
     @PostMapping("/ordermgr/control/emailorder")
-    public ResponseEntity<Map<String, Object>> sendOrderConfirmation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SendOrderConfirmationResponse> sendOrderConfirmation(@RequestBody SendOrderConfirmationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1129,7 +1378,7 @@ public class OrderController {
      * <p>service: ensureWorkEffortAndCreateQuoteWorkEffort  entities: WorkEffort  auth: true
      */
     @PostMapping("/ordermgr/control/ensureWorkEffortAndCreateQuoteWorkEffort")
-    public ResponseEntity<Map<String, Object>> ensureWorkEffortAndCreateQuoteWorkEffort(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<EnsureWorkEffortAndCreateQuoteWorkEffortResponse> ensureWorkEffortAndCreateQuoteWorkEffort(@RequestBody EnsureWorkEffortAndCreateQuoteWorkEffortRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1139,7 +1388,7 @@ public class OrderController {
      * <p>service: expireCustRequestContent  entities: CustRequestContent  auth: true
      */
     @PostMapping("/ordermgr/control/expireCustRequestContent")
-    public ResponseEntity<Map<String, Object>> expireCustRequestContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ExpireCustRequestContentResponse> expireCustRequestContent(@RequestBody ExpireCustRequestContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1149,7 +1398,7 @@ public class OrderController {
      * <p>service: expireCustRequestParty  entities: CustRequestParty  auth: true
      */
     @PostMapping("/ordermgr/control/expireCustRequestParty")
-    public ResponseEntity<Map<String, Object>> expireCustRequestParty(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ExpireCustRequestPartyResponse> expireCustRequestParty(@RequestBody ExpireCustRequestPartyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1209,7 +1458,7 @@ public class OrderController {
      * <p>service: getStatusItemsForReturn  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/getStatusItemsForReturn")
-    public ResponseEntity<Map<String, Object>> getStatusItemsForReturn(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<GetStatusItemsForReturnResponse> getStatusItemsForReturn(@RequestBody GetStatusItemsForReturnRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1239,7 +1488,7 @@ public class OrderController {
      * <p>service: loadCartFromOrder  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/loadCartForReplacementOrder")
-    public ResponseEntity<Map<String, Object>> loadCartFromOrder(@RequestParam Map<String, String> params) {
+    public ResponseEntity<LoadCartFromOrderResponse> loadCartFromOrder(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1249,7 +1498,7 @@ public class OrderController {
      * <p>service: loadCartFromOrder  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/loadCartFromOrder")
-    public ResponseEntity<Map<String, Object>> loadCartFromOrderLoadCartFromOrder(@RequestParam Map<String, String> params) {
+    public ResponseEntity<LoadCartFromOrderResponse> loadCartFromOrderLoadCartFromOrder(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1259,7 +1508,7 @@ public class OrderController {
      * <p>service: loadCartFromQuote  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/loadCartFromQuote")
-    public ResponseEntity<Map<String, Object>> loadCartFromQuote(@RequestParam Map<String, String> params) {
+    public ResponseEntity<LoadCartFromQuoteResponse> loadCartFromQuote(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1269,7 +1518,7 @@ public class OrderController {
      * <p>service: loadCartFromShoppingList  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/loadCartFromShoppingList")
-    public ResponseEntity<Map<String, Object>> loadCartFromShoppingList(@RequestParam Map<String, String> params) {
+    public ResponseEntity<LoadCartFromShoppingListResponse> loadCartFromShoppingList(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1279,7 +1528,7 @@ public class OrderController {
      * <p>service: createReturnAndItemOrAdjustment  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/makeQuickReturn")
-    public ResponseEntity<Map<String, Object>> createReturnAndItemOrAdjustment(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateReturnAndItemOrAdjustmentResponse> createReturnAndItemOrAdjustment(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1289,7 +1538,7 @@ public class OrderController {
      * <p>service: updateOrderHeader  entities: OrderHeader  auth: true
      */
     @PostMapping("/ordermgr/control/markOrderViewed")
-    public ResponseEntity<Map<String, Object>> updateOrderHeader(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateOrderHeaderResponse> updateOrderHeader(@RequestBody UpdateOrderHeaderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1299,7 +1548,7 @@ public class OrderController {
      * <p>service: massChangeOrderApproved  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/massApproveOrders")
-    public ResponseEntity<Map<String, Object>> massChangeOrderApproved(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<MassChangeOrderApprovedResponse> massChangeOrderApproved(@RequestBody MassChangeOrderApprovedRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1309,7 +1558,7 @@ public class OrderController {
      * <p>service: massCancelOrders  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/massCancelOrders")
-    public ResponseEntity<Map<String, Object>> massCancelOrders(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<MassCancelOrdersResponse> massCancelOrders(@RequestBody MassCancelOrdersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1319,7 +1568,7 @@ public class OrderController {
      * <p>service: massCancelRemainingPurchaseOrderItems  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/massCancelRemainingPurchaseOrderItems")
-    public ResponseEntity<Map<String, Object>> massCancelRemainingPurchaseOrderItems(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<MassCancelRemainingPurchaseOrderItemsResponse> massCancelRemainingPurchaseOrderItems(@RequestBody MassCancelRemainingPurchaseOrderItemsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1329,7 +1578,7 @@ public class OrderController {
      * <p>service: massCreateFileForOrders  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/massCreateFileForOrders")
-    public ResponseEntity<Map<String, Object>> massCreateFileForOrders(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<MassCreateFileForOrdersResponse> massCreateFileForOrders(@RequestBody MassCreateFileForOrdersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1339,7 +1588,7 @@ public class OrderController {
      * <p>service: massHoldOrders  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/massHoldOrders")
-    public ResponseEntity<Map<String, Object>> massHoldOrders(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<MassHoldOrdersResponse> massHoldOrders(@RequestBody MassHoldOrdersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1349,7 +1598,7 @@ public class OrderController {
      * <p>service: massPickOrders  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/massPickOrders")
-    public ResponseEntity<Map<String, Object>> massPickOrders(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<MassPickOrdersResponse> massPickOrders(@RequestBody MassPickOrdersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1359,7 +1608,7 @@ public class OrderController {
      * <p>service: massPrintOrders  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/massPrintOrders")
-    public ResponseEntity<Map<String, Object>> massPrintOrders(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<MassPrintOrdersResponse> massPrintOrders(@RequestBody MassPrintOrdersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1369,7 +1618,7 @@ public class OrderController {
      * <p>service: massProcessOrders  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/massProcessOrders")
-    public ResponseEntity<Map<String, Object>> massProcessOrders(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<MassProcessOrdersResponse> massProcessOrders(@RequestBody MassProcessOrdersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1379,7 +1628,7 @@ public class OrderController {
      * <p>service: massQuickShipOrders  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/massQuickShipOrders")
-    public ResponseEntity<Map<String, Object>> massQuickShipOrders(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<MassQuickShipOrdersResponse> massQuickShipOrders(@RequestBody MassQuickShipOrdersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1389,7 +1638,7 @@ public class OrderController {
      * <p>service: massRejectOrders  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/massRejectOrders")
-    public ResponseEntity<Map<String, Object>> massRejectOrders(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<MassRejectOrdersResponse> massRejectOrders(@RequestBody MassRejectOrdersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1449,7 +1698,7 @@ public class OrderController {
      * <p>service: productAvailabilityByFacility  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/productAvailabilityByFacility")
-    public ResponseEntity<Map<String, Object>> productAvailabilityByFacility(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ProductAvailabilityByFacilityResponse> productAvailabilityByFacility(@RequestBody ProductAvailabilityByFacilityRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1499,7 +1748,7 @@ public class OrderController {
      * <p>service: quickReturnOrder  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/quickRefundOrder")
-    public ResponseEntity<Map<String, Object>> quickReturnOrder(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<QuickReturnOrderResponse> quickReturnOrder(@RequestBody QuickReturnOrderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1519,7 +1768,7 @@ public class OrderController {
      * <p>service: recalcTaxTotal  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/recalcTax")
-    public ResponseEntity<Map<String, Object>> recalcTaxTotal(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RecalcTaxTotalResponse> recalcTaxTotal(@RequestBody RecalcTaxTotalRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1549,7 +1798,7 @@ public class OrderController {
      * <p>service: removeOrderTerm  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/removeCartOrderTerm")
-    public ResponseEntity<Map<String, Object>> removeOrderTerm(@RequestParam Map<String, String> params) {
+    public ResponseEntity<RemoveOrderTermResponse> removeOrderTerm(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1569,7 +1818,7 @@ public class OrderController {
      * <p>service: removeOrderTerm  entities: OrderTerm  auth: true
      */
     @PostMapping("/ordermgr/control/removeOrderTerm")
-    public ResponseEntity<Map<String, Object>> removeOrderTermRemoveOrderTerm(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveOrderTermResponse> removeOrderTermRemoveOrderTerm(@RequestBody RemoveOrderTermRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1589,7 +1838,7 @@ public class OrderController {
      * <p>service: removeQuoteAdjustment  entities: QuoteAdjustment  auth: true
      */
     @PostMapping("/ordermgr/control/removeQuoteAdjustment")
-    public ResponseEntity<Map<String, Object>> removeQuoteAdjustment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveQuoteAdjustmentResponse> removeQuoteAdjustment(@RequestBody RemoveQuoteAdjustmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1599,7 +1848,7 @@ public class OrderController {
      * <p>service: removeQuoteAttribute  entities: QuoteAttribute  auth: true
      */
     @PostMapping("/ordermgr/control/removeQuoteAttribute")
-    public ResponseEntity<Map<String, Object>> removeQuoteAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveQuoteAttributeResponse> removeQuoteAttribute(@RequestBody RemoveQuoteAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1609,7 +1858,7 @@ public class OrderController {
      * <p>service: removeQuoteCoefficient  entities: QuoteCoefficient  auth: true
      */
     @PostMapping("/ordermgr/control/removeQuoteCoefficient")
-    public ResponseEntity<Map<String, Object>> removeQuoteCoefficient(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveQuoteCoefficientResponse> removeQuoteCoefficient(@RequestBody RemoveQuoteCoefficientRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1619,7 +1868,7 @@ public class OrderController {
      * <p>service: removeQuoteItem  entities: QuoteItem  auth: true
      */
     @PostMapping("/ordermgr/control/removeQuoteItem")
-    public ResponseEntity<Map<String, Object>> removeQuoteItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveQuoteItemResponse> removeQuoteItem(@RequestBody RemoveQuoteItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1629,7 +1878,7 @@ public class OrderController {
      * <p>service: removeQuoteRole  entities: QuoteRole  auth: true
      */
     @PostMapping("/ordermgr/control/removeQuoteRole")
-    public ResponseEntity<Map<String, Object>> removeQuoteRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveQuoteRoleResponse> removeQuoteRole(@RequestBody RemoveQuoteRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1639,7 +1888,7 @@ public class OrderController {
      * <p>service: removeRequirementRole  entities: RequirementRole  auth: true
      */
     @PostMapping("/ordermgr/control/removeRequirementRole")
-    public ResponseEntity<Map<String, Object>> removeRequirementRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveRequirementRoleResponse> removeRequirementRole(@RequestBody RemoveRequirementRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1649,7 +1898,7 @@ public class OrderController {
      * <p>service: removeReturnAdjustment  entities: ReturnAdjustment  auth: true
      */
     @PostMapping("/ordermgr/control/removeReturnAdjustment")
-    public ResponseEntity<Map<String, Object>> removeReturnAdjustment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveReturnAdjustmentResponse> removeReturnAdjustment(@RequestBody RemoveReturnAdjustmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1659,7 +1908,7 @@ public class OrderController {
      * <p>service: removeReturnItem  entities: ReturnItem  auth: true
      */
     @PostMapping("/ordermgr/control/removeReturnItem")
-    public ResponseEntity<Map<String, Object>> removeReturnItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveReturnItemResponse> removeReturnItem(@RequestBody RemoveReturnItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1669,7 +1918,7 @@ public class OrderController {
      * <p>service: findOrders  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/searchorders")
-    public ResponseEntity<Map<String, Object>> findOrders(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<FindOrdersResponse> findOrders(@RequestBody FindOrdersRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1679,7 +1928,7 @@ public class OrderController {
      * <p>service: sendPOEmail  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/sendPOEmail")
-    public ResponseEntity<Map<String, Object>> sendPOEmail(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SendPOEmailResponse> sendPOEmail(@RequestBody SendPOEmailRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1689,7 +1938,7 @@ public class OrderController {
      * <p>service: sendQuoteReportMail  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/sendQuoteReportMail")
-    public ResponseEntity<Map<String, Object>> sendQuoteReportMail(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SendQuoteReportMailResponse> sendQuoteReportMail(@RequestBody SendQuoteReportMailRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1729,7 +1978,7 @@ public class OrderController {
      * <p>service: setCustRequestStatus  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/setCustRequestStatus")
-    public ResponseEntity<Map<String, Object>> setCustRequestStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SetCustRequestStatusResponse> setCustRequestStatus(@RequestBody SetCustRequestStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1749,7 +1998,7 @@ public class OrderController {
      * <p>service: setGiftMessage  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/setGiftMessage")
-    public ResponseEntity<Map<String, Object>> setGiftMessage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SetGiftMessageResponse> setGiftMessage(@RequestBody SetGiftMessageRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1759,7 +2008,7 @@ public class OrderController {
      * <p>service: updateOrderHeader  entities: OrderHeader  auth: true
      */
     @PostMapping("/ordermgr/control/setInvoicePerShipment")
-    public ResponseEntity<Map<String, Object>> updateOrderHeaderSetInvoicePerShipment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateOrderHeaderResponse> updateOrderHeaderSetInvoicePerShipment(@RequestBody UpdateOrderHeaderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1829,7 +2078,7 @@ public class OrderController {
      * <p>service: setShippingInstructions  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/setShippingInstructions")
-    public ResponseEntity<Map<String, Object>> setShippingInstructions(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SetShippingInstructionsResponse> setShippingInstructions(@RequestBody SetShippingInstructionsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1839,7 +2088,7 @@ public class OrderController {
      * <p>service: updateAllocationPlanItems  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/updateAllocationPlanItems")
-    public ResponseEntity<Map<String, Object>> updateAllocationPlanItems(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateAllocationPlanItemsResponse> updateAllocationPlanItems(@RequestBody UpdateAllocationPlanItemsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1879,7 +2128,7 @@ public class OrderController {
      * <p>service: updateCustRequestParty  entities: CustRequestParty  auth: true
      */
     @PostMapping("/ordermgr/control/updateCustRequestParty")
-    public ResponseEntity<Map<String, Object>> updateCustRequestParty(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateCustRequestPartyResponse> updateCustRequestParty(@RequestBody UpdateCustRequestPartyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1899,7 +2148,7 @@ public class OrderController {
      * <p>service: updateOrderAdjustment  entities: OrderAdjustment  auth: true
      */
     @PostMapping("/ordermgr/control/updateOrderAdjustment")
-    public ResponseEntity<Map<String, Object>> updateOrderAdjustment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateOrderAdjustmentResponse> updateOrderAdjustment(@RequestBody UpdateOrderAdjustmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1909,7 +2158,7 @@ public class OrderController {
      * <p>service: updateOrderContactMech  entities: OrderContactMech  auth: true
      */
     @PostMapping("/ordermgr/control/updateOrderContactMech")
-    public ResponseEntity<Map<String, Object>> updateOrderContactMech(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateOrderContactMechResponse> updateOrderContactMech(@RequestBody UpdateOrderContactMechRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1919,7 +2168,7 @@ public class OrderController {
      * <p>service: updateOrderDeliverySchedule  entities: OrderDeliverySchedule  auth: true
      */
     @PostMapping("/ordermgr/control/updateOrderDeliverySchedule")
-    public ResponseEntity<Map<String, Object>> updateOrderDeliverySchedule(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateOrderDeliveryScheduleResponse> updateOrderDeliverySchedule(@RequestBody UpdateOrderDeliveryScheduleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1929,7 +2178,7 @@ public class OrderController {
      * <p>service: updateOrderHeader  entities: OrderHeader  auth: true
      */
     @PostMapping("/ordermgr/control/updateOrderHeader")
-    public ResponseEntity<Map<String, Object>> updateOrderHeaderUpdateOrderHeader(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateOrderHeaderResponse> updateOrderHeaderUpdateOrderHeader(@RequestBody UpdateOrderHeaderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1939,7 +2188,7 @@ public class OrderController {
      * <p>service: updateOrderItemShipGroup  entities: OrderItemShipGroup  auth: true
      */
     @PostMapping("/ordermgr/control/updateOrderItemShipGroup")
-    public ResponseEntity<Map<String, Object>> updateOrderItemShipGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateOrderItemShipGroupResponse> updateOrderItemShipGroup(@RequestBody UpdateOrderItemShipGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1949,7 +2198,7 @@ public class OrderController {
      * <p>service: updateOrderItems  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/updateOrderItems")
-    public ResponseEntity<Map<String, Object>> updateOrderItems(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateOrderItemsResponse> updateOrderItems(@RequestBody UpdateOrderItemsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1959,7 +2208,7 @@ public class OrderController {
      * <p>service: updateOrderNote  entities: OrderHeaderNote  auth: true
      */
     @PostMapping("/ordermgr/control/updateOrderNote")
-    public ResponseEntity<Map<String, Object>> updateOrderNote(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateOrderNoteResponse> updateOrderNote(@RequestBody UpdateOrderNoteRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1969,7 +2218,7 @@ public class OrderController {
      * <p>service: updateOrderPaymentPreference  entities: OrderPaymentPreference  auth: true
      */
     @PostMapping("/ordermgr/control/updateOrderPaymentPreference")
-    public ResponseEntity<Map<String, Object>> updateOrderPaymentPreference(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateOrderPaymentPreferenceResponse> updateOrderPaymentPreference(@RequestBody UpdateOrderPaymentPreferenceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1979,7 +2228,7 @@ public class OrderController {
      * <p>service: updateOrderTerm  entities: OrderTerm  auth: true
      */
     @PostMapping("/ordermgr/control/updateOrderTerm")
-    public ResponseEntity<Map<String, Object>> updateOrderTerm(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateOrderTermResponse> updateOrderTerm(@RequestBody UpdateOrderTermRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2009,7 +2258,7 @@ public class OrderController {
      * <p>service: updateQuote  entities: Quote  auth: true
      */
     @PostMapping("/ordermgr/control/updateQuote")
-    public ResponseEntity<Map<String, Object>> updateQuote(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateQuoteResponse> updateQuote(@RequestBody UpdateQuoteRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2019,7 +2268,7 @@ public class OrderController {
      * <p>service: updateQuoteAdjustment  entities: QuoteAdjustment  auth: true
      */
     @PostMapping("/ordermgr/control/updateQuoteAdjustment")
-    public ResponseEntity<Map<String, Object>> updateQuoteAdjustment(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateQuoteAdjustmentResponse> updateQuoteAdjustment(@RequestBody UpdateQuoteAdjustmentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2029,7 +2278,7 @@ public class OrderController {
      * <p>service: updateQuoteAttribute  entities: QuoteAttribute  auth: true
      */
     @PostMapping("/ordermgr/control/updateQuoteAttribute")
-    public ResponseEntity<Map<String, Object>> updateQuoteAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateQuoteAttributeResponse> updateQuoteAttribute(@RequestBody UpdateQuoteAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2039,7 +2288,7 @@ public class OrderController {
      * <p>service: updateQuoteCoefficient  entities: QuoteCoefficient  auth: true
      */
     @PostMapping("/ordermgr/control/updateQuoteCoefficient")
-    public ResponseEntity<Map<String, Object>> updateQuoteCoefficient(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateQuoteCoefficientResponse> updateQuoteCoefficient(@RequestBody UpdateQuoteCoefficientRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2049,7 +2298,7 @@ public class OrderController {
      * <p>service: updateQuoteItem  entities: QuoteItem  auth: true
      */
     @PostMapping("/ordermgr/control/updateQuoteItem")
-    public ResponseEntity<Map<String, Object>> updateQuoteItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateQuoteItemResponse> updateQuoteItem(@RequestBody UpdateQuoteItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2059,7 +2308,7 @@ public class OrderController {
      * <p>service: updateQuoteItem  entities: QuoteItem  auth: true
      */
     @PostMapping("/ordermgr/control/updateQuoteItemForRequest")
-    public ResponseEntity<Map<String, Object>> updateQuoteItemUpdateQuoteItemForRequest(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateQuoteItemResponse> updateQuoteItemUpdateQuoteItemForRequest(@RequestBody UpdateQuoteItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2079,7 +2328,7 @@ public class OrderController {
      * <p>service: updateQuoteRole  entities: QuoteRole  auth: true
      */
     @PostMapping("/ordermgr/control/updateQuoteRole")
-    public ResponseEntity<Map<String, Object>> updateQuoteRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateQuoteRoleResponse> updateQuoteRole(@RequestBody UpdateQuoteRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2089,7 +2338,7 @@ public class OrderController {
      * <p>service: updateQuoteTerm  entities: QuoteTerm  auth: true
      */
     @PostMapping("/ordermgr/control/updateQuoteTerm")
-    public ResponseEntity<Map<String, Object>> updateQuoteTerm(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateQuoteTermResponse> updateQuoteTerm(@RequestBody UpdateQuoteTermRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2099,7 +2348,7 @@ public class OrderController {
      * <p>service: updateQuoteTerm  entities: QuoteTerm  auth: true
      */
     @PostMapping("/ordermgr/control/updateQuoteTermFromItem")
-    public ResponseEntity<Map<String, Object>> updateQuoteTermUpdateQuoteTermFromItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateQuoteTermResponse> updateQuoteTermUpdateQuoteTermFromItem(@RequestBody UpdateQuoteTermRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2119,7 +2368,7 @@ public class OrderController {
      * <p>service: updateRequirement  entities: Requirement  auth: true
      */
     @PostMapping("/ordermgr/control/updateRequirement")
-    public ResponseEntity<Map<String, Object>> updateRequirement(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateRequirementResponse> updateRequirement(@RequestBody UpdateRequirementRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2129,7 +2378,7 @@ public class OrderController {
      * <p>service: updateRequirementRole  entities: RequirementRole  auth: true
      */
     @PostMapping("/ordermgr/control/updateRequirementRole")
-    public ResponseEntity<Map<String, Object>> updateRequirementRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateRequirementRoleResponse> updateRequirementRole(@RequestBody UpdateRequirementRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2139,7 +2388,7 @@ public class OrderController {
      * <p>service: updateReturnHeader  entities: ReturnHeader  auth: true
      */
     @PostMapping("/ordermgr/control/updateReturn")
-    public ResponseEntity<Map<String, Object>> updateReturnHeader(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateReturnHeaderResponse> updateReturnHeader(@RequestBody UpdateReturnHeaderRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2149,7 +2398,7 @@ public class OrderController {
      * <p>service: updateReturnItemOrAdjustment  entities: unknown  auth: true
      */
     @GetMapping("/ordermgr/control/updateReturnItems")
-    public ResponseEntity<Map<String, Object>> updateReturnItemOrAdjustment(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateReturnItemOrAdjustmentResponse> updateReturnItemOrAdjustment(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2159,7 +2408,7 @@ public class OrderController {
      * <p>service: updateShipGroupShipInfo  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/updateShipGroupShipInfo")
-    public ResponseEntity<Map<String, Object>> updateShipGroupShipInfo(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShipGroupShipInfoResponse> updateShipGroupShipInfo(@RequestBody UpdateShipGroupShipInfoRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2169,7 +2418,7 @@ public class OrderController {
      * <p>service: setCartShippingAddress  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/updateShippingAddress")
-    public ResponseEntity<Map<String, Object>> setCartShippingAddress(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SetCartShippingAddressResponse> setCartShippingAddress(@RequestBody SetCartShippingAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2179,7 +2428,7 @@ public class OrderController {
      * <p>service: updateShippingMethodAndCharges  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/updateShippingMethodAndCharges")
-    public ResponseEntity<Map<String, Object>> updateShippingMethodAndCharges(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateShippingMethodAndChargesResponse> updateShippingMethodAndCharges(@RequestBody UpdateShippingMethodAndChargesRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2189,7 +2438,7 @@ public class OrderController {
      * <p>service: setCartShippingOptions  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/updateShippingOptions")
-    public ResponseEntity<Map<String, Object>> setCartShippingOptions(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SetCartShippingOptionsResponse> setCartShippingOptions(@RequestBody SetCartShippingOptionsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2199,7 +2448,7 @@ public class OrderController {
      * <p>service: updateTrackingNumber  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/updateTrackingNumber")
-    public ResponseEntity<Map<String, Object>> updateTrackingNumber(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateTrackingNumberResponse> updateTrackingNumber(@RequestBody UpdateTrackingNumberRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2209,7 +2458,7 @@ public class OrderController {
      * <p>service: updateCustRequest  entities: CustRequest  auth: true
      */
     @PostMapping("/ordermgr/control/updaterequest")
-    public ResponseEntity<Map<String, Object>> updateCustRequest(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateCustRequestResponse> updateCustRequest(@RequestBody UpdateCustRequestRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2219,7 +2468,7 @@ public class OrderController {
      * <p>service: updateCustRequestItem  entities: CustRequestItem  auth: true
      */
     @PostMapping("/ordermgr/control/updaterequestitem")
-    public ResponseEntity<Map<String, Object>> updateCustRequestItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateCustRequestItemResponse> updateCustRequestItem(@RequestBody UpdateCustRequestItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2229,7 +2478,7 @@ public class OrderController {
      * <p>service: assignItemShipGroup  entities: unknown  auth: true
      */
     @PostMapping("/ordermgr/control/updatesplit")
-    public ResponseEntity<Map<String, Object>> assignItemShipGroupUpdatesplit(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AssignItemShipGroupResponse> assignItemShipGroupUpdatesplit(@RequestBody AssignItemShipGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }

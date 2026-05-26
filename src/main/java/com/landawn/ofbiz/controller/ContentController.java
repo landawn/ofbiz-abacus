@@ -1,5 +1,273 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.model.ResponseBase;
+import com.landawn.ofbiz.model.content.AutoCreateWebSiteContentRequest;
+import com.landawn.ofbiz.model.content.AutoCreateWebSiteContentResponse;
+import com.landawn.ofbiz.model.content.BuildSurveyFromPdfRequest;
+import com.landawn.ofbiz.model.content.BuildSurveyFromPdfResponse;
+import com.landawn.ofbiz.model.content.BuildSurveyResponseFromPdfRequest;
+import com.landawn.ofbiz.model.content.BuildSurveyResponseFromPdfResponse;
+import com.landawn.ofbiz.model.content.CreateBlogEntryRequest;
+import com.landawn.ofbiz.model.content.CreateBlogEntryResponse;
+import com.landawn.ofbiz.model.content.CreateCharacterSetRequest;
+import com.landawn.ofbiz.model.content.CreateCharacterSetResponse;
+import com.landawn.ofbiz.model.content.CreateContentApprovalRequest;
+import com.landawn.ofbiz.model.content.CreateContentApprovalResponse;
+import com.landawn.ofbiz.model.content.CreateContentAssocPredicateRequest;
+import com.landawn.ofbiz.model.content.CreateContentAssocPredicateResponse;
+import com.landawn.ofbiz.model.content.CreateContentAssocRequest;
+import com.landawn.ofbiz.model.content.CreateContentAssocResponse;
+import com.landawn.ofbiz.model.content.CreateContentAssocTypeRequest;
+import com.landawn.ofbiz.model.content.CreateContentAssocTypeResponse;
+import com.landawn.ofbiz.model.content.CreateContentAttributeRequest;
+import com.landawn.ofbiz.model.content.CreateContentAttributeResponse;
+import com.landawn.ofbiz.model.content.CreateContentFromUploadedFileRequest;
+import com.landawn.ofbiz.model.content.CreateContentFromUploadedFileResponse;
+import com.landawn.ofbiz.model.content.CreateContentKeywordRequest;
+import com.landawn.ofbiz.model.content.CreateContentKeywordResponse;
+import com.landawn.ofbiz.model.content.CreateContentMetaDataRequest;
+import com.landawn.ofbiz.model.content.CreateContentMetaDataResponse;
+import com.landawn.ofbiz.model.content.CreateContentOperationRequest;
+import com.landawn.ofbiz.model.content.CreateContentOperationResponse;
+import com.landawn.ofbiz.model.content.CreateContentPurposeOperationRequest;
+import com.landawn.ofbiz.model.content.CreateContentPurposeOperationResponse;
+import com.landawn.ofbiz.model.content.CreateContentPurposeRequest;
+import com.landawn.ofbiz.model.content.CreateContentPurposeResponse;
+import com.landawn.ofbiz.model.content.CreateContentPurposeTypeRequest;
+import com.landawn.ofbiz.model.content.CreateContentPurposeTypeResponse;
+import com.landawn.ofbiz.model.content.CreateContentRequest;
+import com.landawn.ofbiz.model.content.CreateContentResponse;
+import com.landawn.ofbiz.model.content.CreateContentRevisionItemRequest;
+import com.landawn.ofbiz.model.content.CreateContentRevisionItemResponse;
+import com.landawn.ofbiz.model.content.CreateContentRevisionRequest;
+import com.landawn.ofbiz.model.content.CreateContentRevisionResponse;
+import com.landawn.ofbiz.model.content.CreateContentRoleRequest;
+import com.landawn.ofbiz.model.content.CreateContentRoleResponse;
+import com.landawn.ofbiz.model.content.CreateContentTypeAttrRequest;
+import com.landawn.ofbiz.model.content.CreateContentTypeAttrResponse;
+import com.landawn.ofbiz.model.content.CreateContentTypeRequest;
+import com.landawn.ofbiz.model.content.CreateContentTypeResponse;
+import com.landawn.ofbiz.model.content.CreateDataCategoryRequest;
+import com.landawn.ofbiz.model.content.CreateDataCategoryResponse;
+import com.landawn.ofbiz.model.content.CreateDataResourceAndAssocToContentRequest;
+import com.landawn.ofbiz.model.content.CreateDataResourceAndAssocToContentResponse;
+import com.landawn.ofbiz.model.content.CreateDataResourceAndTextRequest;
+import com.landawn.ofbiz.model.content.CreateDataResourceAndTextResponse;
+import com.landawn.ofbiz.model.content.CreateDataResourceAttributeRequest;
+import com.landawn.ofbiz.model.content.CreateDataResourceAttributeResponse;
+import com.landawn.ofbiz.model.content.CreateDataResourceRequest;
+import com.landawn.ofbiz.model.content.CreateDataResourceResponse;
+import com.landawn.ofbiz.model.content.CreateDataResourceRoleRequest;
+import com.landawn.ofbiz.model.content.CreateDataResourceRoleResponse;
+import com.landawn.ofbiz.model.content.CreateDataResourceTypeAttrRequest;
+import com.landawn.ofbiz.model.content.CreateDataResourceTypeAttrResponse;
+import com.landawn.ofbiz.model.content.CreateDataResourceTypeRequest;
+import com.landawn.ofbiz.model.content.CreateDataResourceTypeResponse;
+import com.landawn.ofbiz.model.content.CreateDocumentResponse;
+import com.landawn.ofbiz.model.content.CreateElectronicTextRequest;
+import com.landawn.ofbiz.model.content.CreateElectronicTextResponse;
+import com.landawn.ofbiz.model.content.CreateFileExtensionRequest;
+import com.landawn.ofbiz.model.content.CreateFileExtensionResponse;
+import com.landawn.ofbiz.model.content.CreateMetaDataPredicateRequest;
+import com.landawn.ofbiz.model.content.CreateMetaDataPredicateResponse;
+import com.landawn.ofbiz.model.content.CreateMimeTypeHtmlTemplateRequest;
+import com.landawn.ofbiz.model.content.CreateMimeTypeHtmlTemplateResponse;
+import com.landawn.ofbiz.model.content.CreateMimeTypeRequest;
+import com.landawn.ofbiz.model.content.CreateMimeTypeResponse;
+import com.landawn.ofbiz.model.content.CreateOrRemoveProductFeatureDataResourceResponse;
+import com.landawn.ofbiz.model.content.CreateSurveyMultiRespColumnRequest;
+import com.landawn.ofbiz.model.content.CreateSurveyMultiRespColumnResponse;
+import com.landawn.ofbiz.model.content.CreateSurveyMultiRespRequest;
+import com.landawn.ofbiz.model.content.CreateSurveyMultiRespResponse;
+import com.landawn.ofbiz.model.content.CreateSurveyPageRequest;
+import com.landawn.ofbiz.model.content.CreateSurveyPageResponse;
+import com.landawn.ofbiz.model.content.CreateSurveyQuestionApplRequest;
+import com.landawn.ofbiz.model.content.CreateSurveyQuestionApplResponse;
+import com.landawn.ofbiz.model.content.CreateSurveyQuestionCategoryRequest;
+import com.landawn.ofbiz.model.content.CreateSurveyQuestionCategoryResponse;
+import com.landawn.ofbiz.model.content.CreateSurveyQuestionOptionRequest;
+import com.landawn.ofbiz.model.content.CreateSurveyQuestionOptionResponse;
+import com.landawn.ofbiz.model.content.CreateSurveyQuestionRequest;
+import com.landawn.ofbiz.model.content.CreateSurveyQuestionResponse;
+import com.landawn.ofbiz.model.content.CreateSurveyRequest;
+import com.landawn.ofbiz.model.content.CreateSurveyResponse;
+import com.landawn.ofbiz.model.content.CreateSurveyResponseRequest;
+import com.landawn.ofbiz.model.content.CreateSurveyResponseResponse;
+import com.landawn.ofbiz.model.content.CreateTextContentRequest;
+import com.landawn.ofbiz.model.content.CreateTextContentResponse;
+import com.landawn.ofbiz.model.content.CreateWebSiteContentRequest;
+import com.landawn.ofbiz.model.content.CreateWebSiteContentResponse;
+import com.landawn.ofbiz.model.content.CreateWebSitePathAliasRequest;
+import com.landawn.ofbiz.model.content.CreateWebSitePathAliasResponse;
+import com.landawn.ofbiz.model.content.CreateWebSiteRequest;
+import com.landawn.ofbiz.model.content.CreateWebSiteResponse;
+import com.landawn.ofbiz.model.content.CreateWebSiteRoleRequest;
+import com.landawn.ofbiz.model.content.CreateWebSiteRoleResponse;
+import com.landawn.ofbiz.model.content.DeactivateAssocsRequest;
+import com.landawn.ofbiz.model.content.DeactivateAssocsResponse;
+import com.landawn.ofbiz.model.content.DeleteContentKeywordRequest;
+import com.landawn.ofbiz.model.content.DeleteContentKeywordResponse;
+import com.landawn.ofbiz.model.content.DeleteContentKeywordsRequest;
+import com.landawn.ofbiz.model.content.DeleteContentKeywordsResponse;
+import com.landawn.ofbiz.model.content.DeleteSurveyMultiRespColumnRequest;
+import com.landawn.ofbiz.model.content.DeleteSurveyMultiRespColumnResponse;
+import com.landawn.ofbiz.model.content.DeleteSurveyMultiRespRequest;
+import com.landawn.ofbiz.model.content.DeleteSurveyMultiRespResponse;
+import com.landawn.ofbiz.model.content.DeleteSurveyPageRequest;
+import com.landawn.ofbiz.model.content.DeleteSurveyPageResponse;
+import com.landawn.ofbiz.model.content.DeleteSurveyQuestionApplRequest;
+import com.landawn.ofbiz.model.content.DeleteSurveyQuestionApplResponse;
+import com.landawn.ofbiz.model.content.DeleteSurveyQuestionOptionRequest;
+import com.landawn.ofbiz.model.content.DeleteSurveyQuestionOptionResponse;
+import com.landawn.ofbiz.model.content.DeleteSurveyQuestionRequest;
+import com.landawn.ofbiz.model.content.DeleteSurveyQuestionResponse;
+import com.landawn.ofbiz.model.content.DeleteSurveyRequest;
+import com.landawn.ofbiz.model.content.DeleteSurveyResponse;
+import com.landawn.ofbiz.model.content.GenerateBlogRssFeedResponse;
+import com.landawn.ofbiz.model.content.GenerateMissingSeoUrlForWebsiteRequest;
+import com.landawn.ofbiz.model.content.GenerateMissingSeoUrlForWebsiteResponse;
+import com.landawn.ofbiz.model.content.LinkContentToPubPtResponse;
+import com.landawn.ofbiz.model.content.PersistContentAndAssocRequest;
+import com.landawn.ofbiz.model.content.PersistContentAndAssocResponse;
+import com.landawn.ofbiz.model.content.RemoveCharacterSetRequest;
+import com.landawn.ofbiz.model.content.RemoveCharacterSetResponse;
+import com.landawn.ofbiz.model.content.RemoveContentApprovalRequest;
+import com.landawn.ofbiz.model.content.RemoveContentApprovalResponse;
+import com.landawn.ofbiz.model.content.RemoveContentAssocPredicateRequest;
+import com.landawn.ofbiz.model.content.RemoveContentAssocPredicateResponse;
+import com.landawn.ofbiz.model.content.RemoveContentAssocRequest;
+import com.landawn.ofbiz.model.content.RemoveContentAssocResponse;
+import com.landawn.ofbiz.model.content.RemoveContentAssocTypeRequest;
+import com.landawn.ofbiz.model.content.RemoveContentAssocTypeResponse;
+import com.landawn.ofbiz.model.content.RemoveContentAttributeRequest;
+import com.landawn.ofbiz.model.content.RemoveContentAttributeResponse;
+import com.landawn.ofbiz.model.content.RemoveContentMetaDataRequest;
+import com.landawn.ofbiz.model.content.RemoveContentMetaDataResponse;
+import com.landawn.ofbiz.model.content.RemoveContentOperationRequest;
+import com.landawn.ofbiz.model.content.RemoveContentOperationResponse;
+import com.landawn.ofbiz.model.content.RemoveContentPurposeOperationRequest;
+import com.landawn.ofbiz.model.content.RemoveContentPurposeOperationResponse;
+import com.landawn.ofbiz.model.content.RemoveContentPurposeRequest;
+import com.landawn.ofbiz.model.content.RemoveContentPurposeResponse;
+import com.landawn.ofbiz.model.content.RemoveContentPurposeTypeRequest;
+import com.landawn.ofbiz.model.content.RemoveContentPurposeTypeResponse;
+import com.landawn.ofbiz.model.content.RemoveContentRevisionItemRequest;
+import com.landawn.ofbiz.model.content.RemoveContentRevisionItemResponse;
+import com.landawn.ofbiz.model.content.RemoveContentRevisionRequest;
+import com.landawn.ofbiz.model.content.RemoveContentRevisionResponse;
+import com.landawn.ofbiz.model.content.RemoveContentRoleRequest;
+import com.landawn.ofbiz.model.content.RemoveContentRoleResponse;
+import com.landawn.ofbiz.model.content.RemoveContentTypeAttrRequest;
+import com.landawn.ofbiz.model.content.RemoveContentTypeAttrResponse;
+import com.landawn.ofbiz.model.content.RemoveContentTypeRequest;
+import com.landawn.ofbiz.model.content.RemoveContentTypeResponse;
+import com.landawn.ofbiz.model.content.RemoveDataCategoryRequest;
+import com.landawn.ofbiz.model.content.RemoveDataCategoryResponse;
+import com.landawn.ofbiz.model.content.RemoveDataResourceAttributeRequest;
+import com.landawn.ofbiz.model.content.RemoveDataResourceAttributeResponse;
+import com.landawn.ofbiz.model.content.RemoveDataResourceRoleRequest;
+import com.landawn.ofbiz.model.content.RemoveDataResourceRoleResponse;
+import com.landawn.ofbiz.model.content.RemoveDataResourceTypeAttrRequest;
+import com.landawn.ofbiz.model.content.RemoveDataResourceTypeAttrResponse;
+import com.landawn.ofbiz.model.content.RemoveDataResourceTypeRequest;
+import com.landawn.ofbiz.model.content.RemoveDataResourceTypeResponse;
+import com.landawn.ofbiz.model.content.RemoveElectronicTextRequest;
+import com.landawn.ofbiz.model.content.RemoveElectronicTextResponse;
+import com.landawn.ofbiz.model.content.RemoveFileExtensionRequest;
+import com.landawn.ofbiz.model.content.RemoveFileExtensionResponse;
+import com.landawn.ofbiz.model.content.RemoveMetaDataPredicateRequest;
+import com.landawn.ofbiz.model.content.RemoveMetaDataPredicateResponse;
+import com.landawn.ofbiz.model.content.RemoveMimeTypeHtmlTemplateRequest;
+import com.landawn.ofbiz.model.content.RemoveMimeTypeHtmlTemplateResponse;
+import com.landawn.ofbiz.model.content.RemoveMimeTypeRequest;
+import com.landawn.ofbiz.model.content.RemoveMimeTypeResponse;
+import com.landawn.ofbiz.model.content.RemoveWebSiteContentRequest;
+import com.landawn.ofbiz.model.content.RemoveWebSiteContentResponse;
+import com.landawn.ofbiz.model.content.RemoveWebSitePathAliasRequest;
+import com.landawn.ofbiz.model.content.RemoveWebSitePathAliasResponse;
+import com.landawn.ofbiz.model.content.RemoveWebSiteRoleRequest;
+import com.landawn.ofbiz.model.content.RemoveWebSiteRoleResponse;
+import com.landawn.ofbiz.model.content.UpdateBlogEntryRequest;
+import com.landawn.ofbiz.model.content.UpdateBlogEntryResponse;
+import com.landawn.ofbiz.model.content.UpdateCharacterSetRequest;
+import com.landawn.ofbiz.model.content.UpdateCharacterSetResponse;
+import com.landawn.ofbiz.model.content.UpdateContentAndUploadedFileRequest;
+import com.landawn.ofbiz.model.content.UpdateContentAndUploadedFileResponse;
+import com.landawn.ofbiz.model.content.UpdateContentApprovalRequest;
+import com.landawn.ofbiz.model.content.UpdateContentApprovalResponse;
+import com.landawn.ofbiz.model.content.UpdateContentAssocPredicateRequest;
+import com.landawn.ofbiz.model.content.UpdateContentAssocPredicateResponse;
+import com.landawn.ofbiz.model.content.UpdateContentAssocRequest;
+import com.landawn.ofbiz.model.content.UpdateContentAssocResponse;
+import com.landawn.ofbiz.model.content.UpdateContentAssocTypeRequest;
+import com.landawn.ofbiz.model.content.UpdateContentAssocTypeResponse;
+import com.landawn.ofbiz.model.content.UpdateContentAttributeRequest;
+import com.landawn.ofbiz.model.content.UpdateContentAttributeResponse;
+import com.landawn.ofbiz.model.content.UpdateContentMetaDataRequest;
+import com.landawn.ofbiz.model.content.UpdateContentMetaDataResponse;
+import com.landawn.ofbiz.model.content.UpdateContentOperationRequest;
+import com.landawn.ofbiz.model.content.UpdateContentOperationResponse;
+import com.landawn.ofbiz.model.content.UpdateContentPurposeOperationRequest;
+import com.landawn.ofbiz.model.content.UpdateContentPurposeOperationResponse;
+import com.landawn.ofbiz.model.content.UpdateContentPurposeRequest;
+import com.landawn.ofbiz.model.content.UpdateContentPurposeResponse;
+import com.landawn.ofbiz.model.content.UpdateContentPurposeTypeRequest;
+import com.landawn.ofbiz.model.content.UpdateContentPurposeTypeResponse;
+import com.landawn.ofbiz.model.content.UpdateContentRequest;
+import com.landawn.ofbiz.model.content.UpdateContentResponse;
+import com.landawn.ofbiz.model.content.UpdateContentRevisionItemRequest;
+import com.landawn.ofbiz.model.content.UpdateContentRevisionItemResponse;
+import com.landawn.ofbiz.model.content.UpdateContentRevisionRequest;
+import com.landawn.ofbiz.model.content.UpdateContentRevisionResponse;
+import com.landawn.ofbiz.model.content.UpdateContentRoleRequest;
+import com.landawn.ofbiz.model.content.UpdateContentRoleResponse;
+import com.landawn.ofbiz.model.content.UpdateContentTypeRequest;
+import com.landawn.ofbiz.model.content.UpdateContentTypeResponse;
+import com.landawn.ofbiz.model.content.UpdateDataCategoryRequest;
+import com.landawn.ofbiz.model.content.UpdateDataCategoryResponse;
+import com.landawn.ofbiz.model.content.UpdateDataResourceAttributeRequest;
+import com.landawn.ofbiz.model.content.UpdateDataResourceAttributeResponse;
+import com.landawn.ofbiz.model.content.UpdateDataResourceRequest;
+import com.landawn.ofbiz.model.content.UpdateDataResourceResponse;
+import com.landawn.ofbiz.model.content.UpdateDataResourceRoleRequest;
+import com.landawn.ofbiz.model.content.UpdateDataResourceRoleResponse;
+import com.landawn.ofbiz.model.content.UpdateDataResourceTypeRequest;
+import com.landawn.ofbiz.model.content.UpdateDataResourceTypeResponse;
+import com.landawn.ofbiz.model.content.UpdateElectronicTextRequest;
+import com.landawn.ofbiz.model.content.UpdateElectronicTextResponse;
+import com.landawn.ofbiz.model.content.UpdateFileExtensionRequest;
+import com.landawn.ofbiz.model.content.UpdateFileExtensionResponse;
+import com.landawn.ofbiz.model.content.UpdateMetaDataPredicateRequest;
+import com.landawn.ofbiz.model.content.UpdateMetaDataPredicateResponse;
+import com.landawn.ofbiz.model.content.UpdateMimeTypeHtmlTemplateRequest;
+import com.landawn.ofbiz.model.content.UpdateMimeTypeHtmlTemplateResponse;
+import com.landawn.ofbiz.model.content.UpdateMimeTypeRequest;
+import com.landawn.ofbiz.model.content.UpdateMimeTypeResponse;
+import com.landawn.ofbiz.model.content.UpdateSiteRolesResponse;
+import com.landawn.ofbiz.model.content.UpdateSurveyMultiRespColumnRequest;
+import com.landawn.ofbiz.model.content.UpdateSurveyMultiRespColumnResponse;
+import com.landawn.ofbiz.model.content.UpdateSurveyMultiRespRequest;
+import com.landawn.ofbiz.model.content.UpdateSurveyMultiRespResponse;
+import com.landawn.ofbiz.model.content.UpdateSurveyPageRequest;
+import com.landawn.ofbiz.model.content.UpdateSurveyPageResponse;
+import com.landawn.ofbiz.model.content.UpdateSurveyQuestionApplRequest;
+import com.landawn.ofbiz.model.content.UpdateSurveyQuestionApplResponse;
+import com.landawn.ofbiz.model.content.UpdateSurveyQuestionOptionRequest;
+import com.landawn.ofbiz.model.content.UpdateSurveyQuestionOptionResponse;
+import com.landawn.ofbiz.model.content.UpdateSurveyQuestionRequest;
+import com.landawn.ofbiz.model.content.UpdateSurveyQuestionResponse;
+import com.landawn.ofbiz.model.content.UpdateSurveyRequest;
+import com.landawn.ofbiz.model.content.UpdateSurveyResponse;
+import com.landawn.ofbiz.model.content.UpdateTextContentRequest;
+import com.landawn.ofbiz.model.content.UpdateTextContentResponse;
+import com.landawn.ofbiz.model.content.UpdateWebSiteContentRequest;
+import com.landawn.ofbiz.model.content.UpdateWebSiteContentResponse;
+import com.landawn.ofbiz.model.content.UpdateWebSitePathAliasRequest;
+import com.landawn.ofbiz.model.content.UpdateWebSitePathAliasResponse;
+import com.landawn.ofbiz.model.content.UpdateWebSiteRequest;
+import com.landawn.ofbiz.model.content.UpdateWebSiteResponse;
+import com.landawn.ofbiz.model.content.UpdateWebSiteRoleRequest;
+import com.landawn.ofbiz.model.content.UpdateWebSiteRoleResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +281,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/content")
 public class ContentController {
+
+    /** 200/400 routing decided by the response DTO's envelope state. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
 
     /**
      * No description.
@@ -29,7 +304,7 @@ public class ContentController {
      * <p>service: createWebSiteContent  entities: WebSiteContent  auth: true
      */
     @PostMapping("/content/control/CreateWebSiteContent")
-    public ResponseEntity<Map<String, Object>> createWebSiteContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateWebSiteContentResponse> createWebSiteContent(@RequestBody CreateWebSiteContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -39,7 +314,7 @@ public class ContentController {
      * <p>service: removeWebSiteContent  entities: WebSiteContent  auth: true
      */
     @PostMapping("/content/control/RemoveWebSiteContent")
-    public ResponseEntity<Map<String, Object>> removeWebSiteContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveWebSiteContentResponse> removeWebSiteContent(@RequestBody RemoveWebSiteContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -49,7 +324,7 @@ public class ContentController {
      * <p>service: updateWebSiteContent  entities: WebSiteContent  auth: true
      */
     @PostMapping("/content/control/UpdateWebSiteContent")
-    public ResponseEntity<Map<String, Object>> updateWebSiteContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateWebSiteContentResponse> updateWebSiteContent(@RequestBody UpdateWebSiteContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -59,7 +334,7 @@ public class ContentController {
      * <p>service: generateBlogRssFeed  entities: unknown  auth: true
      */
     @GetMapping("/content/control/ViewBlogRss")
-    public ResponseEntity<Map<String, Object>> generateBlogRssFeed(@RequestParam Map<String, String> params) {
+    public ResponseEntity<GenerateBlogRssFeedResponse> generateBlogRssFeed(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -79,7 +354,7 @@ public class ContentController {
      * <p>service: createCharacterSet  entities: CharacterSet  auth: true
      */
     @PostMapping("/content/control/addCharacterSet")
-    public ResponseEntity<Map<String, Object>> createCharacterSet(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCharacterSetResponse> createCharacterSet(@RequestBody CreateCharacterSetRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -89,7 +364,7 @@ public class ContentController {
      * <p>service: createContentAssocPredicate  entities: ContentAssocPredicate  auth: true
      */
     @PostMapping("/content/control/addContentAssocPredicate")
-    public ResponseEntity<Map<String, Object>> createContentAssocPredicate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentAssocPredicateResponse> createContentAssocPredicate(@RequestBody CreateContentAssocPredicateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -99,7 +374,7 @@ public class ContentController {
      * <p>service: createContentAssocType  entities: ContentAssocType  auth: true
      */
     @PostMapping("/content/control/addContentAssocType")
-    public ResponseEntity<Map<String, Object>> createContentAssocType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentAssocTypeResponse> createContentAssocType(@RequestBody CreateContentAssocTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -109,7 +384,7 @@ public class ContentController {
      * <p>service: createContentAttribute  entities: ContentAttribute  auth: true
      */
     @PostMapping("/content/control/addContentAttribute")
-    public ResponseEntity<Map<String, Object>> createContentAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentAttributeResponse> createContentAttribute(@RequestBody CreateContentAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -119,7 +394,7 @@ public class ContentController {
      * <p>service: createContentMetaData  entities: ContentMetaData  auth: true
      */
     @PostMapping("/content/control/addContentMetaData")
-    public ResponseEntity<Map<String, Object>> createContentMetaData(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentMetaDataResponse> createContentMetaData(@RequestBody CreateContentMetaDataRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -129,7 +404,7 @@ public class ContentController {
      * <p>service: createContentOperation  entities: ContentOperation  auth: true
      */
     @PostMapping("/content/control/addContentOperation")
-    public ResponseEntity<Map<String, Object>> createContentOperation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentOperationResponse> createContentOperation(@RequestBody CreateContentOperationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -139,7 +414,7 @@ public class ContentController {
      * <p>service: createContentPurpose  entities: ContentPurpose  auth: true
      */
     @PostMapping("/content/control/addContentPurpose")
-    public ResponseEntity<Map<String, Object>> createContentPurpose(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentPurposeResponse> createContentPurpose(@RequestBody CreateContentPurposeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -149,7 +424,7 @@ public class ContentController {
      * <p>service: createContentPurposeOperation  entities: ContentPurposeOperation  auth: true
      */
     @PostMapping("/content/control/addContentPurposeOperation")
-    public ResponseEntity<Map<String, Object>> createContentPurposeOperation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentPurposeOperationResponse> createContentPurposeOperation(@RequestBody CreateContentPurposeOperationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -159,7 +434,7 @@ public class ContentController {
      * <p>service: createContentPurposeType  entities: ContentPurposeType  auth: true
      */
     @PostMapping("/content/control/addContentPurposeType")
-    public ResponseEntity<Map<String, Object>> createContentPurposeType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentPurposeTypeResponse> createContentPurposeType(@RequestBody CreateContentPurposeTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -169,7 +444,7 @@ public class ContentController {
      * <p>service: createContentRole  entities: ContentRole  auth: true
      */
     @PostMapping("/content/control/addContentRole")
-    public ResponseEntity<Map<String, Object>> createContentRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentRoleResponse> createContentRole(@RequestBody CreateContentRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -179,7 +454,7 @@ public class ContentController {
      * <p>service: createContentType  entities: ContentType  auth: true
      */
     @PostMapping("/content/control/addContentType")
-    public ResponseEntity<Map<String, Object>> createContentType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentTypeResponse> createContentType(@RequestBody CreateContentTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -189,7 +464,7 @@ public class ContentController {
      * <p>service: createContentTypeAttr  entities: ContentTypeAttr  auth: true
      */
     @PostMapping("/content/control/addContentTypeAttr")
-    public ResponseEntity<Map<String, Object>> createContentTypeAttr(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentTypeAttrResponse> createContentTypeAttr(@RequestBody CreateContentTypeAttrRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -199,7 +474,7 @@ public class ContentController {
      * <p>service: createDataCategory  entities: DataCategory  auth: true
      */
     @PostMapping("/content/control/addDataCategory")
-    public ResponseEntity<Map<String, Object>> createDataCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateDataCategoryResponse> createDataCategory(@RequestBody CreateDataCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -209,7 +484,7 @@ public class ContentController {
      * <p>service: createDataResourceAttribute  entities: DataResourceAttribute  auth: true
      */
     @PostMapping("/content/control/addDataResourceAttribute")
-    public ResponseEntity<Map<String, Object>> createDataResourceAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateDataResourceAttributeResponse> createDataResourceAttribute(@RequestBody CreateDataResourceAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -219,7 +494,7 @@ public class ContentController {
      * <p>service: createDataResourceRole  entities: DataResourceRole  auth: true
      */
     @PostMapping("/content/control/addDataResourceRole")
-    public ResponseEntity<Map<String, Object>> createDataResourceRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateDataResourceRoleResponse> createDataResourceRole(@RequestBody CreateDataResourceRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -229,7 +504,7 @@ public class ContentController {
      * <p>service: createDataResourceType  entities: DataResourceType  auth: true
      */
     @PostMapping("/content/control/addDataResourceType")
-    public ResponseEntity<Map<String, Object>> createDataResourceType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateDataResourceTypeResponse> createDataResourceType(@RequestBody CreateDataResourceTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -239,7 +514,7 @@ public class ContentController {
      * <p>service: createDataResourceTypeAttr  entities: DataResourceTypeAttr  auth: true
      */
     @PostMapping("/content/control/addDataResourceTypeAttr")
-    public ResponseEntity<Map<String, Object>> createDataResourceTypeAttr(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateDataResourceTypeAttrResponse> createDataResourceTypeAttr(@RequestBody CreateDataResourceTypeAttrRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -249,7 +524,7 @@ public class ContentController {
      * <p>service: createDocument  entities: unknown  auth: true
      */
     @GetMapping("/content/control/addDocumentToTree")
-    public ResponseEntity<Map<String, Object>> createDocument(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateDocumentResponse> createDocument(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -259,7 +534,7 @@ public class ContentController {
      * <p>service: createElectronicText  entities: ElectronicText  auth: true
      */
     @PostMapping("/content/control/addElectronicText")
-    public ResponseEntity<Map<String, Object>> createElectronicText(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateElectronicTextResponse> createElectronicText(@RequestBody CreateElectronicTextRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -269,7 +544,7 @@ public class ContentController {
      * <p>service: createFileExtension  entities: FileExtension  auth: true
      */
     @PostMapping("/content/control/addFileExtension")
-    public ResponseEntity<Map<String, Object>> createFileExtension(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateFileExtensionResponse> createFileExtension(@RequestBody CreateFileExtensionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -279,7 +554,7 @@ public class ContentController {
      * <p>service: createElectronicText  entities: ElectronicText  auth: true
      */
     @PostMapping("/content/control/addHtmlText")
-    public ResponseEntity<Map<String, Object>> createElectronicTextAddHtmlText(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateElectronicTextResponse> createElectronicTextAddHtmlText(@RequestBody CreateElectronicTextRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -289,7 +564,7 @@ public class ContentController {
      * <p>service: createMetaDataPredicate  entities: MetaDataPredicate  auth: true
      */
     @PostMapping("/content/control/addMetaDataPredicate")
-    public ResponseEntity<Map<String, Object>> createMetaDataPredicate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateMetaDataPredicateResponse> createMetaDataPredicate(@RequestBody CreateMetaDataPredicateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -299,7 +574,7 @@ public class ContentController {
      * <p>service: createMimeType  entities: MimeType  auth: true
      */
     @PostMapping("/content/control/addMimeType")
-    public ResponseEntity<Map<String, Object>> createMimeType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateMimeTypeResponse> createMimeType(@RequestBody CreateMimeTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -309,7 +584,7 @@ public class ContentController {
      * <p>service: autoCreateWebSiteContent  entities: unknown  auth: true
      */
     @PostMapping("/content/control/autoCreateWebSiteContent")
-    public ResponseEntity<Map<String, Object>> autoCreateWebSiteContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<AutoCreateWebSiteContentResponse> autoCreateWebSiteContent(@RequestBody AutoCreateWebSiteContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -319,7 +594,7 @@ public class ContentController {
      * <p>service: buildSurveyFromPdf  entities: unknown  auth: true
      */
     @PostMapping("/content/control/buildSurveyFromPdf")
-    public ResponseEntity<Map<String, Object>> buildSurveyFromPdf(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<BuildSurveyFromPdfResponse> buildSurveyFromPdf(@RequestBody BuildSurveyFromPdfRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -329,7 +604,7 @@ public class ContentController {
      * <p>service: buildSurveyResponseFromPdf  entities: unknown  auth: true
      */
     @PostMapping("/content/control/buildSurveyResponseFromPdf")
-    public ResponseEntity<Map<String, Object>> buildSurveyResponseFromPdf(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<BuildSurveyResponseFromPdfResponse> buildSurveyResponseFromPdf(@RequestBody BuildSurveyResponseFromPdfRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -369,7 +644,7 @@ public class ContentController {
      * <p>service: createBlogEntry  entities: unknown  auth: true
      */
     @PostMapping("/content/control/createBlogArticle")
-    public ResponseEntity<Map<String, Object>> createBlogEntry(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateBlogEntryResponse> createBlogEntry(@RequestBody CreateBlogEntryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -379,7 +654,7 @@ public class ContentController {
      * <p>service: createTextContent  entities: unknown  auth: true
      */
     @PostMapping("/content/control/createBlogResponse")
-    public ResponseEntity<Map<String, Object>> createTextContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateTextContentResponse> createTextContent(@RequestBody CreateTextContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -389,7 +664,7 @@ public class ContentController {
      * <p>service: createContent  entities: Content, ContentAssoc  auth: true
      */
     @PostMapping("/content/control/createContent")
-    public ResponseEntity<Map<String, Object>> createContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentResponse> createContent(@RequestBody CreateContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -399,7 +674,7 @@ public class ContentController {
      * <p>service: createContentApproval  entities: ContentApproval  auth: true
      */
     @PostMapping("/content/control/createContentApproval")
-    public ResponseEntity<Map<String, Object>> createContentApproval(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentApprovalResponse> createContentApproval(@RequestBody CreateContentApprovalRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -409,7 +684,7 @@ public class ContentController {
      * <p>service: createContentAssoc  entities: ContentAssoc  auth: true
      */
     @PostMapping("/content/control/createContentAssoc")
-    public ResponseEntity<Map<String, Object>> createContentAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentAssocResponse> createContentAssoc(@RequestBody CreateContentAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -419,7 +694,7 @@ public class ContentController {
      * <p>service: createContent  entities: Content, ContentAssoc  auth: true
      */
     @PostMapping("/content/control/createContentCms")
-    public ResponseEntity<Map<String, Object>> createContentCreateContentCms(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentResponse> createContentCreateContentCms(@RequestBody CreateContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -429,7 +704,7 @@ public class ContentController {
      * <p>service: createContentKeyword  entities: ContentKeyword  auth: true
      */
     @PostMapping("/content/control/createContentKeyword")
-    public ResponseEntity<Map<String, Object>> createContentKeyword(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentKeywordResponse> createContentKeyword(@RequestBody CreateContentKeywordRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -439,7 +714,7 @@ public class ContentController {
      * <p>service: createContentRevision  entities: ContentRevision  auth: true
      */
     @PostMapping("/content/control/createContentRevision")
-    public ResponseEntity<Map<String, Object>> createContentRevision(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentRevisionResponse> createContentRevision(@RequestBody CreateContentRevisionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -449,7 +724,7 @@ public class ContentController {
      * <p>service: createContentRevisionItem  entities: ContentRevisionItem  auth: true
      */
     @PostMapping("/content/control/createContentRevisionItem")
-    public ResponseEntity<Map<String, Object>> createContentRevisionItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentRevisionItemResponse> createContentRevisionItem(@RequestBody CreateContentRevisionItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -469,7 +744,7 @@ public class ContentController {
      * <p>service: createDataResourceAndAssocToContent  entities: DataResource  auth: true
      */
     @PostMapping("/content/control/createDataResourceAndAssocToContent")
-    public ResponseEntity<Map<String, Object>> createDataResourceAndAssocToContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateDataResourceAndAssocToContentResponse> createDataResourceAndAssocToContent(@RequestBody CreateDataResourceAndAssocToContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -479,7 +754,7 @@ public class ContentController {
      * <p>service: createDataResourceAndText  entities: DataResource  auth: true
      */
     @PostMapping("/content/control/createDataResourceAndText")
-    public ResponseEntity<Map<String, Object>> createDataResourceAndText(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateDataResourceAndTextResponse> createDataResourceAndText(@RequestBody CreateDataResourceAndTextRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -499,7 +774,7 @@ public class ContentController {
      * <p>service: createDataResource  entities: DataResource  auth: true
      */
     @PostMapping("/content/control/createDataResourceUpload")
-    public ResponseEntity<Map<String, Object>> createDataResource(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateDataResourceResponse> createDataResource(@RequestBody CreateDataResourceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -509,7 +784,7 @@ public class ContentController {
      * <p>service: persistContentAndAssoc  entities: Content, ContentAssoc, ContentAssocDataResourceViewTo, ContentDataResourceView, DataResource, ElectronicText  auth: true
      */
     @PostMapping("/content/control/createForum")
-    public ResponseEntity<Map<String, Object>> persistContentAndAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PersistContentAndAssocResponse> persistContentAndAssoc(@RequestBody PersistContentAndAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -519,7 +794,7 @@ public class ContentController {
      * <p>service: createContent  entities: Content, ContentAssoc  auth: true
      */
     @PostMapping("/content/control/createForumGroup")
-    public ResponseEntity<Map<String, Object>> createContentCreateForumGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentResponse> createContentCreateForumGroup(@RequestBody CreateContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -529,7 +804,7 @@ public class ContentController {
      * <p>service: createContentPurpose  entities: ContentPurpose  auth: true
      */
     @PostMapping("/content/control/createForumGroupPurpose")
-    public ResponseEntity<Map<String, Object>> createContentPurposeCreateForumGroupPurpose(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentPurposeResponse> createContentPurposeCreateForumGroupPurpose(@RequestBody CreateContentPurposeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -539,7 +814,7 @@ public class ContentController {
      * <p>service: createContentRole  entities: ContentRole  auth: true
      */
     @PostMapping("/content/control/createForumGroupRole")
-    public ResponseEntity<Map<String, Object>> createContentRoleCreateForumGroupRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentRoleResponse> createContentRoleCreateForumGroupRole(@RequestBody CreateContentRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -609,7 +884,7 @@ public class ContentController {
      * <p>service: createMimeTypeHtmlTemplate  entities: MimeTypeHtmlTemplate  auth: true
      */
     @PostMapping("/content/control/createMimeTypeHtmlTemplate")
-    public ResponseEntity<Map<String, Object>> createMimeTypeHtmlTemplate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateMimeTypeHtmlTemplateResponse> createMimeTypeHtmlTemplate(@RequestBody CreateMimeTypeHtmlTemplateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -619,7 +894,7 @@ public class ContentController {
      * <p>service: createContentFromUploadedFile  entities: unknown  auth: true
      */
     @PostMapping("/content/control/createObjectContentCms")
-    public ResponseEntity<Map<String, Object>> createContentFromUploadedFile(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentFromUploadedFileResponse> createContentFromUploadedFile(@RequestBody CreateContentFromUploadedFileRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -629,7 +904,7 @@ public class ContentController {
      * <p>service: createSurvey  entities: Survey  auth: true
      */
     @PostMapping("/content/control/createSurvey")
-    public ResponseEntity<Map<String, Object>> createSurvey(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSurveyResponse> createSurvey(@RequestBody CreateSurveyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -639,7 +914,7 @@ public class ContentController {
      * <p>service: createSurveyMultiResp  entities: SurveyMultiResp  auth: true
      */
     @PostMapping("/content/control/createSurveyMultiResp")
-    public ResponseEntity<Map<String, Object>> createSurveyMultiResp(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSurveyMultiRespResponse> createSurveyMultiResp(@RequestBody CreateSurveyMultiRespRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -649,7 +924,7 @@ public class ContentController {
      * <p>service: createSurveyMultiRespColumn  entities: SurveyMultiRespColumn  auth: true
      */
     @PostMapping("/content/control/createSurveyMultiRespColumn")
-    public ResponseEntity<Map<String, Object>> createSurveyMultiRespColumn(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSurveyMultiRespColumnResponse> createSurveyMultiRespColumn(@RequestBody CreateSurveyMultiRespColumnRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -659,7 +934,7 @@ public class ContentController {
      * <p>service: createSurveyPage  entities: SurveyPage  auth: true
      */
     @PostMapping("/content/control/createSurveyPage")
-    public ResponseEntity<Map<String, Object>> createSurveyPage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSurveyPageResponse> createSurveyPage(@RequestBody CreateSurveyPageRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -669,7 +944,7 @@ public class ContentController {
      * <p>service: createSurveyQuestion  entities: SurveyQuestion  auth: true
      */
     @PostMapping("/content/control/createSurveyQuestion")
-    public ResponseEntity<Map<String, Object>> createSurveyQuestion(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSurveyQuestionResponse> createSurveyQuestion(@RequestBody CreateSurveyQuestionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -679,7 +954,7 @@ public class ContentController {
      * <p>service: createSurveyQuestionAppl  entities: SurveyQuestionAppl  auth: true
      */
     @PostMapping("/content/control/createSurveyQuestionAppl")
-    public ResponseEntity<Map<String, Object>> createSurveyQuestionAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSurveyQuestionApplResponse> createSurveyQuestionAppl(@RequestBody CreateSurveyQuestionApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -689,7 +964,7 @@ public class ContentController {
      * <p>service: createSurveyQuestionCategory  entities: SurveyQuestionCategory  auth: true
      */
     @PostMapping("/content/control/createSurveyQuestionCategory")
-    public ResponseEntity<Map<String, Object>> createSurveyQuestionCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSurveyQuestionCategoryResponse> createSurveyQuestionCategory(@RequestBody CreateSurveyQuestionCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -699,7 +974,7 @@ public class ContentController {
      * <p>service: createSurveyQuestionOption  entities: SurveyQuestionOption  auth: true
      */
     @PostMapping("/content/control/createSurveyQuestionOption")
-    public ResponseEntity<Map<String, Object>> createSurveyQuestionOption(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSurveyQuestionOptionResponse> createSurveyQuestionOption(@RequestBody CreateSurveyQuestionOptionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -709,7 +984,7 @@ public class ContentController {
      * <p>service: createTextContent  entities: unknown  auth: true
      */
     @PostMapping("/content/control/createTextContentCms")
-    public ResponseEntity<Map<String, Object>> createTextContentCreateTextContentCms(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateTextContentResponse> createTextContentCreateTextContentCms(@RequestBody CreateTextContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -729,7 +1004,7 @@ public class ContentController {
      * <p>service: createWebSite  entities: WebSite  auth: true
      */
     @PostMapping("/content/control/createWebSite")
-    public ResponseEntity<Map<String, Object>> createWebSite(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateWebSiteResponse> createWebSite(@RequestBody CreateWebSiteRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -749,7 +1024,7 @@ public class ContentController {
      * <p>service: createTextContent  entities: unknown  auth: true
      */
     @PostMapping("/content/control/createWebSiteMetaInfoJson")
-    public ResponseEntity<Map<String, Object>> createTextContentCreateWebSiteMetaInfoJson(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateTextContentResponse> createTextContentCreateWebSiteMetaInfoJson(@RequestBody CreateTextContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -759,7 +1034,7 @@ public class ContentController {
      * <p>service: createWebSitePathAlias  entities: WebSitePathAlias  auth: true
      */
     @PostMapping("/content/control/createWebSitePathAlias")
-    public ResponseEntity<Map<String, Object>> createWebSitePathAlias(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateWebSitePathAliasResponse> createWebSitePathAlias(@RequestBody CreateWebSitePathAliasRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -769,7 +1044,7 @@ public class ContentController {
      * <p>service: createWebSitePathAlias  entities: WebSitePathAlias  auth: true
      */
     @PostMapping("/content/control/createWebSitePathAliasJson")
-    public ResponseEntity<Map<String, Object>> createWebSitePathAliasCreateWebSitePathAliasJson(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateWebSitePathAliasResponse> createWebSitePathAliasCreateWebSitePathAliasJson(@RequestBody CreateWebSitePathAliasRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -779,7 +1054,7 @@ public class ContentController {
      * <p>service: createWebSiteRole  entities: WebSiteRole  auth: true
      */
     @PostMapping("/content/control/createWebSiteRole")
-    public ResponseEntity<Map<String, Object>> createWebSiteRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateWebSiteRoleResponse> createWebSiteRole(@RequestBody CreateWebSiteRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -809,7 +1084,7 @@ public class ContentController {
      * <p>service: deleteContentKeyword  entities: ContentKeyword  auth: true
      */
     @PostMapping("/content/control/deleteContentKeyword")
-    public ResponseEntity<Map<String, Object>> deleteContentKeyword(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteContentKeywordResponse> deleteContentKeyword(@RequestBody DeleteContentKeywordRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -819,7 +1094,7 @@ public class ContentController {
      * <p>service: deleteContentKeywords  entities: unknown  auth: true
      */
     @PostMapping("/content/control/deleteContentKeywords")
-    public ResponseEntity<Map<String, Object>> deleteContentKeywords(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteContentKeywordsResponse> deleteContentKeywords(@RequestBody DeleteContentKeywordsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -829,7 +1104,7 @@ public class ContentController {
      * <p>service: removeContentPurpose  entities: ContentPurpose  auth: true
      */
     @PostMapping("/content/control/deleteForumGroupPurpose")
-    public ResponseEntity<Map<String, Object>> removeContentPurpose(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentPurposeResponse> removeContentPurpose(@RequestBody RemoveContentPurposeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -839,7 +1114,7 @@ public class ContentController {
      * <p>service: removeContentRole  entities: ContentRole  auth: true
      */
     @PostMapping("/content/control/deleteForumGroupRole")
-    public ResponseEntity<Map<String, Object>> removeContentRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentRoleResponse> removeContentRole(@RequestBody RemoveContentRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -849,7 +1124,7 @@ public class ContentController {
      * <p>service: deleteSurvey  entities: Survey  auth: true
      */
     @PostMapping("/content/control/deleteSurvey")
-    public ResponseEntity<Map<String, Object>> deleteSurvey(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteSurveyResponse> deleteSurvey(@RequestBody DeleteSurveyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -859,7 +1134,7 @@ public class ContentController {
      * <p>service: deleteSurveyMultiResp  entities: SurveyMultiResp  auth: true
      */
     @PostMapping("/content/control/deleteSurveyMultiResp")
-    public ResponseEntity<Map<String, Object>> deleteSurveyMultiResp(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteSurveyMultiRespResponse> deleteSurveyMultiResp(@RequestBody DeleteSurveyMultiRespRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -869,7 +1144,7 @@ public class ContentController {
      * <p>service: deleteSurveyMultiRespColumn  entities: SurveyMultiRespColumn  auth: true
      */
     @PostMapping("/content/control/deleteSurveyMultiRespColumn")
-    public ResponseEntity<Map<String, Object>> deleteSurveyMultiRespColumn(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteSurveyMultiRespColumnResponse> deleteSurveyMultiRespColumn(@RequestBody DeleteSurveyMultiRespColumnRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -879,7 +1154,7 @@ public class ContentController {
      * <p>service: deleteSurveyQuestion  entities: SurveyQuestion  auth: true
      */
     @PostMapping("/content/control/deleteSurveyQuestion")
-    public ResponseEntity<Map<String, Object>> deleteSurveyQuestion(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteSurveyQuestionResponse> deleteSurveyQuestion(@RequestBody DeleteSurveyQuestionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -889,7 +1164,7 @@ public class ContentController {
      * <p>service: deleteSurveyQuestionOption  entities: SurveyQuestionOption  auth: true
      */
     @PostMapping("/content/control/deleteSurveyQuestionOption")
-    public ResponseEntity<Map<String, Object>> deleteSurveyQuestionOption(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteSurveyQuestionOptionResponse> deleteSurveyQuestionOption(@RequestBody DeleteSurveyQuestionOptionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -929,7 +1204,7 @@ public class ContentController {
      * <p>service: generateMissingSeoUrlForWebsite  entities: unknown  auth: true
      */
     @PostMapping("/content/control/generateMissingSeoUrlForWebsite")
-    public ResponseEntity<Map<String, Object>> generateMissingSeoUrlForWebsite(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<GenerateMissingSeoUrlForWebsiteResponse> generateMissingSeoUrlForWebsite(@RequestBody GenerateMissingSeoUrlForWebsiteRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -959,7 +1234,7 @@ public class ContentController {
      * <p>service: linkContentToPubPt  entities: unknown  auth: true
      */
     @GetMapping("/content/control/linkContentToPubPt")
-    public ResponseEntity<Map<String, Object>> linkContentToPubPt(@RequestParam Map<String, String> params) {
+    public ResponseEntity<LinkContentToPubPtResponse> linkContentToPubPt(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -979,7 +1254,7 @@ public class ContentController {
      * <p>service: createContent  entities: Content, ContentAssoc  auth: true
      */
     @PostMapping("/content/control/newBlog")
-    public ResponseEntity<Map<String, Object>> createContentNewBlog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateContentResponse> createContentNewBlog(@RequestBody CreateContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -999,7 +1274,7 @@ public class ContentController {
      * <p>service: persistContentAndAssoc  entities: Content, ContentAssoc, ContentAssocDataResourceViewTo, ContentDataResourceView, DataResource, ElectronicText  auth: true
      */
     @PostMapping("/content/control/persistBlogImage")
-    public ResponseEntity<Map<String, Object>> persistContentAndAssocPersistBlogImage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PersistContentAndAssocResponse> persistContentAndAssocPersistBlogImage(@RequestBody PersistContentAndAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1009,7 +1284,7 @@ public class ContentController {
      * <p>service: persistContentAndAssoc  entities: Content, ContentAssoc, ContentAssocDataResourceViewTo, ContentDataResourceView, DataResource, ElectronicText  auth: true
      */
     @PostMapping("/content/control/persistBlogSummary")
-    public ResponseEntity<Map<String, Object>> persistContentAndAssocPersistBlogSummary(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PersistContentAndAssocResponse> persistContentAndAssocPersistBlogSummary(@RequestBody PersistContentAndAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1019,7 +1294,7 @@ public class ContentController {
      * <p>service: persistContentAndAssoc  entities: Content, ContentAssoc, ContentAssocDataResourceViewTo, ContentDataResourceView, DataResource, ElectronicText  auth: true
      */
     @PostMapping("/content/control/persistBlogText")
-    public ResponseEntity<Map<String, Object>> persistContentAndAssocPersistBlogText(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PersistContentAndAssocResponse> persistContentAndAssocPersistBlogText(@RequestBody PersistContentAndAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1029,7 +1304,7 @@ public class ContentController {
      * <p>service: persistContentAndAssoc  entities: Content, ContentAssoc, ContentAssocDataResourceViewTo, ContentDataResourceView, DataResource, ElectronicText  auth: true
      */
     @PostMapping("/content/control/persistContent")
-    public ResponseEntity<Map<String, Object>> persistContentAndAssocPersistContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PersistContentAndAssocResponse> persistContentAndAssocPersistContent(@RequestBody PersistContentAndAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1039,7 +1314,7 @@ public class ContentController {
      * <p>service: persistContentAndAssoc  entities: Content, ContentAssoc, ContentAssocDataResourceViewTo, ContentDataResourceView, DataResource, ElectronicText  auth: true
      */
     @PostMapping("/content/control/persistContentStuff")
-    public ResponseEntity<Map<String, Object>> persistContentAndAssocPersistContentStuff(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PersistContentAndAssocResponse> persistContentAndAssocPersistContentStuff(@RequestBody PersistContentAndAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1059,7 +1334,7 @@ public class ContentController {
      * <p>service: persistContentAndAssoc  entities: Content, ContentAssoc, ContentAssocDataResourceViewTo, ContentDataResourceView, DataResource, ElectronicText  auth: true
      */
     @PostMapping("/content/control/persistSubContentStuff")
-    public ResponseEntity<Map<String, Object>> persistContentAndAssocPersistSubContentStuff(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PersistContentAndAssocResponse> persistContentAndAssocPersistSubContentStuff(@RequestBody PersistContentAndAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1069,7 +1344,7 @@ public class ContentController {
      * <p>service: persistContentAndAssoc  entities: Content, ContentAssoc, ContentAssocDataResourceViewTo, ContentDataResourceView, DataResource, ElectronicText  auth: true
      */
     @PostMapping("/content/control/postNewSubSite")
-    public ResponseEntity<Map<String, Object>> persistContentAndAssocPostNewSubSite(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PersistContentAndAssocResponse> persistContentAndAssocPostNewSubSite(@RequestBody PersistContentAndAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1079,7 +1354,7 @@ public class ContentController {
      * <p>service: updateContent  entities: unknown  auth: true
      */
     @GetMapping("/content/control/publishResponse")
-    public ResponseEntity<Map<String, Object>> updateContent(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateContentResponse> updateContent(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1089,7 +1364,7 @@ public class ContentController {
      * <p>service: removeCharacterSet  entities: CharacterSet  auth: true
      */
     @PostMapping("/content/control/removeCharacterSet")
-    public ResponseEntity<Map<String, Object>> removeCharacterSet(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveCharacterSetResponse> removeCharacterSet(@RequestBody RemoveCharacterSetRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1099,7 +1374,7 @@ public class ContentController {
      * <p>service: removeContentApproval  entities: ContentApproval  auth: true
      */
     @PostMapping("/content/control/removeContentApproval")
-    public ResponseEntity<Map<String, Object>> removeContentApproval(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentApprovalResponse> removeContentApproval(@RequestBody RemoveContentApprovalRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1109,7 +1384,7 @@ public class ContentController {
      * <p>service: removeContentAssoc  entities: ContentAssoc  auth: true
      */
     @PostMapping("/content/control/removeContentAssoc")
-    public ResponseEntity<Map<String, Object>> removeContentAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentAssocResponse> removeContentAssoc(@RequestBody RemoveContentAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1119,7 +1394,7 @@ public class ContentController {
      * <p>service: removeContentAssocPredicate  entities: ContentAssocPredicate  auth: true
      */
     @PostMapping("/content/control/removeContentAssocPredicate")
-    public ResponseEntity<Map<String, Object>> removeContentAssocPredicate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentAssocPredicateResponse> removeContentAssocPredicate(@RequestBody RemoveContentAssocPredicateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1129,7 +1404,7 @@ public class ContentController {
      * <p>service: removeContentAssocType  entities: ContentAssocType  auth: true
      */
     @PostMapping("/content/control/removeContentAssocType")
-    public ResponseEntity<Map<String, Object>> removeContentAssocType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentAssocTypeResponse> removeContentAssocType(@RequestBody RemoveContentAssocTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1139,7 +1414,7 @@ public class ContentController {
      * <p>service: removeContentAttribute  entities: ContentAttribute  auth: true
      */
     @PostMapping("/content/control/removeContentAttribute")
-    public ResponseEntity<Map<String, Object>> removeContentAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentAttributeResponse> removeContentAttribute(@RequestBody RemoveContentAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1149,7 +1424,7 @@ public class ContentController {
      * <p>service: removeContentMetaData  entities: ContentMetaData  auth: true
      */
     @PostMapping("/content/control/removeContentMetaData")
-    public ResponseEntity<Map<String, Object>> removeContentMetaData(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentMetaDataResponse> removeContentMetaData(@RequestBody RemoveContentMetaDataRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1159,7 +1434,7 @@ public class ContentController {
      * <p>service: removeContentOperation  entities: ContentOperation  auth: true
      */
     @PostMapping("/content/control/removeContentOperation")
-    public ResponseEntity<Map<String, Object>> removeContentOperation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentOperationResponse> removeContentOperation(@RequestBody RemoveContentOperationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1169,7 +1444,7 @@ public class ContentController {
      * <p>service: removeContentPurpose  entities: ContentPurpose  auth: true
      */
     @PostMapping("/content/control/removeContentPurpose")
-    public ResponseEntity<Map<String, Object>> removeContentPurposeRemoveContentPurpose(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentPurposeResponse> removeContentPurposeRemoveContentPurpose(@RequestBody RemoveContentPurposeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1179,7 +1454,7 @@ public class ContentController {
      * <p>service: removeContentPurposeOperation  entities: ContentPurposeOperation  auth: true
      */
     @PostMapping("/content/control/removeContentPurposeOperation")
-    public ResponseEntity<Map<String, Object>> removeContentPurposeOperation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentPurposeOperationResponse> removeContentPurposeOperation(@RequestBody RemoveContentPurposeOperationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1189,7 +1464,7 @@ public class ContentController {
      * <p>service: removeContentPurposeType  entities: ContentPurposeType  auth: true
      */
     @PostMapping("/content/control/removeContentPurposeType")
-    public ResponseEntity<Map<String, Object>> removeContentPurposeType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentPurposeTypeResponse> removeContentPurposeType(@RequestBody RemoveContentPurposeTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1199,7 +1474,7 @@ public class ContentController {
      * <p>service: removeContentRevision  entities: ContentRevision  auth: true
      */
     @PostMapping("/content/control/removeContentRevision")
-    public ResponseEntity<Map<String, Object>> removeContentRevision(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentRevisionResponse> removeContentRevision(@RequestBody RemoveContentRevisionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1209,7 +1484,7 @@ public class ContentController {
      * <p>service: removeContentRevisionItem  entities: ContentRevisionItem  auth: true
      */
     @PostMapping("/content/control/removeContentRevisionItem")
-    public ResponseEntity<Map<String, Object>> removeContentRevisionItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentRevisionItemResponse> removeContentRevisionItem(@RequestBody RemoveContentRevisionItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1219,7 +1494,7 @@ public class ContentController {
      * <p>service: removeContentRole  entities: ContentRole  auth: true
      */
     @PostMapping("/content/control/removeContentRole")
-    public ResponseEntity<Map<String, Object>> removeContentRoleRemoveContentRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentRoleResponse> removeContentRoleRemoveContentRole(@RequestBody RemoveContentRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1229,7 +1504,7 @@ public class ContentController {
      * <p>service: removeContentType  entities: ContentType  auth: true
      */
     @PostMapping("/content/control/removeContentType")
-    public ResponseEntity<Map<String, Object>> removeContentType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentTypeResponse> removeContentType(@RequestBody RemoveContentTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1239,7 +1514,7 @@ public class ContentController {
      * <p>service: removeContentTypeAttr  entities: ContentTypeAttr  auth: true
      */
     @PostMapping("/content/control/removeContentTypeAttr")
-    public ResponseEntity<Map<String, Object>> removeContentTypeAttr(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentTypeAttrResponse> removeContentTypeAttr(@RequestBody RemoveContentTypeAttrRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1249,7 +1524,7 @@ public class ContentController {
      * <p>service: removeDataCategory  entities: DataCategory  auth: true
      */
     @PostMapping("/content/control/removeDataCategory")
-    public ResponseEntity<Map<String, Object>> removeDataCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveDataCategoryResponse> removeDataCategory(@RequestBody RemoveDataCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1259,7 +1534,7 @@ public class ContentController {
      * <p>service: removeDataResourceAttribute  entities: DataResourceAttribute  auth: true
      */
     @PostMapping("/content/control/removeDataResourceAttribute")
-    public ResponseEntity<Map<String, Object>> removeDataResourceAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveDataResourceAttributeResponse> removeDataResourceAttribute(@RequestBody RemoveDataResourceAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1279,7 +1554,7 @@ public class ContentController {
      * <p>service: removeDataResourceRole  entities: DataResourceRole  auth: true
      */
     @PostMapping("/content/control/removeDataResourceRole")
-    public ResponseEntity<Map<String, Object>> removeDataResourceRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveDataResourceRoleResponse> removeDataResourceRole(@RequestBody RemoveDataResourceRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1289,7 +1564,7 @@ public class ContentController {
      * <p>service: removeDataResourceType  entities: DataResourceType  auth: true
      */
     @PostMapping("/content/control/removeDataResourceType")
-    public ResponseEntity<Map<String, Object>> removeDataResourceType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveDataResourceTypeResponse> removeDataResourceType(@RequestBody RemoveDataResourceTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1299,7 +1574,7 @@ public class ContentController {
      * <p>service: removeDataResourceTypeAttr  entities: DataResourceTypeAttr  auth: true
      */
     @PostMapping("/content/control/removeDataResourceTypeAttr")
-    public ResponseEntity<Map<String, Object>> removeDataResourceTypeAttr(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveDataResourceTypeAttrResponse> removeDataResourceTypeAttr(@RequestBody RemoveDataResourceTypeAttrRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1309,7 +1584,7 @@ public class ContentController {
      * <p>service: removeContentAssoc  entities: ContentAssoc  auth: true
      */
     @PostMapping("/content/control/removeDocumentFromTree")
-    public ResponseEntity<Map<String, Object>> removeContentAssocRemoveDocumentFromTree(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentAssocResponse> removeContentAssocRemoveDocumentFromTree(@RequestBody RemoveContentAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1319,7 +1594,7 @@ public class ContentController {
      * <p>service: removeElectronicText  entities: ElectronicText  auth: true
      */
     @PostMapping("/content/control/removeElectronicText")
-    public ResponseEntity<Map<String, Object>> removeElectronicText(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveElectronicTextResponse> removeElectronicText(@RequestBody RemoveElectronicTextRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1329,7 +1604,7 @@ public class ContentController {
      * <p>service: removeFileExtension  entities: FileExtension  auth: true
      */
     @PostMapping("/content/control/removeFileExtension")
-    public ResponseEntity<Map<String, Object>> removeFileExtension(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveFileExtensionResponse> removeFileExtension(@RequestBody RemoveFileExtensionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1339,7 +1614,7 @@ public class ContentController {
      * <p>service: removeContentAssoc  entities: ContentAssoc  auth: true
      */
     @PostMapping("/content/control/removeLayout")
-    public ResponseEntity<Map<String, Object>> removeContentAssocRemoveLayout(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveContentAssocResponse> removeContentAssocRemoveLayout(@RequestBody RemoveContentAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1349,7 +1624,7 @@ public class ContentController {
      * <p>service: removeMetaDataPredicate  entities: MetaDataPredicate  auth: true
      */
     @PostMapping("/content/control/removeMetaDataPredicate")
-    public ResponseEntity<Map<String, Object>> removeMetaDataPredicate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveMetaDataPredicateResponse> removeMetaDataPredicate(@RequestBody RemoveMetaDataPredicateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1359,7 +1634,7 @@ public class ContentController {
      * <p>service: removeMimeType  entities: MimeType  auth: true
      */
     @PostMapping("/content/control/removeMimeType")
-    public ResponseEntity<Map<String, Object>> removeMimeType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveMimeTypeResponse> removeMimeType(@RequestBody RemoveMimeTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1369,7 +1644,7 @@ public class ContentController {
      * <p>service: removeMimeTypeHtmlTemplate  entities: MimeTypeHtmlTemplate  auth: true
      */
     @PostMapping("/content/control/removeMimeTypeHtmlTemplate")
-    public ResponseEntity<Map<String, Object>> removeMimeTypeHtmlTemplate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveMimeTypeHtmlTemplateResponse> removeMimeTypeHtmlTemplate(@RequestBody RemoveMimeTypeHtmlTemplateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1379,7 +1654,7 @@ public class ContentController {
      * <p>service: deactivateAssocs  entities: unknown  auth: true
      */
     @PostMapping("/content/control/removeSite")
-    public ResponseEntity<Map<String, Object>> deactivateAssocs(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeactivateAssocsResponse> deactivateAssocs(@RequestBody DeactivateAssocsRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1389,7 +1664,7 @@ public class ContentController {
      * <p>service: deleteSurveyPage  entities: SurveyPage  auth: true
      */
     @PostMapping("/content/control/removeSurveyPage")
-    public ResponseEntity<Map<String, Object>> deleteSurveyPage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteSurveyPageResponse> deleteSurveyPage(@RequestBody DeleteSurveyPageRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1399,7 +1674,7 @@ public class ContentController {
      * <p>service: deleteSurveyQuestionAppl  entities: SurveyQuestionAppl  auth: true
      */
     @PostMapping("/content/control/removeSurveyQuestionAppl")
-    public ResponseEntity<Map<String, Object>> deleteSurveyQuestionAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteSurveyQuestionApplResponse> deleteSurveyQuestionAppl(@RequestBody DeleteSurveyQuestionApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1409,7 +1684,7 @@ public class ContentController {
      * <p>service: removeWebSitePathAlias  entities: WebSitePathAlias  auth: true
      */
     @PostMapping("/content/control/removeWebSitePathAlias")
-    public ResponseEntity<Map<String, Object>> removeWebSitePathAlias(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveWebSitePathAliasResponse> removeWebSitePathAlias(@RequestBody RemoveWebSitePathAliasRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1419,7 +1694,7 @@ public class ContentController {
      * <p>service: removeWebSitePathAlias  entities: WebSitePathAlias  auth: true
      */
     @PostMapping("/content/control/removeWebSitePathAliasJson")
-    public ResponseEntity<Map<String, Object>> removeWebSitePathAliasRemoveWebSitePathAliasJson(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveWebSitePathAliasResponse> removeWebSitePathAliasRemoveWebSitePathAliasJson(@RequestBody RemoveWebSitePathAliasRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1429,7 +1704,7 @@ public class ContentController {
      * <p>service: removeWebSiteRole  entities: WebSiteRole  auth: true
      */
     @PostMapping("/content/control/removeWebSiteRole")
-    public ResponseEntity<Map<String, Object>> removeWebSiteRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveWebSiteRoleResponse> removeWebSiteRole(@RequestBody RemoveWebSiteRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1449,7 +1724,7 @@ public class ContentController {
      * <p>service: updateContent  entities: Content  auth: true
      */
     @PostMapping("/content/control/updateBlog")
-    public ResponseEntity<Map<String, Object>> updateContentUpdateBlog(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentResponse> updateContentUpdateBlog(@RequestBody UpdateContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1459,7 +1734,7 @@ public class ContentController {
      * <p>service: updateBlogEntry  entities: unknown  auth: true
      */
     @PostMapping("/content/control/updateBlogArticle")
-    public ResponseEntity<Map<String, Object>> updateBlogEntry(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateBlogEntryResponse> updateBlogEntry(@RequestBody UpdateBlogEntryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1469,7 +1744,7 @@ public class ContentController {
      * <p>service: updateTextContent  entities: unknown  auth: true
      */
     @PostMapping("/content/control/updateBlogResponse")
-    public ResponseEntity<Map<String, Object>> updateTextContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateTextContentResponse> updateTextContent(@RequestBody UpdateTextContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1479,7 +1754,7 @@ public class ContentController {
      * <p>service: updateCharacterSet  entities: CharacterSet  auth: true
      */
     @PostMapping("/content/control/updateCharacterSet")
-    public ResponseEntity<Map<String, Object>> updateCharacterSet(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateCharacterSetResponse> updateCharacterSet(@RequestBody UpdateCharacterSetRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1489,7 +1764,7 @@ public class ContentController {
      * <p>service: updateContent  entities: Content  auth: true
      */
     @PostMapping("/content/control/updateContent")
-    public ResponseEntity<Map<String, Object>> updateContentUpdateContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentResponse> updateContentUpdateContent(@RequestBody UpdateContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1509,7 +1784,7 @@ public class ContentController {
      * <p>service: updateContentApproval  entities: ContentApproval  auth: true
      */
     @PostMapping("/content/control/updateContentApproval")
-    public ResponseEntity<Map<String, Object>> updateContentApproval(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentApprovalResponse> updateContentApproval(@RequestBody UpdateContentApprovalRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1519,7 +1794,7 @@ public class ContentController {
      * <p>service: updateContentApproval  entities: ContentApproval  auth: true
      */
     @PostMapping("/content/control/updateContentApprovalStatus")
-    public ResponseEntity<Map<String, Object>> updateContentApprovalUpdateContentApprovalStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentApprovalResponse> updateContentApprovalUpdateContentApprovalStatus(@RequestBody UpdateContentApprovalRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1529,7 +1804,7 @@ public class ContentController {
      * <p>service: updateContentAssoc  entities: ContentAssoc  auth: true
      */
     @PostMapping("/content/control/updateContentAssoc")
-    public ResponseEntity<Map<String, Object>> updateContentAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentAssocResponse> updateContentAssoc(@RequestBody UpdateContentAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1539,7 +1814,7 @@ public class ContentController {
      * <p>service: updateContentAssocPredicate  entities: ContentAssocPredicate  auth: true
      */
     @PostMapping("/content/control/updateContentAssocPredicate")
-    public ResponseEntity<Map<String, Object>> updateContentAssocPredicate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentAssocPredicateResponse> updateContentAssocPredicate(@RequestBody UpdateContentAssocPredicateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1549,7 +1824,7 @@ public class ContentController {
      * <p>service: updateContentAssocType  entities: ContentAssocType  auth: true
      */
     @PostMapping("/content/control/updateContentAssocType")
-    public ResponseEntity<Map<String, Object>> updateContentAssocType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentAssocTypeResponse> updateContentAssocType(@RequestBody UpdateContentAssocTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1559,7 +1834,7 @@ public class ContentController {
      * <p>service: updateContentAttribute  entities: ContentAttribute  auth: true
      */
     @PostMapping("/content/control/updateContentAttribute")
-    public ResponseEntity<Map<String, Object>> updateContentAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentAttributeResponse> updateContentAttribute(@RequestBody UpdateContentAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1569,7 +1844,7 @@ public class ContentController {
      * <p>service: updateContent  entities: Content  auth: true
      */
     @PostMapping("/content/control/updateContentCms")
-    public ResponseEntity<Map<String, Object>> updateContentUpdateContentCms(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentResponse> updateContentUpdateContentCms(@RequestBody UpdateContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1579,7 +1854,7 @@ public class ContentController {
      * <p>service: updateContentMetaData  entities: ContentMetaData  auth: true
      */
     @PostMapping("/content/control/updateContentMetaData")
-    public ResponseEntity<Map<String, Object>> updateContentMetaData(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentMetaDataResponse> updateContentMetaData(@RequestBody UpdateContentMetaDataRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1589,7 +1864,7 @@ public class ContentController {
      * <p>service: updateContentOperation  entities: ContentOperation  auth: true
      */
     @PostMapping("/content/control/updateContentOperation")
-    public ResponseEntity<Map<String, Object>> updateContentOperation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentOperationResponse> updateContentOperation(@RequestBody UpdateContentOperationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1599,7 +1874,7 @@ public class ContentController {
      * <p>service: updateContentPurpose  entities: ContentPurpose  auth: true
      */
     @PostMapping("/content/control/updateContentPurpose")
-    public ResponseEntity<Map<String, Object>> updateContentPurpose(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentPurposeResponse> updateContentPurpose(@RequestBody UpdateContentPurposeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1609,7 +1884,7 @@ public class ContentController {
      * <p>service: updateContentPurposeOperation  entities: ContentPurposeOperation  auth: true
      */
     @PostMapping("/content/control/updateContentPurposeOperation")
-    public ResponseEntity<Map<String, Object>> updateContentPurposeOperation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentPurposeOperationResponse> updateContentPurposeOperation(@RequestBody UpdateContentPurposeOperationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1619,7 +1894,7 @@ public class ContentController {
      * <p>service: updateContentPurposeType  entities: ContentPurposeType  auth: true
      */
     @PostMapping("/content/control/updateContentPurposeType")
-    public ResponseEntity<Map<String, Object>> updateContentPurposeType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentPurposeTypeResponse> updateContentPurposeType(@RequestBody UpdateContentPurposeTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1629,7 +1904,7 @@ public class ContentController {
      * <p>service: updateContentRevision  entities: ContentRevision  auth: true
      */
     @PostMapping("/content/control/updateContentRevision")
-    public ResponseEntity<Map<String, Object>> updateContentRevision(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentRevisionResponse> updateContentRevision(@RequestBody UpdateContentRevisionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1639,7 +1914,7 @@ public class ContentController {
      * <p>service: updateContentRevisionItem  entities: ContentRevisionItem  auth: true
      */
     @PostMapping("/content/control/updateContentRevisionItem")
-    public ResponseEntity<Map<String, Object>> updateContentRevisionItem(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentRevisionItemResponse> updateContentRevisionItem(@RequestBody UpdateContentRevisionItemRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1649,7 +1924,7 @@ public class ContentController {
      * <p>service: updateContentRole  entities: ContentRole  auth: true
      */
     @PostMapping("/content/control/updateContentRole")
-    public ResponseEntity<Map<String, Object>> updateContentRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentRoleResponse> updateContentRole(@RequestBody UpdateContentRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1659,7 +1934,7 @@ public class ContentController {
      * <p>service: updateContentType  entities: ContentType  auth: true
      */
     @PostMapping("/content/control/updateContentType")
-    public ResponseEntity<Map<String, Object>> updateContentType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentTypeResponse> updateContentType(@RequestBody UpdateContentTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1669,7 +1944,7 @@ public class ContentController {
      * <p>service: updateDataCategory  entities: DataCategory  auth: true
      */
     @PostMapping("/content/control/updateDataCategory")
-    public ResponseEntity<Map<String, Object>> updateDataCategory(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateDataCategoryResponse> updateDataCategory(@RequestBody UpdateDataCategoryRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1679,7 +1954,7 @@ public class ContentController {
      * <p>service: updateDataResource  entities: DataResource  auth: true
      */
     @PostMapping("/content/control/updateDataResource")
-    public ResponseEntity<Map<String, Object>> updateDataResource(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateDataResourceResponse> updateDataResource(@RequestBody UpdateDataResourceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1689,7 +1964,7 @@ public class ContentController {
      * <p>service: updateDataResourceAttribute  entities: DataResourceAttribute  auth: true
      */
     @PostMapping("/content/control/updateDataResourceAttribute")
-    public ResponseEntity<Map<String, Object>> updateDataResourceAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateDataResourceAttributeResponse> updateDataResourceAttribute(@RequestBody UpdateDataResourceAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1699,7 +1974,7 @@ public class ContentController {
      * <p>service: updateDataResourceRole  entities: DataResourceRole  auth: true
      */
     @PostMapping("/content/control/updateDataResourceRole")
-    public ResponseEntity<Map<String, Object>> updateDataResourceRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateDataResourceRoleResponse> updateDataResourceRole(@RequestBody UpdateDataResourceRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1709,7 +1984,7 @@ public class ContentController {
      * <p>service: updateDataResource  entities: DataResource  auth: true
      */
     @PostMapping("/content/control/updateDataResourceText")
-    public ResponseEntity<Map<String, Object>> updateDataResourceUpdateDataResourceText(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateDataResourceResponse> updateDataResourceUpdateDataResourceText(@RequestBody UpdateDataResourceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1719,7 +1994,7 @@ public class ContentController {
      * <p>service: updateDataResourceType  entities: DataResourceType  auth: true
      */
     @PostMapping("/content/control/updateDataResourceType")
-    public ResponseEntity<Map<String, Object>> updateDataResourceType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateDataResourceTypeResponse> updateDataResourceType(@RequestBody UpdateDataResourceTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1729,7 +2004,7 @@ public class ContentController {
      * <p>service: updateContent  entities: Content  auth: true
      */
     @PostMapping("/content/control/updateDocumentTree")
-    public ResponseEntity<Map<String, Object>> updateContentUpdateDocumentTree(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentResponse> updateContentUpdateDocumentTree(@RequestBody UpdateContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1739,7 +2014,7 @@ public class ContentController {
      * <p>service: updateElectronicText  entities: ElectronicText  auth: true
      */
     @PostMapping("/content/control/updateElectronicText")
-    public ResponseEntity<Map<String, Object>> updateElectronicText(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateElectronicTextResponse> updateElectronicText(@RequestBody UpdateElectronicTextRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1749,7 +2024,7 @@ public class ContentController {
      * <p>service: createOrRemoveProductFeatureDataResource  entities: unknown  auth: true
      */
     @GetMapping("/content/control/updateFeatures")
-    public ResponseEntity<Map<String, Object>> createOrRemoveProductFeatureDataResource(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateOrRemoveProductFeatureDataResourceResponse> createOrRemoveProductFeatureDataResource(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1759,7 +2034,7 @@ public class ContentController {
      * <p>service: updateFileExtension  entities: FileExtension  auth: true
      */
     @PostMapping("/content/control/updateFileExtension")
-    public ResponseEntity<Map<String, Object>> updateFileExtension(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateFileExtensionResponse> updateFileExtension(@RequestBody UpdateFileExtensionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1769,7 +2044,7 @@ public class ContentController {
      * <p>service: persistContentAndAssoc  entities: Content, ContentAssoc, ContentAssocDataResourceViewTo, ContentDataResourceView, DataResource, ElectronicText  auth: true
      */
     @PostMapping("/content/control/updateForum")
-    public ResponseEntity<Map<String, Object>> persistContentAndAssocUpdateForum(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PersistContentAndAssocResponse> persistContentAndAssocUpdateForum(@RequestBody PersistContentAndAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1779,7 +2054,7 @@ public class ContentController {
      * <p>service: updateContent  entities: Content  auth: true
      */
     @PostMapping("/content/control/updateForumGroup")
-    public ResponseEntity<Map<String, Object>> updateContentUpdateForumGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentResponse> updateContentUpdateForumGroup(@RequestBody UpdateContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1789,7 +2064,7 @@ public class ContentController {
      * <p>service: updateContentRole  entities: ContentRole  auth: true
      */
     @PostMapping("/content/control/updateForumGroupRole")
-    public ResponseEntity<Map<String, Object>> updateContentRoleUpdateForumGroupRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentRoleResponse> updateContentRoleUpdateForumGroupRole(@RequestBody UpdateContentRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1799,7 +2074,7 @@ public class ContentController {
      * <p>service: persistContentAndAssoc  entities: Content, ContentAssoc, ContentAssocDataResourceViewTo, ContentDataResourceView, DataResource, ElectronicText  auth: true
      */
     @PostMapping("/content/control/updateForumMessage")
-    public ResponseEntity<Map<String, Object>> persistContentAndAssocUpdateForumMessage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PersistContentAndAssocResponse> persistContentAndAssocUpdateForumMessage(@RequestBody PersistContentAndAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1809,7 +2084,7 @@ public class ContentController {
      * <p>service: persistContentAndAssoc  entities: Content, ContentAssoc, ContentAssocDataResourceViewTo, ContentDataResourceView, DataResource, ElectronicText  auth: true
      */
     @PostMapping("/content/control/updateForumThreadMessage")
-    public ResponseEntity<Map<String, Object>> persistContentAndAssocUpdateForumThreadMessage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PersistContentAndAssocResponse> persistContentAndAssocUpdateForumThreadMessage(@RequestBody PersistContentAndAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1819,7 +2094,7 @@ public class ContentController {
      * <p>service: updateElectronicText  entities: ElectronicText  auth: true
      */
     @PostMapping("/content/control/updateHtmlText")
-    public ResponseEntity<Map<String, Object>> updateElectronicTextUpdateHtmlText(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateElectronicTextResponse> updateElectronicTextUpdateHtmlText(@RequestBody UpdateElectronicTextRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1899,7 +2174,7 @@ public class ContentController {
      * <p>service: updateMetaDataPredicate  entities: MetaDataPredicate  auth: true
      */
     @PostMapping("/content/control/updateMetaDataPredicate")
-    public ResponseEntity<Map<String, Object>> updateMetaDataPredicate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateMetaDataPredicateResponse> updateMetaDataPredicate(@RequestBody UpdateMetaDataPredicateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1909,7 +2184,7 @@ public class ContentController {
      * <p>service: updateMimeType  entities: MimeType  auth: true
      */
     @PostMapping("/content/control/updateMimeType")
-    public ResponseEntity<Map<String, Object>> updateMimeType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateMimeTypeResponse> updateMimeType(@RequestBody UpdateMimeTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1919,7 +2194,7 @@ public class ContentController {
      * <p>service: updateMimeTypeHtmlTemplate  entities: MimeTypeHtmlTemplate  auth: true
      */
     @PostMapping("/content/control/updateMimeTypeHtmlTemplate")
-    public ResponseEntity<Map<String, Object>> updateMimeTypeHtmlTemplate(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateMimeTypeHtmlTemplateResponse> updateMimeTypeHtmlTemplate(@RequestBody UpdateMimeTypeHtmlTemplateRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1929,7 +2204,7 @@ public class ContentController {
      * <p>service: updateContentAndUploadedFile  entities: unknown  auth: true
      */
     @PostMapping("/content/control/updateObjectContentCms")
-    public ResponseEntity<Map<String, Object>> updateContentAndUploadedFile(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentAndUploadedFileResponse> updateContentAndUploadedFile(@RequestBody UpdateContentAndUploadedFileRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1939,7 +2214,7 @@ public class ContentController {
      * <p>service: updateSiteRoles  entities: unknown  auth: true
      */
     @GetMapping("/content/control/updateSiteRoles")
-    public ResponseEntity<Map<String, Object>> updateSiteRoles(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdateSiteRolesResponse> updateSiteRoles(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1949,7 +2224,7 @@ public class ContentController {
      * <p>service: updateSurvey  entities: Survey  auth: true
      */
     @PostMapping("/content/control/updateSurvey")
-    public ResponseEntity<Map<String, Object>> updateSurvey(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSurveyResponse> updateSurvey(@RequestBody UpdateSurveyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1959,7 +2234,7 @@ public class ContentController {
      * <p>service: updateSurveyMultiResp  entities: SurveyMultiResp  auth: true
      */
     @PostMapping("/content/control/updateSurveyMultiResp")
-    public ResponseEntity<Map<String, Object>> updateSurveyMultiResp(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSurveyMultiRespResponse> updateSurveyMultiResp(@RequestBody UpdateSurveyMultiRespRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1969,7 +2244,7 @@ public class ContentController {
      * <p>service: updateSurveyMultiRespColumn  entities: SurveyMultiRespColumn  auth: true
      */
     @PostMapping("/content/control/updateSurveyMultiRespColumn")
-    public ResponseEntity<Map<String, Object>> updateSurveyMultiRespColumn(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSurveyMultiRespColumnResponse> updateSurveyMultiRespColumn(@RequestBody UpdateSurveyMultiRespColumnRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1979,7 +2254,7 @@ public class ContentController {
      * <p>service: updateSurveyPage  entities: SurveyPage  auth: true
      */
     @PostMapping("/content/control/updateSurveyPage")
-    public ResponseEntity<Map<String, Object>> updateSurveyPage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSurveyPageResponse> updateSurveyPage(@RequestBody UpdateSurveyPageRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1989,7 +2264,7 @@ public class ContentController {
      * <p>service: updateSurveyQuestion  entities: SurveyQuestion  auth: true
      */
     @PostMapping("/content/control/updateSurveyQuestion")
-    public ResponseEntity<Map<String, Object>> updateSurveyQuestion(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSurveyQuestionResponse> updateSurveyQuestion(@RequestBody UpdateSurveyQuestionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1999,7 +2274,7 @@ public class ContentController {
      * <p>service: updateSurveyQuestionAppl  entities: SurveyQuestionAppl  auth: true
      */
     @PostMapping("/content/control/updateSurveyQuestionAppl")
-    public ResponseEntity<Map<String, Object>> updateSurveyQuestionAppl(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSurveyQuestionApplResponse> updateSurveyQuestionAppl(@RequestBody UpdateSurveyQuestionApplRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2009,7 +2284,7 @@ public class ContentController {
      * <p>service: updateSurveyQuestionOption  entities: SurveyQuestionOption  auth: true
      */
     @PostMapping("/content/control/updateSurveyQuestionOption")
-    public ResponseEntity<Map<String, Object>> updateSurveyQuestionOption(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateSurveyQuestionOptionResponse> updateSurveyQuestionOption(@RequestBody UpdateSurveyQuestionOptionRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2019,7 +2294,7 @@ public class ContentController {
      * <p>service: createSurveyResponse  entities: SurveyResponse  auth: true
      */
     @PostMapping("/content/control/updateSurveyResponse")
-    public ResponseEntity<Map<String, Object>> createSurveyResponse(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateSurveyResponseResponse> createSurveyResponse(@RequestBody CreateSurveyResponseRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2029,7 +2304,7 @@ public class ContentController {
      * <p>service: updateTextContent  entities: unknown  auth: true
      */
     @PostMapping("/content/control/updateTextContentCms")
-    public ResponseEntity<Map<String, Object>> updateTextContentUpdateTextContentCms(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateTextContentResponse> updateTextContentUpdateTextContentCms(@RequestBody UpdateTextContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2039,7 +2314,7 @@ public class ContentController {
      * <p>service: updateContentApproval  entities: ContentApproval  auth: true
      */
     @PostMapping("/content/control/updateWaitingContentApproval")
-    public ResponseEntity<Map<String, Object>> updateContentApprovalUpdateWaitingContentApproval(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateContentApprovalResponse> updateContentApprovalUpdateWaitingContentApproval(@RequestBody UpdateContentApprovalRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2059,7 +2334,7 @@ public class ContentController {
      * <p>service: updateWebSite  entities: WebSite  auth: true
      */
     @PostMapping("/content/control/updateWebSite")
-    public ResponseEntity<Map<String, Object>> updateWebSite(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateWebSiteResponse> updateWebSite(@RequestBody UpdateWebSiteRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2079,7 +2354,7 @@ public class ContentController {
      * <p>service: updateDataResource  entities: DataResource  auth: true
      */
     @PostMapping("/content/control/updateWebSiteMetaInfoJson")
-    public ResponseEntity<Map<String, Object>> updateDataResourceUpdateWebSiteMetaInfoJson(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateDataResourceResponse> updateDataResourceUpdateWebSiteMetaInfoJson(@RequestBody UpdateDataResourceRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2089,7 +2364,7 @@ public class ContentController {
      * <p>service: updateWebSitePathAlias  entities: WebSitePathAlias  auth: true
      */
     @PostMapping("/content/control/updateWebSitePathAlias")
-    public ResponseEntity<Map<String, Object>> updateWebSitePathAlias(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateWebSitePathAliasResponse> updateWebSitePathAlias(@RequestBody UpdateWebSitePathAliasRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2099,7 +2374,7 @@ public class ContentController {
      * <p>service: updateWebSiteRole  entities: WebSiteRole  auth: true
      */
     @PostMapping("/content/control/updateWebSiteRole")
-    public ResponseEntity<Map<String, Object>> updateWebSiteRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateWebSiteRoleResponse> updateWebSiteRole(@RequestBody UpdateWebSiteRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2119,7 +2394,7 @@ public class ContentController {
      * <p>service: persistContentAndAssoc  entities: Content, ContentAssoc, ContentAssocDataResourceViewTo, ContentDataResourceView, DataResource, ElectronicText  auth: true
      */
     @PostMapping("/content/control/uploadImage")
-    public ResponseEntity<Map<String, Object>> persistContentAndAssocUploadImage(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<PersistContentAndAssocResponse> persistContentAndAssocUploadImage(@RequestBody PersistContentAndAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }

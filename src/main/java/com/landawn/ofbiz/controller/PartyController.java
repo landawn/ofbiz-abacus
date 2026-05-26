@@ -1,5 +1,150 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.model.ResponseBase;
+import com.landawn.ofbiz.model.party.ClearAddressMatchMapRequest;
+import com.landawn.ofbiz.model.party.ClearAddressMatchMapResponse;
+import com.landawn.ofbiz.model.party.CreateAddressMatchMapRequest;
+import com.landawn.ofbiz.model.party.CreateAddressMatchMapResponse;
+import com.landawn.ofbiz.model.party.CreateCommEventWorkEffortRequest;
+import com.landawn.ofbiz.model.party.CreateCommEventWorkEffortResponse;
+import com.landawn.ofbiz.model.party.CreateCommunicationEventPurposeRequest;
+import com.landawn.ofbiz.model.party.CreateCommunicationEventPurposeResponse;
+import com.landawn.ofbiz.model.party.CreateCommunicationEventRequest;
+import com.landawn.ofbiz.model.party.CreateCommunicationEventResponse;
+import com.landawn.ofbiz.model.party.CreateCommunicationEventRoleRequest;
+import com.landawn.ofbiz.model.party.CreateCommunicationEventRoleResponse;
+import com.landawn.ofbiz.model.party.CreateMaritalStatusRequest;
+import com.landawn.ofbiz.model.party.CreateMaritalStatusResponse;
+import com.landawn.ofbiz.model.party.CreateMaritalStatusTypeRequest;
+import com.landawn.ofbiz.model.party.CreateMaritalStatusTypeResponse;
+import com.landawn.ofbiz.model.party.CreatePartyAttributeRequest;
+import com.landawn.ofbiz.model.party.CreatePartyAttributeResponse;
+import com.landawn.ofbiz.model.party.CreatePartyCarrierAccountRequest;
+import com.landawn.ofbiz.model.party.CreatePartyCarrierAccountResponse;
+import com.landawn.ofbiz.model.party.CreatePartyClassificationGroupRequest;
+import com.landawn.ofbiz.model.party.CreatePartyClassificationGroupResponse;
+import com.landawn.ofbiz.model.party.CreatePartyClassificationRequest;
+import com.landawn.ofbiz.model.party.CreatePartyClassificationResponse;
+import com.landawn.ofbiz.model.party.CreatePartyContactMechPurposeRequest;
+import com.landawn.ofbiz.model.party.CreatePartyContactMechPurposeResponse;
+import com.landawn.ofbiz.model.party.CreatePartyContactMechRequest;
+import com.landawn.ofbiz.model.party.CreatePartyContactMechResponse;
+import com.landawn.ofbiz.model.party.CreatePartyContentResponse;
+import com.landawn.ofbiz.model.party.CreatePartyEmailAddressRequest;
+import com.landawn.ofbiz.model.party.CreatePartyEmailAddressResponse;
+import com.landawn.ofbiz.model.party.CreatePartyFtpAddressRequest;
+import com.landawn.ofbiz.model.party.CreatePartyFtpAddressResponse;
+import com.landawn.ofbiz.model.party.CreatePartyGroupRequest;
+import com.landawn.ofbiz.model.party.CreatePartyGroupResponse;
+import com.landawn.ofbiz.model.party.CreatePartyIdentificationRequest;
+import com.landawn.ofbiz.model.party.CreatePartyIdentificationResponse;
+import com.landawn.ofbiz.model.party.CreatePartyInvitationGroupAssocRequest;
+import com.landawn.ofbiz.model.party.CreatePartyInvitationGroupAssocResponse;
+import com.landawn.ofbiz.model.party.CreatePartyInvitationRequest;
+import com.landawn.ofbiz.model.party.CreatePartyInvitationResponse;
+import com.landawn.ofbiz.model.party.CreatePartyInvitationRoleAssocRequest;
+import com.landawn.ofbiz.model.party.CreatePartyInvitationRoleAssocResponse;
+import com.landawn.ofbiz.model.party.CreatePartyNoteRequest;
+import com.landawn.ofbiz.model.party.CreatePartyNoteResponse;
+import com.landawn.ofbiz.model.party.CreatePartyPostalAddressRequest;
+import com.landawn.ofbiz.model.party.CreatePartyPostalAddressResponse;
+import com.landawn.ofbiz.model.party.CreatePartyRelationshipAndRoleRequest;
+import com.landawn.ofbiz.model.party.CreatePartyRelationshipAndRoleResponse;
+import com.landawn.ofbiz.model.party.CreatePartyRelationshipContactAccountRequest;
+import com.landawn.ofbiz.model.party.CreatePartyRelationshipContactAccountResponse;
+import com.landawn.ofbiz.model.party.CreatePartyRelationshipRequest;
+import com.landawn.ofbiz.model.party.CreatePartyRelationshipResponse;
+import com.landawn.ofbiz.model.party.CreatePartyRelationshipTypeRequest;
+import com.landawn.ofbiz.model.party.CreatePartyRelationshipTypeResponse;
+import com.landawn.ofbiz.model.party.CreatePartyRoleRequest;
+import com.landawn.ofbiz.model.party.CreatePartyRoleResponse;
+import com.landawn.ofbiz.model.party.CreatePartyTelecomNumberRequest;
+import com.landawn.ofbiz.model.party.CreatePartyTelecomNumberResponse;
+import com.landawn.ofbiz.model.party.CreatePersonRequest;
+import com.landawn.ofbiz.model.party.CreatePersonResponse;
+import com.landawn.ofbiz.model.party.CreateRoleTypeRequest;
+import com.landawn.ofbiz.model.party.CreateRoleTypeResponse;
+import com.landawn.ofbiz.model.party.CreateVendorRequest;
+import com.landawn.ofbiz.model.party.CreateVendorResponse;
+import com.landawn.ofbiz.model.party.DeleteCommunicationEventRequest;
+import com.landawn.ofbiz.model.party.DeleteCommunicationEventResponse;
+import com.landawn.ofbiz.model.party.DeleteMaritalStatusRequest;
+import com.landawn.ofbiz.model.party.DeleteMaritalStatusResponse;
+import com.landawn.ofbiz.model.party.DeletePartyClassificationGroupRequest;
+import com.landawn.ofbiz.model.party.DeletePartyClassificationGroupResponse;
+import com.landawn.ofbiz.model.party.DeletePartyClassificationRequest;
+import com.landawn.ofbiz.model.party.DeletePartyClassificationResponse;
+import com.landawn.ofbiz.model.party.DeletePartyContactMechRequest;
+import com.landawn.ofbiz.model.party.DeletePartyContactMechResponse;
+import com.landawn.ofbiz.model.party.DeletePartyIdentificationRequest;
+import com.landawn.ofbiz.model.party.DeletePartyIdentificationResponse;
+import com.landawn.ofbiz.model.party.DeletePartyInvitationGroupAssocRequest;
+import com.landawn.ofbiz.model.party.DeletePartyInvitationGroupAssocResponse;
+import com.landawn.ofbiz.model.party.DeletePartyInvitationRequest;
+import com.landawn.ofbiz.model.party.DeletePartyInvitationResponse;
+import com.landawn.ofbiz.model.party.DeletePartyInvitationRoleAssocRequest;
+import com.landawn.ofbiz.model.party.DeletePartyInvitationRoleAssocResponse;
+import com.landawn.ofbiz.model.party.DeletePartyRelationshipRequest;
+import com.landawn.ofbiz.model.party.DeletePartyRelationshipResponse;
+import com.landawn.ofbiz.model.party.DeletePartyRoleRequest;
+import com.landawn.ofbiz.model.party.DeletePartyRoleResponse;
+import com.landawn.ofbiz.model.party.ExpirePartyContactMechPurposeRequest;
+import com.landawn.ofbiz.model.party.ExpirePartyContactMechPurposeResponse;
+import com.landawn.ofbiz.model.party.ImportAddressMatchMapCsvRequest;
+import com.landawn.ofbiz.model.party.ImportAddressMatchMapCsvResponse;
+import com.landawn.ofbiz.model.party.ImportPartyRequest;
+import com.landawn.ofbiz.model.party.ImportPartyResponse;
+import com.landawn.ofbiz.model.party.LinkPartyRecordRequest;
+import com.landawn.ofbiz.model.party.LinkPartyRecordResponse;
+import com.landawn.ofbiz.model.party.RemoveAddressMatchMapRequest;
+import com.landawn.ofbiz.model.party.RemoveAddressMatchMapResponse;
+import com.landawn.ofbiz.model.party.RemoveCommunicationEventPurposeRequest;
+import com.landawn.ofbiz.model.party.RemoveCommunicationEventPurposeResponse;
+import com.landawn.ofbiz.model.party.RemoveCommunicationEventRoleRequest;
+import com.landawn.ofbiz.model.party.RemoveCommunicationEventRoleResponse;
+import com.landawn.ofbiz.model.party.RemovePartyAttributeRequest;
+import com.landawn.ofbiz.model.party.RemovePartyAttributeResponse;
+import com.landawn.ofbiz.model.party.RemovePartyContentRequest;
+import com.landawn.ofbiz.model.party.RemovePartyContentResponse;
+import com.landawn.ofbiz.model.party.SetCommunicationEventRoleStatusRequest;
+import com.landawn.ofbiz.model.party.SetCommunicationEventRoleStatusResponse;
+import com.landawn.ofbiz.model.party.UpdateCommunicationEventRequest;
+import com.landawn.ofbiz.model.party.UpdateCommunicationEventResponse;
+import com.landawn.ofbiz.model.party.UpdateMaritalStatusRequest;
+import com.landawn.ofbiz.model.party.UpdateMaritalStatusResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyAttributeRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyAttributeResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyCarrierAccountRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyCarrierAccountResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyClassificationGroupRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyClassificationGroupResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyClassificationRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyClassificationResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyContactMechRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyContactMechResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyContentResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyEmailAddressRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyEmailAddressResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyFtpAddressRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyFtpAddressResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyGroupRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyGroupResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyIdentificationRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyIdentificationResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyInvitationRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyInvitationResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyPostalAddressRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyPostalAddressResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyRelationshipRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyRelationshipResponse;
+import com.landawn.ofbiz.model.party.UpdatePartyTelecomNumberRequest;
+import com.landawn.ofbiz.model.party.UpdatePartyTelecomNumberResponse;
+import com.landawn.ofbiz.model.party.UpdatePersonRequest;
+import com.landawn.ofbiz.model.party.UpdatePersonResponse;
+import com.landawn.ofbiz.model.party.UpdateVendorRequest;
+import com.landawn.ofbiz.model.party.UpdateVendorResponse;
+import com.landawn.ofbiz.model.party.UploadPartyContentFileRequest;
+import com.landawn.ofbiz.model.party.UploadPartyContentFileResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,12 +159,19 @@ import java.util.Map;
 @RequestMapping("/party")
 public class PartyController {
 
+    /** 200/400 routing decided by the response DTO's envelope state. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
+
     /**
      * Create a Communication Event with permission check
      * <p>service: createCommunicationEvent  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/NewDraftCommunicationEvent")
-    public ResponseEntity<Map<String, Object>> createCommunicationEvent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCommunicationEventResponse> createCommunicationEvent(@RequestBody CreateCommunicationEventRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -89,7 +241,7 @@ public class PartyController {
      * <p>service: removeCommunicationEventRole  entities: CommunicationEventRole  auth: true
      */
     @PostMapping("/partymgr/control/RemoveCommunicationEventRole")
-    public ResponseEntity<Map<String, Object>> removeCommunicationEventRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveCommunicationEventRoleResponse> removeCommunicationEventRole(@RequestBody RemoveCommunicationEventRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -129,7 +281,7 @@ public class PartyController {
      * <p>service: createPartyRole  entities: PartyRole  auth: true
      */
     @PostMapping("/partymgr/control/addrole")
-    public ResponseEntity<Map<String, Object>> createPartyRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyRoleResponse> createPartyRole(@RequestBody CreatePartyRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -139,7 +291,7 @@ public class PartyController {
      * <p>service: updatePartyGroup  entities: PartyGroup  auth: true
      */
     @PostMapping("/partymgr/control/ajaxUpdatePartyGroup")
-    public ResponseEntity<Map<String, Object>> updatePartyGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyGroupResponse> updatePartyGroup(@RequestBody UpdatePartyGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -179,7 +331,7 @@ public class PartyController {
      * <p>service: clearAddressMatchMap  entities: AddressMatchMap  auth: true
      */
     @PostMapping("/partymgr/control/clearAddressMatchMap")
-    public ResponseEntity<Map<String, Object>> clearAddressMatchMap(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ClearAddressMatchMapResponse> clearAddressMatchMap(@RequestBody ClearAddressMatchMapRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -189,7 +341,7 @@ public class PartyController {
      * <p>service: createAddressMatchMap  entities: AddressMatchMap  auth: true
      */
     @PostMapping("/partymgr/control/createAddressMatchMap")
-    public ResponseEntity<Map<String, Object>> createAddressMatchMap(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateAddressMatchMapResponse> createAddressMatchMap(@RequestBody CreateAddressMatchMapRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -239,7 +391,7 @@ public class PartyController {
      * <p>service: createCommEventWorkEffort  entities: CommunicationEventWorkEff, WorkEffort  auth: true
      */
     @PostMapping("/partymgr/control/createCommEventWorkEffort")
-    public ResponseEntity<Map<String, Object>> createCommEventWorkEffort(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCommEventWorkEffortResponse> createCommEventWorkEffort(@RequestBody CreateCommEventWorkEffortRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -249,7 +401,7 @@ public class PartyController {
      * <p>service: createCommunicationEvent  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createCommunicationEvent")
-    public ResponseEntity<Map<String, Object>> createCommunicationEventCreateCommunicationEvent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCommunicationEventResponse> createCommunicationEventCreateCommunicationEvent(@RequestBody CreateCommunicationEventRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -279,7 +431,7 @@ public class PartyController {
      * <p>service: createCommunicationEventPurpose  entities: CommunicationEventPurpose  auth: true
      */
     @PostMapping("/partymgr/control/createCommunicationEventPurpose")
-    public ResponseEntity<Map<String, Object>> createCommunicationEventPurpose(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCommunicationEventPurposeResponse> createCommunicationEventPurpose(@RequestBody CreateCommunicationEventPurposeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -299,7 +451,7 @@ public class PartyController {
      * <p>service: createCommunicationEventRole  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createCommunicationEventRole")
-    public ResponseEntity<Map<String, Object>> createCommunicationEventRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateCommunicationEventRoleResponse> createCommunicationEventRole(@RequestBody CreateCommunicationEventRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -319,7 +471,7 @@ public class PartyController {
      * <p>service: createPartyContactMech  entities: ContactMech, PartyContactMech  auth: true
      */
     @PostMapping("/partymgr/control/createContactMech")
-    public ResponseEntity<Map<String, Object>> createPartyContactMech(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyContactMechResponse> createPartyContactMech(@RequestBody CreatePartyContactMechRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -369,7 +521,7 @@ public class PartyController {
      * <p>service: createPartyEmailAddress  entities: ContactMech, PartyContactMech  auth: true
      */
     @PostMapping("/partymgr/control/createEmailAddress")
-    public ResponseEntity<Map<String, Object>> createPartyEmailAddress(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyEmailAddressResponse> createPartyEmailAddress(@RequestBody CreatePartyEmailAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -409,7 +561,7 @@ public class PartyController {
      * <p>service: createPartyFtpAddress  entities: ContactMech, FtpAddress, PartyContactMech  auth: true
      */
     @PostMapping("/partymgr/control/createFtpAddress")
-    public ResponseEntity<Map<String, Object>> createPartyFtpAddress(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyFtpAddressResponse> createPartyFtpAddress(@RequestBody CreatePartyFtpAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -429,7 +581,7 @@ public class PartyController {
      * <p>service: createMaritalStatus  entities: MaritalStatus  auth: -
      */
     @PostMapping("/partymgr/control/createMaritalStatus")
-    public ResponseEntity<Map<String, Object>> createMaritalStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateMaritalStatusResponse> createMaritalStatus(@RequestBody CreateMaritalStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -439,7 +591,7 @@ public class PartyController {
      * <p>service: createMaritalStatusType  entities: MaritalStatusType  auth: -
      */
     @PostMapping("/partymgr/control/createMaritalStatusType")
-    public ResponseEntity<Map<String, Object>> createMaritalStatusType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateMaritalStatusTypeResponse> createMaritalStatusType(@RequestBody CreateMaritalStatusTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -449,7 +601,7 @@ public class PartyController {
      * <p>service: createPartyAttribute  entities: PartyAttribute  auth: true
      */
     @PostMapping("/partymgr/control/createPartyAttribute")
-    public ResponseEntity<Map<String, Object>> createPartyAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyAttributeResponse> createPartyAttribute(@RequestBody CreatePartyAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -459,7 +611,7 @@ public class PartyController {
      * <p>service: createPartyCarrierAccount  entities: PartyCarrierAccount  auth: true
      */
     @PostMapping("/partymgr/control/createPartyCarrierAccount")
-    public ResponseEntity<Map<String, Object>> createPartyCarrierAccount(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyCarrierAccountResponse> createPartyCarrierAccount(@RequestBody CreatePartyCarrierAccountRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -469,7 +621,7 @@ public class PartyController {
      * <p>service: createPartyClassification  entities: PartyClassification  auth: true
      */
     @PostMapping("/partymgr/control/createPartyClassification")
-    public ResponseEntity<Map<String, Object>> createPartyClassification(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyClassificationResponse> createPartyClassification(@RequestBody CreatePartyClassificationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -479,7 +631,7 @@ public class PartyController {
      * <p>service: createPartyClassificationGroup  entities: PartyClassificationGroup  auth: true
      */
     @PostMapping("/partymgr/control/createPartyClassificationGroup")
-    public ResponseEntity<Map<String, Object>> createPartyClassificationGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyClassificationGroupResponse> createPartyClassificationGroup(@RequestBody CreatePartyClassificationGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -489,7 +641,7 @@ public class PartyController {
      * <p>service: createPartyClassification  entities: PartyClassification  auth: true
      */
     @PostMapping("/partymgr/control/createPartyClassificationParty")
-    public ResponseEntity<Map<String, Object>> createPartyClassificationCreatePartyClassificationParty(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyClassificationResponse> createPartyClassificationCreatePartyClassificationParty(@RequestBody CreatePartyClassificationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -499,7 +651,7 @@ public class PartyController {
      * <p>service: createPartyContactMechPurpose  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createPartyContactMechPurpose")
-    public ResponseEntity<Map<String, Object>> createPartyContactMechPurpose(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyContactMechPurposeResponse> createPartyContactMechPurpose(@RequestBody CreatePartyContactMechPurposeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -509,7 +661,7 @@ public class PartyController {
      * <p>service: createPartyContent  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/createPartyContent")
-    public ResponseEntity<Map<String, Object>> createPartyContent(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreatePartyContentResponse> createPartyContent(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -519,7 +671,7 @@ public class PartyController {
      * <p>service: createPartyGroup  entities: PartyGroup  auth: true
      */
     @PostMapping("/partymgr/control/createPartyGroup")
-    public ResponseEntity<Map<String, Object>> createPartyGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyGroupResponse> createPartyGroup(@RequestBody CreatePartyGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -529,7 +681,7 @@ public class PartyController {
      * <p>service: createPartyIdentification  entities: PartyIdentification  auth: true
      */
     @PostMapping("/partymgr/control/createPartyIdentification")
-    public ResponseEntity<Map<String, Object>> createPartyIdentification(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyIdentificationResponse> createPartyIdentification(@RequestBody CreatePartyIdentificationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -539,7 +691,7 @@ public class PartyController {
      * <p>service: createPartyInvitation  entities: PartyInvitation  auth: true
      */
     @PostMapping("/partymgr/control/createPartyInvitation")
-    public ResponseEntity<Map<String, Object>> createPartyInvitation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyInvitationResponse> createPartyInvitation(@RequestBody CreatePartyInvitationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -549,7 +701,7 @@ public class PartyController {
      * <p>service: createPartyInvitationGroupAssoc  entities: PartyInvitationGroupAssoc  auth: true
      */
     @PostMapping("/partymgr/control/createPartyInvitationGroupAssoc")
-    public ResponseEntity<Map<String, Object>> createPartyInvitationGroupAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyInvitationGroupAssocResponse> createPartyInvitationGroupAssoc(@RequestBody CreatePartyInvitationGroupAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -559,7 +711,7 @@ public class PartyController {
      * <p>service: createPartyInvitationRoleAssoc  entities: PartyInvitationRoleAssoc  auth: true
      */
     @PostMapping("/partymgr/control/createPartyInvitationRoleAssoc")
-    public ResponseEntity<Map<String, Object>> createPartyInvitationRoleAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyInvitationRoleAssocResponse> createPartyInvitationRoleAssoc(@RequestBody CreatePartyInvitationRoleAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -569,7 +721,7 @@ public class PartyController {
      * <p>service: createPartyNote  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createPartyNote")
-    public ResponseEntity<Map<String, Object>> createPartyNote(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyNoteResponse> createPartyNote(@RequestBody CreatePartyNoteRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -589,7 +741,7 @@ public class PartyController {
      * <p>service: createPartyRelationship  entities: PartyRelationship  auth: true
      */
     @PostMapping("/partymgr/control/createPartyRelationship")
-    public ResponseEntity<Map<String, Object>> createPartyRelationship(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyRelationshipResponse> createPartyRelationship(@RequestBody CreatePartyRelationshipRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -599,7 +751,7 @@ public class PartyController {
      * <p>service: createPartyRelationshipAndRole  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createPartyRelationshipAndRole")
-    public ResponseEntity<Map<String, Object>> createPartyRelationshipAndRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyRelationshipAndRoleResponse> createPartyRelationshipAndRole(@RequestBody CreatePartyRelationshipAndRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -609,7 +761,7 @@ public class PartyController {
      * <p>service: createPartyRelationshipContactAccount  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createPartyRelationshipContactAccount")
-    public ResponseEntity<Map<String, Object>> createPartyRelationshipContactAccount(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyRelationshipContactAccountResponse> createPartyRelationshipContactAccount(@RequestBody CreatePartyRelationshipContactAccountRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -619,7 +771,7 @@ public class PartyController {
      * <p>service: createPartyRelationshipType  entities: PartyRelationshipType  auth: true
      */
     @PostMapping("/partymgr/control/createPartyRelationshipType")
-    public ResponseEntity<Map<String, Object>> createPartyRelationshipType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyRelationshipTypeResponse> createPartyRelationshipType(@RequestBody CreatePartyRelationshipTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -659,7 +811,7 @@ public class PartyController {
      * <p>service: createPerson  entities: Person  auth: true
      */
     @PostMapping("/partymgr/control/createPerson")
-    public ResponseEntity<Map<String, Object>> createPerson(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePersonResponse> createPerson(@RequestBody CreatePersonRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -669,7 +821,7 @@ public class PartyController {
      * <p>service: createPartyPostalAddress  entities: PartyContactMech, PostalAddress  auth: true
      */
     @PostMapping("/partymgr/control/createPostalAddress")
-    public ResponseEntity<Map<String, Object>> createPartyPostalAddress(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyPostalAddressResponse> createPartyPostalAddress(@RequestBody CreatePartyPostalAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -679,7 +831,7 @@ public class PartyController {
      * <p>service: createPartyPostalAddress  entities: PartyContactMech, PostalAddress  auth: true
      */
     @PostMapping("/partymgr/control/createPostalAddressAndPurpose")
-    public ResponseEntity<Map<String, Object>> createPartyPostalAddressCreatePostalAddressAndPurpose(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyPostalAddressResponse> createPartyPostalAddressCreatePostalAddressAndPurpose(@RequestBody CreatePartyPostalAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -719,7 +871,7 @@ public class PartyController {
      * <p>service: createPartyTelecomNumber  entities: PartyContactMech, TelecomNumber  auth: true
      */
     @PostMapping("/partymgr/control/createTelecomNumber")
-    public ResponseEntity<Map<String, Object>> createPartyTelecomNumber(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreatePartyTelecomNumberResponse> createPartyTelecomNumber(@RequestBody CreatePartyTelecomNumberRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -729,7 +881,7 @@ public class PartyController {
      * <p>service: createVendor  entities: Vendor  auth: true
      */
     @PostMapping("/partymgr/control/createVendor")
-    public ResponseEntity<Map<String, Object>> createVendor(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateVendorResponse> createVendor(@RequestBody CreateVendorRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -749,7 +901,7 @@ public class PartyController {
      * <p>service: createRoleType  entities: RoleType  auth: true
      */
     @PostMapping("/partymgr/control/createroletype")
-    public ResponseEntity<Map<String, Object>> createRoleType(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<CreateRoleTypeResponse> createRoleType(@RequestBody CreateRoleTypeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -779,7 +931,7 @@ public class PartyController {
      * <p>service: deleteCommunicationEvent  entities: CommunicationEvent  auth: true
      */
     @PostMapping("/partymgr/control/deleteCommunicationEvent")
-    public ResponseEntity<Map<String, Object>> deleteCommunicationEvent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteCommunicationEventResponse> deleteCommunicationEvent(@RequestBody DeleteCommunicationEventRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -819,7 +971,7 @@ public class PartyController {
      * <p>service: deleteCommunicationEvent  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/deleteCommunicationEvents")
-    public ResponseEntity<Map<String, Object>> deleteCommunicationEventDeleteCommunicationEvents(@RequestParam Map<String, String> params) {
+    public ResponseEntity<DeleteCommunicationEventResponse> deleteCommunicationEventDeleteCommunicationEvents(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -829,7 +981,7 @@ public class PartyController {
      * <p>service: deletePartyContactMech  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/deleteContactMech")
-    public ResponseEntity<Map<String, Object>> deletePartyContactMech(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartyContactMechResponse> deletePartyContactMech(@RequestBody DeletePartyContactMechRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -849,7 +1001,7 @@ public class PartyController {
      * <p>service: deleteMaritalStatus  entities: MaritalStatus  auth: -
      */
     @PostMapping("/partymgr/control/deleteMaritalStatus")
-    public ResponseEntity<Map<String, Object>> deleteMaritalStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteMaritalStatusResponse> deleteMaritalStatus(@RequestBody DeleteMaritalStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -859,7 +1011,7 @@ public class PartyController {
      * <p>service: deletePartyClassification  entities: PartyClassification  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyClassification")
-    public ResponseEntity<Map<String, Object>> deletePartyClassification(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartyClassificationResponse> deletePartyClassification(@RequestBody DeletePartyClassificationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -869,7 +1021,7 @@ public class PartyController {
      * <p>service: deletePartyClassificationGroup  entities: PartyClassificationGroup  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyClassificationGroup")
-    public ResponseEntity<Map<String, Object>> deletePartyClassificationGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartyClassificationGroupResponse> deletePartyClassificationGroup(@RequestBody DeletePartyClassificationGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -879,7 +1031,7 @@ public class PartyController {
      * <p>service: deletePartyIdentification  entities: PartyIdentification  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyIdentification")
-    public ResponseEntity<Map<String, Object>> deletePartyIdentification(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartyIdentificationResponse> deletePartyIdentification(@RequestBody DeletePartyIdentificationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -889,7 +1041,7 @@ public class PartyController {
      * <p>service: deletePartyInvitation  entities: PartyInvitation  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyInvitation")
-    public ResponseEntity<Map<String, Object>> deletePartyInvitation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartyInvitationResponse> deletePartyInvitation(@RequestBody DeletePartyInvitationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -899,7 +1051,7 @@ public class PartyController {
      * <p>service: deletePartyInvitationGroupAssoc  entities: PartyInvitationGroupAssoc  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyInvitationGroupAssoc")
-    public ResponseEntity<Map<String, Object>> deletePartyInvitationGroupAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartyInvitationGroupAssocResponse> deletePartyInvitationGroupAssoc(@RequestBody DeletePartyInvitationGroupAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -909,7 +1061,7 @@ public class PartyController {
      * <p>service: deletePartyInvitationRoleAssoc  entities: PartyInvitationRoleAssoc  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyInvitationRoleAssoc")
-    public ResponseEntity<Map<String, Object>> deletePartyInvitationRoleAssoc(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartyInvitationRoleAssocResponse> deletePartyInvitationRoleAssoc(@RequestBody DeletePartyInvitationRoleAssocRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -919,7 +1071,7 @@ public class PartyController {
      * <p>service: deletePartyRelationship  entities: PartyRelationship  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyRelationship")
-    public ResponseEntity<Map<String, Object>> deletePartyRelationship(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartyRelationshipResponse> deletePartyRelationship(@RequestBody DeletePartyRelationshipRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -979,7 +1131,7 @@ public class PartyController {
      * <p>service: deleteCommunicationEvent  entities: CommunicationEvent  auth: true
      */
     @PostMapping("/partymgr/control/deleteUnknownCommunicationEvent")
-    public ResponseEntity<Map<String, Object>> deleteCommunicationEventDeleteUnknownCommunicationEvent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeleteCommunicationEventResponse> deleteCommunicationEventDeleteUnknownCommunicationEvent(@RequestBody DeleteCommunicationEventRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -989,7 +1141,7 @@ public class PartyController {
      * <p>service: deletePartyRole  entities: PartyRole  auth: true
      */
     @PostMapping("/partymgr/control/deleterole")
-    public ResponseEntity<Map<String, Object>> deletePartyRole(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<DeletePartyRoleResponse> deletePartyRole(@RequestBody DeletePartyRoleRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1009,7 +1161,7 @@ public class PartyController {
      * <p>service: expirePartyContactMechPurpose  entities: PartyContactMechPurpose  auth: true
      */
     @PostMapping("/partymgr/control/expirePartyContactMechPurpose")
-    public ResponseEntity<Map<String, Object>> expirePartyContactMechPurpose(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ExpirePartyContactMechPurposeResponse> expirePartyContactMechPurpose(@RequestBody ExpirePartyContactMechPurposeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1039,7 +1191,7 @@ public class PartyController {
      * <p>service: importAddressMatchMapCsv  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/importAddressMatchMapCsv")
-    public ResponseEntity<Map<String, Object>> importAddressMatchMapCsv(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ImportAddressMatchMapCsvResponse> importAddressMatchMapCsv(@RequestBody ImportAddressMatchMapCsvRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1049,7 +1201,7 @@ public class PartyController {
      * <p>service: removeAddressMatchMap  entities: AddressMatchMap  auth: true
      */
     @PostMapping("/partymgr/control/removeAddressMatchMap")
-    public ResponseEntity<Map<String, Object>> removeAddressMatchMap(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveAddressMatchMapResponse> removeAddressMatchMap(@RequestBody RemoveAddressMatchMapRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1069,7 +1221,7 @@ public class PartyController {
      * <p>service: removeCommunicationEventPurpose  entities: CommunicationEventPurpose  auth: true
      */
     @PostMapping("/partymgr/control/removeCommunicationEventPurpose")
-    public ResponseEntity<Map<String, Object>> removeCommunicationEventPurpose(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemoveCommunicationEventPurposeResponse> removeCommunicationEventPurpose(@RequestBody RemoveCommunicationEventPurposeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1089,7 +1241,7 @@ public class PartyController {
      * <p>service: removePartyAttribute  entities: PartyAttribute  auth: true
      */
     @PostMapping("/partymgr/control/removePartyAttribute")
-    public ResponseEntity<Map<String, Object>> removePartyAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemovePartyAttributeResponse> removePartyAttribute(@RequestBody RemovePartyAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1099,7 +1251,7 @@ public class PartyController {
      * <p>service: removePartyContent  entities: PartyContent  auth: true
      */
     @PostMapping("/partymgr/control/removePartyContent")
-    public ResponseEntity<Map<String, Object>> removePartyContent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<RemovePartyContentResponse> removePartyContent(@RequestBody RemovePartyContentRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1149,7 +1301,7 @@ public class PartyController {
      * <p>service: updateCommunicationEvent  entities: CommunicationEvent  auth: true
      */
     @PostMapping("/partymgr/control/sendCommunicationEvent")
-    public ResponseEntity<Map<String, Object>> updateCommunicationEvent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateCommunicationEventResponse> updateCommunicationEvent(@RequestBody UpdateCommunicationEventRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1159,7 +1311,7 @@ public class PartyController {
      * <p>service: setCommunicationEventRoleStatus  entities: CommunicationEventRole  auth: true
      */
     @PostMapping("/partymgr/control/setCommunicationEventRoleStatus")
-    public ResponseEntity<Map<String, Object>> setCommunicationEventRoleStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<SetCommunicationEventRoleStatusResponse> setCommunicationEventRoleStatus(@RequestBody SetCommunicationEventRoleStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1179,7 +1331,7 @@ public class PartyController {
      * <p>service: linkPartyRecord  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/setPartyLink")
-    public ResponseEntity<Map<String, Object>> linkPartyRecord(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<LinkPartyRecordResponse> linkPartyRecord(@RequestBody LinkPartyRecordRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1269,7 +1421,7 @@ public class PartyController {
      * <p>service: updateCommunicationEvent  entities: CommunicationEvent  auth: true
      */
     @PostMapping("/partymgr/control/updateCommunicationEvent")
-    public ResponseEntity<Map<String, Object>> updateCommunicationEventUpdateCommunicationEvent(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateCommunicationEventResponse> updateCommunicationEventUpdateCommunicationEvent(@RequestBody UpdateCommunicationEventRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1289,7 +1441,7 @@ public class PartyController {
      * <p>service: updatePartyContactMech  entities: PartyContactMech  auth: true
      */
     @PostMapping("/partymgr/control/updateContactMech")
-    public ResponseEntity<Map<String, Object>> updatePartyContactMech(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyContactMechResponse> updatePartyContactMech(@RequestBody UpdatePartyContactMechRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1319,7 +1471,7 @@ public class PartyController {
      * <p>service: updatePartyEmailAddress  entities: PartyContactMech  auth: true
      */
     @PostMapping("/partymgr/control/updateEmailAddress")
-    public ResponseEntity<Map<String, Object>> updatePartyEmailAddress(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyEmailAddressResponse> updatePartyEmailAddress(@RequestBody UpdatePartyEmailAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1339,7 +1491,7 @@ public class PartyController {
      * <p>service: updatePartyFtpAddress  entities: FtpAddress, PartyContactMech  auth: true
      */
     @PostMapping("/partymgr/control/updateFtpAddress")
-    public ResponseEntity<Map<String, Object>> updatePartyFtpAddress(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyFtpAddressResponse> updatePartyFtpAddress(@RequestBody UpdatePartyFtpAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1359,7 +1511,7 @@ public class PartyController {
      * <p>service: updateMaritalStatus  entities: MaritalStatus  auth: -
      */
     @PostMapping("/partymgr/control/updateMaritalStatus")
-    public ResponseEntity<Map<String, Object>> updateMaritalStatus(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateMaritalStatusResponse> updateMaritalStatus(@RequestBody UpdateMaritalStatusRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1369,7 +1521,7 @@ public class PartyController {
      * <p>service: updatePartyAttribute  entities: PartyAttribute  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyAttribute")
-    public ResponseEntity<Map<String, Object>> updatePartyAttribute(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyAttributeResponse> updatePartyAttribute(@RequestBody UpdatePartyAttributeRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1379,7 +1531,7 @@ public class PartyController {
      * <p>service: updatePartyCarrierAccount  entities: PartyCarrierAccount  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyCarrierAccount")
-    public ResponseEntity<Map<String, Object>> updatePartyCarrierAccount(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyCarrierAccountResponse> updatePartyCarrierAccount(@RequestBody UpdatePartyCarrierAccountRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1389,7 +1541,7 @@ public class PartyController {
      * <p>service: updatePartyClassification  entities: PartyClassification  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyClassification")
-    public ResponseEntity<Map<String, Object>> updatePartyClassification(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyClassificationResponse> updatePartyClassification(@RequestBody UpdatePartyClassificationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1399,7 +1551,7 @@ public class PartyController {
      * <p>service: updatePartyClassificationGroup  entities: PartyClassificationGroup  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyClassificationGroup")
-    public ResponseEntity<Map<String, Object>> updatePartyClassificationGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyClassificationGroupResponse> updatePartyClassificationGroup(@RequestBody UpdatePartyClassificationGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1409,7 +1561,7 @@ public class PartyController {
      * <p>service: updatePartyClassification  entities: PartyClassification  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyClassificationParty")
-    public ResponseEntity<Map<String, Object>> updatePartyClassificationUpdatePartyClassificationParty(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyClassificationResponse> updatePartyClassificationUpdatePartyClassificationParty(@RequestBody UpdatePartyClassificationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1419,7 +1571,7 @@ public class PartyController {
      * <p>service: updatePartyContent  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/updatePartyContent")
-    public ResponseEntity<Map<String, Object>> updatePartyContent(@RequestParam Map<String, String> params) {
+    public ResponseEntity<UpdatePartyContentResponse> updatePartyContent(@RequestParam Map<String, String> params) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1429,7 +1581,7 @@ public class PartyController {
      * <p>service: updatePartyGroup  entities: PartyGroup  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyGroup")
-    public ResponseEntity<Map<String, Object>> updatePartyGroupUpdatePartyGroup(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyGroupResponse> updatePartyGroupUpdatePartyGroup(@RequestBody UpdatePartyGroupRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1439,7 +1591,7 @@ public class PartyController {
      * <p>service: updatePartyIdentification  entities: PartyIdentification  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyIdentification")
-    public ResponseEntity<Map<String, Object>> updatePartyIdentification(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyIdentificationResponse> updatePartyIdentification(@RequestBody UpdatePartyIdentificationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1449,7 +1601,7 @@ public class PartyController {
      * <p>service: updatePartyInvitation  entities: PartyInvitation  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyInvitation")
-    public ResponseEntity<Map<String, Object>> updatePartyInvitation(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyInvitationResponse> updatePartyInvitation(@RequestBody UpdatePartyInvitationRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1469,7 +1621,7 @@ public class PartyController {
      * <p>service: updatePartyRelationship  entities: PartyRelationship  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyRelationship")
-    public ResponseEntity<Map<String, Object>> updatePartyRelationship(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyRelationshipResponse> updatePartyRelationship(@RequestBody UpdatePartyRelationshipRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1509,7 +1661,7 @@ public class PartyController {
      * <p>service: updatePerson  entities: Person  auth: true
      */
     @PostMapping("/partymgr/control/updatePerson")
-    public ResponseEntity<Map<String, Object>> updatePerson(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePersonResponse> updatePerson(@RequestBody UpdatePersonRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1519,7 +1671,7 @@ public class PartyController {
      * <p>service: updatePartyPostalAddress  entities: PartyContactMech, PostalAddress  auth: true
      */
     @PostMapping("/partymgr/control/updatePostalAddress")
-    public ResponseEntity<Map<String, Object>> updatePartyPostalAddress(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyPostalAddressResponse> updatePartyPostalAddress(@RequestBody UpdatePartyPostalAddressRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1549,7 +1701,7 @@ public class PartyController {
      * <p>service: updatePartyTelecomNumber  entities: PartyContactMech, TelecomNumber  auth: true
      */
     @PostMapping("/partymgr/control/updateTelecomNumber")
-    public ResponseEntity<Map<String, Object>> updatePartyTelecomNumber(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdatePartyTelecomNumberResponse> updatePartyTelecomNumber(@RequestBody UpdatePartyTelecomNumberRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1559,7 +1711,7 @@ public class PartyController {
      * <p>service: updateVendor  entities: Vendor  auth: true
      */
     @PostMapping("/partymgr/control/updateVendor")
-    public ResponseEntity<Map<String, Object>> updateVendor(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UpdateVendorResponse> updateVendor(@RequestBody UpdateVendorRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1599,7 +1751,7 @@ public class PartyController {
      * <p>service: importParty  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/uploadParty")
-    public ResponseEntity<Map<String, Object>> importParty(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<ImportPartyResponse> importParty(@RequestBody ImportPartyRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1609,7 +1761,7 @@ public class PartyController {
      * <p>service: uploadPartyContentFile  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/uploadPartyContent")
-    public ResponseEntity<Map<String, Object>> uploadPartyContentFile(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<UploadPartyContentFileResponse> uploadPartyContentFile(@RequestBody UploadPartyContentFileRequest request) {
         // TODO
         throw new UnsupportedOperationException();
     }
