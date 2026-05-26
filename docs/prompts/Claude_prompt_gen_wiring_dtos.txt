@@ -1,0 +1,148 @@
+Generate typed Request/Response DTOs for every controller and wire them in
+
+  For every endpoint method across all 11 controllers in src/main/java/com/landawn/ofbiz/controller/*Controller.java (1,743 endpoints
+  total), derive the request shape (IN attributes) and response shape (OUT attributes) by scanning OFBiz under ./apache-ofbiz-framework/,
+  then generate a typed request DTO and response DTO per backing service. Place them under com.landawn.ofbiz.model.{controller} subpackages.
+
+  After generation, wire every controller endpoint to use its typed DTO (replace @RequestBody Map<String, Object> and
+  ResponseEntity<Map<String, Object>> with typed equivalents).
+
+  ---
+  Source of truth for each endpoint's shape
+
+  For each controller method, follow its Javadoc tag service: <name> and trace:
+
+  1. Service definition in the controller's OFBiz component directory:
+    - AccountingController → apache-ofbiz-framework/applications/accounting/servicedef/services*.xml
+    - CommonextController → apache-ofbiz-framework/framework/common/servicedef/services*.xml
+    - ContentController → apache-ofbiz-framework/applications/content/servicedef/services*.xml
+    - HumanresController → apache-ofbiz-framework/applications/humanres/servicedef/services*.xml
+    - ManufacturingController → apache-ofbiz-framework/applications/manufacturing/servicedef/services*.xml
+    - MarketingController → apache-ofbiz-framework/applications/marketing/servicedef/services*.xml
+    - OrderController → apache-ofbiz-framework/applications/order/servicedef/services*.xml
+    - PartyController → apache-ofbiz-framework/applications/party/servicedef/services*.xml
+    - ProductController → apache-ofbiz-framework/applications/product/servicedef/services*.xml
+    - WebtoolsController → apache-ofbiz-framework/framework/webtools/servicedef/services*.xml
+    - WorkeffortController → apache-ofbiz-framework/applications/workeffort/servicedef/services*.xml
+    - Each <service name="<name>"> declares IN, OUT, INOUT attributes via <attribute>, <auto-attributes>, <implements>, <override> — resolve
+   all four per the existing gen_workeffort_dtos.py logic (auto-attributes expand to PK/non-PK columns of the entity, <implements> brings
+  attributes from another service recursively, <override> flips optional / sets defaults).
+    - Resolve <auto-attributes> by reading the already-generated entity class at src/main/java/com/landawn/ofbiz/entity/{EntityName}.java
+  rather than re-parsing entity XML.
+  2. Service implementation (groovy / minilang / java / entity-auto) — only as a tie-breaker if the service def is ambiguous about what OUT
+  attributes are populated.
+  3. The Spring service method, if any — only WorkeffortService exists today; the other 10 controllers have no backing service.
+
+  When two controller methods bind to the same backing service (URL aliases — common in OFBiz), generate one shared DTO pair and have both
+  methods reference it.
+
+  Cross-controller service name collisions are possible (e.g. setStatus may exist in multiple OFBiz components). The subpackage layout
+  (below) isolates them. If a controller's service: tag points to a service defined in a different component's servicedef, that's a finding
+  to surface — don't silently cross subpackage boundaries.
+
+  ---
+  DTO base classes (shared across all 11 controllers — already exist at com.landawn.ofbiz.model)
+
+  - RequestBase — userLoginId, userLogin: UserLoginRef, locale, timeZone
+  - ResponseBase — responseMessage, successMessage, errorMessage, errorMessageList
+  - UserLoginRef — userLoginId, partyId, currentPassword, enabled
+
+  These stay in com.landawn.ofbiz.model (no subpackage) and serve every generated DTO. No changes to their content — the existing
+  definitions are correct.
+
+  Lombok rules unchanged: base uses @Data + @NoArgsConstructor; subclasses add @EqualsAndHashCode(callSuper = true) + @ToString(callSuper =
+  true).
+
+  ---
+  Package layout
+
+  - One subpackage per controller: com.landawn.ofbiz.model.{controller-name-lowercase}
+    - model.accounting, model.commonext, model.content, model.humanres, model.manufacturing, model.marketing, model.order, model.party,
+  model.product, model.webtools, model.workeffort
+  - Move the existing 48 workeffort DTOs from com.landawn.ofbiz.model to com.landawn.ofbiz.model.workeffort as part of this work. Update
+  imports in WorkeffortController.java and WorkeffortService.java accordingly. Base classes (RequestBase, ResponseBase, UserLoginRef) stay
+  in model.
+
+  ---
+  DTO naming and field rules (unchanged from the WorkEffort version)
+
+  - Per backing service: {ServiceName}Request + {ServiceName}Response in PascalCase.
+  - Field names match <attribute name="…"> exactly (camelCase).
+  - Type mapping table unchanged (String, Boolean, Integer, Long, Double, primitive double for BigDecimal/currency-amount,
+  java.sql.Timestamp, etc.).
+  - Collection / Map narrowing heuristics unchanged (*IdList/*Ids/*Names/*Keys → List<String>; sibling-attribute inference; entity-name
+  inference; fall back to Object only as last resort).
+  - Auto-attributes expand inline as individual fields — DTOs are flat, never reference entity classes.
+  - Primitives boxed (Integer/Long/Double) so optional fields can be null. Exception: BigDecimal/currency-amount → primitive double per
+  project convention.
+  - Don't redeclare envelope fields on response DTOs or universal request fields on request DTOs — they live on RequestBase/ResponseBase.
+  - Drop deprecated attributes (<deprecated> inside <attribute>); leave a // (omitted: deprecated) comment.
+
+  ---
+  Generation approach — script-only
+
+  Hand-writing 1,700+ DTOs is not viable. The generator is the source of truth.
+
+  - Rename and generalize scripts/gen_workeffort_dtos.py → scripts/gen_controller_dtos.py. The new script:
+    - Takes a CLI argument: --controller <Name> (single controller) or --all (every controller).
+    - Encodes a CONTROLLERS registry mapping each controller → its OFBiz servicedef directory + output subpackage.
+    - For each controller: parse the controller's .java file to discover its service: tags (the authoritative list of which OFBiz services
+  to generate DTOs for — extracted from the Javadoc, not hand-curated), de-duplicate aliases, then run the existing services*.xml parsing /
+  <auto-attributes> expansion / <implements> resolution / <override> apply / type mapping logic.
+    - Preserves the existing per-service IMPL_EXTRA_OUT_FIELDS table for workeffort. The other 10 controllers don't need an extras table (no
+   service implementations exist; OUT fields = whatever the OFBiz service def declares). Leave IMPL_EXTRA_OUT_FIELDS open for future
+  per-controller additions but ship empty for the new 10.
+    - Preserves the existing test-style hardcoded-service mechanism for framework services not in any component's servicedef.
+  - Re-running the script must be idempotent (byte-identical output modulo whitespace).
+
+  ---
+  Wiring after generation
+
+  For each controller:
+
+  1. Endpoint signatures: every @RequestBody Map<String, Object> body → @RequestBody {Service}Request request. Every
+  ResponseEntity<Map<String, Object>> → ResponseEntity<{Service}Response>. Wrap success/error routing through a generic wrap(T r) helper
+  that returns ResponseEntity<T> and checks ServiceResponse.isError(r) (same pattern already in WorkeffortController).
+  2. GET endpoints with @RequestParam Map<String, String>: keep the input side as-is (the OFBiz "test" pattern — query params are
+  free-form); only the response gets typed. Surface this case when generating: the request DTO is still produced but unused on the wire for
+  these endpoints.
+  3. For the 10 stub controllers (Accounting, Commonext, Content, Humanres, Manufacturing, Marketing, Order, Party, Product, Webtools): the
+  method body stays throw new UnsupportedOperationException(). No service class is introduced. Wiring is purely a signature swap.
+  4. For WorkeffortController: already typed and wired. The only change here is updating imports to point at the new
+  com.landawn.ofbiz.model.workeffort.* subpackage.
+
+  ---
+  Scope summary
+
+  - Generate: ~hundreds to thousands of typed Request/Response DTO pairs across 11 subpackages under src/main/java/com/landawn/ofbiz/model/.
+  - Move: 48 existing workeffort DTOs → model.workeffort.
+  - Rename / generalize: scripts/gen_workeffort_dtos.py → scripts/gen_controller_dtos.py.
+  - Wire: every endpoint in all 11 controllers swaps Map<String, Object> for its typed DTO; stub bodies stay throwing.
+  - Don't touch: anything under apache-ofbiz-framework/ (read-only sourcing); the 3 base classes (RequestBase, ResponseBase, UserLoginRef);
+  DAOs / entities / config.
+
+  ---
+  Verification
+
+  1. py scripts/gen_controller_dtos.py --all runs to completion with no errors. List of skipped services (unresolved service: tags, etc.) is
+   printed.
+  2. mvn -DskipTests compile → BUILD SUCCESS. Lombok generates getters/setters across extends RequestBase / extends ResponseBase for every
+  new DTO.
+  3. Spot-check 1 DTO pair per controller (11 pairs total) against its OFBiz <service> definition — request fields cover IN attrs, response
+  fields cover OUT attrs, envelope keys are inherited from the base.
+  4. py scripts/replay_workeffort.py → still 27/27 pass (the only behavioral test we have; verifies the workeffort move + reimport didn't
+  regress).
+  5. git status shows changes only under:
+    - src/main/java/com/landawn/ofbiz/model/**
+    - src/main/java/com/landawn/ofbiz/controller/*Controller.java
+    - src/main/java/com/landawn/ofbiz/service/WorkeffortService.java (imports only)
+    - scripts/gen_controller_dtos.py (rename + generalize)
+
+  ---
+  Open finding to flag during execution
+
+  If a controller's service: Javadoc tag points to a service name that doesn't exist in its component's servicedef (likely for some stub
+  endpoints — the Javadoc was generated heuristically), the script must:
+  - Print a warning, skip that service, and proceed.
+  - The corresponding controller method keeps @RequestBody Map<String, Object> since no DTO was generated.
+  - Don't fabricate a DTO from the method signature alone.
