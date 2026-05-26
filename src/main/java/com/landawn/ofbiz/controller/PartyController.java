@@ -1,5 +1,6 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.util.ServiceInput;
 import com.landawn.ofbiz.model.ResponseBase;
 import com.landawn.ofbiz.model.party.ClearAddressMatchMapRequest;
 import com.landawn.ofbiz.model.party.ClearAddressMatchMapResponse;
@@ -159,8 +160,27 @@ import java.util.Map;
 @RequestMapping("/party")
 public class PartyController {
 
-    /** 200/400 routing decided by the response DTO's envelope state. */
+    private final com.landawn.ofbiz.service.PartyService service;
+
+    public PartyController(com.landawn.ofbiz.service.PartyService service) {
+        this.service = service;
+    }
+
+    /** 200/400 routing for typed responses. */
     private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
+
+    /** Convert a service-result map into a typed response and wrap. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(
+            Map<String, Object> result, java.util.function.Supplier<T> factory) {
+        return wrap(com.landawn.ofbiz.service.ServiceResponse.toDto(result, factory));
+    }
+
+    /** 200/400 routing for loosely-typed Map responses. */
+    private static ResponseEntity<Map<String, Object>> wrapMap(Map<String, Object> result) {
         return com.landawn.ofbiz.service.ServiceResponse.isError(result)
                 ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
                 : ResponseEntity.ok(result);
@@ -171,9 +191,9 @@ public class PartyController {
      * <p>service: createCommunicationEvent  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/NewDraftCommunicationEvent")
-    public ResponseEntity<CreateCommunicationEventResponse> createCommunicationEvent(@RequestBody CreateCommunicationEventRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateCommunicationEventResponse> createCommunicationEvent(@RequestBody CreateCommunicationEventRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createCommunicationEvent(ServiceInput.toMap(request));
+        return wrap(result, CreateCommunicationEventResponse::new);
     }
 
     /**
@@ -181,9 +201,8 @@ public class PartyController {
      * <p>service: addUserLoginToSecurityGroup  entities: UserLoginSecurityGroup  auth: true
      */
     @PostMapping("/partymgr/control/ProfileAddUserLoginToSecurityGroup")
-    public ResponseEntity<Map<String, Object>> addUserLoginToSecurityGroup(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> addUserLoginToSecurityGroup(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.addUserLoginToSecurityGroup(body));
     }
 
     /**
@@ -191,9 +210,8 @@ public class PartyController {
      * <p>service: createUserLogin  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/ProfileCreateUserLogin")
-    public ResponseEntity<Map<String, Object>> createUserLogin(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createUserLogin(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createUserLogin(body));
     }
 
     /**
@@ -201,9 +219,8 @@ public class PartyController {
      * <p>service: expireUserLoginSecurityGroup  entities: UserLoginSecurityGroup  auth: true
      */
     @PostMapping("/partymgr/control/ProfileExpireUserLoginFromSecurityGroup")
-    public ResponseEntity<Map<String, Object>> expireUserLoginSecurityGroup(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> expireUserLoginSecurityGroup(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.expireUserLoginSecurityGroup(body));
     }
 
     /**
@@ -211,9 +228,8 @@ public class PartyController {
      * <p>service: updatePassword  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/ProfileUpdatePassword")
-    public ResponseEntity<Map<String, Object>> updatePassword(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updatePassword(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.updatePassword(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -221,9 +237,8 @@ public class PartyController {
      * <p>service: updateUserLoginSecurity  entities: UserLogin  auth: true
      */
     @PostMapping("/partymgr/control/ProfileUpdateUserLoginSecurity")
-    public ResponseEntity<Map<String, Object>> updateUserLoginSecurity(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateUserLoginSecurity(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateUserLoginSecurity(body));
     }
 
     /**
@@ -231,9 +246,8 @@ public class PartyController {
      * <p>service: updateUserLoginToSecurityGroup  entities: UserLoginSecurityGroup  auth: true
      */
     @PostMapping("/partymgr/control/ProfileUpdateUserLoginToSecurityGroup")
-    public ResponseEntity<Map<String, Object>> updateUserLoginToSecurityGroup(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateUserLoginToSecurityGroup(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateUserLoginToSecurityGroup(body));
     }
 
     /**
@@ -241,9 +255,9 @@ public class PartyController {
      * <p>service: removeCommunicationEventRole  entities: CommunicationEventRole  auth: true
      */
     @PostMapping("/partymgr/control/RemoveCommunicationEventRole")
-    public ResponseEntity<RemoveCommunicationEventRoleResponse> removeCommunicationEventRole(@RequestBody RemoveCommunicationEventRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveCommunicationEventRoleResponse> removeCommunicationEventRole(@RequestBody RemoveCommunicationEventRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeCommunicationEventRole(ServiceInput.toMap(request));
+        return wrap(result, RemoveCommunicationEventRoleResponse::new);
     }
 
     /**
@@ -251,9 +265,8 @@ public class PartyController {
      * <p>service: addBulkFromCart  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/addBulkToShoppingList")
-    public ResponseEntity<Map<String, Object>> addBulkFromCart(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> addBulkFromCart(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.addBulkFromCart(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -261,9 +274,8 @@ public class PartyController {
      * <p>service: createShoppingListItem  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/addItemToShoppingList")
-    public ResponseEntity<Map<String, Object>> createShoppingListItem(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createShoppingListItem(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createShoppingListItem(body));
     }
 
     /**
@@ -271,9 +283,8 @@ public class PartyController {
      * <p>service: addListToCart  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/addListToCart")
-    public ResponseEntity<Map<String, Object>> addListToCart(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> addListToCart(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.addListToCart(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -281,9 +292,9 @@ public class PartyController {
      * <p>service: createPartyRole  entities: PartyRole  auth: true
      */
     @PostMapping("/partymgr/control/addrole")
-    public ResponseEntity<CreatePartyRoleResponse> createPartyRole(@RequestBody CreatePartyRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyRoleResponse> createPartyRole(@RequestBody CreatePartyRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyRole(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyRoleResponse::new);
     }
 
     /**
@@ -291,9 +302,9 @@ public class PartyController {
      * <p>service: updatePartyGroup  entities: PartyGroup  auth: true
      */
     @PostMapping("/partymgr/control/ajaxUpdatePartyGroup")
-    public ResponseEntity<UpdatePartyGroupResponse> updatePartyGroup(@RequestBody UpdatePartyGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyGroupResponse> updatePartyGroup(@RequestBody UpdatePartyGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyGroup(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyGroupResponse::new);
     }
 
     /**
@@ -301,9 +312,8 @@ public class PartyController {
      * <p>service: allocateMsgToParty  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/allocateMsgToParty")
-    public ResponseEntity<Map<String, Object>> allocateMsgToParty(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> allocateMsgToParty(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.allocateMsgToParty(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -311,9 +321,8 @@ public class PartyController {
      * <p>service: createServiceCredit  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/applyServiceCredit")
-    public ResponseEntity<Map<String, Object>> createServiceCredit(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createServiceCredit(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createServiceCredit(body));
     }
 
     /**
@@ -321,9 +330,8 @@ public class PartyController {
      * <p>service: markCommunicationAsRead  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/ceimages")
-    public ResponseEntity<Map<String, Object>> markCommunicationAsRead(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> markCommunicationAsRead(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.markCommunicationAsRead(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -331,9 +339,9 @@ public class PartyController {
      * <p>service: clearAddressMatchMap  entities: AddressMatchMap  auth: true
      */
     @PostMapping("/partymgr/control/clearAddressMatchMap")
-    public ResponseEntity<ClearAddressMatchMapResponse> clearAddressMatchMap(@RequestBody ClearAddressMatchMapRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ClearAddressMatchMapResponse> clearAddressMatchMap(@RequestBody ClearAddressMatchMapRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.clearAddressMatchMap(ServiceInput.toMap(request));
+        return wrap(result, ClearAddressMatchMapResponse::new);
     }
 
     /**
@@ -341,9 +349,9 @@ public class PartyController {
      * <p>service: createAddressMatchMap  entities: AddressMatchMap  auth: true
      */
     @PostMapping("/partymgr/control/createAddressMatchMap")
-    public ResponseEntity<CreateAddressMatchMapResponse> createAddressMatchMap(@RequestBody CreateAddressMatchMapRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAddressMatchMapResponse> createAddressMatchMap(@RequestBody CreateAddressMatchMapRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAddressMatchMap(ServiceInput.toMap(request));
+        return wrap(result, CreateAddressMatchMapResponse::new);
     }
 
     /**
@@ -351,9 +359,8 @@ public class PartyController {
      * <p>service: createBillingAccount  entities: BillingAccount  auth: true
      */
     @PostMapping("/partymgr/control/createBillingAccount")
-    public ResponseEntity<Map<String, Object>> createBillingAccount(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createBillingAccount(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createBillingAccount(body));
     }
 
     /**
@@ -361,9 +368,8 @@ public class PartyController {
      * <p>service: createBillingAccountAndRole  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createBillingAccountAndRole")
-    public ResponseEntity<Map<String, Object>> createBillingAccountAndRole(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createBillingAccountAndRole(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createBillingAccountAndRole(body));
     }
 
     /**
@@ -371,9 +377,8 @@ public class PartyController {
      * <p>service: createCheckAccount  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/createCheckForParty")
-    public ResponseEntity<Map<String, Object>> createCheckAccount(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCheckAccount(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createCheckAccount(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -381,9 +386,8 @@ public class PartyController {
      * <p>service: createCommContentDataResource  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createCommContentDataResource")
-    public ResponseEntity<Map<String, Object>> createCommContentDataResource(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCommContentDataResource(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createCommContentDataResource(body));
     }
 
     /**
@@ -391,9 +395,9 @@ public class PartyController {
      * <p>service: createCommEventWorkEffort  entities: CommunicationEventWorkEff, WorkEffort  auth: true
      */
     @PostMapping("/partymgr/control/createCommEventWorkEffort")
-    public ResponseEntity<CreateCommEventWorkEffortResponse> createCommEventWorkEffort(@RequestBody CreateCommEventWorkEffortRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateCommEventWorkEffortResponse> createCommEventWorkEffort(@RequestBody CreateCommEventWorkEffortRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createCommEventWorkEffort(ServiceInput.toMap(request));
+        return wrap(result, CreateCommEventWorkEffortResponse::new);
     }
 
     /**
@@ -401,9 +405,9 @@ public class PartyController {
      * <p>service: createCommunicationEvent  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createCommunicationEvent")
-    public ResponseEntity<CreateCommunicationEventResponse> createCommunicationEventCreateCommunicationEvent(@RequestBody CreateCommunicationEventRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateCommunicationEventResponse> createCommunicationEventCreateCommunicationEvent(@RequestBody CreateCommunicationEventRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createCommunicationEvent(ServiceInput.toMap(request));
+        return wrap(result, CreateCommunicationEventResponse::new);
     }
 
     /**
@@ -411,9 +415,8 @@ public class PartyController {
      * <p>service: createCommunicationEventOrder  entities: CommunicationEventOrder  auth: true
      */
     @PostMapping("/partymgr/control/createCommunicationEventOrder")
-    public ResponseEntity<Map<String, Object>> createCommunicationEventOrder(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCommunicationEventOrder(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createCommunicationEventOrder(body));
     }
 
     /**
@@ -421,9 +424,8 @@ public class PartyController {
      * <p>service: createCommunicationEventProduct  entities: CommunicationEventProduct  auth: true
      */
     @PostMapping("/partymgr/control/createCommunicationEventProduct")
-    public ResponseEntity<Map<String, Object>> createCommunicationEventProduct(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCommunicationEventProduct(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createCommunicationEventProduct(body));
     }
 
     /**
@@ -431,9 +433,9 @@ public class PartyController {
      * <p>service: createCommunicationEventPurpose  entities: CommunicationEventPurpose  auth: true
      */
     @PostMapping("/partymgr/control/createCommunicationEventPurpose")
-    public ResponseEntity<CreateCommunicationEventPurposeResponse> createCommunicationEventPurpose(@RequestBody CreateCommunicationEventPurposeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateCommunicationEventPurposeResponse> createCommunicationEventPurpose(@RequestBody CreateCommunicationEventPurposeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createCommunicationEventPurpose(ServiceInput.toMap(request));
+        return wrap(result, CreateCommunicationEventPurposeResponse::new);
     }
 
     /**
@@ -441,9 +443,8 @@ public class PartyController {
      * <p>service: createCommunicationEventReturn  entities: CommunicationEventReturn  auth: true
      */
     @PostMapping("/partymgr/control/createCommunicationEventReturn")
-    public ResponseEntity<Map<String, Object>> createCommunicationEventReturn(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCommunicationEventReturn(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createCommunicationEventReturn(body));
     }
 
     /**
@@ -451,9 +452,9 @@ public class PartyController {
      * <p>service: createCommunicationEventRole  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createCommunicationEventRole")
-    public ResponseEntity<CreateCommunicationEventRoleResponse> createCommunicationEventRole(@RequestBody CreateCommunicationEventRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateCommunicationEventRoleResponse> createCommunicationEventRole(@RequestBody CreateCommunicationEventRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createCommunicationEventRole(ServiceInput.toMap(request));
+        return wrap(result, CreateCommunicationEventRoleResponse::new);
     }
 
     /**
@@ -461,9 +462,8 @@ public class PartyController {
      * <p>service: createContactListParty  entities: ContactListParty  auth: true
      */
     @PostMapping("/partymgr/control/createContactListParty")
-    public ResponseEntity<Map<String, Object>> createContactListParty(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createContactListParty(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createContactListParty(body));
     }
 
     /**
@@ -471,9 +471,9 @@ public class PartyController {
      * <p>service: createPartyContactMech  entities: ContactMech, PartyContactMech  auth: true
      */
     @PostMapping("/partymgr/control/createContactMech")
-    public ResponseEntity<CreatePartyContactMechResponse> createPartyContactMech(@RequestBody CreatePartyContactMechRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyContactMechResponse> createPartyContactMech(@RequestBody CreatePartyContactMechRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyContactMech(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyContactMechResponse::new);
     }
 
     /**
@@ -481,9 +481,8 @@ public class PartyController {
      * <p>service: createCreditCard  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/createCreditCard")
-    public ResponseEntity<Map<String, Object>> createCreditCard(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCreditCard(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createCreditCard(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -491,9 +490,8 @@ public class PartyController {
      * <p>service: createCustRequest  entities: CustRequest, CustRequestItem  auth: true
      */
     @PostMapping("/partymgr/control/createCustRequest")
-    public ResponseEntity<Map<String, Object>> createCustRequest(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCustRequest(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createCustRequest(body));
     }
 
     /**
@@ -501,9 +499,8 @@ public class PartyController {
      * <p>service: createCustomer  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/createCustomer")
-    public ResponseEntity<Map<String, Object>> createCustomer(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCustomer(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createCustomer(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -511,9 +508,8 @@ public class PartyController {
      * <p>service: createEftAccount  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/createEftAccount")
-    public ResponseEntity<Map<String, Object>> createEftAccount(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createEftAccount(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createEftAccount(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -521,9 +517,9 @@ public class PartyController {
      * <p>service: createPartyEmailAddress  entities: ContactMech, PartyContactMech  auth: true
      */
     @PostMapping("/partymgr/control/createEmailAddress")
-    public ResponseEntity<CreatePartyEmailAddressResponse> createPartyEmailAddress(@RequestBody CreatePartyEmailAddressRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyEmailAddressResponse> createPartyEmailAddress(@RequestBody CreatePartyEmailAddressRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyEmailAddress(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyEmailAddressResponse::new);
     }
 
     /**
@@ -531,9 +527,8 @@ public class PartyController {
      * <p>service: createEmployee  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/createEmployee")
-    public ResponseEntity<Map<String, Object>> createEmployee(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createEmployee(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createEmployee(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -541,9 +536,8 @@ public class PartyController {
      * <p>service: createEmploymentApp  entities: EmploymentApp  auth: true
      */
     @PostMapping("/partymgr/control/createEmploymentAppExt")
-    public ResponseEntity<Map<String, Object>> createEmploymentApp(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createEmploymentApp(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createEmploymentApp(body));
     }
 
     /**
@@ -551,9 +545,8 @@ public class PartyController {
      * <p>service: createShoppingList  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createEmptyShoppingList")
-    public ResponseEntity<Map<String, Object>> createShoppingList(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createShoppingList(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createShoppingList(body));
     }
 
     /**
@@ -561,9 +554,9 @@ public class PartyController {
      * <p>service: createPartyFtpAddress  entities: ContactMech, FtpAddress, PartyContactMech  auth: true
      */
     @PostMapping("/partymgr/control/createFtpAddress")
-    public ResponseEntity<CreatePartyFtpAddressResponse> createPartyFtpAddress(@RequestBody CreatePartyFtpAddressRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyFtpAddressResponse> createPartyFtpAddress(@RequestBody CreatePartyFtpAddressRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyFtpAddress(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyFtpAddressResponse::new);
     }
 
     /**
@@ -571,9 +564,8 @@ public class PartyController {
      * <p>service: createGiftCard  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createGiftCard")
-    public ResponseEntity<Map<String, Object>> createGiftCard(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createGiftCard(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createGiftCard(body));
     }
 
     /**
@@ -581,9 +573,9 @@ public class PartyController {
      * <p>service: createMaritalStatus  entities: MaritalStatus  auth: -
      */
     @PostMapping("/partymgr/control/createMaritalStatus")
-    public ResponseEntity<CreateMaritalStatusResponse> createMaritalStatus(@RequestBody CreateMaritalStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateMaritalStatusResponse> createMaritalStatus(@RequestBody CreateMaritalStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createMaritalStatus(ServiceInput.toMap(request));
+        return wrap(result, CreateMaritalStatusResponse::new);
     }
 
     /**
@@ -591,9 +583,9 @@ public class PartyController {
      * <p>service: createMaritalStatusType  entities: MaritalStatusType  auth: -
      */
     @PostMapping("/partymgr/control/createMaritalStatusType")
-    public ResponseEntity<CreateMaritalStatusTypeResponse> createMaritalStatusType(@RequestBody CreateMaritalStatusTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateMaritalStatusTypeResponse> createMaritalStatusType(@RequestBody CreateMaritalStatusTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createMaritalStatusType(ServiceInput.toMap(request));
+        return wrap(result, CreateMaritalStatusTypeResponse::new);
     }
 
     /**
@@ -601,9 +593,9 @@ public class PartyController {
      * <p>service: createPartyAttribute  entities: PartyAttribute  auth: true
      */
     @PostMapping("/partymgr/control/createPartyAttribute")
-    public ResponseEntity<CreatePartyAttributeResponse> createPartyAttribute(@RequestBody CreatePartyAttributeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyAttributeResponse> createPartyAttribute(@RequestBody CreatePartyAttributeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyAttribute(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyAttributeResponse::new);
     }
 
     /**
@@ -611,9 +603,9 @@ public class PartyController {
      * <p>service: createPartyCarrierAccount  entities: PartyCarrierAccount  auth: true
      */
     @PostMapping("/partymgr/control/createPartyCarrierAccount")
-    public ResponseEntity<CreatePartyCarrierAccountResponse> createPartyCarrierAccount(@RequestBody CreatePartyCarrierAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyCarrierAccountResponse> createPartyCarrierAccount(@RequestBody CreatePartyCarrierAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyCarrierAccount(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyCarrierAccountResponse::new);
     }
 
     /**
@@ -621,9 +613,9 @@ public class PartyController {
      * <p>service: createPartyClassification  entities: PartyClassification  auth: true
      */
     @PostMapping("/partymgr/control/createPartyClassification")
-    public ResponseEntity<CreatePartyClassificationResponse> createPartyClassification(@RequestBody CreatePartyClassificationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyClassificationResponse> createPartyClassification(@RequestBody CreatePartyClassificationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyClassification(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyClassificationResponse::new);
     }
 
     /**
@@ -631,9 +623,9 @@ public class PartyController {
      * <p>service: createPartyClassificationGroup  entities: PartyClassificationGroup  auth: true
      */
     @PostMapping("/partymgr/control/createPartyClassificationGroup")
-    public ResponseEntity<CreatePartyClassificationGroupResponse> createPartyClassificationGroup(@RequestBody CreatePartyClassificationGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyClassificationGroupResponse> createPartyClassificationGroup(@RequestBody CreatePartyClassificationGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyClassificationGroup(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyClassificationGroupResponse::new);
     }
 
     /**
@@ -641,9 +633,9 @@ public class PartyController {
      * <p>service: createPartyClassification  entities: PartyClassification  auth: true
      */
     @PostMapping("/partymgr/control/createPartyClassificationParty")
-    public ResponseEntity<CreatePartyClassificationResponse> createPartyClassificationCreatePartyClassificationParty(@RequestBody CreatePartyClassificationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyClassificationResponse> createPartyClassificationCreatePartyClassificationParty(@RequestBody CreatePartyClassificationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyClassification(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyClassificationResponse::new);
     }
 
     /**
@@ -651,9 +643,9 @@ public class PartyController {
      * <p>service: createPartyContactMechPurpose  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createPartyContactMechPurpose")
-    public ResponseEntity<CreatePartyContactMechPurposeResponse> createPartyContactMechPurpose(@RequestBody CreatePartyContactMechPurposeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyContactMechPurposeResponse> createPartyContactMechPurpose(@RequestBody CreatePartyContactMechPurposeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyContactMechPurpose(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyContactMechPurposeResponse::new);
     }
 
     /**
@@ -661,9 +653,9 @@ public class PartyController {
      * <p>service: createPartyContent  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/createPartyContent")
-    public ResponseEntity<CreatePartyContentResponse> createPartyContent(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyContentResponse> createPartyContent(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyContent(java.util.Map.copyOf(params));
+        return wrap(result, CreatePartyContentResponse::new);
     }
 
     /**
@@ -671,9 +663,9 @@ public class PartyController {
      * <p>service: createPartyGroup  entities: PartyGroup  auth: true
      */
     @PostMapping("/partymgr/control/createPartyGroup")
-    public ResponseEntity<CreatePartyGroupResponse> createPartyGroup(@RequestBody CreatePartyGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyGroupResponse> createPartyGroup(@RequestBody CreatePartyGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyGroup(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyGroupResponse::new);
     }
 
     /**
@@ -681,9 +673,9 @@ public class PartyController {
      * <p>service: createPartyIdentification  entities: PartyIdentification  auth: true
      */
     @PostMapping("/partymgr/control/createPartyIdentification")
-    public ResponseEntity<CreatePartyIdentificationResponse> createPartyIdentification(@RequestBody CreatePartyIdentificationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyIdentificationResponse> createPartyIdentification(@RequestBody CreatePartyIdentificationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyIdentification(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyIdentificationResponse::new);
     }
 
     /**
@@ -691,9 +683,9 @@ public class PartyController {
      * <p>service: createPartyInvitation  entities: PartyInvitation  auth: true
      */
     @PostMapping("/partymgr/control/createPartyInvitation")
-    public ResponseEntity<CreatePartyInvitationResponse> createPartyInvitation(@RequestBody CreatePartyInvitationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyInvitationResponse> createPartyInvitation(@RequestBody CreatePartyInvitationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyInvitation(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyInvitationResponse::new);
     }
 
     /**
@@ -701,9 +693,9 @@ public class PartyController {
      * <p>service: createPartyInvitationGroupAssoc  entities: PartyInvitationGroupAssoc  auth: true
      */
     @PostMapping("/partymgr/control/createPartyInvitationGroupAssoc")
-    public ResponseEntity<CreatePartyInvitationGroupAssocResponse> createPartyInvitationGroupAssoc(@RequestBody CreatePartyInvitationGroupAssocRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyInvitationGroupAssocResponse> createPartyInvitationGroupAssoc(@RequestBody CreatePartyInvitationGroupAssocRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyInvitationGroupAssoc(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyInvitationGroupAssocResponse::new);
     }
 
     /**
@@ -711,9 +703,9 @@ public class PartyController {
      * <p>service: createPartyInvitationRoleAssoc  entities: PartyInvitationRoleAssoc  auth: true
      */
     @PostMapping("/partymgr/control/createPartyInvitationRoleAssoc")
-    public ResponseEntity<CreatePartyInvitationRoleAssocResponse> createPartyInvitationRoleAssoc(@RequestBody CreatePartyInvitationRoleAssocRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyInvitationRoleAssocResponse> createPartyInvitationRoleAssoc(@RequestBody CreatePartyInvitationRoleAssocRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyInvitationRoleAssoc(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyInvitationRoleAssocResponse::new);
     }
 
     /**
@@ -721,9 +713,9 @@ public class PartyController {
      * <p>service: createPartyNote  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createPartyNote")
-    public ResponseEntity<CreatePartyNoteResponse> createPartyNote(@RequestBody CreatePartyNoteRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyNoteResponse> createPartyNote(@RequestBody CreatePartyNoteRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyNote(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyNoteResponse::new);
     }
 
     /**
@@ -731,9 +723,8 @@ public class PartyController {
      * <p>service: updatePartyRate  entities: PartyRate  auth: true
      */
     @PostMapping("/partymgr/control/createPartyRate")
-    public ResponseEntity<Map<String, Object>> updatePartyRate(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updatePartyRate(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updatePartyRate(body));
     }
 
     /**
@@ -741,9 +732,9 @@ public class PartyController {
      * <p>service: createPartyRelationship  entities: PartyRelationship  auth: true
      */
     @PostMapping("/partymgr/control/createPartyRelationship")
-    public ResponseEntity<CreatePartyRelationshipResponse> createPartyRelationship(@RequestBody CreatePartyRelationshipRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyRelationshipResponse> createPartyRelationship(@RequestBody CreatePartyRelationshipRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyRelationship(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyRelationshipResponse::new);
     }
 
     /**
@@ -751,9 +742,9 @@ public class PartyController {
      * <p>service: createPartyRelationshipAndRole  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createPartyRelationshipAndRole")
-    public ResponseEntity<CreatePartyRelationshipAndRoleResponse> createPartyRelationshipAndRole(@RequestBody CreatePartyRelationshipAndRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyRelationshipAndRoleResponse> createPartyRelationshipAndRole(@RequestBody CreatePartyRelationshipAndRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyRelationshipAndRole(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyRelationshipAndRoleResponse::new);
     }
 
     /**
@@ -761,9 +752,9 @@ public class PartyController {
      * <p>service: createPartyRelationshipContactAccount  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/createPartyRelationshipContactAccount")
-    public ResponseEntity<CreatePartyRelationshipContactAccountResponse> createPartyRelationshipContactAccount(@RequestBody CreatePartyRelationshipContactAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyRelationshipContactAccountResponse> createPartyRelationshipContactAccount(@RequestBody CreatePartyRelationshipContactAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyRelationshipContactAccount(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyRelationshipContactAccountResponse::new);
     }
 
     /**
@@ -771,9 +762,9 @@ public class PartyController {
      * <p>service: createPartyRelationshipType  entities: PartyRelationshipType  auth: true
      */
     @PostMapping("/partymgr/control/createPartyRelationshipType")
-    public ResponseEntity<CreatePartyRelationshipTypeResponse> createPartyRelationshipType(@RequestBody CreatePartyRelationshipTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyRelationshipTypeResponse> createPartyRelationshipType(@RequestBody CreatePartyRelationshipTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyRelationshipType(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyRelationshipTypeResponse::new);
     }
 
     /**
@@ -781,9 +772,8 @@ public class PartyController {
      * <p>service: createPartyResume  entities: PartyResume  auth: true
      */
     @PostMapping("/partymgr/control/createPartyResume")
-    public ResponseEntity<Map<String, Object>> createPartyResume(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createPartyResume(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createPartyResume(body));
     }
 
     /**
@@ -791,9 +781,8 @@ public class PartyController {
      * <p>service: createPartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/partymgr/control/createPartySkillExt")
-    public ResponseEntity<Map<String, Object>> createPartySkill(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createPartySkill(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createPartySkill(body));
     }
 
     /**
@@ -801,9 +790,8 @@ public class PartyController {
      * <p>service: createPartyTaxAuthInfo  entities: PartyTaxAuthInfo  auth: true
      */
     @PostMapping("/partymgr/control/createPartyTaxAuthInfo")
-    public ResponseEntity<Map<String, Object>> createPartyTaxAuthInfo(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createPartyTaxAuthInfo(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createPartyTaxAuthInfo(body));
     }
 
     /**
@@ -811,9 +799,9 @@ public class PartyController {
      * <p>service: createPerson  entities: Person  auth: true
      */
     @PostMapping("/partymgr/control/createPerson")
-    public ResponseEntity<CreatePersonResponse> createPerson(@RequestBody CreatePersonRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePersonResponse> createPerson(@RequestBody CreatePersonRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPerson(ServiceInput.toMap(request));
+        return wrap(result, CreatePersonResponse::new);
     }
 
     /**
@@ -821,9 +809,9 @@ public class PartyController {
      * <p>service: createPartyPostalAddress  entities: PartyContactMech, PostalAddress  auth: true
      */
     @PostMapping("/partymgr/control/createPostalAddress")
-    public ResponseEntity<CreatePartyPostalAddressResponse> createPartyPostalAddress(@RequestBody CreatePartyPostalAddressRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyPostalAddressResponse> createPartyPostalAddress(@RequestBody CreatePartyPostalAddressRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyPostalAddress(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyPostalAddressResponse::new);
     }
 
     /**
@@ -831,9 +819,9 @@ public class PartyController {
      * <p>service: createPartyPostalAddress  entities: PartyContactMech, PostalAddress  auth: true
      */
     @PostMapping("/partymgr/control/createPostalAddressAndPurpose")
-    public ResponseEntity<CreatePartyPostalAddressResponse> createPartyPostalAddressCreatePostalAddressAndPurpose(@RequestBody CreatePartyPostalAddressRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyPostalAddressResponse> createPartyPostalAddressCreatePostalAddressAndPurpose(@RequestBody CreatePartyPostalAddressRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyPostalAddress(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyPostalAddressResponse::new);
     }
 
     /**
@@ -841,9 +829,8 @@ public class PartyController {
      * <p>service: createProspect  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/createProspect")
-    public ResponseEntity<Map<String, Object>> createProspect(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createProspect(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createProspect(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -851,9 +838,8 @@ public class PartyController {
      * <p>service: createCustRequestFromCommEvent  entities: CommunicationEvent  auth: true
      */
     @PostMapping("/partymgr/control/createRequestFromCommEvent")
-    public ResponseEntity<Map<String, Object>> createCustRequestFromCommEvent(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCustRequestFromCommEvent(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createCustRequestFromCommEvent(body));
     }
 
     /**
@@ -861,9 +847,8 @@ public class PartyController {
      * <p>service: createSegmentGroupRole  entities: SegmentGroupRole  auth: true
      */
     @PostMapping("/partymgr/control/createSegmentRole")
-    public ResponseEntity<Map<String, Object>> createSegmentGroupRole(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createSegmentGroupRole(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createSegmentGroupRole(body));
     }
 
     /**
@@ -871,9 +856,9 @@ public class PartyController {
      * <p>service: createPartyTelecomNumber  entities: PartyContactMech, TelecomNumber  auth: true
      */
     @PostMapping("/partymgr/control/createTelecomNumber")
-    public ResponseEntity<CreatePartyTelecomNumberResponse> createPartyTelecomNumber(@RequestBody CreatePartyTelecomNumberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyTelecomNumberResponse> createPartyTelecomNumber(@RequestBody CreatePartyTelecomNumberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyTelecomNumber(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyTelecomNumberResponse::new);
     }
 
     /**
@@ -881,9 +866,9 @@ public class PartyController {
      * <p>service: createVendor  entities: Vendor  auth: true
      */
     @PostMapping("/partymgr/control/createVendor")
-    public ResponseEntity<CreateVendorResponse> createVendor(@RequestBody CreateVendorRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateVendorResponse> createVendor(@RequestBody CreateVendorRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createVendor(ServiceInput.toMap(request));
+        return wrap(result, CreateVendorResponse::new);
     }
 
     /**
@@ -891,9 +876,8 @@ public class PartyController {
      * <p>service: createCustRequest  entities: CustRequest, CustRequestItem  auth: true
      */
     @PostMapping("/partymgr/control/createrequest")
-    public ResponseEntity<Map<String, Object>> createCustRequestCreaterequest(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCustRequestCreaterequest(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createCustRequest(body));
     }
 
     /**
@@ -901,9 +885,9 @@ public class PartyController {
      * <p>service: createRoleType  entities: RoleType  auth: true
      */
     @PostMapping("/partymgr/control/createroletype")
-    public ResponseEntity<CreateRoleTypeResponse> createRoleType(@RequestBody CreateRoleTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateRoleTypeResponse> createRoleType(@RequestBody CreateRoleTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createRoleType(ServiceInput.toMap(request));
+        return wrap(result, CreateRoleTypeResponse::new);
     }
 
     /**
@@ -911,9 +895,8 @@ public class PartyController {
      * <p>service: deleteBillingAccount  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/deleteBillingAccount")
-    public ResponseEntity<Map<String, Object>> deleteBillingAccount(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deleteBillingAccount(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.deleteBillingAccount(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -921,9 +904,8 @@ public class PartyController {
      * <p>service: deleteCommunicationEventWorkEff  entities: CommunicationEventWorkEff  auth: true
      */
     @PostMapping("/partymgr/control/deleteCommEventWorkEffort")
-    public ResponseEntity<Map<String, Object>> deleteCommunicationEventWorkEff(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deleteCommunicationEventWorkEff(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deleteCommunicationEventWorkEff(body));
     }
 
     /**
@@ -931,9 +913,9 @@ public class PartyController {
      * <p>service: deleteCommunicationEvent  entities: CommunicationEvent  auth: true
      */
     @PostMapping("/partymgr/control/deleteCommunicationEvent")
-    public ResponseEntity<DeleteCommunicationEventResponse> deleteCommunicationEvent(@RequestBody DeleteCommunicationEventRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteCommunicationEventResponse> deleteCommunicationEvent(@RequestBody DeleteCommunicationEventRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteCommunicationEvent(ServiceInput.toMap(request));
+        return wrap(result, DeleteCommunicationEventResponse::new);
     }
 
     /**
@@ -941,9 +923,8 @@ public class PartyController {
      * <p>service: removeCommunicationEventOrder  entities: CommunicationEventOrder  auth: true
      */
     @PostMapping("/partymgr/control/deleteCommunicationEventOrder")
-    public ResponseEntity<Map<String, Object>> removeCommunicationEventOrder(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> removeCommunicationEventOrder(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.removeCommunicationEventOrder(body));
     }
 
     /**
@@ -951,9 +932,8 @@ public class PartyController {
      * <p>service: removeCommunicationEventProduct  entities: CommunicationEventProduct  auth: true
      */
     @PostMapping("/partymgr/control/deleteCommunicationEventProduct")
-    public ResponseEntity<Map<String, Object>> removeCommunicationEventProduct(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> removeCommunicationEventProduct(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.removeCommunicationEventProduct(body));
     }
 
     /**
@@ -961,9 +941,8 @@ public class PartyController {
      * <p>service: removeCommunicationEventReturn  entities: CommunicationEventReturn  auth: true
      */
     @PostMapping("/partymgr/control/deleteCommunicationEventReturn")
-    public ResponseEntity<Map<String, Object>> removeCommunicationEventReturn(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> removeCommunicationEventReturn(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.removeCommunicationEventReturn(body));
     }
 
     /**
@@ -971,9 +950,9 @@ public class PartyController {
      * <p>service: deleteCommunicationEvent  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/deleteCommunicationEvents")
-    public ResponseEntity<DeleteCommunicationEventResponse> deleteCommunicationEventDeleteCommunicationEvents(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteCommunicationEventResponse> deleteCommunicationEventDeleteCommunicationEvents(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteCommunicationEvent(java.util.Map.copyOf(params));
+        return wrap(result, DeleteCommunicationEventResponse::new);
     }
 
     /**
@@ -981,9 +960,9 @@ public class PartyController {
      * <p>service: deletePartyContactMech  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/deleteContactMech")
-    public ResponseEntity<DeletePartyContactMechResponse> deletePartyContactMech(@RequestBody DeletePartyContactMechRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyContactMechResponse> deletePartyContactMech(@RequestBody DeletePartyContactMechRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyContactMech(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyContactMechResponse::new);
     }
 
     /**
@@ -991,9 +970,8 @@ public class PartyController {
      * <p>service: deleteEmploymentApp  entities: EmploymentApp  auth: true
      */
     @PostMapping("/partymgr/control/deleteEmploymentApp")
-    public ResponseEntity<Map<String, Object>> deleteEmploymentApp(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deleteEmploymentApp(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deleteEmploymentApp(body));
     }
 
     /**
@@ -1001,9 +979,9 @@ public class PartyController {
      * <p>service: deleteMaritalStatus  entities: MaritalStatus  auth: -
      */
     @PostMapping("/partymgr/control/deleteMaritalStatus")
-    public ResponseEntity<DeleteMaritalStatusResponse> deleteMaritalStatus(@RequestBody DeleteMaritalStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteMaritalStatusResponse> deleteMaritalStatus(@RequestBody DeleteMaritalStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteMaritalStatus(ServiceInput.toMap(request));
+        return wrap(result, DeleteMaritalStatusResponse::new);
     }
 
     /**
@@ -1011,9 +989,9 @@ public class PartyController {
      * <p>service: deletePartyClassification  entities: PartyClassification  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyClassification")
-    public ResponseEntity<DeletePartyClassificationResponse> deletePartyClassification(@RequestBody DeletePartyClassificationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyClassificationResponse> deletePartyClassification(@RequestBody DeletePartyClassificationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyClassification(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyClassificationResponse::new);
     }
 
     /**
@@ -1021,9 +999,9 @@ public class PartyController {
      * <p>service: deletePartyClassificationGroup  entities: PartyClassificationGroup  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyClassificationGroup")
-    public ResponseEntity<DeletePartyClassificationGroupResponse> deletePartyClassificationGroup(@RequestBody DeletePartyClassificationGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyClassificationGroupResponse> deletePartyClassificationGroup(@RequestBody DeletePartyClassificationGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyClassificationGroup(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyClassificationGroupResponse::new);
     }
 
     /**
@@ -1031,9 +1009,9 @@ public class PartyController {
      * <p>service: deletePartyIdentification  entities: PartyIdentification  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyIdentification")
-    public ResponseEntity<DeletePartyIdentificationResponse> deletePartyIdentification(@RequestBody DeletePartyIdentificationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyIdentificationResponse> deletePartyIdentification(@RequestBody DeletePartyIdentificationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyIdentification(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyIdentificationResponse::new);
     }
 
     /**
@@ -1041,9 +1019,9 @@ public class PartyController {
      * <p>service: deletePartyInvitation  entities: PartyInvitation  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyInvitation")
-    public ResponseEntity<DeletePartyInvitationResponse> deletePartyInvitation(@RequestBody DeletePartyInvitationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyInvitationResponse> deletePartyInvitation(@RequestBody DeletePartyInvitationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyInvitation(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyInvitationResponse::new);
     }
 
     /**
@@ -1051,9 +1029,9 @@ public class PartyController {
      * <p>service: deletePartyInvitationGroupAssoc  entities: PartyInvitationGroupAssoc  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyInvitationGroupAssoc")
-    public ResponseEntity<DeletePartyInvitationGroupAssocResponse> deletePartyInvitationGroupAssoc(@RequestBody DeletePartyInvitationGroupAssocRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyInvitationGroupAssocResponse> deletePartyInvitationGroupAssoc(@RequestBody DeletePartyInvitationGroupAssocRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyInvitationGroupAssoc(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyInvitationGroupAssocResponse::new);
     }
 
     /**
@@ -1061,9 +1039,9 @@ public class PartyController {
      * <p>service: deletePartyInvitationRoleAssoc  entities: PartyInvitationRoleAssoc  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyInvitationRoleAssoc")
-    public ResponseEntity<DeletePartyInvitationRoleAssocResponse> deletePartyInvitationRoleAssoc(@RequestBody DeletePartyInvitationRoleAssocRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyInvitationRoleAssocResponse> deletePartyInvitationRoleAssoc(@RequestBody DeletePartyInvitationRoleAssocRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyInvitationRoleAssoc(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyInvitationRoleAssocResponse::new);
     }
 
     /**
@@ -1071,9 +1049,9 @@ public class PartyController {
      * <p>service: deletePartyRelationship  entities: PartyRelationship  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyRelationship")
-    public ResponseEntity<DeletePartyRelationshipResponse> deletePartyRelationship(@RequestBody DeletePartyRelationshipRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyRelationshipResponse> deletePartyRelationship(@RequestBody DeletePartyRelationshipRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyRelationship(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyRelationshipResponse::new);
     }
 
     /**
@@ -1081,9 +1059,8 @@ public class PartyController {
      * <p>service: deletePartyResume  entities: PartyResume  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyResume")
-    public ResponseEntity<Map<String, Object>> deletePartyResume(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deletePartyResume(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deletePartyResume(body));
     }
 
     /**
@@ -1091,9 +1068,8 @@ public class PartyController {
      * <p>service: deletePartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/partymgr/control/deletePartySkill")
-    public ResponseEntity<Map<String, Object>> deletePartySkill(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deletePartySkill(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deletePartySkill(body));
     }
 
     /**
@@ -1101,9 +1077,8 @@ public class PartyController {
      * <p>service: deletePartyTaxAuthInfo  entities: PartyTaxAuthInfo  auth: true
      */
     @PostMapping("/partymgr/control/deletePartyTaxAuthInfo")
-    public ResponseEntity<Map<String, Object>> deletePartyTaxAuthInfo(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deletePartyTaxAuthInfo(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deletePartyTaxAuthInfo(body));
     }
 
     /**
@@ -1111,9 +1086,8 @@ public class PartyController {
      * <p>service: deletePaymentMethod  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/deletePaymentMethod")
-    public ResponseEntity<Map<String, Object>> deletePaymentMethod(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deletePaymentMethod(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.deletePaymentMethod(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1121,9 +1095,8 @@ public class PartyController {
      * <p>service: deleteSegmentGroupRole  entities: SegmentGroupRole  auth: true
      */
     @PostMapping("/partymgr/control/deleteSegmentGroupRole")
-    public ResponseEntity<Map<String, Object>> deleteSegmentGroupRole(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deleteSegmentGroupRole(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deleteSegmentGroupRole(body));
     }
 
     /**
@@ -1131,9 +1104,9 @@ public class PartyController {
      * <p>service: deleteCommunicationEvent  entities: CommunicationEvent  auth: true
      */
     @PostMapping("/partymgr/control/deleteUnknownCommunicationEvent")
-    public ResponseEntity<DeleteCommunicationEventResponse> deleteCommunicationEventDeleteUnknownCommunicationEvent(@RequestBody DeleteCommunicationEventRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteCommunicationEventResponse> deleteCommunicationEventDeleteUnknownCommunicationEvent(@RequestBody DeleteCommunicationEventRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteCommunicationEvent(ServiceInput.toMap(request));
+        return wrap(result, DeleteCommunicationEventResponse::new);
     }
 
     /**
@@ -1141,9 +1114,9 @@ public class PartyController {
      * <p>service: deletePartyRole  entities: PartyRole  auth: true
      */
     @PostMapping("/partymgr/control/deleterole")
-    public ResponseEntity<DeletePartyRoleResponse> deletePartyRole(@RequestBody DeletePartyRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyRoleResponse> deletePartyRole(@RequestBody DeletePartyRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyRole(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyRoleResponse::new);
     }
 
     /**
@@ -1151,9 +1124,8 @@ public class PartyController {
      * <p>service: editGeoLocation  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/editGeoLocation")
-    public ResponseEntity<Map<String, Object>> editGeoLocation(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> editGeoLocation(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.editGeoLocation(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1161,9 +1133,9 @@ public class PartyController {
      * <p>service: expirePartyContactMechPurpose  entities: PartyContactMechPurpose  auth: true
      */
     @PostMapping("/partymgr/control/expirePartyContactMechPurpose")
-    public ResponseEntity<ExpirePartyContactMechPurposeResponse> expirePartyContactMechPurpose(@RequestBody ExpirePartyContactMechPurposeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ExpirePartyContactMechPurposeResponse> expirePartyContactMechPurpose(@RequestBody ExpirePartyContactMechPurposeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.expirePartyContactMechPurpose(ServiceInput.toMap(request));
+        return wrap(result, ExpirePartyContactMechPurposeResponse::new);
     }
 
     /**
@@ -1171,9 +1143,8 @@ public class PartyController {
      * <p>service: expirePartyRate  entities: PartyRate  auth: true
      */
     @PostMapping("/partymgr/control/expirePartyRate")
-    public ResponseEntity<Map<String, Object>> expirePartyRate(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> expirePartyRate(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.expirePartyRate(body));
     }
 
     /**
@@ -1181,9 +1152,8 @@ public class PartyController {
      * <p>service: serveImage  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/img")
-    public ResponseEntity<Map<String, Object>> serveImage(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> serveImage(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.serveImage(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1191,9 +1161,9 @@ public class PartyController {
      * <p>service: importAddressMatchMapCsv  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/importAddressMatchMapCsv")
-    public ResponseEntity<ImportAddressMatchMapCsvResponse> importAddressMatchMapCsv(@RequestBody ImportAddressMatchMapCsvRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ImportAddressMatchMapCsvResponse> importAddressMatchMapCsv(@RequestBody ImportAddressMatchMapCsvRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.importAddressMatchMapCsv(ServiceInput.toMap(request));
+        return wrap(result, ImportAddressMatchMapCsvResponse::new);
     }
 
     /**
@@ -1201,9 +1171,9 @@ public class PartyController {
      * <p>service: removeAddressMatchMap  entities: AddressMatchMap  auth: true
      */
     @PostMapping("/partymgr/control/removeAddressMatchMap")
-    public ResponseEntity<RemoveAddressMatchMapResponse> removeAddressMatchMap(@RequestBody RemoveAddressMatchMapRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveAddressMatchMapResponse> removeAddressMatchMap(@RequestBody RemoveAddressMatchMapRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeAddressMatchMap(ServiceInput.toMap(request));
+        return wrap(result, RemoveAddressMatchMapResponse::new);
     }
 
     /**
@@ -1211,9 +1181,8 @@ public class PartyController {
      * <p>service: expireCommEventContentAssoc  entities: CommEventContentAssoc  auth: true
      */
     @PostMapping("/partymgr/control/removeAttachFile")
-    public ResponseEntity<Map<String, Object>> expireCommEventContentAssoc(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> expireCommEventContentAssoc(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.expireCommEventContentAssoc(body));
     }
 
     /**
@@ -1221,9 +1190,9 @@ public class PartyController {
      * <p>service: removeCommunicationEventPurpose  entities: CommunicationEventPurpose  auth: true
      */
     @PostMapping("/partymgr/control/removeCommunicationEventPurpose")
-    public ResponseEntity<RemoveCommunicationEventPurposeResponse> removeCommunicationEventPurpose(@RequestBody RemoveCommunicationEventPurposeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveCommunicationEventPurposeResponse> removeCommunicationEventPurpose(@RequestBody RemoveCommunicationEventPurposeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeCommunicationEventPurpose(ServiceInput.toMap(request));
+        return wrap(result, RemoveCommunicationEventPurposeResponse::new);
     }
 
     /**
@@ -1231,9 +1200,8 @@ public class PartyController {
      * <p>service: removeShoppingListItem  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/removeFromShoppingList")
-    public ResponseEntity<Map<String, Object>> removeShoppingListItem(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> removeShoppingListItem(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.removeShoppingListItem(body));
     }
 
     /**
@@ -1241,9 +1209,9 @@ public class PartyController {
      * <p>service: removePartyAttribute  entities: PartyAttribute  auth: true
      */
     @PostMapping("/partymgr/control/removePartyAttribute")
-    public ResponseEntity<RemovePartyAttributeResponse> removePartyAttribute(@RequestBody RemovePartyAttributeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemovePartyAttributeResponse> removePartyAttribute(@RequestBody RemovePartyAttributeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removePartyAttribute(ServiceInput.toMap(request));
+        return wrap(result, RemovePartyAttributeResponse::new);
     }
 
     /**
@@ -1251,9 +1219,9 @@ public class PartyController {
      * <p>service: removePartyContent  entities: PartyContent  auth: true
      */
     @PostMapping("/partymgr/control/removePartyContent")
-    public ResponseEntity<RemovePartyContentResponse> removePartyContent(@RequestBody RemovePartyContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemovePartyContentResponse> removePartyContent(@RequestBody RemovePartyContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removePartyContent(ServiceInput.toMap(request));
+        return wrap(result, RemovePartyContentResponse::new);
     }
 
     /**
@@ -1261,9 +1229,8 @@ public class PartyController {
      * <p>service: removeUserPreference  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/removePreference")
-    public ResponseEntity<Map<String, Object>> removeUserPreference(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> removeUserPreference(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.removeUserPreference(body));
     }
 
     /**
@@ -1271,9 +1238,8 @@ public class PartyController {
      * <p>service: replaceShoppingListItem  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/replaceShoppingListItem")
-    public ResponseEntity<Map<String, Object>> replaceShoppingListItem(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> replaceShoppingListItem(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.replaceShoppingListItem(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1281,9 +1247,8 @@ public class PartyController {
      * <p>service: deleteAVSOverride  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/resetAvsOverride")
-    public ResponseEntity<Map<String, Object>> deleteAVSOverride(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deleteAVSOverride(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.deleteAVSOverride(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1291,9 +1256,8 @@ public class PartyController {
      * <p>service: restoreAutoSaveList  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/restoreCartFromList")
-    public ResponseEntity<Map<String, Object>> restoreAutoSaveList(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> restoreAutoSaveList(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.restoreAutoSaveList(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1301,9 +1265,9 @@ public class PartyController {
      * <p>service: updateCommunicationEvent  entities: CommunicationEvent  auth: true
      */
     @PostMapping("/partymgr/control/sendCommunicationEvent")
-    public ResponseEntity<UpdateCommunicationEventResponse> updateCommunicationEvent(@RequestBody UpdateCommunicationEventRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateCommunicationEventResponse> updateCommunicationEvent(@RequestBody UpdateCommunicationEventRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateCommunicationEvent(ServiceInput.toMap(request));
+        return wrap(result, UpdateCommunicationEventResponse::new);
     }
 
     /**
@@ -1311,9 +1275,9 @@ public class PartyController {
      * <p>service: setCommunicationEventRoleStatus  entities: CommunicationEventRole  auth: true
      */
     @PostMapping("/partymgr/control/setCommunicationEventRoleStatus")
-    public ResponseEntity<SetCommunicationEventRoleStatusResponse> setCommunicationEventRoleStatus(@RequestBody SetCommunicationEventRoleStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SetCommunicationEventRoleStatusResponse> setCommunicationEventRoleStatus(@RequestBody SetCommunicationEventRoleStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.setCommunicationEventRoleStatus(ServiceInput.toMap(request));
+        return wrap(result, SetCommunicationEventRoleStatusResponse::new);
     }
 
     /**
@@ -1321,9 +1285,8 @@ public class PartyController {
      * <p>service: setCustRequestStatus  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/setCustRequestStatus")
-    public ResponseEntity<Map<String, Object>> setCustRequestStatus(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> setCustRequestStatus(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.setCustRequestStatus(body));
     }
 
     /**
@@ -1331,9 +1294,9 @@ public class PartyController {
      * <p>service: linkPartyRecord  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/setPartyLink")
-    public ResponseEntity<LinkPartyRecordResponse> linkPartyRecord(@RequestBody LinkPartyRecordRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<LinkPartyRecordResponse> linkPartyRecord(@RequestBody LinkPartyRecordRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.linkPartyRecord(ServiceInput.toMap(request));
+        return wrap(result, LinkPartyRecordResponse::new);
     }
 
     /**
@@ -1341,9 +1304,8 @@ public class PartyController {
      * <p>service: createProductStoreRole  entities: ProductStoreRole  auth: true
      */
     @PostMapping("/partymgr/control/storeCreateRole")
-    public ResponseEntity<Map<String, Object>> createProductStoreRole(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createProductStoreRole(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createProductStoreRole(body));
     }
 
     /**
@@ -1351,9 +1313,8 @@ public class PartyController {
      * <p>service: removeProductStoreRole  entities: ProductStoreRole  auth: true
      */
     @PostMapping("/partymgr/control/storeRemoveRole")
-    public ResponseEntity<Map<String, Object>> removeProductStoreRole(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> removeProductStoreRole(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.removeProductStoreRole(body));
     }
 
     /**
@@ -1361,9 +1322,8 @@ public class PartyController {
      * <p>service: updateProductStoreRole  entities: ProductStoreRole  auth: true
      */
     @PostMapping("/partymgr/control/storeUpdateRole")
-    public ResponseEntity<Map<String, Object>> updateProductStoreRole(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateProductStoreRole(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateProductStoreRole(body));
     }
 
     /**
@@ -1371,9 +1331,8 @@ public class PartyController {
      * <p>service: updateAVSOverride  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/updateAvsOverride")
-    public ResponseEntity<Map<String, Object>> updateAVSOverride(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateAVSOverride(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.updateAVSOverride(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1381,9 +1340,8 @@ public class PartyController {
      * <p>service: updateBillingAccount  entities: BillingAccount  auth: true
      */
     @PostMapping("/partymgr/control/updateBillingAccount")
-    public ResponseEntity<Map<String, Object>> updateBillingAccount(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateBillingAccount(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateBillingAccount(body));
     }
 
     /**
@@ -1391,9 +1349,8 @@ public class PartyController {
      * <p>service: updateCheckAccount  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/updateCheckAccount")
-    public ResponseEntity<Map<String, Object>> updateCheckAccount(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateCheckAccount(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.updateCheckAccount(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1401,9 +1358,8 @@ public class PartyController {
      * <p>service: updateCommContentDataResource  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/updateCommContentDataResource")
-    public ResponseEntity<Map<String, Object>> updateCommContentDataResource(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateCommContentDataResource(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateCommContentDataResource(body));
     }
 
     /**
@@ -1411,9 +1367,8 @@ public class PartyController {
      * <p>service: updateCommunicationEventWorkEff  entities: CommunicationEvent, CommunicationEventWorkEff  auth: true
      */
     @PostMapping("/partymgr/control/updateCommEventWorkEffort")
-    public ResponseEntity<Map<String, Object>> updateCommunicationEventWorkEff(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateCommunicationEventWorkEff(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateCommunicationEventWorkEff(body));
     }
 
     /**
@@ -1421,9 +1376,9 @@ public class PartyController {
      * <p>service: updateCommunicationEvent  entities: CommunicationEvent  auth: true
      */
     @PostMapping("/partymgr/control/updateCommunicationEvent")
-    public ResponseEntity<UpdateCommunicationEventResponse> updateCommunicationEventUpdateCommunicationEvent(@RequestBody UpdateCommunicationEventRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateCommunicationEventResponse> updateCommunicationEventUpdateCommunicationEvent(@RequestBody UpdateCommunicationEventRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateCommunicationEvent(ServiceInput.toMap(request));
+        return wrap(result, UpdateCommunicationEventResponse::new);
     }
 
     /**
@@ -1431,9 +1386,8 @@ public class PartyController {
      * <p>service: updateContactListParty  entities: ContactListParty  auth: true
      */
     @PostMapping("/partymgr/control/updateContactListParty")
-    public ResponseEntity<Map<String, Object>> updateContactListParty(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateContactListParty(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateContactListParty(body));
     }
 
     /**
@@ -1441,9 +1395,9 @@ public class PartyController {
      * <p>service: updatePartyContactMech  entities: PartyContactMech  auth: true
      */
     @PostMapping("/partymgr/control/updateContactMech")
-    public ResponseEntity<UpdatePartyContactMechResponse> updatePartyContactMech(@RequestBody UpdatePartyContactMechRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyContactMechResponse> updatePartyContactMech(@RequestBody UpdatePartyContactMechRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyContactMech(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyContactMechResponse::new);
     }
 
     /**
@@ -1451,9 +1405,8 @@ public class PartyController {
      * <p>service: updateCreditCard  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/updateCreditCard")
-    public ResponseEntity<Map<String, Object>> updateCreditCard(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateCreditCard(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.updateCreditCard(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1461,9 +1414,8 @@ public class PartyController {
      * <p>service: updateEftAccount  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/updateEftAccount")
-    public ResponseEntity<Map<String, Object>> updateEftAccount(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateEftAccount(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.updateEftAccount(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1471,9 +1423,9 @@ public class PartyController {
      * <p>service: updatePartyEmailAddress  entities: PartyContactMech  auth: true
      */
     @PostMapping("/partymgr/control/updateEmailAddress")
-    public ResponseEntity<UpdatePartyEmailAddressResponse> updatePartyEmailAddress(@RequestBody UpdatePartyEmailAddressRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyEmailAddressResponse> updatePartyEmailAddress(@RequestBody UpdatePartyEmailAddressRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyEmailAddress(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyEmailAddressResponse::new);
     }
 
     /**
@@ -1481,9 +1433,8 @@ public class PartyController {
      * <p>service: updateEmploymentApp  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/updateEmploymentAppExt")
-    public ResponseEntity<Map<String, Object>> updateEmploymentApp(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateEmploymentApp(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.updateEmploymentApp(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1491,9 +1442,9 @@ public class PartyController {
      * <p>service: updatePartyFtpAddress  entities: FtpAddress, PartyContactMech  auth: true
      */
     @PostMapping("/partymgr/control/updateFtpAddress")
-    public ResponseEntity<UpdatePartyFtpAddressResponse> updatePartyFtpAddress(@RequestBody UpdatePartyFtpAddressRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyFtpAddressResponse> updatePartyFtpAddress(@RequestBody UpdatePartyFtpAddressRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyFtpAddress(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyFtpAddressResponse::new);
     }
 
     /**
@@ -1501,9 +1452,8 @@ public class PartyController {
      * <p>service: updateGiftCard  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/updateGiftCard")
-    public ResponseEntity<Map<String, Object>> updateGiftCard(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateGiftCard(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateGiftCard(body));
     }
 
     /**
@@ -1511,9 +1461,9 @@ public class PartyController {
      * <p>service: updateMaritalStatus  entities: MaritalStatus  auth: -
      */
     @PostMapping("/partymgr/control/updateMaritalStatus")
-    public ResponseEntity<UpdateMaritalStatusResponse> updateMaritalStatus(@RequestBody UpdateMaritalStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateMaritalStatusResponse> updateMaritalStatus(@RequestBody UpdateMaritalStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateMaritalStatus(ServiceInput.toMap(request));
+        return wrap(result, UpdateMaritalStatusResponse::new);
     }
 
     /**
@@ -1521,9 +1471,9 @@ public class PartyController {
      * <p>service: updatePartyAttribute  entities: PartyAttribute  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyAttribute")
-    public ResponseEntity<UpdatePartyAttributeResponse> updatePartyAttribute(@RequestBody UpdatePartyAttributeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyAttributeResponse> updatePartyAttribute(@RequestBody UpdatePartyAttributeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyAttribute(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyAttributeResponse::new);
     }
 
     /**
@@ -1531,9 +1481,9 @@ public class PartyController {
      * <p>service: updatePartyCarrierAccount  entities: PartyCarrierAccount  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyCarrierAccount")
-    public ResponseEntity<UpdatePartyCarrierAccountResponse> updatePartyCarrierAccount(@RequestBody UpdatePartyCarrierAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyCarrierAccountResponse> updatePartyCarrierAccount(@RequestBody UpdatePartyCarrierAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyCarrierAccount(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyCarrierAccountResponse::new);
     }
 
     /**
@@ -1541,7 +1491,7 @@ public class PartyController {
      * <p>service: updatePartyClassification  entities: PartyClassification  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyClassification")
-    public ResponseEntity<UpdatePartyClassificationResponse> updatePartyClassification(@RequestBody UpdatePartyClassificationRequest request) {
+    public ResponseEntity<UpdatePartyClassificationResponse> updatePartyClassification(@RequestBody UpdatePartyClassificationRequest request) throws java.sql.SQLException {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1551,9 +1501,9 @@ public class PartyController {
      * <p>service: updatePartyClassificationGroup  entities: PartyClassificationGroup  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyClassificationGroup")
-    public ResponseEntity<UpdatePartyClassificationGroupResponse> updatePartyClassificationGroup(@RequestBody UpdatePartyClassificationGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyClassificationGroupResponse> updatePartyClassificationGroup(@RequestBody UpdatePartyClassificationGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyClassificationGroup(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyClassificationGroupResponse::new);
     }
 
     /**
@@ -1561,7 +1511,7 @@ public class PartyController {
      * <p>service: updatePartyClassification  entities: PartyClassification  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyClassificationParty")
-    public ResponseEntity<UpdatePartyClassificationResponse> updatePartyClassificationUpdatePartyClassificationParty(@RequestBody UpdatePartyClassificationRequest request) {
+    public ResponseEntity<UpdatePartyClassificationResponse> updatePartyClassificationUpdatePartyClassificationParty(@RequestBody UpdatePartyClassificationRequest request) throws java.sql.SQLException {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1571,9 +1521,9 @@ public class PartyController {
      * <p>service: updatePartyContent  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/updatePartyContent")
-    public ResponseEntity<UpdatePartyContentResponse> updatePartyContent(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyContentResponse> updatePartyContent(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyContent(java.util.Map.copyOf(params));
+        return wrap(result, UpdatePartyContentResponse::new);
     }
 
     /**
@@ -1581,9 +1531,9 @@ public class PartyController {
      * <p>service: updatePartyGroup  entities: PartyGroup  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyGroup")
-    public ResponseEntity<UpdatePartyGroupResponse> updatePartyGroupUpdatePartyGroup(@RequestBody UpdatePartyGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyGroupResponse> updatePartyGroupUpdatePartyGroup(@RequestBody UpdatePartyGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyGroup(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyGroupResponse::new);
     }
 
     /**
@@ -1591,7 +1541,7 @@ public class PartyController {
      * <p>service: updatePartyIdentification  entities: PartyIdentification  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyIdentification")
-    public ResponseEntity<UpdatePartyIdentificationResponse> updatePartyIdentification(@RequestBody UpdatePartyIdentificationRequest request) {
+    public ResponseEntity<UpdatePartyIdentificationResponse> updatePartyIdentification(@RequestBody UpdatePartyIdentificationRequest request) throws java.sql.SQLException {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1601,9 +1551,9 @@ public class PartyController {
      * <p>service: updatePartyInvitation  entities: PartyInvitation  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyInvitation")
-    public ResponseEntity<UpdatePartyInvitationResponse> updatePartyInvitation(@RequestBody UpdatePartyInvitationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyInvitationResponse> updatePartyInvitation(@RequestBody UpdatePartyInvitationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyInvitation(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyInvitationResponse::new);
     }
 
     /**
@@ -1611,9 +1561,8 @@ public class PartyController {
      * <p>service: updatePartyRate  entities: PartyRate  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyRate")
-    public ResponseEntity<Map<String, Object>> updatePartyRateUpdatePartyRate(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updatePartyRateUpdatePartyRate(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updatePartyRate(body));
     }
 
     /**
@@ -1621,9 +1570,9 @@ public class PartyController {
      * <p>service: updatePartyRelationship  entities: PartyRelationship  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyRelationship")
-    public ResponseEntity<UpdatePartyRelationshipResponse> updatePartyRelationship(@RequestBody UpdatePartyRelationshipRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyRelationshipResponse> updatePartyRelationship(@RequestBody UpdatePartyRelationshipRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyRelationship(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyRelationshipResponse::new);
     }
 
     /**
@@ -1631,9 +1580,8 @@ public class PartyController {
      * <p>service: updatePartyResume  entities: PartyResume  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyResume")
-    public ResponseEntity<Map<String, Object>> updatePartyResume(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updatePartyResume(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updatePartyResume(body));
     }
 
     /**
@@ -1641,9 +1589,8 @@ public class PartyController {
      * <p>service: updatePartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/partymgr/control/updatePartySkillExt")
-    public ResponseEntity<Map<String, Object>> updatePartySkill(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updatePartySkill(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updatePartySkill(body));
     }
 
     /**
@@ -1651,9 +1598,8 @@ public class PartyController {
      * <p>service: updatePartyTaxAuthInfo  entities: PartyTaxAuthInfo  auth: true
      */
     @PostMapping("/partymgr/control/updatePartyTaxAuthInfo")
-    public ResponseEntity<Map<String, Object>> updatePartyTaxAuthInfo(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updatePartyTaxAuthInfo(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updatePartyTaxAuthInfo(body));
     }
 
     /**
@@ -1661,9 +1607,9 @@ public class PartyController {
      * <p>service: updatePerson  entities: Person  auth: true
      */
     @PostMapping("/partymgr/control/updatePerson")
-    public ResponseEntity<UpdatePersonResponse> updatePerson(@RequestBody UpdatePersonRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePersonResponse> updatePerson(@RequestBody UpdatePersonRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePerson(ServiceInput.toMap(request));
+        return wrap(result, UpdatePersonResponse::new);
     }
 
     /**
@@ -1671,9 +1617,9 @@ public class PartyController {
      * <p>service: updatePartyPostalAddress  entities: PartyContactMech, PostalAddress  auth: true
      */
     @PostMapping("/partymgr/control/updatePostalAddress")
-    public ResponseEntity<UpdatePartyPostalAddressResponse> updatePartyPostalAddress(@RequestBody UpdatePartyPostalAddressRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyPostalAddressResponse> updatePartyPostalAddress(@RequestBody UpdatePartyPostalAddressRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyPostalAddress(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyPostalAddressResponse::new);
     }
 
     /**
@@ -1681,9 +1627,8 @@ public class PartyController {
      * <p>service: updateShoppingList  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/updateShoppingList")
-    public ResponseEntity<Map<String, Object>> updateShoppingList(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateShoppingList(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateShoppingList(body));
     }
 
     /**
@@ -1691,9 +1636,8 @@ public class PartyController {
      * <p>service: updateShoppingListItem  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/updateShoppingListItem")
-    public ResponseEntity<Map<String, Object>> updateShoppingListItem(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateShoppingListItem(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateShoppingListItem(body));
     }
 
     /**
@@ -1701,9 +1645,9 @@ public class PartyController {
      * <p>service: updatePartyTelecomNumber  entities: PartyContactMech, TelecomNumber  auth: true
      */
     @PostMapping("/partymgr/control/updateTelecomNumber")
-    public ResponseEntity<UpdatePartyTelecomNumberResponse> updatePartyTelecomNumber(@RequestBody UpdatePartyTelecomNumberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyTelecomNumberResponse> updatePartyTelecomNumber(@RequestBody UpdatePartyTelecomNumberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyTelecomNumber(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyTelecomNumberResponse::new);
     }
 
     /**
@@ -1711,7 +1655,7 @@ public class PartyController {
      * <p>service: updateVendor  entities: Vendor  auth: true
      */
     @PostMapping("/partymgr/control/updateVendor")
-    public ResponseEntity<UpdateVendorResponse> updateVendor(@RequestBody UpdateVendorRequest request) {
+    public ResponseEntity<UpdateVendorResponse> updateVendor(@RequestBody UpdateVendorRequest request) throws java.sql.SQLException {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1721,9 +1665,8 @@ public class PartyController {
      * <p>service: createCommunicationEventContent  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/uploadAttachFile")
-    public ResponseEntity<Map<String, Object>> createCommunicationEventContent(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCommunicationEventContent(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createCommunicationEventContent(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1731,9 +1674,8 @@ public class PartyController {
      * <p>service: createCommunicationEventContent  entities: unknown  auth: true
      */
     @GetMapping("/partymgr/control/uploadAttachFiletoEmail")
-    public ResponseEntity<Map<String, Object>> createCommunicationEventContentUploadAttachFiletoEmail(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCommunicationEventContentUploadAttachFiletoEmail(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createCommunicationEventContent(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1741,9 +1683,8 @@ public class PartyController {
      * <p>service: persistContentAndAssoc  entities: Content, ContentAssoc, ContentAssocDataResourceViewTo, ContentDataResourceView, DataResource, ElectronicText  auth: true
      */
     @PostMapping("/partymgr/control/uploadCommEventContent")
-    public ResponseEntity<Map<String, Object>> persistContentAndAssoc(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> persistContentAndAssoc(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.persistContentAndAssoc(body));
     }
 
     /**
@@ -1751,9 +1692,9 @@ public class PartyController {
      * <p>service: importParty  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/uploadParty")
-    public ResponseEntity<ImportPartyResponse> importParty(@RequestBody ImportPartyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ImportPartyResponse> importParty(@RequestBody ImportPartyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.importParty(ServiceInput.toMap(request));
+        return wrap(result, ImportPartyResponse::new);
     }
 
     /**
@@ -1761,8 +1702,8 @@ public class PartyController {
      * <p>service: uploadPartyContentFile  entities: unknown  auth: true
      */
     @PostMapping("/partymgr/control/uploadPartyContent")
-    public ResponseEntity<UploadPartyContentFileResponse> uploadPartyContentFile(@RequestBody UploadPartyContentFileRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UploadPartyContentFileResponse> uploadPartyContentFile(@RequestBody UploadPartyContentFileRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.uploadPartyContentFile(ServiceInput.toMap(request));
+        return wrap(result, UploadPartyContentFileResponse::new);
     }
 }

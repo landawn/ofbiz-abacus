@@ -1,5 +1,6 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.util.ServiceInput;
 import com.landawn.ofbiz.model.ResponseBase;
 import com.landawn.ofbiz.model.product.AddAdditionalViewForProductRequest;
 import com.landawn.ofbiz.model.product.AddAdditionalViewForProductResponse;
@@ -798,8 +799,27 @@ import java.util.Map;
 @RequestMapping("/product")
 public class ProductController {
 
-    /** 200/400 routing decided by the response DTO's envelope state. */
+    private final com.landawn.ofbiz.service.ProductService service;
+
+    public ProductController(com.landawn.ofbiz.service.ProductService service) {
+        this.service = service;
+    }
+
+    /** 200/400 routing for typed responses. */
     private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
+
+    /** Convert a service-result map into a typed response and wrap. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(
+            Map<String, Object> result, java.util.function.Supplier<T> factory) {
+        return wrap(com.landawn.ofbiz.service.ServiceResponse.toDto(result, factory));
+    }
+
+    /** 200/400 routing for loosely-typed Map responses. */
+    private static ResponseEntity<Map<String, Object>> wrapMap(Map<String, Object> result) {
         return com.landawn.ofbiz.service.ServiceResponse.isError(result)
                 ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
                 : ResponseEntity.ok(result);
@@ -810,9 +830,9 @@ public class ProductController {
      * <p>service: createProductFeatureIactn  entities: ProductFeatureIactn  auth: true
      */
     @PostMapping("/catalog/control/AddProductFeatureIactn")
-    public ResponseEntity<CreateProductFeatureIactnResponse> createProductFeatureIactn(@RequestBody CreateProductFeatureIactnRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFeatureIactnResponse> createProductFeatureIactn(@RequestBody CreateProductFeatureIactnRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFeatureIactn(ServiceInput.toMap(request));
+        return wrap(result, CreateProductFeatureIactnResponse::new);
     }
 
     /**
@@ -820,9 +840,9 @@ public class ProductController {
      * <p>service: createProductStoreGroupMember  entities: ProductStoreGroupMember  auth: true
      */
     @PostMapping("/catalog/control/AddProductStoreToGroup")
-    public ResponseEntity<CreateProductStoreGroupMemberResponse> createProductStoreGroupMember(@RequestBody CreateProductStoreGroupMemberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreGroupMemberResponse> createProductStoreGroupMember(@RequestBody CreateProductStoreGroupMemberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStoreGroupMember(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreGroupMemberResponse::new);
     }
 
     /**
@@ -830,9 +850,9 @@ public class ProductController {
      * <p>service: applyFeatureToProduct  entities: ProductFeatureAppl  auth: true
      */
     @PostMapping("/catalog/control/ApplyFeatureToProduct")
-    public ResponseEntity<ApplyFeatureToProductResponse> applyFeatureToProduct(@RequestBody ApplyFeatureToProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ApplyFeatureToProductResponse> applyFeatureToProduct(@RequestBody ApplyFeatureToProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.applyFeatureToProduct(ServiceInput.toMap(request));
+        return wrap(result, ApplyFeatureToProductResponse::new);
     }
 
     /**
@@ -840,9 +860,9 @@ public class ProductController {
      * <p>service: applyFeatureToProductFromTypeAndCode  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/ApplyFeatureToProductFromTypeAndCode")
-    public ResponseEntity<ApplyFeatureToProductFromTypeAndCodeResponse> applyFeatureToProductFromTypeAndCode(@RequestBody ApplyFeatureToProductFromTypeAndCodeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ApplyFeatureToProductFromTypeAndCodeResponse> applyFeatureToProductFromTypeAndCode(@RequestBody ApplyFeatureToProductFromTypeAndCodeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.applyFeatureToProductFromTypeAndCode(ServiceInput.toMap(request));
+        return wrap(result, ApplyFeatureToProductFromTypeAndCodeResponse::new);
     }
 
     /**
@@ -850,9 +870,9 @@ public class ProductController {
      * <p>service: createProductFeatureGroupAppl  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/ApplyFeaturesFromCategoryToGroup")
-    public ResponseEntity<CreateProductFeatureGroupApplResponse> createProductFeatureGroupAppl(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFeatureGroupApplResponse> createProductFeatureGroupAppl(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFeatureGroupAppl(java.util.Map.copyOf(params));
+        return wrap(result, CreateProductFeatureGroupApplResponse::new);
     }
 
     /**
@@ -860,9 +880,9 @@ public class ProductController {
      * <p>service: applyFeatureToProduct  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/ApplyFeaturesToProduct")
-    public ResponseEntity<ApplyFeatureToProductResponse> applyFeatureToProductApplyFeaturesToProduct(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ApplyFeatureToProductResponse> applyFeatureToProductApplyFeaturesToProduct(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.applyFeatureToProduct(java.util.Map.copyOf(params));
+        return wrap(result, ApplyFeatureToProductResponse::new);
     }
 
     /**
@@ -870,9 +890,9 @@ public class ProductController {
      * <p>service: createProductFeature  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/BulkAddProductFeatures")
-    public ResponseEntity<CreateProductFeatureResponse> createProductFeature(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFeatureResponse> createProductFeature(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFeature(java.util.Map.copyOf(params));
+        return wrap(result, CreateProductFeatureResponse::new);
     }
 
     /**
@@ -880,9 +900,9 @@ public class ProductController {
      * <p>service: createProductFeatureCategory  entities: ProductFeatureCategory  auth: true
      */
     @PostMapping("/catalog/control/CreateFeatureCategory")
-    public ResponseEntity<CreateProductFeatureCategoryResponse> createProductFeatureCategory(@RequestBody CreateProductFeatureCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFeatureCategoryResponse> createProductFeatureCategory(@RequestBody CreateProductFeatureCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFeatureCategory(ServiceInput.toMap(request));
+        return wrap(result, CreateProductFeatureCategoryResponse::new);
     }
 
     /**
@@ -890,9 +910,9 @@ public class ProductController {
      * <p>service: createProductFeatureGroup  entities: ProductFeatureGroup  auth: true
      */
     @PostMapping("/catalog/control/CreateProductFeatureGroup")
-    public ResponseEntity<CreateProductFeatureGroupResponse> createProductFeatureGroup(@RequestBody CreateProductFeatureGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFeatureGroupResponse> createProductFeatureGroup(@RequestBody CreateProductFeatureGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFeatureGroup(ServiceInput.toMap(request));
+        return wrap(result, CreateProductFeatureGroupResponse::new);
     }
 
     /**
@@ -900,9 +920,9 @@ public class ProductController {
      * <p>service: createProductFeatureGroupAppl  entities: ProductFeatureGroupAppl  auth: true
      */
     @PostMapping("/catalog/control/CreateProductFeatureGroupAppl")
-    public ResponseEntity<CreateProductFeatureGroupApplResponse> createProductFeatureGroupApplCreateProductFeatureGroupAppl(@RequestBody CreateProductFeatureGroupApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFeatureGroupApplResponse> createProductFeatureGroupApplCreateProductFeatureGroupAppl(@RequestBody CreateProductFeatureGroupApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFeatureGroupAppl(ServiceInput.toMap(request));
+        return wrap(result, CreateProductFeatureGroupApplResponse::new);
     }
 
     /**
@@ -910,9 +930,9 @@ public class ProductController {
      * <p>service: createProductStoreFinActSetting  entities: ProductStoreFinActSetting  auth: true
      */
     @PostMapping("/catalog/control/CreateProductStoreFinAccountSettings")
-    public ResponseEntity<CreateProductStoreFinActSettingResponse> createProductStoreFinActSetting(@RequestBody CreateProductStoreFinActSettingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreFinActSettingResponse> createProductStoreFinActSetting(@RequestBody CreateProductStoreFinActSettingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStoreFinActSetting(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreFinActSettingResponse::new);
     }
 
     /**
@@ -920,9 +940,9 @@ public class ProductController {
      * <p>service: createMissingCategoryAndProductAltUrls  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/CreateSeoProdCatalog")
-    public ResponseEntity<CreateMissingCategoryAndProductAltUrlsResponse> createMissingCategoryAndProductAltUrls(@RequestBody CreateMissingCategoryAndProductAltUrlsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateMissingCategoryAndProductAltUrlsResponse> createMissingCategoryAndProductAltUrls(@RequestBody CreateMissingCategoryAndProductAltUrlsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createMissingCategoryAndProductAltUrls(ServiceInput.toMap(request));
+        return wrap(result, CreateMissingCategoryAndProductAltUrlsResponse::new);
     }
 
     /**
@@ -930,9 +950,9 @@ public class ProductController {
      * <p>service: imageCrop  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/CropImage")
-    public ResponseEntity<ImageCropResponse> imageCrop(@RequestBody ImageCropRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ImageCropResponse> imageCrop(@RequestBody ImageCropRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.imageCrop(ServiceInput.toMap(request));
+        return wrap(result, ImageCropResponse::new);
     }
 
     /**
@@ -940,9 +960,9 @@ public class ProductController {
      * <p>service: duplicateProduct  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/DuplicateProduct")
-    public ResponseEntity<DuplicateProductResponse> duplicateProduct(@RequestBody DuplicateProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DuplicateProductResponse> duplicateProduct(@RequestBody DuplicateProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.duplicateProduct(ServiceInput.toMap(request));
+        return wrap(result, DuplicateProductResponse::new);
     }
 
     /**
@@ -950,9 +970,9 @@ public class ProductController {
      * <p>service: duplicateProductCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/DuplicateProductCategory")
-    public ResponseEntity<DuplicateProductCategoryResponse> duplicateProductCategory(@RequestBody DuplicateProductCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DuplicateProductCategoryResponse> duplicateProductCategory(@RequestBody DuplicateProductCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.duplicateProductCategory(ServiceInput.toMap(request));
+        return wrap(result, DuplicateProductCategoryResponse::new);
     }
 
     /**
@@ -960,9 +980,8 @@ public class ProductController {
      * <p>service: quickAddChosenVariant  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/QuickAddChosenVariant")
-    public ResponseEntity<Map<String, Object>> quickAddChosenVariant(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> quickAddChosenVariant(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.quickAddChosenVariant(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -970,9 +989,9 @@ public class ProductController {
      * <p>service: quickAddVariant  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/QuickAddChosenVariants")
-    public ResponseEntity<QuickAddVariantResponse> quickAddVariant(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<QuickAddVariantResponse> quickAddVariant(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.quickAddVariant(java.util.Map.copyOf(params));
+        return wrap(result, QuickAddVariantResponse::new);
     }
 
     /**
@@ -980,9 +999,9 @@ public class ProductController {
      * <p>service: removeFeatureFromProduct  entities: ProductFeatureAppl  auth: true
      */
     @PostMapping("/catalog/control/RemoveFeatureFromProduct")
-    public ResponseEntity<RemoveFeatureFromProductResponse> removeFeatureFromProduct(@RequestBody RemoveFeatureFromProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveFeatureFromProductResponse> removeFeatureFromProduct(@RequestBody RemoveFeatureFromProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeFeatureFromProduct(ServiceInput.toMap(request));
+        return wrap(result, RemoveFeatureFromProductResponse::new);
     }
 
     /**
@@ -990,9 +1009,9 @@ public class ProductController {
      * <p>service: removeProductFeatureGroupAppl  entities: ProductFeatureGroupAppl  auth: true
      */
     @PostMapping("/catalog/control/RemoveProductFeatureGroupAppl")
-    public ResponseEntity<RemoveProductFeatureGroupApplResponse> removeProductFeatureGroupAppl(@RequestBody RemoveProductFeatureGroupApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductFeatureGroupApplResponse> removeProductFeatureGroupAppl(@RequestBody RemoveProductFeatureGroupApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductFeatureGroupAppl(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductFeatureGroupApplResponse::new);
     }
 
     /**
@@ -1000,9 +1019,9 @@ public class ProductController {
      * <p>service: removeProductStoreFinActSetting  entities: ProductStoreFinActSetting  auth: true
      */
     @PostMapping("/catalog/control/RemoveProductStoreFinAccountSettings")
-    public ResponseEntity<RemoveProductStoreFinActSettingResponse> removeProductStoreFinActSetting(@RequestBody RemoveProductStoreFinActSettingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductStoreFinActSettingResponse> removeProductStoreFinActSetting(@RequestBody RemoveProductStoreFinActSettingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductStoreFinActSetting(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductStoreFinActSettingResponse::new);
     }
 
     /**
@@ -1010,9 +1029,9 @@ public class ProductController {
      * <p>service: imageRotate  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/RotateImage")
-    public ResponseEntity<ImageRotateResponse> imageRotate(@RequestBody ImageRotateRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ImageRotateResponse> imageRotate(@RequestBody ImageRotateRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.imageRotate(ServiceInput.toMap(request));
+        return wrap(result, ImageRotateResponse::new);
     }
 
     /**
@@ -1020,9 +1039,8 @@ public class ProductController {
      * <p>service: updateAllKeywords  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/UpdateAllKeywords")
-    public ResponseEntity<Map<String, Object>> updateAllKeywords(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateAllKeywords(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.updateAllKeywords(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1030,9 +1048,9 @@ public class ProductController {
      * <p>service: updateProductFeatureCategory  entities: ProductFeatureCategory  auth: true
      */
     @PostMapping("/catalog/control/UpdateFeatureCategory")
-    public ResponseEntity<UpdateProductFeatureCategoryResponse> updateProductFeatureCategory(@RequestBody UpdateProductFeatureCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductFeatureCategoryResponse> updateProductFeatureCategory(@RequestBody UpdateProductFeatureCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductFeatureCategory(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductFeatureCategoryResponse::new);
     }
 
     /**
@@ -1040,9 +1058,9 @@ public class ProductController {
      * <p>service: updateFeatureToProductApplication  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/UpdateFeatureToProductApplication")
-    public ResponseEntity<UpdateFeatureToProductApplicationResponse> updateFeatureToProductApplication(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFeatureToProductApplicationResponse> updateFeatureToProductApplication(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFeatureToProductApplication(java.util.Map.copyOf(params));
+        return wrap(result, UpdateFeatureToProductApplicationResponse::new);
     }
 
     /**
@@ -1050,9 +1068,9 @@ public class ProductController {
      * <p>service: updateProductFeatureGroup  entities: ProductFeatureGroup  auth: true
      */
     @PostMapping("/catalog/control/UpdateProductFeatureGroup")
-    public ResponseEntity<UpdateProductFeatureGroupResponse> updateProductFeatureGroup(@RequestBody UpdateProductFeatureGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductFeatureGroupResponse> updateProductFeatureGroup(@RequestBody UpdateProductFeatureGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductFeatureGroup(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductFeatureGroupResponse::new);
     }
 
     /**
@@ -1060,9 +1078,9 @@ public class ProductController {
      * <p>service: updateProductFeatureGroupAppl  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/UpdateProductFeatureGroupAppl")
-    public ResponseEntity<UpdateProductFeatureGroupApplResponse> updateProductFeatureGroupAppl(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductFeatureGroupApplResponse> updateProductFeatureGroupAppl(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductFeatureGroupAppl(java.util.Map.copyOf(params));
+        return wrap(result, UpdateProductFeatureGroupApplResponse::new);
     }
 
     /**
@@ -1070,9 +1088,9 @@ public class ProductController {
      * <p>service: updateProductFeature  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/UpdateProductFeatureInCategory")
-    public ResponseEntity<UpdateProductFeatureResponse> updateProductFeature(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductFeatureResponse> updateProductFeature(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductFeature(java.util.Map.copyOf(params));
+        return wrap(result, UpdateProductFeatureResponse::new);
     }
 
     /**
@@ -1080,9 +1098,9 @@ public class ProductController {
      * <p>service: updateProductStoreFinActSetting  entities: ProductStoreFinActSetting  auth: true
      */
     @PostMapping("/catalog/control/UpdateProductStoreFinAccountSettings")
-    public ResponseEntity<UpdateProductStoreFinActSettingResponse> updateProductStoreFinActSetting(@RequestBody UpdateProductStoreFinActSettingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStoreFinActSettingResponse> updateProductStoreFinActSetting(@RequestBody UpdateProductStoreFinActSettingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStoreFinActSetting(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStoreFinActSettingResponse::new);
     }
 
     /**
@@ -1090,9 +1108,9 @@ public class ProductController {
      * <p>service: copyToProductVariants  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/UpdateProductVariants")
-    public ResponseEntity<CopyToProductVariantsResponse> copyToProductVariants(@RequestBody CopyToProductVariantsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CopyToProductVariantsResponse> copyToProductVariants(@RequestBody CopyToProductVariantsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.copyToProductVariants(ServiceInput.toMap(request));
+        return wrap(result, CopyToProductVariantsResponse::new);
     }
 
     /**
@@ -1100,9 +1118,9 @@ public class ProductController {
      * <p>service: updateSubscriptionAttribute  entities: SubscriptionAttribute  auth: true
      */
     @PostMapping("/catalog/control/UpdateSubscriptionAttribute")
-    public ResponseEntity<UpdateSubscriptionAttributeResponse> updateSubscriptionAttribute(@RequestBody UpdateSubscriptionAttributeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSubscriptionAttributeResponse> updateSubscriptionAttribute(@RequestBody UpdateSubscriptionAttributeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSubscriptionAttribute(ServiceInput.toMap(request));
+        return wrap(result, UpdateSubscriptionAttributeResponse::new);
     }
 
     /**
@@ -1110,9 +1128,9 @@ public class ProductController {
      * <p>service: addAdditionalViewForProduct  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/addAdditionalImageContentForProduct")
-    public ResponseEntity<AddAdditionalViewForProductResponse> addAdditionalViewForProduct(@RequestBody AddAdditionalViewForProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddAdditionalViewForProductResponse> addAdditionalViewForProduct(@RequestBody AddAdditionalViewForProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addAdditionalViewForProduct(ServiceInput.toMap(request));
+        return wrap(result, AddAdditionalViewForProductResponse::new);
     }
 
     /**
@@ -1120,9 +1138,9 @@ public class ProductController {
      * <p>service: uploadProductAdditionalViewImages  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/addAdditionalImagesForProduct")
-    public ResponseEntity<UploadProductAdditionalViewImagesResponse> uploadProductAdditionalViewImages(@RequestBody UploadProductAdditionalViewImagesRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UploadProductAdditionalViewImagesResponse> uploadProductAdditionalViewImages(@RequestBody UploadProductAdditionalViewImagesRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.uploadProductAdditionalViewImages(ServiceInput.toMap(request));
+        return wrap(result, UploadProductAdditionalViewImagesResponse::new);
     }
 
     /**
@@ -1130,9 +1148,9 @@ public class ProductController {
      * <p>service: safeAddProductToCategory  entities: ProductCategoryMember  auth: true
      */
     @PostMapping("/catalog/control/addCategoryProductMember")
-    public ResponseEntity<SafeAddProductToCategoryResponse> safeAddProductToCategory(@RequestBody SafeAddProductToCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SafeAddProductToCategoryResponse> safeAddProductToCategory(@RequestBody SafeAddProductToCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.safeAddProductToCategory(ServiceInput.toMap(request));
+        return wrap(result, SafeAddProductToCategoryResponse::new);
     }
 
     /**
@@ -1140,9 +1158,9 @@ public class ProductController {
      * <p>service: createCategoryContent  entities: Content, ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/addContentToCategory")
-    public ResponseEntity<CreateCategoryContentResponse> createCategoryContent(@RequestBody CreateCategoryContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateCategoryContentResponse> createCategoryContent(@RequestBody CreateCategoryContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createCategoryContent(ServiceInput.toMap(request));
+        return wrap(result, CreateCategoryContentResponse::new);
     }
 
     /**
@@ -1150,9 +1168,9 @@ public class ProductController {
      * <p>service: createProductContent  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/addContentToProduct")
-    public ResponseEntity<CreateProductContentResponse> createProductContent(@RequestBody CreateProductContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductContentResponse> createProductContent(@RequestBody CreateProductContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductContent(ServiceInput.toMap(request));
+        return wrap(result, CreateProductContentResponse::new);
     }
 
     /**
@@ -1160,9 +1178,9 @@ public class ProductController {
      * <p>service: createProductConfigItemContent  entities: Content, ProdConfItemContent  auth: true
      */
     @PostMapping("/catalog/control/addContentToProductConfigItem")
-    public ResponseEntity<CreateProductConfigItemContentResponse> createProductConfigItemContent(@RequestBody CreateProductConfigItemContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductConfigItemContentResponse> createProductConfigItemContent(@RequestBody CreateProductConfigItemContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductConfigItemContent(ServiceInput.toMap(request));
+        return wrap(result, CreateProductConfigItemContentResponse::new);
     }
 
     /**
@@ -1170,9 +1188,8 @@ public class ProductController {
      * <p>service: addFixedAssetProduct  entities: FixedAssetProduct  auth: true
      */
     @PostMapping("/catalog/control/addFixedAssetProduct")
-    public ResponseEntity<Map<String, Object>> addFixedAssetProduct(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> addFixedAssetProduct(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.addFixedAssetProduct(body));
     }
 
     /**
@@ -1180,9 +1197,9 @@ public class ProductController {
      * <p>service: addImageForProductPromo  entities: ProductPromoContent  auth: true
      */
     @PostMapping("/catalog/control/addImageContentForProductPromo")
-    public ResponseEntity<AddImageForProductPromoResponse> addImageForProductPromo(@RequestBody AddImageForProductPromoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddImageForProductPromoResponse> addImageForProductPromo(@RequestBody AddImageForProductPromoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addImageForProductPromo(ServiceInput.toMap(request));
+        return wrap(result, AddImageForProductPromoResponse::new);
     }
 
     /**
@@ -1190,9 +1207,9 @@ public class ProductController {
      * <p>service: multipleUploadProductImages  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/addImageForProduct")
-    public ResponseEntity<MultipleUploadProductImagesResponse> multipleUploadProductImages(@RequestBody MultipleUploadProductImagesRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<MultipleUploadProductImagesResponse> multipleUploadProductImages(@RequestBody MultipleUploadProductImagesRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.multipleUploadProductImages(ServiceInput.toMap(request));
+        return wrap(result, MultipleUploadProductImagesResponse::new);
     }
 
     /**
@@ -1200,9 +1217,9 @@ public class ProductController {
      * <p>service: addPartyToCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/addPartyToCategory")
-    public ResponseEntity<AddPartyToCategoryResponse> addPartyToCategory(@RequestBody AddPartyToCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddPartyToCategoryResponse> addPartyToCategory(@RequestBody AddPartyToCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addPartyToCategory(ServiceInput.toMap(request));
+        return wrap(result, AddPartyToCategoryResponse::new);
     }
 
     /**
@@ -1210,9 +1227,9 @@ public class ProductController {
      * <p>service: addPartyToProduct  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/addPartyToProduct")
-    public ResponseEntity<AddPartyToProductResponse> addPartyToProduct(@RequestBody AddPartyToProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddPartyToProductResponse> addPartyToProduct(@RequestBody AddPartyToProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addPartyToProduct(ServiceInput.toMap(request));
+        return wrap(result, AddPartyToProductResponse::new);
     }
 
     /**
@@ -1220,9 +1237,9 @@ public class ProductController {
      * <p>service: addProdCatalogToParty  entities: ProdCatalogRole  auth: true
      */
     @PostMapping("/catalog/control/addProdCatalogToParty")
-    public ResponseEntity<AddProdCatalogToPartyResponse> addProdCatalogToParty(@RequestBody AddProdCatalogToPartyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddProdCatalogToPartyResponse> addProdCatalogToParty(@RequestBody AddProdCatalogToPartyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addProdCatalogToParty(ServiceInput.toMap(request));
+        return wrap(result, AddProdCatalogToPartyResponse::new);
     }
 
     /**
@@ -1230,9 +1247,9 @@ public class ProductController {
      * <p>service: safeAddProductCategoryToCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/addProductCategoryToCategory")
-    public ResponseEntity<SafeAddProductCategoryToCategoryResponse> safeAddProductCategoryToCategory(@RequestBody SafeAddProductCategoryToCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SafeAddProductCategoryToCategoryResponse> safeAddProductCategoryToCategory(@RequestBody SafeAddProductCategoryToCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.safeAddProductCategoryToCategory(ServiceInput.toMap(request));
+        return wrap(result, SafeAddProductCategoryToCategoryResponse::new);
     }
 
     /**
@@ -1240,9 +1257,9 @@ public class ProductController {
      * <p>service: addProductCategoryToProdCatalog  entities: ProdCatalogCategory  auth: true
      */
     @PostMapping("/catalog/control/addProductCategoryToProdCatalog")
-    public ResponseEntity<AddProductCategoryToProdCatalogResponse> addProductCategoryToProdCatalog(@RequestBody AddProductCategoryToProdCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddProductCategoryToProdCatalogResponse> addProductCategoryToProdCatalog(@RequestBody AddProductCategoryToProdCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addProductCategoryToProdCatalog(ServiceInput.toMap(request));
+        return wrap(result, AddProductCategoryToProdCatalogResponse::new);
     }
 
     /**
@@ -1250,9 +1267,9 @@ public class ProductController {
      * <p>service: createProductStoreFacility  entities: ProductStoreFacility  auth: true
      */
     @PostMapping("/catalog/control/addProductStoreFacility")
-    public ResponseEntity<CreateProductStoreFacilityResponse> createProductStoreFacility(@RequestBody CreateProductStoreFacilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreFacilityResponse> createProductStoreFacility(@RequestBody CreateProductStoreFacilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStoreFacility(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreFacilityResponse::new);
     }
 
     /**
@@ -1260,9 +1277,9 @@ public class ProductController {
      * <p>service: safeAddProductToCategory  entities: ProductCategoryMember  auth: true
      */
     @PostMapping("/catalog/control/addProductToCategory")
-    public ResponseEntity<SafeAddProductToCategoryResponse> safeAddProductToCategoryAddProductToCategory(@RequestBody SafeAddProductToCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SafeAddProductToCategoryResponse> safeAddProductToCategoryAddProductToCategory(@RequestBody SafeAddProductToCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.safeAddProductToCategory(ServiceInput.toMap(request));
+        return wrap(result, SafeAddProductToCategoryResponse::new);
     }
 
     /**
@@ -1270,9 +1287,9 @@ public class ProductController {
      * <p>service: addRejectedReasonImageManagement  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/addRejectedReasonImageManagement")
-    public ResponseEntity<AddRejectedReasonImageManagementResponse> addRejectedReasonImageManagement(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddRejectedReasonImageManagementResponse> addRejectedReasonImageManagement(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.addRejectedReasonImageManagement(java.util.Map.copyOf(params));
+        return wrap(result, AddRejectedReasonImageManagementResponse::new);
     }
 
     /**
@@ -1280,9 +1297,9 @@ public class ProductController {
      * <p>service: quickCreateVirtualWithVariants  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/addVariantsToVirtual")
-    public ResponseEntity<QuickCreateVirtualWithVariantsResponse> quickCreateVirtualWithVariants(@RequestBody QuickCreateVirtualWithVariantsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<QuickCreateVirtualWithVariantsResponse> quickCreateVirtualWithVariants(@RequestBody QuickCreateVirtualWithVariantsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.quickCreateVirtualWithVariants(ServiceInput.toMap(request));
+        return wrap(result, QuickCreateVirtualWithVariantsResponse::new);
     }
 
     /**
@@ -1290,9 +1307,9 @@ public class ProductController {
      * <p>service: attachProductFeaturesToCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/attachProductFeaturesToCategory")
-    public ResponseEntity<AttachProductFeaturesToCategoryResponse> attachProductFeaturesToCategory(@RequestBody AttachProductFeaturesToCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AttachProductFeaturesToCategoryResponse> attachProductFeaturesToCategory(@RequestBody AttachProductFeaturesToCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.attachProductFeaturesToCategory(ServiceInput.toMap(request));
+        return wrap(result, AttachProductFeaturesToCategoryResponse::new);
     }
 
     /**
@@ -1300,9 +1317,9 @@ public class ProductController {
      * <p>service: calculateProductCosts  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/calculateProductCosts")
-    public ResponseEntity<CalculateProductCostsResponse> calculateProductCosts(@RequestBody CalculateProductCostsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CalculateProductCostsResponse> calculateProductCosts(@RequestBody CalculateProductCostsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.calculateProductCosts(ServiceInput.toMap(request));
+        return wrap(result, CalculateProductCostsResponse::new);
     }
 
     /**
@@ -1310,9 +1327,9 @@ public class ProductController {
      * <p>service: addProductCategoryToProdCatalog  entities: ProdCatalogCategory  auth: true
      */
     @PostMapping("/catalog/control/category_addProductCategoryToProdCatalog")
-    public ResponseEntity<AddProductCategoryToProdCatalogResponse> addProductCategoryToProdCatalogCategoryAddProductCategoryToProdCatalog(@RequestBody AddProductCategoryToProdCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddProductCategoryToProdCatalogResponse> addProductCategoryToProdCatalogCategoryAddProductCategoryToProdCatalog(@RequestBody AddProductCategoryToProdCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addProductCategoryToProdCatalog(ServiceInput.toMap(request));
+        return wrap(result, AddProductCategoryToProdCatalogResponse::new);
     }
 
     /**
@@ -1320,9 +1337,9 @@ public class ProductController {
      * <p>service: removeProductCategoryFromProdCatalog  entities: ProdCatalogCategory  auth: true
      */
     @PostMapping("/catalog/control/category_removeProductCategoryFromProdCatalog")
-    public ResponseEntity<RemoveProductCategoryFromProdCatalogResponse> removeProductCategoryFromProdCatalog(@RequestBody RemoveProductCategoryFromProdCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductCategoryFromProdCatalogResponse> removeProductCategoryFromProdCatalog(@RequestBody RemoveProductCategoryFromProdCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductCategoryFromProdCatalog(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductCategoryFromProdCatalogResponse::new);
     }
 
     /**
@@ -1330,9 +1347,9 @@ public class ProductController {
      * <p>service: updateProductCategoryToProdCatalog  entities: ProdCatalogCategory  auth: true
      */
     @PostMapping("/catalog/control/category_updateProductCategoryToProdCatalog")
-    public ResponseEntity<UpdateProductCategoryToProdCatalogResponse> updateProductCategoryToProdCatalog(@RequestBody UpdateProductCategoryToProdCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductCategoryToProdCatalogResponse> updateProductCategoryToProdCatalog(@RequestBody UpdateProductCategoryToProdCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductCategoryToProdCatalog(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductCategoryToProdCatalogResponse::new);
     }
 
     /**
@@ -1340,9 +1357,8 @@ public class ProductController {
      * <p>service: test  entities: unknown  auth: false
      */
     @GetMapping("/catalog/control/chain")
-    public ResponseEntity<Map<String, Object>> test(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> test(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.test(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1350,7 +1366,7 @@ public class ProductController {
      * <p>service: -  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/checkAction")
-    public ResponseEntity<CreateProductFeatureIactnResponse> checkAction(@RequestParam Map<String, String> params) {
+    public ResponseEntity<CreateProductFeatureIactnResponse> checkAction(@RequestParam Map<String, String> params) throws java.sql.SQLException {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1360,7 +1376,7 @@ public class ProductController {
      * <p>service: -  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/checkRejected")
-    public ResponseEntity<Map<String, Object>> checkRejected(@RequestParam Map<String, String> params) {
+    public ResponseEntity<Map<String, Object>> checkRejected(@RequestParam Map<String, String> params) throws java.sql.SQLException {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -1370,9 +1386,8 @@ public class ProductController {
      * <p>service: chooseFrameImage  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/chooseFrameImage")
-    public ResponseEntity<Map<String, Object>> chooseFrameImage(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> chooseFrameImage(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.chooseFrameImage(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1380,9 +1395,9 @@ public class ProductController {
      * <p>service: copyCategoryProductMembers  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/copyCategoryProductMembers")
-    public ResponseEntity<CopyCategoryProductMembersResponse> copyCategoryProductMembers(@RequestBody CopyCategoryProductMembersRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CopyCategoryProductMembersResponse> copyCategoryProductMembers(@RequestBody CopyCategoryProductMembersRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.copyCategoryProductMembers(ServiceInput.toMap(request));
+        return wrap(result, CopyCategoryProductMembersResponse::new);
     }
 
     /**
@@ -1390,9 +1405,9 @@ public class ProductController {
      * <p>service: createBulkProductPromoCode  entities: ProductPromoCode  auth: true
      */
     @PostMapping("/catalog/control/createBulkProductPromoCode")
-    public ResponseEntity<CreateBulkProductPromoCodeResponse> createBulkProductPromoCode(@RequestBody CreateBulkProductPromoCodeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateBulkProductPromoCodeResponse> createBulkProductPromoCode(@RequestBody CreateBulkProductPromoCodeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createBulkProductPromoCode(ServiceInput.toMap(request));
+        return wrap(result, CreateBulkProductPromoCodeResponse::new);
     }
 
     /**
@@ -1400,9 +1415,9 @@ public class ProductController {
      * <p>service: createBulkProductPromoCodeEmail  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/createBulkProductPromoCodeEmail")
-    public ResponseEntity<CreateBulkProductPromoCodeEmailResponse> createBulkProductPromoCodeEmail(@RequestBody CreateBulkProductPromoCodeEmailRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateBulkProductPromoCodeEmailResponse> createBulkProductPromoCodeEmail(@RequestBody CreateBulkProductPromoCodeEmailRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createBulkProductPromoCodeEmail(ServiceInput.toMap(request));
+        return wrap(result, CreateBulkProductPromoCodeEmailResponse::new);
     }
 
     /**
@@ -1410,9 +1425,9 @@ public class ProductController {
      * <p>service: createCarrierShipmentMethod  entities: CarrierShipmentMethod  auth: true
      */
     @PostMapping("/catalog/control/createCarrierShipmentMethod")
-    public ResponseEntity<CreateCarrierShipmentMethodResponse> createCarrierShipmentMethod(@RequestBody CreateCarrierShipmentMethodRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateCarrierShipmentMethodResponse> createCarrierShipmentMethod(@RequestBody CreateCarrierShipmentMethodRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createCarrierShipmentMethod(ServiceInput.toMap(request));
+        return wrap(result, CreateCarrierShipmentMethodResponse::new);
     }
 
     /**
@@ -1420,9 +1435,8 @@ public class ProductController {
      * <p>service: createCommunicationEvent  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/createCommunicationEvent")
-    public ResponseEntity<Map<String, Object>> createCommunicationEvent(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCommunicationEvent(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createCommunicationEvent(body));
     }
 
     /**
@@ -1430,9 +1444,9 @@ public class ProductController {
      * <p>service: createCostComponent  entities: CostComponent  auth: true
      */
     @PostMapping("/catalog/control/createCostComponent")
-    public ResponseEntity<CreateCostComponentResponse> createCostComponent(@RequestBody CreateCostComponentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateCostComponentResponse> createCostComponent(@RequestBody CreateCostComponentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createCostComponent(ServiceInput.toMap(request));
+        return wrap(result, CreateCostComponentResponse::new);
     }
 
     /**
@@ -1440,9 +1454,9 @@ public class ProductController {
      * <p>service: createDownloadContentForCategory  entities: Content, ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/createDownloadContentForCategory")
-    public ResponseEntity<CreateDownloadContentForCategoryResponse> createDownloadContentForCategory(@RequestBody CreateDownloadContentForCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateDownloadContentForCategoryResponse> createDownloadContentForCategory(@RequestBody CreateDownloadContentForCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createDownloadContentForCategory(ServiceInput.toMap(request));
+        return wrap(result, CreateDownloadContentForCategoryResponse::new);
     }
 
     /**
@@ -1450,9 +1464,9 @@ public class ProductController {
      * <p>service: createDownloadContentForProduct  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/createDownloadContentForProduct")
-    public ResponseEntity<CreateDownloadContentForProductResponse> createDownloadContentForProduct(@RequestBody CreateDownloadContentForProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateDownloadContentForProductResponse> createDownloadContentForProduct(@RequestBody CreateDownloadContentForProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createDownloadContentForProduct(ServiceInput.toMap(request));
+        return wrap(result, CreateDownloadContentForProductResponse::new);
     }
 
     /**
@@ -1460,9 +1474,9 @@ public class ProductController {
      * <p>service: createEmailContentForProduct  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/createEmailContentForProduct")
-    public ResponseEntity<CreateEmailContentForProductResponse> createEmailContentForProduct(@RequestBody CreateEmailContentForProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmailContentForProductResponse> createEmailContentForProduct(@RequestBody CreateEmailContentForProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmailContentForProduct(ServiceInput.toMap(request));
+        return wrap(result, CreateEmailContentForProductResponse::new);
     }
 
     /**
@@ -1470,9 +1484,9 @@ public class ProductController {
      * <p>service: createProductContent  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/createExternalContentForProduct")
-    public ResponseEntity<CreateProductContentResponse> createProductContentCreateExternalContentForProduct(@RequestBody CreateProductContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductContentResponse> createProductContentCreateExternalContentForProduct(@RequestBody CreateProductContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductContent(ServiceInput.toMap(request));
+        return wrap(result, CreateProductContentResponse::new);
     }
 
     /**
@@ -1480,9 +1494,9 @@ public class ProductController {
      * <p>service: createFeaturePrice  entities: ProductFeaturePrice  auth: true
      */
     @PostMapping("/catalog/control/createFeaturePrice")
-    public ResponseEntity<CreateFeaturePriceResponse> createFeaturePrice(@RequestBody CreateFeaturePriceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFeaturePriceResponse> createFeaturePrice(@RequestBody CreateFeaturePriceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFeaturePrice(ServiceInput.toMap(request));
+        return wrap(result, CreateFeaturePriceResponse::new);
     }
 
     /**
@@ -1490,9 +1504,9 @@ public class ProductController {
      * <p>service: createGoodIdentification  entities: GoodIdentification  auth: true
      */
     @PostMapping("/catalog/control/createGoodIdentification")
-    public ResponseEntity<CreateGoodIdentificationResponse> createGoodIdentification(@RequestBody CreateGoodIdentificationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateGoodIdentificationResponse> createGoodIdentification(@RequestBody CreateGoodIdentificationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createGoodIdentification(ServiceInput.toMap(request));
+        return wrap(result, CreateGoodIdentificationResponse::new);
     }
 
     /**
@@ -1500,9 +1514,9 @@ public class ProductController {
      * <p>service: addImageFrame  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/createImageFrame")
-    public ResponseEntity<AddImageFrameResponse> addImageFrame(@RequestBody AddImageFrameRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddImageFrameResponse> addImageFrame(@RequestBody AddImageFrameRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addImageFrame(ServiceInput.toMap(request));
+        return wrap(result, AddImageFrameResponse::new);
     }
 
     /**
@@ -1510,9 +1524,8 @@ public class ProductController {
      * <p>service: createKeywordThesaurus  entities: KeywordThesaurus  auth: true
      */
     @PostMapping("/catalog/control/createKeywordThesaurus")
-    public ResponseEntity<Map<String, Object>> createKeywordThesaurus(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createKeywordThesaurus(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createKeywordThesaurus(body));
     }
 
     /**
@@ -1520,9 +1533,9 @@ public class ProductController {
      * <p>service: createProdCatalog  entities: ProdCatalog  auth: true
      */
     @PostMapping("/catalog/control/createProdCatalog")
-    public ResponseEntity<CreateProdCatalogResponse> createProdCatalog(@RequestBody CreateProdCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProdCatalogResponse> createProdCatalog(@RequestBody CreateProdCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProdCatalog(ServiceInput.toMap(request));
+        return wrap(result, CreateProdCatalogResponse::new);
     }
 
     /**
@@ -1530,9 +1543,9 @@ public class ProductController {
      * <p>service: createProductStoreCatalog  entities: ProductStoreCatalog  auth: true
      */
     @PostMapping("/catalog/control/createProdCatalogStore")
-    public ResponseEntity<CreateProductStoreCatalogResponse> createProductStoreCatalog(@RequestBody CreateProductStoreCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreCatalogResponse> createProductStoreCatalog(@RequestBody CreateProductStoreCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStoreCatalog(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreCatalogResponse::new);
     }
 
     /**
@@ -1540,9 +1553,9 @@ public class ProductController {
      * <p>service: createProduct  entities: Product  auth: true
      */
     @PostMapping("/catalog/control/createProduct")
-    public ResponseEntity<CreateProductResponse> createProduct(@RequestBody CreateProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductResponse> createProduct(@RequestBody CreateProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProduct(ServiceInput.toMap(request));
+        return wrap(result, CreateProductResponse::new);
     }
 
     /**
@@ -1550,9 +1563,9 @@ public class ProductController {
      * <p>service: createProductAssoc  entities: ProductAssoc  auth: true
      */
     @PostMapping("/catalog/control/createProductAssoc")
-    public ResponseEntity<CreateProductAssocResponse> createProductAssoc(@RequestBody CreateProductAssocRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductAssocResponse> createProductAssoc(@RequestBody CreateProductAssocRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductAssoc(ServiceInput.toMap(request));
+        return wrap(result, CreateProductAssocResponse::new);
     }
 
     /**
@@ -1560,9 +1573,9 @@ public class ProductController {
      * <p>service: createProductAttribute  entities: ProductAttribute  auth: true
      */
     @PostMapping("/catalog/control/createProductAttribute")
-    public ResponseEntity<CreateProductAttributeResponse> createProductAttribute(@RequestBody CreateProductAttributeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductAttributeResponse> createProductAttribute(@RequestBody CreateProductAttributeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductAttribute(ServiceInput.toMap(request));
+        return wrap(result, CreateProductAttributeResponse::new);
     }
 
     /**
@@ -1570,9 +1583,9 @@ public class ProductController {
      * <p>service: createProductCategory  entities: ProductCategory  auth: true
      */
     @PostMapping("/catalog/control/createProductCategory")
-    public ResponseEntity<CreateProductCategoryResponse> createProductCategory(@RequestBody CreateProductCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductCategoryResponse> createProductCategory(@RequestBody CreateProductCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductCategory(ServiceInput.toMap(request));
+        return wrap(result, CreateProductCategoryResponse::new);
     }
 
     /**
@@ -1580,9 +1593,9 @@ public class ProductController {
      * <p>service: createProductCategoryAttribute  entities: ProductCategoryAttribute  auth: true
      */
     @PostMapping("/catalog/control/createProductCategoryAttribute")
-    public ResponseEntity<CreateProductCategoryAttributeResponse> createProductCategoryAttribute(@RequestBody CreateProductCategoryAttributeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductCategoryAttributeResponse> createProductCategoryAttribute(@RequestBody CreateProductCategoryAttributeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductCategoryAttribute(ServiceInput.toMap(request));
+        return wrap(result, CreateProductCategoryAttributeResponse::new);
     }
 
     /**
@@ -1590,9 +1603,9 @@ public class ProductController {
      * <p>service: createProductCategoryLink  entities: ProductCategoryLink  auth: true
      */
     @PostMapping("/catalog/control/createProductCategoryLink")
-    public ResponseEntity<CreateProductCategoryLinkResponse> createProductCategoryLink(@RequestBody CreateProductCategoryLinkRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductCategoryLinkResponse> createProductCategoryLink(@RequestBody CreateProductCategoryLinkRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductCategoryLink(ServiceInput.toMap(request));
+        return wrap(result, CreateProductCategoryLinkResponse::new);
     }
 
     /**
@@ -1600,9 +1613,9 @@ public class ProductController {
      * <p>service: createProductConfig  entities: ProductConfig  auth: true
      */
     @PostMapping("/catalog/control/createProductConfig")
-    public ResponseEntity<CreateProductConfigResponse> createProductConfig(@RequestBody CreateProductConfigRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductConfigResponse> createProductConfig(@RequestBody CreateProductConfigRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductConfig(ServiceInput.toMap(request));
+        return wrap(result, CreateProductConfigResponse::new);
     }
 
     /**
@@ -1610,9 +1623,9 @@ public class ProductController {
      * <p>service: createProductConfigItem  entities: ProductConfigItem  auth: true
      */
     @PostMapping("/catalog/control/createProductConfigItem")
-    public ResponseEntity<CreateProductConfigItemResponse> createProductConfigItem(@RequestBody CreateProductConfigItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductConfigItemResponse> createProductConfigItem(@RequestBody CreateProductConfigItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductConfigItem(ServiceInput.toMap(request));
+        return wrap(result, CreateProductConfigItemResponse::new);
     }
 
     /**
@@ -1620,9 +1633,9 @@ public class ProductController {
      * <p>service: createProductConfigOption  entities: ProductConfigOption  auth: true
      */
     @PostMapping("/catalog/control/createProductConfigOption")
-    public ResponseEntity<CreateProductConfigOptionResponse> createProductConfigOption(@RequestBody CreateProductConfigOptionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductConfigOptionResponse> createProductConfigOption(@RequestBody CreateProductConfigOptionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductConfigOption(ServiceInput.toMap(request));
+        return wrap(result, CreateProductConfigOptionResponse::new);
     }
 
     /**
@@ -1630,9 +1643,9 @@ public class ProductController {
      * <p>service: createProductConfigProduct  entities: ProductConfigProduct  auth: true
      */
     @PostMapping("/catalog/control/createProductConfigProduct")
-    public ResponseEntity<CreateProductConfigProductResponse> createProductConfigProduct(@RequestBody CreateProductConfigProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductConfigProductResponse> createProductConfigProduct(@RequestBody CreateProductConfigProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductConfigProduct(ServiceInput.toMap(request));
+        return wrap(result, CreateProductConfigProductResponse::new);
     }
 
     /**
@@ -1640,9 +1653,9 @@ public class ProductController {
      * <p>service: createProductCostComponentCalc  entities: ProductCostComponentCalc  auth: true
      */
     @PostMapping("/catalog/control/createProductCostComponentCalc")
-    public ResponseEntity<CreateProductCostComponentCalcResponse> createProductCostComponentCalc(@RequestBody CreateProductCostComponentCalcRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductCostComponentCalcResponse> createProductCostComponentCalc(@RequestBody CreateProductCostComponentCalcRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductCostComponentCalc(ServiceInput.toMap(request));
+        return wrap(result, CreateProductCostComponentCalcResponse::new);
     }
 
     /**
@@ -1650,9 +1663,9 @@ public class ProductController {
      * <p>service: createProductFacility  entities: ProductFacility  auth: true
      */
     @PostMapping("/catalog/control/createProductFacility")
-    public ResponseEntity<CreateProductFacilityResponse> createProductFacility(@RequestBody CreateProductFacilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFacilityResponse> createProductFacility(@RequestBody CreateProductFacilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFacility(ServiceInput.toMap(request));
+        return wrap(result, CreateProductFacilityResponse::new);
     }
 
     /**
@@ -1660,9 +1673,9 @@ public class ProductController {
      * <p>service: createProductFacilityLocation  entities: ProductFacilityLocation  auth: true
      */
     @PostMapping("/catalog/control/createProductFacilityLocation")
-    public ResponseEntity<CreateProductFacilityLocationResponse> createProductFacilityLocation(@RequestBody CreateProductFacilityLocationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFacilityLocationResponse> createProductFacilityLocation(@RequestBody CreateProductFacilityLocationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFacilityLocation(ServiceInput.toMap(request));
+        return wrap(result, CreateProductFacilityLocationResponse::new);
     }
 
     /**
@@ -1670,9 +1683,9 @@ public class ProductController {
      * <p>service: createProductFeature  entities: ProductFeature  auth: true
      */
     @PostMapping("/catalog/control/createProductFeature")
-    public ResponseEntity<CreateProductFeatureResponse> createProductFeatureCreateProductFeature(@RequestBody CreateProductFeatureRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFeatureResponse> createProductFeatureCreateProductFeature(@RequestBody CreateProductFeatureRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFeature(ServiceInput.toMap(request));
+        return wrap(result, CreateProductFeatureResponse::new);
     }
 
     /**
@@ -1680,9 +1693,9 @@ public class ProductController {
      * <p>service: createProductFeatureApplAttr  entities: ProductFeatureApplAttr  auth: true
      */
     @PostMapping("/catalog/control/createProductFeatureApplAttr")
-    public ResponseEntity<CreateProductFeatureApplAttrResponse> createProductFeatureApplAttr(@RequestBody CreateProductFeatureApplAttrRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFeatureApplAttrResponse> createProductFeatureApplAttr(@RequestBody CreateProductFeatureApplAttrRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFeatureApplAttr(ServiceInput.toMap(request));
+        return wrap(result, CreateProductFeatureApplAttrResponse::new);
     }
 
     /**
@@ -1690,9 +1703,9 @@ public class ProductController {
      * <p>service: createProductFeatureCatGrpAppl  entities: ProductFeatureCatGrpAppl  auth: true
      */
     @PostMapping("/catalog/control/createProductFeatureCatGrpAppl")
-    public ResponseEntity<CreateProductFeatureCatGrpApplResponse> createProductFeatureCatGrpAppl(@RequestBody CreateProductFeatureCatGrpApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFeatureCatGrpApplResponse> createProductFeatureCatGrpAppl(@RequestBody CreateProductFeatureCatGrpApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFeatureCatGrpAppl(ServiceInput.toMap(request));
+        return wrap(result, CreateProductFeatureCatGrpApplResponse::new);
     }
 
     /**
@@ -1700,9 +1713,9 @@ public class ProductController {
      * <p>service: createProductFeatureCategoryAppl  entities: ProductFeatureCategoryAppl  auth: true
      */
     @PostMapping("/catalog/control/createProductFeatureCategoryAppl")
-    public ResponseEntity<CreateProductFeatureCategoryApplResponse> createProductFeatureCategoryAppl(@RequestBody CreateProductFeatureCategoryApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFeatureCategoryApplResponse> createProductFeatureCategoryAppl(@RequestBody CreateProductFeatureCategoryApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFeatureCategoryAppl(ServiceInput.toMap(request));
+        return wrap(result, CreateProductFeatureCategoryApplResponse::new);
     }
 
     /**
@@ -1710,9 +1723,9 @@ public class ProductController {
      * <p>service: createProductFeatureIactn  entities: ProductFeatureIactn  auth: true
      */
     @PostMapping("/catalog/control/createProductFeatureIactn")
-    public ResponseEntity<CreateProductFeatureIactnResponse> createProductFeatureIactnCreateProductFeatureIactn(@RequestBody CreateProductFeatureIactnRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFeatureIactnResponse> createProductFeatureIactnCreateProductFeatureIactn(@RequestBody CreateProductFeatureIactnRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFeatureIactn(ServiceInput.toMap(request));
+        return wrap(result, CreateProductFeatureIactnResponse::new);
     }
 
     /**
@@ -1720,9 +1733,9 @@ public class ProductController {
      * <p>service: createProductFeatureType  entities: ProductFeatureType  auth: true
      */
     @PostMapping("/catalog/control/createProductFeatureType")
-    public ResponseEntity<CreateProductFeatureTypeResponse> createProductFeatureType(@RequestBody CreateProductFeatureTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFeatureTypeResponse> createProductFeatureType(@RequestBody CreateProductFeatureTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFeatureType(ServiceInput.toMap(request));
+        return wrap(result, CreateProductFeatureTypeResponse::new);
     }
 
     /**
@@ -1730,9 +1743,9 @@ public class ProductController {
      * <p>service: createProductGeo  entities: ProductGeo  auth: true
      */
     @PostMapping("/catalog/control/createProductGeo")
-    public ResponseEntity<CreateProductGeoResponse> createProductGeo(@RequestBody CreateProductGeoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductGeoResponse> createProductGeo(@RequestBody CreateProductGeoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductGeo(ServiceInput.toMap(request));
+        return wrap(result, CreateProductGeoResponse::new);
     }
 
     /**
@@ -1740,9 +1753,9 @@ public class ProductController {
      * <p>service: createProductGlAccount  entities: ProductGlAccount  auth: true
      */
     @PostMapping("/catalog/control/createProductGlAccount")
-    public ResponseEntity<CreateProductGlAccountResponse> createProductGlAccount(@RequestBody CreateProductGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductGlAccountResponse> createProductGlAccount(@RequestBody CreateProductGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductGlAccount(ServiceInput.toMap(request));
+        return wrap(result, CreateProductGlAccountResponse::new);
     }
 
     /**
@@ -1750,9 +1763,9 @@ public class ProductController {
      * <p>service: createProductGroupOrder  entities: ProductGroupOrder  auth: true
      */
     @PostMapping("/catalog/control/createProductGroupOrder")
-    public ResponseEntity<CreateProductGroupOrderResponse> createProductGroupOrder(@RequestBody CreateProductGroupOrderRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductGroupOrderResponse> createProductGroupOrder(@RequestBody CreateProductGroupOrderRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductGroupOrder(ServiceInput.toMap(request));
+        return wrap(result, CreateProductGroupOrderResponse::new);
     }
 
     /**
@@ -1760,9 +1773,9 @@ public class ProductController {
      * <p>service: createProductInCategory  entities: Product, ProductCategory  auth: true
      */
     @PostMapping("/catalog/control/createProductInCategory")
-    public ResponseEntity<CreateProductInCategoryResponse> createProductInCategory(@RequestBody CreateProductInCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductInCategoryResponse> createProductInCategory(@RequestBody CreateProductInCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductInCategory(ServiceInput.toMap(request));
+        return wrap(result, CreateProductInCategoryResponse::new);
     }
 
     /**
@@ -1770,9 +1783,9 @@ public class ProductController {
      * <p>service: createProductKeyword  entities: ProductKeyword  auth: true
      */
     @PostMapping("/catalog/control/createProductKeyword")
-    public ResponseEntity<CreateProductKeywordResponse> createProductKeyword(@RequestBody CreateProductKeywordRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductKeywordResponse> createProductKeyword(@RequestBody CreateProductKeywordRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductKeyword(ServiceInput.toMap(request));
+        return wrap(result, CreateProductKeywordResponse::new);
     }
 
     /**
@@ -1780,9 +1793,9 @@ public class ProductController {
      * <p>service: createProductMaint  entities: ProductMaint  auth: true
      */
     @PostMapping("/catalog/control/createProductMaint")
-    public ResponseEntity<CreateProductMaintResponse> createProductMaint(@RequestBody CreateProductMaintRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductMaintResponse> createProductMaint(@RequestBody CreateProductMaintRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductMaint(ServiceInput.toMap(request));
+        return wrap(result, CreateProductMaintResponse::new);
     }
 
     /**
@@ -1790,9 +1803,9 @@ public class ProductController {
      * <p>service: createProductMeter  entities: ProductMeter  auth: true
      */
     @PostMapping("/catalog/control/createProductMeter")
-    public ResponseEntity<CreateProductMeterResponse> createProductMeter(@RequestBody CreateProductMeterRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductMeterResponse> createProductMeter(@RequestBody CreateProductMeterRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductMeter(ServiceInput.toMap(request));
+        return wrap(result, CreateProductMeterResponse::new);
     }
 
     /**
@@ -1800,9 +1813,9 @@ public class ProductController {
      * <p>service: createProductPaymentMethodType  entities: ProductPaymentMethodType  auth: true
      */
     @PostMapping("/catalog/control/createProductPaymentMethodType")
-    public ResponseEntity<CreateProductPaymentMethodTypeResponse> createProductPaymentMethodType(@RequestBody CreateProductPaymentMethodTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPaymentMethodTypeResponse> createProductPaymentMethodType(@RequestBody CreateProductPaymentMethodTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPaymentMethodType(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPaymentMethodTypeResponse::new);
     }
 
     /**
@@ -1810,9 +1823,9 @@ public class ProductController {
      * <p>service: createProductPrice  entities: ProductPrice  auth: true
      */
     @PostMapping("/catalog/control/createProductPrice")
-    public ResponseEntity<CreateProductPriceResponse> createProductPrice(@RequestBody CreateProductPriceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPriceResponse> createProductPrice(@RequestBody CreateProductPriceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPrice(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPriceResponse::new);
     }
 
     /**
@@ -1820,9 +1833,9 @@ public class ProductController {
      * <p>service: createProductPriceAction  entities: ProductPriceAction  auth: true
      */
     @PostMapping("/catalog/control/createProductPriceAction")
-    public ResponseEntity<CreateProductPriceActionResponse> createProductPriceAction(@RequestBody CreateProductPriceActionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPriceActionResponse> createProductPriceAction(@RequestBody CreateProductPriceActionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPriceAction(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPriceActionResponse::new);
     }
 
     /**
@@ -1830,9 +1843,9 @@ public class ProductController {
      * <p>service: createProductPriceCond  entities: ProductPriceCond  auth: true
      */
     @PostMapping("/catalog/control/createProductPriceCond")
-    public ResponseEntity<CreateProductPriceCondResponse> createProductPriceCond(@RequestBody CreateProductPriceCondRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPriceCondResponse> createProductPriceCond(@RequestBody CreateProductPriceCondRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPriceCond(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPriceCondResponse::new);
     }
 
     /**
@@ -1840,9 +1853,9 @@ public class ProductController {
      * <p>service: createProductPriceRule  entities: ProductPriceRule  auth: true
      */
     @PostMapping("/catalog/control/createProductPriceRule")
-    public ResponseEntity<CreateProductPriceRuleResponse> createProductPriceRule(@RequestBody CreateProductPriceRuleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPriceRuleResponse> createProductPriceRule(@RequestBody CreateProductPriceRuleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPriceRule(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPriceRuleResponse::new);
     }
 
     /**
@@ -1850,9 +1863,9 @@ public class ProductController {
      * <p>service: createProductPromo  entities: ProductPromo  auth: true
      */
     @PostMapping("/catalog/control/createProductPromo")
-    public ResponseEntity<CreateProductPromoResponse> createProductPromo(@RequestBody CreateProductPromoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPromoResponse> createProductPromo(@RequestBody CreateProductPromoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPromo(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPromoResponse::new);
     }
 
     /**
@@ -1860,9 +1873,9 @@ public class ProductController {
      * <p>service: createProductPromoAction  entities: ProductPromoAction  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoAction")
-    public ResponseEntity<CreateProductPromoActionResponse> createProductPromoAction(@RequestBody CreateProductPromoActionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPromoActionResponse> createProductPromoAction(@RequestBody CreateProductPromoActionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPromoAction(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPromoActionResponse::new);
     }
 
     /**
@@ -1870,9 +1883,9 @@ public class ProductController {
      * <p>service: createProductPromoCategory  entities: ProductPromoCategory  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoCategory")
-    public ResponseEntity<CreateProductPromoCategoryResponse> createProductPromoCategory(@RequestBody CreateProductPromoCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPromoCategoryResponse> createProductPromoCategory(@RequestBody CreateProductPromoCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPromoCategory(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPromoCategoryResponse::new);
     }
 
     /**
@@ -1880,9 +1893,9 @@ public class ProductController {
      * <p>service: createProductPromoCode  entities: ProductPromoCode  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoCode")
-    public ResponseEntity<CreateProductPromoCodeResponse> createProductPromoCode(@RequestBody CreateProductPromoCodeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPromoCodeResponse> createProductPromoCode(@RequestBody CreateProductPromoCodeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPromoCode(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPromoCodeResponse::new);
     }
 
     /**
@@ -1890,9 +1903,8 @@ public class ProductController {
      * <p>service: createProductPromoCodeEmail  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoCodeEmail")
-    public ResponseEntity<Map<String, Object>> createProductPromoCodeEmail(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createProductPromoCodeEmail(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createProductPromoCodeEmail(body));
     }
 
     /**
@@ -1900,9 +1912,9 @@ public class ProductController {
      * <p>service: createProductPromoCodeParty  entities: ProductPromoCodeParty  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoCodeParty")
-    public ResponseEntity<CreateProductPromoCodePartyResponse> createProductPromoCodeParty(@RequestBody CreateProductPromoCodePartyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPromoCodePartyResponse> createProductPromoCodeParty(@RequestBody CreateProductPromoCodePartyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPromoCodeParty(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPromoCodePartyResponse::new);
     }
 
     /**
@@ -1910,9 +1922,9 @@ public class ProductController {
      * <p>service: createProductPromoCodeSet  entities: ProductPromoCode  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoCodeSet")
-    public ResponseEntity<CreateProductPromoCodeSetResponse> createProductPromoCodeSet(@RequestBody CreateProductPromoCodeSetRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPromoCodeSetResponse> createProductPromoCodeSet(@RequestBody CreateProductPromoCodeSetRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPromoCodeSet(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPromoCodeSetResponse::new);
     }
 
     /**
@@ -1920,9 +1932,9 @@ public class ProductController {
      * <p>service: createProductPromoCond  entities: ProductPromoCond  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoCond")
-    public ResponseEntity<CreateProductPromoCondResponse> createProductPromoCond(@RequestBody CreateProductPromoCondRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPromoCondResponse> createProductPromoCond(@RequestBody CreateProductPromoCondRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPromoCond(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPromoCondResponse::new);
     }
 
     /**
@@ -1930,9 +1942,9 @@ public class ProductController {
      * <p>service: createProductPromoProduct  entities: ProductPromoProduct  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoProduct")
-    public ResponseEntity<CreateProductPromoProductResponse> createProductPromoProduct(@RequestBody CreateProductPromoProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPromoProductResponse> createProductPromoProduct(@RequestBody CreateProductPromoProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPromoProduct(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPromoProductResponse::new);
     }
 
     /**
@@ -1940,9 +1952,9 @@ public class ProductController {
      * <p>service: createProductPromoRule  entities: ProductPromoRule  auth: true
      */
     @PostMapping("/catalog/control/createProductPromoRule")
-    public ResponseEntity<CreateProductPromoRuleResponse> createProductPromoRule(@RequestBody CreateProductPromoRuleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductPromoRuleResponse> createProductPromoRule(@RequestBody CreateProductPromoRuleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductPromoRule(ServiceInput.toMap(request));
+        return wrap(result, CreateProductPromoRuleResponse::new);
     }
 
     /**
@@ -1950,9 +1962,9 @@ public class ProductController {
      * <p>service: createProductStore  entities: ProductStore  auth: true
      */
     @PostMapping("/catalog/control/createProductStore")
-    public ResponseEntity<CreateProductStoreResponse> createProductStore(@RequestBody CreateProductStoreRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreResponse> createProductStore(@RequestBody CreateProductStoreRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStore(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreResponse::new);
     }
 
     /**
@@ -1960,9 +1972,9 @@ public class ProductController {
      * <p>service: createProductStoreCatalog  entities: ProductStoreCatalog  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreCatalog")
-    public ResponseEntity<CreateProductStoreCatalogResponse> createProductStoreCatalogCreateProductStoreCatalog(@RequestBody CreateProductStoreCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreCatalogResponse> createProductStoreCatalogCreateProductStoreCatalog(@RequestBody CreateProductStoreCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStoreCatalog(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreCatalogResponse::new);
     }
 
     /**
@@ -1970,9 +1982,9 @@ public class ProductController {
      * <p>service: createProductStoreEmailSetting  entities: ProductStoreEmailSetting  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreEmail")
-    public ResponseEntity<CreateProductStoreEmailSettingResponse> createProductStoreEmailSetting(@RequestBody CreateProductStoreEmailSettingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreEmailSettingResponse> createProductStoreEmailSetting(@RequestBody CreateProductStoreEmailSettingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStoreEmailSetting(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreEmailSettingResponse::new);
     }
 
     /**
@@ -1980,9 +1992,9 @@ public class ProductController {
      * <p>service: createProductStoreGroup  entities: ProductStoreGroup  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreGroup")
-    public ResponseEntity<CreateProductStoreGroupResponse> createProductStoreGroup(@RequestBody CreateProductStoreGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreGroupResponse> createProductStoreGroup(@RequestBody CreateProductStoreGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStoreGroup(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreGroupResponse::new);
     }
 
     /**
@@ -1990,9 +2002,9 @@ public class ProductController {
      * <p>service: createProductStoreKeywordOvrd  entities: ProductStoreKeywordOvrd  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreKeywordOvrd")
-    public ResponseEntity<CreateProductStoreKeywordOvrdResponse> createProductStoreKeywordOvrd(@RequestBody CreateProductStoreKeywordOvrdRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreKeywordOvrdResponse> createProductStoreKeywordOvrd(@RequestBody CreateProductStoreKeywordOvrdRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStoreKeywordOvrd(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreKeywordOvrdResponse::new);
     }
 
     /**
@@ -2000,9 +2012,9 @@ public class ProductController {
      * <p>service: createProductStorePromoAppl  entities: ProductStorePromoAppl  auth: true
      */
     @PostMapping("/catalog/control/createProductStorePromoAppl")
-    public ResponseEntity<CreateProductStorePromoApplResponse> createProductStorePromoAppl(@RequestBody CreateProductStorePromoApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStorePromoApplResponse> createProductStorePromoAppl(@RequestBody CreateProductStorePromoApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStorePromoAppl(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStorePromoApplResponse::new);
     }
 
     /**
@@ -2010,9 +2022,9 @@ public class ProductController {
      * <p>service: createProductStoreSurveyAppl  entities: ProductStoreSurveyAppl  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreSurveyAppl")
-    public ResponseEntity<CreateProductStoreSurveyApplResponse> createProductStoreSurveyAppl(@RequestBody CreateProductStoreSurveyApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreSurveyApplResponse> createProductStoreSurveyAppl(@RequestBody CreateProductStoreSurveyApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStoreSurveyAppl(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreSurveyApplResponse::new);
     }
 
     /**
@@ -2020,9 +2032,9 @@ public class ProductController {
      * <p>service: createProductStoreVendorPayment  entities: ProductStoreVendorPayment  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreVendorPayment")
-    public ResponseEntity<CreateProductStoreVendorPaymentResponse> createProductStoreVendorPayment(@RequestBody CreateProductStoreVendorPaymentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreVendorPaymentResponse> createProductStoreVendorPayment(@RequestBody CreateProductStoreVendorPaymentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStoreVendorPayment(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreVendorPaymentResponse::new);
     }
 
     /**
@@ -2030,9 +2042,9 @@ public class ProductController {
      * <p>service: createProductStoreVendorShipment  entities: ProductStoreVendorShipment  auth: true
      */
     @PostMapping("/catalog/control/createProductStoreVendorShipment")
-    public ResponseEntity<CreateProductStoreVendorShipmentResponse> createProductStoreVendorShipment(@RequestBody CreateProductStoreVendorShipmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreVendorShipmentResponse> createProductStoreVendorShipment(@RequestBody CreateProductStoreVendorShipmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStoreVendorShipment(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreVendorShipmentResponse::new);
     }
 
     /**
@@ -2040,9 +2052,9 @@ public class ProductController {
      * <p>service: createProductSubscriptionResource  entities: ProductSubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/createProductSubscriptionResource")
-    public ResponseEntity<CreateProductSubscriptionResourceResponse> createProductSubscriptionResource(@RequestBody CreateProductSubscriptionResourceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductSubscriptionResourceResponse> createProductSubscriptionResource(@RequestBody CreateProductSubscriptionResourceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductSubscriptionResource(ServiceInput.toMap(request));
+        return wrap(result, CreateProductSubscriptionResourceResponse::new);
     }
 
     /**
@@ -2050,9 +2062,9 @@ public class ProductController {
      * <p>service: createProductSubscriptionResource  entities: ProductSubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/createProductSubscriptionResourceSr")
-    public ResponseEntity<CreateProductSubscriptionResourceResponse> createProductSubscriptionResourceCreateProductSubscriptionResourceSr(@RequestBody CreateProductSubscriptionResourceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductSubscriptionResourceResponse> createProductSubscriptionResourceCreateProductSubscriptionResourceSr(@RequestBody CreateProductSubscriptionResourceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductSubscriptionResource(ServiceInput.toMap(request));
+        return wrap(result, CreateProductSubscriptionResourceResponse::new);
     }
 
     /**
@@ -2060,9 +2072,9 @@ public class ProductController {
      * <p>service: createQuantityBreak  entities: QuantityBreak  auth: true
      */
     @PostMapping("/catalog/control/createQuantityBreak")
-    public ResponseEntity<CreateQuantityBreakResponse> createQuantityBreak(@RequestBody CreateQuantityBreakRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateQuantityBreakResponse> createQuantityBreak(@RequestBody CreateQuantityBreakRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createQuantityBreak(ServiceInput.toMap(request));
+        return wrap(result, CreateQuantityBreakResponse::new);
     }
 
     /**
@@ -2070,9 +2082,9 @@ public class ProductController {
      * <p>service: createRelatedUrlContentForCategory  entities: ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/createRelatedUrlContentForCategory")
-    public ResponseEntity<CreateRelatedUrlContentForCategoryResponse> createRelatedUrlContentForCategory(@RequestBody CreateRelatedUrlContentForCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateRelatedUrlContentForCategoryResponse> createRelatedUrlContentForCategory(@RequestBody CreateRelatedUrlContentForCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createRelatedUrlContentForCategory(ServiceInput.toMap(request));
+        return wrap(result, CreateRelatedUrlContentForCategoryResponse::new);
     }
 
     /**
@@ -2080,9 +2092,9 @@ public class ProductController {
      * <p>service: createSalesAgreement  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/createSalesAgreement")
-    public ResponseEntity<CreateSalesAgreementResponse> createSalesAgreement(@RequestBody CreateSalesAgreementRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSalesAgreementResponse> createSalesAgreement(@RequestBody CreateSalesAgreementRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSalesAgreement(ServiceInput.toMap(request));
+        return wrap(result, CreateSalesAgreementResponse::new);
     }
 
     /**
@@ -2090,9 +2102,9 @@ public class ProductController {
      * <p>service: createShipmentMethodType  entities: ShipmentMethodType  auth: true
      */
     @PostMapping("/catalog/control/createShipmentMethodType")
-    public ResponseEntity<CreateShipmentMethodTypeResponse> createShipmentMethodType(@RequestBody CreateShipmentMethodTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateShipmentMethodTypeResponse> createShipmentMethodType(@RequestBody CreateShipmentMethodTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createShipmentMethodType(ServiceInput.toMap(request));
+        return wrap(result, CreateShipmentMethodTypeResponse::new);
     }
 
     /**
@@ -2100,9 +2112,9 @@ public class ProductController {
      * <p>service: createShipmentTimeEstimate  entities: ShipmentTimeEstimate  auth: true
      */
     @PostMapping("/catalog/control/createShipmentTimeEstimate")
-    public ResponseEntity<CreateShipmentTimeEstimateResponse> createShipmentTimeEstimate(@RequestBody CreateShipmentTimeEstimateRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateShipmentTimeEstimateResponse> createShipmentTimeEstimate(@RequestBody CreateShipmentTimeEstimateRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createShipmentTimeEstimate(ServiceInput.toMap(request));
+        return wrap(result, CreateShipmentTimeEstimateResponse::new);
     }
 
     /**
@@ -2110,9 +2122,9 @@ public class ProductController {
      * <p>service: createSimpleTextContentForAlternateLocale  entities: Content  auth: true
      */
     @PostMapping("/catalog/control/createSimpleTextContentForAlternateLocale")
-    public ResponseEntity<CreateSimpleTextContentForAlternateLocaleResponse> createSimpleTextContentForAlternateLocale(@RequestBody CreateSimpleTextContentForAlternateLocaleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSimpleTextContentForAlternateLocaleResponse> createSimpleTextContentForAlternateLocale(@RequestBody CreateSimpleTextContentForAlternateLocaleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSimpleTextContentForAlternateLocale(ServiceInput.toMap(request));
+        return wrap(result, CreateSimpleTextContentForAlternateLocaleResponse::new);
     }
 
     /**
@@ -2120,9 +2132,9 @@ public class ProductController {
      * <p>service: createSimpleTextContentForAlternateLocale  entities: Content  auth: true
      */
     @PostMapping("/catalog/control/createSimpleTextContentForAlternateLocaleInCategory")
-    public ResponseEntity<CreateSimpleTextContentForAlternateLocaleResponse> createSimpleTextContentForAlternateLocaleCreateSimpleTextContentForAlternateLocaleInCategory(@RequestBody CreateSimpleTextContentForAlternateLocaleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSimpleTextContentForAlternateLocaleResponse> createSimpleTextContentForAlternateLocaleCreateSimpleTextContentForAlternateLocaleInCategory(@RequestBody CreateSimpleTextContentForAlternateLocaleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSimpleTextContentForAlternateLocale(ServiceInput.toMap(request));
+        return wrap(result, CreateSimpleTextContentForAlternateLocaleResponse::new);
     }
 
     /**
@@ -2130,9 +2142,9 @@ public class ProductController {
      * <p>service: createSimpleTextContentForCategory  entities: Content, ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/createSimpleTextContentForCategory")
-    public ResponseEntity<CreateSimpleTextContentForCategoryResponse> createSimpleTextContentForCategory(@RequestBody CreateSimpleTextContentForCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSimpleTextContentForCategoryResponse> createSimpleTextContentForCategory(@RequestBody CreateSimpleTextContentForCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSimpleTextContentForCategory(ServiceInput.toMap(request));
+        return wrap(result, CreateSimpleTextContentForCategoryResponse::new);
     }
 
     /**
@@ -2140,9 +2152,9 @@ public class ProductController {
      * <p>service: createSimpleTextContentForProduct  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/createSimpleTextContentForProduct")
-    public ResponseEntity<CreateSimpleTextContentForProductResponse> createSimpleTextContentForProduct(@RequestBody CreateSimpleTextContentForProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSimpleTextContentForProductResponse> createSimpleTextContentForProduct(@RequestBody CreateSimpleTextContentForProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSimpleTextContentForProduct(ServiceInput.toMap(request));
+        return wrap(result, CreateSimpleTextContentForProductResponse::new);
     }
 
     /**
@@ -2150,9 +2162,9 @@ public class ProductController {
      * <p>service: createSimpleTextContentForProductConfigItem  entities: Content, ProdConfItemContent  auth: true
      */
     @PostMapping("/catalog/control/createSimpleTextContentForProductConfigItem")
-    public ResponseEntity<CreateSimpleTextContentForProductConfigItemResponse> createSimpleTextContentForProductConfigItem(@RequestBody CreateSimpleTextContentForProductConfigItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSimpleTextContentForProductConfigItemResponse> createSimpleTextContentForProductConfigItem(@RequestBody CreateSimpleTextContentForProductConfigItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSimpleTextContentForProductConfigItem(ServiceInput.toMap(request));
+        return wrap(result, CreateSimpleTextContentForProductConfigItemResponse::new);
     }
 
     /**
@@ -2160,9 +2172,9 @@ public class ProductController {
      * <p>service: createSubscription  entities: Subscription  auth: true
      */
     @PostMapping("/catalog/control/createSubscription")
-    public ResponseEntity<CreateSubscriptionResponse> createSubscription(@RequestBody CreateSubscriptionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSubscriptionResponse> createSubscription(@RequestBody CreateSubscriptionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSubscription(ServiceInput.toMap(request));
+        return wrap(result, CreateSubscriptionResponse::new);
     }
 
     /**
@@ -2170,9 +2182,9 @@ public class ProductController {
      * <p>service: createSubscriptionCommEvent  entities: SubscriptionCommEvent  auth: true
      */
     @PostMapping("/catalog/control/createSubscriptionCommEvent")
-    public ResponseEntity<CreateSubscriptionCommEventResponse> createSubscriptionCommEvent(@RequestBody CreateSubscriptionCommEventRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSubscriptionCommEventResponse> createSubscriptionCommEvent(@RequestBody CreateSubscriptionCommEventRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSubscriptionCommEvent(ServiceInput.toMap(request));
+        return wrap(result, CreateSubscriptionCommEventResponse::new);
     }
 
     /**
@@ -2180,9 +2192,9 @@ public class ProductController {
      * <p>service: createSubscriptionResource  entities: SubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/createSubscriptionResource")
-    public ResponseEntity<CreateSubscriptionResourceResponse> createSubscriptionResource(@RequestBody CreateSubscriptionResourceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSubscriptionResourceResponse> createSubscriptionResource(@RequestBody CreateSubscriptionResourceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSubscriptionResource(ServiceInput.toMap(request));
+        return wrap(result, CreateSubscriptionResourceResponse::new);
     }
 
     /**
@@ -2190,9 +2202,9 @@ public class ProductController {
      * <p>service: createSupplierProduct  entities: SupplierProduct  auth: true
      */
     @PostMapping("/catalog/control/createSupplierProduct")
-    public ResponseEntity<CreateSupplierProductResponse> createSupplierProduct(@RequestBody CreateSupplierProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSupplierProductResponse> createSupplierProduct(@RequestBody CreateSupplierProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSupplierProduct(ServiceInput.toMap(request));
+        return wrap(result, CreateSupplierProductResponse::new);
     }
 
     /**
@@ -2200,9 +2212,9 @@ public class ProductController {
      * <p>service: createSupplierProductFeature  entities: SupplierProductFeature  auth: true
      */
     @PostMapping("/catalog/control/createSupplierProductFeature")
-    public ResponseEntity<CreateSupplierProductFeatureResponse> createSupplierProductFeature(@RequestBody CreateSupplierProductFeatureRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSupplierProductFeatureResponse> createSupplierProductFeature(@RequestBody CreateSupplierProductFeatureRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSupplierProductFeature(ServiceInput.toMap(request));
+        return wrap(result, CreateSupplierProductFeatureResponse::new);
     }
 
     /**
@@ -2210,9 +2222,9 @@ public class ProductController {
      * <p>service: createVendorProduct  entities: VendorProduct  auth: true
      */
     @PostMapping("/catalog/control/createVendorProduct")
-    public ResponseEntity<CreateVendorProductResponse> createVendorProduct(@RequestBody CreateVendorProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateVendorProductResponse> createVendorProduct(@RequestBody CreateVendorProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createVendorProduct(ServiceInput.toMap(request));
+        return wrap(result, CreateVendorProductResponse::new);
     }
 
     /**
@@ -2220,9 +2232,8 @@ public class ProductController {
      * <p>service: createWorkEffortGoodStandard  entities: WorkEffortGoodStandard  auth: true
      */
     @PostMapping("/catalog/control/createWorkEffortGoodStandard")
-    public ResponseEntity<Map<String, Object>> createWorkEffortGoodStandard(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createWorkEffortGoodStandard(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createWorkEffortGoodStandard(body));
     }
 
     /**
@@ -2230,9 +2241,9 @@ public class ProductController {
      * <p>service: deleteCarrierShipmentMethod  entities: CarrierShipmentMethod  auth: true
      */
     @PostMapping("/catalog/control/deleteCarrierShipmentMethod")
-    public ResponseEntity<DeleteCarrierShipmentMethodResponse> deleteCarrierShipmentMethod(@RequestBody DeleteCarrierShipmentMethodRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteCarrierShipmentMethodResponse> deleteCarrierShipmentMethod(@RequestBody DeleteCarrierShipmentMethodRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteCarrierShipmentMethod(ServiceInput.toMap(request));
+        return wrap(result, DeleteCarrierShipmentMethodResponse::new);
     }
 
     /**
@@ -2240,9 +2251,9 @@ public class ProductController {
      * <p>service: deleteCostComponent  entities: CostComponent  auth: true
      */
     @PostMapping("/catalog/control/deleteCostComponent")
-    public ResponseEntity<DeleteCostComponentResponse> deleteCostComponent(@RequestBody DeleteCostComponentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteCostComponentResponse> deleteCostComponent(@RequestBody DeleteCostComponentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteCostComponent(ServiceInput.toMap(request));
+        return wrap(result, DeleteCostComponentResponse::new);
     }
 
     /**
@@ -2250,9 +2261,9 @@ public class ProductController {
      * <p>service: deleteFeaturePrice  entities: ProductFeaturePrice  auth: true
      */
     @PostMapping("/catalog/control/deleteFeaturePrice")
-    public ResponseEntity<DeleteFeaturePriceResponse> deleteFeaturePrice(@RequestBody DeleteFeaturePriceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFeaturePriceResponse> deleteFeaturePrice(@RequestBody DeleteFeaturePriceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFeaturePrice(ServiceInput.toMap(request));
+        return wrap(result, DeleteFeaturePriceResponse::new);
     }
 
     /**
@@ -2260,9 +2271,9 @@ public class ProductController {
      * <p>service: deleteGoodIdentification  entities: GoodIdentification  auth: true
      */
     @PostMapping("/catalog/control/deleteGoodIdentification")
-    public ResponseEntity<DeleteGoodIdentificationResponse> deleteGoodIdentification(@RequestBody DeleteGoodIdentificationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteGoodIdentificationResponse> deleteGoodIdentification(@RequestBody DeleteGoodIdentificationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteGoodIdentification(ServiceInput.toMap(request));
+        return wrap(result, DeleteGoodIdentificationResponse::new);
     }
 
     /**
@@ -2270,9 +2281,8 @@ public class ProductController {
      * <p>service: deleteKeywordThesaurus  entities: KeywordThesaurus  auth: true
      */
     @PostMapping("/catalog/control/deleteKeywordThesaurus")
-    public ResponseEntity<Map<String, Object>> deleteKeywordThesaurus(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deleteKeywordThesaurus(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deleteKeywordThesaurus(body));
     }
 
     /**
@@ -2280,9 +2290,9 @@ public class ProductController {
      * <p>service: deleteProductStoreCatalog  entities: ProductStoreCatalog  auth: true
      */
     @PostMapping("/catalog/control/deleteProdCatalogStore")
-    public ResponseEntity<DeleteProductStoreCatalogResponse> deleteProductStoreCatalog(@RequestBody DeleteProductStoreCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductStoreCatalogResponse> deleteProductStoreCatalog(@RequestBody DeleteProductStoreCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductStoreCatalog(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductStoreCatalogResponse::new);
     }
 
     /**
@@ -2290,9 +2300,9 @@ public class ProductController {
      * <p>service: deleteProductAssoc  entities: ProductAssoc  auth: true
      */
     @PostMapping("/catalog/control/deleteProductAssoc")
-    public ResponseEntity<DeleteProductAssocResponse> deleteProductAssoc(@RequestBody DeleteProductAssocRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductAssocResponse> deleteProductAssoc(@RequestBody DeleteProductAssocRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductAssoc(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductAssocResponse::new);
     }
 
     /**
@@ -2300,9 +2310,9 @@ public class ProductController {
      * <p>service: deleteProductAttribute  entities: ProductAttribute  auth: true
      */
     @PostMapping("/catalog/control/deleteProductAttribute")
-    public ResponseEntity<DeleteProductAttributeResponse> deleteProductAttribute(@RequestBody DeleteProductAttributeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductAttributeResponse> deleteProductAttribute(@RequestBody DeleteProductAttributeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductAttribute(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductAttributeResponse::new);
     }
 
     /**
@@ -2310,9 +2320,9 @@ public class ProductController {
      * <p>service: deleteProductCategoryAttribute  entities: ProductCategoryAttribute  auth: true
      */
     @PostMapping("/catalog/control/deleteProductCategoryAttribute")
-    public ResponseEntity<DeleteProductCategoryAttributeResponse> deleteProductCategoryAttribute(@RequestBody DeleteProductCategoryAttributeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductCategoryAttributeResponse> deleteProductCategoryAttribute(@RequestBody DeleteProductCategoryAttributeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductCategoryAttribute(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductCategoryAttributeResponse::new);
     }
 
     /**
@@ -2320,9 +2330,9 @@ public class ProductController {
      * <p>service: deleteProductCategoryLink  entities: ProductCategoryLink  auth: true
      */
     @PostMapping("/catalog/control/deleteProductCategoryLink")
-    public ResponseEntity<DeleteProductCategoryLinkResponse> deleteProductCategoryLink(@RequestBody DeleteProductCategoryLinkRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductCategoryLinkResponse> deleteProductCategoryLink(@RequestBody DeleteProductCategoryLinkRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductCategoryLink(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductCategoryLinkResponse::new);
     }
 
     /**
@@ -2330,9 +2340,9 @@ public class ProductController {
      * <p>service: deleteProductConfig  entities: ProductConfig  auth: true
      */
     @PostMapping("/catalog/control/deleteProductConfig")
-    public ResponseEntity<DeleteProductConfigResponse> deleteProductConfig(@RequestBody DeleteProductConfigRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductConfigResponse> deleteProductConfig(@RequestBody DeleteProductConfigRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductConfig(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductConfigResponse::new);
     }
 
     /**
@@ -2340,9 +2350,9 @@ public class ProductController {
      * <p>service: deleteProductConfigItem  entities: ProductConfigItem  auth: true
      */
     @PostMapping("/catalog/control/deleteProductConfigItem")
-    public ResponseEntity<DeleteProductConfigItemResponse> deleteProductConfigItem(@RequestBody DeleteProductConfigItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductConfigItemResponse> deleteProductConfigItem(@RequestBody DeleteProductConfigItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductConfigItem(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductConfigItemResponse::new);
     }
 
     /**
@@ -2350,9 +2360,9 @@ public class ProductController {
      * <p>service: deleteProductConfigOption  entities: ProductConfigOption  auth: true
      */
     @PostMapping("/catalog/control/deleteProductConfigOption")
-    public ResponseEntity<DeleteProductConfigOptionResponse> deleteProductConfigOption(@RequestBody DeleteProductConfigOptionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductConfigOptionResponse> deleteProductConfigOption(@RequestBody DeleteProductConfigOptionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductConfigOption(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductConfigOptionResponse::new);
     }
 
     /**
@@ -2360,9 +2370,9 @@ public class ProductController {
      * <p>service: deleteProductConfigProduct  entities: ProductConfigProduct  auth: true
      */
     @PostMapping("/catalog/control/deleteProductConfigProduct")
-    public ResponseEntity<DeleteProductConfigProductResponse> deleteProductConfigProduct(@RequestBody DeleteProductConfigProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductConfigProductResponse> deleteProductConfigProduct(@RequestBody DeleteProductConfigProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductConfigProduct(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductConfigProductResponse::new);
     }
 
     /**
@@ -2370,9 +2380,9 @@ public class ProductController {
      * <p>service: deleteProductCostComponentCalc  entities: ProductCostComponentCalc  auth: true
      */
     @PostMapping("/catalog/control/deleteProductCostComponentCalc")
-    public ResponseEntity<DeleteProductCostComponentCalcResponse> deleteProductCostComponentCalc(@RequestBody DeleteProductCostComponentCalcRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductCostComponentCalcResponse> deleteProductCostComponentCalc(@RequestBody DeleteProductCostComponentCalcRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductCostComponentCalc(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductCostComponentCalcResponse::new);
     }
 
     /**
@@ -2380,9 +2390,9 @@ public class ProductController {
      * <p>service: deleteProductFacility  entities: ProductFacility  auth: true
      */
     @PostMapping("/catalog/control/deleteProductFacility")
-    public ResponseEntity<DeleteProductFacilityResponse> deleteProductFacility(@RequestBody DeleteProductFacilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductFacilityResponse> deleteProductFacility(@RequestBody DeleteProductFacilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductFacility(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductFacilityResponse::new);
     }
 
     /**
@@ -2390,9 +2400,9 @@ public class ProductController {
      * <p>service: deleteProductFacilityLocation  entities: ProductFacilityLocation  auth: true
      */
     @PostMapping("/catalog/control/deleteProductFacilityLocation")
-    public ResponseEntity<DeleteProductFacilityLocationResponse> deleteProductFacilityLocation(@RequestBody DeleteProductFacilityLocationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductFacilityLocationResponse> deleteProductFacilityLocation(@RequestBody DeleteProductFacilityLocationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductFacilityLocation(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductFacilityLocationResponse::new);
     }
 
     /**
@@ -2400,9 +2410,9 @@ public class ProductController {
      * <p>service: removeProductFeatureApplAttr  entities: ProductFeatureApplAttr  auth: true
      */
     @PostMapping("/catalog/control/deleteProductFeatureApplAttr")
-    public ResponseEntity<RemoveProductFeatureApplAttrResponse> removeProductFeatureApplAttr(@RequestBody RemoveProductFeatureApplAttrRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductFeatureApplAttrResponse> removeProductFeatureApplAttr(@RequestBody RemoveProductFeatureApplAttrRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductFeatureApplAttr(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductFeatureApplAttrResponse::new);
     }
 
     /**
@@ -2410,9 +2420,9 @@ public class ProductController {
      * <p>service: deleteProductGeo  entities: ProductGeo  auth: true
      */
     @PostMapping("/catalog/control/deleteProductGeo")
-    public ResponseEntity<DeleteProductGeoResponse> deleteProductGeo(@RequestBody DeleteProductGeoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductGeoResponse> deleteProductGeo(@RequestBody DeleteProductGeoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductGeo(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductGeoResponse::new);
     }
 
     /**
@@ -2420,9 +2430,9 @@ public class ProductController {
      * <p>service: deleteProductGlAccount  entities: ProductGlAccount  auth: true
      */
     @PostMapping("/catalog/control/deleteProductGlAccount")
-    public ResponseEntity<DeleteProductGlAccountResponse> deleteProductGlAccount(@RequestBody DeleteProductGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductGlAccountResponse> deleteProductGlAccount(@RequestBody DeleteProductGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductGlAccount(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductGlAccountResponse::new);
     }
 
     /**
@@ -2430,9 +2440,9 @@ public class ProductController {
      * <p>service: deleteProductGroupOrder  entities: ProductGroupOrder  auth: true
      */
     @PostMapping("/catalog/control/deleteProductGroupOrder")
-    public ResponseEntity<DeleteProductGroupOrderResponse> deleteProductGroupOrder(@RequestBody DeleteProductGroupOrderRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductGroupOrderResponse> deleteProductGroupOrder(@RequestBody DeleteProductGroupOrderRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductGroupOrder(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductGroupOrderResponse::new);
     }
 
     /**
@@ -2440,9 +2450,9 @@ public class ProductController {
      * <p>service: deleteProductKeyword  entities: ProductKeyword  auth: true
      */
     @PostMapping("/catalog/control/deleteProductKeyword")
-    public ResponseEntity<DeleteProductKeywordResponse> deleteProductKeyword(@RequestBody DeleteProductKeywordRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductKeywordResponse> deleteProductKeyword(@RequestBody DeleteProductKeywordRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductKeyword(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductKeywordResponse::new);
     }
 
     /**
@@ -2450,9 +2460,9 @@ public class ProductController {
      * <p>service: deleteProductKeywords  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/deleteProductKeywords")
-    public ResponseEntity<DeleteProductKeywordsResponse> deleteProductKeywords(@RequestBody DeleteProductKeywordsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductKeywordsResponse> deleteProductKeywords(@RequestBody DeleteProductKeywordsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductKeywords(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductKeywordsResponse::new);
     }
 
     /**
@@ -2460,9 +2470,9 @@ public class ProductController {
      * <p>service: deleteProductMaint  entities: ProductMaint  auth: true
      */
     @PostMapping("/catalog/control/deleteProductMaint")
-    public ResponseEntity<DeleteProductMaintResponse> deleteProductMaint(@RequestBody DeleteProductMaintRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductMaintResponse> deleteProductMaint(@RequestBody DeleteProductMaintRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductMaint(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductMaintResponse::new);
     }
 
     /**
@@ -2470,9 +2480,9 @@ public class ProductController {
      * <p>service: deleteProductMeter  entities: ProductMeter  auth: true
      */
     @PostMapping("/catalog/control/deleteProductMeter")
-    public ResponseEntity<DeleteProductMeterResponse> deleteProductMeter(@RequestBody DeleteProductMeterRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductMeterResponse> deleteProductMeter(@RequestBody DeleteProductMeterRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductMeter(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductMeterResponse::new);
     }
 
     /**
@@ -2480,9 +2490,9 @@ public class ProductController {
      * <p>service: deleteProductPaymentMethodType  entities: ProductPaymentMethodType  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPaymentMethodType")
-    public ResponseEntity<DeleteProductPaymentMethodTypeResponse> deleteProductPaymentMethodType(@RequestBody DeleteProductPaymentMethodTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductPaymentMethodTypeResponse> deleteProductPaymentMethodType(@RequestBody DeleteProductPaymentMethodTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductPaymentMethodType(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductPaymentMethodTypeResponse::new);
     }
 
     /**
@@ -2490,9 +2500,9 @@ public class ProductController {
      * <p>service: deleteProductPrice  entities: ProductPrice  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPrice")
-    public ResponseEntity<DeleteProductPriceResponse> deleteProductPrice(@RequestBody DeleteProductPriceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductPriceResponse> deleteProductPrice(@RequestBody DeleteProductPriceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductPrice(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductPriceResponse::new);
     }
 
     /**
@@ -2500,9 +2510,9 @@ public class ProductController {
      * <p>service: deleteProductPriceAction  entities: ProductPriceAction  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPriceAction")
-    public ResponseEntity<DeleteProductPriceActionResponse> deleteProductPriceAction(@RequestBody DeleteProductPriceActionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductPriceActionResponse> deleteProductPriceAction(@RequestBody DeleteProductPriceActionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductPriceAction(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductPriceActionResponse::new);
     }
 
     /**
@@ -2510,9 +2520,9 @@ public class ProductController {
      * <p>service: deleteProductPriceCond  entities: ProductPriceCond  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPriceCond")
-    public ResponseEntity<DeleteProductPriceCondResponse> deleteProductPriceCond(@RequestBody DeleteProductPriceCondRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductPriceCondResponse> deleteProductPriceCond(@RequestBody DeleteProductPriceCondRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductPriceCond(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductPriceCondResponse::new);
     }
 
     /**
@@ -2520,9 +2530,9 @@ public class ProductController {
      * <p>service: deleteProductPriceRule  entities: ProductPriceRule  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPriceRule")
-    public ResponseEntity<DeleteProductPriceRuleResponse> deleteProductPriceRule(@RequestBody DeleteProductPriceRuleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductPriceRuleResponse> deleteProductPriceRule(@RequestBody DeleteProductPriceRuleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductPriceRule(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductPriceRuleResponse::new);
     }
 
     /**
@@ -2530,9 +2540,9 @@ public class ProductController {
      * <p>service: deleteProductPromoAction  entities: ProductPromoAction  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoAction")
-    public ResponseEntity<DeleteProductPromoActionResponse> deleteProductPromoAction(@RequestBody DeleteProductPromoActionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductPromoActionResponse> deleteProductPromoAction(@RequestBody DeleteProductPromoActionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductPromoAction(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductPromoActionResponse::new);
     }
 
     /**
@@ -2540,9 +2550,9 @@ public class ProductController {
      * <p>service: deleteProductPromoCategory  entities: ProductPromoCategory  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoCategory")
-    public ResponseEntity<DeleteProductPromoCategoryResponse> deleteProductPromoCategory(@RequestBody DeleteProductPromoCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductPromoCategoryResponse> deleteProductPromoCategory(@RequestBody DeleteProductPromoCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductPromoCategory(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductPromoCategoryResponse::new);
     }
 
     /**
@@ -2550,9 +2560,9 @@ public class ProductController {
      * <p>service: deleteProductPromoCode  entities: ProductPromoCode  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoCode")
-    public ResponseEntity<DeleteProductPromoCodeResponse> deleteProductPromoCode(@RequestBody DeleteProductPromoCodeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductPromoCodeResponse> deleteProductPromoCode(@RequestBody DeleteProductPromoCodeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductPromoCode(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductPromoCodeResponse::new);
     }
 
     /**
@@ -2560,9 +2570,9 @@ public class ProductController {
      * <p>service: deleteProductPromoCodeContactMech  entities: ProdPromoCodeContactMech  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoCodeEmail")
-    public ResponseEntity<DeleteProductPromoCodeContactMechResponse> deleteProductPromoCodeContactMech(@RequestBody DeleteProductPromoCodeContactMechRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductPromoCodeContactMechResponse> deleteProductPromoCodeContactMech(@RequestBody DeleteProductPromoCodeContactMechRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductPromoCodeContactMech(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductPromoCodeContactMechResponse::new);
     }
 
     /**
@@ -2570,9 +2580,9 @@ public class ProductController {
      * <p>service: deleteProductPromoCodeParty  entities: ProductPromoCodeParty  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoCodeParty")
-    public ResponseEntity<DeleteProductPromoCodePartyResponse> deleteProductPromoCodeParty(@RequestBody DeleteProductPromoCodePartyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductPromoCodePartyResponse> deleteProductPromoCodeParty(@RequestBody DeleteProductPromoCodePartyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductPromoCodeParty(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductPromoCodePartyResponse::new);
     }
 
     /**
@@ -2580,9 +2590,9 @@ public class ProductController {
      * <p>service: deleteProductPromoCond  entities: ProductPromoCond  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoCond")
-    public ResponseEntity<DeleteProductPromoCondResponse> deleteProductPromoCond(@RequestBody DeleteProductPromoCondRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductPromoCondResponse> deleteProductPromoCond(@RequestBody DeleteProductPromoCondRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductPromoCond(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductPromoCondResponse::new);
     }
 
     /**
@@ -2590,9 +2600,9 @@ public class ProductController {
      * <p>service: deleteProductPromoProduct  entities: ProductPromoProduct  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoProduct")
-    public ResponseEntity<DeleteProductPromoProductResponse> deleteProductPromoProduct(@RequestBody DeleteProductPromoProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductPromoProductResponse> deleteProductPromoProduct(@RequestBody DeleteProductPromoProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductPromoProduct(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductPromoProductResponse::new);
     }
 
     /**
@@ -2600,9 +2610,9 @@ public class ProductController {
      * <p>service: deleteProductPromoRule  entities: ProductPromoRule  auth: true
      */
     @PostMapping("/catalog/control/deleteProductPromoRule")
-    public ResponseEntity<DeleteProductPromoRuleResponse> deleteProductPromoRule(@RequestBody DeleteProductPromoRuleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductPromoRuleResponse> deleteProductPromoRule(@RequestBody DeleteProductPromoRuleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductPromoRule(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductPromoRuleResponse::new);
     }
 
     /**
@@ -2610,9 +2620,9 @@ public class ProductController {
      * <p>service: deleteProductStoreCatalog  entities: ProductStoreCatalog  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStoreCatalog")
-    public ResponseEntity<DeleteProductStoreCatalogResponse> deleteProductStoreCatalogDeleteProductStoreCatalog(@RequestBody DeleteProductStoreCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductStoreCatalogResponse> deleteProductStoreCatalogDeleteProductStoreCatalog(@RequestBody DeleteProductStoreCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductStoreCatalog(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductStoreCatalogResponse::new);
     }
 
     /**
@@ -2620,9 +2630,9 @@ public class ProductController {
      * <p>service: deleteProductStoreFacility  entities: ProductStoreFacility  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStoreFacility")
-    public ResponseEntity<DeleteProductStoreFacilityResponse> deleteProductStoreFacility(@RequestBody DeleteProductStoreFacilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductStoreFacilityResponse> deleteProductStoreFacility(@RequestBody DeleteProductStoreFacilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductStoreFacility(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductStoreFacilityResponse::new);
     }
 
     /**
@@ -2630,9 +2640,9 @@ public class ProductController {
      * <p>service: deleteProductStoreKeywordOvrd  entities: ProductStoreKeywordOvrd  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStoreKeywordOvrd")
-    public ResponseEntity<DeleteProductStoreKeywordOvrdResponse> deleteProductStoreKeywordOvrd(@RequestBody DeleteProductStoreKeywordOvrdRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductStoreKeywordOvrdResponse> deleteProductStoreKeywordOvrd(@RequestBody DeleteProductStoreKeywordOvrdRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductStoreKeywordOvrd(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductStoreKeywordOvrdResponse::new);
     }
 
     /**
@@ -2640,9 +2650,9 @@ public class ProductController {
      * <p>service: deleteProductStorePromoAppl  entities: ProductStorePromoAppl  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStorePromoAppl")
-    public ResponseEntity<DeleteProductStorePromoApplResponse> deleteProductStorePromoAppl(@RequestBody DeleteProductStorePromoApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductStorePromoApplResponse> deleteProductStorePromoAppl(@RequestBody DeleteProductStorePromoApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductStorePromoAppl(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductStorePromoApplResponse::new);
     }
 
     /**
@@ -2650,9 +2660,9 @@ public class ProductController {
      * <p>service: deleteProductStoreSurveyAppl  entities: ProductStoreSurveyAppl  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStoreSurveyAppl")
-    public ResponseEntity<DeleteProductStoreSurveyApplResponse> deleteProductStoreSurveyAppl(@RequestBody DeleteProductStoreSurveyApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductStoreSurveyApplResponse> deleteProductStoreSurveyAppl(@RequestBody DeleteProductStoreSurveyApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductStoreSurveyAppl(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductStoreSurveyApplResponse::new);
     }
 
     /**
@@ -2660,9 +2670,9 @@ public class ProductController {
      * <p>service: deleteProductStoreVendorPayment  entities: ProductStoreVendorPayment  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStoreVendorPayment")
-    public ResponseEntity<DeleteProductStoreVendorPaymentResponse> deleteProductStoreVendorPayment(@RequestBody DeleteProductStoreVendorPaymentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductStoreVendorPaymentResponse> deleteProductStoreVendorPayment(@RequestBody DeleteProductStoreVendorPaymentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductStoreVendorPayment(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductStoreVendorPaymentResponse::new);
     }
 
     /**
@@ -2670,9 +2680,9 @@ public class ProductController {
      * <p>service: deleteProductStoreVendorShipment  entities: ProductStoreVendorShipment  auth: true
      */
     @PostMapping("/catalog/control/deleteProductStoreVendorShipment")
-    public ResponseEntity<DeleteProductStoreVendorShipmentResponse> deleteProductStoreVendorShipment(@RequestBody DeleteProductStoreVendorShipmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductStoreVendorShipmentResponse> deleteProductStoreVendorShipment(@RequestBody DeleteProductStoreVendorShipmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductStoreVendorShipment(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductStoreVendorShipmentResponse::new);
     }
 
     /**
@@ -2680,9 +2690,9 @@ public class ProductController {
      * <p>service: deleteProductSubscriptionResource  entities: ProductSubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/deleteProductSubscriptionResource")
-    public ResponseEntity<DeleteProductSubscriptionResourceResponse> deleteProductSubscriptionResource(@RequestBody DeleteProductSubscriptionResourceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductSubscriptionResourceResponse> deleteProductSubscriptionResource(@RequestBody DeleteProductSubscriptionResourceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductSubscriptionResource(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductSubscriptionResourceResponse::new);
     }
 
     /**
@@ -2690,9 +2700,9 @@ public class ProductController {
      * <p>service: deleteProductSubscriptionResource  entities: ProductSubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/deleteProductSubscriptionResourceSr")
-    public ResponseEntity<DeleteProductSubscriptionResourceResponse> deleteProductSubscriptionResourceDeleteProductSubscriptionResourceSr(@RequestBody DeleteProductSubscriptionResourceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductSubscriptionResourceResponse> deleteProductSubscriptionResourceDeleteProductSubscriptionResourceSr(@RequestBody DeleteProductSubscriptionResourceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductSubscriptionResource(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductSubscriptionResourceResponse::new);
     }
 
     /**
@@ -2700,9 +2710,9 @@ public class ProductController {
      * <p>service: deleteQuantityBreak  entities: QuantityBreak  auth: true
      */
     @PostMapping("/catalog/control/deleteQuantityBreak")
-    public ResponseEntity<DeleteQuantityBreakResponse> deleteQuantityBreak(@RequestBody DeleteQuantityBreakRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteQuantityBreakResponse> deleteQuantityBreak(@RequestBody DeleteQuantityBreakRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteQuantityBreak(ServiceInput.toMap(request));
+        return wrap(result, DeleteQuantityBreakResponse::new);
     }
 
     /**
@@ -2710,9 +2720,9 @@ public class ProductController {
      * <p>service: deleteShipmentMethodType  entities: ShipmentMethodType  auth: true
      */
     @PostMapping("/catalog/control/deleteShipmentMethodType")
-    public ResponseEntity<DeleteShipmentMethodTypeResponse> deleteShipmentMethodType(@RequestBody DeleteShipmentMethodTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteShipmentMethodTypeResponse> deleteShipmentMethodType(@RequestBody DeleteShipmentMethodTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteShipmentMethodType(ServiceInput.toMap(request));
+        return wrap(result, DeleteShipmentMethodTypeResponse::new);
     }
 
     /**
@@ -2720,9 +2730,9 @@ public class ProductController {
      * <p>service: deleteVendorProduct  entities: VendorProduct  auth: true
      */
     @PostMapping("/catalog/control/deleteVendorProduct")
-    public ResponseEntity<DeleteVendorProductResponse> deleteVendorProduct(@RequestBody DeleteVendorProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteVendorProductResponse> deleteVendorProduct(@RequestBody DeleteVendorProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteVendorProduct(ServiceInput.toMap(request));
+        return wrap(result, DeleteVendorProductResponse::new);
     }
 
     /**
@@ -2730,9 +2740,9 @@ public class ProductController {
      * <p>service: expireAllCategoryProductMembers  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/expireAllCategoryProductMembers")
-    public ResponseEntity<ExpireAllCategoryProductMembersResponse> expireAllCategoryProductMembers(@RequestBody ExpireAllCategoryProductMembersRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ExpireAllCategoryProductMembersResponse> expireAllCategoryProductMembers(@RequestBody ExpireAllCategoryProductMembersRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.expireAllCategoryProductMembers(ServiceInput.toMap(request));
+        return wrap(result, ExpireAllCategoryProductMembersResponse::new);
     }
 
     /**
@@ -2740,9 +2750,9 @@ public class ProductController {
      * <p>service: expireShipmentTimeEstimate  entities: ShipmentTimeEstimate  auth: true
      */
     @PostMapping("/catalog/control/expireShipmentTimeEstimate")
-    public ResponseEntity<ExpireShipmentTimeEstimateResponse> expireShipmentTimeEstimate(@RequestBody ExpireShipmentTimeEstimateRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ExpireShipmentTimeEstimateResponse> expireShipmentTimeEstimate(@RequestBody ExpireShipmentTimeEstimateRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.expireShipmentTimeEstimate(ServiceInput.toMap(request));
+        return wrap(result, ExpireShipmentTimeEstimateResponse::new);
     }
 
     /**
@@ -2750,9 +2760,9 @@ public class ProductController {
      * <p>service: forceIndexProductKeywords  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/forceIndexProductKeywords")
-    public ResponseEntity<ForceIndexProductKeywordsResponse> forceIndexProductKeywords(@RequestBody ForceIndexProductKeywordsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ForceIndexProductKeywordsResponse> forceIndexProductKeywords(@RequestBody ForceIndexProductKeywordsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.forceIndexProductKeywords(ServiceInput.toMap(request));
+        return wrap(result, ForceIndexProductKeywordsResponse::new);
     }
 
     /**
@@ -2760,9 +2770,9 @@ public class ProductController {
      * <p>service: getAssociatedPriceRulesConds  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/getAssociatedPriceRulesConds")
-    public ResponseEntity<GetAssociatedPriceRulesCondsResponse> getAssociatedPriceRulesConds(@RequestBody GetAssociatedPriceRulesCondsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<GetAssociatedPriceRulesCondsResponse> getAssociatedPriceRulesConds(@RequestBody GetAssociatedPriceRulesCondsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.getAssociatedPriceRulesConds(ServiceInput.toMap(request));
+        return wrap(result, GetAssociatedPriceRulesCondsResponse::new);
     }
 
     /**
@@ -2770,9 +2780,8 @@ public class ProductController {
      * <p>service: getChildCategoryTree  entities: unknown  auth: false
      */
     @GetMapping("/catalog/control/getChild")
-    public ResponseEntity<Map<String, Object>> getChildCategoryTree(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> getChildCategoryTree(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.getChildCategoryTree(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -2780,9 +2789,8 @@ public class ProductController {
      * <p>service: getChildProductStoreGroupTree  entities: unknown  auth: false
      */
     @GetMapping("/catalog/control/getProductStoreGroupRollupHierarchy")
-    public ResponseEntity<Map<String, Object>> getChildProductStoreGroupTree(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> getChildProductStoreGroupTree(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.getChildProductStoreGroupTree(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -2790,7 +2798,7 @@ public class ProductController {
      * <p>service: -  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/prepareCreateShipMeth")
-    public ResponseEntity<Map<String, Object>> prepareCreateShipMeth(@RequestParam Map<String, String> params) {
+    public ResponseEntity<Map<String, Object>> prepareCreateShipMeth(@RequestParam Map<String, String> params) throws java.sql.SQLException {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2800,7 +2808,7 @@ public class ProductController {
      * <p>service: -  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/prepareCreateShipmentTimeEstimate")
-    public ResponseEntity<Map<String, Object>> prepareCreateShipmentTimeEstimate(@RequestParam Map<String, String> params) {
+    public ResponseEntity<Map<String, Object>> prepareCreateShipmentTimeEstimate(@RequestParam Map<String, String> params) throws java.sql.SQLException {
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -2810,9 +2818,8 @@ public class ProductController {
      * <p>service: previewFrameImage  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/previewFrameImage")
-    public ResponseEntity<Map<String, Object>> previewFrameImage(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> previewFrameImage(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.previewFrameImage(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -2820,9 +2827,9 @@ public class ProductController {
      * <p>service: createProductStorePromoAppl  entities: ProductStorePromoAppl  auth: true
      */
     @PostMapping("/catalog/control/promo_createProductStorePromoAppl")
-    public ResponseEntity<CreateProductStorePromoApplResponse> createProductStorePromoApplPromoCreateProductStorePromoAppl(@RequestBody CreateProductStorePromoApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStorePromoApplResponse> createProductStorePromoApplPromoCreateProductStorePromoAppl(@RequestBody CreateProductStorePromoApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStorePromoAppl(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStorePromoApplResponse::new);
     }
 
     /**
@@ -2830,9 +2837,9 @@ public class ProductController {
      * <p>service: deleteProductStorePromoAppl  entities: ProductStorePromoAppl  auth: true
      */
     @PostMapping("/catalog/control/promo_deleteProductStorePromoAppl")
-    public ResponseEntity<DeleteProductStorePromoApplResponse> deleteProductStorePromoApplPromoDeleteProductStorePromoAppl(@RequestBody DeleteProductStorePromoApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductStorePromoApplResponse> deleteProductStorePromoApplPromoDeleteProductStorePromoAppl(@RequestBody DeleteProductStorePromoApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductStorePromoAppl(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductStorePromoApplResponse::new);
     }
 
     /**
@@ -2840,9 +2847,9 @@ public class ProductController {
      * <p>service: updateProductStorePromoAppl  entities: ProductStorePromoAppl  auth: true
      */
     @PostMapping("/catalog/control/promo_updateProductStorePromoAppl")
-    public ResponseEntity<UpdateProductStorePromoApplResponse> updateProductStorePromoAppl(@RequestBody UpdateProductStorePromoApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStorePromoApplResponse> updateProductStorePromoAppl(@RequestBody UpdateProductStorePromoApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStorePromoAppl(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStorePromoApplResponse::new);
     }
 
     /**
@@ -2850,9 +2857,9 @@ public class ProductController {
      * <p>service: addProductToCategories  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/quickAdminAddCategories")
-    public ResponseEntity<AddProductToCategoriesResponse> addProductToCategories(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddProductToCategoriesResponse> addProductToCategories(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.addProductToCategories(java.util.Map.copyOf(params));
+        return wrap(result, AddProductToCategoriesResponse::new);
     }
 
     /**
@@ -2860,9 +2867,8 @@ public class ProductController {
      * <p>service: addProductFeatures  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/quickAdminApplyFeatureToProduct")
-    public ResponseEntity<Map<String, Object>> addProductFeatures(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> addProductFeatures(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.addProductFeatures(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -2870,9 +2876,9 @@ public class ProductController {
      * <p>service: removeFeatureFromProduct  entities: ProductFeatureAppl  auth: true
      */
     @PostMapping("/catalog/control/quickAdminRemoveFeatureFromProduct")
-    public ResponseEntity<RemoveFeatureFromProductResponse> removeFeatureFromProductQuickAdminRemoveFeatureFromProduct(@RequestBody RemoveFeatureFromProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveFeatureFromProductResponse> removeFeatureFromProductQuickAdminRemoveFeatureFromProduct(@RequestBody RemoveFeatureFromProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeFeatureFromProduct(ServiceInput.toMap(request));
+        return wrap(result, RemoveFeatureFromProductResponse::new);
     }
 
     /**
@@ -2880,9 +2886,8 @@ public class ProductController {
      * <p>service: removeProductFeatureAppl  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/quickAdminRemoveProductFeature")
-    public ResponseEntity<Map<String, Object>> removeProductFeatureAppl(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> removeProductFeatureAppl(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.removeProductFeatureAppl(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -2890,9 +2895,9 @@ public class ProductController {
      * <p>service: removeProductFromCategory  entities: ProductCategoryMember  auth: true
      */
     @PostMapping("/catalog/control/quickAdminRemoveProductFromCategory")
-    public ResponseEntity<RemoveProductFromCategoryResponse> removeProductFromCategory(@RequestBody RemoveProductFromCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductFromCategoryResponse> removeProductFromCategory(@RequestBody RemoveProductFromCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductFromCategory(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductFromCategoryResponse::new);
     }
 
     /**
@@ -2900,9 +2905,8 @@ public class ProductController {
      * <p>service: updateProductCategoryMember  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/quickAdminUnPublish")
-    public ResponseEntity<Map<String, Object>> updateProductCategoryMember(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateProductCategoryMember(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.updateProductCategoryMember(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -2910,9 +2914,9 @@ public class ProductController {
      * <p>service: updateProductAssoc  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/quickAdminUpdateProductAssoc")
-    public ResponseEntity<UpdateProductAssocResponse> updateProductAssoc(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductAssocResponse> updateProductAssoc(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductAssoc(java.util.Map.copyOf(params));
+        return wrap(result, UpdateProductAssocResponse::new);
     }
 
     /**
@@ -2920,9 +2924,9 @@ public class ProductController {
      * <p>service: quickCreateVirtualWithVariants  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/quickCreateVirtualWithVariants")
-    public ResponseEntity<QuickCreateVirtualWithVariantsResponse> quickCreateVirtualWithVariantsQuickCreateVirtualWithVariants(@RequestBody QuickCreateVirtualWithVariantsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<QuickCreateVirtualWithVariantsResponse> quickCreateVirtualWithVariantsQuickCreateVirtualWithVariants(@RequestBody QuickCreateVirtualWithVariantsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.quickCreateVirtualWithVariants(ServiceInput.toMap(request));
+        return wrap(result, QuickCreateVirtualWithVariantsResponse::new);
     }
 
     /**
@@ -2930,9 +2934,9 @@ public class ProductController {
      * <p>service: removeProductFromCategory  entities: ProductCategoryMember  auth: true
      */
     @PostMapping("/catalog/control/removeCategoryProductMember")
-    public ResponseEntity<RemoveProductFromCategoryResponse> removeProductFromCategoryRemoveCategoryProductMember(@RequestBody RemoveProductFromCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductFromCategoryResponse> removeProductFromCategoryRemoveCategoryProductMember(@RequestBody RemoveProductFromCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductFromCategory(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductFromCategoryResponse::new);
     }
 
     /**
@@ -2940,9 +2944,9 @@ public class ProductController {
      * <p>service: removeCategoryContent  entities: ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/removeContentFromCategory")
-    public ResponseEntity<RemoveCategoryContentResponse> removeCategoryContent(@RequestBody RemoveCategoryContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveCategoryContentResponse> removeCategoryContent(@RequestBody RemoveCategoryContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeCategoryContent(ServiceInput.toMap(request));
+        return wrap(result, RemoveCategoryContentResponse::new);
     }
 
     /**
@@ -2950,9 +2954,9 @@ public class ProductController {
      * <p>service: removeProductContent  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/removeContentFromProduct")
-    public ResponseEntity<RemoveProductContentResponse> removeProductContent(@RequestBody RemoveProductContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductContentResponse> removeProductContent(@RequestBody RemoveProductContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductContent(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductContentResponse::new);
     }
 
     /**
@@ -2960,9 +2964,9 @@ public class ProductController {
      * <p>service: removeProductConfigItemContent  entities: ProdConfItemContent  auth: true
      */
     @PostMapping("/catalog/control/removeContentFromProductConfigItem")
-    public ResponseEntity<RemoveProductConfigItemContentResponse> removeProductConfigItemContent(@RequestBody RemoveProductConfigItemContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductConfigItemContentResponse> removeProductConfigItemContent(@RequestBody RemoveProductConfigItemContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductConfigItemContent(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductConfigItemContentResponse::new);
     }
 
     /**
@@ -2970,9 +2974,9 @@ public class ProductController {
      * <p>service: removeProductPromoContent  entities: ProductPromoContent  auth: true
      */
     @PostMapping("/catalog/control/removeContentFromProductPromo")
-    public ResponseEntity<RemoveProductPromoContentResponse> removeProductPromoContent(@RequestBody RemoveProductPromoContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductPromoContentResponse> removeProductPromoContent(@RequestBody RemoveProductPromoContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductPromoContent(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductPromoContentResponse::new);
     }
 
     /**
@@ -2980,9 +2984,9 @@ public class ProductController {
      * <p>service: removeExpiredCategoryProductMembers  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/removeExpiredCategoryProductMembers")
-    public ResponseEntity<RemoveExpiredCategoryProductMembersResponse> removeExpiredCategoryProductMembers(@RequestBody RemoveExpiredCategoryProductMembersRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveExpiredCategoryProductMembersResponse> removeExpiredCategoryProductMembers(@RequestBody RemoveExpiredCategoryProductMembersRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeExpiredCategoryProductMembers(ServiceInput.toMap(request));
+        return wrap(result, RemoveExpiredCategoryProductMembersResponse::new);
     }
 
     /**
@@ -2990,9 +2994,9 @@ public class ProductController {
      * <p>service: removeProductFeatureIactn  entities: ProductFeatureIactn  auth: true
      */
     @PostMapping("/catalog/control/removeFeatureIactn")
-    public ResponseEntity<RemoveProductFeatureIactnResponse> removeProductFeatureIactn(@RequestBody RemoveProductFeatureIactnRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductFeatureIactnResponse> removeProductFeatureIactn(@RequestBody RemoveProductFeatureIactnRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductFeatureIactn(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductFeatureIactnResponse::new);
     }
 
     /**
@@ -3000,9 +3004,8 @@ public class ProductController {
      * <p>service: removeFixedAssetProduct  entities: FixedAssetProduct  auth: true
      */
     @PostMapping("/catalog/control/removeFixedAssetProduct")
-    public ResponseEntity<Map<String, Object>> removeFixedAssetProduct(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> removeFixedAssetProduct(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.removeFixedAssetProduct(body));
     }
 
     /**
@@ -3010,9 +3013,9 @@ public class ProductController {
      * <p>service: removeProductContentAndImageFile  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/removeImage")
-    public ResponseEntity<RemoveProductContentAndImageFileResponse> removeProductContentAndImageFile(@RequestBody RemoveProductContentAndImageFileRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductContentAndImageFileResponse> removeProductContentAndImageFile(@RequestBody RemoveProductContentAndImageFileRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductContentAndImageFile(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductContentAndImageFileResponse::new);
     }
 
     /**
@@ -3020,9 +3023,9 @@ public class ProductController {
      * <p>service: removeImageBySize  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/removeImageBySize")
-    public ResponseEntity<RemoveImageBySizeResponse> removeImageBySize(@RequestBody RemoveImageBySizeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveImageBySizeResponse> removeImageBySize(@RequestBody RemoveImageBySizeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeImageBySize(ServiceInput.toMap(request));
+        return wrap(result, RemoveImageBySizeResponse::new);
     }
 
     /**
@@ -3030,9 +3033,9 @@ public class ProductController {
      * <p>service: removeProductContentAndImageFile  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/removeImageUpload")
-    public ResponseEntity<RemoveProductContentAndImageFileResponse> removeProductContentAndImageFileRemoveImageUpload(@RequestBody RemoveProductContentAndImageFileRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductContentAndImageFileResponse> removeProductContentAndImageFileRemoveImageUpload(@RequestBody RemoveProductContentAndImageFileRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductContentAndImageFile(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductContentAndImageFileResponse::new);
     }
 
     /**
@@ -3040,9 +3043,9 @@ public class ProductController {
      * <p>service: removePartyFromCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/removePartyFromCategory")
-    public ResponseEntity<RemovePartyFromCategoryResponse> removePartyFromCategory(@RequestBody RemovePartyFromCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemovePartyFromCategoryResponse> removePartyFromCategory(@RequestBody RemovePartyFromCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removePartyFromCategory(ServiceInput.toMap(request));
+        return wrap(result, RemovePartyFromCategoryResponse::new);
     }
 
     /**
@@ -3050,9 +3053,9 @@ public class ProductController {
      * <p>service: removePartyFromProduct  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/removePartyFromProduct")
-    public ResponseEntity<RemovePartyFromProductResponse> removePartyFromProduct(@RequestBody RemovePartyFromProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemovePartyFromProductResponse> removePartyFromProduct(@RequestBody RemovePartyFromProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removePartyFromProduct(ServiceInput.toMap(request));
+        return wrap(result, RemovePartyFromProductResponse::new);
     }
 
     /**
@@ -3060,9 +3063,9 @@ public class ProductController {
      * <p>service: removeProdCatalogFromParty  entities: ProdCatalogRole  auth: true
      */
     @PostMapping("/catalog/control/removeProdCatalogFromParty")
-    public ResponseEntity<RemoveProdCatalogFromPartyResponse> removeProdCatalogFromParty(@RequestBody RemoveProdCatalogFromPartyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProdCatalogFromPartyResponse> removeProdCatalogFromParty(@RequestBody RemoveProdCatalogFromPartyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProdCatalogFromParty(ServiceInput.toMap(request));
+        return wrap(result, RemoveProdCatalogFromPartyResponse::new);
     }
 
     /**
@@ -3070,9 +3073,9 @@ public class ProductController {
      * <p>service: removeProductCategoryFromCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/removeProductCategoryFromCategory")
-    public ResponseEntity<RemoveProductCategoryFromCategoryResponse> removeProductCategoryFromCategory(@RequestBody RemoveProductCategoryFromCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductCategoryFromCategoryResponse> removeProductCategoryFromCategory(@RequestBody RemoveProductCategoryFromCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductCategoryFromCategory(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductCategoryFromCategoryResponse::new);
     }
 
     /**
@@ -3080,9 +3083,9 @@ public class ProductController {
      * <p>service: removeProductCategoryFromProdCatalog  entities: ProdCatalogCategory  auth: true
      */
     @PostMapping("/catalog/control/removeProductCategoryFromProdCatalog")
-    public ResponseEntity<RemoveProductCategoryFromProdCatalogResponse> removeProductCategoryFromProdCatalogRemoveProductCategoryFromProdCatalog(@RequestBody RemoveProductCategoryFromProdCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductCategoryFromProdCatalogResponse> removeProductCategoryFromProdCatalogRemoveProductCategoryFromProdCatalog(@RequestBody RemoveProductCategoryFromProdCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductCategoryFromProdCatalog(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductCategoryFromProdCatalogResponse::new);
     }
 
     /**
@@ -3090,9 +3093,9 @@ public class ProductController {
      * <p>service: removeProductFeatureCatGrpAppl  entities: ProductFeatureCatGrpAppl  auth: true
      */
     @PostMapping("/catalog/control/removeProductFeatureCatGrpAppl")
-    public ResponseEntity<RemoveProductFeatureCatGrpApplResponse> removeProductFeatureCatGrpAppl(@RequestBody RemoveProductFeatureCatGrpApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductFeatureCatGrpApplResponse> removeProductFeatureCatGrpAppl(@RequestBody RemoveProductFeatureCatGrpApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductFeatureCatGrpAppl(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductFeatureCatGrpApplResponse::new);
     }
 
     /**
@@ -3100,9 +3103,9 @@ public class ProductController {
      * <p>service: removeProductFeatureCategoryAppl  entities: ProductFeatureCategoryAppl  auth: true
      */
     @PostMapping("/catalog/control/removeProductFeatureCategoryAppl")
-    public ResponseEntity<RemoveProductFeatureCategoryApplResponse> removeProductFeatureCategoryAppl(@RequestBody RemoveProductFeatureCategoryApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductFeatureCategoryApplResponse> removeProductFeatureCategoryAppl(@RequestBody RemoveProductFeatureCategoryApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductFeatureCategoryAppl(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductFeatureCategoryApplResponse::new);
     }
 
     /**
@@ -3110,9 +3113,9 @@ public class ProductController {
      * <p>service: removeProductFeatureIactn  entities: ProductFeatureIactn  auth: true
      */
     @PostMapping("/catalog/control/removeProductFeatureIactn")
-    public ResponseEntity<RemoveProductFeatureIactnResponse> removeProductFeatureIactnRemoveProductFeatureIactn(@RequestBody RemoveProductFeatureIactnRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductFeatureIactnResponse> removeProductFeatureIactnRemoveProductFeatureIactn(@RequestBody RemoveProductFeatureIactnRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductFeatureIactn(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductFeatureIactnResponse::new);
     }
 
     /**
@@ -3120,9 +3123,9 @@ public class ProductController {
      * <p>service: removeProductFeatureType  entities: ProductFeatureType  auth: true
      */
     @PostMapping("/catalog/control/removeProductFeatureType")
-    public ResponseEntity<RemoveProductFeatureTypeResponse> removeProductFeatureType(@RequestBody RemoveProductFeatureTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductFeatureTypeResponse> removeProductFeatureType(@RequestBody RemoveProductFeatureTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductFeatureType(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductFeatureTypeResponse::new);
     }
 
     /**
@@ -3130,9 +3133,9 @@ public class ProductController {
      * <p>service: removeProductFromCategory  entities: ProductCategoryMember  auth: true
      */
     @PostMapping("/catalog/control/removeProductFromCategory")
-    public ResponseEntity<RemoveProductFromCategoryResponse> removeProductFromCategoryRemoveProductFromCategory(@RequestBody RemoveProductFromCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductFromCategoryResponse> removeProductFromCategoryRemoveProductFromCategory(@RequestBody RemoveProductFromCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductFromCategory(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductFromCategoryResponse::new);
     }
 
     /**
@@ -3140,9 +3143,9 @@ public class ProductController {
      * <p>service: removeProductStoreEmailSetting  entities: ProductStoreEmailSetting  auth: true
      */
     @PostMapping("/catalog/control/removeProductStoreEmail")
-    public ResponseEntity<RemoveProductStoreEmailSettingResponse> removeProductStoreEmailSetting(@RequestBody RemoveProductStoreEmailSettingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductStoreEmailSettingResponse> removeProductStoreEmailSetting(@RequestBody RemoveProductStoreEmailSettingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductStoreEmailSetting(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductStoreEmailSettingResponse::new);
     }
 
     /**
@@ -3150,9 +3153,9 @@ public class ProductController {
      * <p>service: removeSubscriptionCommEvent  entities: SubscriptionCommEvent  auth: true
      */
     @PostMapping("/catalog/control/removeSubscriptionCommEvent")
-    public ResponseEntity<RemoveSubscriptionCommEventResponse> removeSubscriptionCommEvent(@RequestBody RemoveSubscriptionCommEventRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveSubscriptionCommEventResponse> removeSubscriptionCommEvent(@RequestBody RemoveSubscriptionCommEventRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeSubscriptionCommEvent(ServiceInput.toMap(request));
+        return wrap(result, RemoveSubscriptionCommEventResponse::new);
     }
 
     /**
@@ -3160,9 +3163,9 @@ public class ProductController {
      * <p>service: removeSupplierProduct  entities: SupplierProduct  auth: true
      */
     @PostMapping("/catalog/control/removeSupplierProduct")
-    public ResponseEntity<RemoveSupplierProductResponse> removeSupplierProduct(@RequestBody RemoveSupplierProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveSupplierProductResponse> removeSupplierProduct(@RequestBody RemoveSupplierProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeSupplierProduct(ServiceInput.toMap(request));
+        return wrap(result, RemoveSupplierProductResponse::new);
     }
 
     /**
@@ -3170,9 +3173,9 @@ public class ProductController {
      * <p>service: removeSupplierProductFeature  entities: SupplierProductFeature  auth: true
      */
     @PostMapping("/catalog/control/removeSupplierProductFeature")
-    public ResponseEntity<RemoveSupplierProductFeatureResponse> removeSupplierProductFeature(@RequestBody RemoveSupplierProductFeatureRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveSupplierProductFeatureResponse> removeSupplierProductFeature(@RequestBody RemoveSupplierProductFeatureRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeSupplierProductFeature(ServiceInput.toMap(request));
+        return wrap(result, RemoveSupplierProductFeatureResponse::new);
     }
 
     /**
@@ -3180,9 +3183,8 @@ public class ProductController {
      * <p>service: removeWorkEffortGoodStandard  entities: WorkEffortGoodStandard  auth: true
      */
     @PostMapping("/catalog/control/removeWorkEffortGoodStandard")
-    public ResponseEntity<Map<String, Object>> removeWorkEffortGoodStandard(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> removeWorkEffortGoodStandard(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.removeWorkEffortGoodStandard(body));
     }
 
     /**
@@ -3190,9 +3192,9 @@ public class ProductController {
      * <p>service: renameImage  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/renameImage")
-    public ResponseEntity<RenameImageResponse> renameImage(@RequestBody RenameImageRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RenameImageResponse> renameImage(@RequestBody RenameImageRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.renameImage(ServiceInput.toMap(request));
+        return wrap(result, RenameImageResponse::new);
     }
 
     /**
@@ -3200,9 +3202,9 @@ public class ProductController {
      * <p>service: replaceImageToExistImage  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/replaceImageToExistImage")
-    public ResponseEntity<ReplaceImageToExistImageResponse> replaceImageToExistImage(@RequestBody ReplaceImageToExistImageRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ReplaceImageToExistImageResponse> replaceImageToExistImage(@RequestBody ReplaceImageToExistImageRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.replaceImageToExistImage(ServiceInput.toMap(request));
+        return wrap(result, ReplaceImageToExistImageResponse::new);
     }
 
     /**
@@ -3210,9 +3212,9 @@ public class ProductController {
      * <p>service: resizeImages  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/resizeImages")
-    public ResponseEntity<ResizeImagesResponse> resizeImages(@RequestBody ResizeImagesRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ResizeImagesResponse> resizeImages(@RequestBody ResizeImagesRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.resizeImages(ServiceInput.toMap(request));
+        return wrap(result, ResizeImagesResponse::new);
     }
 
     /**
@@ -3220,9 +3222,8 @@ public class ProductController {
      * <p>service: searchAddFeature  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/searchAddFeature")
-    public ResponseEntity<Map<String, Object>> searchAddFeature(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> searchAddFeature(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.searchAddFeature(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -3230,9 +3231,8 @@ public class ProductController {
      * <p>service: searchAddToCategory  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/searchAddToCategory")
-    public ResponseEntity<Map<String, Object>> searchAddToCategory(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> searchAddToCategory(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.searchAddToCategory(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -3240,9 +3240,8 @@ public class ProductController {
      * <p>service: searchExpireFromCategory  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/searchExpireFromCategory")
-    public ResponseEntity<Map<String, Object>> searchExpireFromCategory(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> searchExpireFromCategory(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.searchExpireFromCategory(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -3250,9 +3249,8 @@ public class ProductController {
      * <p>service: searchExportProductList  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/searchExportProductList")
-    public ResponseEntity<Map<String, Object>> searchExportProductList(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> searchExportProductList(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.searchExportProductList(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -3260,9 +3258,8 @@ public class ProductController {
      * <p>service: searchRemoveFeature  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/searchRemoveFeature")
-    public ResponseEntity<Map<String, Object>> searchRemoveFeature(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> searchRemoveFeature(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.searchRemoveFeature(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -3270,9 +3267,8 @@ public class ProductController {
      * <p>service: searchRemoveFromCategory  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/searchRemoveFromCategory")
-    public ResponseEntity<Map<String, Object>> searchRemoveFromCategory(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> searchRemoveFromCategory(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.searchRemoveFromCategory(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -3280,9 +3276,8 @@ public class ProductController {
      * <p>service: setDefaultImage  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/setDefaultImage")
-    public ResponseEntity<Map<String, Object>> setDefaultImage(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> setDefaultImage(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.setDefaultImage(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -3290,9 +3285,9 @@ public class ProductController {
      * <p>service: setImageDetail  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/setImageDetail")
-    public ResponseEntity<SetImageDetailResponse> setImageDetail(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SetImageDetailResponse> setImageDetail(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.setImageDetail(java.util.Map.copyOf(params));
+        return wrap(result, SetImageDetailResponse::new);
     }
 
     /**
@@ -3300,9 +3295,9 @@ public class ProductController {
      * <p>service: createProductStorePaymentSetting  entities: ProductStorePaymentSetting  auth: true
      */
     @PostMapping("/catalog/control/storeCreatePaySetting")
-    public ResponseEntity<CreateProductStorePaymentSettingResponse> createProductStorePaymentSetting(@RequestBody CreateProductStorePaymentSettingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStorePaymentSettingResponse> createProductStorePaymentSetting(@RequestBody CreateProductStorePaymentSettingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStorePaymentSetting(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStorePaymentSettingResponse::new);
     }
 
     /**
@@ -3310,9 +3305,9 @@ public class ProductController {
      * <p>service: createProductStoreRole  entities: ProductStoreRole  auth: true
      */
     @PostMapping("/catalog/control/storeCreateRole")
-    public ResponseEntity<CreateProductStoreRoleResponse> createProductStoreRole(@RequestBody CreateProductStoreRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreRoleResponse> createProductStoreRole(@RequestBody CreateProductStoreRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStoreRole(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreRoleResponse::new);
     }
 
     /**
@@ -3320,9 +3315,9 @@ public class ProductController {
      * <p>service: createProductStoreShipMeth  entities: ProductStoreShipmentMeth  auth: true
      */
     @PostMapping("/catalog/control/storeCreateShipMeth")
-    public ResponseEntity<CreateProductStoreShipMethResponse> createProductStoreShipMeth(@RequestBody CreateProductStoreShipMethRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductStoreShipMethResponse> createProductStoreShipMeth(@RequestBody CreateProductStoreShipMethRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductStoreShipMeth(ServiceInput.toMap(request));
+        return wrap(result, CreateProductStoreShipMethResponse::new);
     }
 
     /**
@@ -3330,9 +3325,9 @@ public class ProductController {
      * <p>service: createShipmentEstimate  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/storeCreateShipRate")
-    public ResponseEntity<CreateShipmentEstimateResponse> createShipmentEstimate(@RequestBody CreateShipmentEstimateRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateShipmentEstimateResponse> createShipmentEstimate(@RequestBody CreateShipmentEstimateRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createShipmentEstimate(ServiceInput.toMap(request));
+        return wrap(result, CreateShipmentEstimateResponse::new);
     }
 
     /**
@@ -3340,9 +3335,9 @@ public class ProductController {
      * <p>service: deleteProductStorePaymentSetting  entities: ProductStorePaymentSetting  auth: true
      */
     @PostMapping("/catalog/control/storeRemovePaySetting")
-    public ResponseEntity<DeleteProductStorePaymentSettingResponse> deleteProductStorePaymentSetting(@RequestBody DeleteProductStorePaymentSettingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductStorePaymentSettingResponse> deleteProductStorePaymentSetting(@RequestBody DeleteProductStorePaymentSettingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductStorePaymentSetting(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductStorePaymentSettingResponse::new);
     }
 
     /**
@@ -3350,9 +3345,9 @@ public class ProductController {
      * <p>service: removeProductStoreRole  entities: ProductStoreRole  auth: true
      */
     @PostMapping("/catalog/control/storeRemoveRole")
-    public ResponseEntity<RemoveProductStoreRoleResponse> removeProductStoreRole(@RequestBody RemoveProductStoreRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductStoreRoleResponse> removeProductStoreRole(@RequestBody RemoveProductStoreRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductStoreRole(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductStoreRoleResponse::new);
     }
 
     /**
@@ -3360,9 +3355,9 @@ public class ProductController {
      * <p>service: removeProductStoreShipMeth  entities: ProductStoreShipmentMeth  auth: true
      */
     @PostMapping("/catalog/control/storeRemoveShipMeth")
-    public ResponseEntity<RemoveProductStoreShipMethResponse> removeProductStoreShipMeth(@RequestBody RemoveProductStoreShipMethRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveProductStoreShipMethResponse> removeProductStoreShipMeth(@RequestBody RemoveProductStoreShipMethRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeProductStoreShipMeth(ServiceInput.toMap(request));
+        return wrap(result, RemoveProductStoreShipMethResponse::new);
     }
 
     /**
@@ -3370,9 +3365,9 @@ public class ProductController {
      * <p>service: removeShipmentEstimate  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/storeRemoveShipRate")
-    public ResponseEntity<RemoveShipmentEstimateResponse> removeShipmentEstimate(@RequestBody RemoveShipmentEstimateRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveShipmentEstimateResponse> removeShipmentEstimate(@RequestBody RemoveShipmentEstimateRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeShipmentEstimate(ServiceInput.toMap(request));
+        return wrap(result, RemoveShipmentEstimateResponse::new);
     }
 
     /**
@@ -3380,9 +3375,9 @@ public class ProductController {
      * <p>service: updateProductStorePaymentSetting  entities: ProductStorePaymentSetting  auth: true
      */
     @PostMapping("/catalog/control/storeUpdatePaySetting")
-    public ResponseEntity<UpdateProductStorePaymentSettingResponse> updateProductStorePaymentSetting(@RequestBody UpdateProductStorePaymentSettingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStorePaymentSettingResponse> updateProductStorePaymentSetting(@RequestBody UpdateProductStorePaymentSettingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStorePaymentSetting(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStorePaymentSettingResponse::new);
     }
 
     /**
@@ -3390,9 +3385,9 @@ public class ProductController {
      * <p>service: updateProductStoreRole  entities: ProductStoreRole  auth: true
      */
     @PostMapping("/catalog/control/storeUpdateRole")
-    public ResponseEntity<UpdateProductStoreRoleResponse> updateProductStoreRole(@RequestBody UpdateProductStoreRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStoreRoleResponse> updateProductStoreRole(@RequestBody UpdateProductStoreRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStoreRole(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStoreRoleResponse::new);
     }
 
     /**
@@ -3400,9 +3395,9 @@ public class ProductController {
      * <p>service: updateProductStoreShipMeth  entities: ProductStoreShipmentMeth  auth: true
      */
     @PostMapping("/catalog/control/storeUpdateShipMeth")
-    public ResponseEntity<UpdateProductStoreShipMethResponse> updateProductStoreShipMeth(@RequestBody UpdateProductStoreShipMethRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStoreShipMethResponse> updateProductStoreShipMeth(@RequestBody UpdateProductStoreShipMethRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStoreShipMeth(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStoreShipMethResponse::new);
     }
 
     /**
@@ -3410,9 +3405,8 @@ public class ProductController {
      * <p>service: updateWebSite  entities: WebSite  auth: true
      */
     @PostMapping("/catalog/control/storeUpdateWebSite")
-    public ResponseEntity<Map<String, Object>> updateWebSite(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateWebSite(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateWebSite(body));
     }
 
     /**
@@ -3420,9 +3414,8 @@ public class ProductController {
      * <p>service: updateFixedAssetProduct  entities: FixedAssetProduct  auth: true
      */
     @PostMapping("/catalog/control/updFixedAssetProduct")
-    public ResponseEntity<Map<String, Object>> updateFixedAssetProduct(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateFixedAssetProduct(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateFixedAssetProduct(body));
     }
 
     /**
@@ -3430,9 +3423,9 @@ public class ProductController {
      * <p>service: updateCarrierShipmentMethod  entities: CarrierShipmentMethod  auth: true
      */
     @PostMapping("/catalog/control/updateCarrierShipmentMethod")
-    public ResponseEntity<UpdateCarrierShipmentMethodResponse> updateCarrierShipmentMethod(@RequestBody UpdateCarrierShipmentMethodRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateCarrierShipmentMethodResponse> updateCarrierShipmentMethod(@RequestBody UpdateCarrierShipmentMethodRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateCarrierShipmentMethod(ServiceInput.toMap(request));
+        return wrap(result, UpdateCarrierShipmentMethodResponse::new);
     }
 
     /**
@@ -3440,9 +3433,9 @@ public class ProductController {
      * <p>service: updateProductCategory  entities: ProductCategory  auth: true
      */
     @PostMapping("/catalog/control/updateCategoryContent")
-    public ResponseEntity<UpdateProductCategoryResponse> updateProductCategory(@RequestBody UpdateProductCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductCategoryResponse> updateProductCategory(@RequestBody UpdateProductCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductCategory(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductCategoryResponse::new);
     }
 
     /**
@@ -3450,9 +3443,9 @@ public class ProductController {
      * <p>service: updateProductToCategory  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/updateCategoryProductMember")
-    public ResponseEntity<UpdateProductToCategoryResponse> updateProductToCategory(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductToCategoryResponse> updateProductToCategory(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductToCategory(java.util.Map.copyOf(params));
+        return wrap(result, UpdateProductToCategoryResponse::new);
     }
 
     /**
@@ -3460,9 +3453,9 @@ public class ProductController {
      * <p>service: updateContentSEOForCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/updateContentSEOForCategory")
-    public ResponseEntity<UpdateContentSEOForCategoryResponse> updateContentSEOForCategory(@RequestBody UpdateContentSEOForCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateContentSEOForCategoryResponse> updateContentSEOForCategory(@RequestBody UpdateContentSEOForCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateContentSEOForCategory(ServiceInput.toMap(request));
+        return wrap(result, UpdateContentSEOForCategoryResponse::new);
     }
 
     /**
@@ -3470,9 +3463,9 @@ public class ProductController {
      * <p>service: updateContentSEOForProduct  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/updateContentSEOForProduct")
-    public ResponseEntity<UpdateContentSEOForProductResponse> updateContentSEOForProduct(@RequestBody UpdateContentSEOForProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateContentSEOForProductResponse> updateContentSEOForProduct(@RequestBody UpdateContentSEOForProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateContentSEOForProduct(ServiceInput.toMap(request));
+        return wrap(result, UpdateContentSEOForProductResponse::new);
     }
 
     /**
@@ -3480,9 +3473,9 @@ public class ProductController {
      * <p>service: updateCategoryContent  entities: Content, ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/updateContentToCategory")
-    public ResponseEntity<UpdateCategoryContentResponse> updateCategoryContent(@RequestBody UpdateCategoryContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateCategoryContentResponse> updateCategoryContent(@RequestBody UpdateCategoryContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateCategoryContent(ServiceInput.toMap(request));
+        return wrap(result, UpdateCategoryContentResponse::new);
     }
 
     /**
@@ -3490,9 +3483,9 @@ public class ProductController {
      * <p>service: updateProductContent  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/updateContentToProduct")
-    public ResponseEntity<UpdateProductContentResponse> updateProductContent(@RequestBody UpdateProductContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductContentResponse> updateProductContent(@RequestBody UpdateProductContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductContent(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductContentResponse::new);
     }
 
     /**
@@ -3500,9 +3493,9 @@ public class ProductController {
      * <p>service: updateProductConfigItemContent  entities: Content, ProdConfItemContent  auth: true
      */
     @PostMapping("/catalog/control/updateContentToProductConfigItem")
-    public ResponseEntity<UpdateProductConfigItemContentResponse> updateProductConfigItemContent(@RequestBody UpdateProductConfigItemContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductConfigItemContentResponse> updateProductConfigItemContent(@RequestBody UpdateProductConfigItemContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductConfigItemContent(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductConfigItemContentResponse::new);
     }
 
     /**
@@ -3510,9 +3503,9 @@ public class ProductController {
      * <p>service: updateCostComponent  entities: CostComponent  auth: true
      */
     @PostMapping("/catalog/control/updateCostComponent")
-    public ResponseEntity<UpdateCostComponentResponse> updateCostComponent(@RequestBody UpdateCostComponentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateCostComponentResponse> updateCostComponent(@RequestBody UpdateCostComponentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateCostComponent(ServiceInput.toMap(request));
+        return wrap(result, UpdateCostComponentResponse::new);
     }
 
     /**
@@ -3520,9 +3513,9 @@ public class ProductController {
      * <p>service: updateDownloadContentForCategory  entities: Content, ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/updateDownloadContentForCategory")
-    public ResponseEntity<UpdateDownloadContentForCategoryResponse> updateDownloadContentForCategory(@RequestBody UpdateDownloadContentForCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateDownloadContentForCategoryResponse> updateDownloadContentForCategory(@RequestBody UpdateDownloadContentForCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateDownloadContentForCategory(ServiceInput.toMap(request));
+        return wrap(result, UpdateDownloadContentForCategoryResponse::new);
     }
 
     /**
@@ -3530,9 +3523,9 @@ public class ProductController {
      * <p>service: updateDownloadContentForProduct  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/updateDownloadContentForProduct")
-    public ResponseEntity<UpdateDownloadContentForProductResponse> updateDownloadContentForProduct(@RequestBody UpdateDownloadContentForProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateDownloadContentForProductResponse> updateDownloadContentForProduct(@RequestBody UpdateDownloadContentForProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateDownloadContentForProduct(ServiceInput.toMap(request));
+        return wrap(result, UpdateDownloadContentForProductResponse::new);
     }
 
     /**
@@ -3540,9 +3533,9 @@ public class ProductController {
      * <p>service: updateEmailContentForProduct  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/updateEmailContentForProduct")
-    public ResponseEntity<UpdateEmailContentForProductResponse> updateEmailContentForProduct(@RequestBody UpdateEmailContentForProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmailContentForProductResponse> updateEmailContentForProduct(@RequestBody UpdateEmailContentForProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmailContentForProduct(ServiceInput.toMap(request));
+        return wrap(result, UpdateEmailContentForProductResponse::new);
     }
 
     /**
@@ -3550,9 +3543,9 @@ public class ProductController {
      * <p>service: updateProductContent  entities: Content, ProductContent  auth: true
      */
     @PostMapping("/catalog/control/updateExternalContentForProduct")
-    public ResponseEntity<UpdateProductContentResponse> updateProductContentUpdateExternalContentForProduct(@RequestBody UpdateProductContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductContentResponse> updateProductContentUpdateExternalContentForProduct(@RequestBody UpdateProductContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductContent(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductContentResponse::new);
     }
 
     /**
@@ -3560,9 +3553,9 @@ public class ProductController {
      * <p>service: updateFeaturePrice  entities: ProductFeaturePrice  auth: true
      */
     @PostMapping("/catalog/control/updateFeaturePrice")
-    public ResponseEntity<UpdateFeaturePriceResponse> updateFeaturePrice(@RequestBody UpdateFeaturePriceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFeaturePriceResponse> updateFeaturePrice(@RequestBody UpdateFeaturePriceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFeaturePrice(ServiceInput.toMap(request));
+        return wrap(result, UpdateFeaturePriceResponse::new);
     }
 
     /**
@@ -3570,9 +3563,9 @@ public class ProductController {
      * <p>service: updateGoodIdentification  entities: GoodIdentification  auth: true
      */
     @PostMapping("/catalog/control/updateGoodIdentification")
-    public ResponseEntity<UpdateGoodIdentificationResponse> updateGoodIdentification(@RequestBody UpdateGoodIdentificationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateGoodIdentificationResponse> updateGoodIdentification(@RequestBody UpdateGoodIdentificationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateGoodIdentification(ServiceInput.toMap(request));
+        return wrap(result, UpdateGoodIdentificationResponse::new);
     }
 
     /**
@@ -3580,9 +3573,9 @@ public class ProductController {
      * <p>service: updatePartyToCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/updatePartyToCategory")
-    public ResponseEntity<UpdatePartyToCategoryResponse> updatePartyToCategory(@RequestBody UpdatePartyToCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyToCategoryResponse> updatePartyToCategory(@RequestBody UpdatePartyToCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyToCategory(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyToCategoryResponse::new);
     }
 
     /**
@@ -3590,9 +3583,9 @@ public class ProductController {
      * <p>service: updatePartyToProduct  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/updatePartyToProduct")
-    public ResponseEntity<UpdatePartyToProductResponse> updatePartyToProduct(@RequestBody UpdatePartyToProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyToProductResponse> updatePartyToProduct(@RequestBody UpdatePartyToProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyToProduct(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyToProductResponse::new);
     }
 
     /**
@@ -3600,9 +3593,9 @@ public class ProductController {
      * <p>service: updateProdCatalog  entities: ProdCatalog  auth: true
      */
     @PostMapping("/catalog/control/updateProdCatalog")
-    public ResponseEntity<UpdateProdCatalogResponse> updateProdCatalog(@RequestBody UpdateProdCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProdCatalogResponse> updateProdCatalog(@RequestBody UpdateProdCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProdCatalog(ServiceInput.toMap(request));
+        return wrap(result, UpdateProdCatalogResponse::new);
     }
 
     /**
@@ -3610,9 +3603,9 @@ public class ProductController {
      * <p>service: updateProductStoreCatalog  entities: ProductStoreCatalog  auth: true
      */
     @PostMapping("/catalog/control/updateProdCatalogStore")
-    public ResponseEntity<UpdateProductStoreCatalogResponse> updateProductStoreCatalog(@RequestBody UpdateProductStoreCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStoreCatalogResponse> updateProductStoreCatalog(@RequestBody UpdateProductStoreCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStoreCatalog(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStoreCatalogResponse::new);
     }
 
     /**
@@ -3620,9 +3613,9 @@ public class ProductController {
      * <p>service: updateProdCatalogToParty  entities: ProdCatalogRole  auth: true
      */
     @PostMapping("/catalog/control/updateProdCatalogToParty")
-    public ResponseEntity<UpdateProdCatalogToPartyResponse> updateProdCatalogToParty(@RequestBody UpdateProdCatalogToPartyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProdCatalogToPartyResponse> updateProdCatalogToParty(@RequestBody UpdateProdCatalogToPartyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProdCatalogToParty(ServiceInput.toMap(request));
+        return wrap(result, UpdateProdCatalogToPartyResponse::new);
     }
 
     /**
@@ -3630,9 +3623,9 @@ public class ProductController {
      * <p>service: updateProduct  entities: Product  auth: true
      */
     @PostMapping("/catalog/control/updateProduct")
-    public ResponseEntity<UpdateProductResponse> updateProduct(@RequestBody UpdateProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductResponse> updateProduct(@RequestBody UpdateProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProduct(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductResponse::new);
     }
 
     /**
@@ -3640,9 +3633,9 @@ public class ProductController {
      * <p>service: updateProduct  entities: Product  auth: true
      */
     @PostMapping("/catalog/control/updateProductAssetUsage")
-    public ResponseEntity<UpdateProductResponse> updateProductUpdateProductAssetUsage(@RequestBody UpdateProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductResponse> updateProductUpdateProductAssetUsage(@RequestBody UpdateProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProduct(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductResponse::new);
     }
 
     /**
@@ -3650,9 +3643,9 @@ public class ProductController {
      * <p>service: updateProductAssoc  entities: ProductAssoc  auth: true
      */
     @PostMapping("/catalog/control/updateProductAssoc")
-    public ResponseEntity<UpdateProductAssocResponse> updateProductAssocUpdateProductAssoc(@RequestBody UpdateProductAssocRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductAssocResponse> updateProductAssocUpdateProductAssoc(@RequestBody UpdateProductAssocRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductAssoc(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductAssocResponse::new);
     }
 
     /**
@@ -3660,9 +3653,9 @@ public class ProductController {
      * <p>service: updateProductAttribute  entities: ProductAttribute  auth: true
      */
     @PostMapping("/catalog/control/updateProductAttribute")
-    public ResponseEntity<UpdateProductAttributeResponse> updateProductAttribute(@RequestBody UpdateProductAttributeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductAttributeResponse> updateProductAttribute(@RequestBody UpdateProductAttributeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductAttribute(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductAttributeResponse::new);
     }
 
     /**
@@ -3670,9 +3663,9 @@ public class ProductController {
      * <p>service: updateProductCategory  entities: ProductCategory  auth: true
      */
     @PostMapping("/catalog/control/updateProductCategory")
-    public ResponseEntity<UpdateProductCategoryResponse> updateProductCategoryUpdateProductCategory(@RequestBody UpdateProductCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductCategoryResponse> updateProductCategoryUpdateProductCategory(@RequestBody UpdateProductCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductCategory(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductCategoryResponse::new);
     }
 
     /**
@@ -3680,9 +3673,9 @@ public class ProductController {
      * <p>service: updateProductCategoryAttribute  entities: ProductCategoryAttribute  auth: true
      */
     @PostMapping("/catalog/control/updateProductCategoryAttribute")
-    public ResponseEntity<UpdateProductCategoryAttributeResponse> updateProductCategoryAttribute(@RequestBody UpdateProductCategoryAttributeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductCategoryAttributeResponse> updateProductCategoryAttribute(@RequestBody UpdateProductCategoryAttributeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductCategoryAttribute(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductCategoryAttributeResponse::new);
     }
 
     /**
@@ -3690,9 +3683,9 @@ public class ProductController {
      * <p>service: updateProductCategoryLink  entities: ProductCategoryLink  auth: true
      */
     @PostMapping("/catalog/control/updateProductCategoryLink")
-    public ResponseEntity<UpdateProductCategoryLinkResponse> updateProductCategoryLink(@RequestBody UpdateProductCategoryLinkRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductCategoryLinkResponse> updateProductCategoryLink(@RequestBody UpdateProductCategoryLinkRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductCategoryLink(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductCategoryLinkResponse::new);
     }
 
     /**
@@ -3700,9 +3693,9 @@ public class ProductController {
      * <p>service: updateProductCategoryToCategory  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/updateProductCategoryToCategory")
-    public ResponseEntity<UpdateProductCategoryToCategoryResponse> updateProductCategoryToCategory(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductCategoryToCategoryResponse> updateProductCategoryToCategory(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductCategoryToCategory(java.util.Map.copyOf(params));
+        return wrap(result, UpdateProductCategoryToCategoryResponse::new);
     }
 
     /**
@@ -3710,9 +3703,9 @@ public class ProductController {
      * <p>service: updateProductCategoryToProdCatalog  entities: ProdCatalogCategory  auth: true
      */
     @PostMapping("/catalog/control/updateProductCategoryToProdCatalog")
-    public ResponseEntity<UpdateProductCategoryToProdCatalogResponse> updateProductCategoryToProdCatalogUpdateProductCategoryToProdCatalog(@RequestBody UpdateProductCategoryToProdCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductCategoryToProdCatalogResponse> updateProductCategoryToProdCatalogUpdateProductCategoryToProdCatalog(@RequestBody UpdateProductCategoryToProdCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductCategoryToProdCatalog(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductCategoryToProdCatalogResponse::new);
     }
 
     /**
@@ -3720,9 +3713,9 @@ public class ProductController {
      * <p>service: updateProductConfig  entities: ProductConfig  auth: true
      */
     @PostMapping("/catalog/control/updateProductConfig")
-    public ResponseEntity<UpdateProductConfigResponse> updateProductConfig(@RequestBody UpdateProductConfigRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductConfigResponse> updateProductConfig(@RequestBody UpdateProductConfigRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductConfig(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductConfigResponse::new);
     }
 
     /**
@@ -3730,9 +3723,9 @@ public class ProductController {
      * <p>service: updateProductConfigItem  entities: ProductConfigItem  auth: true
      */
     @PostMapping("/catalog/control/updateProductConfigItem")
-    public ResponseEntity<UpdateProductConfigItemResponse> updateProductConfigItem(@RequestBody UpdateProductConfigItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductConfigItemResponse> updateProductConfigItem(@RequestBody UpdateProductConfigItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductConfigItem(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductConfigItemResponse::new);
     }
 
     /**
@@ -3740,9 +3733,9 @@ public class ProductController {
      * <p>service: updateProductConfigItem  entities: ProductConfigItem  auth: true
      */
     @PostMapping("/catalog/control/updateProductConfigItemContent")
-    public ResponseEntity<UpdateProductConfigItemResponse> updateProductConfigItemUpdateProductConfigItemContent(@RequestBody UpdateProductConfigItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductConfigItemResponse> updateProductConfigItemUpdateProductConfigItemContent(@RequestBody UpdateProductConfigItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductConfigItem(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductConfigItemResponse::new);
     }
 
     /**
@@ -3750,9 +3743,9 @@ public class ProductController {
      * <p>service: updateProductConfigOption  entities: ProductConfigOption  auth: true
      */
     @PostMapping("/catalog/control/updateProductConfigOption")
-    public ResponseEntity<UpdateProductConfigOptionResponse> updateProductConfigOption(@RequestBody UpdateProductConfigOptionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductConfigOptionResponse> updateProductConfigOption(@RequestBody UpdateProductConfigOptionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductConfigOption(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductConfigOptionResponse::new);
     }
 
     /**
@@ -3760,9 +3753,9 @@ public class ProductController {
      * <p>service: updateProductConfigProduct  entities: ProductConfigProduct  auth: true
      */
     @PostMapping("/catalog/control/updateProductConfigProduct")
-    public ResponseEntity<UpdateProductConfigProductResponse> updateProductConfigProduct(@RequestBody UpdateProductConfigProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductConfigProductResponse> updateProductConfigProduct(@RequestBody UpdateProductConfigProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductConfigProduct(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductConfigProductResponse::new);
     }
 
     /**
@@ -3770,9 +3763,9 @@ public class ProductController {
      * <p>service: updateProduct  entities: Product  auth: true
      */
     @PostMapping("/catalog/control/updateProductContent")
-    public ResponseEntity<UpdateProductResponse> updateProductUpdateProductContent(@RequestBody UpdateProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductResponse> updateProductUpdateProductContent(@RequestBody UpdateProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProduct(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductResponse::new);
     }
 
     /**
@@ -3780,9 +3773,9 @@ public class ProductController {
      * <p>service: updateProductCostComponentCalc  entities: ProductCostComponentCalc  auth: true
      */
     @PostMapping("/catalog/control/updateProductCostComponentCalc")
-    public ResponseEntity<UpdateProductCostComponentCalcResponse> updateProductCostComponentCalc(@RequestBody UpdateProductCostComponentCalcRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductCostComponentCalcResponse> updateProductCostComponentCalc(@RequestBody UpdateProductCostComponentCalcRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductCostComponentCalc(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductCostComponentCalcResponse::new);
     }
 
     /**
@@ -3790,9 +3783,9 @@ public class ProductController {
      * <p>service: updateProductFacility  entities: ProductFacility  auth: true
      */
     @PostMapping("/catalog/control/updateProductFacility")
-    public ResponseEntity<UpdateProductFacilityResponse> updateProductFacility(@RequestBody UpdateProductFacilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductFacilityResponse> updateProductFacility(@RequestBody UpdateProductFacilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductFacility(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductFacilityResponse::new);
     }
 
     /**
@@ -3800,9 +3793,9 @@ public class ProductController {
      * <p>service: updateProductFacilityLocation  entities: ProductFacilityLocation  auth: true
      */
     @PostMapping("/catalog/control/updateProductFacilityLocation")
-    public ResponseEntity<UpdateProductFacilityLocationResponse> updateProductFacilityLocation(@RequestBody UpdateProductFacilityLocationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductFacilityLocationResponse> updateProductFacilityLocation(@RequestBody UpdateProductFacilityLocationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductFacilityLocation(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductFacilityLocationResponse::new);
     }
 
     /**
@@ -3810,9 +3803,9 @@ public class ProductController {
      * <p>service: updateProductFeature  entities: ProductFeature  auth: true
      */
     @PostMapping("/catalog/control/updateProductFeature")
-    public ResponseEntity<UpdateProductFeatureResponse> updateProductFeatureUpdateProductFeature(@RequestBody UpdateProductFeatureRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductFeatureResponse> updateProductFeatureUpdateProductFeature(@RequestBody UpdateProductFeatureRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductFeature(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductFeatureResponse::new);
     }
 
     /**
@@ -3820,9 +3813,9 @@ public class ProductController {
      * <p>service: updateProductFeatureCatGrpAppl  entities: ProductFeatureCatGrpAppl  auth: true
      */
     @PostMapping("/catalog/control/updateProductFeatureCatGrpAppl")
-    public ResponseEntity<UpdateProductFeatureCatGrpApplResponse> updateProductFeatureCatGrpAppl(@RequestBody UpdateProductFeatureCatGrpApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductFeatureCatGrpApplResponse> updateProductFeatureCatGrpAppl(@RequestBody UpdateProductFeatureCatGrpApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductFeatureCatGrpAppl(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductFeatureCatGrpApplResponse::new);
     }
 
     /**
@@ -3830,9 +3823,9 @@ public class ProductController {
      * <p>service: updateProductFeatureCategoryAppl  entities: ProductFeatureCategoryAppl  auth: true
      */
     @PostMapping("/catalog/control/updateProductFeatureCategoryAppl")
-    public ResponseEntity<UpdateProductFeatureCategoryApplResponse> updateProductFeatureCategoryAppl(@RequestBody UpdateProductFeatureCategoryApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductFeatureCategoryApplResponse> updateProductFeatureCategoryAppl(@RequestBody UpdateProductFeatureCategoryApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductFeatureCategoryAppl(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductFeatureCategoryApplResponse::new);
     }
 
     /**
@@ -3840,9 +3833,9 @@ public class ProductController {
      * <p>service: updateProductFeatureType  entities: ProductFeatureType  auth: true
      */
     @PostMapping("/catalog/control/updateProductFeatureType")
-    public ResponseEntity<UpdateProductFeatureTypeResponse> updateProductFeatureType(@RequestBody UpdateProductFeatureTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductFeatureTypeResponse> updateProductFeatureType(@RequestBody UpdateProductFeatureTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductFeatureType(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductFeatureTypeResponse::new);
     }
 
     /**
@@ -3850,9 +3843,9 @@ public class ProductController {
      * <p>service: updateProductGeo  entities: ProductGeo  auth: true
      */
     @PostMapping("/catalog/control/updateProductGeo")
-    public ResponseEntity<UpdateProductGeoResponse> updateProductGeo(@RequestBody UpdateProductGeoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductGeoResponse> updateProductGeo(@RequestBody UpdateProductGeoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductGeo(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductGeoResponse::new);
     }
 
     /**
@@ -3860,9 +3853,9 @@ public class ProductController {
      * <p>service: updateProductGlAccount  entities: ProductGlAccount  auth: true
      */
     @PostMapping("/catalog/control/updateProductGlAccount")
-    public ResponseEntity<UpdateProductGlAccountResponse> updateProductGlAccount(@RequestBody UpdateProductGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductGlAccountResponse> updateProductGlAccount(@RequestBody UpdateProductGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductGlAccount(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductGlAccountResponse::new);
     }
 
     /**
@@ -3870,9 +3863,9 @@ public class ProductController {
      * <p>service: updateProductGroupOrder  entities: ProductGroupOrder  auth: true
      */
     @PostMapping("/catalog/control/updateProductGroupOrder")
-    public ResponseEntity<UpdateProductGroupOrderResponse> updateProductGroupOrder(@RequestBody UpdateProductGroupOrderRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductGroupOrderResponse> updateProductGroupOrder(@RequestBody UpdateProductGroupOrderRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductGroupOrder(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductGroupOrderResponse::new);
     }
 
     /**
@@ -3880,9 +3873,9 @@ public class ProductController {
      * <p>service: updateProductKeyword  entities: ProductKeyword  auth: true
      */
     @PostMapping("/catalog/control/updateProductKeyword")
-    public ResponseEntity<UpdateProductKeywordResponse> updateProductKeyword(@RequestBody UpdateProductKeywordRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductKeywordResponse> updateProductKeyword(@RequestBody UpdateProductKeywordRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductKeyword(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductKeywordResponse::new);
     }
 
     /**
@@ -3890,9 +3883,9 @@ public class ProductController {
      * <p>service: updateProductMaint  entities: ProductMaint  auth: true
      */
     @PostMapping("/catalog/control/updateProductMaint")
-    public ResponseEntity<UpdateProductMaintResponse> updateProductMaint(@RequestBody UpdateProductMaintRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductMaintResponse> updateProductMaint(@RequestBody UpdateProductMaintRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductMaint(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductMaintResponse::new);
     }
 
     /**
@@ -3900,9 +3893,9 @@ public class ProductController {
      * <p>service: updateProductMeter  entities: ProductMeter  auth: true
      */
     @PostMapping("/catalog/control/updateProductMeter")
-    public ResponseEntity<UpdateProductMeterResponse> updateProductMeter(@RequestBody UpdateProductMeterRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductMeterResponse> updateProductMeter(@RequestBody UpdateProductMeterRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductMeter(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductMeterResponse::new);
     }
 
     /**
@@ -3910,9 +3903,9 @@ public class ProductController {
      * <p>service: updateProductPaymentMethodType  entities: ProductPaymentMethodType  auth: true
      */
     @PostMapping("/catalog/control/updateProductPaymentMethodType")
-    public ResponseEntity<UpdateProductPaymentMethodTypeResponse> updateProductPaymentMethodType(@RequestBody UpdateProductPaymentMethodTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductPaymentMethodTypeResponse> updateProductPaymentMethodType(@RequestBody UpdateProductPaymentMethodTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductPaymentMethodType(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductPaymentMethodTypeResponse::new);
     }
 
     /**
@@ -3920,9 +3913,9 @@ public class ProductController {
      * <p>service: updateProductPrice  entities: ProductPrice  auth: true
      */
     @PostMapping("/catalog/control/updateProductPrice")
-    public ResponseEntity<UpdateProductPriceResponse> updateProductPrice(@RequestBody UpdateProductPriceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductPriceResponse> updateProductPrice(@RequestBody UpdateProductPriceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductPrice(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductPriceResponse::new);
     }
 
     /**
@@ -3930,9 +3923,9 @@ public class ProductController {
      * <p>service: updateProductPriceAction  entities: ProductPriceAction  auth: true
      */
     @PostMapping("/catalog/control/updateProductPriceAction")
-    public ResponseEntity<UpdateProductPriceActionResponse> updateProductPriceAction(@RequestBody UpdateProductPriceActionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductPriceActionResponse> updateProductPriceAction(@RequestBody UpdateProductPriceActionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductPriceAction(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductPriceActionResponse::new);
     }
 
     /**
@@ -3940,9 +3933,9 @@ public class ProductController {
      * <p>service: updateProductPriceCond  entities: ProductPriceCond  auth: true
      */
     @PostMapping("/catalog/control/updateProductPriceCond")
-    public ResponseEntity<UpdateProductPriceCondResponse> updateProductPriceCond(@RequestBody UpdateProductPriceCondRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductPriceCondResponse> updateProductPriceCond(@RequestBody UpdateProductPriceCondRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductPriceCond(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductPriceCondResponse::new);
     }
 
     /**
@@ -3950,9 +3943,9 @@ public class ProductController {
      * <p>service: updateProductPriceRule  entities: ProductPriceRule  auth: true
      */
     @PostMapping("/catalog/control/updateProductPriceRule")
-    public ResponseEntity<UpdateProductPriceRuleResponse> updateProductPriceRule(@RequestBody UpdateProductPriceRuleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductPriceRuleResponse> updateProductPriceRule(@RequestBody UpdateProductPriceRuleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductPriceRule(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductPriceRuleResponse::new);
     }
 
     /**
@@ -3960,9 +3953,9 @@ public class ProductController {
      * <p>service: updateProductPromo  entities: ProductPromo  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromo")
-    public ResponseEntity<UpdateProductPromoResponse> updateProductPromo(@RequestBody UpdateProductPromoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductPromoResponse> updateProductPromo(@RequestBody UpdateProductPromoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductPromo(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductPromoResponse::new);
     }
 
     /**
@@ -3970,9 +3963,9 @@ public class ProductController {
      * <p>service: updateProductPromoAction  entities: ProductPromoAction  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromoAction")
-    public ResponseEntity<UpdateProductPromoActionResponse> updateProductPromoAction(@RequestBody UpdateProductPromoActionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductPromoActionResponse> updateProductPromoAction(@RequestBody UpdateProductPromoActionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductPromoAction(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductPromoActionResponse::new);
     }
 
     /**
@@ -3980,9 +3973,9 @@ public class ProductController {
      * <p>service: updateProductPromoCategory  entities: ProductPromoCategory  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromoCategory")
-    public ResponseEntity<UpdateProductPromoCategoryResponse> updateProductPromoCategory(@RequestBody UpdateProductPromoCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductPromoCategoryResponse> updateProductPromoCategory(@RequestBody UpdateProductPromoCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductPromoCategory(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductPromoCategoryResponse::new);
     }
 
     /**
@@ -3990,9 +3983,9 @@ public class ProductController {
      * <p>service: updateProductPromoCode  entities: ProductPromoCode  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromoCode")
-    public ResponseEntity<UpdateProductPromoCodeResponse> updateProductPromoCode(@RequestBody UpdateProductPromoCodeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductPromoCodeResponse> updateProductPromoCode(@RequestBody UpdateProductPromoCodeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductPromoCode(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductPromoCodeResponse::new);
     }
 
     /**
@@ -4000,9 +3993,9 @@ public class ProductController {
      * <p>service: updateProductPromoCond  entities: ProductPromoCond  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromoCond")
-    public ResponseEntity<UpdateProductPromoCondResponse> updateProductPromoCond(@RequestBody UpdateProductPromoCondRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductPromoCondResponse> updateProductPromoCond(@RequestBody UpdateProductPromoCondRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductPromoCond(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductPromoCondResponse::new);
     }
 
     /**
@@ -4010,9 +4003,9 @@ public class ProductController {
      * <p>service: updateProductPromoProduct  entities: ProductPromoProduct  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromoProduct")
-    public ResponseEntity<UpdateProductPromoProductResponse> updateProductPromoProduct(@RequestBody UpdateProductPromoProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductPromoProductResponse> updateProductPromoProduct(@RequestBody UpdateProductPromoProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductPromoProduct(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductPromoProductResponse::new);
     }
 
     /**
@@ -4020,9 +4013,9 @@ public class ProductController {
      * <p>service: updateProductPromoRule  entities: ProductPromoRule  auth: true
      */
     @PostMapping("/catalog/control/updateProductPromoRule")
-    public ResponseEntity<UpdateProductPromoRuleResponse> updateProductPromoRule(@RequestBody UpdateProductPromoRuleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductPromoRuleResponse> updateProductPromoRule(@RequestBody UpdateProductPromoRuleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductPromoRule(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductPromoRuleResponse::new);
     }
 
     /**
@@ -4030,9 +4023,8 @@ public class ProductController {
      * <p>service: removeFeatureApplsByFeatureTypeId  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/updateProductQuickAdminDelFeatureTypes")
-    public ResponseEntity<Map<String, Object>> removeFeatureApplsByFeatureTypeId(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> removeFeatureApplsByFeatureTypeId(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.removeFeatureApplsByFeatureTypeId(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -4040,9 +4032,9 @@ public class ProductController {
      * <p>service: updateProductQuickAdminName  entities: Product  auth: true
      */
     @PostMapping("/catalog/control/updateProductQuickAdminName")
-    public ResponseEntity<UpdateProductQuickAdminNameResponse> updateProductQuickAdminName(@RequestBody UpdateProductQuickAdminNameRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductQuickAdminNameResponse> updateProductQuickAdminName(@RequestBody UpdateProductQuickAdminNameRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductQuickAdminName(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductQuickAdminNameResponse::new);
     }
 
     /**
@@ -4050,9 +4042,8 @@ public class ProductController {
      * <p>service: updateProductQuickAdminSelFeat  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/updateProductQuickAdminSelFeat")
-    public ResponseEntity<Map<String, Object>> updateProductQuickAdminSelFeat(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateProductQuickAdminSelFeat(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.updateProductQuickAdminSelFeat(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -4060,9 +4051,9 @@ public class ProductController {
      * <p>service: updateProductQuickAdminShipping  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/updateProductQuickAdminShipping")
-    public ResponseEntity<UpdateProductQuickAdminShippingResponse> updateProductQuickAdminShipping(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductQuickAdminShippingResponse> updateProductQuickAdminShipping(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductQuickAdminShipping(java.util.Map.copyOf(params));
+        return wrap(result, UpdateProductQuickAdminShippingResponse::new);
     }
 
     /**
@@ -4070,9 +4061,9 @@ public class ProductController {
      * <p>service: updateProductReview  entities: ProductReview  auth: true
      */
     @PostMapping("/catalog/control/updateProductReview")
-    public ResponseEntity<UpdateProductReviewResponse> updateProductReview(@RequestBody UpdateProductReviewRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductReviewResponse> updateProductReview(@RequestBody UpdateProductReviewRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductReview(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductReviewResponse::new);
     }
 
     /**
@@ -4080,9 +4071,9 @@ public class ProductController {
      * <p>service: setProductReviewStatus  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/updateProductReviewStatus")
-    public ResponseEntity<SetProductReviewStatusResponse> setProductReviewStatus(@RequestBody SetProductReviewStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SetProductReviewStatusResponse> setProductReviewStatus(@RequestBody SetProductReviewStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.setProductReviewStatus(ServiceInput.toMap(request));
+        return wrap(result, SetProductReviewStatusResponse::new);
     }
 
     /**
@@ -4090,9 +4081,9 @@ public class ProductController {
      * <p>service: updateProductStore  entities: ProductStore  auth: true
      */
     @PostMapping("/catalog/control/updateProductStore")
-    public ResponseEntity<UpdateProductStoreResponse> updateProductStore(@RequestBody UpdateProductStoreRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStoreResponse> updateProductStore(@RequestBody UpdateProductStoreRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStore(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStoreResponse::new);
     }
 
     /**
@@ -4100,9 +4091,9 @@ public class ProductController {
      * <p>service: updateProductStoreCatalog  entities: ProductStoreCatalog  auth: true
      */
     @PostMapping("/catalog/control/updateProductStoreCatalog")
-    public ResponseEntity<UpdateProductStoreCatalogResponse> updateProductStoreCatalogUpdateProductStoreCatalog(@RequestBody UpdateProductStoreCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStoreCatalogResponse> updateProductStoreCatalogUpdateProductStoreCatalog(@RequestBody UpdateProductStoreCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStoreCatalog(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStoreCatalogResponse::new);
     }
 
     /**
@@ -4110,9 +4101,9 @@ public class ProductController {
      * <p>service: updateProductStoreEmailSetting  entities: ProductStoreEmailSetting  auth: true
      */
     @PostMapping("/catalog/control/updateProductStoreEmail")
-    public ResponseEntity<UpdateProductStoreEmailSettingResponse> updateProductStoreEmailSetting(@RequestBody UpdateProductStoreEmailSettingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStoreEmailSettingResponse> updateProductStoreEmailSetting(@RequestBody UpdateProductStoreEmailSettingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStoreEmailSetting(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStoreEmailSettingResponse::new);
     }
 
     /**
@@ -4120,9 +4111,9 @@ public class ProductController {
      * <p>service: updateProductStoreFacility  entities: ProductStoreFacility  auth: true
      */
     @PostMapping("/catalog/control/updateProductStoreFacility")
-    public ResponseEntity<UpdateProductStoreFacilityResponse> updateProductStoreFacility(@RequestBody UpdateProductStoreFacilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStoreFacilityResponse> updateProductStoreFacility(@RequestBody UpdateProductStoreFacilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStoreFacility(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStoreFacilityResponse::new);
     }
 
     /**
@@ -4130,9 +4121,9 @@ public class ProductController {
      * <p>service: updateProductStoreGroup  entities: ProductStoreGroup  auth: true
      */
     @PostMapping("/catalog/control/updateProductStoreGroup")
-    public ResponseEntity<UpdateProductStoreGroupResponse> updateProductStoreGroup(@RequestBody UpdateProductStoreGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStoreGroupResponse> updateProductStoreGroup(@RequestBody UpdateProductStoreGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStoreGroup(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStoreGroupResponse::new);
     }
 
     /**
@@ -4140,9 +4131,9 @@ public class ProductController {
      * <p>service: updateProductStoreGroupRollup  entities: ProductStoreGroupRollup  auth: true
      */
     @PostMapping("/catalog/control/updateProductStoreGroupRollup")
-    public ResponseEntity<UpdateProductStoreGroupRollupResponse> updateProductStoreGroupRollup(@RequestBody UpdateProductStoreGroupRollupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStoreGroupRollupResponse> updateProductStoreGroupRollup(@RequestBody UpdateProductStoreGroupRollupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStoreGroupRollup(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStoreGroupRollupResponse::new);
     }
 
     /**
@@ -4150,9 +4141,9 @@ public class ProductController {
      * <p>service: updateProductStoreKeywordOvrd  entities: ProductStoreKeywordOvrd  auth: true
      */
     @PostMapping("/catalog/control/updateProductStoreKeywordOvrd")
-    public ResponseEntity<UpdateProductStoreKeywordOvrdResponse> updateProductStoreKeywordOvrd(@RequestBody UpdateProductStoreKeywordOvrdRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStoreKeywordOvrdResponse> updateProductStoreKeywordOvrd(@RequestBody UpdateProductStoreKeywordOvrdRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStoreKeywordOvrd(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStoreKeywordOvrdResponse::new);
     }
 
     /**
@@ -4160,9 +4151,9 @@ public class ProductController {
      * <p>service: updateProductStorePromoAppl  entities: ProductStorePromoAppl  auth: true
      */
     @PostMapping("/catalog/control/updateProductStorePromoAppl")
-    public ResponseEntity<UpdateProductStorePromoApplResponse> updateProductStorePromoApplUpdateProductStorePromoAppl(@RequestBody UpdateProductStorePromoApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStorePromoApplResponse> updateProductStorePromoApplUpdateProductStorePromoAppl(@RequestBody UpdateProductStorePromoApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStorePromoAppl(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStorePromoApplResponse::new);
     }
 
     /**
@@ -4170,9 +4161,9 @@ public class ProductController {
      * <p>service: updateProductSubscriptionResource  entities: ProductSubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/updateProductSubscriptionResource")
-    public ResponseEntity<UpdateProductSubscriptionResourceResponse> updateProductSubscriptionResource(@RequestBody UpdateProductSubscriptionResourceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductSubscriptionResourceResponse> updateProductSubscriptionResource(@RequestBody UpdateProductSubscriptionResourceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductSubscriptionResource(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductSubscriptionResourceResponse::new);
     }
 
     /**
@@ -4180,9 +4171,9 @@ public class ProductController {
      * <p>service: updateProductSubscriptionResource  entities: ProductSubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/updateProductSubscriptionResourceSr")
-    public ResponseEntity<UpdateProductSubscriptionResourceResponse> updateProductSubscriptionResourceUpdateProductSubscriptionResourceSr(@RequestBody UpdateProductSubscriptionResourceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductSubscriptionResourceResponse> updateProductSubscriptionResourceUpdateProductSubscriptionResourceSr(@RequestBody UpdateProductSubscriptionResourceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductSubscriptionResource(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductSubscriptionResourceResponse::new);
     }
 
     /**
@@ -4190,9 +4181,9 @@ public class ProductController {
      * <p>service: updateProductKeyword  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/updateProductTag")
-    public ResponseEntity<UpdateProductKeywordResponse> updateProductKeywordUpdateProductTag(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductKeywordResponse> updateProductKeywordUpdateProductTag(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductKeyword(java.util.Map.copyOf(params));
+        return wrap(result, UpdateProductKeywordResponse::new);
     }
 
     /**
@@ -4200,9 +4191,9 @@ public class ProductController {
      * <p>service: updateProductToCategory  entities: ProductCategoryMember  auth: true
      */
     @PostMapping("/catalog/control/updateProductToCategory")
-    public ResponseEntity<UpdateProductToCategoryResponse> updateProductToCategoryUpdateProductToCategory(@RequestBody UpdateProductToCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductToCategoryResponse> updateProductToCategoryUpdateProductToCategory(@RequestBody UpdateProductToCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductToCategory(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductToCategoryResponse::new);
     }
 
     /**
@@ -4210,9 +4201,9 @@ public class ProductController {
      * <p>service: updateQuantityBreak  entities: QuantityBreak  auth: true
      */
     @PostMapping("/catalog/control/updateQuantityBreak")
-    public ResponseEntity<UpdateQuantityBreakResponse> updateQuantityBreak(@RequestBody UpdateQuantityBreakRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateQuantityBreakResponse> updateQuantityBreak(@RequestBody UpdateQuantityBreakRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateQuantityBreak(ServiceInput.toMap(request));
+        return wrap(result, UpdateQuantityBreakResponse::new);
     }
 
     /**
@@ -4220,9 +4211,9 @@ public class ProductController {
      * <p>service: updateRelatedUrlContentForCategory  entities: ProductCategoryContent  auth: true
      */
     @PostMapping("/catalog/control/updateRelatedUrlContentForCategory")
-    public ResponseEntity<UpdateRelatedUrlContentForCategoryResponse> updateRelatedUrlContentForCategory(@RequestBody UpdateRelatedUrlContentForCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateRelatedUrlContentForCategoryResponse> updateRelatedUrlContentForCategory(@RequestBody UpdateRelatedUrlContentForCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateRelatedUrlContentForCategory(ServiceInput.toMap(request));
+        return wrap(result, UpdateRelatedUrlContentForCategoryResponse::new);
     }
 
     /**
@@ -4230,9 +4221,9 @@ public class ProductController {
      * <p>service: updateShipmentMethodType  entities: ShipmentMethodType  auth: true
      */
     @PostMapping("/catalog/control/updateShipmentMethodType")
-    public ResponseEntity<UpdateShipmentMethodTypeResponse> updateShipmentMethodType(@RequestBody UpdateShipmentMethodTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentMethodTypeResponse> updateShipmentMethodType(@RequestBody UpdateShipmentMethodTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentMethodType(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentMethodTypeResponse::new);
     }
 
     /**
@@ -4240,9 +4231,9 @@ public class ProductController {
      * <p>service: updateShipmentTimeEstimate  entities: ShipmentTimeEstimate  auth: true
      */
     @PostMapping("/catalog/control/updateShipmentTimeEstimate")
-    public ResponseEntity<UpdateShipmentTimeEstimateResponse> updateShipmentTimeEstimate(@RequestBody UpdateShipmentTimeEstimateRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentTimeEstimateResponse> updateShipmentTimeEstimate(@RequestBody UpdateShipmentTimeEstimateRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentTimeEstimate(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentTimeEstimateResponse::new);
     }
 
     /**
@@ -4250,9 +4241,9 @@ public class ProductController {
      * <p>service: updateSimpleTextContentForCategory  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/updateSimpleTextContentForCategory")
-    public ResponseEntity<UpdateSimpleTextContentForCategoryResponse> updateSimpleTextContentForCategory(@RequestBody UpdateSimpleTextContentForCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSimpleTextContentForCategoryResponse> updateSimpleTextContentForCategory(@RequestBody UpdateSimpleTextContentForCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSimpleTextContentForCategory(ServiceInput.toMap(request));
+        return wrap(result, UpdateSimpleTextContentForCategoryResponse::new);
     }
 
     /**
@@ -4260,9 +4251,9 @@ public class ProductController {
      * <p>service: updateSimpleTextContentForProduct  entities: ProductContent  auth: true
      */
     @PostMapping("/catalog/control/updateSimpleTextContentForProduct")
-    public ResponseEntity<UpdateSimpleTextContentForProductResponse> updateSimpleTextContentForProduct(@RequestBody UpdateSimpleTextContentForProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSimpleTextContentForProductResponse> updateSimpleTextContentForProduct(@RequestBody UpdateSimpleTextContentForProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSimpleTextContentForProduct(ServiceInput.toMap(request));
+        return wrap(result, UpdateSimpleTextContentForProductResponse::new);
     }
 
     /**
@@ -4270,9 +4261,9 @@ public class ProductController {
      * <p>service: updateSimpleTextContentForProductConfigItem  entities: ProdConfItemContent  auth: true
      */
     @PostMapping("/catalog/control/updateSimpleTextContentForProductConfigItem")
-    public ResponseEntity<UpdateSimpleTextContentForProductConfigItemResponse> updateSimpleTextContentForProductConfigItem(@RequestBody UpdateSimpleTextContentForProductConfigItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSimpleTextContentForProductConfigItemResponse> updateSimpleTextContentForProductConfigItem(@RequestBody UpdateSimpleTextContentForProductConfigItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSimpleTextContentForProductConfigItem(ServiceInput.toMap(request));
+        return wrap(result, UpdateSimpleTextContentForProductConfigItemResponse::new);
     }
 
     /**
@@ -4280,9 +4271,9 @@ public class ProductController {
      * <p>service: updateStatusImageManagement  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/updateStatusImageManagement")
-    public ResponseEntity<UpdateStatusImageManagementResponse> updateStatusImageManagement(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateStatusImageManagementResponse> updateStatusImageManagement(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateStatusImageManagement(java.util.Map.copyOf(params));
+        return wrap(result, UpdateStatusImageManagementResponse::new);
     }
 
     /**
@@ -4290,9 +4281,9 @@ public class ProductController {
      * <p>service: updateSubscription  entities: Subscription  auth: true
      */
     @PostMapping("/catalog/control/updateSubscription")
-    public ResponseEntity<UpdateSubscriptionResponse> updateSubscription(@RequestBody UpdateSubscriptionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSubscriptionResponse> updateSubscription(@RequestBody UpdateSubscriptionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSubscription(ServiceInput.toMap(request));
+        return wrap(result, UpdateSubscriptionResponse::new);
     }
 
     /**
@@ -4300,9 +4291,9 @@ public class ProductController {
      * <p>service: updateSubscriptionResource  entities: SubscriptionResource  auth: true
      */
     @PostMapping("/catalog/control/updateSubscriptionResource")
-    public ResponseEntity<UpdateSubscriptionResourceResponse> updateSubscriptionResource(@RequestBody UpdateSubscriptionResourceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSubscriptionResourceResponse> updateSubscriptionResource(@RequestBody UpdateSubscriptionResourceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSubscriptionResource(ServiceInput.toMap(request));
+        return wrap(result, UpdateSubscriptionResourceResponse::new);
     }
 
     /**
@@ -4310,9 +4301,9 @@ public class ProductController {
      * <p>service: updateSupplierProduct  entities: SupplierProduct  auth: true
      */
     @PostMapping("/catalog/control/updateSupplierProduct")
-    public ResponseEntity<UpdateSupplierProductResponse> updateSupplierProduct(@RequestBody UpdateSupplierProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSupplierProductResponse> updateSupplierProduct(@RequestBody UpdateSupplierProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSupplierProduct(ServiceInput.toMap(request));
+        return wrap(result, UpdateSupplierProductResponse::new);
     }
 
     /**
@@ -4320,9 +4311,9 @@ public class ProductController {
      * <p>service: updateSupplierProductFeature  entities: SupplierProductFeature  auth: true
      */
     @PostMapping("/catalog/control/updateSupplierProductFeature")
-    public ResponseEntity<UpdateSupplierProductFeatureResponse> updateSupplierProductFeature(@RequestBody UpdateSupplierProductFeatureRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSupplierProductFeatureResponse> updateSupplierProductFeature(@RequestBody UpdateSupplierProductFeatureRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSupplierProductFeature(ServiceInput.toMap(request));
+        return wrap(result, UpdateSupplierProductFeatureResponse::new);
     }
 
     /**
@@ -4330,9 +4321,8 @@ public class ProductController {
      * <p>service: updateWorkEffortGoodStandard  entities: WorkEffortGoodStandard  auth: true
      */
     @PostMapping("/catalog/control/updateWorkEffortGoodStandard")
-    public ResponseEntity<Map<String, Object>> updateWorkEffortGoodStandard(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateWorkEffortGoodStandard(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateWorkEffortGoodStandard(body));
     }
 
     /**
@@ -4340,9 +4330,9 @@ public class ProductController {
      * <p>service: uploadFrame  entities: unknown  auth: true
      */
     @GetMapping("/catalog/control/uploadFrame")
-    public ResponseEntity<UploadFrameResponse> uploadFrame(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UploadFrameResponse> uploadFrame(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.uploadFrame(java.util.Map.copyOf(params));
+        return wrap(result, UploadFrameResponse::new);
     }
 
     /**
@@ -4350,9 +4340,8 @@ public class ProductController {
      * <p>service: findOrders  entities: unknown  auth: true
      */
     @PostMapping("/catalog/control/viewProductOrder")
-    public ResponseEntity<Map<String, Object>> findOrders(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> findOrders(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.findOrders(body));
     }
 
     /**
@@ -4360,9 +4349,9 @@ public class ProductController {
      * <p>service: updateShipmentRouteSegment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/BatchScheduleShipmentRouteSegments")
-    public ResponseEntity<UpdateShipmentRouteSegmentResponse> updateShipmentRouteSegment(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentRouteSegmentResponse> updateShipmentRouteSegment(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentRouteSegment(java.util.Map.copyOf(params));
+        return wrap(result, UpdateShipmentRouteSegmentResponse::new);
     }
 
     /**
@@ -4370,9 +4359,9 @@ public class ProductController {
      * <p>service: updateShipmentRouteSegment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/BatchUpdateShipmentRouteSegments")
-    public ResponseEntity<UpdateShipmentRouteSegmentResponse> updateShipmentRouteSegmentBatchUpdateShipmentRouteSegments(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentRouteSegmentResponse> updateShipmentRouteSegmentBatchUpdateShipmentRouteSegments(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentRouteSegment(java.util.Map.copyOf(params));
+        return wrap(result, UpdateShipmentRouteSegmentResponse::new);
     }
 
     /**
@@ -4380,9 +4369,9 @@ public class ProductController {
      * <p>service: clearPackAll  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/ClearPackAll")
-    public ResponseEntity<ClearPackAllResponse> clearPackAll(@RequestBody ClearPackAllRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ClearPackAllResponse> clearPackAll(@RequestBody ClearPackAllRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.clearPackAll(ServiceInput.toMap(request));
+        return wrap(result, ClearPackAllResponse::new);
     }
 
     /**
@@ -4390,9 +4379,9 @@ public class ProductController {
      * <p>service: clearPackLine  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/ClearPackLine")
-    public ResponseEntity<ClearPackLineResponse> clearPackLine(@RequestBody ClearPackLineRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ClearPackLineResponse> clearPackLine(@RequestBody ClearPackLineRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.clearPackLine(ServiceInput.toMap(request));
+        return wrap(result, ClearPackLineResponse::new);
     }
 
     /**
@@ -4400,9 +4389,9 @@ public class ProductController {
      * <p>service: completePack  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/CompletePack")
-    public ResponseEntity<CompletePackResponse> completePack(@RequestBody CompletePackRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CompletePackResponse> completePack(@RequestBody CompletePackRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.completePack(ServiceInput.toMap(request));
+        return wrap(result, CompletePackResponse::new);
     }
 
     /**
@@ -4410,9 +4399,9 @@ public class ProductController {
      * <p>service: updateInventoryTransfer  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/CompleteRequestedTransfers")
-    public ResponseEntity<UpdateInventoryTransferResponse> updateInventoryTransfer(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateInventoryTransferResponse> updateInventoryTransfer(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateInventoryTransfer(java.util.Map.copyOf(params));
+        return wrap(result, UpdateInventoryTransferResponse::new);
     }
 
     /**
@@ -4420,9 +4409,9 @@ public class ProductController {
      * <p>service: createFacility  entities: Facility  auth: true
      */
     @PostMapping("/facility/control/CreateFacility")
-    public ResponseEntity<CreateFacilityResponse> createFacility(@RequestBody CreateFacilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFacilityResponse> createFacility(@RequestBody CreateFacilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFacility(ServiceInput.toMap(request));
+        return wrap(result, CreateFacilityResponse::new);
     }
 
     /**
@@ -4430,9 +4419,9 @@ public class ProductController {
      * <p>service: createFacilityLocation  entities: FacilityLocation  auth: true
      */
     @PostMapping("/facility/control/CreateFacilityLocation")
-    public ResponseEntity<CreateFacilityLocationResponse> createFacilityLocation(@RequestBody CreateFacilityLocationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFacilityLocationResponse> createFacilityLocation(@RequestBody CreateFacilityLocationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFacilityLocation(ServiceInput.toMap(request));
+        return wrap(result, CreateFacilityLocationResponse::new);
     }
 
     /**
@@ -4440,9 +4429,9 @@ public class ProductController {
      * <p>service: createInventoryItem  entities: InventoryItem  auth: true
      */
     @PostMapping("/facility/control/CreateInventoryItem")
-    public ResponseEntity<CreateInventoryItemResponse> createInventoryItem(@RequestBody CreateInventoryItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInventoryItemResponse> createInventoryItem(@RequestBody CreateInventoryItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInventoryItem(ServiceInput.toMap(request));
+        return wrap(result, CreateInventoryItemResponse::new);
     }
 
     /**
@@ -4450,9 +4439,9 @@ public class ProductController {
      * <p>service: createInventoryTransfer  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/CreateInventoryTransfer")
-    public ResponseEntity<CreateInventoryTransferResponse> createInventoryTransfer(@RequestBody CreateInventoryTransferRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInventoryTransferResponse> createInventoryTransfer(@RequestBody CreateInventoryTransferRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInventoryTransfer(ServiceInput.toMap(request));
+        return wrap(result, CreateInventoryTransferResponse::new);
     }
 
     /**
@@ -4460,9 +4449,9 @@ public class ProductController {
      * <p>service: packBulkItems  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/ProcessBulkPackOrder")
-    public ResponseEntity<PackBulkItemsResponse> packBulkItems(@RequestBody PackBulkItemsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<PackBulkItemsResponse> packBulkItems(@RequestBody PackBulkItemsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.packBulkItems(ServiceInput.toMap(request));
+        return wrap(result, PackBulkItemsResponse::new);
     }
 
     /**
@@ -4470,9 +4459,9 @@ public class ProductController {
      * <p>service: packSingleItem  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/ProcessPackOrder")
-    public ResponseEntity<PackSingleItemResponse> packSingleItem(@RequestBody PackSingleItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<PackSingleItemResponse> packSingleItem(@RequestBody PackSingleItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.packSingleItem(ServiceInput.toMap(request));
+        return wrap(result, PackSingleItemResponse::new);
     }
 
     /**
@@ -4480,9 +4469,9 @@ public class ProductController {
      * <p>service: quickScheduleShipmentRouteSegment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/ScheduleShipmentsWithCarriers")
-    public ResponseEntity<QuickScheduleShipmentRouteSegmentResponse> quickScheduleShipmentRouteSegment(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<QuickScheduleShipmentRouteSegmentResponse> quickScheduleShipmentRouteSegment(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.quickScheduleShipmentRouteSegment(java.util.Map.copyOf(params));
+        return wrap(result, QuickScheduleShipmentRouteSegmentResponse::new);
     }
 
     /**
@@ -4490,9 +4479,9 @@ public class ProductController {
      * <p>service: setNextPackageSeq  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/SetNextPackageSeq")
-    public ResponseEntity<SetNextPackageSeqResponse> setNextPackageSeq(@RequestBody SetNextPackageSeqRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SetNextPackageSeqResponse> setNextPackageSeq(@RequestBody SetNextPackageSeqRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.setNextPackageSeq(ServiceInput.toMap(request));
+        return wrap(result, SetNextPackageSeqResponse::new);
     }
 
     /**
@@ -4500,9 +4489,9 @@ public class ProductController {
      * <p>service: updateFacility  entities: Facility  auth: true
      */
     @PostMapping("/facility/control/UpdateFacility")
-    public ResponseEntity<UpdateFacilityResponse> updateFacility(@RequestBody UpdateFacilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFacilityResponse> updateFacility(@RequestBody UpdateFacilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFacility(ServiceInput.toMap(request));
+        return wrap(result, UpdateFacilityResponse::new);
     }
 
     /**
@@ -4510,9 +4499,9 @@ public class ProductController {
      * <p>service: updateFacilityLocation  entities: FacilityLocation  auth: true
      */
     @PostMapping("/facility/control/UpdateFacilityLocation")
-    public ResponseEntity<UpdateFacilityLocationResponse> updateFacilityLocation(@RequestBody UpdateFacilityLocationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFacilityLocationResponse> updateFacilityLocation(@RequestBody UpdateFacilityLocationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFacilityLocation(ServiceInput.toMap(request));
+        return wrap(result, UpdateFacilityLocationResponse::new);
     }
 
     /**
@@ -4520,9 +4509,9 @@ public class ProductController {
      * <p>service: updateInventoryItem  entities: InventoryItem  auth: true
      */
     @PostMapping("/facility/control/UpdateInventoryItem")
-    public ResponseEntity<UpdateInventoryItemResponse> updateInventoryItem(@RequestBody UpdateInventoryItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateInventoryItemResponse> updateInventoryItem(@RequestBody UpdateInventoryItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateInventoryItem(ServiceInput.toMap(request));
+        return wrap(result, UpdateInventoryItemResponse::new);
     }
 
     /**
@@ -4530,9 +4519,9 @@ public class ProductController {
      * <p>service: updateInventoryTransfer  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/UpdateInventoryTransfer")
-    public ResponseEntity<UpdateInventoryTransferResponse> updateInventoryTransferUpdateInventoryTransfer(@RequestBody UpdateInventoryTransferRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateInventoryTransferResponse> updateInventoryTransferUpdateInventoryTransfer(@RequestBody UpdateInventoryTransferRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateInventoryTransfer(ServiceInput.toMap(request));
+        return wrap(result, UpdateInventoryTransferResponse::new);
     }
 
     /**
@@ -4540,9 +4529,9 @@ public class ProductController {
      * <p>service: updateShipmentGatewayConfig  entities: ShipmentGatewayConfig  auth: true
      */
     @PostMapping("/facility/control/UpdateShipmentGatewayConfig")
-    public ResponseEntity<UpdateShipmentGatewayConfigResponse> updateShipmentGatewayConfig(@RequestBody UpdateShipmentGatewayConfigRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentGatewayConfigResponse> updateShipmentGatewayConfig(@RequestBody UpdateShipmentGatewayConfigRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentGatewayConfig(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentGatewayConfigResponse::new);
     }
 
     /**
@@ -4550,9 +4539,9 @@ public class ProductController {
      * <p>service: updateShipmentGatewayConfigType  entities: ShipmentGatewayConfigType  auth: true
      */
     @PostMapping("/facility/control/UpdateShipmentGatewayConfigType")
-    public ResponseEntity<UpdateShipmentGatewayConfigTypeResponse> updateShipmentGatewayConfigType(@RequestBody UpdateShipmentGatewayConfigTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentGatewayConfigTypeResponse> updateShipmentGatewayConfigType(@RequestBody UpdateShipmentGatewayConfigTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentGatewayConfigType(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentGatewayConfigTypeResponse::new);
     }
 
     /**
@@ -4560,9 +4549,9 @@ public class ProductController {
      * <p>service: addFacilityGroupToGroup  entities: FacilityGroupRollup  auth: true
      */
     @PostMapping("/facility/control/addFacilityGroupToGroup")
-    public ResponseEntity<AddFacilityGroupToGroupResponse> addFacilityGroupToGroup(@RequestBody AddFacilityGroupToGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddFacilityGroupToGroupResponse> addFacilityGroupToGroup(@RequestBody AddFacilityGroupToGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addFacilityGroupToGroup(ServiceInput.toMap(request));
+        return wrap(result, AddFacilityGroupToGroupResponse::new);
     }
 
     /**
@@ -4570,9 +4559,9 @@ public class ProductController {
      * <p>service: addFacilityToGroup  entities: FacilityGroupMember  auth: true
      */
     @PostMapping("/facility/control/addFacilityToGroup")
-    public ResponseEntity<AddFacilityToGroupResponse> addFacilityToGroup(@RequestBody AddFacilityToGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddFacilityToGroupResponse> addFacilityToGroup(@RequestBody AddFacilityToGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addFacilityToGroup(ServiceInput.toMap(request));
+        return wrap(result, AddFacilityToGroupResponse::new);
     }
 
     /**
@@ -4580,9 +4569,9 @@ public class ProductController {
      * <p>service: addFacilityToGroup  entities: FacilityGroupMember  auth: true
      */
     @PostMapping("/facility/control/addGroupToFacility")
-    public ResponseEntity<AddFacilityToGroupResponse> addFacilityToGroupAddGroupToFacility(@RequestBody AddFacilityToGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddFacilityToGroupResponse> addFacilityToGroupAddGroupToFacility(@RequestBody AddFacilityToGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addFacilityToGroup(ServiceInput.toMap(request));
+        return wrap(result, AddFacilityToGroupResponse::new);
     }
 
     /**
@@ -4590,9 +4579,9 @@ public class ProductController {
      * <p>service: addPartyToFacility  entities: FacilityParty  auth: true
      */
     @PostMapping("/facility/control/addPartyToFacility")
-    public ResponseEntity<AddPartyToFacilityResponse> addPartyToFacility(@RequestBody AddPartyToFacilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddPartyToFacilityResponse> addPartyToFacility(@RequestBody AddPartyToFacilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addPartyToFacility(ServiceInput.toMap(request));
+        return wrap(result, AddPartyToFacilityResponse::new);
     }
 
     /**
@@ -4600,9 +4589,9 @@ public class ProductController {
      * <p>service: addPartyToFacilityGroup  entities: FacilityGroupRole  auth: true
      */
     @PostMapping("/facility/control/addPartyToFacilityGroup")
-    public ResponseEntity<AddPartyToFacilityGroupResponse> addPartyToFacilityGroup(@RequestBody AddPartyToFacilityGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddPartyToFacilityGroupResponse> addPartyToFacilityGroup(@RequestBody AddPartyToFacilityGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addPartyToFacilityGroup(ServiceInput.toMap(request));
+        return wrap(result, AddPartyToFacilityGroupResponse::new);
     }
 
     /**
@@ -4610,9 +4599,9 @@ public class ProductController {
      * <p>service: addOrderShipmentToShipment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/addToShipmentPlan")
-    public ResponseEntity<AddOrderShipmentToShipmentResponse> addOrderShipmentToShipment(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddOrderShipmentToShipmentResponse> addOrderShipmentToShipment(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.addOrderShipmentToShipment(java.util.Map.copyOf(params));
+        return wrap(result, AddOrderShipmentToShipmentResponse::new);
     }
 
     /**
@@ -4620,9 +4609,9 @@ public class ProductController {
      * <p>service: calcPackSessionAdditionalShippingCharge  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/calcPackSessionAdditionalShippingCharge")
-    public ResponseEntity<CalcPackSessionAdditionalShippingChargeResponse> calcPackSessionAdditionalShippingCharge(@RequestBody CalcPackSessionAdditionalShippingChargeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CalcPackSessionAdditionalShippingChargeResponse> calcPackSessionAdditionalShippingCharge(@RequestBody CalcPackSessionAdditionalShippingChargeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.calcPackSessionAdditionalShippingCharge(ServiceInput.toMap(request));
+        return wrap(result, CalcPackSessionAdditionalShippingChargeResponse::new);
     }
 
     /**
@@ -4630,9 +4619,9 @@ public class ProductController {
      * <p>service: cancelAllRows  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/cancelAllRows")
-    public ResponseEntity<CancelAllRowsResponse> cancelAllRows(@RequestBody CancelAllRowsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CancelAllRowsResponse> cancelAllRows(@RequestBody CancelAllRowsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.cancelAllRows(ServiceInput.toMap(request));
+        return wrap(result, CancelAllRowsResponse::new);
     }
 
     /**
@@ -4640,9 +4629,9 @@ public class ProductController {
      * <p>service: cancelReceivedItems  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/cancelReceivedItems")
-    public ResponseEntity<CancelReceivedItemsResponse> cancelReceivedItems(@RequestBody CancelReceivedItemsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CancelReceivedItemsResponse> cancelReceivedItems(@RequestBody CancelReceivedItemsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.cancelReceivedItems(ServiceInput.toMap(request));
+        return wrap(result, CancelReceivedItemsResponse::new);
     }
 
     /**
@@ -4650,9 +4639,8 @@ public class ProductController {
      * <p>service: checkForceShipmentReceived  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/checkForceShipmentReceived")
-    public ResponseEntity<Map<String, Object>> checkForceShipmentReceived(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> checkForceShipmentReceived(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.checkForceShipmentReceived(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -4660,9 +4648,9 @@ public class ProductController {
      * <p>service: completePackage  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/completePackage")
-    public ResponseEntity<CompletePackageResponse> completePackage(@RequestBody CompletePackageRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CompletePackageResponse> completePackage(@RequestBody CompletePackageRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.completePackage(ServiceInput.toMap(request));
+        return wrap(result, CompletePackageResponse::new);
     }
 
     /**
@@ -4670,9 +4658,8 @@ public class ProductController {
      * <p>service: completePurchaseOrder  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/completePurchaseOrder")
-    public ResponseEntity<Map<String, Object>> completePurchaseOrder(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> completePurchaseOrder(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.completePurchaseOrder(body));
     }
 
     /**
@@ -4680,9 +4667,9 @@ public class ProductController {
      * <p>service: completeVerifiedPick  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/completeVerifiedPick")
-    public ResponseEntity<CompleteVerifiedPickResponse> completeVerifiedPick(@RequestBody CompleteVerifiedPickRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CompleteVerifiedPickResponse> completeVerifiedPick(@RequestBody CompleteVerifiedPickRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.completeVerifiedPick(ServiceInput.toMap(request));
+        return wrap(result, CompleteVerifiedPickResponse::new);
     }
 
     /**
@@ -4690,9 +4677,9 @@ public class ProductController {
      * <p>service: createFacilityContactMech  entities: ContactMech, FacilityContactMech  auth: true
      */
     @PostMapping("/facility/control/createContactMech")
-    public ResponseEntity<CreateFacilityContactMechResponse> createFacilityContactMech(@RequestBody CreateFacilityContactMechRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFacilityContactMechResponse> createFacilityContactMech(@RequestBody CreateFacilityContactMechRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFacilityContactMech(ServiceInput.toMap(request));
+        return wrap(result, CreateFacilityContactMechResponse::new);
     }
 
     /**
@@ -4700,9 +4687,9 @@ public class ProductController {
      * <p>service: createFacilityEmailAddress  entities: ContactMech, FacilityContactMech  auth: true
      */
     @PostMapping("/facility/control/createEmailAddress")
-    public ResponseEntity<CreateFacilityEmailAddressResponse> createFacilityEmailAddress(@RequestBody CreateFacilityEmailAddressRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFacilityEmailAddressResponse> createFacilityEmailAddress(@RequestBody CreateFacilityEmailAddressRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFacilityEmailAddress(ServiceInput.toMap(request));
+        return wrap(result, CreateFacilityEmailAddressResponse::new);
     }
 
     /**
@@ -4710,9 +4697,9 @@ public class ProductController {
      * <p>service: createFacilityContactMechPurpose  entities: FacilityContactMechPurpose  auth: true
      */
     @PostMapping("/facility/control/createFacilityContactMechPurpose")
-    public ResponseEntity<CreateFacilityContactMechPurposeResponse> createFacilityContactMechPurpose(@RequestBody CreateFacilityContactMechPurposeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFacilityContactMechPurposeResponse> createFacilityContactMechPurpose(@RequestBody CreateFacilityContactMechPurposeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFacilityContactMechPurpose(ServiceInput.toMap(request));
+        return wrap(result, CreateFacilityContactMechPurposeResponse::new);
     }
 
     /**
@@ -4720,9 +4707,9 @@ public class ProductController {
      * <p>service: createFacilityContent  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/createFacilityContent")
-    public ResponseEntity<CreateFacilityContentResponse> createFacilityContent(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFacilityContentResponse> createFacilityContent(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFacilityContent(java.util.Map.copyOf(params));
+        return wrap(result, CreateFacilityContentResponse::new);
     }
 
     /**
@@ -4730,9 +4717,9 @@ public class ProductController {
      * <p>service: createFacilityGroup  entities: FacilityGroup  auth: true
      */
     @PostMapping("/facility/control/createFacilityGroup")
-    public ResponseEntity<CreateFacilityGroupResponse> createFacilityGroup(@RequestBody CreateFacilityGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFacilityGroupResponse> createFacilityGroup(@RequestBody CreateFacilityGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFacilityGroup(ServiceInput.toMap(request));
+        return wrap(result, CreateFacilityGroupResponse::new);
     }
 
     /**
@@ -4740,9 +4727,9 @@ public class ProductController {
      * <p>service: createInventoryItemLabel  entities: InventoryItemLabel  auth: true
      */
     @PostMapping("/facility/control/createInventoryItemLabel")
-    public ResponseEntity<CreateInventoryItemLabelResponse> createInventoryItemLabel(@RequestBody CreateInventoryItemLabelRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInventoryItemLabelResponse> createInventoryItemLabel(@RequestBody CreateInventoryItemLabelRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInventoryItemLabel(ServiceInput.toMap(request));
+        return wrap(result, CreateInventoryItemLabelResponse::new);
     }
 
     /**
@@ -4750,9 +4737,9 @@ public class ProductController {
      * <p>service: createInventoryItemLabelAppl  entities: InventoryItemLabelAppl  auth: true
      */
     @PostMapping("/facility/control/createInventoryItemLabelAppl")
-    public ResponseEntity<CreateInventoryItemLabelApplResponse> createInventoryItemLabelAppl(@RequestBody CreateInventoryItemLabelApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInventoryItemLabelApplResponse> createInventoryItemLabelAppl(@RequestBody CreateInventoryItemLabelApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInventoryItemLabelAppl(ServiceInput.toMap(request));
+        return wrap(result, CreateInventoryItemLabelApplResponse::new);
     }
 
     /**
@@ -4760,9 +4747,9 @@ public class ProductController {
      * <p>service: createInventoryItemLabelAppl  entities: InventoryItemLabelAppl  auth: true
      */
     @PostMapping("/facility/control/createInventoryItemLabelApplFromItem")
-    public ResponseEntity<CreateInventoryItemLabelApplResponse> createInventoryItemLabelApplCreateInventoryItemLabelApplFromItem(@RequestBody CreateInventoryItemLabelApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInventoryItemLabelApplResponse> createInventoryItemLabelApplCreateInventoryItemLabelApplFromItem(@RequestBody CreateInventoryItemLabelApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInventoryItemLabelAppl(ServiceInput.toMap(request));
+        return wrap(result, CreateInventoryItemLabelApplResponse::new);
     }
 
     /**
@@ -4770,9 +4757,9 @@ public class ProductController {
      * <p>service: createInventoryItemLabelType  entities: InventoryItemLabelType  auth: true
      */
     @PostMapping("/facility/control/createInventoryItemLabelType")
-    public ResponseEntity<CreateInventoryItemLabelTypeResponse> createInventoryItemLabelType(@RequestBody CreateInventoryItemLabelTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInventoryItemLabelTypeResponse> createInventoryItemLabelType(@RequestBody CreateInventoryItemLabelTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInventoryItemLabelType(ServiceInput.toMap(request));
+        return wrap(result, CreateInventoryItemLabelTypeResponse::new);
     }
 
     /**
@@ -4780,9 +4767,9 @@ public class ProductController {
      * <p>service: createInventoryTransfersForProduct  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/createInventoryTransfersForProduct")
-    public ResponseEntity<CreateInventoryTransfersForProductResponse> createInventoryTransfersForProduct(@RequestBody CreateInventoryTransfersForProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInventoryTransfersForProductResponse> createInventoryTransfersForProduct(@RequestBody CreateInventoryTransfersForProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInventoryTransfersForProduct(ServiceInput.toMap(request));
+        return wrap(result, CreateInventoryTransfersForProductResponse::new);
     }
 
     /**
@@ -4790,9 +4777,9 @@ public class ProductController {
      * <p>service: createPhysicalInventoryAndVariance  entities: InventoryItemVariance, PhysicalInventory  auth: true
      */
     @PostMapping("/facility/control/createPhysicalInventoryAndVariance")
-    public ResponseEntity<CreatePhysicalInventoryAndVarianceResponse> createPhysicalInventoryAndVariance(@RequestBody CreatePhysicalInventoryAndVarianceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePhysicalInventoryAndVarianceResponse> createPhysicalInventoryAndVariance(@RequestBody CreatePhysicalInventoryAndVarianceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPhysicalInventoryAndVariance(ServiceInput.toMap(request));
+        return wrap(result, CreatePhysicalInventoryAndVarianceResponse::new);
     }
 
     /**
@@ -4800,9 +4787,9 @@ public class ProductController {
      * <p>service: createPhysicalInventoryAndVariance  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/createPhysicalVariances")
-    public ResponseEntity<CreatePhysicalInventoryAndVarianceResponse> createPhysicalInventoryAndVarianceCreatePhysicalVariances(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePhysicalInventoryAndVarianceResponse> createPhysicalInventoryAndVarianceCreatePhysicalVariances(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPhysicalInventoryAndVariance(java.util.Map.copyOf(params));
+        return wrap(result, CreatePhysicalInventoryAndVarianceResponse::new);
     }
 
     /**
@@ -4810,9 +4797,9 @@ public class ProductController {
      * <p>service: createPicklistFromOrders  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/createPicklistFromOrders")
-    public ResponseEntity<CreatePicklistFromOrdersResponse> createPicklistFromOrders(@RequestBody CreatePicklistFromOrdersRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePicklistFromOrdersResponse> createPicklistFromOrders(@RequestBody CreatePicklistFromOrdersRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPicklistFromOrders(ServiceInput.toMap(request));
+        return wrap(result, CreatePicklistFromOrdersResponse::new);
     }
 
     /**
@@ -4820,9 +4807,9 @@ public class ProductController {
      * <p>service: createPicklistRole  entities: PicklistRole  auth: true
      */
     @PostMapping("/facility/control/createPicklistRole")
-    public ResponseEntity<CreatePicklistRoleResponse> createPicklistRole(@RequestBody CreatePicklistRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePicklistRoleResponse> createPicklistRole(@RequestBody CreatePicklistRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPicklistRole(ServiceInput.toMap(request));
+        return wrap(result, CreatePicklistRoleResponse::new);
     }
 
     /**
@@ -4830,9 +4817,9 @@ public class ProductController {
      * <p>service: createFacilityPostalAddress  entities: FacilityContactMech, PostalAddress  auth: true
      */
     @PostMapping("/facility/control/createPostalAddress")
-    public ResponseEntity<CreateFacilityPostalAddressResponse> createFacilityPostalAddress(@RequestBody CreateFacilityPostalAddressRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFacilityPostalAddressResponse> createFacilityPostalAddress(@RequestBody CreateFacilityPostalAddressRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFacilityPostalAddress(ServiceInput.toMap(request));
+        return wrap(result, CreateFacilityPostalAddressResponse::new);
     }
 
     /**
@@ -4840,9 +4827,9 @@ public class ProductController {
      * <p>service: createFacilityPostalAddress  entities: FacilityContactMech, PostalAddress  auth: true
      */
     @PostMapping("/facility/control/createPostalAddressAndPurpose")
-    public ResponseEntity<CreateFacilityPostalAddressResponse> createFacilityPostalAddressCreatePostalAddressAndPurpose(@RequestBody CreateFacilityPostalAddressRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFacilityPostalAddressResponse> createFacilityPostalAddressCreatePostalAddressAndPurpose(@RequestBody CreateFacilityPostalAddressRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFacilityPostalAddress(ServiceInput.toMap(request));
+        return wrap(result, CreateFacilityPostalAddressResponse::new);
     }
 
     /**
@@ -4850,9 +4837,9 @@ public class ProductController {
      * <p>service: createProductFacilityLocation  entities: ProductFacilityLocation  auth: true
      */
     @PostMapping("/facility/control/createProductFacilityLocation")
-    public ResponseEntity<CreateProductFacilityLocationResponse> createProductFacilityLocationCreateProductFacilityLocation(@RequestBody CreateProductFacilityLocationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateProductFacilityLocationResponse> createProductFacilityLocationCreateProductFacilityLocation(@RequestBody CreateProductFacilityLocationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createProductFacilityLocation(ServiceInput.toMap(request));
+        return wrap(result, CreateProductFacilityLocationResponse::new);
     }
 
     /**
@@ -4860,9 +4847,9 @@ public class ProductController {
      * <p>service: quickShipEntireOrder  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/createQuickShipment")
-    public ResponseEntity<QuickShipEntireOrderResponse> quickShipEntireOrder(@RequestBody QuickShipEntireOrderRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<QuickShipEntireOrderResponse> quickShipEntireOrder(@RequestBody QuickShipEntireOrderRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.quickShipEntireOrder(ServiceInput.toMap(request));
+        return wrap(result, QuickShipEntireOrderResponse::new);
     }
 
     /**
@@ -4870,9 +4857,9 @@ public class ProductController {
      * <p>service: createShipmentPackageRouteSeg  entities: ShipmentPackageRouteSeg  auth: true
      */
     @PostMapping("/facility/control/createRouteSegmentShipmentPackage")
-    public ResponseEntity<CreateShipmentPackageRouteSegResponse> createShipmentPackageRouteSeg(@RequestBody CreateShipmentPackageRouteSegRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateShipmentPackageRouteSegResponse> createShipmentPackageRouteSeg(@RequestBody CreateShipmentPackageRouteSegRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createShipmentPackageRouteSeg(ServiceInput.toMap(request));
+        return wrap(result, CreateShipmentPackageRouteSegResponse::new);
     }
 
     /**
@@ -4880,9 +4867,9 @@ public class ProductController {
      * <p>service: createShipment  entities: Shipment  auth: true
      */
     @PostMapping("/facility/control/createShipment")
-    public ResponseEntity<CreateShipmentResponse> createShipment(@RequestBody CreateShipmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateShipmentResponse> createShipment(@RequestBody CreateShipmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createShipment(ServiceInput.toMap(request));
+        return wrap(result, CreateShipmentResponse::new);
     }
 
     /**
@@ -4890,9 +4877,9 @@ public class ProductController {
      * <p>service: createShipmentAndItemsForVendorReturn  entities: Shipment  auth: true
      */
     @PostMapping("/facility/control/createShipmentAndItemsForVendorReturn")
-    public ResponseEntity<CreateShipmentAndItemsForVendorReturnResponse> createShipmentAndItemsForVendorReturn(@RequestBody CreateShipmentAndItemsForVendorReturnRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateShipmentAndItemsForVendorReturnResponse> createShipmentAndItemsForVendorReturn(@RequestBody CreateShipmentAndItemsForVendorReturnRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createShipmentAndItemsForVendorReturn(ServiceInput.toMap(request));
+        return wrap(result, CreateShipmentAndItemsForVendorReturnResponse::new);
     }
 
     /**
@@ -4900,9 +4887,9 @@ public class ProductController {
      * <p>service: createShipmentItem  entities: ShipmentItem  auth: true
      */
     @PostMapping("/facility/control/createShipmentItem")
-    public ResponseEntity<CreateShipmentItemResponse> createShipmentItem(@RequestBody CreateShipmentItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateShipmentItemResponse> createShipmentItem(@RequestBody CreateShipmentItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createShipmentItem(ServiceInput.toMap(request));
+        return wrap(result, CreateShipmentItemResponse::new);
     }
 
     /**
@@ -4910,9 +4897,9 @@ public class ProductController {
      * <p>service: createShipmentPackageContent  entities: ShipmentPackageContent  auth: true
      */
     @PostMapping("/facility/control/createShipmentItemPackageContent")
-    public ResponseEntity<CreateShipmentPackageContentResponse> createShipmentPackageContent(@RequestBody CreateShipmentPackageContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateShipmentPackageContentResponse> createShipmentPackageContent(@RequestBody CreateShipmentPackageContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createShipmentPackageContent(ServiceInput.toMap(request));
+        return wrap(result, CreateShipmentPackageContentResponse::new);
     }
 
     /**
@@ -4920,9 +4907,9 @@ public class ProductController {
      * <p>service: createShipmentPackage  entities: ShipmentPackage  auth: true
      */
     @PostMapping("/facility/control/createShipmentPackage")
-    public ResponseEntity<CreateShipmentPackageResponse> createShipmentPackage(@RequestBody CreateShipmentPackageRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateShipmentPackageResponse> createShipmentPackage(@RequestBody CreateShipmentPackageRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createShipmentPackage(ServiceInput.toMap(request));
+        return wrap(result, CreateShipmentPackageResponse::new);
     }
 
     /**
@@ -4930,9 +4917,9 @@ public class ProductController {
      * <p>service: createShipmentPackageContent  entities: ShipmentPackageContent  auth: true
      */
     @PostMapping("/facility/control/createShipmentPackageContent")
-    public ResponseEntity<CreateShipmentPackageContentResponse> createShipmentPackageContentCreateShipmentPackageContent(@RequestBody CreateShipmentPackageContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateShipmentPackageContentResponse> createShipmentPackageContentCreateShipmentPackageContent(@RequestBody CreateShipmentPackageContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createShipmentPackageContent(ServiceInput.toMap(request));
+        return wrap(result, CreateShipmentPackageContentResponse::new);
     }
 
     /**
@@ -4940,9 +4927,9 @@ public class ProductController {
      * <p>service: createShipmentPackageRouteSeg  entities: ShipmentPackageRouteSeg  auth: true
      */
     @PostMapping("/facility/control/createShipmentPackageRouteSeg")
-    public ResponseEntity<CreateShipmentPackageRouteSegResponse> createShipmentPackageRouteSegCreateShipmentPackageRouteSeg(@RequestBody CreateShipmentPackageRouteSegRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateShipmentPackageRouteSegResponse> createShipmentPackageRouteSegCreateShipmentPackageRouteSeg(@RequestBody CreateShipmentPackageRouteSegRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createShipmentPackageRouteSeg(ServiceInput.toMap(request));
+        return wrap(result, CreateShipmentPackageRouteSegResponse::new);
     }
 
     /**
@@ -4950,9 +4937,9 @@ public class ProductController {
      * <p>service: createShipmentRouteSegment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/createShipmentRouteSegment")
-    public ResponseEntity<CreateShipmentRouteSegmentResponse> createShipmentRouteSegment(@RequestBody CreateShipmentRouteSegmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateShipmentRouteSegmentResponse> createShipmentRouteSegment(@RequestBody CreateShipmentRouteSegmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createShipmentRouteSegment(ServiceInput.toMap(request));
+        return wrap(result, CreateShipmentRouteSegmentResponse::new);
     }
 
     /**
@@ -4960,9 +4947,9 @@ public class ProductController {
      * <p>service: createFacilityTelecomNumber  entities: FacilityContactMech, TelecomNumber  auth: true
      */
     @PostMapping("/facility/control/createTelecomNumber")
-    public ResponseEntity<CreateFacilityTelecomNumberResponse> createFacilityTelecomNumber(@RequestBody CreateFacilityTelecomNumberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFacilityTelecomNumberResponse> createFacilityTelecomNumber(@RequestBody CreateFacilityTelecomNumberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFacilityTelecomNumber(ServiceInput.toMap(request));
+        return wrap(result, CreateFacilityTelecomNumberResponse::new);
     }
 
     /**
@@ -4970,9 +4957,9 @@ public class ProductController {
      * <p>service: createUpdateFacilityGeoPoint  entities: GeoPoint  auth: true
      */
     @PostMapping("/facility/control/createUpdateFacilityGeoPoint")
-    public ResponseEntity<CreateUpdateFacilityGeoPointResponse> createUpdateFacilityGeoPoint(@RequestBody CreateUpdateFacilityGeoPointRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateUpdateFacilityGeoPointResponse> createUpdateFacilityGeoPoint(@RequestBody CreateUpdateFacilityGeoPointRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createUpdateFacilityGeoPoint(ServiceInput.toMap(request));
+        return wrap(result, CreateUpdateFacilityGeoPointResponse::new);
     }
 
     /**
@@ -4980,9 +4967,9 @@ public class ProductController {
      * <p>service: deleteFacilityContactMech  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/deleteContactMech")
-    public ResponseEntity<DeleteFacilityContactMechResponse> deleteFacilityContactMech(@RequestBody DeleteFacilityContactMechRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFacilityContactMechResponse> deleteFacilityContactMech(@RequestBody DeleteFacilityContactMechRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFacilityContactMech(ServiceInput.toMap(request));
+        return wrap(result, DeleteFacilityContactMechResponse::new);
     }
 
     /**
@@ -4990,9 +4977,9 @@ public class ProductController {
      * <p>service: deleteFacilityContactMechPurpose  entities: FacilityContactMechPurpose  auth: true
      */
     @PostMapping("/facility/control/deleteFacilityContactMechPurpose")
-    public ResponseEntity<DeleteFacilityContactMechPurposeResponse> deleteFacilityContactMechPurpose(@RequestBody DeleteFacilityContactMechPurposeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFacilityContactMechPurposeResponse> deleteFacilityContactMechPurpose(@RequestBody DeleteFacilityContactMechPurposeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFacilityContactMechPurpose(ServiceInput.toMap(request));
+        return wrap(result, DeleteFacilityContactMechPurposeResponse::new);
     }
 
     /**
@@ -5000,9 +4987,9 @@ public class ProductController {
      * <p>service: deleteFacilityContent  entities: FacilityContent  auth: true
      */
     @PostMapping("/facility/control/deleteFacilityContent")
-    public ResponseEntity<DeleteFacilityContentResponse> deleteFacilityContent(@RequestBody DeleteFacilityContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFacilityContentResponse> deleteFacilityContent(@RequestBody DeleteFacilityContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFacilityContent(ServiceInput.toMap(request));
+        return wrap(result, DeleteFacilityContentResponse::new);
     }
 
     /**
@@ -5010,9 +4997,9 @@ public class ProductController {
      * <p>service: deleteInventoryItemLabel  entities: InventoryItemLabel  auth: true
      */
     @PostMapping("/facility/control/deleteInventoryItemLabel")
-    public ResponseEntity<DeleteInventoryItemLabelResponse> deleteInventoryItemLabel(@RequestBody DeleteInventoryItemLabelRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteInventoryItemLabelResponse> deleteInventoryItemLabel(@RequestBody DeleteInventoryItemLabelRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteInventoryItemLabel(ServiceInput.toMap(request));
+        return wrap(result, DeleteInventoryItemLabelResponse::new);
     }
 
     /**
@@ -5020,9 +5007,9 @@ public class ProductController {
      * <p>service: deleteInventoryItemLabelAppl  entities: InventoryItemLabelAppl  auth: true
      */
     @PostMapping("/facility/control/deleteInventoryItemLabelAppl")
-    public ResponseEntity<DeleteInventoryItemLabelApplResponse> deleteInventoryItemLabelAppl(@RequestBody DeleteInventoryItemLabelApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteInventoryItemLabelApplResponse> deleteInventoryItemLabelAppl(@RequestBody DeleteInventoryItemLabelApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteInventoryItemLabelAppl(ServiceInput.toMap(request));
+        return wrap(result, DeleteInventoryItemLabelApplResponse::new);
     }
 
     /**
@@ -5030,9 +5017,9 @@ public class ProductController {
      * <p>service: deleteInventoryItemLabelAppl  entities: InventoryItemLabelAppl  auth: true
      */
     @PostMapping("/facility/control/deleteInventoryItemLabelApplFromItem")
-    public ResponseEntity<DeleteInventoryItemLabelApplResponse> deleteInventoryItemLabelApplDeleteInventoryItemLabelApplFromItem(@RequestBody DeleteInventoryItemLabelApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteInventoryItemLabelApplResponse> deleteInventoryItemLabelApplDeleteInventoryItemLabelApplFromItem(@RequestBody DeleteInventoryItemLabelApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteInventoryItemLabelAppl(ServiceInput.toMap(request));
+        return wrap(result, DeleteInventoryItemLabelApplResponse::new);
     }
 
     /**
@@ -5040,9 +5027,9 @@ public class ProductController {
      * <p>service: deleteInventoryItemLabelType  entities: InventoryItemLabelType  auth: true
      */
     @PostMapping("/facility/control/deleteInventoryItemLabelType")
-    public ResponseEntity<DeleteInventoryItemLabelTypeResponse> deleteInventoryItemLabelType(@RequestBody DeleteInventoryItemLabelTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteInventoryItemLabelTypeResponse> deleteInventoryItemLabelType(@RequestBody DeleteInventoryItemLabelTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteInventoryItemLabelType(ServiceInput.toMap(request));
+        return wrap(result, DeleteInventoryItemLabelTypeResponse::new);
     }
 
     /**
@@ -5050,9 +5037,9 @@ public class ProductController {
      * <p>service: deletePackedLine  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/deletePackedLine")
-    public ResponseEntity<DeletePackedLineResponse> deletePackedLine(@RequestBody DeletePackedLineRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePackedLineResponse> deletePackedLine(@RequestBody DeletePackedLineRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePackedLine(ServiceInput.toMap(request));
+        return wrap(result, DeletePackedLineResponse::new);
     }
 
     /**
@@ -5060,9 +5047,9 @@ public class ProductController {
      * <p>service: deletePicklistBin  entities: PicklistBin  auth: true
      */
     @PostMapping("/facility/control/deletePicklistBin")
-    public ResponseEntity<DeletePicklistBinResponse> deletePicklistBin(@RequestBody DeletePicklistBinRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePicklistBinResponse> deletePicklistBin(@RequestBody DeletePicklistBinRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePicklistBin(ServiceInput.toMap(request));
+        return wrap(result, DeletePicklistBinResponse::new);
     }
 
     /**
@@ -5070,9 +5057,9 @@ public class ProductController {
      * <p>service: deletePicklistItem  entities: PicklistItem  auth: true
      */
     @PostMapping("/facility/control/deletePicklistItem")
-    public ResponseEntity<DeletePicklistItemResponse> deletePicklistItem(@RequestBody DeletePicklistItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePicklistItemResponse> deletePicklistItem(@RequestBody DeletePicklistItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePicklistItem(ServiceInput.toMap(request));
+        return wrap(result, DeletePicklistItemResponse::new);
     }
 
     /**
@@ -5080,9 +5067,9 @@ public class ProductController {
      * <p>service: deleteProductFacilityLocation  entities: ProductFacilityLocation  auth: true
      */
     @PostMapping("/facility/control/deleteProductFacilityLocation")
-    public ResponseEntity<DeleteProductFacilityLocationResponse> deleteProductFacilityLocationDeleteProductFacilityLocation(@RequestBody DeleteProductFacilityLocationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteProductFacilityLocationResponse> deleteProductFacilityLocationDeleteProductFacilityLocation(@RequestBody DeleteProductFacilityLocationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteProductFacilityLocation(ServiceInput.toMap(request));
+        return wrap(result, DeleteProductFacilityLocationResponse::new);
     }
 
     /**
@@ -5090,9 +5077,9 @@ public class ProductController {
      * <p>service: deleteShipmentPackageRouteSeg  entities: ShipmentPackageRouteSeg  auth: true
      */
     @PostMapping("/facility/control/deleteRouteSegmentShipmentPackage")
-    public ResponseEntity<DeleteShipmentPackageRouteSegResponse> deleteShipmentPackageRouteSeg(@RequestBody DeleteShipmentPackageRouteSegRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteShipmentPackageRouteSegResponse> deleteShipmentPackageRouteSeg(@RequestBody DeleteShipmentPackageRouteSegRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteShipmentPackageRouteSeg(ServiceInput.toMap(request));
+        return wrap(result, DeleteShipmentPackageRouteSegResponse::new);
     }
 
     /**
@@ -5100,9 +5087,9 @@ public class ProductController {
      * <p>service: deleteShipmentItem  entities: ShipmentItem  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentItem")
-    public ResponseEntity<DeleteShipmentItemResponse> deleteShipmentItem(@RequestBody DeleteShipmentItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteShipmentItemResponse> deleteShipmentItem(@RequestBody DeleteShipmentItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteShipmentItem(ServiceInput.toMap(request));
+        return wrap(result, DeleteShipmentItemResponse::new);
     }
 
     /**
@@ -5110,9 +5097,9 @@ public class ProductController {
      * <p>service: deleteItemIssuance  entities: ItemIssuance  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentItemIssuance")
-    public ResponseEntity<DeleteItemIssuanceResponse> deleteItemIssuance(@RequestBody DeleteItemIssuanceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteItemIssuanceResponse> deleteItemIssuance(@RequestBody DeleteItemIssuanceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteItemIssuance(ServiceInput.toMap(request));
+        return wrap(result, DeleteItemIssuanceResponse::new);
     }
 
     /**
@@ -5120,9 +5107,9 @@ public class ProductController {
      * <p>service: deleteShipmentPackageContent  entities: ShipmentPackageContent  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentItemPackageContent")
-    public ResponseEntity<DeleteShipmentPackageContentResponse> deleteShipmentPackageContent(@RequestBody DeleteShipmentPackageContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteShipmentPackageContentResponse> deleteShipmentPackageContent(@RequestBody DeleteShipmentPackageContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteShipmentPackageContent(ServiceInput.toMap(request));
+        return wrap(result, DeleteShipmentPackageContentResponse::new);
     }
 
     /**
@@ -5130,9 +5117,9 @@ public class ProductController {
      * <p>service: deleteShipmentPackage  entities: ShipmentPackage  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentPackage")
-    public ResponseEntity<DeleteShipmentPackageResponse> deleteShipmentPackage(@RequestBody DeleteShipmentPackageRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteShipmentPackageResponse> deleteShipmentPackage(@RequestBody DeleteShipmentPackageRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteShipmentPackage(ServiceInput.toMap(request));
+        return wrap(result, DeleteShipmentPackageResponse::new);
     }
 
     /**
@@ -5140,9 +5127,9 @@ public class ProductController {
      * <p>service: deleteShipmentPackageContent  entities: ShipmentPackageContent  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentPackageContent")
-    public ResponseEntity<DeleteShipmentPackageContentResponse> deleteShipmentPackageContentDeleteShipmentPackageContent(@RequestBody DeleteShipmentPackageContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteShipmentPackageContentResponse> deleteShipmentPackageContentDeleteShipmentPackageContent(@RequestBody DeleteShipmentPackageContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteShipmentPackageContent(ServiceInput.toMap(request));
+        return wrap(result, DeleteShipmentPackageContentResponse::new);
     }
 
     /**
@@ -5150,9 +5137,9 @@ public class ProductController {
      * <p>service: deleteShipmentPackageRouteSeg  entities: ShipmentPackageRouteSeg  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentPackageRouteSeg")
-    public ResponseEntity<DeleteShipmentPackageRouteSegResponse> deleteShipmentPackageRouteSegDeleteShipmentPackageRouteSeg(@RequestBody DeleteShipmentPackageRouteSegRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteShipmentPackageRouteSegResponse> deleteShipmentPackageRouteSegDeleteShipmentPackageRouteSeg(@RequestBody DeleteShipmentPackageRouteSegRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteShipmentPackageRouteSeg(ServiceInput.toMap(request));
+        return wrap(result, DeleteShipmentPackageRouteSegResponse::new);
     }
 
     /**
@@ -5160,9 +5147,9 @@ public class ProductController {
      * <p>service: deleteShipmentRouteSegment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/deleteShipmentRouteSegment")
-    public ResponseEntity<DeleteShipmentRouteSegmentResponse> deleteShipmentRouteSegment(@RequestBody DeleteShipmentRouteSegmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteShipmentRouteSegmentResponse> deleteShipmentRouteSegment(@RequestBody DeleteShipmentRouteSegmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteShipmentRouteSegment(ServiceInput.toMap(request));
+        return wrap(result, DeleteShipmentRouteSegmentResponse::new);
     }
 
     /**
@@ -5170,9 +5157,9 @@ public class ProductController {
      * <p>service: dhlShipmentConfirm  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/dhlShipmentConfirm")
-    public ResponseEntity<DhlShipmentConfirmResponse> dhlShipmentConfirm(@RequestBody DhlShipmentConfirmRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DhlShipmentConfirmResponse> dhlShipmentConfirm(@RequestBody DhlShipmentConfirmRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.dhlShipmentConfirm(ServiceInput.toMap(request));
+        return wrap(result, DhlShipmentConfirmResponse::new);
     }
 
     /**
@@ -5180,9 +5167,9 @@ public class ProductController {
      * <p>service: duplicateShipmentRouteSegment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/duplicateShipmentRouteSegment")
-    public ResponseEntity<DuplicateShipmentRouteSegmentResponse> duplicateShipmentRouteSegment(@RequestBody DuplicateShipmentRouteSegmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DuplicateShipmentRouteSegmentResponse> duplicateShipmentRouteSegment(@RequestBody DuplicateShipmentRouteSegmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.duplicateShipmentRouteSegment(ServiceInput.toMap(request));
+        return wrap(result, DuplicateShipmentRouteSegmentResponse::new);
     }
 
     /**
@@ -5190,9 +5177,9 @@ public class ProductController {
      * <p>service: editPicklistItem  entities: PicklistItem  auth: true
      */
     @PostMapping("/facility/control/editPicklistItem")
-    public ResponseEntity<EditPicklistItemResponse> editPicklistItem(@RequestBody EditPicklistItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<EditPicklistItemResponse> editPicklistItem(@RequestBody EditPicklistItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.editPicklistItem(ServiceInput.toMap(request));
+        return wrap(result, EditPicklistItemResponse::new);
     }
 
     /**
@@ -5200,9 +5187,9 @@ public class ProductController {
      * <p>service: fedexShipRequest  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/fedexShipmentConfirm")
-    public ResponseEntity<FedexShipRequestResponse> fedexShipRequest(@RequestBody FedexShipRequestRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<FedexShipRequestResponse> fedexShipRequest(@RequestBody FedexShipRequestRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.fedexShipRequest(ServiceInput.toMap(request));
+        return wrap(result, FedexShipRequestResponse::new);
     }
 
     /**
@@ -5210,9 +5197,8 @@ public class ProductController {
      * <p>service: convertUom  entities: UomConversion  auth: true
      */
     @PostMapping("/facility/control/getConvertedPrice")
-    public ResponseEntity<Map<String, Object>> convertUom(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> convertUom(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.convertUom(body));
     }
 
     /**
@@ -5220,9 +5206,9 @@ public class ProductController {
      * <p>service: issueInventoryItemToShipment  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/issueInventoryItemToShipment")
-    public ResponseEntity<IssueInventoryItemToShipmentResponse> issueInventoryItemToShipment(@RequestBody IssueInventoryItemToShipmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<IssueInventoryItemToShipmentResponse> issueInventoryItemToShipment(@RequestBody IssueInventoryItemToShipmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.issueInventoryItemToShipment(ServiceInput.toMap(request));
+        return wrap(result, IssueInventoryItemToShipmentResponse::new);
     }
 
     /**
@@ -5230,9 +5216,9 @@ public class ProductController {
      * <p>service: issueOrderItemShipGrpInvResToShipment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/issueOrderItemShipGrpInvResToShipment")
-    public ResponseEntity<IssueOrderItemShipGrpInvResToShipmentResponse> issueOrderItemShipGrpInvResToShipment(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<IssueOrderItemShipGrpInvResToShipmentResponse> issueOrderItemShipGrpInvResToShipment(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.issueOrderItemShipGrpInvResToShipment(java.util.Map.copyOf(params));
+        return wrap(result, IssueOrderItemShipGrpInvResToShipmentResponse::new);
     }
 
     /**
@@ -5240,9 +5226,9 @@ public class ProductController {
      * <p>service: issueOrderItemToShipment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/issueOrderItemToShipment")
-    public ResponseEntity<IssueOrderItemToShipmentResponse> issueOrderItemToShipment(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<IssueOrderItemToShipmentResponse> issueOrderItemToShipment(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.issueOrderItemToShipment(java.util.Map.copyOf(params));
+        return wrap(result, IssueOrderItemToShipmentResponse::new);
     }
 
     /**
@@ -5250,9 +5236,9 @@ public class ProductController {
      * <p>service: issueOrderItemToShipment  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/issueOrderItemToShipmentAndReceiveAgainstPO")
-    public ResponseEntity<IssueOrderItemToShipmentResponse> issueOrderItemToShipmentIssueOrderItemToShipmentAndReceiveAgainstPO(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<IssueOrderItemToShipmentResponse> issueOrderItemToShipmentIssueOrderItemToShipmentAndReceiveAgainstPO(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.issueOrderItemToShipment(java.util.Map.copyOf(params));
+        return wrap(result, IssueOrderItemToShipmentResponse::new);
     }
 
     /**
@@ -5260,9 +5246,9 @@ public class ProductController {
      * <p>service: printPickSheets  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/printPickSheets")
-    public ResponseEntity<PrintPickSheetsResponse> printPickSheets(@RequestBody PrintPickSheetsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<PrintPickSheetsResponse> printPickSheets(@RequestBody PrintPickSheetsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.printPickSheets(ServiceInput.toMap(request));
+        return wrap(result, PrintPickSheetsResponse::new);
     }
 
     /**
@@ -5270,9 +5256,9 @@ public class ProductController {
      * <p>service: verifyBulkItem  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/processBulkVerifyPick")
-    public ResponseEntity<VerifyBulkItemResponse> verifyBulkItem(@RequestBody VerifyBulkItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<VerifyBulkItemResponse> verifyBulkItem(@RequestBody VerifyBulkItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.verifyBulkItem(ServiceInput.toMap(request));
+        return wrap(result, VerifyBulkItemResponse::new);
     }
 
     /**
@@ -5280,9 +5266,9 @@ public class ProductController {
      * <p>service: processPhysicalStockMove  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/processPhysicalStockMove")
-    public ResponseEntity<ProcessPhysicalStockMoveResponse> processPhysicalStockMove(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ProcessPhysicalStockMoveResponse> processPhysicalStockMove(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.processPhysicalStockMove(java.util.Map.copyOf(params));
+        return wrap(result, ProcessPhysicalStockMoveResponse::new);
     }
 
     /**
@@ -5290,9 +5276,9 @@ public class ProductController {
      * <p>service: processPhysicalStockMove  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/processQuickStockMove")
-    public ResponseEntity<ProcessPhysicalStockMoveResponse> processPhysicalStockMoveProcessQuickStockMove(@RequestBody ProcessPhysicalStockMoveRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ProcessPhysicalStockMoveResponse> processPhysicalStockMoveProcessQuickStockMove(@RequestBody ProcessPhysicalStockMoveRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.processPhysicalStockMove(ServiceInput.toMap(request));
+        return wrap(result, ProcessPhysicalStockMoveResponse::new);
     }
 
     /**
@@ -5300,9 +5286,9 @@ public class ProductController {
      * <p>service: verifySingleItem  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/processVerifyPick")
-    public ResponseEntity<VerifySingleItemResponse> verifySingleItem(@RequestBody VerifySingleItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<VerifySingleItemResponse> verifySingleItem(@RequestBody VerifySingleItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.verifySingleItem(ServiceInput.toMap(request));
+        return wrap(result, VerifySingleItemResponse::new);
     }
 
     /**
@@ -5310,9 +5296,9 @@ public class ProductController {
      * <p>service: dhlShipmentConfirm  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/quickDhlConfirm")
-    public ResponseEntity<DhlShipmentConfirmResponse> dhlShipmentConfirmQuickDhlConfirm(@RequestBody DhlShipmentConfirmRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DhlShipmentConfirmResponse> dhlShipmentConfirmQuickDhlConfirm(@RequestBody DhlShipmentConfirmRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.dhlShipmentConfirm(ServiceInput.toMap(request));
+        return wrap(result, DhlShipmentConfirmResponse::new);
     }
 
     /**
@@ -5320,9 +5306,9 @@ public class ProductController {
      * <p>service: quickReceivePurchaseOrder  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/quickReceivePurchaseOrder")
-    public ResponseEntity<QuickReceivePurchaseOrderResponse> quickReceivePurchaseOrder(@RequestBody QuickReceivePurchaseOrderRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<QuickReceivePurchaseOrderResponse> quickReceivePurchaseOrder(@RequestBody QuickReceivePurchaseOrderRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.quickReceivePurchaseOrder(ServiceInput.toMap(request));
+        return wrap(result, QuickReceivePurchaseOrderResponse::new);
     }
 
     /**
@@ -5330,9 +5316,9 @@ public class ProductController {
      * <p>service: upsShipmentAccept  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/quickUpsAccept")
-    public ResponseEntity<UpsShipmentAcceptResponse> upsShipmentAccept(@RequestBody UpsShipmentAcceptRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpsShipmentAcceptResponse> upsShipmentAccept(@RequestBody UpsShipmentAcceptRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.upsShipmentAccept(ServiceInput.toMap(request));
+        return wrap(result, UpsShipmentAcceptResponse::new);
     }
 
     /**
@@ -5340,9 +5326,9 @@ public class ProductController {
      * <p>service: upsShipmentConfirm  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/quickUpsConfirm")
-    public ResponseEntity<UpsShipmentConfirmResponse> upsShipmentConfirm(@RequestBody UpsShipmentConfirmRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpsShipmentConfirmResponse> upsShipmentConfirm(@RequestBody UpsShipmentConfirmRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.upsShipmentConfirm(ServiceInput.toMap(request));
+        return wrap(result, UpsShipmentConfirmResponse::new);
     }
 
     /**
@@ -5350,9 +5336,9 @@ public class ProductController {
      * <p>service: receiveInventoryProduct  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/receiveInventoryProduct")
-    public ResponseEntity<ReceiveInventoryProductResponse> receiveInventoryProduct(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ReceiveInventoryProductResponse> receiveInventoryProduct(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.receiveInventoryProduct(java.util.Map.copyOf(params));
+        return wrap(result, ReceiveInventoryProductResponse::new);
     }
 
     /**
@@ -5360,9 +5346,9 @@ public class ProductController {
      * <p>service: receiveInventoryProduct  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/receiveInventoryProductsFromShipment")
-    public ResponseEntity<ReceiveInventoryProductResponse> receiveInventoryProductReceiveInventoryProductsFromShipment(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ReceiveInventoryProductResponse> receiveInventoryProductReceiveInventoryProductsFromShipment(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.receiveInventoryProduct(java.util.Map.copyOf(params));
+        return wrap(result, ReceiveInventoryProductResponse::new);
     }
 
     /**
@@ -5370,9 +5356,9 @@ public class ProductController {
      * <p>service: receiveInventoryProduct  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/receiveReturnedProduct")
-    public ResponseEntity<ReceiveInventoryProductResponse> receiveInventoryProductReceiveReturnedProduct(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ReceiveInventoryProductResponse> receiveInventoryProductReceiveReturnedProduct(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.receiveInventoryProduct(java.util.Map.copyOf(params));
+        return wrap(result, ReceiveInventoryProductResponse::new);
     }
 
     /**
@@ -5380,9 +5366,9 @@ public class ProductController {
      * <p>service: receiveInventoryProduct  entities: InventoryItem, InventoryItemDetail, ShipmentReceipt  auth: true
      */
     @PostMapping("/facility/control/receiveSingleInventoryProduct")
-    public ResponseEntity<ReceiveInventoryProductResponse> receiveInventoryProductReceiveSingleInventoryProduct(@RequestBody ReceiveInventoryProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ReceiveInventoryProductResponse> receiveInventoryProductReceiveSingleInventoryProduct(@RequestBody ReceiveInventoryProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.receiveInventoryProduct(ServiceInput.toMap(request));
+        return wrap(result, ReceiveInventoryProductResponse::new);
     }
 
     /**
@@ -5390,9 +5376,9 @@ public class ProductController {
      * <p>service: removeFacilityFromGroup  entities: FacilityGroupMember  auth: true
      */
     @PostMapping("/facility/control/removeFacilityFromGroup")
-    public ResponseEntity<RemoveFacilityFromGroupResponse> removeFacilityFromGroup(@RequestBody RemoveFacilityFromGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveFacilityFromGroupResponse> removeFacilityFromGroup(@RequestBody RemoveFacilityFromGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeFacilityFromGroup(ServiceInput.toMap(request));
+        return wrap(result, RemoveFacilityFromGroupResponse::new);
     }
 
     /**
@@ -5400,9 +5386,9 @@ public class ProductController {
      * <p>service: removeFacilityGroupFromGroup  entities: FacilityGroupRollup  auth: true
      */
     @PostMapping("/facility/control/removeFacilityGroupFromGroup")
-    public ResponseEntity<RemoveFacilityGroupFromGroupResponse> removeFacilityGroupFromGroup(@RequestBody RemoveFacilityGroupFromGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveFacilityGroupFromGroupResponse> removeFacilityGroupFromGroup(@RequestBody RemoveFacilityGroupFromGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeFacilityGroupFromGroup(ServiceInput.toMap(request));
+        return wrap(result, RemoveFacilityGroupFromGroupResponse::new);
     }
 
     /**
@@ -5410,9 +5396,9 @@ public class ProductController {
      * <p>service: removeFacilityFromGroup  entities: FacilityGroupMember  auth: true
      */
     @PostMapping("/facility/control/removeGroupFromFacility")
-    public ResponseEntity<RemoveFacilityFromGroupResponse> removeFacilityFromGroupRemoveGroupFromFacility(@RequestBody RemoveFacilityFromGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveFacilityFromGroupResponse> removeFacilityFromGroupRemoveGroupFromFacility(@RequestBody RemoveFacilityFromGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeFacilityFromGroup(ServiceInput.toMap(request));
+        return wrap(result, RemoveFacilityFromGroupResponse::new);
     }
 
     /**
@@ -5420,9 +5406,9 @@ public class ProductController {
      * <p>service: removeOrderShipmentFromShipment  entities: OrderShipment  auth: true
      */
     @PostMapping("/facility/control/removeOrderShipmentFromShipment")
-    public ResponseEntity<RemoveOrderShipmentFromShipmentResponse> removeOrderShipmentFromShipment(@RequestBody RemoveOrderShipmentFromShipmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveOrderShipmentFromShipmentResponse> removeOrderShipmentFromShipment(@RequestBody RemoveOrderShipmentFromShipmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeOrderShipmentFromShipment(ServiceInput.toMap(request));
+        return wrap(result, RemoveOrderShipmentFromShipmentResponse::new);
     }
 
     /**
@@ -5430,9 +5416,9 @@ public class ProductController {
      * <p>service: removePartyFromFacility  entities: FacilityParty  auth: true
      */
     @PostMapping("/facility/control/removePartyFromFacility")
-    public ResponseEntity<RemovePartyFromFacilityResponse> removePartyFromFacility(@RequestBody RemovePartyFromFacilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemovePartyFromFacilityResponse> removePartyFromFacility(@RequestBody RemovePartyFromFacilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removePartyFromFacility(ServiceInput.toMap(request));
+        return wrap(result, RemovePartyFromFacilityResponse::new);
     }
 
     /**
@@ -5440,9 +5426,9 @@ public class ProductController {
      * <p>service: removePartyFromFacilityGroup  entities: FacilityGroupRole  auth: true
      */
     @PostMapping("/facility/control/removePartyFromFacilityGroup")
-    public ResponseEntity<RemovePartyFromFacilityGroupResponse> removePartyFromFacilityGroup(@RequestBody RemovePartyFromFacilityGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemovePartyFromFacilityGroupResponse> removePartyFromFacilityGroup(@RequestBody RemovePartyFromFacilityGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removePartyFromFacilityGroup(ServiceInput.toMap(request));
+        return wrap(result, RemovePartyFromFacilityGroupResponse::new);
     }
 
     /**
@@ -5450,9 +5436,9 @@ public class ProductController {
      * <p>service: savePackagesInfo  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/savePackagesInfo")
-    public ResponseEntity<SavePackagesInfoResponse> savePackagesInfo(@RequestBody SavePackagesInfoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SavePackagesInfoResponse> savePackagesInfo(@RequestBody SavePackagesInfoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.savePackagesInfo(ServiceInput.toMap(request));
+        return wrap(result, SavePackagesInfoResponse::new);
     }
 
     /**
@@ -5460,9 +5446,9 @@ public class ProductController {
      * <p>service: setPackageInfo  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/setPackageInfo")
-    public ResponseEntity<SetPackageInfoResponse> setPackageInfo(@RequestBody SetPackageInfoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SetPackageInfoResponse> setPackageInfo(@RequestBody SetPackageInfoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.setPackageInfo(ServiceInput.toMap(request));
+        return wrap(result, SetPackageInfoResponse::new);
     }
 
     /**
@@ -5470,9 +5456,9 @@ public class ProductController {
      * <p>service: updateShipmentPackage  entities: ShipmentPackage  auth: true
      */
     @PostMapping("/facility/control/setQuickPackageWeight")
-    public ResponseEntity<UpdateShipmentPackageResponse> updateShipmentPackage(@RequestBody UpdateShipmentPackageRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentPackageResponse> updateShipmentPackage(@RequestBody UpdateShipmentPackageRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentPackage(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentPackageResponse::new);
     }
 
     /**
@@ -5480,9 +5466,9 @@ public class ProductController {
      * <p>service: updateShipmentRouteSegment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/setQuickRouteInfo")
-    public ResponseEntity<UpdateShipmentRouteSegmentResponse> updateShipmentRouteSegmentSetQuickRouteInfo(@RequestBody UpdateShipmentRouteSegmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentRouteSegmentResponse> updateShipmentRouteSegmentSetQuickRouteInfo(@RequestBody UpdateShipmentRouteSegmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentRouteSegment(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentRouteSegmentResponse::new);
     }
 
     /**
@@ -5490,9 +5476,9 @@ public class ProductController {
      * <p>service: setShipmentSettingsFromPrimaryOrder  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/setShipmentSettingsFromPrimaryOrder")
-    public ResponseEntity<SetShipmentSettingsFromPrimaryOrderResponse> setShipmentSettingsFromPrimaryOrder(@RequestBody SetShipmentSettingsFromPrimaryOrderRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SetShipmentSettingsFromPrimaryOrderResponse> setShipmentSettingsFromPrimaryOrder(@RequestBody SetShipmentSettingsFromPrimaryOrderRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.setShipmentSettingsFromPrimaryOrder(ServiceInput.toMap(request));
+        return wrap(result, SetShipmentSettingsFromPrimaryOrderResponse::new);
     }
 
     /**
@@ -5500,9 +5486,9 @@ public class ProductController {
      * <p>service: completeShipment  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/shipNow")
-    public ResponseEntity<CompleteShipmentResponse> completeShipment(@RequestBody CompleteShipmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CompleteShipmentResponse> completeShipment(@RequestBody CompleteShipmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.completeShipment(ServiceInput.toMap(request));
+        return wrap(result, CompleteShipmentResponse::new);
     }
 
     /**
@@ -5510,9 +5496,9 @@ public class ProductController {
      * <p>service: updateFacilityContactMech  entities: FacilityContactMech  auth: true
      */
     @PostMapping("/facility/control/updateContactMech")
-    public ResponseEntity<UpdateFacilityContactMechResponse> updateFacilityContactMech(@RequestBody UpdateFacilityContactMechRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFacilityContactMechResponse> updateFacilityContactMech(@RequestBody UpdateFacilityContactMechRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFacilityContactMech(ServiceInput.toMap(request));
+        return wrap(result, UpdateFacilityContactMechResponse::new);
     }
 
     /**
@@ -5520,9 +5506,9 @@ public class ProductController {
      * <p>service: updateFacilityEmailAddress  entities: FacilityContactMech  auth: true
      */
     @PostMapping("/facility/control/updateEmailAddress")
-    public ResponseEntity<UpdateFacilityEmailAddressResponse> updateFacilityEmailAddress(@RequestBody UpdateFacilityEmailAddressRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFacilityEmailAddressResponse> updateFacilityEmailAddress(@RequestBody UpdateFacilityEmailAddressRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFacilityEmailAddress(ServiceInput.toMap(request));
+        return wrap(result, UpdateFacilityEmailAddressResponse::new);
     }
 
     /**
@@ -5530,9 +5516,9 @@ public class ProductController {
      * <p>service: updateFacilityGroup  entities: FacilityGroup  auth: true
      */
     @PostMapping("/facility/control/updateFacilityGroup")
-    public ResponseEntity<UpdateFacilityGroupResponse> updateFacilityGroup(@RequestBody UpdateFacilityGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFacilityGroupResponse> updateFacilityGroup(@RequestBody UpdateFacilityGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFacilityGroup(ServiceInput.toMap(request));
+        return wrap(result, UpdateFacilityGroupResponse::new);
     }
 
     /**
@@ -5540,9 +5526,9 @@ public class ProductController {
      * <p>service: updateFacilityGroupToGroup  entities: FacilityGroupRollup  auth: true
      */
     @PostMapping("/facility/control/updateFacilityGroupToGroup")
-    public ResponseEntity<UpdateFacilityGroupToGroupResponse> updateFacilityGroupToGroup(@RequestBody UpdateFacilityGroupToGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFacilityGroupToGroupResponse> updateFacilityGroupToGroup(@RequestBody UpdateFacilityGroupToGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFacilityGroupToGroup(ServiceInput.toMap(request));
+        return wrap(result, UpdateFacilityGroupToGroupResponse::new);
     }
 
     /**
@@ -5550,9 +5536,9 @@ public class ProductController {
      * <p>service: updateFacilityParty  entities: FacilityParty  auth: true
      */
     @PostMapping("/facility/control/updateFacilityParty")
-    public ResponseEntity<UpdateFacilityPartyResponse> updateFacilityParty(@RequestBody UpdateFacilityPartyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFacilityPartyResponse> updateFacilityParty(@RequestBody UpdateFacilityPartyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFacilityParty(ServiceInput.toMap(request));
+        return wrap(result, UpdateFacilityPartyResponse::new);
     }
 
     /**
@@ -5560,9 +5546,9 @@ public class ProductController {
      * <p>service: updateFacilityToGroup  entities: FacilityGroupMember  auth: true
      */
     @PostMapping("/facility/control/updateFacilityToGroup")
-    public ResponseEntity<UpdateFacilityToGroupResponse> updateFacilityToGroup(@RequestBody UpdateFacilityToGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFacilityToGroupResponse> updateFacilityToGroup(@RequestBody UpdateFacilityToGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFacilityToGroup(ServiceInput.toMap(request));
+        return wrap(result, UpdateFacilityToGroupResponse::new);
     }
 
     /**
@@ -5570,9 +5556,9 @@ public class ProductController {
      * <p>service: updateFacilityToGroup  entities: FacilityGroupMember  auth: true
      */
     @PostMapping("/facility/control/updateGroupToFacility")
-    public ResponseEntity<UpdateFacilityToGroupResponse> updateFacilityToGroupUpdateGroupToFacility(@RequestBody UpdateFacilityToGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFacilityToGroupResponse> updateFacilityToGroupUpdateGroupToFacility(@RequestBody UpdateFacilityToGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFacilityToGroup(ServiceInput.toMap(request));
+        return wrap(result, UpdateFacilityToGroupResponse::new);
     }
 
     /**
@@ -5580,9 +5566,9 @@ public class ProductController {
      * <p>service: updateInventoryItemLabel  entities: InventoryItemLabel  auth: true
      */
     @PostMapping("/facility/control/updateInventoryItemLabel")
-    public ResponseEntity<UpdateInventoryItemLabelResponse> updateInventoryItemLabel(@RequestBody UpdateInventoryItemLabelRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateInventoryItemLabelResponse> updateInventoryItemLabel(@RequestBody UpdateInventoryItemLabelRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateInventoryItemLabel(ServiceInput.toMap(request));
+        return wrap(result, UpdateInventoryItemLabelResponse::new);
     }
 
     /**
@@ -5590,9 +5576,9 @@ public class ProductController {
      * <p>service: updateInventoryItemLabelAppl  entities: InventoryItemLabelAppl  auth: true
      */
     @PostMapping("/facility/control/updateInventoryItemLabelAppl")
-    public ResponseEntity<UpdateInventoryItemLabelApplResponse> updateInventoryItemLabelAppl(@RequestBody UpdateInventoryItemLabelApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateInventoryItemLabelApplResponse> updateInventoryItemLabelAppl(@RequestBody UpdateInventoryItemLabelApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateInventoryItemLabelAppl(ServiceInput.toMap(request));
+        return wrap(result, UpdateInventoryItemLabelApplResponse::new);
     }
 
     /**
@@ -5600,9 +5586,9 @@ public class ProductController {
      * <p>service: updateInventoryItemLabelAppl  entities: InventoryItemLabelAppl  auth: true
      */
     @PostMapping("/facility/control/updateInventoryItemLabelApplFromItem")
-    public ResponseEntity<UpdateInventoryItemLabelApplResponse> updateInventoryItemLabelApplUpdateInventoryItemLabelApplFromItem(@RequestBody UpdateInventoryItemLabelApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateInventoryItemLabelApplResponse> updateInventoryItemLabelApplUpdateInventoryItemLabelApplFromItem(@RequestBody UpdateInventoryItemLabelApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateInventoryItemLabelAppl(ServiceInput.toMap(request));
+        return wrap(result, UpdateInventoryItemLabelApplResponse::new);
     }
 
     /**
@@ -5610,9 +5596,9 @@ public class ProductController {
      * <p>service: updateInventoryItemLabelType  entities: InventoryItemLabelType  auth: true
      */
     @PostMapping("/facility/control/updateInventoryItemLabelType")
-    public ResponseEntity<UpdateInventoryItemLabelTypeResponse> updateInventoryItemLabelType(@RequestBody UpdateInventoryItemLabelTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateInventoryItemLabelTypeResponse> updateInventoryItemLabelType(@RequestBody UpdateInventoryItemLabelTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateInventoryItemLabelType(ServiceInput.toMap(request));
+        return wrap(result, UpdateInventoryItemLabelTypeResponse::new);
     }
 
     /**
@@ -5620,9 +5606,9 @@ public class ProductController {
      * <p>service: updatePackedLine  entities: unknown  auth: true
      */
     @PostMapping("/facility/control/updatePackedLine")
-    public ResponseEntity<UpdatePackedLineResponse> updatePackedLine(@RequestBody UpdatePackedLineRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePackedLineResponse> updatePackedLine(@RequestBody UpdatePackedLineRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePackedLine(ServiceInput.toMap(request));
+        return wrap(result, UpdatePackedLineResponse::new);
     }
 
     /**
@@ -5630,9 +5616,9 @@ public class ProductController {
      * <p>service: updatePicklist  entities: Picklist  auth: true
      */
     @PostMapping("/facility/control/updatePicklist")
-    public ResponseEntity<UpdatePicklistResponse> updatePicklist(@RequestBody UpdatePicklistRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePicklistResponse> updatePicklist(@RequestBody UpdatePicklistRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePicklist(ServiceInput.toMap(request));
+        return wrap(result, UpdatePicklistResponse::new);
     }
 
     /**
@@ -5640,9 +5626,9 @@ public class ProductController {
      * <p>service: updatePicklistBin  entities: PicklistBin  auth: true
      */
     @PostMapping("/facility/control/updatePicklistBin")
-    public ResponseEntity<UpdatePicklistBinResponse> updatePicklistBin(@RequestBody UpdatePicklistBinRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePicklistBinResponse> updatePicklistBin(@RequestBody UpdatePicklistBinRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePicklistBin(ServiceInput.toMap(request));
+        return wrap(result, UpdatePicklistBinResponse::new);
     }
 
     /**
@@ -5650,9 +5636,9 @@ public class ProductController {
      * <p>service: updateFacilityPostalAddress  entities: FacilityContactMech, PostalAddress  auth: true
      */
     @PostMapping("/facility/control/updatePostalAddress")
-    public ResponseEntity<UpdateFacilityPostalAddressResponse> updateFacilityPostalAddress(@RequestBody UpdateFacilityPostalAddressRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFacilityPostalAddressResponse> updateFacilityPostalAddress(@RequestBody UpdateFacilityPostalAddressRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFacilityPostalAddress(ServiceInput.toMap(request));
+        return wrap(result, UpdateFacilityPostalAddressResponse::new);
     }
 
     /**
@@ -5660,9 +5646,9 @@ public class ProductController {
      * <p>service: updateProductFacilityLocation  entities: ProductFacilityLocation  auth: true
      */
     @PostMapping("/facility/control/updateProductFacilityLocation")
-    public ResponseEntity<UpdateProductFacilityLocationResponse> updateProductFacilityLocationUpdateProductFacilityLocation(@RequestBody UpdateProductFacilityLocationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductFacilityLocationResponse> updateProductFacilityLocationUpdateProductFacilityLocation(@RequestBody UpdateProductFacilityLocationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductFacilityLocation(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductFacilityLocationResponse::new);
     }
 
     /**
@@ -5670,9 +5656,9 @@ public class ProductController {
      * <p>service: updateShipmentPackageRouteSeg  entities: ShipmentPackageRouteSeg  auth: true
      */
     @PostMapping("/facility/control/updateRouteSegmentShipmentPackage")
-    public ResponseEntity<UpdateShipmentPackageRouteSegResponse> updateShipmentPackageRouteSeg(@RequestBody UpdateShipmentPackageRouteSegRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentPackageRouteSegResponse> updateShipmentPackageRouteSeg(@RequestBody UpdateShipmentPackageRouteSegRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentPackageRouteSeg(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentPackageRouteSegResponse::new);
     }
 
     /**
@@ -5680,9 +5666,9 @@ public class ProductController {
      * <p>service: updateShipment  entities: Shipment  auth: true
      */
     @PostMapping("/facility/control/updateShipment")
-    public ResponseEntity<UpdateShipmentResponse> updateShipment(@RequestBody UpdateShipmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentResponse> updateShipment(@RequestBody UpdateShipmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipment(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentResponse::new);
     }
 
     /**
@@ -5690,9 +5676,9 @@ public class ProductController {
      * <p>service: updateShipmentGatewayDhl  entities: ShipmentGatewayDhl  auth: true
      */
     @PostMapping("/facility/control/updateShipmentGatewayDhl")
-    public ResponseEntity<UpdateShipmentGatewayDhlResponse> updateShipmentGatewayDhl(@RequestBody UpdateShipmentGatewayDhlRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentGatewayDhlResponse> updateShipmentGatewayDhl(@RequestBody UpdateShipmentGatewayDhlRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentGatewayDhl(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentGatewayDhlResponse::new);
     }
 
     /**
@@ -5700,9 +5686,9 @@ public class ProductController {
      * <p>service: updateShipmentGatewayFedex  entities: ShipmentGatewayFedex  auth: true
      */
     @PostMapping("/facility/control/updateShipmentGatewayFedex")
-    public ResponseEntity<UpdateShipmentGatewayFedexResponse> updateShipmentGatewayFedex(@RequestBody UpdateShipmentGatewayFedexRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentGatewayFedexResponse> updateShipmentGatewayFedex(@RequestBody UpdateShipmentGatewayFedexRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentGatewayFedex(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentGatewayFedexResponse::new);
     }
 
     /**
@@ -5710,9 +5696,9 @@ public class ProductController {
      * <p>service: updateShipmentGatewayUps  entities: ShipmentGatewayUps  auth: true
      */
     @PostMapping("/facility/control/updateShipmentGatewayUps")
-    public ResponseEntity<UpdateShipmentGatewayUpsResponse> updateShipmentGatewayUps(@RequestBody UpdateShipmentGatewayUpsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentGatewayUpsResponse> updateShipmentGatewayUps(@RequestBody UpdateShipmentGatewayUpsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentGatewayUps(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentGatewayUpsResponse::new);
     }
 
     /**
@@ -5720,9 +5706,9 @@ public class ProductController {
      * <p>service: updateShipmentGatewayUsps  entities: ShipmentGatewayUsps  auth: true
      */
     @PostMapping("/facility/control/updateShipmentGatewayUsps")
-    public ResponseEntity<UpdateShipmentGatewayUspsResponse> updateShipmentGatewayUsps(@RequestBody UpdateShipmentGatewayUspsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentGatewayUspsResponse> updateShipmentGatewayUsps(@RequestBody UpdateShipmentGatewayUspsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentGatewayUsps(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentGatewayUspsResponse::new);
     }
 
     /**
@@ -5730,9 +5716,9 @@ public class ProductController {
      * <p>service: updateShipmentPackage  entities: ShipmentPackage  auth: true
      */
     @PostMapping("/facility/control/updateShipmentPackage")
-    public ResponseEntity<UpdateShipmentPackageResponse> updateShipmentPackageUpdateShipmentPackage(@RequestBody UpdateShipmentPackageRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentPackageResponse> updateShipmentPackageUpdateShipmentPackage(@RequestBody UpdateShipmentPackageRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentPackage(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentPackageResponse::new);
     }
 
     /**
@@ -5740,9 +5726,9 @@ public class ProductController {
      * <p>service: updateShipmentPackageRouteSeg  entities: ShipmentPackageRouteSeg  auth: true
      */
     @PostMapping("/facility/control/updateShipmentPackageRouteSeg")
-    public ResponseEntity<UpdateShipmentPackageRouteSegResponse> updateShipmentPackageRouteSegUpdateShipmentPackageRouteSeg(@RequestBody UpdateShipmentPackageRouteSegRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentPackageRouteSegResponse> updateShipmentPackageRouteSegUpdateShipmentPackageRouteSeg(@RequestBody UpdateShipmentPackageRouteSegRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentPackageRouteSeg(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentPackageRouteSegResponse::new);
     }
 
     /**
@@ -5750,9 +5736,9 @@ public class ProductController {
      * <p>service: updateShipmentRouteSegment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/updateShipmentRouteSegment")
-    public ResponseEntity<UpdateShipmentRouteSegmentResponse> updateShipmentRouteSegmentUpdateShipmentRouteSegment(@RequestBody UpdateShipmentRouteSegmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateShipmentRouteSegmentResponse> updateShipmentRouteSegmentUpdateShipmentRouteSegment(@RequestBody UpdateShipmentRouteSegmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateShipmentRouteSegment(ServiceInput.toMap(request));
+        return wrap(result, UpdateShipmentRouteSegmentResponse::new);
     }
 
     /**
@@ -5760,9 +5746,9 @@ public class ProductController {
      * <p>service: updateFacilityTelecomNumber  entities: FacilityContactMech, TelecomNumber  auth: true
      */
     @PostMapping("/facility/control/updateTelecomNumber")
-    public ResponseEntity<UpdateFacilityTelecomNumberResponse> updateFacilityTelecomNumber(@RequestBody UpdateFacilityTelecomNumberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFacilityTelecomNumberResponse> updateFacilityTelecomNumber(@RequestBody UpdateFacilityTelecomNumberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFacilityTelecomNumber(ServiceInput.toMap(request));
+        return wrap(result, UpdateFacilityTelecomNumberResponse::new);
     }
 
     /**
@@ -5770,9 +5756,9 @@ public class ProductController {
      * <p>service: upsShipmentAccept  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/upsShipmentAccept")
-    public ResponseEntity<UpsShipmentAcceptResponse> upsShipmentAcceptUpsShipmentAccept(@RequestBody UpsShipmentAcceptRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpsShipmentAcceptResponse> upsShipmentAcceptUpsShipmentAccept(@RequestBody UpsShipmentAcceptRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.upsShipmentAccept(ServiceInput.toMap(request));
+        return wrap(result, UpsShipmentAcceptResponse::new);
     }
 
     /**
@@ -5780,9 +5766,9 @@ public class ProductController {
      * <p>service: upsShipmentConfirm  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/upsShipmentConfirm")
-    public ResponseEntity<UpsShipmentConfirmResponse> upsShipmentConfirmUpsShipmentConfirm(@RequestBody UpsShipmentConfirmRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpsShipmentConfirmResponse> upsShipmentConfirmUpsShipmentConfirm(@RequestBody UpsShipmentConfirmRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.upsShipmentConfirm(ServiceInput.toMap(request));
+        return wrap(result, UpsShipmentConfirmResponse::new);
     }
 
     /**
@@ -5790,9 +5776,9 @@ public class ProductController {
      * <p>service: upsTrackShipment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/upsTrackShipment")
-    public ResponseEntity<UpsTrackShipmentResponse> upsTrackShipment(@RequestBody UpsTrackShipmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpsTrackShipmentResponse> upsTrackShipment(@RequestBody UpsTrackShipmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.upsTrackShipment(ServiceInput.toMap(request));
+        return wrap(result, UpsTrackShipmentResponse::new);
     }
 
     /**
@@ -5800,9 +5786,9 @@ public class ProductController {
      * <p>service: upsVoidShipment  entities: ShipmentRouteSegment  auth: true
      */
     @PostMapping("/facility/control/upsVoidShipment")
-    public ResponseEntity<UpsVoidShipmentResponse> upsVoidShipment(@RequestBody UpsVoidShipmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpsVoidShipmentResponse> upsVoidShipment(@RequestBody UpsVoidShipmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.upsVoidShipment(ServiceInput.toMap(request));
+        return wrap(result, UpsVoidShipmentResponse::new);
     }
 
     /**
@@ -5810,9 +5796,8 @@ public class ProductController {
      * <p>service: viewShipmentPackageRouteSegLabelImage  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/viewShipmentLabel")
-    public ResponseEntity<Map<String, Object>> viewShipmentPackageRouteSegLabelImage(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> viewShipmentPackageRouteSegLabelImage(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.viewShipmentPackageRouteSegLabelImage(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -5820,8 +5805,7 @@ public class ProductController {
      * <p>service: viewShipmentPackageRouteSegLabelImage  entities: unknown  auth: true
      */
     @GetMapping("/facility/control/viewShipmentPackageRouteSegLabelImage")
-    public ResponseEntity<Map<String, Object>> viewShipmentPackageRouteSegLabelImageViewShipmentPackageRouteSegLabelImage(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> viewShipmentPackageRouteSegLabelImageViewShipmentPackageRouteSegLabelImage(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.viewShipmentPackageRouteSegLabelImage(java.util.Map.copyOf(params)));
     }
 }

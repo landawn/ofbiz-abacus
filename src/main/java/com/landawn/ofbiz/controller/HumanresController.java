@@ -1,5 +1,6 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.util.ServiceInput;
 import com.landawn.ofbiz.model.ResponseBase;
 import com.landawn.ofbiz.model.humanres.ApplyTrainingRequest;
 import com.landawn.ofbiz.model.humanres.ApplyTrainingResponse;
@@ -211,8 +212,27 @@ import java.util.Map;
 @RequestMapping("/humanres")
 public class HumanresController {
 
-    /** 200/400 routing decided by the response DTO's envelope state. */
+    private final com.landawn.ofbiz.service.HumanresService service;
+
+    public HumanresController(com.landawn.ofbiz.service.HumanresService service) {
+        this.service = service;
+    }
+
+    /** 200/400 routing for typed responses. */
     private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
+
+    /** Convert a service-result map into a typed response and wrap. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(
+            Map<String, Object> result, java.util.function.Supplier<T> factory) {
+        return wrap(com.landawn.ofbiz.service.ServiceResponse.toDto(result, factory));
+    }
+
+    /** 200/400 routing for loosely-typed Map responses. */
+    private static ResponseEntity<Map<String, Object>> wrapMap(Map<String, Object> result) {
         return com.landawn.ofbiz.service.ServiceResponse.isError(result)
                 ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
                 : ResponseEntity.ok(result);
@@ -223,9 +243,9 @@ public class HumanresController {
      * <p>service: applyTraining  entities: PersonTraining  auth: true
      */
     @PostMapping("/humanres/control/applyTraining")
-    public ResponseEntity<ApplyTrainingResponse> applyTraining(@RequestBody ApplyTrainingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ApplyTrainingResponse> applyTraining(@RequestBody ApplyTrainingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.applyTraining(ServiceInput.toMap(request));
+        return wrap(result, ApplyTrainingResponse::new);
     }
 
     /**
@@ -233,9 +253,9 @@ public class HumanresController {
      * <p>service: assignTraining  entities: PersonTraining  auth: true
      */
     @PostMapping("/humanres/control/assignTraining")
-    public ResponseEntity<AssignTrainingResponse> assignTraining(@RequestBody AssignTrainingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AssignTrainingResponse> assignTraining(@RequestBody AssignTrainingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.assignTraining(ServiceInput.toMap(request));
+        return wrap(result, AssignTrainingResponse::new);
     }
 
     /**
@@ -243,9 +263,9 @@ public class HumanresController {
      * <p>service: createAgreementEmploymentAppl  entities: AgreementEmploymentAppl  auth: true
      */
     @PostMapping("/humanres/control/createAgreementEmploymentAppl")
-    public ResponseEntity<CreateAgreementEmploymentApplResponse> createAgreementEmploymentAppl(@RequestBody CreateAgreementEmploymentApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAgreementEmploymentApplResponse> createAgreementEmploymentAppl(@RequestBody CreateAgreementEmploymentApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAgreementEmploymentAppl(ServiceInput.toMap(request));
+        return wrap(result, CreateAgreementEmploymentApplResponse::new);
     }
 
     /**
@@ -253,9 +273,9 @@ public class HumanresController {
      * <p>service: createEmplLeave  entities: EmplLeave  auth: true
      */
     @PostMapping("/humanres/control/createEmplLeave")
-    public ResponseEntity<CreateEmplLeaveResponse> createEmplLeave(@RequestBody CreateEmplLeaveRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmplLeaveResponse> createEmplLeave(@RequestBody CreateEmplLeaveRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmplLeave(ServiceInput.toMap(request));
+        return wrap(result, CreateEmplLeaveResponse::new);
     }
 
     /**
@@ -263,9 +283,9 @@ public class HumanresController {
      * <p>service: createEmplLeave  entities: EmplLeave  auth: true
      */
     @PostMapping("/humanres/control/createEmplLeaveExt")
-    public ResponseEntity<CreateEmplLeaveResponse> createEmplLeaveCreateEmplLeaveExt(@RequestBody CreateEmplLeaveRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmplLeaveResponse> createEmplLeaveCreateEmplLeaveExt(@RequestBody CreateEmplLeaveRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmplLeave(ServiceInput.toMap(request));
+        return wrap(result, CreateEmplLeaveResponse::new);
     }
 
     /**
@@ -273,9 +293,9 @@ public class HumanresController {
      * <p>service: createEmplLeaveReasonType  entities: EmplLeaveReasonType  auth: true
      */
     @PostMapping("/humanres/control/createEmplLeaveReasonType")
-    public ResponseEntity<CreateEmplLeaveReasonTypeResponse> createEmplLeaveReasonType(@RequestBody CreateEmplLeaveReasonTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmplLeaveReasonTypeResponse> createEmplLeaveReasonType(@RequestBody CreateEmplLeaveReasonTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmplLeaveReasonType(ServiceInput.toMap(request));
+        return wrap(result, CreateEmplLeaveReasonTypeResponse::new);
     }
 
     /**
@@ -283,9 +303,9 @@ public class HumanresController {
      * <p>service: createEmplLeaveType  entities: EmplLeaveType  auth: true
      */
     @PostMapping("/humanres/control/createEmplLeaveType")
-    public ResponseEntity<CreateEmplLeaveTypeResponse> createEmplLeaveType(@RequestBody CreateEmplLeaveTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmplLeaveTypeResponse> createEmplLeaveType(@RequestBody CreateEmplLeaveTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmplLeaveType(ServiceInput.toMap(request));
+        return wrap(result, CreateEmplLeaveTypeResponse::new);
     }
 
     /**
@@ -293,9 +313,9 @@ public class HumanresController {
      * <p>service: createEmplPosition  entities: EmplPosition  auth: true
      */
     @PostMapping("/humanres/control/createEmplPosition")
-    public ResponseEntity<CreateEmplPositionResponse> createEmplPosition(@RequestBody CreateEmplPositionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmplPositionResponse> createEmplPosition(@RequestBody CreateEmplPositionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmplPosition(ServiceInput.toMap(request));
+        return wrap(result, CreateEmplPositionResponse::new);
     }
 
     /**
@@ -303,9 +323,9 @@ public class HumanresController {
      * <p>service: createEmplPositionFulfillment  entities: EmplPositionFulfillment  auth: true
      */
     @PostMapping("/humanres/control/createEmplPositionFulfillment")
-    public ResponseEntity<CreateEmplPositionFulfillmentResponse> createEmplPositionFulfillment(@RequestBody CreateEmplPositionFulfillmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmplPositionFulfillmentResponse> createEmplPositionFulfillment(@RequestBody CreateEmplPositionFulfillmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmplPositionFulfillment(ServiceInput.toMap(request));
+        return wrap(result, CreateEmplPositionFulfillmentResponse::new);
     }
 
     /**
@@ -313,9 +333,9 @@ public class HumanresController {
      * <p>service: createEmplPositionReportingStruct  entities: EmplPositionReportingStruct  auth: true
      */
     @PostMapping("/humanres/control/createEmplPositionReportingStruct")
-    public ResponseEntity<CreateEmplPositionReportingStructResponse> createEmplPositionReportingStruct(@RequestBody CreateEmplPositionReportingStructRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmplPositionReportingStructResponse> createEmplPositionReportingStruct(@RequestBody CreateEmplPositionReportingStructRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmplPositionReportingStruct(ServiceInput.toMap(request));
+        return wrap(result, CreateEmplPositionReportingStructResponse::new);
     }
 
     /**
@@ -323,9 +343,9 @@ public class HumanresController {
      * <p>service: createEmplPositionResponsibility  entities: EmplPositionResponsibility  auth: true
      */
     @PostMapping("/humanres/control/createEmplPositionResponsibility")
-    public ResponseEntity<CreateEmplPositionResponsibilityResponse> createEmplPositionResponsibility(@RequestBody CreateEmplPositionResponsibilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmplPositionResponsibilityResponse> createEmplPositionResponsibility(@RequestBody CreateEmplPositionResponsibilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmplPositionResponsibility(ServiceInput.toMap(request));
+        return wrap(result, CreateEmplPositionResponsibilityResponse::new);
     }
 
     /**
@@ -333,9 +353,9 @@ public class HumanresController {
      * <p>service: createEmplPositionType  entities: EmplPositionType  auth: true
      */
     @PostMapping("/humanres/control/createEmplPositionType")
-    public ResponseEntity<CreateEmplPositionTypeResponse> createEmplPositionType(@RequestBody CreateEmplPositionTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmplPositionTypeResponse> createEmplPositionType(@RequestBody CreateEmplPositionTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmplPositionType(ServiceInput.toMap(request));
+        return wrap(result, CreateEmplPositionTypeResponse::new);
     }
 
     /**
@@ -343,9 +363,9 @@ public class HumanresController {
      * <p>service: createEmployee  entities: Person, PostalAddress, TelecomNumber  auth: true
      */
     @PostMapping("/humanres/control/createEmployee")
-    public ResponseEntity<CreateEmployeeResponse> createEmployee(@RequestBody CreateEmployeeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmployeeResponse> createEmployee(@RequestBody CreateEmployeeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmployee(ServiceInput.toMap(request));
+        return wrap(result, CreateEmployeeResponse::new);
     }
 
     /**
@@ -353,9 +373,9 @@ public class HumanresController {
      * <p>service: createPartyQual  entities: PartyQual  auth: true
      */
     @PostMapping("/humanres/control/createEmployeeQualification")
-    public ResponseEntity<CreatePartyQualResponse> createPartyQual(@RequestBody CreatePartyQualRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyQualResponse> createPartyQual(@RequestBody CreatePartyQualRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyQual(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyQualResponse::new);
     }
 
     /**
@@ -363,9 +383,9 @@ public class HumanresController {
      * <p>service: createPartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/createEmployeeSkill")
-    public ResponseEntity<CreatePartySkillResponse> createPartySkill(@RequestBody CreatePartySkillRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartySkillResponse> createPartySkill(@RequestBody CreatePartySkillRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartySkill(ServiceInput.toMap(request));
+        return wrap(result, CreatePartySkillResponse::new);
     }
 
     /**
@@ -373,9 +393,9 @@ public class HumanresController {
      * <p>service: createEmployment  entities: Employment  auth: true
      */
     @PostMapping("/humanres/control/createEmployment")
-    public ResponseEntity<CreateEmploymentResponse> createEmployment(@RequestBody CreateEmploymentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmploymentResponse> createEmployment(@RequestBody CreateEmploymentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmployment(ServiceInput.toMap(request));
+        return wrap(result, CreateEmploymentResponse::new);
     }
 
     /**
@@ -383,9 +403,9 @@ public class HumanresController {
      * <p>service: createEmploymentApp  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/createEmploymentApp")
-    public ResponseEntity<CreateEmploymentAppResponse> createEmploymentApp(@RequestBody CreateEmploymentAppRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmploymentAppResponse> createEmploymentApp(@RequestBody CreateEmploymentAppRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmploymentApp(ServiceInput.toMap(request));
+        return wrap(result, CreateEmploymentAppResponse::new);
     }
 
     /**
@@ -393,9 +413,9 @@ public class HumanresController {
      * <p>service: createEmploymentApp  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/createEmploymentAppExt")
-    public ResponseEntity<CreateEmploymentAppResponse> createEmploymentAppCreateEmploymentAppExt(@RequestBody CreateEmploymentAppRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateEmploymentAppResponse> createEmploymentAppCreateEmploymentAppExt(@RequestBody CreateEmploymentAppRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createEmploymentApp(ServiceInput.toMap(request));
+        return wrap(result, CreateEmploymentAppResponse::new);
     }
 
     /**
@@ -403,9 +423,9 @@ public class HumanresController {
      * <p>service: createInternalJobPosting  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/createInternalJobPosting")
-    public ResponseEntity<CreateInternalJobPostingResponse> createInternalJobPosting(@RequestBody CreateInternalJobPostingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInternalJobPostingResponse> createInternalJobPosting(@RequestBody CreateInternalJobPostingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInternalJobPosting(ServiceInput.toMap(request));
+        return wrap(result, CreateInternalJobPostingResponse::new);
     }
 
     /**
@@ -413,9 +433,8 @@ public class HumanresController {
      * <p>service: createInternalOrg  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/createInternalOrg")
-    public ResponseEntity<Map<String, Object>> createInternalOrg(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createInternalOrg(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createInternalOrg(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -423,9 +442,9 @@ public class HumanresController {
      * <p>service: createJobInterview  entities: JobInterview  auth: true
      */
     @PostMapping("/humanres/control/createJobInterview")
-    public ResponseEntity<CreateJobInterviewResponse> createJobInterview(@RequestBody CreateJobInterviewRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateJobInterviewResponse> createJobInterview(@RequestBody CreateJobInterviewRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createJobInterview(ServiceInput.toMap(request));
+        return wrap(result, CreateJobInterviewResponse::new);
     }
 
     /**
@@ -433,9 +452,9 @@ public class HumanresController {
      * <p>service: createJobInterviewType  entities: JobInterviewType  auth: true
      */
     @PostMapping("/humanres/control/createJobInterviewType")
-    public ResponseEntity<CreateJobInterviewTypeResponse> createJobInterviewType(@RequestBody CreateJobInterviewTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateJobInterviewTypeResponse> createJobInterviewType(@RequestBody CreateJobInterviewTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createJobInterviewType(ServiceInput.toMap(request));
+        return wrap(result, CreateJobInterviewTypeResponse::new);
     }
 
     /**
@@ -443,9 +462,9 @@ public class HumanresController {
      * <p>service: createJobRequisition  entities: JobRequisition  auth: true
      */
     @PostMapping("/humanres/control/createJobRequisition")
-    public ResponseEntity<CreateJobRequisitionResponse> createJobRequisition(@RequestBody CreateJobRequisitionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateJobRequisitionResponse> createJobRequisition(@RequestBody CreateJobRequisitionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createJobRequisition(ServiceInput.toMap(request));
+        return wrap(result, CreateJobRequisitionResponse::new);
     }
 
     /**
@@ -453,9 +472,9 @@ public class HumanresController {
      * <p>service: createPartyBenefit  entities: PartyBenefit  auth: true
      */
     @PostMapping("/humanres/control/createPartyBenefit")
-    public ResponseEntity<CreatePartyBenefitResponse> createPartyBenefit(@RequestBody CreatePartyBenefitRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyBenefitResponse> createPartyBenefit(@RequestBody CreatePartyBenefitRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyBenefit(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyBenefitResponse::new);
     }
 
     /**
@@ -463,9 +482,9 @@ public class HumanresController {
      * <p>service: createPartyQual  entities: PartyQual  auth: true
      */
     @PostMapping("/humanres/control/createPartyQual")
-    public ResponseEntity<CreatePartyQualResponse> createPartyQualCreatePartyQual(@RequestBody CreatePartyQualRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyQualResponse> createPartyQualCreatePartyQual(@RequestBody CreatePartyQualRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyQual(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyQualResponse::new);
     }
 
     /**
@@ -473,9 +492,9 @@ public class HumanresController {
      * <p>service: createPartyQual  entities: PartyQual  auth: true
      */
     @PostMapping("/humanres/control/createPartyQualExt")
-    public ResponseEntity<CreatePartyQualResponse> createPartyQualCreatePartyQualExt(@RequestBody CreatePartyQualRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyQualResponse> createPartyQualCreatePartyQualExt(@RequestBody CreatePartyQualRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyQual(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyQualResponse::new);
     }
 
     /**
@@ -483,9 +502,9 @@ public class HumanresController {
      * <p>service: createPartyResume  entities: PartyResume  auth: true
      */
     @PostMapping("/humanres/control/createPartyResume")
-    public ResponseEntity<CreatePartyResumeResponse> createPartyResume(@RequestBody CreatePartyResumeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyResumeResponse> createPartyResume(@RequestBody CreatePartyResumeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyResume(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyResumeResponse::new);
     }
 
     /**
@@ -493,9 +512,9 @@ public class HumanresController {
      * <p>service: createPartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/createPartySkill")
-    public ResponseEntity<CreatePartySkillResponse> createPartySkillCreatePartySkill(@RequestBody CreatePartySkillRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartySkillResponse> createPartySkillCreatePartySkill(@RequestBody CreatePartySkillRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartySkill(ServiceInput.toMap(request));
+        return wrap(result, CreatePartySkillResponse::new);
     }
 
     /**
@@ -503,9 +522,9 @@ public class HumanresController {
      * <p>service: createPartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/createPartySkillExt")
-    public ResponseEntity<CreatePartySkillResponse> createPartySkillCreatePartySkillExt(@RequestBody CreatePartySkillRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartySkillResponse> createPartySkillCreatePartySkillExt(@RequestBody CreatePartySkillRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartySkill(ServiceInput.toMap(request));
+        return wrap(result, CreatePartySkillResponse::new);
     }
 
     /**
@@ -513,9 +532,9 @@ public class HumanresController {
      * <p>service: createPayGrade  entities: PayGrade  auth: true
      */
     @PostMapping("/humanres/control/createPayGrade")
-    public ResponseEntity<CreatePayGradeResponse> createPayGrade(@RequestBody CreatePayGradeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePayGradeResponse> createPayGrade(@RequestBody CreatePayGradeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPayGrade(ServiceInput.toMap(request));
+        return wrap(result, CreatePayGradeResponse::new);
     }
 
     /**
@@ -523,9 +542,9 @@ public class HumanresController {
      * <p>service: createPayrollPreference  entities: PayrollPreference  auth: true
      */
     @PostMapping("/humanres/control/createPayrollPreference")
-    public ResponseEntity<CreatePayrollPreferenceResponse> createPayrollPreference(@RequestBody CreatePayrollPreferenceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePayrollPreferenceResponse> createPayrollPreference(@RequestBody CreatePayrollPreferenceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPayrollPreference(ServiceInput.toMap(request));
+        return wrap(result, CreatePayrollPreferenceResponse::new);
     }
 
     /**
@@ -533,9 +552,9 @@ public class HumanresController {
      * <p>service: createPerfReview  entities: PerfReview  auth: true
      */
     @PostMapping("/humanres/control/createPerfReview")
-    public ResponseEntity<CreatePerfReviewResponse> createPerfReview(@RequestBody CreatePerfReviewRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePerfReviewResponse> createPerfReview(@RequestBody CreatePerfReviewRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPerfReview(ServiceInput.toMap(request));
+        return wrap(result, CreatePerfReviewResponse::new);
     }
 
     /**
@@ -543,9 +562,9 @@ public class HumanresController {
      * <p>service: createPerfReviewItem  entities: PerfReviewItem  auth: true
      */
     @PostMapping("/humanres/control/createPerfReviewItem")
-    public ResponseEntity<CreatePerfReviewItemResponse> createPerfReviewItem(@RequestBody CreatePerfReviewItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePerfReviewItemResponse> createPerfReviewItem(@RequestBody CreatePerfReviewItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPerfReviewItem(ServiceInput.toMap(request));
+        return wrap(result, CreatePerfReviewItemResponse::new);
     }
 
     /**
@@ -553,9 +572,9 @@ public class HumanresController {
      * <p>service: createPerformanceNote  entities: PerformanceNote  auth: true
      */
     @PostMapping("/humanres/control/createPerformanceNote")
-    public ResponseEntity<CreatePerformanceNoteResponse> createPerformanceNote(@RequestBody CreatePerformanceNoteRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePerformanceNoteResponse> createPerformanceNote(@RequestBody CreatePerformanceNoteRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPerformanceNote(ServiceInput.toMap(request));
+        return wrap(result, CreatePerformanceNoteResponse::new);
     }
 
     /**
@@ -563,9 +582,8 @@ public class HumanresController {
      * <p>service: createPublicHoliday  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/createPublicHoliday")
-    public ResponseEntity<Map<String, Object>> createPublicHoliday(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createPublicHoliday(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createPublicHoliday(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -573,9 +591,9 @@ public class HumanresController {
      * <p>service: createResponsibilityType  entities: ResponsibilityType  auth: true
      */
     @PostMapping("/humanres/control/createResponsibilityType")
-    public ResponseEntity<CreateResponsibilityTypeResponse> createResponsibilityType(@RequestBody CreateResponsibilityTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateResponsibilityTypeResponse> createResponsibilityType(@RequestBody CreateResponsibilityTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createResponsibilityType(ServiceInput.toMap(request));
+        return wrap(result, CreateResponsibilityTypeResponse::new);
     }
 
     /**
@@ -583,9 +601,9 @@ public class HumanresController {
      * <p>service: createSalaryStep  entities: SalaryStep  auth: true
      */
     @PostMapping("/humanres/control/createSalaryStep")
-    public ResponseEntity<CreateSalaryStepResponse> createSalaryStep(@RequestBody CreateSalaryStepRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSalaryStepResponse> createSalaryStep(@RequestBody CreateSalaryStepRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSalaryStep(ServiceInput.toMap(request));
+        return wrap(result, CreateSalaryStepResponse::new);
     }
 
     /**
@@ -593,9 +611,9 @@ public class HumanresController {
      * <p>service: createSkillType  entities: SkillType  auth: true
      */
     @PostMapping("/humanres/control/createSkillType")
-    public ResponseEntity<CreateSkillTypeResponse> createSkillType(@RequestBody CreateSkillTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSkillTypeResponse> createSkillType(@RequestBody CreateSkillTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSkillType(ServiceInput.toMap(request));
+        return wrap(result, CreateSkillTypeResponse::new);
     }
 
     /**
@@ -603,9 +621,9 @@ public class HumanresController {
      * <p>service: createTerminationReason  entities: TerminationReason  auth: true
      */
     @PostMapping("/humanres/control/createTerminationReason")
-    public ResponseEntity<CreateTerminationReasonResponse> createTerminationReason(@RequestBody CreateTerminationReasonRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateTerminationReasonResponse> createTerminationReason(@RequestBody CreateTerminationReasonRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createTerminationReason(ServiceInput.toMap(request));
+        return wrap(result, CreateTerminationReasonResponse::new);
     }
 
     /**
@@ -613,9 +631,9 @@ public class HumanresController {
      * <p>service: createTerminationType  entities: TerminationType  auth: true
      */
     @PostMapping("/humanres/control/createTerminationType")
-    public ResponseEntity<CreateTerminationTypeResponse> createTerminationType(@RequestBody CreateTerminationTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateTerminationTypeResponse> createTerminationType(@RequestBody CreateTerminationTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createTerminationType(ServiceInput.toMap(request));
+        return wrap(result, CreateTerminationTypeResponse::new);
     }
 
     /**
@@ -623,9 +641,8 @@ public class HumanresController {
      * <p>service: createWorkEffortAndPartyAssign  entities: WorkEffort  auth: true
      */
     @PostMapping("/humanres/control/createTrainingCalendar")
-    public ResponseEntity<Map<String, Object>> createWorkEffortAndPartyAssign(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createWorkEffortAndPartyAssign(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createWorkEffortAndPartyAssign(body));
     }
 
     /**
@@ -633,9 +650,9 @@ public class HumanresController {
      * <p>service: createTrainingTypes  entities: TrainingClassType  auth: true
      */
     @PostMapping("/humanres/control/createTrainingTypes")
-    public ResponseEntity<CreateTrainingTypesResponse> createTrainingTypes(@RequestBody CreateTrainingTypesRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateTrainingTypesResponse> createTrainingTypes(@RequestBody CreateTrainingTypesRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createTrainingTypes(ServiceInput.toMap(request));
+        return wrap(result, CreateTrainingTypesResponse::new);
     }
 
     /**
@@ -643,9 +660,9 @@ public class HumanresController {
      * <p>service: createUnemploymentClaim  entities: UnemploymentClaim  auth: true
      */
     @PostMapping("/humanres/control/createUnemploymentClaim")
-    public ResponseEntity<CreateUnemploymentClaimResponse> createUnemploymentClaim(@RequestBody CreateUnemploymentClaimRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateUnemploymentClaimResponse> createUnemploymentClaim(@RequestBody CreateUnemploymentClaimRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createUnemploymentClaim(ServiceInput.toMap(request));
+        return wrap(result, CreateUnemploymentClaimResponse::new);
     }
 
     /**
@@ -653,9 +670,9 @@ public class HumanresController {
      * <p>service: createValidResponsibility  entities: ValidResponsibility  auth: true
      */
     @PostMapping("/humanres/control/createValidResponsibility")
-    public ResponseEntity<CreateValidResponsibilityResponse> createValidResponsibility(@RequestBody CreateValidResponsibilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateValidResponsibilityResponse> createValidResponsibility(@RequestBody CreateValidResponsibilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createValidResponsibility(ServiceInput.toMap(request));
+        return wrap(result, CreateValidResponsibilityResponse::new);
     }
 
     /**
@@ -663,9 +680,9 @@ public class HumanresController {
      * <p>service: deleteAgreementEmploymentAppl  entities: AgreementEmploymentAppl  auth: true
      */
     @PostMapping("/humanres/control/deleteAgreementEmploymentAppl")
-    public ResponseEntity<DeleteAgreementEmploymentApplResponse> deleteAgreementEmploymentAppl(@RequestBody DeleteAgreementEmploymentApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteAgreementEmploymentApplResponse> deleteAgreementEmploymentAppl(@RequestBody DeleteAgreementEmploymentApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteAgreementEmploymentAppl(ServiceInput.toMap(request));
+        return wrap(result, DeleteAgreementEmploymentApplResponse::new);
     }
 
     /**
@@ -673,9 +690,9 @@ public class HumanresController {
      * <p>service: deleteEmplLeave  entities: EmplLeave  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplLeave")
-    public ResponseEntity<DeleteEmplLeaveResponse> deleteEmplLeave(@RequestBody DeleteEmplLeaveRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteEmplLeaveResponse> deleteEmplLeave(@RequestBody DeleteEmplLeaveRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteEmplLeave(ServiceInput.toMap(request));
+        return wrap(result, DeleteEmplLeaveResponse::new);
     }
 
     /**
@@ -683,9 +700,9 @@ public class HumanresController {
      * <p>service: deleteEmplLeaveReasonType  entities: EmplLeaveReasonType  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplLeaveReasonType")
-    public ResponseEntity<DeleteEmplLeaveReasonTypeResponse> deleteEmplLeaveReasonType(@RequestBody DeleteEmplLeaveReasonTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteEmplLeaveReasonTypeResponse> deleteEmplLeaveReasonType(@RequestBody DeleteEmplLeaveReasonTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteEmplLeaveReasonType(ServiceInput.toMap(request));
+        return wrap(result, DeleteEmplLeaveReasonTypeResponse::new);
     }
 
     /**
@@ -693,9 +710,9 @@ public class HumanresController {
      * <p>service: deleteEmplLeaveType  entities: EmplLeaveType  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplLeaveType")
-    public ResponseEntity<DeleteEmplLeaveTypeResponse> deleteEmplLeaveType(@RequestBody DeleteEmplLeaveTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteEmplLeaveTypeResponse> deleteEmplLeaveType(@RequestBody DeleteEmplLeaveTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteEmplLeaveType(ServiceInput.toMap(request));
+        return wrap(result, DeleteEmplLeaveTypeResponse::new);
     }
 
     /**
@@ -703,9 +720,9 @@ public class HumanresController {
      * <p>service: deleteEmplPosition  entities: EmplPosition  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplPosition")
-    public ResponseEntity<DeleteEmplPositionResponse> deleteEmplPosition(@RequestBody DeleteEmplPositionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteEmplPositionResponse> deleteEmplPosition(@RequestBody DeleteEmplPositionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteEmplPosition(ServiceInput.toMap(request));
+        return wrap(result, DeleteEmplPositionResponse::new);
     }
 
     /**
@@ -713,9 +730,9 @@ public class HumanresController {
      * <p>service: deleteEmplPositionFulfillment  entities: EmplPositionFulfillment  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplPositionFulfillment")
-    public ResponseEntity<DeleteEmplPositionFulfillmentResponse> deleteEmplPositionFulfillment(@RequestBody DeleteEmplPositionFulfillmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteEmplPositionFulfillmentResponse> deleteEmplPositionFulfillment(@RequestBody DeleteEmplPositionFulfillmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteEmplPositionFulfillment(ServiceInput.toMap(request));
+        return wrap(result, DeleteEmplPositionFulfillmentResponse::new);
     }
 
     /**
@@ -723,9 +740,9 @@ public class HumanresController {
      * <p>service: deleteEmplPositionReportingStruct  entities: EmplPositionReportingStruct  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplPositionReportingStruct")
-    public ResponseEntity<DeleteEmplPositionReportingStructResponse> deleteEmplPositionReportingStruct(@RequestBody DeleteEmplPositionReportingStructRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteEmplPositionReportingStructResponse> deleteEmplPositionReportingStruct(@RequestBody DeleteEmplPositionReportingStructRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteEmplPositionReportingStruct(ServiceInput.toMap(request));
+        return wrap(result, DeleteEmplPositionReportingStructResponse::new);
     }
 
     /**
@@ -733,9 +750,9 @@ public class HumanresController {
      * <p>service: deleteEmplPositionResponsibility  entities: EmplPositionResponsibility  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplPositionResponsibility")
-    public ResponseEntity<DeleteEmplPositionResponsibilityResponse> deleteEmplPositionResponsibility(@RequestBody DeleteEmplPositionResponsibilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteEmplPositionResponsibilityResponse> deleteEmplPositionResponsibility(@RequestBody DeleteEmplPositionResponsibilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteEmplPositionResponsibility(ServiceInput.toMap(request));
+        return wrap(result, DeleteEmplPositionResponsibilityResponse::new);
     }
 
     /**
@@ -743,9 +760,9 @@ public class HumanresController {
      * <p>service: deleteEmplPositionType  entities: EmplPositionType  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplPositionType")
-    public ResponseEntity<DeleteEmplPositionTypeResponse> deleteEmplPositionType(@RequestBody DeleteEmplPositionTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteEmplPositionTypeResponse> deleteEmplPositionType(@RequestBody DeleteEmplPositionTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteEmplPositionType(ServiceInput.toMap(request));
+        return wrap(result, DeleteEmplPositionTypeResponse::new);
     }
 
     /**
@@ -753,9 +770,9 @@ public class HumanresController {
      * <p>service: deleteEmplPositionTypeRate  entities: EmplPositionTypeRate  auth: true
      */
     @PostMapping("/humanres/control/deleteEmplPositionTypeRate")
-    public ResponseEntity<DeleteEmplPositionTypeRateResponse> deleteEmplPositionTypeRate(@RequestBody DeleteEmplPositionTypeRateRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteEmplPositionTypeRateResponse> deleteEmplPositionTypeRate(@RequestBody DeleteEmplPositionTypeRateRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteEmplPositionTypeRate(ServiceInput.toMap(request));
+        return wrap(result, DeleteEmplPositionTypeRateResponse::new);
     }
 
     /**
@@ -763,9 +780,9 @@ public class HumanresController {
      * <p>service: deletePartyQual  entities: PartyQual  auth: true
      */
     @PostMapping("/humanres/control/deleteEmployeeQualification")
-    public ResponseEntity<DeletePartyQualResponse> deletePartyQual(@RequestBody DeletePartyQualRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyQualResponse> deletePartyQual(@RequestBody DeletePartyQualRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyQual(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyQualResponse::new);
     }
 
     /**
@@ -773,9 +790,9 @@ public class HumanresController {
      * <p>service: deletePartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/deleteEmployeeSkill")
-    public ResponseEntity<DeletePartySkillResponse> deletePartySkill(@RequestBody DeletePartySkillRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartySkillResponse> deletePartySkill(@RequestBody DeletePartySkillRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartySkill(ServiceInput.toMap(request));
+        return wrap(result, DeletePartySkillResponse::new);
     }
 
     /**
@@ -783,9 +800,9 @@ public class HumanresController {
      * <p>service: deleteEmployment  entities: Employment  auth: true
      */
     @PostMapping("/humanres/control/deleteEmployment")
-    public ResponseEntity<DeleteEmploymentResponse> deleteEmployment(@RequestBody DeleteEmploymentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteEmploymentResponse> deleteEmployment(@RequestBody DeleteEmploymentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteEmployment(ServiceInput.toMap(request));
+        return wrap(result, DeleteEmploymentResponse::new);
     }
 
     /**
@@ -793,9 +810,9 @@ public class HumanresController {
      * <p>service: deleteEmploymentApp  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/deleteEmploymentApp")
-    public ResponseEntity<DeleteEmploymentAppResponse> deleteEmploymentApp(@RequestBody DeleteEmploymentAppRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteEmploymentAppResponse> deleteEmploymentApp(@RequestBody DeleteEmploymentAppRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteEmploymentApp(ServiceInput.toMap(request));
+        return wrap(result, DeleteEmploymentAppResponse::new);
     }
 
     /**
@@ -803,9 +820,9 @@ public class HumanresController {
      * <p>service: deleteInternalJobPosting  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/deleteInternalJobPosting")
-    public ResponseEntity<DeleteInternalJobPostingResponse> deleteInternalJobPosting(@RequestBody DeleteInternalJobPostingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteInternalJobPostingResponse> deleteInternalJobPosting(@RequestBody DeleteInternalJobPostingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteInternalJobPosting(ServiceInput.toMap(request));
+        return wrap(result, DeleteInternalJobPostingResponse::new);
     }
 
     /**
@@ -813,9 +830,9 @@ public class HumanresController {
      * <p>service: deleteJobInterview  entities: JobInterview  auth: true
      */
     @PostMapping("/humanres/control/deleteJobInterview")
-    public ResponseEntity<DeleteJobInterviewResponse> deleteJobInterview(@RequestBody DeleteJobInterviewRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteJobInterviewResponse> deleteJobInterview(@RequestBody DeleteJobInterviewRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteJobInterview(ServiceInput.toMap(request));
+        return wrap(result, DeleteJobInterviewResponse::new);
     }
 
     /**
@@ -823,9 +840,9 @@ public class HumanresController {
      * <p>service: deleteJobInterviewType  entities: JobInterviewType  auth: true
      */
     @PostMapping("/humanres/control/deleteJobInterviewType")
-    public ResponseEntity<DeleteJobInterviewTypeResponse> deleteJobInterviewType(@RequestBody DeleteJobInterviewTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteJobInterviewTypeResponse> deleteJobInterviewType(@RequestBody DeleteJobInterviewTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteJobInterviewType(ServiceInput.toMap(request));
+        return wrap(result, DeleteJobInterviewTypeResponse::new);
     }
 
     /**
@@ -833,9 +850,9 @@ public class HumanresController {
      * <p>service: deleteJobRequisition  entities: JobRequisition  auth: true
      */
     @PostMapping("/humanres/control/deleteJobRequisition")
-    public ResponseEntity<DeleteJobRequisitionResponse> deleteJobRequisition(@RequestBody DeleteJobRequisitionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteJobRequisitionResponse> deleteJobRequisition(@RequestBody DeleteJobRequisitionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteJobRequisition(ServiceInput.toMap(request));
+        return wrap(result, DeleteJobRequisitionResponse::new);
     }
 
     /**
@@ -843,9 +860,9 @@ public class HumanresController {
      * <p>service: deletePartyBenefit  entities: PartyBenefit  auth: true
      */
     @PostMapping("/humanres/control/deletePartyBenefit")
-    public ResponseEntity<DeletePartyBenefitResponse> deletePartyBenefit(@RequestBody DeletePartyBenefitRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyBenefitResponse> deletePartyBenefit(@RequestBody DeletePartyBenefitRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyBenefit(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyBenefitResponse::new);
     }
 
     /**
@@ -853,9 +870,9 @@ public class HumanresController {
      * <p>service: deletePartyQual  entities: PartyQual  auth: true
      */
     @PostMapping("/humanres/control/deletePartyQual")
-    public ResponseEntity<DeletePartyQualResponse> deletePartyQualDeletePartyQual(@RequestBody DeletePartyQualRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyQualResponse> deletePartyQualDeletePartyQual(@RequestBody DeletePartyQualRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyQual(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyQualResponse::new);
     }
 
     /**
@@ -863,9 +880,9 @@ public class HumanresController {
      * <p>service: deletePartyResume  entities: PartyResume  auth: true
      */
     @PostMapping("/humanres/control/deletePartyResume")
-    public ResponseEntity<DeletePartyResumeResponse> deletePartyResume(@RequestBody DeletePartyResumeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyResumeResponse> deletePartyResume(@RequestBody DeletePartyResumeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyResume(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyResumeResponse::new);
     }
 
     /**
@@ -873,9 +890,9 @@ public class HumanresController {
      * <p>service: deletePartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/deletePartySkill")
-    public ResponseEntity<DeletePartySkillResponse> deletePartySkillDeletePartySkill(@RequestBody DeletePartySkillRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartySkillResponse> deletePartySkillDeletePartySkill(@RequestBody DeletePartySkillRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartySkill(ServiceInput.toMap(request));
+        return wrap(result, DeletePartySkillResponse::new);
     }
 
     /**
@@ -883,9 +900,9 @@ public class HumanresController {
      * <p>service: deletePayGrade  entities: PayGrade  auth: true
      */
     @PostMapping("/humanres/control/deletePayGrade")
-    public ResponseEntity<DeletePayGradeResponse> deletePayGrade(@RequestBody DeletePayGradeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePayGradeResponse> deletePayGrade(@RequestBody DeletePayGradeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePayGrade(ServiceInput.toMap(request));
+        return wrap(result, DeletePayGradeResponse::new);
     }
 
     /**
@@ -893,9 +910,9 @@ public class HumanresController {
      * <p>service: deletePayHistory  entities: PayHistory  auth: true
      */
     @PostMapping("/humanres/control/deletePayHistory")
-    public ResponseEntity<DeletePayHistoryResponse> deletePayHistory(@RequestBody DeletePayHistoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePayHistoryResponse> deletePayHistory(@RequestBody DeletePayHistoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePayHistory(ServiceInput.toMap(request));
+        return wrap(result, DeletePayHistoryResponse::new);
     }
 
     /**
@@ -903,9 +920,9 @@ public class HumanresController {
      * <p>service: deletePayrollPreference  entities: PayrollPreference  auth: true
      */
     @PostMapping("/humanres/control/deletePayrollPreference")
-    public ResponseEntity<DeletePayrollPreferenceResponse> deletePayrollPreference(@RequestBody DeletePayrollPreferenceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePayrollPreferenceResponse> deletePayrollPreference(@RequestBody DeletePayrollPreferenceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePayrollPreference(ServiceInput.toMap(request));
+        return wrap(result, DeletePayrollPreferenceResponse::new);
     }
 
     /**
@@ -913,9 +930,9 @@ public class HumanresController {
      * <p>service: deletePerfReview  entities: PerfReview  auth: true
      */
     @PostMapping("/humanres/control/deletePerfReview")
-    public ResponseEntity<DeletePerfReviewResponse> deletePerfReview(@RequestBody DeletePerfReviewRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePerfReviewResponse> deletePerfReview(@RequestBody DeletePerfReviewRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePerfReview(ServiceInput.toMap(request));
+        return wrap(result, DeletePerfReviewResponse::new);
     }
 
     /**
@@ -923,9 +940,9 @@ public class HumanresController {
      * <p>service: deletePerfReviewItem  entities: PerfReviewItem  auth: true
      */
     @PostMapping("/humanres/control/deletePerfReviewItem")
-    public ResponseEntity<DeletePerfReviewItemResponse> deletePerfReviewItem(@RequestBody DeletePerfReviewItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePerfReviewItemResponse> deletePerfReviewItem(@RequestBody DeletePerfReviewItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePerfReviewItem(ServiceInput.toMap(request));
+        return wrap(result, DeletePerfReviewItemResponse::new);
     }
 
     /**
@@ -933,9 +950,8 @@ public class HumanresController {
      * <p>service: deleteWorkEffort  entities: WorkEffort  auth: true
      */
     @PostMapping("/humanres/control/deletePublicHoliday")
-    public ResponseEntity<Map<String, Object>> deleteWorkEffort(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deleteWorkEffort(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deleteWorkEffort(body));
     }
 
     /**
@@ -943,9 +959,9 @@ public class HumanresController {
      * <p>service: deleteResponsibilityType  entities: ResponsibilityType  auth: true
      */
     @PostMapping("/humanres/control/deleteResponsibilityType")
-    public ResponseEntity<DeleteResponsibilityTypeResponse> deleteResponsibilityType(@RequestBody DeleteResponsibilityTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteResponsibilityTypeResponse> deleteResponsibilityType(@RequestBody DeleteResponsibilityTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteResponsibilityType(ServiceInput.toMap(request));
+        return wrap(result, DeleteResponsibilityTypeResponse::new);
     }
 
     /**
@@ -953,9 +969,9 @@ public class HumanresController {
      * <p>service: deleteSalaryStep  entities: SalaryStep  auth: true
      */
     @PostMapping("/humanres/control/deleteSalaryStep")
-    public ResponseEntity<DeleteSalaryStepResponse> deleteSalaryStep(@RequestBody DeleteSalaryStepRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteSalaryStepResponse> deleteSalaryStep(@RequestBody DeleteSalaryStepRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteSalaryStep(ServiceInput.toMap(request));
+        return wrap(result, DeleteSalaryStepResponse::new);
     }
 
     /**
@@ -963,9 +979,9 @@ public class HumanresController {
      * <p>service: deleteSkillType  entities: SkillType  auth: true
      */
     @PostMapping("/humanres/control/deleteSkillType")
-    public ResponseEntity<DeleteSkillTypeResponse> deleteSkillType(@RequestBody DeleteSkillTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteSkillTypeResponse> deleteSkillType(@RequestBody DeleteSkillTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteSkillType(ServiceInput.toMap(request));
+        return wrap(result, DeleteSkillTypeResponse::new);
     }
 
     /**
@@ -973,9 +989,9 @@ public class HumanresController {
      * <p>service: deleteTerminationReason  entities: TerminationReason  auth: true
      */
     @PostMapping("/humanres/control/deleteTerminationReason")
-    public ResponseEntity<DeleteTerminationReasonResponse> deleteTerminationReason(@RequestBody DeleteTerminationReasonRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteTerminationReasonResponse> deleteTerminationReason(@RequestBody DeleteTerminationReasonRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteTerminationReason(ServiceInput.toMap(request));
+        return wrap(result, DeleteTerminationReasonResponse::new);
     }
 
     /**
@@ -983,9 +999,9 @@ public class HumanresController {
      * <p>service: deleteTerminationType  entities: TerminationType  auth: true
      */
     @PostMapping("/humanres/control/deleteTerminationType")
-    public ResponseEntity<DeleteTerminationTypeResponse> deleteTerminationType(@RequestBody DeleteTerminationTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteTerminationTypeResponse> deleteTerminationType(@RequestBody DeleteTerminationTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteTerminationType(ServiceInput.toMap(request));
+        return wrap(result, DeleteTerminationTypeResponse::new);
     }
 
     /**
@@ -993,9 +1009,9 @@ public class HumanresController {
      * <p>service: deleteTrainingTypes  entities: TrainingClassType  auth: true
      */
     @PostMapping("/humanres/control/deleteTrainingTypes")
-    public ResponseEntity<DeleteTrainingTypesResponse> deleteTrainingTypes(@RequestBody DeleteTrainingTypesRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteTrainingTypesResponse> deleteTrainingTypes(@RequestBody DeleteTrainingTypesRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteTrainingTypes(ServiceInput.toMap(request));
+        return wrap(result, DeleteTrainingTypesResponse::new);
     }
 
     /**
@@ -1003,9 +1019,9 @@ public class HumanresController {
      * <p>service: deleteUnemploymentClaim  entities: UnemploymentClaim  auth: true
      */
     @PostMapping("/humanres/control/deleteUnemploymentClaim")
-    public ResponseEntity<DeleteUnemploymentClaimResponse> deleteUnemploymentClaim(@RequestBody DeleteUnemploymentClaimRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteUnemploymentClaimResponse> deleteUnemploymentClaim(@RequestBody DeleteUnemploymentClaimRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteUnemploymentClaim(ServiceInput.toMap(request));
+        return wrap(result, DeleteUnemploymentClaimResponse::new);
     }
 
     /**
@@ -1013,9 +1029,9 @@ public class HumanresController {
      * <p>service: deleteValidResponsibility  entities: ValidResponsibility  auth: true
      */
     @PostMapping("/humanres/control/deleteValidResponsibility")
-    public ResponseEntity<DeleteValidResponsibilityResponse> deleteValidResponsibility(@RequestBody DeleteValidResponsibilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteValidResponsibilityResponse> deleteValidResponsibility(@RequestBody DeleteValidResponsibilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteValidResponsibility(ServiceInput.toMap(request));
+        return wrap(result, DeleteValidResponsibilityResponse::new);
     }
 
     /**
@@ -1023,9 +1039,9 @@ public class HumanresController {
      * <p>service: expirePayHistory  entities: PayHistory  auth: true
      */
     @PostMapping("/humanres/control/expirePayHistory")
-    public ResponseEntity<ExpirePayHistoryResponse> expirePayHistory(@RequestBody ExpirePayHistoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ExpirePayHistoryResponse> expirePayHistory(@RequestBody ExpirePayHistoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.expirePayHistory(ServiceInput.toMap(request));
+        return wrap(result, ExpirePayHistoryResponse::new);
     }
 
     /**
@@ -1033,9 +1049,8 @@ public class HumanresController {
      * <p>service: getChildHRCategoryTree  entities: unknown  auth: false
      */
     @GetMapping("/humanres/control/getHRChild")
-    public ResponseEntity<Map<String, Object>> getChildHRCategoryTree(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> getChildHRCategoryTree(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.getChildHRCategoryTree(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1043,9 +1058,8 @@ public class HumanresController {
      * <p>service: removeInternalOrg  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/removeInternalOrg")
-    public ResponseEntity<Map<String, Object>> removeInternalOrg(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> removeInternalOrg(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.removeInternalOrg(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1053,9 +1067,9 @@ public class HumanresController {
      * <p>service: updateAgreementEmploymentAppl  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateAgreementEmploymentAppl")
-    public ResponseEntity<UpdateAgreementEmploymentApplResponse> updateAgreementEmploymentAppl(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateAgreementEmploymentApplResponse> updateAgreementEmploymentAppl(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateAgreementEmploymentAppl(java.util.Map.copyOf(params));
+        return wrap(result, UpdateAgreementEmploymentApplResponse::new);
     }
 
     /**
@@ -1063,9 +1077,9 @@ public class HumanresController {
      * <p>service: updateApprovalStatus  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/updateApprovalStatus")
-    public ResponseEntity<UpdateApprovalStatusResponse> updateApprovalStatus(@RequestBody UpdateApprovalStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateApprovalStatusResponse> updateApprovalStatus(@RequestBody UpdateApprovalStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateApprovalStatus(ServiceInput.toMap(request));
+        return wrap(result, UpdateApprovalStatusResponse::new);
     }
 
     /**
@@ -1073,9 +1087,9 @@ public class HumanresController {
      * <p>service: updateEmplLeave  entities: EmplLeave  auth: true
      */
     @PostMapping("/humanres/control/updateEmplLeave")
-    public ResponseEntity<UpdateEmplLeaveResponse> updateEmplLeave(@RequestBody UpdateEmplLeaveRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmplLeaveResponse> updateEmplLeave(@RequestBody UpdateEmplLeaveRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmplLeave(ServiceInput.toMap(request));
+        return wrap(result, UpdateEmplLeaveResponse::new);
     }
 
     /**
@@ -1083,9 +1097,9 @@ public class HumanresController {
      * <p>service: updateEmplLeave  entities: EmplLeave  auth: true
      */
     @PostMapping("/humanres/control/updateEmplLeaveExt")
-    public ResponseEntity<UpdateEmplLeaveResponse> updateEmplLeaveUpdateEmplLeaveExt(@RequestBody UpdateEmplLeaveRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmplLeaveResponse> updateEmplLeaveUpdateEmplLeaveExt(@RequestBody UpdateEmplLeaveRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmplLeave(ServiceInput.toMap(request));
+        return wrap(result, UpdateEmplLeaveResponse::new);
     }
 
     /**
@@ -1093,9 +1107,9 @@ public class HumanresController {
      * <p>service: updateEmplLeaveReasonType  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateEmplLeaveReasonType")
-    public ResponseEntity<UpdateEmplLeaveReasonTypeResponse> updateEmplLeaveReasonType(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmplLeaveReasonTypeResponse> updateEmplLeaveReasonType(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmplLeaveReasonType(java.util.Map.copyOf(params));
+        return wrap(result, UpdateEmplLeaveReasonTypeResponse::new);
     }
 
     /**
@@ -1103,9 +1117,9 @@ public class HumanresController {
      * <p>service: updateEmplLeaveStatus  entities: EmplLeave  auth: true
      */
     @PostMapping("/humanres/control/updateEmplLeaveStatus")
-    public ResponseEntity<UpdateEmplLeaveStatusResponse> updateEmplLeaveStatus(@RequestBody UpdateEmplLeaveStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmplLeaveStatusResponse> updateEmplLeaveStatus(@RequestBody UpdateEmplLeaveStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmplLeaveStatus(ServiceInput.toMap(request));
+        return wrap(result, UpdateEmplLeaveStatusResponse::new);
     }
 
     /**
@@ -1113,9 +1127,9 @@ public class HumanresController {
      * <p>service: updateEmplLeaveType  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateEmplLeaveType")
-    public ResponseEntity<UpdateEmplLeaveTypeResponse> updateEmplLeaveType(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmplLeaveTypeResponse> updateEmplLeaveType(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmplLeaveType(java.util.Map.copyOf(params));
+        return wrap(result, UpdateEmplLeaveTypeResponse::new);
     }
 
     /**
@@ -1123,9 +1137,9 @@ public class HumanresController {
      * <p>service: updateEmplPosition  entities: EmplPosition  auth: true
      */
     @PostMapping("/humanres/control/updateEmplPosition")
-    public ResponseEntity<UpdateEmplPositionResponse> updateEmplPosition(@RequestBody UpdateEmplPositionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmplPositionResponse> updateEmplPosition(@RequestBody UpdateEmplPositionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmplPosition(ServiceInput.toMap(request));
+        return wrap(result, UpdateEmplPositionResponse::new);
     }
 
     /**
@@ -1133,9 +1147,9 @@ public class HumanresController {
      * <p>service: updateEmplPositionFulfillment  entities: EmplPositionFulfillment  auth: true
      */
     @PostMapping("/humanres/control/updateEmplPositionFulfillment")
-    public ResponseEntity<UpdateEmplPositionFulfillmentResponse> updateEmplPositionFulfillment(@RequestBody UpdateEmplPositionFulfillmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmplPositionFulfillmentResponse> updateEmplPositionFulfillment(@RequestBody UpdateEmplPositionFulfillmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmplPositionFulfillment(ServiceInput.toMap(request));
+        return wrap(result, UpdateEmplPositionFulfillmentResponse::new);
     }
 
     /**
@@ -1143,9 +1157,9 @@ public class HumanresController {
      * <p>service: updateEmplPositionReportingStruct  entities: EmplPositionReportingStruct  auth: true
      */
     @PostMapping("/humanres/control/updateEmplPositionReportingStruct")
-    public ResponseEntity<UpdateEmplPositionReportingStructResponse> updateEmplPositionReportingStruct(@RequestBody UpdateEmplPositionReportingStructRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmplPositionReportingStructResponse> updateEmplPositionReportingStruct(@RequestBody UpdateEmplPositionReportingStructRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmplPositionReportingStruct(ServiceInput.toMap(request));
+        return wrap(result, UpdateEmplPositionReportingStructResponse::new);
     }
 
     /**
@@ -1153,9 +1167,9 @@ public class HumanresController {
      * <p>service: updateEmplPositionResponsibility  entities: EmplPositionResponsibility  auth: true
      */
     @PostMapping("/humanres/control/updateEmplPositionResponsibility")
-    public ResponseEntity<UpdateEmplPositionResponsibilityResponse> updateEmplPositionResponsibility(@RequestBody UpdateEmplPositionResponsibilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmplPositionResponsibilityResponse> updateEmplPositionResponsibility(@RequestBody UpdateEmplPositionResponsibilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmplPositionResponsibility(ServiceInput.toMap(request));
+        return wrap(result, UpdateEmplPositionResponsibilityResponse::new);
     }
 
     /**
@@ -1163,9 +1177,9 @@ public class HumanresController {
      * <p>service: updateEmplPositionType  entities: EmplPositionType  auth: true
      */
     @PostMapping("/humanres/control/updateEmplPositionType")
-    public ResponseEntity<UpdateEmplPositionTypeResponse> updateEmplPositionType(@RequestBody UpdateEmplPositionTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmplPositionTypeResponse> updateEmplPositionType(@RequestBody UpdateEmplPositionTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmplPositionType(ServiceInput.toMap(request));
+        return wrap(result, UpdateEmplPositionTypeResponse::new);
     }
 
     /**
@@ -1173,9 +1187,9 @@ public class HumanresController {
      * <p>service: updateEmplPositionTypeRate  entities: EmplPositionTypeRate  auth: true
      */
     @PostMapping("/humanres/control/updateEmplPositionTypeRate")
-    public ResponseEntity<UpdateEmplPositionTypeRateResponse> updateEmplPositionTypeRate(@RequestBody UpdateEmplPositionTypeRateRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmplPositionTypeRateResponse> updateEmplPositionTypeRate(@RequestBody UpdateEmplPositionTypeRateRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmplPositionTypeRate(ServiceInput.toMap(request));
+        return wrap(result, UpdateEmplPositionTypeRateResponse::new);
     }
 
     /**
@@ -1183,9 +1197,9 @@ public class HumanresController {
      * <p>service: updatePartyQual  entities: PartyQual  auth: true
      */
     @PostMapping("/humanres/control/updateEmployeeQualification")
-    public ResponseEntity<UpdatePartyQualResponse> updatePartyQual(@RequestBody UpdatePartyQualRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyQualResponse> updatePartyQual(@RequestBody UpdatePartyQualRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyQual(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyQualResponse::new);
     }
 
     /**
@@ -1193,9 +1207,9 @@ public class HumanresController {
      * <p>service: updatePartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/updateEmployeeSkill")
-    public ResponseEntity<UpdatePartySkillResponse> updatePartySkill(@RequestBody UpdatePartySkillRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartySkillResponse> updatePartySkill(@RequestBody UpdatePartySkillRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartySkill(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartySkillResponse::new);
     }
 
     /**
@@ -1203,9 +1217,9 @@ public class HumanresController {
      * <p>service: updateEmployment  entities: Employment  auth: true
      */
     @PostMapping("/humanres/control/updateEmployment")
-    public ResponseEntity<UpdateEmploymentResponse> updateEmployment(@RequestBody UpdateEmploymentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmploymentResponse> updateEmployment(@RequestBody UpdateEmploymentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmployment(ServiceInput.toMap(request));
+        return wrap(result, UpdateEmploymentResponse::new);
     }
 
     /**
@@ -1213,9 +1227,9 @@ public class HumanresController {
      * <p>service: updateEmploymentApp  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateEmploymentApp")
-    public ResponseEntity<UpdateEmploymentAppResponse> updateEmploymentApp(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmploymentAppResponse> updateEmploymentApp(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmploymentApp(java.util.Map.copyOf(params));
+        return wrap(result, UpdateEmploymentAppResponse::new);
     }
 
     /**
@@ -1223,9 +1237,9 @@ public class HumanresController {
      * <p>service: updateEmploymentApp  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateEmploymentAppExt")
-    public ResponseEntity<UpdateEmploymentAppResponse> updateEmploymentAppUpdateEmploymentAppExt(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateEmploymentAppResponse> updateEmploymentAppUpdateEmploymentAppExt(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateEmploymentApp(java.util.Map.copyOf(params));
+        return wrap(result, UpdateEmploymentAppResponse::new);
     }
 
     /**
@@ -1233,9 +1247,9 @@ public class HumanresController {
      * <p>service: updateInternalJobPosting  entities: EmploymentApp  auth: true
      */
     @PostMapping("/humanres/control/updateInternalJobPosting")
-    public ResponseEntity<UpdateInternalJobPostingResponse> updateInternalJobPosting(@RequestBody UpdateInternalJobPostingRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateInternalJobPostingResponse> updateInternalJobPosting(@RequestBody UpdateInternalJobPostingRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateInternalJobPosting(ServiceInput.toMap(request));
+        return wrap(result, UpdateInternalJobPostingResponse::new);
     }
 
     /**
@@ -1243,9 +1257,9 @@ public class HumanresController {
      * <p>service: updateJobInterview  entities: JobInterview  auth: true
      */
     @PostMapping("/humanres/control/updateJobInterview")
-    public ResponseEntity<UpdateJobInterviewResponse> updateJobInterview(@RequestBody UpdateJobInterviewRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateJobInterviewResponse> updateJobInterview(@RequestBody UpdateJobInterviewRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateJobInterview(ServiceInput.toMap(request));
+        return wrap(result, UpdateJobInterviewResponse::new);
     }
 
     /**
@@ -1253,9 +1267,9 @@ public class HumanresController {
      * <p>service: updateJobInterviewType  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateJobInterviewType")
-    public ResponseEntity<UpdateJobInterviewTypeResponse> updateJobInterviewType(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateJobInterviewTypeResponse> updateJobInterviewType(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateJobInterviewType(java.util.Map.copyOf(params));
+        return wrap(result, UpdateJobInterviewTypeResponse::new);
     }
 
     /**
@@ -1263,9 +1277,9 @@ public class HumanresController {
      * <p>service: updateJobRequisition  entities: JobRequisition  auth: true
      */
     @PostMapping("/humanres/control/updateJobRequisition")
-    public ResponseEntity<UpdateJobRequisitionResponse> updateJobRequisition(@RequestBody UpdateJobRequisitionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateJobRequisitionResponse> updateJobRequisition(@RequestBody UpdateJobRequisitionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateJobRequisition(ServiceInput.toMap(request));
+        return wrap(result, UpdateJobRequisitionResponse::new);
     }
 
     /**
@@ -1273,9 +1287,9 @@ public class HumanresController {
      * <p>service: updatePartyBenefit  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updatePartyBenefit")
-    public ResponseEntity<UpdatePartyBenefitResponse> updatePartyBenefit(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyBenefitResponse> updatePartyBenefit(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyBenefit(java.util.Map.copyOf(params));
+        return wrap(result, UpdatePartyBenefitResponse::new);
     }
 
     /**
@@ -1283,9 +1297,9 @@ public class HumanresController {
      * <p>service: updatePartyQual  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updatePartyQual")
-    public ResponseEntity<UpdatePartyQualResponse> updatePartyQualUpdatePartyQual(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyQualResponse> updatePartyQualUpdatePartyQual(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyQual(java.util.Map.copyOf(params));
+        return wrap(result, UpdatePartyQualResponse::new);
     }
 
     /**
@@ -1293,9 +1307,9 @@ public class HumanresController {
      * <p>service: updatePartyQual  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updatePartyQualExt")
-    public ResponseEntity<UpdatePartyQualResponse> updatePartyQualUpdatePartyQualExt(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyQualResponse> updatePartyQualUpdatePartyQualExt(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyQual(java.util.Map.copyOf(params));
+        return wrap(result, UpdatePartyQualResponse::new);
     }
 
     /**
@@ -1303,9 +1317,9 @@ public class HumanresController {
      * <p>service: updatePartyResume  entities: PartyResume  auth: true
      */
     @PostMapping("/humanres/control/updatePartyResume")
-    public ResponseEntity<UpdatePartyResumeResponse> updatePartyResume(@RequestBody UpdatePartyResumeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyResumeResponse> updatePartyResume(@RequestBody UpdatePartyResumeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyResume(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyResumeResponse::new);
     }
 
     /**
@@ -1313,9 +1327,9 @@ public class HumanresController {
      * <p>service: updatePartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/updatePartySkill")
-    public ResponseEntity<UpdatePartySkillResponse> updatePartySkillUpdatePartySkill(@RequestBody UpdatePartySkillRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartySkillResponse> updatePartySkillUpdatePartySkill(@RequestBody UpdatePartySkillRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartySkill(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartySkillResponse::new);
     }
 
     /**
@@ -1323,9 +1337,9 @@ public class HumanresController {
      * <p>service: updatePartySkill  entities: PartySkill  auth: true
      */
     @PostMapping("/humanres/control/updatePartySkillExt")
-    public ResponseEntity<UpdatePartySkillResponse> updatePartySkillUpdatePartySkillExt(@RequestBody UpdatePartySkillRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartySkillResponse> updatePartySkillUpdatePartySkillExt(@RequestBody UpdatePartySkillRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartySkill(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartySkillResponse::new);
     }
 
     /**
@@ -1333,9 +1347,9 @@ public class HumanresController {
      * <p>service: updatePayGrade  entities: PayGrade  auth: true
      */
     @PostMapping("/humanres/control/updatePayGrade")
-    public ResponseEntity<UpdatePayGradeResponse> updatePayGrade(@RequestBody UpdatePayGradeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePayGradeResponse> updatePayGrade(@RequestBody UpdatePayGradeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePayGrade(ServiceInput.toMap(request));
+        return wrap(result, UpdatePayGradeResponse::new);
     }
 
     /**
@@ -1343,9 +1357,9 @@ public class HumanresController {
      * <p>service: updatePayHistory  entities: PayHistory  auth: true
      */
     @PostMapping("/humanres/control/updatePayHistory")
-    public ResponseEntity<UpdatePayHistoryResponse> updatePayHistory(@RequestBody UpdatePayHistoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePayHistoryResponse> updatePayHistory(@RequestBody UpdatePayHistoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePayHistory(ServiceInput.toMap(request));
+        return wrap(result, UpdatePayHistoryResponse::new);
     }
 
     /**
@@ -1353,9 +1367,9 @@ public class HumanresController {
      * <p>service: updatePayrollPreference  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updatePayrollPreference")
-    public ResponseEntity<UpdatePayrollPreferenceResponse> updatePayrollPreference(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePayrollPreferenceResponse> updatePayrollPreference(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePayrollPreference(java.util.Map.copyOf(params));
+        return wrap(result, UpdatePayrollPreferenceResponse::new);
     }
 
     /**
@@ -1363,9 +1377,9 @@ public class HumanresController {
      * <p>service: updatePerfReview  entities: PerfReview  auth: true
      */
     @PostMapping("/humanres/control/updatePerfReview")
-    public ResponseEntity<UpdatePerfReviewResponse> updatePerfReview(@RequestBody UpdatePerfReviewRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePerfReviewResponse> updatePerfReview(@RequestBody UpdatePerfReviewRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePerfReview(ServiceInput.toMap(request));
+        return wrap(result, UpdatePerfReviewResponse::new);
     }
 
     /**
@@ -1373,9 +1387,9 @@ public class HumanresController {
      * <p>service: updatePerfReviewItem  entities: PerfReviewItem  auth: true
      */
     @PostMapping("/humanres/control/updatePerfReviewItem")
-    public ResponseEntity<UpdatePerfReviewItemResponse> updatePerfReviewItem(@RequestBody UpdatePerfReviewItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePerfReviewItemResponse> updatePerfReviewItem(@RequestBody UpdatePerfReviewItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePerfReviewItem(ServiceInput.toMap(request));
+        return wrap(result, UpdatePerfReviewItemResponse::new);
     }
 
     /**
@@ -1383,9 +1397,8 @@ public class HumanresController {
      * <p>service: updateWorkEffort  entities: WorkEffort  auth: true
      */
     @PostMapping("/humanres/control/updatePublicHoliday")
-    public ResponseEntity<Map<String, Object>> updateWorkEffort(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateWorkEffort(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateWorkEffort(body));
     }
 
     /**
@@ -1393,9 +1406,9 @@ public class HumanresController {
      * <p>service: updateResponsibilityType  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateResponsibilityType")
-    public ResponseEntity<UpdateResponsibilityTypeResponse> updateResponsibilityType(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateResponsibilityTypeResponse> updateResponsibilityType(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateResponsibilityType(java.util.Map.copyOf(params));
+        return wrap(result, UpdateResponsibilityTypeResponse::new);
     }
 
     /**
@@ -1403,9 +1416,9 @@ public class HumanresController {
      * <p>service: updateSalaryStep  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateSalaryStep")
-    public ResponseEntity<UpdateSalaryStepResponse> updateSalaryStep(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSalaryStepResponse> updateSalaryStep(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSalaryStep(java.util.Map.copyOf(params));
+        return wrap(result, UpdateSalaryStepResponse::new);
     }
 
     /**
@@ -1413,9 +1426,9 @@ public class HumanresController {
      * <p>service: updateSkillType  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateSkillType")
-    public ResponseEntity<UpdateSkillTypeResponse> updateSkillType(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSkillTypeResponse> updateSkillType(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSkillType(java.util.Map.copyOf(params));
+        return wrap(result, UpdateSkillTypeResponse::new);
     }
 
     /**
@@ -1423,9 +1436,9 @@ public class HumanresController {
      * <p>service: updateTerminationReason  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateTerminationReason")
-    public ResponseEntity<UpdateTerminationReasonResponse> updateTerminationReason(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateTerminationReasonResponse> updateTerminationReason(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateTerminationReason(java.util.Map.copyOf(params));
+        return wrap(result, UpdateTerminationReasonResponse::new);
     }
 
     /**
@@ -1433,9 +1446,9 @@ public class HumanresController {
      * <p>service: updateTerminationType  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateTerminationType")
-    public ResponseEntity<UpdateTerminationTypeResponse> updateTerminationType(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateTerminationTypeResponse> updateTerminationType(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateTerminationType(java.util.Map.copyOf(params));
+        return wrap(result, UpdateTerminationTypeResponse::new);
     }
 
     /**
@@ -1443,9 +1456,8 @@ public class HumanresController {
      * <p>service: updateWorkEffort  entities: WorkEffort  auth: true
      */
     @PostMapping("/humanres/control/updateTrainingCalendar")
-    public ResponseEntity<Map<String, Object>> updateWorkEffortUpdateTrainingCalendar(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateWorkEffortUpdateTrainingCalendar(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateWorkEffort(body));
     }
 
     /**
@@ -1453,9 +1465,9 @@ public class HumanresController {
      * <p>service: updateTrainingStatus  entities: PersonTraining  auth: true
      */
     @PostMapping("/humanres/control/updateTrainingStatus")
-    public ResponseEntity<UpdateTrainingStatusResponse> updateTrainingStatus(@RequestBody UpdateTrainingStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateTrainingStatusResponse> updateTrainingStatus(@RequestBody UpdateTrainingStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateTrainingStatus(ServiceInput.toMap(request));
+        return wrap(result, UpdateTrainingStatusResponse::new);
     }
 
     /**
@@ -1463,9 +1475,9 @@ public class HumanresController {
      * <p>service: updateTrainingTypes  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateTrainingTypes")
-    public ResponseEntity<UpdateTrainingTypesResponse> updateTrainingTypes(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateTrainingTypesResponse> updateTrainingTypes(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateTrainingTypes(java.util.Map.copyOf(params));
+        return wrap(result, UpdateTrainingTypesResponse::new);
     }
 
     /**
@@ -1473,9 +1485,9 @@ public class HumanresController {
      * <p>service: updateUnemploymentClaim  entities: unknown  auth: true
      */
     @GetMapping("/humanres/control/updateUnemploymentClaim")
-    public ResponseEntity<UpdateUnemploymentClaimResponse> updateUnemploymentClaim(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateUnemploymentClaimResponse> updateUnemploymentClaim(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateUnemploymentClaim(java.util.Map.copyOf(params));
+        return wrap(result, UpdateUnemploymentClaimResponse::new);
     }
 
     /**
@@ -1483,8 +1495,8 @@ public class HumanresController {
      * <p>service: updateValidResponsibility  entities: ValidResponsibility  auth: true
      */
     @PostMapping("/humanres/control/updateValidResponsibility")
-    public ResponseEntity<UpdateValidResponsibilityResponse> updateValidResponsibility(@RequestBody UpdateValidResponsibilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateValidResponsibilityResponse> updateValidResponsibility(@RequestBody UpdateValidResponsibilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateValidResponsibility(ServiceInput.toMap(request));
+        return wrap(result, UpdateValidResponsibilityResponse::new);
     }
 }

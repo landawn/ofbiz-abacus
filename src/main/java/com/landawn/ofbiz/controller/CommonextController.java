@@ -1,5 +1,6 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.util.ServiceInput;
 import com.landawn.ofbiz.model.ResponseBase;
 import com.landawn.ofbiz.model.content.UpdateWebSiteRequest;
 import com.landawn.ofbiz.model.content.UpdateWebSiteResponse;
@@ -29,8 +30,27 @@ import java.util.Map;
 @RequestMapping("/commonext")
 public class CommonextController {
 
-    /** 200/400 routing decided by the response DTO's envelope state. */
+    private final com.landawn.ofbiz.service.CommonextService service;
+
+    public CommonextController(com.landawn.ofbiz.service.CommonextService service) {
+        this.service = service;
+    }
+
+    /** 200/400 routing for typed responses. */
     private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
+
+    /** Convert a service-result map into a typed response and wrap. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(
+            Map<String, Object> result, java.util.function.Supplier<T> factory) {
+        return wrap(com.landawn.ofbiz.service.ServiceResponse.toDto(result, factory));
+    }
+
+    /** 200/400 routing for loosely-typed Map responses. */
+    private static ResponseEntity<Map<String, Object>> wrapMap(Map<String, Object> result) {
         return com.landawn.ofbiz.service.ServiceResponse.isError(result)
                 ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
                 : ResponseEntity.ok(result);
@@ -41,9 +61,8 @@ public class CommonextController {
      * <p>service: createFacilityAndContactMech  entities: unknown  auth: true
      */
     @GetMapping("/ofbizsetup/control/CreateFacility")
-    public ResponseEntity<Map<String, Object>> createFacilityAndContactMech(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createFacilityAndContactMech(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createFacilityAndContactMech(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -51,9 +70,8 @@ public class CommonextController {
      * <p>service: setupDefaultGeneralLedger  entities: unknown  auth: true
      */
     @GetMapping("/ofbizsetup/control/OrganizationToComplete")
-    public ResponseEntity<Map<String, Object>> setupDefaultGeneralLedger(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> setupDefaultGeneralLedger(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.setupDefaultGeneralLedger(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -61,9 +79,9 @@ public class CommonextController {
      * <p>service: updateFacility  entities: Facility  auth: true
      */
     @PostMapping("/ofbizsetup/control/UpdateFacility")
-    public ResponseEntity<UpdateFacilityResponse> updateFacility(@RequestBody UpdateFacilityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFacilityResponse> updateFacility(@RequestBody UpdateFacilityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFacility(ServiceInput.toMap(request));
+        return wrap(result, UpdateFacilityResponse::new);
     }
 
     /**
@@ -71,9 +89,8 @@ public class CommonextController {
      * <p>service: createCustomer  entities: unknown  auth: true
      */
     @GetMapping("/ofbizsetup/control/createCustomer")
-    public ResponseEntity<Map<String, Object>> createCustomer(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCustomer(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createCustomer(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -81,9 +98,8 @@ public class CommonextController {
      * <p>service: createOrganization  entities: unknown  auth: true
      */
     @GetMapping("/ofbizsetup/control/createOrganization")
-    public ResponseEntity<Map<String, Object>> createOrganization(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createOrganization(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createOrganization(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -91,9 +107,8 @@ public class CommonextController {
      * <p>service: createProdCatalogAndProductStoreCatalog  entities: unknown  auth: true
      */
     @GetMapping("/ofbizsetup/control/createProdCatalog")
-    public ResponseEntity<Map<String, Object>> createProdCatalogAndProductStoreCatalog(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createProdCatalogAndProductStoreCatalog(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createProdCatalogAndProductStoreCatalog(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -101,9 +116,8 @@ public class CommonextController {
      * <p>service: createProductCategoryAndAddToProdCatalog  entities: unknown  auth: true
      */
     @GetMapping("/ofbizsetup/control/createProductCategory")
-    public ResponseEntity<Map<String, Object>> createProductCategoryAndAddToProdCatalog(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createProductCategoryAndAddToProdCatalog(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createProductCategoryAndAddToProdCatalog(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -111,9 +125,8 @@ public class CommonextController {
      * <p>service: createProductStoreWithDefaultSetting  entities: unknown  auth: true
      */
     @GetMapping("/ofbizsetup/control/createProductStore")
-    public ResponseEntity<Map<String, Object>> createProductStoreWithDefaultSetting(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createProductStoreWithDefaultSetting(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createProductStoreWithDefaultSetting(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -121,9 +134,8 @@ public class CommonextController {
      * <p>service: createUpdateProductInCategory  entities: unknown  auth: true
      */
     @GetMapping("/ofbizsetup/control/createUpdateProduct")
-    public ResponseEntity<Map<String, Object>> createUpdateProductInCategory(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createUpdateProductInCategory(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createUpdateProductInCategory(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -131,9 +143,8 @@ public class CommonextController {
      * <p>service: createDefaultWebSite  entities: unknown  auth: true
      */
     @GetMapping("/ofbizsetup/control/createWebSite")
-    public ResponseEntity<Map<String, Object>> createDefaultWebSite(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createDefaultWebSite(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createDefaultWebSite(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -141,9 +152,9 @@ public class CommonextController {
      * <p>service: entityExportAll  entities: unknown  auth: true
      */
     @PostMapping("/ofbizsetup/control/entityExportAll")
-    public ResponseEntity<EntityExportAllResponse> entityExportAll(@RequestBody EntityExportAllRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<EntityExportAllResponse> entityExportAll(@RequestBody EntityExportAllRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.entityExportAll(ServiceInput.toMap(request));
+        return wrap(result, EntityExportAllResponse::new);
     }
 
     /**
@@ -151,9 +162,9 @@ public class CommonextController {
      * <p>service: updatePartyGroup  entities: PartyGroup  auth: true
      */
     @PostMapping("/ofbizsetup/control/updatePartyGroup")
-    public ResponseEntity<UpdatePartyGroupResponse> updatePartyGroup(@RequestBody UpdatePartyGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyGroupResponse> updatePartyGroup(@RequestBody UpdatePartyGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyGroup(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyGroupResponse::new);
     }
 
     /**
@@ -161,9 +172,9 @@ public class CommonextController {
      * <p>service: updateProdCatalog  entities: ProdCatalog  auth: true
      */
     @PostMapping("/ofbizsetup/control/updateProdCatalog")
-    public ResponseEntity<UpdateProdCatalogResponse> updateProdCatalog(@RequestBody UpdateProdCatalogRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProdCatalogResponse> updateProdCatalog(@RequestBody UpdateProdCatalogRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProdCatalog(ServiceInput.toMap(request));
+        return wrap(result, UpdateProdCatalogResponse::new);
     }
 
     /**
@@ -171,9 +182,9 @@ public class CommonextController {
      * <p>service: updateProductCategory  entities: ProductCategory  auth: true
      */
     @PostMapping("/ofbizsetup/control/updateProductCategory")
-    public ResponseEntity<UpdateProductCategoryResponse> updateProductCategory(@RequestBody UpdateProductCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductCategoryResponse> updateProductCategory(@RequestBody UpdateProductCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductCategory(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductCategoryResponse::new);
     }
 
     /**
@@ -181,9 +192,9 @@ public class CommonextController {
      * <p>service: updateProductStore  entities: ProductStore  auth: true
      */
     @PostMapping("/ofbizsetup/control/updateProductStore")
-    public ResponseEntity<UpdateProductStoreResponse> updateProductStore(@RequestBody UpdateProductStoreRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateProductStoreResponse> updateProductStore(@RequestBody UpdateProductStoreRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateProductStore(ServiceInput.toMap(request));
+        return wrap(result, UpdateProductStoreResponse::new);
     }
 
     /**
@@ -191,8 +202,8 @@ public class CommonextController {
      * <p>service: updateWebSite  entities: WebSite  auth: true
      */
     @PostMapping("/ofbizsetup/control/updateWebSite")
-    public ResponseEntity<UpdateWebSiteResponse> updateWebSite(@RequestBody UpdateWebSiteRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateWebSiteResponse> updateWebSite(@RequestBody UpdateWebSiteRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateWebSite(ServiceInput.toMap(request));
+        return wrap(result, UpdateWebSiteResponse::new);
     }
 }

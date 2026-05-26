@@ -1,5 +1,6 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.util.ServiceInput;
 import com.landawn.ofbiz.model.ResponseBase;
 import com.landawn.ofbiz.model.marketing.ConvertLeadToContactRequest;
 import com.landawn.ofbiz.model.marketing.ConvertLeadToContactResponse;
@@ -109,8 +110,27 @@ import java.util.Map;
 @RequestMapping("/marketing")
 public class MarketingController {
 
-    /** 200/400 routing decided by the response DTO's envelope state. */
+    private final com.landawn.ofbiz.service.MarketingService service;
+
+    public MarketingController(com.landawn.ofbiz.service.MarketingService service) {
+        this.service = service;
+    }
+
+    /** 200/400 routing for typed responses. */
     private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
+
+    /** Convert a service-result map into a typed response and wrap. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(
+            Map<String, Object> result, java.util.function.Supplier<T> factory) {
+        return wrap(com.landawn.ofbiz.service.ServiceResponse.toDto(result, factory));
+    }
+
+    /** 200/400 routing for loosely-typed Map responses. */
+    private static ResponseEntity<Map<String, Object>> wrapMap(Map<String, Object> result) {
         return com.landawn.ofbiz.service.ServiceResponse.isError(result)
                 ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
                 : ResponseEntity.ok(result);
@@ -121,9 +141,9 @@ public class MarketingController {
      * <p>service: updateContactListPartyNoUserLogin  entities: ContactListParty  auth: true
      */
     @PostMapping("/marketing/control/contactListOptOut")
-    public ResponseEntity<UpdateContactListPartyNoUserLoginResponse> updateContactListPartyNoUserLogin(@RequestBody UpdateContactListPartyNoUserLoginRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateContactListPartyNoUserLoginResponse> updateContactListPartyNoUserLogin(@RequestBody UpdateContactListPartyNoUserLoginRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateContactListPartyNoUserLogin(ServiceInput.toMap(request));
+        return wrap(result, UpdateContactListPartyNoUserLoginResponse::new);
     }
 
     /**
@@ -131,9 +151,9 @@ public class MarketingController {
      * <p>service: createContactList  entities: ContactList  auth: true
      */
     @PostMapping("/marketing/control/createContactList")
-    public ResponseEntity<CreateContactListResponse> createContactList(@RequestBody CreateContactListRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateContactListResponse> createContactList(@RequestBody CreateContactListRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createContactList(ServiceInput.toMap(request));
+        return wrap(result, CreateContactListResponse::new);
     }
 
     /**
@@ -141,9 +161,8 @@ public class MarketingController {
      * <p>service: createCommunicationEvent  entities: unknown  auth: true
      */
     @PostMapping("/marketing/control/createContactListCommEvent")
-    public ResponseEntity<Map<String, Object>> createCommunicationEvent(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCommunicationEvent(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createCommunicationEvent(body));
     }
 
     /**
@@ -151,9 +170,9 @@ public class MarketingController {
      * <p>service: createContactListParty  entities: ContactListParty  auth: true
      */
     @PostMapping("/marketing/control/createContactListParty")
-    public ResponseEntity<CreateContactListPartyResponse> createContactListParty(@RequestBody CreateContactListPartyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateContactListPartyResponse> createContactListParty(@RequestBody CreateContactListPartyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createContactListParty(ServiceInput.toMap(request));
+        return wrap(result, CreateContactListPartyResponse::new);
     }
 
     /**
@@ -161,9 +180,8 @@ public class MarketingController {
      * <p>service: createDataSource  entities: DataSource  auth: true
      */
     @PostMapping("/marketing/control/createDataSource")
-    public ResponseEntity<Map<String, Object>> createDataSource(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createDataSource(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createDataSource(body));
     }
 
     /**
@@ -171,9 +189,8 @@ public class MarketingController {
      * <p>service: createDataSourceType  entities: DataSourceType  auth: true
      */
     @PostMapping("/marketing/control/createDataSourceType")
-    public ResponseEntity<Map<String, Object>> createDataSourceType(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createDataSourceType(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createDataSourceType(body));
     }
 
     /**
@@ -181,9 +198,9 @@ public class MarketingController {
      * <p>service: createMarketingCampaign  entities: MarketingCampaign  auth: true
      */
     @PostMapping("/marketing/control/createMarketingCampaign")
-    public ResponseEntity<CreateMarketingCampaignResponse> createMarketingCampaign(@RequestBody CreateMarketingCampaignRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateMarketingCampaignResponse> createMarketingCampaign(@RequestBody CreateMarketingCampaignRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createMarketingCampaign(ServiceInput.toMap(request));
+        return wrap(result, CreateMarketingCampaignResponse::new);
     }
 
     /**
@@ -191,9 +208,9 @@ public class MarketingController {
      * <p>service: createMarketingCampaignRole  entities: MarketingCampaignRole  auth: true
      */
     @PostMapping("/marketing/control/createMarketingCampaignRole")
-    public ResponseEntity<CreateMarketingCampaignRoleResponse> createMarketingCampaignRole(@RequestBody CreateMarketingCampaignRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateMarketingCampaignRoleResponse> createMarketingCampaignRole(@RequestBody CreateMarketingCampaignRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createMarketingCampaignRole(ServiceInput.toMap(request));
+        return wrap(result, CreateMarketingCampaignRoleResponse::new);
     }
 
     /**
@@ -201,9 +218,9 @@ public class MarketingController {
      * <p>service: createSegmentGroup  entities: SegmentGroup  auth: true
      */
     @PostMapping("/marketing/control/createSegmentGroup")
-    public ResponseEntity<CreateSegmentGroupResponse> createSegmentGroup(@RequestBody CreateSegmentGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSegmentGroupResponse> createSegmentGroup(@RequestBody CreateSegmentGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSegmentGroup(ServiceInput.toMap(request));
+        return wrap(result, CreateSegmentGroupResponse::new);
     }
 
     /**
@@ -211,9 +228,9 @@ public class MarketingController {
      * <p>service: createSegmentGroupClassification  entities: SegmentGroupClassification  auth: true
      */
     @PostMapping("/marketing/control/createSegmentGroupClassification")
-    public ResponseEntity<CreateSegmentGroupClassificationResponse> createSegmentGroupClassification(@RequestBody CreateSegmentGroupClassificationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSegmentGroupClassificationResponse> createSegmentGroupClassification(@RequestBody CreateSegmentGroupClassificationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSegmentGroupClassification(ServiceInput.toMap(request));
+        return wrap(result, CreateSegmentGroupClassificationResponse::new);
     }
 
     /**
@@ -221,9 +238,9 @@ public class MarketingController {
      * <p>service: createSegmentGroupGeo  entities: SegmentGroupGeo  auth: true
      */
     @PostMapping("/marketing/control/createSegmentGroupGeo")
-    public ResponseEntity<CreateSegmentGroupGeoResponse> createSegmentGroupGeo(@RequestBody CreateSegmentGroupGeoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSegmentGroupGeoResponse> createSegmentGroupGeo(@RequestBody CreateSegmentGroupGeoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSegmentGroupGeo(ServiceInput.toMap(request));
+        return wrap(result, CreateSegmentGroupGeoResponse::new);
     }
 
     /**
@@ -231,9 +248,9 @@ public class MarketingController {
      * <p>service: createSegmentGroupRole  entities: SegmentGroupRole  auth: true
      */
     @PostMapping("/marketing/control/createSegmentGroupRole")
-    public ResponseEntity<CreateSegmentGroupRoleResponse> createSegmentGroupRole(@RequestBody CreateSegmentGroupRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSegmentGroupRoleResponse> createSegmentGroupRole(@RequestBody CreateSegmentGroupRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSegmentGroupRole(ServiceInput.toMap(request));
+        return wrap(result, CreateSegmentGroupRoleResponse::new);
     }
 
     /**
@@ -241,9 +258,9 @@ public class MarketingController {
      * <p>service: createTrackingCode  entities: TrackingCode  auth: true
      */
     @PostMapping("/marketing/control/createTrackingCode")
-    public ResponseEntity<CreateTrackingCodeResponse> createTrackingCode(@RequestBody CreateTrackingCodeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateTrackingCodeResponse> createTrackingCode(@RequestBody CreateTrackingCodeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createTrackingCode(ServiceInput.toMap(request));
+        return wrap(result, CreateTrackingCodeResponse::new);
     }
 
     /**
@@ -251,9 +268,9 @@ public class MarketingController {
      * <p>service: createTrackingCodeType  entities: TrackingCodeType  auth: true
      */
     @PostMapping("/marketing/control/createTrackingCodeType")
-    public ResponseEntity<CreateTrackingCodeTypeResponse> createTrackingCodeType(@RequestBody CreateTrackingCodeTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateTrackingCodeTypeResponse> createTrackingCodeType(@RequestBody CreateTrackingCodeTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createTrackingCodeType(ServiceInput.toMap(request));
+        return wrap(result, CreateTrackingCodeTypeResponse::new);
     }
 
     /**
@@ -261,9 +278,9 @@ public class MarketingController {
      * <p>service: createWebSiteContactList  entities: WebSiteContactList  auth: false
      */
     @PostMapping("/marketing/control/createWebSiteContactList")
-    public ResponseEntity<CreateWebSiteContactListResponse> createWebSiteContactList(@RequestBody CreateWebSiteContactListRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateWebSiteContactListResponse> createWebSiteContactList(@RequestBody CreateWebSiteContactListRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createWebSiteContactList(ServiceInput.toMap(request));
+        return wrap(result, CreateWebSiteContactListResponse::new);
     }
 
     /**
@@ -271,9 +288,8 @@ public class MarketingController {
      * <p>service: deleteDataSource  entities: DataSource  auth: true
      */
     @PostMapping("/marketing/control/deleteDataSource")
-    public ResponseEntity<Map<String, Object>> deleteDataSource(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deleteDataSource(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deleteDataSource(body));
     }
 
     /**
@@ -281,9 +297,8 @@ public class MarketingController {
      * <p>service: deleteDataSourceType  entities: DataSourceType  auth: true
      */
     @PostMapping("/marketing/control/deleteDataSourceType")
-    public ResponseEntity<Map<String, Object>> deleteDataSourceType(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deleteDataSourceType(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deleteDataSourceType(body));
     }
 
     /**
@@ -291,9 +306,9 @@ public class MarketingController {
      * <p>service: deleteSegmentGroup  entities: SegmentGroup  auth: true
      */
     @PostMapping("/marketing/control/deleteSegmentGroup")
-    public ResponseEntity<DeleteSegmentGroupResponse> deleteSegmentGroup(@RequestBody DeleteSegmentGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteSegmentGroupResponse> deleteSegmentGroup(@RequestBody DeleteSegmentGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteSegmentGroup(ServiceInput.toMap(request));
+        return wrap(result, DeleteSegmentGroupResponse::new);
     }
 
     /**
@@ -301,9 +316,9 @@ public class MarketingController {
      * <p>service: deleteSegmentGroupClassification  entities: SegmentGroupClassification  auth: true
      */
     @PostMapping("/marketing/control/deleteSegmentGroupClassification")
-    public ResponseEntity<DeleteSegmentGroupClassificationResponse> deleteSegmentGroupClassification(@RequestBody DeleteSegmentGroupClassificationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteSegmentGroupClassificationResponse> deleteSegmentGroupClassification(@RequestBody DeleteSegmentGroupClassificationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteSegmentGroupClassification(ServiceInput.toMap(request));
+        return wrap(result, DeleteSegmentGroupClassificationResponse::new);
     }
 
     /**
@@ -311,9 +326,9 @@ public class MarketingController {
      * <p>service: deleteSegmentGroupGeo  entities: SegmentGroupGeo  auth: true
      */
     @PostMapping("/marketing/control/deleteSegmentGroupGeo")
-    public ResponseEntity<DeleteSegmentGroupGeoResponse> deleteSegmentGroupGeo(@RequestBody DeleteSegmentGroupGeoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteSegmentGroupGeoResponse> deleteSegmentGroupGeo(@RequestBody DeleteSegmentGroupGeoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteSegmentGroupGeo(ServiceInput.toMap(request));
+        return wrap(result, DeleteSegmentGroupGeoResponse::new);
     }
 
     /**
@@ -321,9 +336,9 @@ public class MarketingController {
      * <p>service: deleteSegmentGroupRole  entities: SegmentGroupRole  auth: true
      */
     @PostMapping("/marketing/control/deleteSegmentGroupRole")
-    public ResponseEntity<DeleteSegmentGroupRoleResponse> deleteSegmentGroupRole(@RequestBody DeleteSegmentGroupRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteSegmentGroupRoleResponse> deleteSegmentGroupRole(@RequestBody DeleteSegmentGroupRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteSegmentGroupRole(ServiceInput.toMap(request));
+        return wrap(result, DeleteSegmentGroupRoleResponse::new);
     }
 
     /**
@@ -331,9 +346,9 @@ public class MarketingController {
      * <p>service: deleteTrackingCode  entities: TrackingCode  auth: true
      */
     @PostMapping("/marketing/control/deleteTrackingCode")
-    public ResponseEntity<DeleteTrackingCodeResponse> deleteTrackingCode(@RequestBody DeleteTrackingCodeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteTrackingCodeResponse> deleteTrackingCode(@RequestBody DeleteTrackingCodeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteTrackingCode(ServiceInput.toMap(request));
+        return wrap(result, DeleteTrackingCodeResponse::new);
     }
 
     /**
@@ -341,9 +356,9 @@ public class MarketingController {
      * <p>service: deleteTrackingCodeType  entities: TrackingCodeType  auth: true
      */
     @PostMapping("/marketing/control/deleteTrackingCodeType")
-    public ResponseEntity<DeleteTrackingCodeTypeResponse> deleteTrackingCodeType(@RequestBody DeleteTrackingCodeTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteTrackingCodeTypeResponse> deleteTrackingCodeType(@RequestBody DeleteTrackingCodeTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteTrackingCodeType(ServiceInput.toMap(request));
+        return wrap(result, DeleteTrackingCodeTypeResponse::new);
     }
 
     /**
@@ -351,9 +366,9 @@ public class MarketingController {
      * <p>service: deleteWebSiteContactList  entities: WebSiteContactList  auth: false
      */
     @PostMapping("/marketing/control/deleteWebSiteContactList")
-    public ResponseEntity<DeleteWebSiteContactListResponse> deleteWebSiteContactList(@RequestBody DeleteWebSiteContactListRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteWebSiteContactListResponse> deleteWebSiteContactList(@RequestBody DeleteWebSiteContactListRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteWebSiteContactList(ServiceInput.toMap(request));
+        return wrap(result, DeleteWebSiteContactListResponse::new);
     }
 
     /**
@@ -361,9 +376,9 @@ public class MarketingController {
      * <p>service: updateContactListParty  entities: ContactListParty  auth: true
      */
     @PostMapping("/marketing/control/expireContactListParty")
-    public ResponseEntity<UpdateContactListPartyResponse> updateContactListParty(@RequestBody UpdateContactListPartyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateContactListPartyResponse> updateContactListParty(@RequestBody UpdateContactListPartyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateContactListParty(ServiceInput.toMap(request));
+        return wrap(result, UpdateContactListPartyResponse::new);
     }
 
     /**
@@ -371,9 +386,8 @@ public class MarketingController {
      * <p>service: importContactListParties  entities: unknown  auth: true
      */
     @GetMapping("/marketing/control/importContactListParties")
-    public ResponseEntity<Map<String, Object>> importContactListParties(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> importContactListParties(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.importContactListParties(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -381,9 +395,9 @@ public class MarketingController {
      * <p>service: removeContactList  entities: ContactList  auth: true
      */
     @PostMapping("/marketing/control/removeContactList")
-    public ResponseEntity<RemoveContactListResponse> removeContactList(@RequestBody RemoveContactListRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveContactListResponse> removeContactList(@RequestBody RemoveContactListRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeContactList(ServiceInput.toMap(request));
+        return wrap(result, RemoveContactListResponse::new);
     }
 
     /**
@@ -391,9 +405,8 @@ public class MarketingController {
      * <p>service: deleteCommunicationEvent  entities: CommunicationEvent  auth: true
      */
     @PostMapping("/marketing/control/removeContactListCommEvent")
-    public ResponseEntity<Map<String, Object>> deleteCommunicationEvent(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deleteCommunicationEvent(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deleteCommunicationEvent(body));
     }
 
     /**
@@ -401,9 +414,9 @@ public class MarketingController {
      * <p>service: deleteContactListParty  entities: ContactListParty  auth: true
      */
     @PostMapping("/marketing/control/removeContactListParty")
-    public ResponseEntity<DeleteContactListPartyResponse> deleteContactListParty(@RequestBody DeleteContactListPartyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteContactListPartyResponse> deleteContactListParty(@RequestBody DeleteContactListPartyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteContactListParty(ServiceInput.toMap(request));
+        return wrap(result, DeleteContactListPartyResponse::new);
     }
 
     /**
@@ -411,9 +424,9 @@ public class MarketingController {
      * <p>service: deleteMarketingCampaign  entities: MarketingCampaign  auth: true
      */
     @PostMapping("/marketing/control/removeMarketingCampaign")
-    public ResponseEntity<DeleteMarketingCampaignResponse> deleteMarketingCampaign(@RequestBody DeleteMarketingCampaignRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteMarketingCampaignResponse> deleteMarketingCampaign(@RequestBody DeleteMarketingCampaignRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteMarketingCampaign(ServiceInput.toMap(request));
+        return wrap(result, DeleteMarketingCampaignResponse::new);
     }
 
     /**
@@ -421,9 +434,9 @@ public class MarketingController {
      * <p>service: deleteMarketingCampaignRole  entities: MarketingCampaignRole  auth: true
      */
     @PostMapping("/marketing/control/removeMarketingCampaignRole")
-    public ResponseEntity<DeleteMarketingCampaignRoleResponse> deleteMarketingCampaignRole(@RequestBody DeleteMarketingCampaignRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteMarketingCampaignRoleResponse> deleteMarketingCampaignRole(@RequestBody DeleteMarketingCampaignRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteMarketingCampaignRole(ServiceInput.toMap(request));
+        return wrap(result, DeleteMarketingCampaignRoleResponse::new);
     }
 
     /**
@@ -431,9 +444,9 @@ public class MarketingController {
      * <p>service: updateContactList  entities: ContactList  auth: true
      */
     @PostMapping("/marketing/control/updateContactList")
-    public ResponseEntity<UpdateContactListResponse> updateContactList(@RequestBody UpdateContactListRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateContactListResponse> updateContactList(@RequestBody UpdateContactListRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateContactList(ServiceInput.toMap(request));
+        return wrap(result, UpdateContactListResponse::new);
     }
 
     /**
@@ -441,9 +454,8 @@ public class MarketingController {
      * <p>service: updateCommunicationEvent  entities: CommunicationEvent  auth: true
      */
     @PostMapping("/marketing/control/updateContactListCommEvent")
-    public ResponseEntity<Map<String, Object>> updateCommunicationEvent(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateCommunicationEvent(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateCommunicationEvent(body));
     }
 
     /**
@@ -451,9 +463,9 @@ public class MarketingController {
      * <p>service: updateContactListParty  entities: ContactListParty  auth: true
      */
     @PostMapping("/marketing/control/updateContactListParty")
-    public ResponseEntity<UpdateContactListPartyResponse> updateContactListPartyUpdateContactListParty(@RequestBody UpdateContactListPartyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateContactListPartyResponse> updateContactListPartyUpdateContactListParty(@RequestBody UpdateContactListPartyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateContactListParty(ServiceInput.toMap(request));
+        return wrap(result, UpdateContactListPartyResponse::new);
     }
 
     /**
@@ -461,9 +473,8 @@ public class MarketingController {
      * <p>service: updateDataSource  entities: DataSource  auth: true
      */
     @PostMapping("/marketing/control/updateDataSource")
-    public ResponseEntity<Map<String, Object>> updateDataSource(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateDataSource(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateDataSource(body));
     }
 
     /**
@@ -471,9 +482,8 @@ public class MarketingController {
      * <p>service: updateDataSourceType  entities: DataSourceType  auth: true
      */
     @PostMapping("/marketing/control/updateDataSourceType")
-    public ResponseEntity<Map<String, Object>> updateDataSourceType(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateDataSourceType(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateDataSourceType(body));
     }
 
     /**
@@ -481,9 +491,9 @@ public class MarketingController {
      * <p>service: updateMarketingCampaign  entities: MarketingCampaign  auth: true
      */
     @PostMapping("/marketing/control/updateMarketingCampaign")
-    public ResponseEntity<UpdateMarketingCampaignResponse> updateMarketingCampaign(@RequestBody UpdateMarketingCampaignRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateMarketingCampaignResponse> updateMarketingCampaign(@RequestBody UpdateMarketingCampaignRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateMarketingCampaign(ServiceInput.toMap(request));
+        return wrap(result, UpdateMarketingCampaignResponse::new);
     }
 
     /**
@@ -491,9 +501,9 @@ public class MarketingController {
      * <p>service: updateSegmentGroup  entities: SegmentGroup  auth: true
      */
     @PostMapping("/marketing/control/updateSegmentGroup")
-    public ResponseEntity<UpdateSegmentGroupResponse> updateSegmentGroup(@RequestBody UpdateSegmentGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSegmentGroupResponse> updateSegmentGroup(@RequestBody UpdateSegmentGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSegmentGroup(ServiceInput.toMap(request));
+        return wrap(result, UpdateSegmentGroupResponse::new);
     }
 
     /**
@@ -501,9 +511,9 @@ public class MarketingController {
      * <p>service: updateSegmentGroupClassification  entities: SegmentGroupClassification  auth: true
      */
     @PostMapping("/marketing/control/updateSegmentGroupClassification")
-    public ResponseEntity<UpdateSegmentGroupClassificationResponse> updateSegmentGroupClassification(@RequestBody UpdateSegmentGroupClassificationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSegmentGroupClassificationResponse> updateSegmentGroupClassification(@RequestBody UpdateSegmentGroupClassificationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSegmentGroupClassification(ServiceInput.toMap(request));
+        return wrap(result, UpdateSegmentGroupClassificationResponse::new);
     }
 
     /**
@@ -511,9 +521,9 @@ public class MarketingController {
      * <p>service: updateSegmentGroupGeo  entities: SegmentGroupGeo  auth: true
      */
     @PostMapping("/marketing/control/updateSegmentGroupGeo")
-    public ResponseEntity<UpdateSegmentGroupGeoResponse> updateSegmentGroupGeo(@RequestBody UpdateSegmentGroupGeoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSegmentGroupGeoResponse> updateSegmentGroupGeo(@RequestBody UpdateSegmentGroupGeoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSegmentGroupGeo(ServiceInput.toMap(request));
+        return wrap(result, UpdateSegmentGroupGeoResponse::new);
     }
 
     /**
@@ -521,9 +531,9 @@ public class MarketingController {
      * <p>service: updateSegmentGroupRole  entities: SegmentGroupRole  auth: true
      */
     @PostMapping("/marketing/control/updateSegmentGroupRole")
-    public ResponseEntity<UpdateSegmentGroupRoleResponse> updateSegmentGroupRole(@RequestBody UpdateSegmentGroupRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSegmentGroupRoleResponse> updateSegmentGroupRole(@RequestBody UpdateSegmentGroupRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSegmentGroupRole(ServiceInput.toMap(request));
+        return wrap(result, UpdateSegmentGroupRoleResponse::new);
     }
 
     /**
@@ -531,9 +541,9 @@ public class MarketingController {
      * <p>service: updateTrackingCode  entities: TrackingCode  auth: true
      */
     @PostMapping("/marketing/control/updateTrackingCode")
-    public ResponseEntity<UpdateTrackingCodeResponse> updateTrackingCode(@RequestBody UpdateTrackingCodeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateTrackingCodeResponse> updateTrackingCode(@RequestBody UpdateTrackingCodeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateTrackingCode(ServiceInput.toMap(request));
+        return wrap(result, UpdateTrackingCodeResponse::new);
     }
 
     /**
@@ -541,9 +551,9 @@ public class MarketingController {
      * <p>service: updateTrackingCodeType  entities: TrackingCodeType  auth: true
      */
     @PostMapping("/marketing/control/updateTrackingCodeType")
-    public ResponseEntity<UpdateTrackingCodeTypeResponse> updateTrackingCodeType(@RequestBody UpdateTrackingCodeTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateTrackingCodeTypeResponse> updateTrackingCodeType(@RequestBody UpdateTrackingCodeTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateTrackingCodeType(ServiceInput.toMap(request));
+        return wrap(result, UpdateTrackingCodeTypeResponse::new);
     }
 
     /**
@@ -551,9 +561,9 @@ public class MarketingController {
      * <p>service: updateWebSiteContactList  entities: WebSiteContactList  auth: false
      */
     @PostMapping("/marketing/control/updateWebSiteContactList")
-    public ResponseEntity<UpdateWebSiteContactListResponse> updateWebSiteContactList(@RequestBody UpdateWebSiteContactListRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateWebSiteContactListResponse> updateWebSiteContactList(@RequestBody UpdateWebSiteContactListRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateWebSiteContactList(ServiceInput.toMap(request));
+        return wrap(result, UpdateWebSiteContactListResponse::new);
     }
 
     /**
@@ -561,9 +571,9 @@ public class MarketingController {
      * <p>service: updateSalesOpportunity  entities: SalesOpportunity  auth: true
      */
     @PostMapping("/sfa/control/closeSalesOpportunity")
-    public ResponseEntity<UpdateSalesOpportunityResponse> updateSalesOpportunity(@RequestBody UpdateSalesOpportunityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSalesOpportunityResponse> updateSalesOpportunity(@RequestBody UpdateSalesOpportunityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSalesOpportunity(ServiceInput.toMap(request));
+        return wrap(result, UpdateSalesOpportunityResponse::new);
     }
 
     /**
@@ -571,9 +581,9 @@ public class MarketingController {
      * <p>service: convertLeadToContact  entities: unknown  auth: true
      */
     @PostMapping("/sfa/control/convertLead")
-    public ResponseEntity<ConvertLeadToContactResponse> convertLeadToContact(@RequestBody ConvertLeadToContactRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ConvertLeadToContactResponse> convertLeadToContact(@RequestBody ConvertLeadToContactRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.convertLeadToContact(ServiceInput.toMap(request));
+        return wrap(result, ConvertLeadToContactResponse::new);
     }
 
     /**
@@ -581,9 +591,9 @@ public class MarketingController {
      * <p>service: createAccount  entities: PartyGroup, PostalAddress, TelecomNumber  auth: true
      */
     @PostMapping("/sfa/control/createAccount")
-    public ResponseEntity<CreateAccountResponse> createAccount(@RequestBody CreateAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAccountResponse> createAccount(@RequestBody CreateAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAccount(ServiceInput.toMap(request));
+        return wrap(result, CreateAccountResponse::new);
     }
 
     /**
@@ -591,9 +601,8 @@ public class MarketingController {
      * <p>service: createCommunicationEvent  entities: unknown  auth: true
      */
     @PostMapping("/sfa/control/createCommunicationEvent")
-    public ResponseEntity<Map<String, Object>> createCommunicationEventCreateCommunicationEvent(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCommunicationEventCreateCommunicationEvent(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createCommunicationEvent(body));
     }
 
     /**
@@ -601,9 +610,9 @@ public class MarketingController {
      * <p>service: createContact  entities: Person, PostalAddress, TelecomNumber  auth: true
      */
     @PostMapping("/sfa/control/createContact")
-    public ResponseEntity<CreateContactResponse> createContact(@RequestBody CreateContactRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateContactResponse> createContact(@RequestBody CreateContactRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createContact(ServiceInput.toMap(request));
+        return wrap(result, CreateContactResponse::new);
     }
 
     /**
@@ -611,9 +620,9 @@ public class MarketingController {
      * <p>service: importVCard  entities: unknown  auth: true
      */
     @PostMapping("/sfa/control/createContactFromVCard")
-    public ResponseEntity<ImportVCardResponse> importVCard(@RequestBody ImportVCardRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ImportVCardResponse> importVCard(@RequestBody ImportVCardRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.importVCard(ServiceInput.toMap(request));
+        return wrap(result, ImportVCardResponse::new);
     }
 
     /**
@@ -621,9 +630,9 @@ public class MarketingController {
      * <p>service: createLead  entities: Person, PostalAddress, TelecomNumber  auth: true
      */
     @PostMapping("/sfa/control/createLead")
-    public ResponseEntity<CreateLeadResponse> createLead(@RequestBody CreateLeadRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateLeadResponse> createLead(@RequestBody CreateLeadRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createLead(ServiceInput.toMap(request));
+        return wrap(result, CreateLeadResponse::new);
     }
 
     /**
@@ -631,9 +640,9 @@ public class MarketingController {
      * <p>service: importVCard  entities: unknown  auth: true
      */
     @PostMapping("/sfa/control/createLeadFromVCard")
-    public ResponseEntity<ImportVCardResponse> importVCardCreateLeadFromVCard(@RequestBody ImportVCardRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ImportVCardResponse> importVCardCreateLeadFromVCard(@RequestBody ImportVCardRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.importVCard(ServiceInput.toMap(request));
+        return wrap(result, ImportVCardResponse::new);
     }
 
     /**
@@ -641,9 +650,8 @@ public class MarketingController {
      * <p>service: createPartyDataSource  entities: PartyDataSource  auth: true
      */
     @PostMapping("/sfa/control/createLeadPartyDataSource")
-    public ResponseEntity<Map<String, Object>> createPartyDataSource(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createPartyDataSource(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createPartyDataSource(body));
     }
 
     /**
@@ -651,9 +659,9 @@ public class MarketingController {
      * <p>service: createSalesForecast  entities: SalesForecast  auth: true
      */
     @PostMapping("/sfa/control/createSalesForecast")
-    public ResponseEntity<CreateSalesForecastResponse> createSalesForecast(@RequestBody CreateSalesForecastRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSalesForecastResponse> createSalesForecast(@RequestBody CreateSalesForecastRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSalesForecast(ServiceInput.toMap(request));
+        return wrap(result, CreateSalesForecastResponse::new);
     }
 
     /**
@@ -661,9 +669,9 @@ public class MarketingController {
      * <p>service: createSalesForecastDetail  entities: SalesForecastDetail  auth: true
      */
     @PostMapping("/sfa/control/createSalesForecastDetail")
-    public ResponseEntity<CreateSalesForecastDetailResponse> createSalesForecastDetail(@RequestBody CreateSalesForecastDetailRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSalesForecastDetailResponse> createSalesForecastDetail(@RequestBody CreateSalesForecastDetailRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSalesForecastDetail(ServiceInput.toMap(request));
+        return wrap(result, CreateSalesForecastDetailResponse::new);
     }
 
     /**
@@ -671,9 +679,9 @@ public class MarketingController {
      * <p>service: createSalesOpportunity  entities: SalesOpportunity  auth: true
      */
     @PostMapping("/sfa/control/createSalesOpportunity")
-    public ResponseEntity<CreateSalesOpportunityResponse> createSalesOpportunity(@RequestBody CreateSalesOpportunityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateSalesOpportunityResponse> createSalesOpportunity(@RequestBody CreateSalesOpportunityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createSalesOpportunity(ServiceInput.toMap(request));
+        return wrap(result, CreateSalesOpportunityResponse::new);
     }
 
     /**
@@ -681,9 +689,9 @@ public class MarketingController {
      * <p>service: exportVCard  entities: unknown  auth: true
      */
     @PostMapping("/sfa/control/createVCardFromContact")
-    public ResponseEntity<ExportVCardResponse> exportVCard(@RequestBody ExportVCardRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ExportVCardResponse> exportVCard(@RequestBody ExportVCardRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.exportVCard(ServiceInput.toMap(request));
+        return wrap(result, ExportVCardResponse::new);
     }
 
     /**
@@ -691,9 +699,9 @@ public class MarketingController {
      * <p>service: deleteSalesForecastDetail  entities: SalesForecastDetail  auth: true
      */
     @PostMapping("/sfa/control/deleteSalesForecastDetail")
-    public ResponseEntity<DeleteSalesForecastDetailResponse> deleteSalesForecastDetail(@RequestBody DeleteSalesForecastDetailRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteSalesForecastDetailResponse> deleteSalesForecastDetail(@RequestBody DeleteSalesForecastDetailRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteSalesForecastDetail(ServiceInput.toMap(request));
+        return wrap(result, DeleteSalesForecastDetailResponse::new);
     }
 
     /**
@@ -701,9 +709,9 @@ public class MarketingController {
      * <p>service: mergeContacts  entities: unknown  auth: true
      */
     @PostMapping("/sfa/control/mergeContacts")
-    public ResponseEntity<MergeContactsResponse> mergeContacts(@RequestBody MergeContactsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<MergeContactsResponse> mergeContacts(@RequestBody MergeContactsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.mergeContacts(ServiceInput.toMap(request));
+        return wrap(result, MergeContactsResponse::new);
     }
 
     /**
@@ -711,9 +719,9 @@ public class MarketingController {
      * <p>service: createContact  entities: Person, PostalAddress, TelecomNumber  auth: true
      */
     @PostMapping("/sfa/control/quickAddContact")
-    public ResponseEntity<CreateContactResponse> createContactQuickAddContact(@RequestBody CreateContactRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateContactResponse> createContactQuickAddContact(@RequestBody CreateContactRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createContact(ServiceInput.toMap(request));
+        return wrap(result, CreateContactResponse::new);
     }
 
     /**
@@ -721,9 +729,9 @@ public class MarketingController {
      * <p>service: createLead  entities: Person, PostalAddress, TelecomNumber  auth: true
      */
     @PostMapping("/sfa/control/quickAddLead")
-    public ResponseEntity<CreateLeadResponse> createLeadQuickAddLead(@RequestBody CreateLeadRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateLeadResponse> createLeadQuickAddLead(@RequestBody CreateLeadRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createLead(ServiceInput.toMap(request));
+        return wrap(result, CreateLeadResponse::new);
     }
 
     /**
@@ -731,9 +739,9 @@ public class MarketingController {
      * <p>service: updateSalesForecast  entities: SalesForecast  auth: true
      */
     @PostMapping("/sfa/control/updateSalesForecast")
-    public ResponseEntity<UpdateSalesForecastResponse> updateSalesForecast(@RequestBody UpdateSalesForecastRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSalesForecastResponse> updateSalesForecast(@RequestBody UpdateSalesForecastRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSalesForecast(ServiceInput.toMap(request));
+        return wrap(result, UpdateSalesForecastResponse::new);
     }
 
     /**
@@ -741,9 +749,9 @@ public class MarketingController {
      * <p>service: updateSalesForecastDetail  entities: SalesForecastDetail  auth: true
      */
     @PostMapping("/sfa/control/updateSalesForecastDetail")
-    public ResponseEntity<UpdateSalesForecastDetailResponse> updateSalesForecastDetail(@RequestBody UpdateSalesForecastDetailRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSalesForecastDetailResponse> updateSalesForecastDetail(@RequestBody UpdateSalesForecastDetailRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSalesForecastDetail(ServiceInput.toMap(request));
+        return wrap(result, UpdateSalesForecastDetailResponse::new);
     }
 
     /**
@@ -751,9 +759,9 @@ public class MarketingController {
      * <p>service: updateSalesOpportunity  entities: SalesOpportunity  auth: true
      */
     @PostMapping("/sfa/control/updateSalesOpportunity")
-    public ResponseEntity<UpdateSalesOpportunityResponse> updateSalesOpportunityUpdateSalesOpportunity(@RequestBody UpdateSalesOpportunityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateSalesOpportunityResponse> updateSalesOpportunityUpdateSalesOpportunity(@RequestBody UpdateSalesOpportunityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateSalesOpportunity(ServiceInput.toMap(request));
+        return wrap(result, UpdateSalesOpportunityResponse::new);
     }
 
     /**
@@ -761,8 +769,7 @@ public class MarketingController {
      * <p>service: updateTaskAssigment  entities: unknown  auth: true
      */
     @PostMapping("/sfa/control/updateTaskAssigment")
-    public ResponseEntity<Map<String, Object>> updateTaskAssigment(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateTaskAssigment(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateTaskAssigment(body));
     }
 }

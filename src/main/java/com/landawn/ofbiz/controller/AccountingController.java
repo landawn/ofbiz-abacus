@@ -1,5 +1,6 @@
 package com.landawn.ofbiz.controller;
 
+import com.landawn.ofbiz.util.ServiceInput;
 import com.landawn.ofbiz.model.ResponseBase;
 import com.landawn.ofbiz.model.accounting.AddFixedAssetProductRequest;
 import com.landawn.ofbiz.model.accounting.AddFixedAssetProductResponse;
@@ -462,8 +463,27 @@ import java.util.Map;
 @RequestMapping("/accounting")
 public class AccountingController {
 
-    /** 200/400 routing decided by the response DTO's envelope state. */
+    private final com.landawn.ofbiz.service.AccountingService service;
+
+    public AccountingController(com.landawn.ofbiz.service.AccountingService service) {
+        this.service = service;
+    }
+
+    /** 200/400 routing for typed responses. */
     private static <T extends ResponseBase> ResponseEntity<T> wrap(T result) {
+        return com.landawn.ofbiz.service.ServiceResponse.isError(result)
+                ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
+                : ResponseEntity.ok(result);
+    }
+
+    /** Convert a service-result map into a typed response and wrap. */
+    private static <T extends ResponseBase> ResponseEntity<T> wrap(
+            Map<String, Object> result, java.util.function.Supplier<T> factory) {
+        return wrap(com.landawn.ofbiz.service.ServiceResponse.toDto(result, factory));
+    }
+
+    /** 200/400 routing for loosely-typed Map responses. */
+    private static ResponseEntity<Map<String, Object>> wrapMap(Map<String, Object> result) {
         return com.landawn.ofbiz.service.ServiceResponse.isError(result)
                 ? ResponseEntity.status(org.springframework.http.HttpStatus.BAD_REQUEST).body(result)
                 : ResponseEntity.ok(result);
@@ -474,9 +494,9 @@ public class AccountingController {
      * <p>service: setAcctgCompany  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/AdminMain")
-    public ResponseEntity<SetAcctgCompanyResponse> setAcctgCompany(@RequestBody SetAcctgCompanyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SetAcctgCompanyResponse> setAcctgCompany(@RequestBody SetAcctgCompanyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.setAcctgCompany(ServiceInput.toMap(request));
+        return wrap(result, SetAcctgCompanyResponse::new);
     }
 
     /**
@@ -484,9 +504,8 @@ public class AccountingController {
      * <p>service: createReconcileAccount  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/EditGlReconciliation")
-    public ResponseEntity<Map<String, Object>> createReconcileAccount(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createReconcileAccount(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createReconcileAccount(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -494,9 +513,9 @@ public class AccountingController {
      * <p>service: setAcctgCompany  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/ImportExport")
-    public ResponseEntity<SetAcctgCompanyResponse> setAcctgCompanyImportExport(@RequestBody SetAcctgCompanyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SetAcctgCompanyResponse> setAcctgCompanyImportExport(@RequestBody SetAcctgCompanyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.setAcctgCompany(ServiceInput.toMap(request));
+        return wrap(result, SetAcctgCompanyResponse::new);
     }
 
     /**
@@ -504,9 +523,9 @@ public class AccountingController {
      * <p>service: importInvoice  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/ImportInvoice")
-    public ResponseEntity<ImportInvoiceResponse> importInvoice(@RequestBody ImportInvoiceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ImportInvoiceResponse> importInvoice(@RequestBody ImportInvoiceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.importInvoice(ServiceInput.toMap(request));
+        return wrap(result, ImportInvoiceResponse::new);
     }
 
     /**
@@ -514,9 +533,9 @@ public class AccountingController {
      * <p>service: setAcctgCompany  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/PartyAccountsSummary")
-    public ResponseEntity<SetAcctgCompanyResponse> setAcctgCompanyPartyAccountsSummary(@RequestBody SetAcctgCompanyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SetAcctgCompanyResponse> setAcctgCompanyPartyAccountsSummary(@RequestBody SetAcctgCompanyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.setAcctgCompany(ServiceInput.toMap(request));
+        return wrap(result, SetAcctgCompanyResponse::new);
     }
 
     /**
@@ -524,9 +543,9 @@ public class AccountingController {
      * <p>service: setAcctgCompany  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/PartyAcctgPreference")
-    public ResponseEntity<SetAcctgCompanyResponse> setAcctgCompanyPartyAcctgPreference(@RequestBody SetAcctgCompanyRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SetAcctgCompanyResponse> setAcctgCompanyPartyAcctgPreference(@RequestBody SetAcctgCompanyRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.setAcctgCompany(ServiceInput.toMap(request));
+        return wrap(result, SetAcctgCompanyResponse::new);
     }
 
     /**
@@ -534,9 +553,9 @@ public class AccountingController {
      * <p>service: updatePaymentGatewayConfig  entities: PaymentGatewayConfig  auth: true
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfig")
-    public ResponseEntity<UpdatePaymentGatewayConfigResponse> updatePaymentGatewayConfig(@RequestBody UpdatePaymentGatewayConfigRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGatewayConfigResponse> updatePaymentGatewayConfig(@RequestBody UpdatePaymentGatewayConfigRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGatewayConfig(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGatewayConfigResponse::new);
     }
 
     /**
@@ -544,9 +563,9 @@ public class AccountingController {
      * <p>service: updatePaymentGatewayConfigAuthorizeNet  entities: PaymentGatewayAuthorizeNet  auth: true
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigAuthorizeNet")
-    public ResponseEntity<UpdatePaymentGatewayConfigAuthorizeNetResponse> updatePaymentGatewayConfigAuthorizeNet(@RequestBody UpdatePaymentGatewayConfigAuthorizeNetRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGatewayConfigAuthorizeNetResponse> updatePaymentGatewayConfigAuthorizeNet(@RequestBody UpdatePaymentGatewayConfigAuthorizeNetRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGatewayConfigAuthorizeNet(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGatewayConfigAuthorizeNetResponse::new);
     }
 
     /**
@@ -554,9 +573,9 @@ public class AccountingController {
      * <p>service: updatePaymentGatewayConfigClearCommerce  entities: PaymentGatewayClearCommerce  auth: true
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigClearCommerce")
-    public ResponseEntity<UpdatePaymentGatewayConfigClearCommerceResponse> updatePaymentGatewayConfigClearCommerce(@RequestBody UpdatePaymentGatewayConfigClearCommerceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGatewayConfigClearCommerceResponse> updatePaymentGatewayConfigClearCommerce(@RequestBody UpdatePaymentGatewayConfigClearCommerceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGatewayConfigClearCommerce(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGatewayConfigClearCommerceResponse::new);
     }
 
     /**
@@ -564,9 +583,9 @@ public class AccountingController {
      * <p>service: updatePaymentGatewayConfigCyberSource  entities: PaymentGatewayCyberSource  auth: true
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigCyberSource")
-    public ResponseEntity<UpdatePaymentGatewayConfigCyberSourceResponse> updatePaymentGatewayConfigCyberSource(@RequestBody UpdatePaymentGatewayConfigCyberSourceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGatewayConfigCyberSourceResponse> updatePaymentGatewayConfigCyberSource(@RequestBody UpdatePaymentGatewayConfigCyberSourceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGatewayConfigCyberSource(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGatewayConfigCyberSourceResponse::new);
     }
 
     /**
@@ -574,9 +593,9 @@ public class AccountingController {
      * <p>service: updatePaymentGatewayConfigEway  entities: PaymentGatewayEway  auth: true
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigEway")
-    public ResponseEntity<UpdatePaymentGatewayConfigEwayResponse> updatePaymentGatewayConfigEway(@RequestBody UpdatePaymentGatewayConfigEwayRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGatewayConfigEwayResponse> updatePaymentGatewayConfigEway(@RequestBody UpdatePaymentGatewayConfigEwayRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGatewayConfigEway(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGatewayConfigEwayResponse::new);
     }
 
     /**
@@ -584,9 +603,9 @@ public class AccountingController {
      * <p>service: updatePaymentGatewayConfigPayPal  entities: PaymentGatewayPayPal  auth: true
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigPayPal")
-    public ResponseEntity<UpdatePaymentGatewayConfigPayPalResponse> updatePaymentGatewayConfigPayPal(@RequestBody UpdatePaymentGatewayConfigPayPalRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGatewayConfigPayPalResponse> updatePaymentGatewayConfigPayPal(@RequestBody UpdatePaymentGatewayConfigPayPalRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGatewayConfigPayPal(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGatewayConfigPayPalResponse::new);
     }
 
     /**
@@ -594,9 +613,9 @@ public class AccountingController {
      * <p>service: updatePaymentGatewayConfigPayflowPro  entities: PaymentGatewayPayflowPro  auth: true
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigPayflowPro")
-    public ResponseEntity<UpdatePaymentGatewayConfigPayflowProResponse> updatePaymentGatewayConfigPayflowPro(@RequestBody UpdatePaymentGatewayConfigPayflowProRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGatewayConfigPayflowProResponse> updatePaymentGatewayConfigPayflowPro(@RequestBody UpdatePaymentGatewayConfigPayflowProRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGatewayConfigPayflowPro(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGatewayConfigPayflowProResponse::new);
     }
 
     /**
@@ -604,9 +623,9 @@ public class AccountingController {
      * <p>service: updatePaymentGatewayConfigSagePay  entities: PaymentGatewaySagePay  auth: true
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigSagePay")
-    public ResponseEntity<UpdatePaymentGatewayConfigSagePayResponse> updatePaymentGatewayConfigSagePay(@RequestBody UpdatePaymentGatewayConfigSagePayRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGatewayConfigSagePayResponse> updatePaymentGatewayConfigSagePay(@RequestBody UpdatePaymentGatewayConfigSagePayRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGatewayConfigSagePay(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGatewayConfigSagePayResponse::new);
     }
 
     /**
@@ -614,9 +633,9 @@ public class AccountingController {
      * <p>service: updatePaymentGatewayConfigSecurePay  entities: PaymentGatewaySecurePay  auth: true
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigSecurePay")
-    public ResponseEntity<UpdatePaymentGatewayConfigSecurePayResponse> updatePaymentGatewayConfigSecurePay(@RequestBody UpdatePaymentGatewayConfigSecurePayRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGatewayConfigSecurePayResponse> updatePaymentGatewayConfigSecurePay(@RequestBody UpdatePaymentGatewayConfigSecurePayRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGatewayConfigSecurePay(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGatewayConfigSecurePayResponse::new);
     }
 
     /**
@@ -624,9 +643,9 @@ public class AccountingController {
      * <p>service: updatePaymentGatewayConfigType  entities: PaymentGatewayConfigType  auth: true
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigType")
-    public ResponseEntity<UpdatePaymentGatewayConfigTypeResponse> updatePaymentGatewayConfigType(@RequestBody UpdatePaymentGatewayConfigTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGatewayConfigTypeResponse> updatePaymentGatewayConfigType(@RequestBody UpdatePaymentGatewayConfigTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGatewayConfigType(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGatewayConfigTypeResponse::new);
     }
 
     /**
@@ -634,9 +653,9 @@ public class AccountingController {
      * <p>service: updatePaymentGatewayConfigWorldPay  entities: PaymentGatewayWorldPay  auth: true
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigWorldPay")
-    public ResponseEntity<UpdatePaymentGatewayConfigWorldPayResponse> updatePaymentGatewayConfigWorldPay(@RequestBody UpdatePaymentGatewayConfigWorldPayRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGatewayConfigWorldPayResponse> updatePaymentGatewayConfigWorldPay(@RequestBody UpdatePaymentGatewayConfigWorldPayRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGatewayConfigWorldPay(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGatewayConfigWorldPayResponse::new);
     }
 
     /**
@@ -644,9 +663,9 @@ public class AccountingController {
      * <p>service: createPaymentGroupMember  entities: PaymentGroupMember  auth: true
      */
     @PostMapping("/accounting/control/addDepositSlipMember")
-    public ResponseEntity<CreatePaymentGroupMemberResponse> createPaymentGroupMember(@RequestBody CreatePaymentGroupMemberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePaymentGroupMemberResponse> createPaymentGroupMember(@RequestBody CreatePaymentGroupMemberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPaymentGroupMember(ServiceInput.toMap(request));
+        return wrap(result, CreatePaymentGroupMemberResponse::new);
     }
 
     /**
@@ -654,9 +673,9 @@ public class AccountingController {
      * <p>service: addFixedAssetProduct  entities: FixedAssetProduct  auth: true
      */
     @PostMapping("/accounting/control/addFixedAssetProduct")
-    public ResponseEntity<AddFixedAssetProductResponse> addFixedAssetProduct(@RequestBody AddFixedAssetProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddFixedAssetProductResponse> addFixedAssetProduct(@RequestBody AddFixedAssetProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addFixedAssetProduct(ServiceInput.toMap(request));
+        return wrap(result, AddFixedAssetProductResponse::new);
     }
 
     /**
@@ -664,9 +683,9 @@ public class AccountingController {
      * <p>service: addPaymentMethodTypeGlAssignment  entities: PaymentMethodTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/addPaymentMethodTypeGlAssignment")
-    public ResponseEntity<AddPaymentMethodTypeGlAssignmentResponse> addPaymentMethodTypeGlAssignment(@RequestBody AddPaymentMethodTypeGlAssignmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddPaymentMethodTypeGlAssignmentResponse> addPaymentMethodTypeGlAssignment(@RequestBody AddPaymentMethodTypeGlAssignmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addPaymentMethodTypeGlAssignment(ServiceInput.toMap(request));
+        return wrap(result, AddPaymentMethodTypeGlAssignmentResponse::new);
     }
 
     /**
@@ -674,9 +693,9 @@ public class AccountingController {
      * <p>service: addPaymentTypeGlAssignment  entities: PaymentGlAccountTypeMap  auth: true
      */
     @PostMapping("/accounting/control/addPaymentTypeGlAssignment")
-    public ResponseEntity<AddPaymentTypeGlAssignmentResponse> addPaymentTypeGlAssignment(@RequestBody AddPaymentTypeGlAssignmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddPaymentTypeGlAssignmentResponse> addPaymentTypeGlAssignment(@RequestBody AddPaymentTypeGlAssignmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addPaymentTypeGlAssignment(ServiceInput.toMap(request));
+        return wrap(result, AddPaymentTypeGlAssignmentResponse::new);
     }
 
     /**
@@ -684,9 +703,9 @@ public class AccountingController {
      * <p>service: addInvoiceItemTypeGlAssignment  entities: InvoiceItemTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/addPurInvoiceItemTypeGlAssignment")
-    public ResponseEntity<AddInvoiceItemTypeGlAssignmentResponse> addInvoiceItemTypeGlAssignment(@RequestBody AddInvoiceItemTypeGlAssignmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddInvoiceItemTypeGlAssignmentResponse> addInvoiceItemTypeGlAssignment(@RequestBody AddInvoiceItemTypeGlAssignmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addInvoiceItemTypeGlAssignment(ServiceInput.toMap(request));
+        return wrap(result, AddInvoiceItemTypeGlAssignmentResponse::new);
     }
 
     /**
@@ -694,9 +713,9 @@ public class AccountingController {
      * <p>service: addInvoiceItemTypeGlAssignment  entities: InvoiceItemTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/addSalInvoiceItemTypeGlAssignment")
-    public ResponseEntity<AddInvoiceItemTypeGlAssignmentResponse> addInvoiceItemTypeGlAssignmentAddSalInvoiceItemTypeGlAssignment(@RequestBody AddInvoiceItemTypeGlAssignmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddInvoiceItemTypeGlAssignmentResponse> addInvoiceItemTypeGlAssignmentAddSalInvoiceItemTypeGlAssignment(@RequestBody AddInvoiceItemTypeGlAssignmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addInvoiceItemTypeGlAssignment(ServiceInput.toMap(request));
+        return wrap(result, AddInvoiceItemTypeGlAssignmentResponse::new);
     }
 
     /**
@@ -704,9 +723,9 @@ public class AccountingController {
      * <p>service: addTaxOnInvoice  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/addtax")
-    public ResponseEntity<AddTaxOnInvoiceResponse> addTaxOnInvoice(@RequestBody AddTaxOnInvoiceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AddTaxOnInvoiceResponse> addTaxOnInvoice(@RequestBody AddTaxOnInvoiceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.addTaxOnInvoice(ServiceInput.toMap(request));
+        return wrap(result, AddTaxOnInvoiceResponse::new);
     }
 
     /**
@@ -714,9 +733,9 @@ public class AccountingController {
      * <p>service: assignGlRecToFinAccTrans  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/assignGlRecToFinAccTrans")
-    public ResponseEntity<AssignGlRecToFinAccTransResponse> assignGlRecToFinAccTrans(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AssignGlRecToFinAccTransResponse> assignGlRecToFinAccTrans(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.assignGlRecToFinAccTrans(java.util.Map.copyOf(params));
+        return wrap(result, AssignGlRecToFinAccTransResponse::new);
     }
 
     /**
@@ -724,9 +743,9 @@ public class AccountingController {
      * <p>service: reconcileFinAccountTrans  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/callReconcileFinAccountTrans")
-    public ResponseEntity<ReconcileFinAccountTransResponse> reconcileFinAccountTrans(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ReconcileFinAccountTransResponse> reconcileFinAccountTrans(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.reconcileFinAccountTrans(java.util.Map.copyOf(params));
+        return wrap(result, ReconcileFinAccountTransResponse::new);
     }
 
     /**
@@ -734,9 +753,9 @@ public class AccountingController {
      * <p>service: expireAgreement  entities: Agreement  auth: true
      */
     @PostMapping("/accounting/control/cancelAgreement")
-    public ResponseEntity<ExpireAgreementResponse> expireAgreement(@RequestBody ExpireAgreementRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ExpireAgreementResponse> expireAgreement(@RequestBody ExpireAgreementRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.expireAgreement(ServiceInput.toMap(request));
+        return wrap(result, ExpireAgreementResponse::new);
     }
 
     /**
@@ -744,9 +763,9 @@ public class AccountingController {
      * <p>service: cancelBankReconciliation  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/cancelBankReconciliation")
-    public ResponseEntity<CancelBankReconciliationResponse> cancelBankReconciliation(@RequestBody CancelBankReconciliationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CancelBankReconciliationResponse> cancelBankReconciliation(@RequestBody CancelBankReconciliationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.cancelBankReconciliation(ServiceInput.toMap(request));
+        return wrap(result, CancelBankReconciliationResponse::new);
     }
 
     /**
@@ -754,9 +773,9 @@ public class AccountingController {
      * <p>service: cancelCheckRunPayments  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/cancelCheckRunPayments")
-    public ResponseEntity<CancelCheckRunPaymentsResponse> cancelCheckRunPayments(@RequestBody CancelCheckRunPaymentsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CancelCheckRunPaymentsResponse> cancelCheckRunPayments(@RequestBody CancelCheckRunPaymentsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.cancelCheckRunPayments(ServiceInput.toMap(request));
+        return wrap(result, CancelCheckRunPaymentsResponse::new);
     }
 
     /**
@@ -764,9 +783,9 @@ public class AccountingController {
      * <p>service: cancelFixedAssetStdCost  entities: FixedAssetStdCost  auth: true
      */
     @PostMapping("/accounting/control/cancelFixedAssetStdCost")
-    public ResponseEntity<CancelFixedAssetStdCostResponse> cancelFixedAssetStdCost(@RequestBody CancelFixedAssetStdCostRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CancelFixedAssetStdCostResponse> cancelFixedAssetStdCost(@RequestBody CancelFixedAssetStdCostRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.cancelFixedAssetStdCost(ServiceInput.toMap(request));
+        return wrap(result, CancelFixedAssetStdCostResponse::new);
     }
 
     /**
@@ -774,9 +793,9 @@ public class AccountingController {
      * <p>service: cancelPaymentBatch  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/cancelPaymentGroup")
-    public ResponseEntity<CancelPaymentBatchResponse> cancelPaymentBatch(@RequestBody CancelPaymentBatchRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CancelPaymentBatchResponse> cancelPaymentBatch(@RequestBody CancelPaymentBatchRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.cancelPaymentBatch(ServiceInput.toMap(request));
+        return wrap(result, CancelPaymentBatchResponse::new);
     }
 
     /**
@@ -784,9 +803,9 @@ public class AccountingController {
      * <p>service: cancelBankReconciliation  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/cancelReconciliation")
-    public ResponseEntity<CancelBankReconciliationResponse> cancelBankReconciliationCancelReconciliation(@RequestBody CancelBankReconciliationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CancelBankReconciliationResponse> cancelBankReconciliationCancelReconciliation(@RequestBody CancelBankReconciliationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.cancelBankReconciliation(ServiceInput.toMap(request));
+        return wrap(result, CancelBankReconciliationResponse::new);
     }
 
     /**
@@ -794,9 +813,9 @@ public class AccountingController {
      * <p>service: capturePaymentsByInvoice  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/capturePaymentsByInvoice")
-    public ResponseEntity<CapturePaymentsByInvoiceResponse> capturePaymentsByInvoice(@RequestBody CapturePaymentsByInvoiceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CapturePaymentsByInvoiceResponse> capturePaymentsByInvoice(@RequestBody CapturePaymentsByInvoiceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.capturePaymentsByInvoice(ServiceInput.toMap(request));
+        return wrap(result, CapturePaymentsByInvoiceResponse::new);
     }
 
     /**
@@ -804,9 +823,9 @@ public class AccountingController {
      * <p>service: closeFinancialTimePeriod  entities: CustomTimePeriod  auth: true
      */
     @PostMapping("/accounting/control/closeFinancialTimePeriod")
-    public ResponseEntity<CloseFinancialTimePeriodResponse> closeFinancialTimePeriod(@RequestBody CloseFinancialTimePeriodRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CloseFinancialTimePeriodResponse> closeFinancialTimePeriod(@RequestBody CloseFinancialTimePeriodRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.closeFinancialTimePeriod(ServiceInput.toMap(request));
+        return wrap(result, CloseFinancialTimePeriodResponse::new);
     }
 
     /**
@@ -814,9 +833,9 @@ public class AccountingController {
      * <p>service: completeAcctgTransEntries  entities: AcctgTrans  auth: true
      */
     @PostMapping("/accounting/control/completeAcctgTransEntries")
-    public ResponseEntity<CompleteAcctgTransEntriesResponse> completeAcctgTransEntries(@RequestBody CompleteAcctgTransEntriesRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CompleteAcctgTransEntriesResponse> completeAcctgTransEntries(@RequestBody CompleteAcctgTransEntriesRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.completeAcctgTransEntries(ServiceInput.toMap(request));
+        return wrap(result, CompleteAcctgTransEntriesResponse::new);
     }
 
     /**
@@ -824,9 +843,9 @@ public class AccountingController {
      * <p>service: copyAcctgTransAndEntries  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/copyAcctgTransAndEntries")
-    public ResponseEntity<CopyAcctgTransAndEntriesResponse> copyAcctgTransAndEntries(@RequestBody CopyAcctgTransAndEntriesRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CopyAcctgTransAndEntriesResponse> copyAcctgTransAndEntries(@RequestBody CopyAcctgTransAndEntriesRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.copyAcctgTransAndEntries(ServiceInput.toMap(request));
+        return wrap(result, CopyAcctgTransAndEntriesResponse::new);
     }
 
     /**
@@ -834,9 +853,9 @@ public class AccountingController {
      * <p>service: copyAgreement  entities: Agreement  auth: true
      */
     @PostMapping("/accounting/control/copyAgreement")
-    public ResponseEntity<CopyAgreementResponse> copyAgreement(@RequestBody CopyAgreementRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CopyAgreementResponse> copyAgreement(@RequestBody CopyAgreementRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.copyAgreement(ServiceInput.toMap(request));
+        return wrap(result, CopyAgreementResponse::new);
     }
 
     /**
@@ -844,9 +863,9 @@ public class AccountingController {
      * <p>service: copyInvoice  entities: Invoice  auth: true
      */
     @PostMapping("/accounting/control/copyInvoice")
-    public ResponseEntity<CopyInvoiceResponse> copyInvoice(@RequestBody CopyInvoiceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CopyInvoiceResponse> copyInvoice(@RequestBody CopyInvoiceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.copyInvoice(ServiceInput.toMap(request));
+        return wrap(result, CopyInvoiceResponse::new);
     }
 
     /**
@@ -854,9 +873,9 @@ public class AccountingController {
      * <p>service: copyInvoiceToTemplate  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/copyInvoiceToTemplate")
-    public ResponseEntity<CopyInvoiceToTemplateResponse> copyInvoiceToTemplate(@RequestBody CopyInvoiceToTemplateRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CopyInvoiceToTemplateResponse> copyInvoiceToTemplate(@RequestBody CopyInvoiceToTemplateRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.copyInvoiceToTemplate(ServiceInput.toMap(request));
+        return wrap(result, CopyInvoiceToTemplateResponse::new);
     }
 
     /**
@@ -864,9 +883,9 @@ public class AccountingController {
      * <p>service: createAcctgTrans  entities: AcctgTrans  auth: true
      */
     @PostMapping("/accounting/control/createAcctgTrans")
-    public ResponseEntity<CreateAcctgTransResponse> createAcctgTrans(@RequestBody CreateAcctgTransRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAcctgTransResponse> createAcctgTrans(@RequestBody CreateAcctgTransRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAcctgTrans(ServiceInput.toMap(request));
+        return wrap(result, CreateAcctgTransResponse::new);
     }
 
     /**
@@ -874,9 +893,9 @@ public class AccountingController {
      * <p>service: createAcctgTransEntry  entities: AcctgTransEntry  auth: true
      */
     @PostMapping("/accounting/control/createAcctgTransEntry")
-    public ResponseEntity<CreateAcctgTransEntryResponse> createAcctgTransEntry(@RequestBody CreateAcctgTransEntryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAcctgTransEntryResponse> createAcctgTransEntry(@RequestBody CreateAcctgTransEntryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAcctgTransEntry(ServiceInput.toMap(request));
+        return wrap(result, CreateAcctgTransEntryResponse::new);
     }
 
     /**
@@ -884,9 +903,9 @@ public class AccountingController {
      * <p>service: createAgreement  entities: Agreement  auth: true
      */
     @PostMapping("/accounting/control/createAgreement")
-    public ResponseEntity<CreateAgreementResponse> createAgreement(@RequestBody CreateAgreementRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAgreementResponse> createAgreement(@RequestBody CreateAgreementRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAgreement(ServiceInput.toMap(request));
+        return wrap(result, CreateAgreementResponse::new);
     }
 
     /**
@@ -894,9 +913,9 @@ public class AccountingController {
      * <p>service: createAgreementGeographicalApplic  entities: AgreementGeographicalApplic  auth: true
      */
     @PostMapping("/accounting/control/createAgreementGeographicalApplic")
-    public ResponseEntity<CreateAgreementGeographicalApplicResponse> createAgreementGeographicalApplic(@RequestBody CreateAgreementGeographicalApplicRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAgreementGeographicalApplicResponse> createAgreementGeographicalApplic(@RequestBody CreateAgreementGeographicalApplicRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAgreementGeographicalApplic(ServiceInput.toMap(request));
+        return wrap(result, CreateAgreementGeographicalApplicResponse::new);
     }
 
     /**
@@ -904,9 +923,9 @@ public class AccountingController {
      * <p>service: createAgreementItem  entities: AgreementItem  auth: true
      */
     @PostMapping("/accounting/control/createAgreementItem")
-    public ResponseEntity<CreateAgreementItemResponse> createAgreementItem(@RequestBody CreateAgreementItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAgreementItemResponse> createAgreementItem(@RequestBody CreateAgreementItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAgreementItem(ServiceInput.toMap(request));
+        return wrap(result, CreateAgreementItemResponse::new);
     }
 
     /**
@@ -914,9 +933,9 @@ public class AccountingController {
      * <p>service: createAgreementFacilityAppl  entities: AgreementFacilityAppl  auth: true
      */
     @PostMapping("/accounting/control/createAgreementItemFacility")
-    public ResponseEntity<CreateAgreementFacilityApplResponse> createAgreementFacilityAppl(@RequestBody CreateAgreementFacilityApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAgreementFacilityApplResponse> createAgreementFacilityAppl(@RequestBody CreateAgreementFacilityApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAgreementFacilityAppl(ServiceInput.toMap(request));
+        return wrap(result, CreateAgreementFacilityApplResponse::new);
     }
 
     /**
@@ -924,9 +943,9 @@ public class AccountingController {
      * <p>service: createAgreementPartyApplic  entities: AgreementPartyApplic  auth: true
      */
     @PostMapping("/accounting/control/createAgreementItemParty")
-    public ResponseEntity<CreateAgreementPartyApplicResponse> createAgreementPartyApplic(@RequestBody CreateAgreementPartyApplicRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAgreementPartyApplicResponse> createAgreementPartyApplic(@RequestBody CreateAgreementPartyApplicRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAgreementPartyApplic(ServiceInput.toMap(request));
+        return wrap(result, CreateAgreementPartyApplicResponse::new);
     }
 
     /**
@@ -934,9 +953,9 @@ public class AccountingController {
      * <p>service: createAgreementProductAppl  entities: AgreementProductAppl  auth: true
      */
     @PostMapping("/accounting/control/createAgreementItemProduct")
-    public ResponseEntity<CreateAgreementProductApplResponse> createAgreementProductAppl(@RequestBody CreateAgreementProductApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAgreementProductApplResponse> createAgreementProductAppl(@RequestBody CreateAgreementProductApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAgreementProductAppl(ServiceInput.toMap(request));
+        return wrap(result, CreateAgreementProductApplResponse::new);
     }
 
     /**
@@ -944,9 +963,8 @@ public class AccountingController {
      * <p>service: createSupplierProduct  entities: SupplierProduct  auth: true
      */
     @PostMapping("/accounting/control/createAgreementItemSupplierProduct")
-    public ResponseEntity<Map<String, Object>> createSupplierProduct(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createSupplierProduct(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createSupplierProduct(body));
     }
 
     /**
@@ -954,9 +972,9 @@ public class AccountingController {
      * <p>service: createAgreementTerm  entities: AgreementTerm  auth: true
      */
     @PostMapping("/accounting/control/createAgreementItemTerm")
-    public ResponseEntity<CreateAgreementTermResponse> createAgreementTerm(@RequestBody CreateAgreementTermRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAgreementTermResponse> createAgreementTerm(@RequestBody CreateAgreementTermRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAgreementTerm(ServiceInput.toMap(request));
+        return wrap(result, CreateAgreementTermResponse::new);
     }
 
     /**
@@ -964,9 +982,9 @@ public class AccountingController {
      * <p>service: createAgreementPromoAppl  entities: AgreementPromoAppl  auth: true
      */
     @PostMapping("/accounting/control/createAgreementPromoAppl")
-    public ResponseEntity<CreateAgreementPromoApplResponse> createAgreementPromoAppl(@RequestBody CreateAgreementPromoApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAgreementPromoApplResponse> createAgreementPromoAppl(@RequestBody CreateAgreementPromoApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAgreementPromoAppl(ServiceInput.toMap(request));
+        return wrap(result, CreateAgreementPromoApplResponse::new);
     }
 
     /**
@@ -974,9 +992,9 @@ public class AccountingController {
      * <p>service: createAgreementRole  entities: AgreementRole  auth: true
      */
     @PostMapping("/accounting/control/createAgreementRole")
-    public ResponseEntity<CreateAgreementRoleResponse> createAgreementRole(@RequestBody CreateAgreementRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAgreementRoleResponse> createAgreementRole(@RequestBody CreateAgreementRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAgreementRole(ServiceInput.toMap(request));
+        return wrap(result, CreateAgreementRoleResponse::new);
     }
 
     /**
@@ -984,9 +1002,9 @@ public class AccountingController {
      * <p>service: createAgreementTerm  entities: AgreementTerm  auth: true
      */
     @PostMapping("/accounting/control/createAgreementTerm")
-    public ResponseEntity<CreateAgreementTermResponse> createAgreementTermCreateAgreementTerm(@RequestBody CreateAgreementTermRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAgreementTermResponse> createAgreementTermCreateAgreementTerm(@RequestBody CreateAgreementTermRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAgreementTerm(ServiceInput.toMap(request));
+        return wrap(result, CreateAgreementTermResponse::new);
     }
 
     /**
@@ -994,9 +1012,9 @@ public class AccountingController {
      * <p>service: createAgreementWorkEffortApplic  entities: AgreementWorkEffortApplic  auth: true
      */
     @PostMapping("/accounting/control/createAgreementWorkEffortApplic")
-    public ResponseEntity<CreateAgreementWorkEffortApplicResponse> createAgreementWorkEffortApplic(@RequestBody CreateAgreementWorkEffortApplicRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateAgreementWorkEffortApplicResponse> createAgreementWorkEffortApplic(@RequestBody CreateAgreementWorkEffortApplicRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createAgreementWorkEffortApplic(ServiceInput.toMap(request));
+        return wrap(result, CreateAgreementWorkEffortApplicResponse::new);
     }
 
     /**
@@ -1004,9 +1022,9 @@ public class AccountingController {
      * <p>service: createBillingAccount  entities: BillingAccount  auth: true
      */
     @PostMapping("/accounting/control/createBillingAccount")
-    public ResponseEntity<CreateBillingAccountResponse> createBillingAccount(@RequestBody CreateBillingAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateBillingAccountResponse> createBillingAccount(@RequestBody CreateBillingAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createBillingAccount(ServiceInput.toMap(request));
+        return wrap(result, CreateBillingAccountResponse::new);
     }
 
     /**
@@ -1014,9 +1032,9 @@ public class AccountingController {
      * <p>service: createBillingAccountAndRole  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/createBillingAccountAndRole")
-    public ResponseEntity<CreateBillingAccountAndRoleResponse> createBillingAccountAndRole(@RequestBody CreateBillingAccountAndRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateBillingAccountAndRoleResponse> createBillingAccountAndRole(@RequestBody CreateBillingAccountAndRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createBillingAccountAndRole(ServiceInput.toMap(request));
+        return wrap(result, CreateBillingAccountAndRoleResponse::new);
     }
 
     /**
@@ -1024,9 +1042,9 @@ public class AccountingController {
      * <p>service: createBillingAccountRole  entities: BillingAccountRole  auth: true
      */
     @PostMapping("/accounting/control/createBillingAccountRole")
-    public ResponseEntity<CreateBillingAccountRoleResponse> createBillingAccountRole(@RequestBody CreateBillingAccountRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateBillingAccountRoleResponse> createBillingAccountRole(@RequestBody CreateBillingAccountRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createBillingAccountRole(ServiceInput.toMap(request));
+        return wrap(result, CreateBillingAccountRoleResponse::new);
     }
 
     /**
@@ -1034,9 +1052,9 @@ public class AccountingController {
      * <p>service: createBillingAccountTerm  entities: BillingAccountTerm  auth: true
      */
     @PostMapping("/accounting/control/createBillingAccountTerm")
-    public ResponseEntity<CreateBillingAccountTermResponse> createBillingAccountTerm(@RequestBody CreateBillingAccountTermRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateBillingAccountTermResponse> createBillingAccountTerm(@RequestBody CreateBillingAccountTermRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createBillingAccountTerm(ServiceInput.toMap(request));
+        return wrap(result, CreateBillingAccountTermResponse::new);
     }
 
     /**
@@ -1044,9 +1062,9 @@ public class AccountingController {
      * <p>service: createBudget  entities: Budget  auth: true
      */
     @PostMapping("/accounting/control/createBudget")
-    public ResponseEntity<CreateBudgetResponse> createBudget(@RequestBody CreateBudgetRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateBudgetResponse> createBudget(@RequestBody CreateBudgetRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createBudget(ServiceInput.toMap(request));
+        return wrap(result, CreateBudgetResponse::new);
     }
 
     /**
@@ -1054,9 +1072,9 @@ public class AccountingController {
      * <p>service: createBudgetItem  entities: BudgetItem  auth: true
      */
     @PostMapping("/accounting/control/createBudgetItem")
-    public ResponseEntity<CreateBudgetItemResponse> createBudgetItem(@RequestBody CreateBudgetItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateBudgetItemResponse> createBudgetItem(@RequestBody CreateBudgetItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createBudgetItem(ServiceInput.toMap(request));
+        return wrap(result, CreateBudgetItemResponse::new);
     }
 
     /**
@@ -1064,9 +1082,9 @@ public class AccountingController {
      * <p>service: createBudgetReview  entities: BudgetReview  auth: true
      */
     @PostMapping("/accounting/control/createBudgetReview")
-    public ResponseEntity<CreateBudgetReviewResponse> createBudgetReview(@RequestBody CreateBudgetReviewRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateBudgetReviewResponse> createBudgetReview(@RequestBody CreateBudgetReviewRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createBudgetReview(ServiceInput.toMap(request));
+        return wrap(result, CreateBudgetReviewResponse::new);
     }
 
     /**
@@ -1074,9 +1092,9 @@ public class AccountingController {
      * <p>service: createBudgetRole  entities: BudgetRole  auth: true
      */
     @PostMapping("/accounting/control/createBudgetRole")
-    public ResponseEntity<CreateBudgetRoleResponse> createBudgetRole(@RequestBody CreateBudgetRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateBudgetRoleResponse> createBudgetRole(@RequestBody CreateBudgetRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createBudgetRole(ServiceInput.toMap(request));
+        return wrap(result, CreateBudgetRoleResponse::new);
     }
 
     /**
@@ -1084,9 +1102,9 @@ public class AccountingController {
      * <p>service: createCostComponentCalc  entities: CostComponentCalc  auth: true
      */
     @PostMapping("/accounting/control/createCostComponentCalc")
-    public ResponseEntity<CreateCostComponentCalcResponse> createCostComponentCalc(@RequestBody CreateCostComponentCalcRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateCostComponentCalcResponse> createCostComponentCalc(@RequestBody CreateCostComponentCalcRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createCostComponentCalc(ServiceInput.toMap(request));
+        return wrap(result, CreateCostComponentCalcResponse::new);
     }
 
     /**
@@ -1094,9 +1112,9 @@ public class AccountingController {
      * <p>service: createCreditCardTypeGlAccount  entities: CreditCardTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/createCreditCardTypeGlAccount")
-    public ResponseEntity<CreateCreditCardTypeGlAccountResponse> createCreditCardTypeGlAccount(@RequestBody CreateCreditCardTypeGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateCreditCardTypeGlAccountResponse> createCreditCardTypeGlAccount(@RequestBody CreateCreditCardTypeGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createCreditCardTypeGlAccount(ServiceInput.toMap(request));
+        return wrap(result, CreateCreditCardTypeGlAccountResponse::new);
     }
 
     /**
@@ -1104,9 +1122,8 @@ public class AccountingController {
      * <p>service: createCustomTimePeriod  entities: CustomTimePeriod  auth: true
      */
     @PostMapping("/accounting/control/createCustomTimePeriod")
-    public ResponseEntity<Map<String, Object>> createCustomTimePeriod(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createCustomTimePeriod(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createCustomTimePeriod(body));
     }
 
     /**
@@ -1114,9 +1131,9 @@ public class AccountingController {
      * <p>service: createPaymentAndFinAccountTrans  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/createDepositPayment")
-    public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTrans(@RequestBody CreatePaymentAndFinAccountTransRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTrans(@RequestBody CreatePaymentAndFinAccountTransRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPaymentAndFinAccountTrans(ServiceInput.toMap(request));
+        return wrap(result, CreatePaymentAndFinAccountTransResponse::new);
     }
 
     /**
@@ -1124,9 +1141,9 @@ public class AccountingController {
      * <p>service: createFinAccount  entities: FinAccount  auth: true
      */
     @PostMapping("/accounting/control/createFinAccount")
-    public ResponseEntity<CreateFinAccountResponse> createFinAccount(@RequestBody CreateFinAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFinAccountResponse> createFinAccount(@RequestBody CreateFinAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFinAccount(ServiceInput.toMap(request));
+        return wrap(result, CreateFinAccountResponse::new);
     }
 
     /**
@@ -1134,9 +1151,9 @@ public class AccountingController {
      * <p>service: createFinAccountAuth  entities: FinAccountAuth  auth: true
      */
     @PostMapping("/accounting/control/createFinAccountAuth")
-    public ResponseEntity<CreateFinAccountAuthResponse> createFinAccountAuth(@RequestBody CreateFinAccountAuthRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFinAccountAuthResponse> createFinAccountAuth(@RequestBody CreateFinAccountAuthRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFinAccountAuth(ServiceInput.toMap(request));
+        return wrap(result, CreateFinAccountAuthResponse::new);
     }
 
     /**
@@ -1144,9 +1161,9 @@ public class AccountingController {
      * <p>service: createFinAccountRole  entities: FinAccountRole  auth: true
      */
     @PostMapping("/accounting/control/createFinAccountRole")
-    public ResponseEntity<CreateFinAccountRoleResponse> createFinAccountRole(@RequestBody CreateFinAccountRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFinAccountRoleResponse> createFinAccountRole(@RequestBody CreateFinAccountRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFinAccountRole(ServiceInput.toMap(request));
+        return wrap(result, CreateFinAccountRoleResponse::new);
     }
 
     /**
@@ -1154,9 +1171,9 @@ public class AccountingController {
      * <p>service: createFinAccountTrans  entities: FinAccountTrans  auth: true
      */
     @PostMapping("/accounting/control/createFinAccountTrans")
-    public ResponseEntity<CreateFinAccountTransResponse> createFinAccountTrans(@RequestBody CreateFinAccountTransRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFinAccountTransResponse> createFinAccountTrans(@RequestBody CreateFinAccountTransRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFinAccountTrans(ServiceInput.toMap(request));
+        return wrap(result, CreateFinAccountTransResponse::new);
     }
 
     /**
@@ -1164,9 +1181,9 @@ public class AccountingController {
      * <p>service: createFinAccountTypeGlAccount  entities: FinAccountTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/createFinAccountTypeGlAccount")
-    public ResponseEntity<CreateFinAccountTypeGlAccountResponse> createFinAccountTypeGlAccount(@RequestBody CreateFinAccountTypeGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFinAccountTypeGlAccountResponse> createFinAccountTypeGlAccount(@RequestBody CreateFinAccountTypeGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFinAccountTypeGlAccount(ServiceInput.toMap(request));
+        return wrap(result, CreateFinAccountTypeGlAccountResponse::new);
     }
 
     /**
@@ -1174,9 +1191,9 @@ public class AccountingController {
      * <p>service: createFixedAsset  entities: FixedAsset  auth: true
      */
     @PostMapping("/accounting/control/createFixedAsset")
-    public ResponseEntity<CreateFixedAssetResponse> createFixedAsset(@RequestBody CreateFixedAssetRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFixedAssetResponse> createFixedAsset(@RequestBody CreateFixedAssetRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFixedAsset(ServiceInput.toMap(request));
+        return wrap(result, CreateFixedAssetResponse::new);
     }
 
     /**
@@ -1184,9 +1201,9 @@ public class AccountingController {
      * <p>service: createFixedAssetDepMethod  entities: FixedAssetDepMethod  auth: true
      */
     @PostMapping("/accounting/control/createFixedAssetDepMethod")
-    public ResponseEntity<CreateFixedAssetDepMethodResponse> createFixedAssetDepMethod(@RequestBody CreateFixedAssetDepMethodRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFixedAssetDepMethodResponse> createFixedAssetDepMethod(@RequestBody CreateFixedAssetDepMethodRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFixedAssetDepMethod(ServiceInput.toMap(request));
+        return wrap(result, CreateFixedAssetDepMethodResponse::new);
     }
 
     /**
@@ -1194,9 +1211,9 @@ public class AccountingController {
      * <p>service: createFixedAssetIdent  entities: FixedAssetIdent  auth: true
      */
     @PostMapping("/accounting/control/createFixedAssetIdent")
-    public ResponseEntity<CreateFixedAssetIdentResponse> createFixedAssetIdent(@RequestBody CreateFixedAssetIdentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFixedAssetIdentResponse> createFixedAssetIdent(@RequestBody CreateFixedAssetIdentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFixedAssetIdent(ServiceInput.toMap(request));
+        return wrap(result, CreateFixedAssetIdentResponse::new);
     }
 
     /**
@@ -1204,9 +1221,9 @@ public class AccountingController {
      * <p>service: createFixedAssetMaint  entities: FixedAssetMaint  auth: true
      */
     @PostMapping("/accounting/control/createFixedAssetMaint")
-    public ResponseEntity<CreateFixedAssetMaintResponse> createFixedAssetMaint(@RequestBody CreateFixedAssetMaintRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFixedAssetMaintResponse> createFixedAssetMaint(@RequestBody CreateFixedAssetMaintRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFixedAssetMaint(ServiceInput.toMap(request));
+        return wrap(result, CreateFixedAssetMaintResponse::new);
     }
 
     /**
@@ -1214,9 +1231,9 @@ public class AccountingController {
      * <p>service: createFixedAssetMaintOrder  entities: FixedAssetMaintOrder  auth: true
      */
     @PostMapping("/accounting/control/createFixedAssetMaintOrder")
-    public ResponseEntity<CreateFixedAssetMaintOrderResponse> createFixedAssetMaintOrder(@RequestBody CreateFixedAssetMaintOrderRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFixedAssetMaintOrderResponse> createFixedAssetMaintOrder(@RequestBody CreateFixedAssetMaintOrderRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFixedAssetMaintOrder(ServiceInput.toMap(request));
+        return wrap(result, CreateFixedAssetMaintOrderResponse::new);
     }
 
     /**
@@ -1224,9 +1241,9 @@ public class AccountingController {
      * <p>service: createFixedAssetMeter  entities: FixedAssetMeter  auth: true
      */
     @PostMapping("/accounting/control/createFixedAssetMeter")
-    public ResponseEntity<CreateFixedAssetMeterResponse> createFixedAssetMeter(@RequestBody CreateFixedAssetMeterRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFixedAssetMeterResponse> createFixedAssetMeter(@RequestBody CreateFixedAssetMeterRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFixedAssetMeter(ServiceInput.toMap(request));
+        return wrap(result, CreateFixedAssetMeterResponse::new);
     }
 
     /**
@@ -1234,9 +1251,9 @@ public class AccountingController {
      * <p>service: createFixedAssetRegistration  entities: FixedAssetRegistration  auth: true
      */
     @PostMapping("/accounting/control/createFixedAssetRegistration")
-    public ResponseEntity<CreateFixedAssetRegistrationResponse> createFixedAssetRegistration(@RequestBody CreateFixedAssetRegistrationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFixedAssetRegistrationResponse> createFixedAssetRegistration(@RequestBody CreateFixedAssetRegistrationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFixedAssetRegistration(ServiceInput.toMap(request));
+        return wrap(result, CreateFixedAssetRegistrationResponse::new);
     }
 
     /**
@@ -1244,9 +1261,9 @@ public class AccountingController {
      * <p>service: createFixedAssetStdCost  entities: FixedAssetStdCost  auth: true
      */
     @PostMapping("/accounting/control/createFixedAssetStdCost")
-    public ResponseEntity<CreateFixedAssetStdCostResponse> createFixedAssetStdCost(@RequestBody CreateFixedAssetStdCostRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFixedAssetStdCostResponse> createFixedAssetStdCost(@RequestBody CreateFixedAssetStdCostRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFixedAssetStdCost(ServiceInput.toMap(request));
+        return wrap(result, CreateFixedAssetStdCostResponse::new);
     }
 
     /**
@@ -1254,9 +1271,9 @@ public class AccountingController {
      * <p>service: createFixedAssetTypeGlAccount  entities: FixedAssetTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/createFixedAssetTypeGlAccount")
-    public ResponseEntity<CreateFixedAssetTypeGlAccountResponse> createFixedAssetTypeGlAccount(@RequestBody CreateFixedAssetTypeGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFixedAssetTypeGlAccountResponse> createFixedAssetTypeGlAccount(@RequestBody CreateFixedAssetTypeGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFixedAssetTypeGlAccount(ServiceInput.toMap(request));
+        return wrap(result, CreateFixedAssetTypeGlAccountResponse::new);
     }
 
     /**
@@ -1264,9 +1281,9 @@ public class AccountingController {
      * <p>service: createFixedAssetTypeGlAccount  entities: FixedAssetTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/createFixedAssetTypeGlAccountForFixedAsset")
-    public ResponseEntity<CreateFixedAssetTypeGlAccountResponse> createFixedAssetTypeGlAccountCreateFixedAssetTypeGlAccountForFixedAsset(@RequestBody CreateFixedAssetTypeGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateFixedAssetTypeGlAccountResponse> createFixedAssetTypeGlAccountCreateFixedAssetTypeGlAccountForFixedAsset(@RequestBody CreateFixedAssetTypeGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createFixedAssetTypeGlAccount(ServiceInput.toMap(request));
+        return wrap(result, CreateFixedAssetTypeGlAccountResponse::new);
     }
 
     /**
@@ -1274,9 +1291,9 @@ public class AccountingController {
      * <p>service: createGlAccount  entities: GlAccount  auth: true
      */
     @PostMapping("/accounting/control/createGlAccount")
-    public ResponseEntity<CreateGlAccountResponse> createGlAccount(@RequestBody CreateGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateGlAccountResponse> createGlAccount(@RequestBody CreateGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createGlAccount(ServiceInput.toMap(request));
+        return wrap(result, CreateGlAccountResponse::new);
     }
 
     /**
@@ -1284,9 +1301,9 @@ public class AccountingController {
      * <p>service: createGlAccountCategory  entities: GlAccountCategory  auth: true
      */
     @PostMapping("/accounting/control/createGlAccountCategory")
-    public ResponseEntity<CreateGlAccountCategoryResponse> createGlAccountCategory(@RequestBody CreateGlAccountCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateGlAccountCategoryResponse> createGlAccountCategory(@RequestBody CreateGlAccountCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createGlAccountCategory(ServiceInput.toMap(request));
+        return wrap(result, CreateGlAccountCategoryResponse::new);
     }
 
     /**
@@ -1294,9 +1311,9 @@ public class AccountingController {
      * <p>service: createGlAccountCategoryMember  entities: GlAccountCategoryMember  auth: true
      */
     @PostMapping("/accounting/control/createGlAccountCategoryMember")
-    public ResponseEntity<CreateGlAccountCategoryMemberResponse> createGlAccountCategoryMember(@RequestBody CreateGlAccountCategoryMemberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateGlAccountCategoryMemberResponse> createGlAccountCategoryMember(@RequestBody CreateGlAccountCategoryMemberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createGlAccountCategoryMember(ServiceInput.toMap(request));
+        return wrap(result, CreateGlAccountCategoryMemberResponse::new);
     }
 
     /**
@@ -1304,9 +1321,9 @@ public class AccountingController {
      * <p>service: createGlAccountOrganization  entities: GlAccountOrganization  auth: true
      */
     @PostMapping("/accounting/control/createGlAccountOrganization")
-    public ResponseEntity<CreateGlAccountOrganizationResponse> createGlAccountOrganization(@RequestBody CreateGlAccountOrganizationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateGlAccountOrganizationResponse> createGlAccountOrganization(@RequestBody CreateGlAccountOrganizationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createGlAccountOrganization(ServiceInput.toMap(request));
+        return wrap(result, CreateGlAccountOrganizationResponse::new);
     }
 
     /**
@@ -1314,9 +1331,9 @@ public class AccountingController {
      * <p>service: createGlAccountTypeDefault  entities: GlAccountTypeDefault  auth: true
      */
     @PostMapping("/accounting/control/createGlAccountTypeDefault")
-    public ResponseEntity<CreateGlAccountTypeDefaultResponse> createGlAccountTypeDefault(@RequestBody CreateGlAccountTypeDefaultRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateGlAccountTypeDefaultResponse> createGlAccountTypeDefault(@RequestBody CreateGlAccountTypeDefaultRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createGlAccountTypeDefault(ServiceInput.toMap(request));
+        return wrap(result, CreateGlAccountTypeDefaultResponse::new);
     }
 
     /**
@@ -1324,9 +1341,9 @@ public class AccountingController {
      * <p>service: createGlJournal  entities: GlJournal  auth: true
      */
     @PostMapping("/accounting/control/createGlJournal")
-    public ResponseEntity<CreateGlJournalResponse> createGlJournal(@RequestBody CreateGlJournalRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateGlJournalResponse> createGlJournal(@RequestBody CreateGlJournalRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createGlJournal(ServiceInput.toMap(request));
+        return wrap(result, CreateGlJournalResponse::new);
     }
 
     /**
@@ -1334,9 +1351,9 @@ public class AccountingController {
      * <p>service: createGlReconciliation  entities: GlReconciliation  auth: true
      */
     @PostMapping("/accounting/control/createGlReconciliation")
-    public ResponseEntity<CreateGlReconciliationResponse> createGlReconciliation(@RequestBody CreateGlReconciliationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateGlReconciliationResponse> createGlReconciliation(@RequestBody CreateGlReconciliationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createGlReconciliation(ServiceInput.toMap(request));
+        return wrap(result, CreateGlReconciliationResponse::new);
     }
 
     /**
@@ -1344,9 +1361,9 @@ public class AccountingController {
      * <p>service: createInvoice  entities: Invoice  auth: true
      */
     @PostMapping("/accounting/control/createInvoice")
-    public ResponseEntity<CreateInvoiceResponse> createInvoice(@RequestBody CreateInvoiceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInvoiceResponse> createInvoice(@RequestBody CreateInvoiceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInvoice(ServiceInput.toMap(request));
+        return wrap(result, CreateInvoiceResponse::new);
     }
 
     /**
@@ -1354,9 +1371,9 @@ public class AccountingController {
      * <p>service: createInvoiceItem  entities: InvoiceItem  auth: true
      */
     @PostMapping("/accounting/control/createInvoiceItem")
-    public ResponseEntity<CreateInvoiceItemResponse> createInvoiceItem(@RequestBody CreateInvoiceItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInvoiceItemResponse> createInvoiceItem(@RequestBody CreateInvoiceItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInvoiceItem(ServiceInput.toMap(request));
+        return wrap(result, CreateInvoiceItemResponse::new);
     }
 
     /**
@@ -1364,9 +1381,8 @@ public class AccountingController {
      * <p>service: createInvoiceItemPayrol  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/createInvoiceItemPayrol")
-    public ResponseEntity<Map<String, Object>> createInvoiceItemPayrol(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createInvoiceItemPayrol(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        return wrapMap(service.createInvoiceItemPayrol(java.util.Map.copyOf(params)));
     }
 
     /**
@@ -1374,9 +1390,9 @@ public class AccountingController {
      * <p>service: createInvoiceRole  entities: InvoiceRole  auth: true
      */
     @PostMapping("/accounting/control/createInvoiceRole")
-    public ResponseEntity<CreateInvoiceRoleResponse> createInvoiceRole(@RequestBody CreateInvoiceRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInvoiceRoleResponse> createInvoiceRole(@RequestBody CreateInvoiceRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInvoiceRole(ServiceInput.toMap(request));
+        return wrap(result, CreateInvoiceRoleResponse::new);
     }
 
     /**
@@ -1384,9 +1400,9 @@ public class AccountingController {
      * <p>service: createInvoiceTerm  entities: InvoiceTerm  auth: true
      */
     @PostMapping("/accounting/control/createInvoiceTerm")
-    public ResponseEntity<CreateInvoiceTermResponse> createInvoiceTerm(@RequestBody CreateInvoiceTermRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInvoiceTermResponse> createInvoiceTerm(@RequestBody CreateInvoiceTermRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInvoiceTerm(ServiceInput.toMap(request));
+        return wrap(result, CreateInvoiceTermResponse::new);
     }
 
     /**
@@ -1394,9 +1410,9 @@ public class AccountingController {
      * <p>service: createTaxAuthorityGlAccount  entities: TaxAuthorityGlAccount  auth: true
      */
     @PostMapping("/accounting/control/createOrganizationTaxAuthorityGlAccount")
-    public ResponseEntity<CreateTaxAuthorityGlAccountResponse> createTaxAuthorityGlAccount(@RequestBody CreateTaxAuthorityGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateTaxAuthorityGlAccountResponse> createTaxAuthorityGlAccount(@RequestBody CreateTaxAuthorityGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createTaxAuthorityGlAccount(ServiceInput.toMap(request));
+        return wrap(result, CreateTaxAuthorityGlAccountResponse::new);
     }
 
     /**
@@ -1404,9 +1420,9 @@ public class AccountingController {
      * <p>service: createPartyAcctgPreference  entities: PartyAcctgPreference  auth: true
      */
     @PostMapping("/accounting/control/createPartyAcctgPreference")
-    public ResponseEntity<CreatePartyAcctgPreferenceResponse> createPartyAcctgPreference(@RequestBody CreatePartyAcctgPreferenceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyAcctgPreferenceResponse> createPartyAcctgPreference(@RequestBody CreatePartyAcctgPreferenceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyAcctgPreference(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyAcctgPreferenceResponse::new);
     }
 
     /**
@@ -1414,9 +1430,9 @@ public class AccountingController {
      * <p>service: createPartyFixedAssetAssignment  entities: PartyFixedAssetAssignment  auth: true
      */
     @PostMapping("/accounting/control/createPartyFixedAssetAssignment")
-    public ResponseEntity<CreatePartyFixedAssetAssignmentResponse> createPartyFixedAssetAssignment(@RequestBody CreatePartyFixedAssetAssignmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyFixedAssetAssignmentResponse> createPartyFixedAssetAssignment(@RequestBody CreatePartyFixedAssetAssignmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyFixedAssetAssignment(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyFixedAssetAssignmentResponse::new);
     }
 
     /**
@@ -1424,9 +1440,9 @@ public class AccountingController {
      * <p>service: createPartyGlAccount  entities: PartyGlAccount  auth: true
      */
     @PostMapping("/accounting/control/createPartyGlAccount")
-    public ResponseEntity<CreatePartyGlAccountResponse> createPartyGlAccount(@RequestBody CreatePartyGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyGlAccountResponse> createPartyGlAccount(@RequestBody CreatePartyGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyGlAccount(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyGlAccountResponse::new);
     }
 
     /**
@@ -1434,9 +1450,9 @@ public class AccountingController {
      * <p>service: createPartyPrefDocTypeTpl  entities: PartyPrefDocTypeTpl  auth: true
      */
     @PostMapping("/accounting/control/createPartyPrefDocTypeTpl")
-    public ResponseEntity<CreatePartyPrefDocTypeTplResponse> createPartyPrefDocTypeTpl(@RequestBody CreatePartyPrefDocTypeTplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyPrefDocTypeTplResponse> createPartyPrefDocTypeTpl(@RequestBody CreatePartyPrefDocTypeTplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyPrefDocTypeTpl(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyPrefDocTypeTplResponse::new);
     }
 
     /**
@@ -1444,9 +1460,9 @@ public class AccountingController {
      * <p>service: createPaymentAndFinAccountTrans  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/createPayment")
-    public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTransCreatePayment(@RequestBody CreatePaymentAndFinAccountTransRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTransCreatePayment(@RequestBody CreatePaymentAndFinAccountTransRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPaymentAndFinAccountTrans(ServiceInput.toMap(request));
+        return wrap(result, CreatePaymentAndFinAccountTransResponse::new);
     }
 
     /**
@@ -1454,9 +1470,9 @@ public class AccountingController {
      * <p>service: createPaymentAndApplication  entities: Payment  auth: true
      */
     @PostMapping("/accounting/control/createPaymentAndAssociateToBillingAccount")
-    public ResponseEntity<CreatePaymentAndApplicationResponse> createPaymentAndApplication(@RequestBody CreatePaymentAndApplicationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePaymentAndApplicationResponse> createPaymentAndApplication(@RequestBody CreatePaymentAndApplicationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPaymentAndApplication(ServiceInput.toMap(request));
+        return wrap(result, CreatePaymentAndApplicationResponse::new);
     }
 
     /**
@@ -1464,9 +1480,9 @@ public class AccountingController {
      * <p>service: createPaymentApplication  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/createPaymentApplication")
-    public ResponseEntity<CreatePaymentApplicationResponse> createPaymentApplication(@RequestBody CreatePaymentApplicationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePaymentApplicationResponse> createPaymentApplication(@RequestBody CreatePaymentApplicationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPaymentApplication(ServiceInput.toMap(request));
+        return wrap(result, CreatePaymentApplicationResponse::new);
     }
 
     /**
@@ -1474,9 +1490,9 @@ public class AccountingController {
      * <p>service: checkAndCreateBatchForValidPayments  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/createPaymentBatch")
-    public ResponseEntity<CheckAndCreateBatchForValidPaymentsResponse> checkAndCreateBatchForValidPayments(@RequestBody CheckAndCreateBatchForValidPaymentsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CheckAndCreateBatchForValidPaymentsResponse> checkAndCreateBatchForValidPayments(@RequestBody CheckAndCreateBatchForValidPaymentsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.checkAndCreateBatchForValidPayments(ServiceInput.toMap(request));
+        return wrap(result, CheckAndCreateBatchForValidPaymentsResponse::new);
     }
 
     /**
@@ -1484,9 +1500,9 @@ public class AccountingController {
      * <p>service: createPaymentGroup  entities: PaymentGroup  auth: true
      */
     @PostMapping("/accounting/control/createPaymentGroup")
-    public ResponseEntity<CreatePaymentGroupResponse> createPaymentGroup(@RequestBody CreatePaymentGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePaymentGroupResponse> createPaymentGroup(@RequestBody CreatePaymentGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPaymentGroup(ServiceInput.toMap(request));
+        return wrap(result, CreatePaymentGroupResponse::new);
     }
 
     /**
@@ -1494,9 +1510,9 @@ public class AccountingController {
      * <p>service: createPaymentGroupMember  entities: PaymentGroupMember  auth: true
      */
     @PostMapping("/accounting/control/createPaymentGroupMember")
-    public ResponseEntity<CreatePaymentGroupMemberResponse> createPaymentGroupMemberCreatePaymentGroupMember(@RequestBody CreatePaymentGroupMemberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePaymentGroupMemberResponse> createPaymentGroupMemberCreatePaymentGroupMember(@RequestBody CreatePaymentGroupMemberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPaymentGroupMember(ServiceInput.toMap(request));
+        return wrap(result, CreatePaymentGroupMemberResponse::new);
     }
 
     /**
@@ -1504,9 +1520,8 @@ public class AccountingController {
      * <p>service: createProductCategoryGlAccount  entities: ProductCategoryGlAccount  auth: true
      */
     @PostMapping("/accounting/control/createProductCategoryGlAccount")
-    public ResponseEntity<Map<String, Object>> createProductCategoryGlAccount(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createProductCategoryGlAccount(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createProductCategoryGlAccount(body));
     }
 
     /**
@@ -1514,9 +1529,8 @@ public class AccountingController {
      * <p>service: createProductGlAccount  entities: ProductGlAccount  auth: true
      */
     @PostMapping("/accounting/control/createProductGlAccount")
-    public ResponseEntity<Map<String, Object>> createProductGlAccount(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createProductGlAccount(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createProductGlAccount(body));
     }
 
     /**
@@ -1524,9 +1538,9 @@ public class AccountingController {
      * <p>service: createTaxAuthority  entities: TaxAuthority  auth: true
      */
     @PostMapping("/accounting/control/createTaxAuthority")
-    public ResponseEntity<CreateTaxAuthorityResponse> createTaxAuthority(@RequestBody CreateTaxAuthorityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateTaxAuthorityResponse> createTaxAuthority(@RequestBody CreateTaxAuthorityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createTaxAuthority(ServiceInput.toMap(request));
+        return wrap(result, CreateTaxAuthorityResponse::new);
     }
 
     /**
@@ -1534,9 +1548,9 @@ public class AccountingController {
      * <p>service: createTaxAuthorityAssoc  entities: TaxAuthorityAssoc  auth: true
      */
     @PostMapping("/accounting/control/createTaxAuthorityAssoc")
-    public ResponseEntity<CreateTaxAuthorityAssocResponse> createTaxAuthorityAssoc(@RequestBody CreateTaxAuthorityAssocRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateTaxAuthorityAssocResponse> createTaxAuthorityAssoc(@RequestBody CreateTaxAuthorityAssocRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createTaxAuthorityAssoc(ServiceInput.toMap(request));
+        return wrap(result, CreateTaxAuthorityAssocResponse::new);
     }
 
     /**
@@ -1544,9 +1558,9 @@ public class AccountingController {
      * <p>service: createTaxAuthorityCategory  entities: TaxAuthorityCategory  auth: true
      */
     @PostMapping("/accounting/control/createTaxAuthorityCategory")
-    public ResponseEntity<CreateTaxAuthorityCategoryResponse> createTaxAuthorityCategory(@RequestBody CreateTaxAuthorityCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateTaxAuthorityCategoryResponse> createTaxAuthorityCategory(@RequestBody CreateTaxAuthorityCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createTaxAuthorityCategory(ServiceInput.toMap(request));
+        return wrap(result, CreateTaxAuthorityCategoryResponse::new);
     }
 
     /**
@@ -1554,9 +1568,9 @@ public class AccountingController {
      * <p>service: createTaxAuthorityGlAccount  entities: TaxAuthorityGlAccount  auth: true
      */
     @PostMapping("/accounting/control/createTaxAuthorityGlAccount")
-    public ResponseEntity<CreateTaxAuthorityGlAccountResponse> createTaxAuthorityGlAccountCreateTaxAuthorityGlAccount(@RequestBody CreateTaxAuthorityGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateTaxAuthorityGlAccountResponse> createTaxAuthorityGlAccountCreateTaxAuthorityGlAccount(@RequestBody CreateTaxAuthorityGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createTaxAuthorityGlAccount(ServiceInput.toMap(request));
+        return wrap(result, CreateTaxAuthorityGlAccountResponse::new);
     }
 
     /**
@@ -1564,9 +1578,9 @@ public class AccountingController {
      * <p>service: createPartyTaxAuthInfo  entities: PartyTaxAuthInfo  auth: true
      */
     @PostMapping("/accounting/control/createTaxAuthorityPartyInfo")
-    public ResponseEntity<CreatePartyTaxAuthInfoResponse> createPartyTaxAuthInfo(@RequestBody CreatePartyTaxAuthInfoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePartyTaxAuthInfoResponse> createPartyTaxAuthInfo(@RequestBody CreatePartyTaxAuthInfoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPartyTaxAuthInfo(ServiceInput.toMap(request));
+        return wrap(result, CreatePartyTaxAuthInfoResponse::new);
     }
 
     /**
@@ -1574,9 +1588,9 @@ public class AccountingController {
      * <p>service: createTaxAuthorityRateProduct  entities: TaxAuthorityRateProduct  auth: true
      */
     @PostMapping("/accounting/control/createTaxAuthorityRateProduct")
-    public ResponseEntity<CreateTaxAuthorityRateProductResponse> createTaxAuthorityRateProduct(@RequestBody CreateTaxAuthorityRateProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateTaxAuthorityRateProductResponse> createTaxAuthorityRateProduct(@RequestBody CreateTaxAuthorityRateProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createTaxAuthorityRateProduct(ServiceInput.toMap(request));
+        return wrap(result, CreateTaxAuthorityRateProductResponse::new);
     }
 
     /**
@@ -1584,9 +1598,9 @@ public class AccountingController {
      * <p>service: createUpdateCostCenter  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/createUpdateCostCenter")
-    public ResponseEntity<CreateUpdateCostCenterResponse> createUpdateCostCenter(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateUpdateCostCenterResponse> createUpdateCostCenter(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.createUpdateCostCenter(java.util.Map.copyOf(params));
+        return wrap(result, CreateUpdateCostCenterResponse::new);
     }
 
     /**
@@ -1594,9 +1608,9 @@ public class AccountingController {
      * <p>service: createVarianceReasonGlAccount  entities: VarianceReasonGlAccount  auth: true
      */
     @PostMapping("/accounting/control/createVarianceReasonGlAccount")
-    public ResponseEntity<CreateVarianceReasonGlAccountResponse> createVarianceReasonGlAccount(@RequestBody CreateVarianceReasonGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateVarianceReasonGlAccountResponse> createVarianceReasonGlAccount(@RequestBody CreateVarianceReasonGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createVarianceReasonGlAccount(ServiceInput.toMap(request));
+        return wrap(result, CreateVarianceReasonGlAccountResponse::new);
     }
 
     /**
@@ -1604,9 +1618,9 @@ public class AccountingController {
      * <p>service: createPaymentAndFinAccountTrans  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/createWithdrawalPayment")
-    public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTransCreateWithdrawalPayment(@RequestBody CreatePaymentAndFinAccountTransRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTransCreateWithdrawalPayment(@RequestBody CreatePaymentAndFinAccountTransRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPaymentAndFinAccountTrans(ServiceInput.toMap(request));
+        return wrap(result, CreatePaymentAndFinAccountTransResponse::new);
     }
 
     /**
@@ -1614,9 +1628,8 @@ public class AccountingController {
      * <p>service: createWorkEffortAndPartyAssign  entities: WorkEffort  auth: true
      */
     @PostMapping("/accounting/control/createWorkEffortAndPartyAssign")
-    public ResponseEntity<Map<String, Object>> createWorkEffortAndPartyAssign(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createWorkEffortAndPartyAssign(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createWorkEffortAndPartyAssign(body));
     }
 
     /**
@@ -1624,9 +1637,9 @@ public class AccountingController {
      * <p>service: deleteAcctgTransEntry  entities: AcctgTransEntry  auth: true
      */
     @PostMapping("/accounting/control/deleteAcctgTransEntry")
-    public ResponseEntity<DeleteAcctgTransEntryResponse> deleteAcctgTransEntry(@RequestBody DeleteAcctgTransEntryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteAcctgTransEntryResponse> deleteAcctgTransEntry(@RequestBody DeleteAcctgTransEntryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteAcctgTransEntry(ServiceInput.toMap(request));
+        return wrap(result, DeleteAcctgTransEntryResponse::new);
     }
 
     /**
@@ -1634,9 +1647,9 @@ public class AccountingController {
      * <p>service: deleteAgreementRole  entities: AgreementRole  auth: true
      */
     @PostMapping("/accounting/control/deleteAgreementRole")
-    public ResponseEntity<DeleteAgreementRoleResponse> deleteAgreementRole(@RequestBody DeleteAgreementRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteAgreementRoleResponse> deleteAgreementRole(@RequestBody DeleteAgreementRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteAgreementRole(ServiceInput.toMap(request));
+        return wrap(result, DeleteAgreementRoleResponse::new);
     }
 
     /**
@@ -1644,9 +1657,9 @@ public class AccountingController {
      * <p>service: deleteAgreementTerm  entities: AgreementTerm  auth: true
      */
     @PostMapping("/accounting/control/deleteAgreementTerm")
-    public ResponseEntity<DeleteAgreementTermResponse> deleteAgreementTerm(@RequestBody DeleteAgreementTermRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteAgreementTermResponse> deleteAgreementTerm(@RequestBody DeleteAgreementTermRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteAgreementTerm(ServiceInput.toMap(request));
+        return wrap(result, DeleteAgreementTermResponse::new);
     }
 
     /**
@@ -1654,9 +1667,9 @@ public class AccountingController {
      * <p>service: deleteAgreementWorkEffortApplic  entities: AgreementWorkEffortApplic  auth: true
      */
     @PostMapping("/accounting/control/deleteAgreementWorkEffortApplic")
-    public ResponseEntity<DeleteAgreementWorkEffortApplicResponse> deleteAgreementWorkEffortApplic(@RequestBody DeleteAgreementWorkEffortApplicRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteAgreementWorkEffortApplicResponse> deleteAgreementWorkEffortApplic(@RequestBody DeleteAgreementWorkEffortApplicRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteAgreementWorkEffortApplic(ServiceInput.toMap(request));
+        return wrap(result, DeleteAgreementWorkEffortApplicResponse::new);
     }
 
     /**
@@ -1664,9 +1677,9 @@ public class AccountingController {
      * <p>service: removeBillingAccountRole  entities: BillingAccountRole  auth: true
      */
     @PostMapping("/accounting/control/deleteBillingAccountRole")
-    public ResponseEntity<RemoveBillingAccountRoleResponse> removeBillingAccountRole(@RequestBody RemoveBillingAccountRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveBillingAccountRoleResponse> removeBillingAccountRole(@RequestBody RemoveBillingAccountRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeBillingAccountRole(ServiceInput.toMap(request));
+        return wrap(result, RemoveBillingAccountRoleResponse::new);
     }
 
     /**
@@ -1674,9 +1687,9 @@ public class AccountingController {
      * <p>service: removeCostComponentCalc  entities: CostComponentCalc  auth: true
      */
     @PostMapping("/accounting/control/deleteCostComponentCalc")
-    public ResponseEntity<RemoveCostComponentCalcResponse> removeCostComponentCalc(@RequestBody RemoveCostComponentCalcRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveCostComponentCalcResponse> removeCostComponentCalc(@RequestBody RemoveCostComponentCalcRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeCostComponentCalc(ServiceInput.toMap(request));
+        return wrap(result, RemoveCostComponentCalcResponse::new);
     }
 
     /**
@@ -1684,9 +1697,9 @@ public class AccountingController {
      * <p>service: deleteCreditCardTypeGlAccount  entities: CreditCardTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/deleteCreditCardTypeGlAccount")
-    public ResponseEntity<DeleteCreditCardTypeGlAccountResponse> deleteCreditCardTypeGlAccount(@RequestBody DeleteCreditCardTypeGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteCreditCardTypeGlAccountResponse> deleteCreditCardTypeGlAccount(@RequestBody DeleteCreditCardTypeGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteCreditCardTypeGlAccount(ServiceInput.toMap(request));
+        return wrap(result, DeleteCreditCardTypeGlAccountResponse::new);
     }
 
     /**
@@ -1694,9 +1707,8 @@ public class AccountingController {
      * <p>service: deleteCustomTimePeriod  entities: CustomTimePeriod  auth: true
      */
     @PostMapping("/accounting/control/deleteCustomTimePeriod")
-    public ResponseEntity<Map<String, Object>> deleteCustomTimePeriod(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deleteCustomTimePeriod(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deleteCustomTimePeriod(body));
     }
 
     /**
@@ -1704,9 +1716,9 @@ public class AccountingController {
      * <p>service: cancelPaymentBatch  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/deleteDepositSlip")
-    public ResponseEntity<CancelPaymentBatchResponse> cancelPaymentBatchDeleteDepositSlip(@RequestBody CancelPaymentBatchRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CancelPaymentBatchResponse> cancelPaymentBatchDeleteDepositSlip(@RequestBody CancelPaymentBatchRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.cancelPaymentBatch(ServiceInput.toMap(request));
+        return wrap(result, CancelPaymentBatchResponse::new);
     }
 
     /**
@@ -1714,9 +1726,9 @@ public class AccountingController {
      * <p>service: deleteFinAccount  entities: FinAccount  auth: true
      */
     @PostMapping("/accounting/control/deleteFinAccount")
-    public ResponseEntity<DeleteFinAccountResponse> deleteFinAccount(@RequestBody DeleteFinAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFinAccountResponse> deleteFinAccount(@RequestBody DeleteFinAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFinAccount(ServiceInput.toMap(request));
+        return wrap(result, DeleteFinAccountResponse::new);
     }
 
     /**
@@ -1724,9 +1736,9 @@ public class AccountingController {
      * <p>service: deleteFinAccountRole  entities: FinAccountRole  auth: true
      */
     @PostMapping("/accounting/control/deleteFinAccountRole")
-    public ResponseEntity<DeleteFinAccountRoleResponse> deleteFinAccountRole(@RequestBody DeleteFinAccountRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFinAccountRoleResponse> deleteFinAccountRole(@RequestBody DeleteFinAccountRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFinAccountRole(ServiceInput.toMap(request));
+        return wrap(result, DeleteFinAccountRoleResponse::new);
     }
 
     /**
@@ -1734,9 +1746,9 @@ public class AccountingController {
      * <p>service: deleteFinAccountTypeGlAccount  entities: FinAccountTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/deleteFinAccountTypeGlAccount")
-    public ResponseEntity<DeleteFinAccountTypeGlAccountResponse> deleteFinAccountTypeGlAccount(@RequestBody DeleteFinAccountTypeGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFinAccountTypeGlAccountResponse> deleteFinAccountTypeGlAccount(@RequestBody DeleteFinAccountTypeGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFinAccountTypeGlAccount(ServiceInput.toMap(request));
+        return wrap(result, DeleteFinAccountTypeGlAccountResponse::new);
     }
 
     /**
@@ -1744,9 +1756,9 @@ public class AccountingController {
      * <p>service: deleteFixedAssetDepMethod  entities: FixedAssetDepMethod  auth: true
      */
     @PostMapping("/accounting/control/deleteFixedAssetDepMethod")
-    public ResponseEntity<DeleteFixedAssetDepMethodResponse> deleteFixedAssetDepMethod(@RequestBody DeleteFixedAssetDepMethodRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFixedAssetDepMethodResponse> deleteFixedAssetDepMethod(@RequestBody DeleteFixedAssetDepMethodRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFixedAssetDepMethod(ServiceInput.toMap(request));
+        return wrap(result, DeleteFixedAssetDepMethodResponse::new);
     }
 
     /**
@@ -1754,9 +1766,9 @@ public class AccountingController {
      * <p>service: deleteFixedAssetMaint  entities: FixedAssetMaint  auth: true
      */
     @PostMapping("/accounting/control/deleteFixedAssetMaint")
-    public ResponseEntity<DeleteFixedAssetMaintResponse> deleteFixedAssetMaint(@RequestBody DeleteFixedAssetMaintRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFixedAssetMaintResponse> deleteFixedAssetMaint(@RequestBody DeleteFixedAssetMaintRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFixedAssetMaint(ServiceInput.toMap(request));
+        return wrap(result, DeleteFixedAssetMaintResponse::new);
     }
 
     /**
@@ -1764,9 +1776,9 @@ public class AccountingController {
      * <p>service: deleteFixedAssetMaintOrder  entities: FixedAssetMaintOrder  auth: true
      */
     @PostMapping("/accounting/control/deleteFixedAssetMaintOrder")
-    public ResponseEntity<DeleteFixedAssetMaintOrderResponse> deleteFixedAssetMaintOrder(@RequestBody DeleteFixedAssetMaintOrderRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFixedAssetMaintOrderResponse> deleteFixedAssetMaintOrder(@RequestBody DeleteFixedAssetMaintOrderRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFixedAssetMaintOrder(ServiceInput.toMap(request));
+        return wrap(result, DeleteFixedAssetMaintOrderResponse::new);
     }
 
     /**
@@ -1774,9 +1786,9 @@ public class AccountingController {
      * <p>service: deleteFixedAssetMeter  entities: FixedAssetMeter  auth: true
      */
     @PostMapping("/accounting/control/deleteFixedAssetMeter")
-    public ResponseEntity<DeleteFixedAssetMeterResponse> deleteFixedAssetMeter(@RequestBody DeleteFixedAssetMeterRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFixedAssetMeterResponse> deleteFixedAssetMeter(@RequestBody DeleteFixedAssetMeterRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFixedAssetMeter(ServiceInput.toMap(request));
+        return wrap(result, DeleteFixedAssetMeterResponse::new);
     }
 
     /**
@@ -1784,9 +1796,9 @@ public class AccountingController {
      * <p>service: deleteFixedAssetRegistration  entities: FixedAssetRegistration  auth: true
      */
     @PostMapping("/accounting/control/deleteFixedAssetRegistration")
-    public ResponseEntity<DeleteFixedAssetRegistrationResponse> deleteFixedAssetRegistration(@RequestBody DeleteFixedAssetRegistrationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFixedAssetRegistrationResponse> deleteFixedAssetRegistration(@RequestBody DeleteFixedAssetRegistrationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFixedAssetRegistration(ServiceInput.toMap(request));
+        return wrap(result, DeleteFixedAssetRegistrationResponse::new);
     }
 
     /**
@@ -1794,9 +1806,9 @@ public class AccountingController {
      * <p>service: deleteFixedAssetTypeGlAccount  entities: FixedAssetTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/deleteFixedAssetTypeGlAccount")
-    public ResponseEntity<DeleteFixedAssetTypeGlAccountResponse> deleteFixedAssetTypeGlAccount(@RequestBody DeleteFixedAssetTypeGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFixedAssetTypeGlAccountResponse> deleteFixedAssetTypeGlAccount(@RequestBody DeleteFixedAssetTypeGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFixedAssetTypeGlAccount(ServiceInput.toMap(request));
+        return wrap(result, DeleteFixedAssetTypeGlAccountResponse::new);
     }
 
     /**
@@ -1804,9 +1816,9 @@ public class AccountingController {
      * <p>service: deleteFixedAssetTypeGlAccount  entities: FixedAssetTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/deleteFixedAssetTypeGlAccountForFixedAsset")
-    public ResponseEntity<DeleteFixedAssetTypeGlAccountResponse> deleteFixedAssetTypeGlAccountDeleteFixedAssetTypeGlAccountForFixedAsset(@RequestBody DeleteFixedAssetTypeGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteFixedAssetTypeGlAccountResponse> deleteFixedAssetTypeGlAccountDeleteFixedAssetTypeGlAccountForFixedAsset(@RequestBody DeleteFixedAssetTypeGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteFixedAssetTypeGlAccount(ServiceInput.toMap(request));
+        return wrap(result, DeleteFixedAssetTypeGlAccountResponse::new);
     }
 
     /**
@@ -1814,9 +1826,9 @@ public class AccountingController {
      * <p>service: deleteGlAccountCategoryMember  entities: GlAccountCategoryMember  auth: true
      */
     @PostMapping("/accounting/control/deleteGlAccountCategoryMember")
-    public ResponseEntity<DeleteGlAccountCategoryMemberResponse> deleteGlAccountCategoryMember(@RequestBody DeleteGlAccountCategoryMemberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteGlAccountCategoryMemberResponse> deleteGlAccountCategoryMember(@RequestBody DeleteGlAccountCategoryMemberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteGlAccountCategoryMember(ServiceInput.toMap(request));
+        return wrap(result, DeleteGlAccountCategoryMemberResponse::new);
     }
 
     /**
@@ -1824,9 +1836,9 @@ public class AccountingController {
      * <p>service: deleteGlJournal  entities: GlJournal  auth: true
      */
     @PostMapping("/accounting/control/deleteGlJournal")
-    public ResponseEntity<DeleteGlJournalResponse> deleteGlJournal(@RequestBody DeleteGlJournalRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteGlJournalResponse> deleteGlJournal(@RequestBody DeleteGlJournalRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteGlJournal(ServiceInput.toMap(request));
+        return wrap(result, DeleteGlJournalResponse::new);
     }
 
     /**
@@ -1834,9 +1846,9 @@ public class AccountingController {
      * <p>service: deleteInvoiceTerm  entities: InvoiceTerm  auth: true
      */
     @PostMapping("/accounting/control/deleteInvoiceTerm")
-    public ResponseEntity<DeleteInvoiceTermResponse> deleteInvoiceTerm(@RequestBody DeleteInvoiceTermRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteInvoiceTermResponse> deleteInvoiceTerm(@RequestBody DeleteInvoiceTermRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteInvoiceTerm(ServiceInput.toMap(request));
+        return wrap(result, DeleteInvoiceTermResponse::new);
     }
 
     /**
@@ -1844,9 +1856,9 @@ public class AccountingController {
      * <p>service: deleteTaxAuthorityGlAccount  entities: TaxAuthorityGlAccount  auth: true
      */
     @PostMapping("/accounting/control/deleteOrganizationTaxAuthorityGlAccount")
-    public ResponseEntity<DeleteTaxAuthorityGlAccountResponse> deleteTaxAuthorityGlAccount(@RequestBody DeleteTaxAuthorityGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteTaxAuthorityGlAccountResponse> deleteTaxAuthorityGlAccount(@RequestBody DeleteTaxAuthorityGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteTaxAuthorityGlAccount(ServiceInput.toMap(request));
+        return wrap(result, DeleteTaxAuthorityGlAccountResponse::new);
     }
 
     /**
@@ -1854,9 +1866,9 @@ public class AccountingController {
      * <p>service: deletePartyFixedAssetAssignment  entities: PartyFixedAssetAssignment  auth: true
      */
     @PostMapping("/accounting/control/deletePartyFixedAssetAssignment")
-    public ResponseEntity<DeletePartyFixedAssetAssignmentResponse> deletePartyFixedAssetAssignment(@RequestBody DeletePartyFixedAssetAssignmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyFixedAssetAssignmentResponse> deletePartyFixedAssetAssignment(@RequestBody DeletePartyFixedAssetAssignmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyFixedAssetAssignment(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyFixedAssetAssignmentResponse::new);
     }
 
     /**
@@ -1864,9 +1876,9 @@ public class AccountingController {
      * <p>service: deletePartyGlAccount  entities: PartyGlAccount  auth: true
      */
     @PostMapping("/accounting/control/deletePartyGlAccount")
-    public ResponseEntity<DeletePartyGlAccountResponse> deletePartyGlAccount(@RequestBody DeletePartyGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyGlAccountResponse> deletePartyGlAccount(@RequestBody DeletePartyGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyGlAccount(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyGlAccountResponse::new);
     }
 
     /**
@@ -1874,9 +1886,9 @@ public class AccountingController {
      * <p>service: deletePaymentGroup  entities: PaymentGroup  auth: true
      */
     @PostMapping("/accounting/control/deletePaymentGroup")
-    public ResponseEntity<DeletePaymentGroupResponse> deletePaymentGroup(@RequestBody DeletePaymentGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePaymentGroupResponse> deletePaymentGroup(@RequestBody DeletePaymentGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePaymentGroup(ServiceInput.toMap(request));
+        return wrap(result, DeletePaymentGroupResponse::new);
     }
 
     /**
@@ -1884,9 +1896,8 @@ public class AccountingController {
      * <p>service: deleteProductCategoryGlAccount  entities: ProductCategoryGlAccount  auth: true
      */
     @PostMapping("/accounting/control/deleteProductCategoryGlAccount")
-    public ResponseEntity<Map<String, Object>> deleteProductCategoryGlAccount(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deleteProductCategoryGlAccount(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deleteProductCategoryGlAccount(body));
     }
 
     /**
@@ -1894,9 +1905,8 @@ public class AccountingController {
      * <p>service: deleteProductGlAccount  entities: ProductGlAccount  auth: true
      */
     @PostMapping("/accounting/control/deleteProductGlAccount")
-    public ResponseEntity<Map<String, Object>> deleteProductGlAccount(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> deleteProductGlAccount(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.deleteProductGlAccount(body));
     }
 
     /**
@@ -1904,9 +1914,9 @@ public class AccountingController {
      * <p>service: deleteTaxAuthorityAssoc  entities: TaxAuthorityAssoc  auth: true
      */
     @PostMapping("/accounting/control/deleteTaxAuthorityAssoc")
-    public ResponseEntity<DeleteTaxAuthorityAssocResponse> deleteTaxAuthorityAssoc(@RequestBody DeleteTaxAuthorityAssocRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteTaxAuthorityAssocResponse> deleteTaxAuthorityAssoc(@RequestBody DeleteTaxAuthorityAssocRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteTaxAuthorityAssoc(ServiceInput.toMap(request));
+        return wrap(result, DeleteTaxAuthorityAssocResponse::new);
     }
 
     /**
@@ -1914,9 +1924,9 @@ public class AccountingController {
      * <p>service: deleteTaxAuthorityCategory  entities: TaxAuthorityCategory  auth: true
      */
     @PostMapping("/accounting/control/deleteTaxAuthorityCategory")
-    public ResponseEntity<DeleteTaxAuthorityCategoryResponse> deleteTaxAuthorityCategory(@RequestBody DeleteTaxAuthorityCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteTaxAuthorityCategoryResponse> deleteTaxAuthorityCategory(@RequestBody DeleteTaxAuthorityCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteTaxAuthorityCategory(ServiceInput.toMap(request));
+        return wrap(result, DeleteTaxAuthorityCategoryResponse::new);
     }
 
     /**
@@ -1924,9 +1934,9 @@ public class AccountingController {
      * <p>service: deleteTaxAuthorityGlAccount  entities: TaxAuthorityGlAccount  auth: true
      */
     @PostMapping("/accounting/control/deleteTaxAuthorityGlAccount")
-    public ResponseEntity<DeleteTaxAuthorityGlAccountResponse> deleteTaxAuthorityGlAccountDeleteTaxAuthorityGlAccount(@RequestBody DeleteTaxAuthorityGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteTaxAuthorityGlAccountResponse> deleteTaxAuthorityGlAccountDeleteTaxAuthorityGlAccount(@RequestBody DeleteTaxAuthorityGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteTaxAuthorityGlAccount(ServiceInput.toMap(request));
+        return wrap(result, DeleteTaxAuthorityGlAccountResponse::new);
     }
 
     /**
@@ -1934,9 +1944,9 @@ public class AccountingController {
      * <p>service: deletePartyTaxAuthInfo  entities: PartyTaxAuthInfo  auth: true
      */
     @PostMapping("/accounting/control/deleteTaxAuthorityPartyInfo")
-    public ResponseEntity<DeletePartyTaxAuthInfoResponse> deletePartyTaxAuthInfo(@RequestBody DeletePartyTaxAuthInfoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeletePartyTaxAuthInfoResponse> deletePartyTaxAuthInfo(@RequestBody DeletePartyTaxAuthInfoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deletePartyTaxAuthInfo(ServiceInput.toMap(request));
+        return wrap(result, DeletePartyTaxAuthInfoResponse::new);
     }
 
     /**
@@ -1944,9 +1954,9 @@ public class AccountingController {
      * <p>service: deleteTaxAuthorityRateProduct  entities: TaxAuthorityRateProduct  auth: true
      */
     @PostMapping("/accounting/control/deleteTaxAuthorityRateProduct")
-    public ResponseEntity<DeleteTaxAuthorityRateProductResponse> deleteTaxAuthorityRateProduct(@RequestBody DeleteTaxAuthorityRateProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteTaxAuthorityRateProductResponse> deleteTaxAuthorityRateProduct(@RequestBody DeleteTaxAuthorityRateProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteTaxAuthorityRateProduct(ServiceInput.toMap(request));
+        return wrap(result, DeleteTaxAuthorityRateProductResponse::new);
     }
 
     /**
@@ -1954,9 +1964,9 @@ public class AccountingController {
      * <p>service: deleteVarianceReasonGlAccount  entities: VarianceReasonGlAccount  auth: true
      */
     @PostMapping("/accounting/control/deleteVarianceReasonGlAccount")
-    public ResponseEntity<DeleteVarianceReasonGlAccountResponse> deleteVarianceReasonGlAccount(@RequestBody DeleteVarianceReasonGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteVarianceReasonGlAccountResponse> deleteVarianceReasonGlAccount(@RequestBody DeleteVarianceReasonGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteVarianceReasonGlAccount(ServiceInput.toMap(request));
+        return wrap(result, DeleteVarianceReasonGlAccountResponse::new);
     }
 
     /**
@@ -1964,9 +1974,9 @@ public class AccountingController {
      * <p>service: depositWithdrawPayments  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/depositWithdrawPayments")
-    public ResponseEntity<DepositWithdrawPaymentsResponse> depositWithdrawPayments(@RequestBody DepositWithdrawPaymentsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DepositWithdrawPaymentsResponse> depositWithdrawPayments(@RequestBody DepositWithdrawPaymentsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.depositWithdrawPayments(ServiceInput.toMap(request));
+        return wrap(result, DepositWithdrawPaymentsResponse::new);
     }
 
     /**
@@ -1974,9 +1984,9 @@ public class AccountingController {
      * <p>service: sendInvoicePerEmail  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/executeSendPerEmail")
-    public ResponseEntity<SendInvoicePerEmailResponse> sendInvoicePerEmail(@RequestBody SendInvoicePerEmailRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SendInvoicePerEmailResponse> sendInvoicePerEmail(@RequestBody SendInvoicePerEmailRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.sendInvoicePerEmail(ServiceInput.toMap(request));
+        return wrap(result, SendInvoicePerEmailResponse::new);
     }
 
     /**
@@ -1984,9 +1994,9 @@ public class AccountingController {
      * <p>service: expirePaymentGroupMember  entities: PaymentGroupMember  auth: true
      */
     @PostMapping("/accounting/control/expireDepositSlipMember")
-    public ResponseEntity<ExpirePaymentGroupMemberResponse> expirePaymentGroupMember(@RequestBody ExpirePaymentGroupMemberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ExpirePaymentGroupMemberResponse> expirePaymentGroupMember(@RequestBody ExpirePaymentGroupMemberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.expirePaymentGroupMember(ServiceInput.toMap(request));
+        return wrap(result, ExpirePaymentGroupMemberResponse::new);
     }
 
     /**
@@ -1994,9 +2004,9 @@ public class AccountingController {
      * <p>service: expireFinAccountAuth  entities: FinAccountAuth  auth: true
      */
     @PostMapping("/accounting/control/expireFinAccountAuth")
-    public ResponseEntity<ExpireFinAccountAuthResponse> expireFinAccountAuth(@RequestBody ExpireFinAccountAuthRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ExpireFinAccountAuthResponse> expireFinAccountAuth(@RequestBody ExpireFinAccountAuthRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.expireFinAccountAuth(ServiceInput.toMap(request));
+        return wrap(result, ExpireFinAccountAuthResponse::new);
     }
 
     /**
@@ -2004,9 +2014,9 @@ public class AccountingController {
      * <p>service: expirePartyPrefDocTypeTpl  entities: PartyPrefDocTypeTpl  auth: true
      */
     @PostMapping("/accounting/control/expirePartyPrefDocTypeTpl")
-    public ResponseEntity<ExpirePartyPrefDocTypeTplResponse> expirePartyPrefDocTypeTpl(@RequestBody ExpirePartyPrefDocTypeTplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ExpirePartyPrefDocTypeTplResponse> expirePartyPrefDocTypeTpl(@RequestBody ExpirePartyPrefDocTypeTplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.expirePartyPrefDocTypeTpl(ServiceInput.toMap(request));
+        return wrap(result, ExpirePartyPrefDocTypeTplResponse::new);
     }
 
     /**
@@ -2014,9 +2024,9 @@ public class AccountingController {
      * <p>service: expirePaymentGroupMember  entities: PaymentGroupMember  auth: true
      */
     @PostMapping("/accounting/control/expirePaymentGroupMember")
-    public ResponseEntity<ExpirePaymentGroupMemberResponse> expirePaymentGroupMemberExpirePaymentGroupMember(@RequestBody ExpirePaymentGroupMemberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ExpirePaymentGroupMemberResponse> expirePaymentGroupMemberExpirePaymentGroupMember(@RequestBody ExpirePaymentGroupMemberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.expirePaymentGroupMember(ServiceInput.toMap(request));
+        return wrap(result, ExpirePaymentGroupMemberResponse::new);
     }
 
     /**
@@ -2024,9 +2034,9 @@ public class AccountingController {
      * <p>service: expireRateAmount  entities: RateAmount  auth: true
      */
     @PostMapping("/accounting/control/expireRateAmount")
-    public ResponseEntity<ExpireRateAmountResponse> expireRateAmount(@RequestBody ExpireRateAmountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ExpireRateAmountResponse> expireRateAmount(@RequestBody ExpireRateAmountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.expireRateAmount(ServiceInput.toMap(request));
+        return wrap(result, ExpireRateAmountResponse::new);
     }
 
     /**
@@ -2034,9 +2044,9 @@ public class AccountingController {
      * <p>service: getFinAccountTransRunningTotalAndBalances  entities: unknown  auth: -
      */
     @GetMapping("/accounting/control/getFinAccountTransRunningTotalAndBalances")
-    public ResponseEntity<GetFinAccountTransRunningTotalAndBalancesResponse> getFinAccountTransRunningTotalAndBalances(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<GetFinAccountTransRunningTotalAndBalancesResponse> getFinAccountTransRunningTotalAndBalances(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.getFinAccountTransRunningTotalAndBalances(java.util.Map.copyOf(params));
+        return wrap(result, GetFinAccountTransRunningTotalAndBalancesResponse::new);
     }
 
     /**
@@ -2044,9 +2054,9 @@ public class AccountingController {
      * <p>service: getInvoiceRunningTotal  entities: unknown  auth: -
      */
     @PostMapping("/accounting/control/getInvoiceRunningTotal")
-    public ResponseEntity<GetInvoiceRunningTotalResponse> getInvoiceRunningTotal(@RequestBody GetInvoiceRunningTotalRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<GetInvoiceRunningTotalResponse> getInvoiceRunningTotal(@RequestBody GetInvoiceRunningTotalRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.getInvoiceRunningTotal(ServiceInput.toMap(request));
+        return wrap(result, GetInvoiceRunningTotalResponse::new);
     }
 
     /**
@@ -2054,9 +2064,9 @@ public class AccountingController {
      * <p>service: getPaymentRunningTotal  entities: unknown  auth: -
      */
     @PostMapping("/accounting/control/getPaymentRunningTotal")
-    public ResponseEntity<GetPaymentRunningTotalResponse> getPaymentRunningTotal(@RequestBody GetPaymentRunningTotalRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<GetPaymentRunningTotalResponse> getPaymentRunningTotal(@RequestBody GetPaymentRunningTotalRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.getPaymentRunningTotal(ServiceInput.toMap(request));
+        return wrap(result, GetPaymentRunningTotalResponse::new);
     }
 
     /**
@@ -2064,9 +2074,9 @@ public class AccountingController {
      * <p>service: postAcctgTrans  entities: AcctgTrans  auth: true
      */
     @PostMapping("/accounting/control/postAcctgTrans")
-    public ResponseEntity<PostAcctgTransResponse> postAcctgTrans(@RequestBody PostAcctgTransRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<PostAcctgTransResponse> postAcctgTrans(@RequestBody PostAcctgTransRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.postAcctgTrans(ServiceInput.toMap(request));
+        return wrap(result, PostAcctgTransResponse::new);
     }
 
     /**
@@ -2074,9 +2084,9 @@ public class AccountingController {
      * <p>service: authOrderPaymentPreference  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/processAuthorizeTransaction")
-    public ResponseEntity<AuthOrderPaymentPreferenceResponse> authOrderPaymentPreference(@RequestBody AuthOrderPaymentPreferenceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<AuthOrderPaymentPreferenceResponse> authOrderPaymentPreference(@RequestBody AuthOrderPaymentPreferenceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.authOrderPaymentPreference(ServiceInput.toMap(request));
+        return wrap(result, AuthOrderPaymentPreferenceResponse::new);
     }
 
     /**
@@ -2084,9 +2094,9 @@ public class AccountingController {
      * <p>service: captureOrderPayments  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/processCaptureTransaction")
-    public ResponseEntity<CaptureOrderPaymentsResponse> captureOrderPayments(@RequestBody CaptureOrderPaymentsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CaptureOrderPaymentsResponse> captureOrderPayments(@RequestBody CaptureOrderPaymentsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.captureOrderPayments(ServiceInput.toMap(request));
+        return wrap(result, CaptureOrderPaymentsResponse::new);
     }
 
     /**
@@ -2094,9 +2104,9 @@ public class AccountingController {
      * <p>service: createCommissionInvoices  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/processCommissionRun")
-    public ResponseEntity<CreateCommissionInvoicesResponse> createCommissionInvoices(@RequestBody CreateCommissionInvoicesRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateCommissionInvoicesResponse> createCommissionInvoices(@RequestBody CreateCommissionInvoicesRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createCommissionInvoices(ServiceInput.toMap(request));
+        return wrap(result, CreateCommissionInvoicesResponse::new);
     }
 
     /**
@@ -2104,9 +2114,9 @@ public class AccountingController {
      * <p>service: manualForcedCcTransaction  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/processManualCcTx")
-    public ResponseEntity<ManualForcedCcTransactionResponse> manualForcedCcTransaction(@RequestBody ManualForcedCcTransactionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ManualForcedCcTransactionResponse> manualForcedCcTransaction(@RequestBody ManualForcedCcTransactionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.manualForcedCcTransaction(ServiceInput.toMap(request));
+        return wrap(result, ManualForcedCcTransactionResponse::new);
     }
 
     /**
@@ -2114,9 +2124,9 @@ public class AccountingController {
      * <p>service: refundOrderPaymentPreference  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/processRefundTransaction")
-    public ResponseEntity<RefundOrderPaymentPreferenceResponse> refundOrderPaymentPreference(@RequestBody RefundOrderPaymentPreferenceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RefundOrderPaymentPreferenceResponse> refundOrderPaymentPreference(@RequestBody RefundOrderPaymentPreferenceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.refundOrderPaymentPreference(ServiceInput.toMap(request));
+        return wrap(result, RefundOrderPaymentPreferenceResponse::new);
     }
 
     /**
@@ -2124,9 +2134,9 @@ public class AccountingController {
      * <p>service: releaseOrderPaymentPreference  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/processReleaseTransaction")
-    public ResponseEntity<ReleaseOrderPaymentPreferenceResponse> releaseOrderPaymentPreference(@RequestBody ReleaseOrderPaymentPreferenceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ReleaseOrderPaymentPreferenceResponse> releaseOrderPaymentPreference(@RequestBody ReleaseOrderPaymentPreferenceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.releaseOrderPaymentPreference(ServiceInput.toMap(request));
+        return wrap(result, ReleaseOrderPaymentPreferenceResponse::new);
     }
 
     /**
@@ -2134,9 +2144,9 @@ public class AccountingController {
      * <p>service: quickCreateAcctgTransAndEntries  entities: AcctgTrans, AcctgTransEntry  auth: true
      */
     @PostMapping("/accounting/control/quickCreateAcctgTransAndEntries")
-    public ResponseEntity<QuickCreateAcctgTransAndEntriesResponse> quickCreateAcctgTransAndEntries(@RequestBody QuickCreateAcctgTransAndEntriesRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<QuickCreateAcctgTransAndEntriesResponse> quickCreateAcctgTransAndEntries(@RequestBody QuickCreateAcctgTransAndEntriesRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.quickCreateAcctgTransAndEntries(ServiceInput.toMap(request));
+        return wrap(result, QuickCreateAcctgTransAndEntriesResponse::new);
     }
 
     /**
@@ -2144,9 +2154,9 @@ public class AccountingController {
      * <p>service: quickSendPayment  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/quickSendPayment")
-    public ResponseEntity<QuickSendPaymentResponse> quickSendPayment(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<QuickSendPaymentResponse> quickSendPayment(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.quickSendPayment(java.util.Map.copyOf(params));
+        return wrap(result, QuickSendPaymentResponse::new);
     }
 
     /**
@@ -2154,9 +2164,9 @@ public class AccountingController {
      * <p>service: reconcileFinAccountTrans  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/reconcileFinAccountTrans")
-    public ResponseEntity<ReconcileFinAccountTransResponse> reconcileFinAccountTransReconcileFinAccountTrans(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<ReconcileFinAccountTransResponse> reconcileFinAccountTransReconcileFinAccountTrans(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.reconcileFinAccountTrans(java.util.Map.copyOf(params));
+        return wrap(result, ReconcileFinAccountTransResponse::new);
     }
 
     /**
@@ -2164,9 +2174,9 @@ public class AccountingController {
      * <p>service: removeAgreementContent  entities: AgreementContent  auth: true
      */
     @PostMapping("/accounting/control/removeAgreementContent")
-    public ResponseEntity<RemoveAgreementContentResponse> removeAgreementContent(@RequestBody RemoveAgreementContentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveAgreementContentResponse> removeAgreementContent(@RequestBody RemoveAgreementContentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeAgreementContent(ServiceInput.toMap(request));
+        return wrap(result, RemoveAgreementContentResponse::new);
     }
 
     /**
@@ -2174,9 +2184,9 @@ public class AccountingController {
      * <p>service: removeAgreementGeographicalApplic  entities: AgreementGeographicalApplic  auth: true
      */
     @PostMapping("/accounting/control/removeAgreementGeographicalApplic")
-    public ResponseEntity<RemoveAgreementGeographicalApplicResponse> removeAgreementGeographicalApplic(@RequestBody RemoveAgreementGeographicalApplicRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveAgreementGeographicalApplicResponse> removeAgreementGeographicalApplic(@RequestBody RemoveAgreementGeographicalApplicRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeAgreementGeographicalApplic(ServiceInput.toMap(request));
+        return wrap(result, RemoveAgreementGeographicalApplicResponse::new);
     }
 
     /**
@@ -2184,9 +2194,9 @@ public class AccountingController {
      * <p>service: removeAgreementItem  entities: AgreementItem  auth: true
      */
     @PostMapping("/accounting/control/removeAgreementItem")
-    public ResponseEntity<RemoveAgreementItemResponse> removeAgreementItem(@RequestBody RemoveAgreementItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveAgreementItemResponse> removeAgreementItem(@RequestBody RemoveAgreementItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeAgreementItem(ServiceInput.toMap(request));
+        return wrap(result, RemoveAgreementItemResponse::new);
     }
 
     /**
@@ -2194,9 +2204,9 @@ public class AccountingController {
      * <p>service: removeAgreementFacilityAppl  entities: AgreementFacilityAppl  auth: true
      */
     @PostMapping("/accounting/control/removeAgreementItemFacility")
-    public ResponseEntity<RemoveAgreementFacilityApplResponse> removeAgreementFacilityAppl(@RequestBody RemoveAgreementFacilityApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveAgreementFacilityApplResponse> removeAgreementFacilityAppl(@RequestBody RemoveAgreementFacilityApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeAgreementFacilityAppl(ServiceInput.toMap(request));
+        return wrap(result, RemoveAgreementFacilityApplResponse::new);
     }
 
     /**
@@ -2204,9 +2214,9 @@ public class AccountingController {
      * <p>service: removeAgreementPartyApplic  entities: AgreementPartyApplic  auth: true
      */
     @PostMapping("/accounting/control/removeAgreementItemParty")
-    public ResponseEntity<RemoveAgreementPartyApplicResponse> removeAgreementPartyApplic(@RequestBody RemoveAgreementPartyApplicRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveAgreementPartyApplicResponse> removeAgreementPartyApplic(@RequestBody RemoveAgreementPartyApplicRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeAgreementPartyApplic(ServiceInput.toMap(request));
+        return wrap(result, RemoveAgreementPartyApplicResponse::new);
     }
 
     /**
@@ -2214,9 +2224,9 @@ public class AccountingController {
      * <p>service: removeAgreementProductAppl  entities: AgreementProductAppl  auth: true
      */
     @PostMapping("/accounting/control/removeAgreementItemProduct")
-    public ResponseEntity<RemoveAgreementProductApplResponse> removeAgreementProductAppl(@RequestBody RemoveAgreementProductApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveAgreementProductApplResponse> removeAgreementProductAppl(@RequestBody RemoveAgreementProductApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeAgreementProductAppl(ServiceInput.toMap(request));
+        return wrap(result, RemoveAgreementProductApplResponse::new);
     }
 
     /**
@@ -2224,9 +2234,8 @@ public class AccountingController {
      * <p>service: removeSupplierProduct  entities: SupplierProduct  auth: true
      */
     @PostMapping("/accounting/control/removeAgreementItemSupplierProduct")
-    public ResponseEntity<Map<String, Object>> removeSupplierProduct(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> removeSupplierProduct(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.removeSupplierProduct(body));
     }
 
     /**
@@ -2234,9 +2243,9 @@ public class AccountingController {
      * <p>service: deleteAgreementTerm  entities: AgreementTerm  auth: true
      */
     @PostMapping("/accounting/control/removeAgreementItemTerm")
-    public ResponseEntity<DeleteAgreementTermResponse> deleteAgreementTermRemoveAgreementItemTerm(@RequestBody DeleteAgreementTermRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DeleteAgreementTermResponse> deleteAgreementTermRemoveAgreementItemTerm(@RequestBody DeleteAgreementTermRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.deleteAgreementTerm(ServiceInput.toMap(request));
+        return wrap(result, DeleteAgreementTermResponse::new);
     }
 
     /**
@@ -2244,9 +2253,9 @@ public class AccountingController {
      * <p>service: removeAgreementPromoAppl  entities: AgreementPromoAppl  auth: true
      */
     @PostMapping("/accounting/control/removeAgreementPromoAppl")
-    public ResponseEntity<RemoveAgreementPromoApplResponse> removeAgreementPromoAppl(@RequestBody RemoveAgreementPromoApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveAgreementPromoApplResponse> removeAgreementPromoAppl(@RequestBody RemoveAgreementPromoApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeAgreementPromoAppl(ServiceInput.toMap(request));
+        return wrap(result, RemoveAgreementPromoApplResponse::new);
     }
 
     /**
@@ -2254,9 +2263,9 @@ public class AccountingController {
      * <p>service: removeBillingAccountTerm  entities: BillingAccountTerm  auth: true
      */
     @PostMapping("/accounting/control/removeBillingAccountTerm")
-    public ResponseEntity<RemoveBillingAccountTermResponse> removeBillingAccountTerm(@RequestBody RemoveBillingAccountTermRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveBillingAccountTermResponse> removeBillingAccountTerm(@RequestBody RemoveBillingAccountTermRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeBillingAccountTerm(ServiceInput.toMap(request));
+        return wrap(result, RemoveBillingAccountTermResponse::new);
     }
 
     /**
@@ -2264,9 +2273,9 @@ public class AccountingController {
      * <p>service: removeBudgetItem  entities: BudgetItem  auth: true
      */
     @PostMapping("/accounting/control/removeBudgetItem")
-    public ResponseEntity<RemoveBudgetItemResponse> removeBudgetItem(@RequestBody RemoveBudgetItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveBudgetItemResponse> removeBudgetItem(@RequestBody RemoveBudgetItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeBudgetItem(ServiceInput.toMap(request));
+        return wrap(result, RemoveBudgetItemResponse::new);
     }
 
     /**
@@ -2274,9 +2283,9 @@ public class AccountingController {
      * <p>service: removeBudgetReview  entities: BudgetReview  auth: true
      */
     @PostMapping("/accounting/control/removeBudgetReview")
-    public ResponseEntity<RemoveBudgetReviewResponse> removeBudgetReview(@RequestBody RemoveBudgetReviewRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveBudgetReviewResponse> removeBudgetReview(@RequestBody RemoveBudgetReviewRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeBudgetReview(ServiceInput.toMap(request));
+        return wrap(result, RemoveBudgetReviewResponse::new);
     }
 
     /**
@@ -2284,9 +2293,9 @@ public class AccountingController {
      * <p>service: removeBudgetRole  entities: BudgetRole  auth: true
      */
     @PostMapping("/accounting/control/removeBudgetRole")
-    public ResponseEntity<RemoveBudgetRoleResponse> removeBudgetRole(@RequestBody RemoveBudgetRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveBudgetRoleResponse> removeBudgetRole(@RequestBody RemoveBudgetRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeBudgetRole(ServiceInput.toMap(request));
+        return wrap(result, RemoveBudgetRoleResponse::new);
     }
 
     /**
@@ -2294,9 +2303,9 @@ public class AccountingController {
      * <p>service: removeFinAccountTransFromReconciliation  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/removeFinAccountTransFromReconciliation")
-    public ResponseEntity<RemoveFinAccountTransFromReconciliationResponse> removeFinAccountTransFromReconciliation(@RequestBody RemoveFinAccountTransFromReconciliationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveFinAccountTransFromReconciliationResponse> removeFinAccountTransFromReconciliation(@RequestBody RemoveFinAccountTransFromReconciliationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeFinAccountTransFromReconciliation(ServiceInput.toMap(request));
+        return wrap(result, RemoveFinAccountTransFromReconciliationResponse::new);
     }
 
     /**
@@ -2304,9 +2313,9 @@ public class AccountingController {
      * <p>service: removeFixedAssetIdent  entities: FixedAssetIdent  auth: true
      */
     @PostMapping("/accounting/control/removeFixedAssetIdent")
-    public ResponseEntity<RemoveFixedAssetIdentResponse> removeFixedAssetIdent(@RequestBody RemoveFixedAssetIdentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveFixedAssetIdentResponse> removeFixedAssetIdent(@RequestBody RemoveFixedAssetIdentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeFixedAssetIdent(ServiceInput.toMap(request));
+        return wrap(result, RemoveFixedAssetIdentResponse::new);
     }
 
     /**
@@ -2314,9 +2323,9 @@ public class AccountingController {
      * <p>service: removeFixedAssetProduct  entities: FixedAssetProduct  auth: true
      */
     @PostMapping("/accounting/control/removeFixedAssetProduct")
-    public ResponseEntity<RemoveFixedAssetProductResponse> removeFixedAssetProduct(@RequestBody RemoveFixedAssetProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveFixedAssetProductResponse> removeFixedAssetProduct(@RequestBody RemoveFixedAssetProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeFixedAssetProduct(ServiceInput.toMap(request));
+        return wrap(result, RemoveFixedAssetProductResponse::new);
     }
 
     /**
@@ -2324,9 +2333,9 @@ public class AccountingController {
      * <p>service: removeGlAccountTypeDefault  entities: GlAccountTypeDefault  auth: true
      */
     @PostMapping("/accounting/control/removeGlAccountTypeDefault")
-    public ResponseEntity<RemoveGlAccountTypeDefaultResponse> removeGlAccountTypeDefault(@RequestBody RemoveGlAccountTypeDefaultRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveGlAccountTypeDefaultResponse> removeGlAccountTypeDefault(@RequestBody RemoveGlAccountTypeDefaultRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeGlAccountTypeDefault(ServiceInput.toMap(request));
+        return wrap(result, RemoveGlAccountTypeDefaultResponse::new);
     }
 
     /**
@@ -2334,9 +2343,9 @@ public class AccountingController {
      * <p>service: removePaymentApplication  entities: PaymentApplication  auth: true
      */
     @PostMapping("/accounting/control/removeInvoiceApplication")
-    public ResponseEntity<RemovePaymentApplicationResponse> removePaymentApplication(@RequestBody RemovePaymentApplicationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemovePaymentApplicationResponse> removePaymentApplication(@RequestBody RemovePaymentApplicationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removePaymentApplication(ServiceInput.toMap(request));
+        return wrap(result, RemovePaymentApplicationResponse::new);
     }
 
     /**
@@ -2344,9 +2353,9 @@ public class AccountingController {
      * <p>service: removeInvoiceItem  entities: InvoiceItem  auth: true
      */
     @PostMapping("/accounting/control/removeInvoiceItem")
-    public ResponseEntity<RemoveInvoiceItemResponse> removeInvoiceItem(@RequestBody RemoveInvoiceItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveInvoiceItemResponse> removeInvoiceItem(@RequestBody RemoveInvoiceItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeInvoiceItem(ServiceInput.toMap(request));
+        return wrap(result, RemoveInvoiceItemResponse::new);
     }
 
     /**
@@ -2354,9 +2363,9 @@ public class AccountingController {
      * <p>service: removeInvoiceRole  entities: InvoiceRole  auth: true
      */
     @PostMapping("/accounting/control/removeInvoiceRole")
-    public ResponseEntity<RemoveInvoiceRoleResponse> removeInvoiceRole(@RequestBody RemoveInvoiceRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveInvoiceRoleResponse> removeInvoiceRole(@RequestBody RemoveInvoiceRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeInvoiceRole(ServiceInput.toMap(request));
+        return wrap(result, RemoveInvoiceRoleResponse::new);
     }
 
     /**
@@ -2364,9 +2373,9 @@ public class AccountingController {
      * <p>service: removePaymentApplication  entities: PaymentApplication  auth: true
      */
     @PostMapping("/accounting/control/removePaymentApplication")
-    public ResponseEntity<RemovePaymentApplicationResponse> removePaymentApplicationRemovePaymentApplication(@RequestBody RemovePaymentApplicationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemovePaymentApplicationResponse> removePaymentApplicationRemovePaymentApplication(@RequestBody RemovePaymentApplicationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removePaymentApplication(ServiceInput.toMap(request));
+        return wrap(result, RemovePaymentApplicationResponse::new);
     }
 
     /**
@@ -2374,9 +2383,9 @@ public class AccountingController {
      * <p>service: removePaymentMethodTypeGlAssignment  entities: PaymentMethodTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/removePaymentMethodTypeGlAssignment")
-    public ResponseEntity<RemovePaymentMethodTypeGlAssignmentResponse> removePaymentMethodTypeGlAssignment(@RequestBody RemovePaymentMethodTypeGlAssignmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemovePaymentMethodTypeGlAssignmentResponse> removePaymentMethodTypeGlAssignment(@RequestBody RemovePaymentMethodTypeGlAssignmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removePaymentMethodTypeGlAssignment(ServiceInput.toMap(request));
+        return wrap(result, RemovePaymentMethodTypeGlAssignmentResponse::new);
     }
 
     /**
@@ -2384,9 +2393,9 @@ public class AccountingController {
      * <p>service: removePaymentTypeGlAssignment  entities: PaymentGlAccountTypeMap  auth: true
      */
     @PostMapping("/accounting/control/removePaymentTypeGlAssignment")
-    public ResponseEntity<RemovePaymentTypeGlAssignmentResponse> removePaymentTypeGlAssignment(@RequestBody RemovePaymentTypeGlAssignmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemovePaymentTypeGlAssignmentResponse> removePaymentTypeGlAssignment(@RequestBody RemovePaymentTypeGlAssignmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removePaymentTypeGlAssignment(ServiceInput.toMap(request));
+        return wrap(result, RemovePaymentTypeGlAssignmentResponse::new);
     }
 
     /**
@@ -2394,9 +2403,9 @@ public class AccountingController {
      * <p>service: removeInvoiceItemTypeGlAssignment  entities: InvoiceItemTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/removePurInvoiceItemTypeGlAssignment")
-    public ResponseEntity<RemoveInvoiceItemTypeGlAssignmentResponse> removeInvoiceItemTypeGlAssignment(@RequestBody RemoveInvoiceItemTypeGlAssignmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveInvoiceItemTypeGlAssignmentResponse> removeInvoiceItemTypeGlAssignment(@RequestBody RemoveInvoiceItemTypeGlAssignmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeInvoiceItemTypeGlAssignment(ServiceInput.toMap(request));
+        return wrap(result, RemoveInvoiceItemTypeGlAssignmentResponse::new);
     }
 
     /**
@@ -2404,9 +2413,9 @@ public class AccountingController {
      * <p>service: removeInvoiceItemTypeGlAssignment  entities: InvoiceItemTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/removeSalInvoiceItemTypeGlAssignment")
-    public ResponseEntity<RemoveInvoiceItemTypeGlAssignmentResponse> removeInvoiceItemTypeGlAssignmentRemoveSalInvoiceItemTypeGlAssignment(@RequestBody RemoveInvoiceItemTypeGlAssignmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveInvoiceItemTypeGlAssignmentResponse> removeInvoiceItemTypeGlAssignmentRemoveSalInvoiceItemTypeGlAssignment(@RequestBody RemoveInvoiceItemTypeGlAssignmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeInvoiceItemTypeGlAssignment(ServiceInput.toMap(request));
+        return wrap(result, RemoveInvoiceItemTypeGlAssignmentResponse::new);
     }
 
     /**
@@ -2414,9 +2423,9 @@ public class AccountingController {
      * <p>service: removeFinAccountTransFromReconciliation  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/reomveFinAccountTransAssociation")
-    public ResponseEntity<RemoveFinAccountTransFromReconciliationResponse> removeFinAccountTransFromReconciliationReomveFinAccountTransAssociation(@RequestBody RemoveFinAccountTransFromReconciliationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<RemoveFinAccountTransFromReconciliationResponse> removeFinAccountTransFromReconciliationReomveFinAccountTransAssociation(@RequestBody RemoveFinAccountTransFromReconciliationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.removeFinAccountTransFromReconciliation(ServiceInput.toMap(request));
+        return wrap(result, RemoveFinAccountTransFromReconciliationResponse::new);
     }
 
     /**
@@ -2424,9 +2433,9 @@ public class AccountingController {
      * <p>service: setFinAccountTransStatus  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/setFinAccountTransStatus")
-    public ResponseEntity<SetFinAccountTransStatusResponse> setFinAccountTransStatus(@RequestBody SetFinAccountTransStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SetFinAccountTransStatusResponse> setFinAccountTransStatus(@RequestBody SetFinAccountTransStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.setFinAccountTransStatus(ServiceInput.toMap(request));
+        return wrap(result, SetFinAccountTransStatusResponse::new);
     }
 
     /**
@@ -2434,9 +2443,9 @@ public class AccountingController {
      * <p>service: setInvoiceStatus  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/setInvoiceStatus")
-    public ResponseEntity<SetInvoiceStatusResponse> setInvoiceStatus(@RequestBody SetInvoiceStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SetInvoiceStatusResponse> setInvoiceStatus(@RequestBody SetInvoiceStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.setInvoiceStatus(ServiceInput.toMap(request));
+        return wrap(result, SetInvoiceStatusResponse::new);
     }
 
     /**
@@ -2444,9 +2453,9 @@ public class AccountingController {
      * <p>service: setPaymentStatus  entities: Payment  auth: true
      */
     @PostMapping("/accounting/control/setPaymentStatus")
-    public ResponseEntity<SetPaymentStatusResponse> setPaymentStatus(@RequestBody SetPaymentStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<SetPaymentStatusResponse> setPaymentStatus(@RequestBody SetPaymentStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.setPaymentStatus(ServiceInput.toMap(request));
+        return wrap(result, SetPaymentStatusResponse::new);
     }
 
     /**
@@ -2454,9 +2463,8 @@ public class AccountingController {
      * <p>service: updateTimeEntry  entities: TimeEntry  auth: true
      */
     @PostMapping("/accounting/control/unlinkInvoiceFromTimeEntry")
-    public ResponseEntity<Map<String, Object>> updateTimeEntry(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateTimeEntry(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateTimeEntry(body));
     }
 
     /**
@@ -2464,9 +2472,9 @@ public class AccountingController {
      * <p>service: updateAcctgTrans  entities: AcctgTrans  auth: true
      */
     @PostMapping("/accounting/control/updateAcctgTrans")
-    public ResponseEntity<UpdateAcctgTransResponse> updateAcctgTrans(@RequestBody UpdateAcctgTransRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateAcctgTransResponse> updateAcctgTrans(@RequestBody UpdateAcctgTransRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateAcctgTrans(ServiceInput.toMap(request));
+        return wrap(result, UpdateAcctgTransResponse::new);
     }
 
     /**
@@ -2474,9 +2482,9 @@ public class AccountingController {
      * <p>service: updateAcctgTransEntry  entities: AcctgTransEntry  auth: true
      */
     @PostMapping("/accounting/control/updateAcctgTransEntry")
-    public ResponseEntity<UpdateAcctgTransEntryResponse> updateAcctgTransEntry(@RequestBody UpdateAcctgTransEntryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateAcctgTransEntryResponse> updateAcctgTransEntry(@RequestBody UpdateAcctgTransEntryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateAcctgTransEntry(ServiceInput.toMap(request));
+        return wrap(result, UpdateAcctgTransEntryResponse::new);
     }
 
     /**
@@ -2484,9 +2492,9 @@ public class AccountingController {
      * <p>service: updateAgreement  entities: Agreement  auth: true
      */
     @PostMapping("/accounting/control/updateAgreement")
-    public ResponseEntity<UpdateAgreementResponse> updateAgreement(@RequestBody UpdateAgreementRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateAgreementResponse> updateAgreement(@RequestBody UpdateAgreementRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateAgreement(ServiceInput.toMap(request));
+        return wrap(result, UpdateAgreementResponse::new);
     }
 
     /**
@@ -2494,9 +2502,9 @@ public class AccountingController {
      * <p>service: updateAgreementItem  entities: AgreementItem  auth: true
      */
     @PostMapping("/accounting/control/updateAgreementItem")
-    public ResponseEntity<UpdateAgreementItemResponse> updateAgreementItem(@RequestBody UpdateAgreementItemRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateAgreementItemResponse> updateAgreementItem(@RequestBody UpdateAgreementItemRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateAgreementItem(ServiceInput.toMap(request));
+        return wrap(result, UpdateAgreementItemResponse::new);
     }
 
     /**
@@ -2504,9 +2512,9 @@ public class AccountingController {
      * <p>service: updateAgreementFacilityAppl  entities: AgreementFacilityAppl  auth: true
      */
     @PostMapping("/accounting/control/updateAgreementItemFacility")
-    public ResponseEntity<UpdateAgreementFacilityApplResponse> updateAgreementFacilityAppl(@RequestBody UpdateAgreementFacilityApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateAgreementFacilityApplResponse> updateAgreementFacilityAppl(@RequestBody UpdateAgreementFacilityApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateAgreementFacilityAppl(ServiceInput.toMap(request));
+        return wrap(result, UpdateAgreementFacilityApplResponse::new);
     }
 
     /**
@@ -2514,9 +2522,9 @@ public class AccountingController {
      * <p>service: updateAgreementPartyApplic  entities: AgreementPartyApplic  auth: true
      */
     @PostMapping("/accounting/control/updateAgreementItemParty")
-    public ResponseEntity<UpdateAgreementPartyApplicResponse> updateAgreementPartyApplic(@RequestBody UpdateAgreementPartyApplicRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateAgreementPartyApplicResponse> updateAgreementPartyApplic(@RequestBody UpdateAgreementPartyApplicRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateAgreementPartyApplic(ServiceInput.toMap(request));
+        return wrap(result, UpdateAgreementPartyApplicResponse::new);
     }
 
     /**
@@ -2524,9 +2532,9 @@ public class AccountingController {
      * <p>service: updateAgreementProductAppl  entities: AgreementProductAppl  auth: true
      */
     @PostMapping("/accounting/control/updateAgreementItemProduct")
-    public ResponseEntity<UpdateAgreementProductApplResponse> updateAgreementProductAppl(@RequestBody UpdateAgreementProductApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateAgreementProductApplResponse> updateAgreementProductAppl(@RequestBody UpdateAgreementProductApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateAgreementProductAppl(ServiceInput.toMap(request));
+        return wrap(result, UpdateAgreementProductApplResponse::new);
     }
 
     /**
@@ -2534,9 +2542,8 @@ public class AccountingController {
      * <p>service: updateSupplierProduct  entities: SupplierProduct  auth: true
      */
     @PostMapping("/accounting/control/updateAgreementItemSupplierProduct")
-    public ResponseEntity<Map<String, Object>> updateSupplierProduct(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateSupplierProduct(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateSupplierProduct(body));
     }
 
     /**
@@ -2544,9 +2551,9 @@ public class AccountingController {
      * <p>service: updateAgreementTerm  entities: AgreementTerm  auth: true
      */
     @PostMapping("/accounting/control/updateAgreementItemTerm")
-    public ResponseEntity<UpdateAgreementTermResponse> updateAgreementTerm(@RequestBody UpdateAgreementTermRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateAgreementTermResponse> updateAgreementTerm(@RequestBody UpdateAgreementTermRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateAgreementTerm(ServiceInput.toMap(request));
+        return wrap(result, UpdateAgreementTermResponse::new);
     }
 
     /**
@@ -2554,9 +2561,9 @@ public class AccountingController {
      * <p>service: updateAgreementPromoAppl  entities: AgreementPromoAppl  auth: true
      */
     @PostMapping("/accounting/control/updateAgreementPromoAppl")
-    public ResponseEntity<UpdateAgreementPromoApplResponse> updateAgreementPromoAppl(@RequestBody UpdateAgreementPromoApplRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateAgreementPromoApplResponse> updateAgreementPromoAppl(@RequestBody UpdateAgreementPromoApplRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateAgreementPromoAppl(ServiceInput.toMap(request));
+        return wrap(result, UpdateAgreementPromoApplResponse::new);
     }
 
     /**
@@ -2564,9 +2571,9 @@ public class AccountingController {
      * <p>service: updateAgreementRole  entities: AgreementRole  auth: true
      */
     @PostMapping("/accounting/control/updateAgreementRole")
-    public ResponseEntity<UpdateAgreementRoleResponse> updateAgreementRole(@RequestBody UpdateAgreementRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateAgreementRoleResponse> updateAgreementRole(@RequestBody UpdateAgreementRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateAgreementRole(ServiceInput.toMap(request));
+        return wrap(result, UpdateAgreementRoleResponse::new);
     }
 
     /**
@@ -2574,9 +2581,9 @@ public class AccountingController {
      * <p>service: updateAgreementTerm  entities: AgreementTerm  auth: true
      */
     @PostMapping("/accounting/control/updateAgreementTerm")
-    public ResponseEntity<UpdateAgreementTermResponse> updateAgreementTermUpdateAgreementTerm(@RequestBody UpdateAgreementTermRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateAgreementTermResponse> updateAgreementTermUpdateAgreementTerm(@RequestBody UpdateAgreementTermRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateAgreementTerm(ServiceInput.toMap(request));
+        return wrap(result, UpdateAgreementTermResponse::new);
     }
 
     /**
@@ -2584,9 +2591,9 @@ public class AccountingController {
      * <p>service: updateBillingAccount  entities: BillingAccount  auth: true
      */
     @PostMapping("/accounting/control/updateBillingAccount")
-    public ResponseEntity<UpdateBillingAccountResponse> updateBillingAccount(@RequestBody UpdateBillingAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateBillingAccountResponse> updateBillingAccount(@RequestBody UpdateBillingAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateBillingAccount(ServiceInput.toMap(request));
+        return wrap(result, UpdateBillingAccountResponse::new);
     }
 
     /**
@@ -2594,9 +2601,9 @@ public class AccountingController {
      * <p>service: updateBillingAccountRole  entities: BillingAccountRole  auth: true
      */
     @PostMapping("/accounting/control/updateBillingAccountRole")
-    public ResponseEntity<UpdateBillingAccountRoleResponse> updateBillingAccountRole(@RequestBody UpdateBillingAccountRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateBillingAccountRoleResponse> updateBillingAccountRole(@RequestBody UpdateBillingAccountRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateBillingAccountRole(ServiceInput.toMap(request));
+        return wrap(result, UpdateBillingAccountRoleResponse::new);
     }
 
     /**
@@ -2604,9 +2611,9 @@ public class AccountingController {
      * <p>service: updateBillingAccountTerm  entities: BillingAccountTerm  auth: true
      */
     @PostMapping("/accounting/control/updateBillingAccountTerm")
-    public ResponseEntity<UpdateBillingAccountTermResponse> updateBillingAccountTerm(@RequestBody UpdateBillingAccountTermRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateBillingAccountTermResponse> updateBillingAccountTerm(@RequestBody UpdateBillingAccountTermRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateBillingAccountTerm(ServiceInput.toMap(request));
+        return wrap(result, UpdateBillingAccountTermResponse::new);
     }
 
     /**
@@ -2614,9 +2621,9 @@ public class AccountingController {
      * <p>service: updateBudget  entities: Budget  auth: true
      */
     @PostMapping("/accounting/control/updateBudget")
-    public ResponseEntity<UpdateBudgetResponse> updateBudget(@RequestBody UpdateBudgetRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateBudgetResponse> updateBudget(@RequestBody UpdateBudgetRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateBudget(ServiceInput.toMap(request));
+        return wrap(result, UpdateBudgetResponse::new);
     }
 
     /**
@@ -2624,9 +2631,9 @@ public class AccountingController {
      * <p>service: updateBudgetItem  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/updateBudgetItem")
-    public ResponseEntity<UpdateBudgetItemResponse> updateBudgetItem(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateBudgetItemResponse> updateBudgetItem(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateBudgetItem(java.util.Map.copyOf(params));
+        return wrap(result, UpdateBudgetItemResponse::new);
     }
 
     /**
@@ -2634,9 +2641,9 @@ public class AccountingController {
      * <p>service: updateBudgetStatus  entities: BudgetStatus  auth: true
      */
     @PostMapping("/accounting/control/updateBudgetStatus")
-    public ResponseEntity<UpdateBudgetStatusResponse> updateBudgetStatus(@RequestBody UpdateBudgetStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateBudgetStatusResponse> updateBudgetStatus(@RequestBody UpdateBudgetStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateBudgetStatus(ServiceInput.toMap(request));
+        return wrap(result, UpdateBudgetStatusResponse::new);
     }
 
     /**
@@ -2644,9 +2651,9 @@ public class AccountingController {
      * <p>service: updateCostComponentCalc  entities: CostComponentCalc  auth: true
      */
     @PostMapping("/accounting/control/updateCostComponentCalc")
-    public ResponseEntity<UpdateCostComponentCalcResponse> updateCostComponentCalc(@RequestBody UpdateCostComponentCalcRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateCostComponentCalcResponse> updateCostComponentCalc(@RequestBody UpdateCostComponentCalcRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateCostComponentCalc(ServiceInput.toMap(request));
+        return wrap(result, UpdateCostComponentCalcResponse::new);
     }
 
     /**
@@ -2654,9 +2661,9 @@ public class AccountingController {
      * <p>service: updateCreditCardTypeGlAccount  entities: CreditCardTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/updateCreditCardTypeGlAccount")
-    public ResponseEntity<UpdateCreditCardTypeGlAccountResponse> updateCreditCardTypeGlAccount(@RequestBody UpdateCreditCardTypeGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateCreditCardTypeGlAccountResponse> updateCreditCardTypeGlAccount(@RequestBody UpdateCreditCardTypeGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateCreditCardTypeGlAccount(ServiceInput.toMap(request));
+        return wrap(result, UpdateCreditCardTypeGlAccountResponse::new);
     }
 
     /**
@@ -2664,9 +2671,8 @@ public class AccountingController {
      * <p>service: updateCustomTimePeriod  entities: CustomTimePeriod  auth: true
      */
     @PostMapping("/accounting/control/updateCustomTimePeriod")
-    public ResponseEntity<Map<String, Object>> updateCustomTimePeriod(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateCustomTimePeriod(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateCustomTimePeriod(body));
     }
 
     /**
@@ -2674,9 +2680,9 @@ public class AccountingController {
      * <p>service: updatePaymentGroup  entities: PaymentGroup  auth: true
      */
     @PostMapping("/accounting/control/updateDepositSlip")
-    public ResponseEntity<UpdatePaymentGroupResponse> updatePaymentGroup(@RequestBody UpdatePaymentGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGroupResponse> updatePaymentGroup(@RequestBody UpdatePaymentGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGroup(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGroupResponse::new);
     }
 
     /**
@@ -2684,9 +2690,9 @@ public class AccountingController {
      * <p>service: updatePaymentGroupMember  entities: PaymentGroupMember  auth: true
      */
     @PostMapping("/accounting/control/updateDepositSlipMember")
-    public ResponseEntity<UpdatePaymentGroupMemberResponse> updatePaymentGroupMember(@RequestBody UpdatePaymentGroupMemberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGroupMemberResponse> updatePaymentGroupMember(@RequestBody UpdatePaymentGroupMemberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGroupMember(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGroupMemberResponse::new);
     }
 
     /**
@@ -2694,9 +2700,9 @@ public class AccountingController {
      * <p>service: updateFXConversion  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/updateFXConversion")
-    public ResponseEntity<UpdateFXConversionResponse> updateFXConversion(@RequestBody UpdateFXConversionRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFXConversionResponse> updateFXConversion(@RequestBody UpdateFXConversionRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFXConversion(ServiceInput.toMap(request));
+        return wrap(result, UpdateFXConversionResponse::new);
     }
 
     /**
@@ -2704,9 +2710,9 @@ public class AccountingController {
      * <p>service: updateFinAccount  entities: FinAccount  auth: true
      */
     @PostMapping("/accounting/control/updateFinAccount")
-    public ResponseEntity<UpdateFinAccountResponse> updateFinAccount(@RequestBody UpdateFinAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFinAccountResponse> updateFinAccount(@RequestBody UpdateFinAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFinAccount(ServiceInput.toMap(request));
+        return wrap(result, UpdateFinAccountResponse::new);
     }
 
     /**
@@ -2714,9 +2720,9 @@ public class AccountingController {
      * <p>service: updateGlReconciliation  entities: GlReconciliation  auth: true
      */
     @PostMapping("/accounting/control/updateFinAccountGlReconciliation")
-    public ResponseEntity<UpdateGlReconciliationResponse> updateGlReconciliation(@RequestBody UpdateGlReconciliationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateGlReconciliationResponse> updateGlReconciliation(@RequestBody UpdateGlReconciliationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateGlReconciliation(ServiceInput.toMap(request));
+        return wrap(result, UpdateGlReconciliationResponse::new);
     }
 
     /**
@@ -2724,9 +2730,9 @@ public class AccountingController {
      * <p>service: updateFinAccountRole  entities: FinAccountRole  auth: true
      */
     @PostMapping("/accounting/control/updateFinAccountRole")
-    public ResponseEntity<UpdateFinAccountRoleResponse> updateFinAccountRole(@RequestBody UpdateFinAccountRoleRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFinAccountRoleResponse> updateFinAccountRole(@RequestBody UpdateFinAccountRoleRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFinAccountRole(ServiceInput.toMap(request));
+        return wrap(result, UpdateFinAccountRoleResponse::new);
     }
 
     /**
@@ -2734,9 +2740,9 @@ public class AccountingController {
      * <p>service: updateFinAccountTypeGlAccount  entities: FinAccountTypeGlAccount  auth: true
      */
     @PostMapping("/accounting/control/updateFinAccountTypeGlAccount")
-    public ResponseEntity<UpdateFinAccountTypeGlAccountResponse> updateFinAccountTypeGlAccount(@RequestBody UpdateFinAccountTypeGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFinAccountTypeGlAccountResponse> updateFinAccountTypeGlAccount(@RequestBody UpdateFinAccountTypeGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFinAccountTypeGlAccount(ServiceInput.toMap(request));
+        return wrap(result, UpdateFinAccountTypeGlAccountResponse::new);
     }
 
     /**
@@ -2744,9 +2750,9 @@ public class AccountingController {
      * <p>service: updateFixedAsset  entities: FixedAsset  auth: true
      */
     @PostMapping("/accounting/control/updateFixedAsset")
-    public ResponseEntity<UpdateFixedAssetResponse> updateFixedAsset(@RequestBody UpdateFixedAssetRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFixedAssetResponse> updateFixedAsset(@RequestBody UpdateFixedAssetRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFixedAsset(ServiceInput.toMap(request));
+        return wrap(result, UpdateFixedAssetResponse::new);
     }
 
     /**
@@ -2754,9 +2760,9 @@ public class AccountingController {
      * <p>service: updateFixedAssetDepMethod  entities: FixedAssetDepMethod  auth: true
      */
     @PostMapping("/accounting/control/updateFixedAssetDepMethod")
-    public ResponseEntity<UpdateFixedAssetDepMethodResponse> updateFixedAssetDepMethod(@RequestBody UpdateFixedAssetDepMethodRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFixedAssetDepMethodResponse> updateFixedAssetDepMethod(@RequestBody UpdateFixedAssetDepMethodRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFixedAssetDepMethod(ServiceInput.toMap(request));
+        return wrap(result, UpdateFixedAssetDepMethodResponse::new);
     }
 
     /**
@@ -2764,9 +2770,9 @@ public class AccountingController {
      * <p>service: updateFixedAssetIdent  entities: FixedAssetIdent  auth: true
      */
     @PostMapping("/accounting/control/updateFixedAssetIdent")
-    public ResponseEntity<UpdateFixedAssetIdentResponse> updateFixedAssetIdent(@RequestBody UpdateFixedAssetIdentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFixedAssetIdentResponse> updateFixedAssetIdent(@RequestBody UpdateFixedAssetIdentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFixedAssetIdent(ServiceInput.toMap(request));
+        return wrap(result, UpdateFixedAssetIdentResponse::new);
     }
 
     /**
@@ -2774,9 +2780,9 @@ public class AccountingController {
      * <p>service: updateFixedAssetMaint  entities: FixedAssetMaint  auth: true
      */
     @PostMapping("/accounting/control/updateFixedAssetMaint")
-    public ResponseEntity<UpdateFixedAssetMaintResponse> updateFixedAssetMaint(@RequestBody UpdateFixedAssetMaintRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFixedAssetMaintResponse> updateFixedAssetMaint(@RequestBody UpdateFixedAssetMaintRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFixedAssetMaint(ServiceInput.toMap(request));
+        return wrap(result, UpdateFixedAssetMaintResponse::new);
     }
 
     /**
@@ -2784,9 +2790,9 @@ public class AccountingController {
      * <p>service: updateFixedAssetMeter  entities: FixedAssetMeter  auth: true
      */
     @PostMapping("/accounting/control/updateFixedAssetMeter")
-    public ResponseEntity<UpdateFixedAssetMeterResponse> updateFixedAssetMeter(@RequestBody UpdateFixedAssetMeterRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFixedAssetMeterResponse> updateFixedAssetMeter(@RequestBody UpdateFixedAssetMeterRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFixedAssetMeter(ServiceInput.toMap(request));
+        return wrap(result, UpdateFixedAssetMeterResponse::new);
     }
 
     /**
@@ -2794,9 +2800,9 @@ public class AccountingController {
      * <p>service: updateFixedAssetProduct  entities: FixedAssetProduct  auth: true
      */
     @PostMapping("/accounting/control/updateFixedAssetProduct")
-    public ResponseEntity<UpdateFixedAssetProductResponse> updateFixedAssetProduct(@RequestBody UpdateFixedAssetProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFixedAssetProductResponse> updateFixedAssetProduct(@RequestBody UpdateFixedAssetProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFixedAssetProduct(ServiceInput.toMap(request));
+        return wrap(result, UpdateFixedAssetProductResponse::new);
     }
 
     /**
@@ -2804,9 +2810,9 @@ public class AccountingController {
      * <p>service: updateFixedAssetRegistration  entities: FixedAssetRegistration  auth: true
      */
     @PostMapping("/accounting/control/updateFixedAssetRegistration")
-    public ResponseEntity<UpdateFixedAssetRegistrationResponse> updateFixedAssetRegistration(@RequestBody UpdateFixedAssetRegistrationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFixedAssetRegistrationResponse> updateFixedAssetRegistration(@RequestBody UpdateFixedAssetRegistrationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFixedAssetRegistration(ServiceInput.toMap(request));
+        return wrap(result, UpdateFixedAssetRegistrationResponse::new);
     }
 
     /**
@@ -2814,9 +2820,9 @@ public class AccountingController {
      * <p>service: updateFixedAssetStdCost  entities: FixedAssetStdCost  auth: true
      */
     @PostMapping("/accounting/control/updateFixedAssetStdCost")
-    public ResponseEntity<UpdateFixedAssetStdCostResponse> updateFixedAssetStdCost(@RequestBody UpdateFixedAssetStdCostRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateFixedAssetStdCostResponse> updateFixedAssetStdCost(@RequestBody UpdateFixedAssetStdCostRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateFixedAssetStdCost(ServiceInput.toMap(request));
+        return wrap(result, UpdateFixedAssetStdCostResponse::new);
     }
 
     /**
@@ -2824,9 +2830,9 @@ public class AccountingController {
      * <p>service: updateGlAccount  entities: GlAccount  auth: true
      */
     @PostMapping("/accounting/control/updateGlAccount")
-    public ResponseEntity<UpdateGlAccountResponse> updateGlAccount(@RequestBody UpdateGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateGlAccountResponse> updateGlAccount(@RequestBody UpdateGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateGlAccount(ServiceInput.toMap(request));
+        return wrap(result, UpdateGlAccountResponse::new);
     }
 
     /**
@@ -2834,9 +2840,9 @@ public class AccountingController {
      * <p>service: updateGlAccountCategory  entities: GlAccountCategory  auth: true
      */
     @PostMapping("/accounting/control/updateGlAccountCategory")
-    public ResponseEntity<UpdateGlAccountCategoryResponse> updateGlAccountCategory(@RequestBody UpdateGlAccountCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateGlAccountCategoryResponse> updateGlAccountCategory(@RequestBody UpdateGlAccountCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateGlAccountCategory(ServiceInput.toMap(request));
+        return wrap(result, UpdateGlAccountCategoryResponse::new);
     }
 
     /**
@@ -2844,9 +2850,9 @@ public class AccountingController {
      * <p>service: updateGlAccountCategoryMember  entities: GlAccountCategoryMember  auth: true
      */
     @PostMapping("/accounting/control/updateGlAccountCategoryMember")
-    public ResponseEntity<UpdateGlAccountCategoryMemberResponse> updateGlAccountCategoryMember(@RequestBody UpdateGlAccountCategoryMemberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateGlAccountCategoryMemberResponse> updateGlAccountCategoryMember(@RequestBody UpdateGlAccountCategoryMemberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateGlAccountCategoryMember(ServiceInput.toMap(request));
+        return wrap(result, UpdateGlAccountCategoryMemberResponse::new);
     }
 
     /**
@@ -2854,9 +2860,9 @@ public class AccountingController {
      * <p>service: updateGlAccount  entities: GlAccount  auth: true
      */
     @PostMapping("/accounting/control/updateGlAccountOrganization")
-    public ResponseEntity<UpdateGlAccountResponse> updateGlAccountUpdateGlAccountOrganization(@RequestBody UpdateGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateGlAccountResponse> updateGlAccountUpdateGlAccountOrganization(@RequestBody UpdateGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateGlAccount(ServiceInput.toMap(request));
+        return wrap(result, UpdateGlAccountResponse::new);
     }
 
     /**
@@ -2864,9 +2870,9 @@ public class AccountingController {
      * <p>service: updateGlJournal  entities: GlJournal  auth: true
      */
     @PostMapping("/accounting/control/updateGlJournal")
-    public ResponseEntity<UpdateGlJournalResponse> updateGlJournal(@RequestBody UpdateGlJournalRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateGlJournalResponse> updateGlJournal(@RequestBody UpdateGlJournalRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateGlJournal(ServiceInput.toMap(request));
+        return wrap(result, UpdateGlJournalResponse::new);
     }
 
     /**
@@ -2874,9 +2880,9 @@ public class AccountingController {
      * <p>service: updateGlReconciliation  entities: GlReconciliation  auth: true
      */
     @PostMapping("/accounting/control/updateGlReconciliation")
-    public ResponseEntity<UpdateGlReconciliationResponse> updateGlReconciliationUpdateGlReconciliation(@RequestBody UpdateGlReconciliationRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateGlReconciliationResponse> updateGlReconciliationUpdateGlReconciliation(@RequestBody UpdateGlReconciliationRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateGlReconciliation(ServiceInput.toMap(request));
+        return wrap(result, UpdateGlReconciliationResponse::new);
     }
 
     /**
@@ -2884,9 +2890,9 @@ public class AccountingController {
      * <p>service: updateInvoice  entities: Invoice  auth: true
      */
     @PostMapping("/accounting/control/updateInvoice")
-    public ResponseEntity<UpdateInvoiceResponse> updateInvoice(@RequestBody UpdateInvoiceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateInvoiceResponse> updateInvoice(@RequestBody UpdateInvoiceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateInvoice(ServiceInput.toMap(request));
+        return wrap(result, UpdateInvoiceResponse::new);
     }
 
     /**
@@ -2894,9 +2900,9 @@ public class AccountingController {
      * <p>service: updatePaymentApplicationDef  entities: PaymentApplication  auth: true
      */
     @PostMapping("/accounting/control/updateInvoiceApplication")
-    public ResponseEntity<UpdatePaymentApplicationDefResponse> updatePaymentApplicationDef(@RequestBody UpdatePaymentApplicationDefRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentApplicationDefResponse> updatePaymentApplicationDef(@RequestBody UpdatePaymentApplicationDefRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentApplicationDef(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentApplicationDefResponse::new);
     }
 
     /**
@@ -2904,9 +2910,9 @@ public class AccountingController {
      * <p>service: updateInvoiceItem  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/updateInvoiceItem")
-    public ResponseEntity<UpdateInvoiceItemResponse> updateInvoiceItem(@RequestParam Map<String, String> params) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateInvoiceItemResponse> updateInvoiceItem(@RequestParam Map<String, String> params) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateInvoiceItem(java.util.Map.copyOf(params));
+        return wrap(result, UpdateInvoiceItemResponse::new);
     }
 
     /**
@@ -2914,9 +2920,9 @@ public class AccountingController {
      * <p>service: updateInvoiceItemType  entities: InvoiceItemType  auth: true
      */
     @PostMapping("/accounting/control/updateInvoiceItemType")
-    public ResponseEntity<UpdateInvoiceItemTypeResponse> updateInvoiceItemType(@RequestBody UpdateInvoiceItemTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateInvoiceItemTypeResponse> updateInvoiceItemType(@RequestBody UpdateInvoiceItemTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateInvoiceItemType(ServiceInput.toMap(request));
+        return wrap(result, UpdateInvoiceItemTypeResponse::new);
     }
 
     /**
@@ -2924,9 +2930,9 @@ public class AccountingController {
      * <p>service: updateInvoiceTerm  entities: InvoiceTerm  auth: true
      */
     @PostMapping("/accounting/control/updateInvoiceTerm")
-    public ResponseEntity<UpdateInvoiceTermResponse> updateInvoiceTerm(@RequestBody UpdateInvoiceTermRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateInvoiceTermResponse> updateInvoiceTerm(@RequestBody UpdateInvoiceTermRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateInvoiceTerm(ServiceInput.toMap(request));
+        return wrap(result, UpdateInvoiceTermResponse::new);
     }
 
     /**
@@ -2934,9 +2940,9 @@ public class AccountingController {
      * <p>service: updateTaxAuthorityGlAccount  entities: TaxAuthorityGlAccount  auth: true
      */
     @PostMapping("/accounting/control/updateOrganizationTaxAuthorityGlAccount")
-    public ResponseEntity<UpdateTaxAuthorityGlAccountResponse> updateTaxAuthorityGlAccount(@RequestBody UpdateTaxAuthorityGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateTaxAuthorityGlAccountResponse> updateTaxAuthorityGlAccount(@RequestBody UpdateTaxAuthorityGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateTaxAuthorityGlAccount(ServiceInput.toMap(request));
+        return wrap(result, UpdateTaxAuthorityGlAccountResponse::new);
     }
 
     /**
@@ -2944,9 +2950,9 @@ public class AccountingController {
      * <p>service: updatePartyAcctgPreference  entities: PartyAcctgPreference  auth: true
      */
     @PostMapping("/accounting/control/updatePartyAcctgPreference")
-    public ResponseEntity<UpdatePartyAcctgPreferenceResponse> updatePartyAcctgPreference(@RequestBody UpdatePartyAcctgPreferenceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyAcctgPreferenceResponse> updatePartyAcctgPreference(@RequestBody UpdatePartyAcctgPreferenceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyAcctgPreference(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyAcctgPreferenceResponse::new);
     }
 
     /**
@@ -2954,9 +2960,9 @@ public class AccountingController {
      * <p>service: updatePartyFixedAssetAssignment  entities: PartyFixedAssetAssignment  auth: true
      */
     @PostMapping("/accounting/control/updatePartyFixedAssetAssignment")
-    public ResponseEntity<UpdatePartyFixedAssetAssignmentResponse> updatePartyFixedAssetAssignment(@RequestBody UpdatePartyFixedAssetAssignmentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyFixedAssetAssignmentResponse> updatePartyFixedAssetAssignment(@RequestBody UpdatePartyFixedAssetAssignmentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyFixedAssetAssignment(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyFixedAssetAssignmentResponse::new);
     }
 
     /**
@@ -2964,9 +2970,9 @@ public class AccountingController {
      * <p>service: updatePartyGlAccount  entities: PartyGlAccount  auth: true
      */
     @PostMapping("/accounting/control/updatePartyGlAccount")
-    public ResponseEntity<UpdatePartyGlAccountResponse> updatePartyGlAccount(@RequestBody UpdatePartyGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyGlAccountResponse> updatePartyGlAccount(@RequestBody UpdatePartyGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyGlAccount(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyGlAccountResponse::new);
     }
 
     /**
@@ -2974,9 +2980,9 @@ public class AccountingController {
      * <p>service: updatePayment  entities: Payment  auth: true
      */
     @PostMapping("/accounting/control/updatePayment")
-    public ResponseEntity<UpdatePaymentResponse> updatePayment(@RequestBody UpdatePaymentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentResponse> updatePayment(@RequestBody UpdatePaymentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePayment(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentResponse::new);
     }
 
     /**
@@ -2984,9 +2990,9 @@ public class AccountingController {
      * <p>service: updatePaymentApplicationDef  entities: PaymentApplication  auth: true
      */
     @PostMapping("/accounting/control/updatePaymentApplication")
-    public ResponseEntity<UpdatePaymentApplicationDefResponse> updatePaymentApplicationDefUpdatePaymentApplication(@RequestBody UpdatePaymentApplicationDefRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentApplicationDefResponse> updatePaymentApplicationDefUpdatePaymentApplication(@RequestBody UpdatePaymentApplicationDefRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentApplicationDef(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentApplicationDefResponse::new);
     }
 
     /**
@@ -2994,9 +3000,9 @@ public class AccountingController {
      * <p>service: updatePaymentGroup  entities: PaymentGroup  auth: true
      */
     @PostMapping("/accounting/control/updatePaymentGroup")
-    public ResponseEntity<UpdatePaymentGroupResponse> updatePaymentGroupUpdatePaymentGroup(@RequestBody UpdatePaymentGroupRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGroupResponse> updatePaymentGroupUpdatePaymentGroup(@RequestBody UpdatePaymentGroupRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGroup(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGroupResponse::new);
     }
 
     /**
@@ -3004,9 +3010,9 @@ public class AccountingController {
      * <p>service: updatePaymentGroupMember  entities: PaymentGroupMember  auth: true
      */
     @PostMapping("/accounting/control/updatePaymentGroupMember")
-    public ResponseEntity<UpdatePaymentGroupMemberResponse> updatePaymentGroupMemberUpdatePaymentGroupMember(@RequestBody UpdatePaymentGroupMemberRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentGroupMemberResponse> updatePaymentGroupMemberUpdatePaymentGroupMember(@RequestBody UpdatePaymentGroupMemberRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentGroupMember(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentGroupMemberResponse::new);
     }
 
     /**
@@ -3014,9 +3020,9 @@ public class AccountingController {
      * <p>service: updatePaymentMethodType  entities: PaymentMethodType  auth: true
      */
     @PostMapping("/accounting/control/updatePaymentMethodType")
-    public ResponseEntity<UpdatePaymentMethodTypeResponse> updatePaymentMethodType(@RequestBody UpdatePaymentMethodTypeRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePaymentMethodTypeResponse> updatePaymentMethodType(@RequestBody UpdatePaymentMethodTypeRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePaymentMethodType(ServiceInput.toMap(request));
+        return wrap(result, UpdatePaymentMethodTypeResponse::new);
     }
 
     /**
@@ -3024,9 +3030,8 @@ public class AccountingController {
      * <p>service: updateProductCategoryGlAccount  entities: ProductCategoryGlAccount  auth: true
      */
     @PostMapping("/accounting/control/updateProductCategoryGlAccount")
-    public ResponseEntity<Map<String, Object>> updateProductCategoryGlAccount(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateProductCategoryGlAccount(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateProductCategoryGlAccount(body));
     }
 
     /**
@@ -3034,9 +3039,8 @@ public class AccountingController {
      * <p>service: updateProductGlAccount  entities: ProductGlAccount  auth: true
      */
     @PostMapping("/accounting/control/updateProductGlAccount")
-    public ResponseEntity<Map<String, Object>> updateProductGlAccount(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateProductGlAccount(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateProductGlAccount(body));
     }
 
     /**
@@ -3044,9 +3048,9 @@ public class AccountingController {
      * <p>service: updateRateAmount  entities: RateAmount  auth: true
      */
     @PostMapping("/accounting/control/updateRateAmount")
-    public ResponseEntity<UpdateRateAmountResponse> updateRateAmount(@RequestBody UpdateRateAmountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateRateAmountResponse> updateRateAmount(@RequestBody UpdateRateAmountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateRateAmount(ServiceInput.toMap(request));
+        return wrap(result, UpdateRateAmountResponse::new);
     }
 
     /**
@@ -3054,9 +3058,9 @@ public class AccountingController {
      * <p>service: updateTaxAuthority  entities: TaxAuthority  auth: true
      */
     @PostMapping("/accounting/control/updateTaxAuthority")
-    public ResponseEntity<UpdateTaxAuthorityResponse> updateTaxAuthority(@RequestBody UpdateTaxAuthorityRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateTaxAuthorityResponse> updateTaxAuthority(@RequestBody UpdateTaxAuthorityRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateTaxAuthority(ServiceInput.toMap(request));
+        return wrap(result, UpdateTaxAuthorityResponse::new);
     }
 
     /**
@@ -3064,9 +3068,9 @@ public class AccountingController {
      * <p>service: updateTaxAuthorityAssoc  entities: TaxAuthorityAssoc  auth: true
      */
     @PostMapping("/accounting/control/updateTaxAuthorityAssoc")
-    public ResponseEntity<UpdateTaxAuthorityAssocResponse> updateTaxAuthorityAssoc(@RequestBody UpdateTaxAuthorityAssocRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateTaxAuthorityAssocResponse> updateTaxAuthorityAssoc(@RequestBody UpdateTaxAuthorityAssocRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateTaxAuthorityAssoc(ServiceInput.toMap(request));
+        return wrap(result, UpdateTaxAuthorityAssocResponse::new);
     }
 
     /**
@@ -3074,9 +3078,9 @@ public class AccountingController {
      * <p>service: updateTaxAuthorityCategory  entities: TaxAuthorityCategory  auth: true
      */
     @PostMapping("/accounting/control/updateTaxAuthorityCategory")
-    public ResponseEntity<UpdateTaxAuthorityCategoryResponse> updateTaxAuthorityCategory(@RequestBody UpdateTaxAuthorityCategoryRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateTaxAuthorityCategoryResponse> updateTaxAuthorityCategory(@RequestBody UpdateTaxAuthorityCategoryRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateTaxAuthorityCategory(ServiceInput.toMap(request));
+        return wrap(result, UpdateTaxAuthorityCategoryResponse::new);
     }
 
     /**
@@ -3084,9 +3088,9 @@ public class AccountingController {
      * <p>service: updatePartyTaxAuthInfo  entities: PartyTaxAuthInfo  auth: true
      */
     @PostMapping("/accounting/control/updateTaxAuthorityPartyInfo")
-    public ResponseEntity<UpdatePartyTaxAuthInfoResponse> updatePartyTaxAuthInfo(@RequestBody UpdatePartyTaxAuthInfoRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdatePartyTaxAuthInfoResponse> updatePartyTaxAuthInfo(@RequestBody UpdatePartyTaxAuthInfoRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updatePartyTaxAuthInfo(ServiceInput.toMap(request));
+        return wrap(result, UpdatePartyTaxAuthInfoResponse::new);
     }
 
     /**
@@ -3094,9 +3098,9 @@ public class AccountingController {
      * <p>service: updateTaxAuthorityRateProduct  entities: TaxAuthorityRateProduct  auth: true
      */
     @PostMapping("/accounting/control/updateTaxAuthorityRateProduct")
-    public ResponseEntity<UpdateTaxAuthorityRateProductResponse> updateTaxAuthorityRateProduct(@RequestBody UpdateTaxAuthorityRateProductRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateTaxAuthorityRateProductResponse> updateTaxAuthorityRateProduct(@RequestBody UpdateTaxAuthorityRateProductRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateTaxAuthorityRateProduct(ServiceInput.toMap(request));
+        return wrap(result, UpdateTaxAuthorityRateProductResponse::new);
     }
 
     /**
@@ -3104,9 +3108,9 @@ public class AccountingController {
      * <p>service: updateVarianceReasonGlAccount  entities: VarianceReasonGlAccount  auth: true
      */
     @PostMapping("/accounting/control/updateVarianceReasonGlAccount")
-    public ResponseEntity<UpdateVarianceReasonGlAccountResponse> updateVarianceReasonGlAccount(@RequestBody UpdateVarianceReasonGlAccountRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UpdateVarianceReasonGlAccountResponse> updateVarianceReasonGlAccount(@RequestBody UpdateVarianceReasonGlAccountRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.updateVarianceReasonGlAccount(ServiceInput.toMap(request));
+        return wrap(result, UpdateVarianceReasonGlAccountResponse::new);
     }
 
     /**
@@ -3114,9 +3118,8 @@ public class AccountingController {
      * <p>service: updateWorkEffort  entities: WorkEffort  auth: true
      */
     @PostMapping("/accounting/control/updateWorkEffort")
-    public ResponseEntity<Map<String, Object>> updateWorkEffort(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateWorkEffort(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateWorkEffort(body));
     }
 
     /**
@@ -3124,9 +3127,9 @@ public class AccountingController {
      * <p>service: uploadAgreementContentFile  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/uploadAgreementContent")
-    public ResponseEntity<UploadAgreementContentFileResponse> uploadAgreementContentFile(@RequestBody UploadAgreementContentFileRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<UploadAgreementContentFileResponse> uploadAgreementContentFile(@RequestBody UploadAgreementContentFileRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.uploadAgreementContentFile(ServiceInput.toMap(request));
+        return wrap(result, UploadAgreementContentFileResponse::new);
     }
 
     /**
@@ -3134,9 +3137,9 @@ public class AccountingController {
      * <p>service: voidPayment  entities: unknown  auth: true
      */
     @PostMapping("/accounting/control/voidPayment")
-    public ResponseEntity<VoidPaymentResponse> voidPayment(@RequestBody VoidPaymentRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<VoidPaymentResponse> voidPayment(@RequestBody VoidPaymentRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.voidPayment(ServiceInput.toMap(request));
+        return wrap(result, VoidPaymentResponse::new);
     }
 
     /**
@@ -3144,9 +3147,9 @@ public class AccountingController {
      * <p>service: cancelCheckRunPayments  entities: unknown  auth: true
      */
     @PostMapping("/ap/control/cancelCheckRunPayments")
-    public ResponseEntity<CancelCheckRunPaymentsResponse> cancelCheckRunPaymentsCancelCheckRunPayments(@RequestBody CancelCheckRunPaymentsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CancelCheckRunPaymentsResponse> cancelCheckRunPaymentsCancelCheckRunPayments(@RequestBody CancelCheckRunPaymentsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.cancelCheckRunPayments(ServiceInput.toMap(request));
+        return wrap(result, CancelCheckRunPaymentsResponse::new);
     }
 
     /**
@@ -3154,9 +3157,9 @@ public class AccountingController {
      * <p>service: createInvoice  entities: Invoice  auth: true
      */
     @PostMapping("/ap/control/createInvoice")
-    public ResponseEntity<CreateInvoiceResponse> createInvoiceCreateInvoice(@RequestBody CreateInvoiceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInvoiceResponse> createInvoiceCreateInvoice(@RequestBody CreateInvoiceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInvoice(ServiceInput.toMap(request));
+        return wrap(result, CreateInvoiceResponse::new);
     }
 
     /**
@@ -3164,9 +3167,9 @@ public class AccountingController {
      * <p>service: createPaymentAndFinAccountTrans  entities: unknown  auth: true
      */
     @PostMapping("/ap/control/createPayment")
-    public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTransCreatePayment2(@RequestBody CreatePaymentAndFinAccountTransRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTransCreatePayment2(@RequestBody CreatePaymentAndFinAccountTransRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPaymentAndFinAccountTrans(ServiceInput.toMap(request));
+        return wrap(result, CreatePaymentAndFinAccountTransResponse::new);
     }
 
     /**
@@ -3174,9 +3177,8 @@ public class AccountingController {
      * <p>service: createVendor  entities: Vendor  auth: true
      */
     @PostMapping("/ap/control/createVendor")
-    public ResponseEntity<Map<String, Object>> createVendor(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> createVendor(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.createVendor(body));
     }
 
     /**
@@ -3184,9 +3186,9 @@ public class AccountingController {
      * <p>service: massChangeInvoiceStatus  entities: unknown  auth: true
      */
     @PostMapping("/ap/control/massChangeInvoiceStatus")
-    public ResponseEntity<MassChangeInvoiceStatusResponse> massChangeInvoiceStatus(@RequestBody MassChangeInvoiceStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<MassChangeInvoiceStatusResponse> massChangeInvoiceStatus(@RequestBody MassChangeInvoiceStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.massChangeInvoiceStatus(ServiceInput.toMap(request));
+        return wrap(result, MassChangeInvoiceStatusResponse::new);
     }
 
     /**
@@ -3194,9 +3196,9 @@ public class AccountingController {
      * <p>service: createPaymentAndPaymentGroupForInvoices  entities: unknown  auth: true
      */
     @PostMapping("/ap/control/processMassCheckRun")
-    public ResponseEntity<CreatePaymentAndPaymentGroupForInvoicesResponse> createPaymentAndPaymentGroupForInvoices(@RequestBody CreatePaymentAndPaymentGroupForInvoicesRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePaymentAndPaymentGroupForInvoicesResponse> createPaymentAndPaymentGroupForInvoices(@RequestBody CreatePaymentAndPaymentGroupForInvoicesRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPaymentAndPaymentGroupForInvoices(ServiceInput.toMap(request));
+        return wrap(result, CreatePaymentAndPaymentGroupForInvoicesResponse::new);
     }
 
     /**
@@ -3204,9 +3206,8 @@ public class AccountingController {
      * <p>service: updateVendor  entities: Vendor  auth: true
      */
     @PostMapping("/ap/control/updateVendor")
-    public ResponseEntity<Map<String, Object>> updateVendor(@RequestBody Map<String, Object> body) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<Map<String, Object>> updateVendor(@RequestBody Map<String, Object> body) throws java.sql.SQLException {
+        return wrapMap(service.updateVendor(body));
     }
 
     /**
@@ -3214,9 +3215,9 @@ public class AccountingController {
      * <p>service: cancelPaymentBatch  entities: unknown  auth: true
      */
     @PostMapping("/ar/control/cancelPaymentGroup")
-    public ResponseEntity<CancelPaymentBatchResponse> cancelPaymentBatchCancelPaymentGroup(@RequestBody CancelPaymentBatchRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CancelPaymentBatchResponse> cancelPaymentBatchCancelPaymentGroup(@RequestBody CancelPaymentBatchRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.cancelPaymentBatch(ServiceInput.toMap(request));
+        return wrap(result, CancelPaymentBatchResponse::new);
     }
 
     /**
@@ -3224,9 +3225,9 @@ public class AccountingController {
      * <p>service: createInvoice  entities: Invoice  auth: true
      */
     @PostMapping("/ar/control/createInvoice")
-    public ResponseEntity<CreateInvoiceResponse> createInvoiceCreateInvoice2(@RequestBody CreateInvoiceRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreateInvoiceResponse> createInvoiceCreateInvoice2(@RequestBody CreateInvoiceRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createInvoice(ServiceInput.toMap(request));
+        return wrap(result, CreateInvoiceResponse::new);
     }
 
     /**
@@ -3234,9 +3235,9 @@ public class AccountingController {
      * <p>service: createPaymentAndFinAccountTrans  entities: unknown  auth: true
      */
     @PostMapping("/ar/control/createPayment")
-    public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTransCreatePayment3(@RequestBody CreatePaymentAndFinAccountTransRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTransCreatePayment3(@RequestBody CreatePaymentAndFinAccountTransRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.createPaymentAndFinAccountTrans(ServiceInput.toMap(request));
+        return wrap(result, CreatePaymentAndFinAccountTransResponse::new);
     }
 
     /**
@@ -3244,9 +3245,9 @@ public class AccountingController {
      * <p>service: depositWithdrawPayments  entities: unknown  auth: true
      */
     @PostMapping("/ar/control/createPaymentBatch")
-    public ResponseEntity<DepositWithdrawPaymentsResponse> depositWithdrawPaymentsCreatePaymentBatch(@RequestBody DepositWithdrawPaymentsRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<DepositWithdrawPaymentsResponse> depositWithdrawPaymentsCreatePaymentBatch(@RequestBody DepositWithdrawPaymentsRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.depositWithdrawPayments(ServiceInput.toMap(request));
+        return wrap(result, DepositWithdrawPaymentsResponse::new);
     }
 
     /**
@@ -3254,9 +3255,9 @@ public class AccountingController {
      * <p>service: massChangeInvoiceStatus  entities: unknown  auth: true
      */
     @PostMapping("/ar/control/massChangeInvoiceStatus")
-    public ResponseEntity<MassChangeInvoiceStatusResponse> massChangeInvoiceStatusMassChangeInvoiceStatus(@RequestBody MassChangeInvoiceStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<MassChangeInvoiceStatusResponse> massChangeInvoiceStatusMassChangeInvoiceStatus(@RequestBody MassChangeInvoiceStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.massChangeInvoiceStatus(ServiceInput.toMap(request));
+        return wrap(result, MassChangeInvoiceStatusResponse::new);
     }
 
     /**
@@ -3264,8 +3265,8 @@ public class AccountingController {
      * <p>service: massChangePaymentStatus  entities: unknown  auth: true
      */
     @PostMapping("/ar/control/massChangePaymentStatus")
-    public ResponseEntity<MassChangePaymentStatusResponse> massChangePaymentStatus(@RequestBody MassChangePaymentStatusRequest request) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public ResponseEntity<MassChangePaymentStatusResponse> massChangePaymentStatus(@RequestBody MassChangePaymentStatusRequest request) throws java.sql.SQLException {
+        Map<String, Object> result = service.massChangePaymentStatus(ServiceInput.toMap(request));
+        return wrap(result, MassChangePaymentStatusResponse::new);
     }
 }
