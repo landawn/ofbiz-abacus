@@ -1,0 +1,2171 @@
+{
+ "createPartyAcctgPreference": {
+  "engine": "groovy",
+  "invoke": "createPartyAcctgPreference",
+  "entity": "PartyAcctgPreference",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/admin/AcctgAdminServices.groovy",
+  "file": "services_admin.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePartyAcctgPreference": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PartyAcctgPreference",
+  "location": null,
+  "file": "services_admin.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createPartyPrefDocTypeTpl": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "PartyPrefDocTypeTpl",
+  "location": null,
+  "file": "services_admin.xml",
+  "outs": [
+   "partyPrefDocTypeTplId"
+  ],
+  "auto_out": []
+ },
+ "expirePartyPrefDocTypeTpl": {
+  "engine": "entity-auto",
+  "invoke": "expire",
+  "entity": "PartyPrefDocTypeTpl",
+  "location": null,
+  "file": "services_admin.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "setAcctgCompany": {
+  "engine": "groovy",
+  "invoke": "setAcctgCompany",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/admin/AcctgAdminServices.groovy",
+  "file": "services_admin.xml",
+  "outs": [
+   "organizationPartyId"
+  ],
+  "auto_out": []
+ },
+ "updateFXConversion": {
+  "engine": "groovy",
+  "invoke": "updateFXConversion",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/admin/AcctgAdminServices.groovy",
+  "file": "services_admin.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createGlAccountTypeDefault": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlAccountTypeDefault",
+  "location": null,
+  "file": "services_admin.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeGlAccountTypeDefault": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "GlAccountTypeDefault",
+  "location": null,
+  "file": "services_admin.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "addInvoiceItemTypeGlAssignment": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "InvoiceItemTypeGlAccount",
+  "location": null,
+  "file": "services_admin.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeInvoiceItemTypeGlAssignment": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "InvoiceItemTypeGlAccount",
+  "location": null,
+  "file": "services_admin.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "addPaymentTypeGlAssignment": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "PaymentGlAccountTypeMap",
+  "location": null,
+  "file": "services_admin.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removePaymentTypeGlAssignment": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "PaymentGlAccountTypeMap",
+  "location": null,
+  "file": "services_admin.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "addPaymentMethodTypeGlAssignment": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "PaymentMethodTypeGlAccount",
+  "location": null,
+  "file": "services_admin.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removePaymentMethodTypeGlAssignment": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "PaymentMethodTypeGlAccount",
+  "location": null,
+  "file": "services_admin.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createAgreement": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "Agreement",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateAgreement": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "Agreement",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "expireAgreement": {
+  "engine": "entity-auto",
+  "invoke": "expire",
+  "entity": "Agreement",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "copyAgreement": {
+  "engine": "groovy",
+  "invoke": "copyAgreement",
+  "entity": "Agreement",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/agreement/AgreementServicesScript.groovy",
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "createAgreementItem": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementItem",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateAgreementItem": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementItem",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeAgreementItem": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementItem",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createAgreementTerm": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementTerm",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateAgreementTerm": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementTerm",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteAgreementTerm": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementTerm",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createAgreementPromoAppl": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementPromoAppl",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateAgreementPromoAppl": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementPromoAppl",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeAgreementPromoAppl": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementPromoAppl",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createAgreementProductAppl": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementProductAppl",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateAgreementProductAppl": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementProductAppl",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeAgreementProductAppl": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementProductAppl",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createAgreementFacilityAppl": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementFacilityAppl",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateAgreementFacilityAppl": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementFacilityAppl",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeAgreementFacilityAppl": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementFacilityAppl",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createAgreementPartyApplic": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementPartyApplic",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateAgreementPartyApplic": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementPartyApplic",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeAgreementPartyApplic": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementPartyApplic",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createAgreementGeographicalApplic": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementGeographicalApplic",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeAgreementGeographicalApplic": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementGeographicalApplic",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createAgreementRole": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementRole",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateAgreementRole": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementRole",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteAgreementRole": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementRole",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeAgreementContent": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementContent",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "uploadAgreementContentFile": {
+  "engine": "group",
+  "invoke": null,
+  "entity": null,
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createAgreementWorkEffortApplic": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementWorkEffortApplic",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteAgreementWorkEffortApplic": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementWorkEffortApplic",
+  "location": null,
+  "file": "services_agreement.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createBillingAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "BillingAccount",
+  "location": null,
+  "file": "services_billing.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateBillingAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "BillingAccount",
+  "location": null,
+  "file": "services_billing.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createBillingAccountRole": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "BillingAccountRole",
+  "location": null,
+  "file": "services_billing.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateBillingAccountRole": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "BillingAccountRole",
+  "location": null,
+  "file": "services_billing.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeBillingAccountRole": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "BillingAccountRole",
+  "location": null,
+  "file": "services_billing.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createBillingAccountAndRole": {
+  "engine": "group",
+  "invoke": null,
+  "entity": null,
+  "location": null,
+  "file": "services_billing.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createBillingAccountTerm": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "BillingAccountTerm",
+  "location": null,
+  "file": "services_billing.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateBillingAccountTerm": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "BillingAccountTerm",
+  "location": null,
+  "file": "services_billing.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeBillingAccountTerm": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "BillingAccountTerm",
+  "location": null,
+  "file": "services_billing.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createBudget": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "Budget",
+  "location": null,
+  "file": "services_budget.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateBudget": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "Budget",
+  "location": null,
+  "file": "services_budget.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateBudgetStatus": {
+  "engine": "groovy",
+  "invoke": "updateBudgetStatus",
+  "entity": "BudgetStatus",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/budget/BudgetServices.groovy",
+  "file": "services_budget.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createBudgetItem": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "BudgetItem",
+  "location": null,
+  "file": "services_budget.xml",
+  "outs": [
+   "budgetItemSeqId"
+  ],
+  "auto_out": []
+ },
+ "updateBudgetItem": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "BudgetItem",
+  "location": null,
+  "file": "services_budget.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeBudgetItem": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "BudgetItem",
+  "location": null,
+  "file": "services_budget.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createBudgetRole": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "BudgetRole",
+  "location": null,
+  "file": "services_budget.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeBudgetRole": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "BudgetRole",
+  "location": null,
+  "file": "services_budget.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createBudgetReview": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "BudgetReview",
+  "location": null,
+  "file": "services_budget.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeBudgetReview": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "BudgetReview",
+  "location": null,
+  "file": "services_budget.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createCostComponentCalc": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "CostComponentCalc",
+  "location": null,
+  "file": "services_cost.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateCostComponentCalc": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "CostComponentCalc",
+  "location": null,
+  "file": "services_cost.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeCostComponentCalc": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "CostComponentCalc",
+  "location": null,
+  "file": "services_cost.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createFinAccount": {
+  "engine": "simple",
+  "invoke": "createFinAccount",
+  "entity": "FinAccount",
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateFinAccount": {
+  "engine": "simple",
+  "invoke": "updateFinAccount",
+  "entity": "FinAccount",
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [
+   "oldStatusId",
+   "oldReplenishPaymentId",
+   "oldReplenishLevel",
+   "replenishPaymentId",
+   "replenishLevel"
+  ],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "deleteFinAccount": {
+  "engine": "entity-auto",
+  "invoke": "expire",
+  "entity": "FinAccount",
+  "location": null,
+  "file": "services_finaccount.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createFinAccountTrans": {
+  "engine": "simple",
+  "invoke": "createFinAccountTrans",
+  "entity": "FinAccountTrans",
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "createFinAccountRole": {
+  "engine": "simple",
+  "invoke": "createFinAccountRole",
+  "entity": "FinAccountRole",
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateFinAccountRole": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FinAccountRole",
+  "location": null,
+  "file": "services_finaccount.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteFinAccountRole": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FinAccountRole",
+  "location": null,
+  "file": "services_finaccount.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createFinAccountAuth": {
+  "engine": "simple",
+  "invoke": "createFinAccountAuth",
+  "entity": "FinAccountAuth",
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "expireFinAccountAuth": {
+  "engine": "simple",
+  "invoke": "expireFinAccountAuth",
+  "entity": "FinAccountAuth",
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "setFinAccountTransStatus": {
+  "engine": "simple",
+  "invoke": "setFinAccountTransStatus",
+  "entity": null,
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [
+   "oldStatusId"
+  ],
+  "auto_out": []
+ },
+ "getFinAccountTransRunningTotalAndBalances": {
+  "engine": "simple",
+  "invoke": "getFinAccountTransRunningTotalAndBalances",
+  "entity": null,
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [
+   "runningTotal",
+   "numberOfTransactions",
+   "finAccountTransRunningTotal",
+   "endingBalance"
+  ],
+  "auto_out": []
+ },
+ "reconcileFinAccountTrans": {
+  "engine": "simple",
+  "invoke": "reconcileFinAccountTrans",
+  "entity": null,
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "depositWithdrawPayments": {
+  "engine": "simple",
+  "invoke": "depositWithdrawPayments",
+  "entity": null,
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [
+   "finAccountTransId",
+   "paymentGroupId"
+  ],
+  "auto_out": []
+ },
+ "createPaymentAndFinAccountTrans": {
+  "engine": "simple",
+  "invoke": "createPaymentAndFinAccountTrans",
+  "entity": null,
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [
+   "paymentId"
+  ],
+  "auto_out": []
+ },
+ "assignGlRecToFinAccTrans": {
+  "engine": "simple",
+  "invoke": "assignGlRecToFinAccTrans",
+  "entity": null,
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeFinAccountTransFromReconciliation": {
+  "engine": "simple",
+  "invoke": "removeFinAccountTransFromReconciliation",
+  "entity": null,
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "cancelBankReconciliation": {
+  "engine": "simple",
+  "invoke": "cancelBankReconciliation",
+  "entity": null,
+  "location": "component://accounting/minilang/finaccount/FinAccountServices.xml",
+  "file": "services_finaccount.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createFixedAsset": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAsset",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateFixedAsset": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAsset",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "addFixedAssetProduct": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetProduct",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateFixedAssetProduct": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAssetProduct",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeFixedAssetProduct": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetProduct",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createFixedAssetStdCost": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetStdCost",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateFixedAssetStdCost": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAssetStdCost",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "cancelFixedAssetStdCost": {
+  "engine": "entity-auto",
+  "invoke": "expire",
+  "entity": "FixedAssetStdCost",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createFixedAssetIdent": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetIdent",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateFixedAssetIdent": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAssetIdent",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeFixedAssetIdent": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetIdent",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createFixedAssetRegistration": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetRegistration",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateFixedAssetRegistration": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAssetRegistration",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteFixedAssetRegistration": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetRegistration",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createFixedAssetMaint": {
+  "engine": "groovy",
+  "invoke": "createFixedAssetMaint",
+  "entity": "FixedAssetMaint",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetServices.groovy",
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateFixedAssetMaint": {
+  "engine": "groovy",
+  "invoke": "updateFixedAssetMaint",
+  "entity": "FixedAssetMaint",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetServices.groovy",
+  "file": "services_fixedasset.xml",
+  "outs": [
+   "oldStatusId"
+  ],
+  "auto_out": []
+ },
+ "deleteFixedAssetMaint": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetMaint",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createFixedAssetMeter": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetMeter",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateFixedAssetMeter": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAssetMeter",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteFixedAssetMeter": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetMeter",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createFixedAssetMaintOrder": {
+  "engine": "groovy",
+  "invoke": "createFixedAssetMaintOrder",
+  "entity": "FixedAssetMaintOrder",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetServices.groovy",
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteFixedAssetMaintOrder": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetMaintOrder",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createPartyFixedAssetAssignment": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "PartyFixedAssetAssignment",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePartyFixedAssetAssignment": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PartyFixedAssetAssignment",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deletePartyFixedAssetAssignment": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "PartyFixedAssetAssignment",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createFixedAssetDepMethod": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetDepMethod",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateFixedAssetDepMethod": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAssetDepMethod",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteFixedAssetDepMethod": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetDepMethod",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createFixedAssetTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetTypeGlAccount",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteFixedAssetTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetTypeGlAccount",
+  "location": null,
+  "file": "services_fixedasset.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createInvoice": {
+  "engine": "groovy",
+  "invoke": "createInvoice",
+  "entity": "Invoice",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy",
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "copyInvoice": {
+  "engine": "groovy",
+  "invoke": "copyInvoice",
+  "entity": "Invoice",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy",
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateInvoice": {
+  "engine": "groovy",
+  "invoke": "updateInvoice",
+  "entity": "Invoice",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy",
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "setInvoiceStatus": {
+  "engine": "groovy",
+  "invoke": "setInvoiceStatus",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy",
+  "file": "services_invoice.xml",
+  "outs": [
+   "invoiceTypeId",
+   "oldStatusId"
+  ],
+  "auto_out": []
+ },
+ "copyInvoiceToTemplate": {
+  "engine": "groovy",
+  "invoke": "copyInvoiceToTemplate",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy",
+  "file": "services_invoice.xml",
+  "outs": [
+   "invoiceId"
+  ],
+  "auto_out": []
+ },
+ "createInvoiceItem": {
+  "engine": "groovy",
+  "invoke": "createInvoiceItem",
+  "entity": "InvoiceItem",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy",
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateInvoiceItem": {
+  "engine": "groovy",
+  "invoke": "updateInvoiceItem",
+  "entity": "InvoiceItem",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy",
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "removeInvoiceItem": {
+  "engine": "groovy",
+  "invoke": "removeInvoiceItem",
+  "entity": "InvoiceItem",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy",
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createInvoiceRole": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "InvoiceRole",
+  "location": null,
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removeInvoiceRole": {
+  "engine": "entity-auto",
+  "invoke": "remove",
+  "entity": "InvoiceRole",
+  "location": null,
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createInvoiceTerm": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "InvoiceTerm",
+  "location": null,
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateInvoiceTerm": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "InvoiceTerm",
+  "location": null,
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteInvoiceTerm": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "InvoiceTerm",
+  "location": null,
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createCommissionInvoices": {
+  "engine": "java",
+  "invoke": "createCommissionInvoices",
+  "entity": null,
+  "location": "org.apache.ofbiz.accounting.invoice.InvoiceServices",
+  "file": "services_invoice.xml",
+  "outs": [
+   "invoicesCreated"
+  ],
+  "auto_out": []
+ },
+ "sendInvoicePerEmail": {
+  "engine": "groovy",
+  "invoke": "sendInvoicePerEmail",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy",
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateInvoiceItemType": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "InvoiceItemType",
+  "location": null,
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "getInvoiceRunningTotal": {
+  "engine": "groovy",
+  "invoke": "getInvoiceRunningTotal",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy",
+  "file": "services_invoice.xml",
+  "outs": [
+   "invoiceRunningTotal"
+  ],
+  "auto_out": []
+ },
+ "addTaxOnInvoice": {
+  "engine": "groovy",
+  "invoke": "addTaxOnInvoice",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy",
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "massChangeInvoiceStatus": {
+  "engine": "groovy",
+  "invoke": "massChangeInvoiceStatus",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy",
+  "file": "services_invoice.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "importInvoice": {
+  "engine": "java",
+  "invoke": "importInvoice",
+  "entity": null,
+  "location": "org.apache.ofbiz.accounting.invoice.InvoiceServices",
+  "file": "services_invoice.xml",
+  "outs": [
+   "organizationPartyId"
+  ],
+  "auto_out": []
+ },
+ "createGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlAccount",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "GlAccount",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createGlAccountOrganization": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlAccountOrganization",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "quickCreateAcctgTransAndEntries": {
+  "engine": "simple",
+  "invoke": "quickCreateAcctgTransAndEntries",
+  "entity": null,
+  "location": "component://accounting/minilang/ledger/GeneralLedgerServices.xml",
+  "file": "services_ledger.xml",
+  "outs": [
+   "acctgTransId"
+  ],
+  "auto_out": []
+ },
+ "createGlJournal": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlJournal",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateGlJournal": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "GlJournal",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteGlJournal": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "GlJournal",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createGlReconciliation": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlReconciliation",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateGlReconciliation": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "GlReconciliation",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "completeAcctgTransEntries": {
+  "engine": "simple",
+  "invoke": "completeAcctgTransEntries",
+  "entity": "AcctgTrans",
+  "location": "component://accounting/minilang/ledger/GeneralLedgerServices.xml",
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createAcctgTrans": {
+  "engine": "groovy",
+  "invoke": "createAcctgTrans",
+  "entity": "AcctgTrans",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/ledger/GeneralLedgerServicesScript.groovy",
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateAcctgTrans": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AcctgTrans",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createAcctgTransEntry": {
+  "engine": "simple",
+  "invoke": "createAcctgTransEntry",
+  "entity": "AcctgTransEntry",
+  "location": "component://accounting/minilang/ledger/AcctgTransServices.xml",
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateAcctgTransEntry": {
+  "engine": "simple",
+  "invoke": "updateAcctgTransEntry",
+  "entity": "AcctgTransEntry",
+  "location": "component://accounting/minilang/ledger/AcctgTransServices.xml",
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteAcctgTransEntry": {
+  "engine": "simple",
+  "invoke": "deleteAcctgTransEntry",
+  "entity": "AcctgTransEntry",
+  "location": "component://accounting/minilang/ledger/AcctgTransServices.xml",
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "postAcctgTrans": {
+  "engine": "simple",
+  "invoke": "postAcctgTrans",
+  "entity": "AcctgTrans",
+  "location": "component://accounting/minilang/ledger/AcctgTransServices.xml",
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "closeFinancialTimePeriod": {
+  "engine": "simple",
+  "invoke": "closeFinancialTimePeriod",
+  "entity": "CustomTimePeriod",
+  "location": "component://accounting/minilang/ledger/GeneralLedgerServices.xml",
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createFinAccountTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FinAccountTypeGlAccount",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateFinAccountTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FinAccountTypeGlAccount",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteFinAccountTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FinAccountTypeGlAccount",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createVarianceReasonGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "VarianceReasonGlAccount",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateVarianceReasonGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "VarianceReasonGlAccount",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteVarianceReasonGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "VarianceReasonGlAccount",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "copyAcctgTransAndEntries": {
+  "engine": "simple",
+  "invoke": "copyAcctgTransAndEntries",
+  "entity": null,
+  "location": "component://accounting/minilang/ledger/GeneralLedgerServices.xml",
+  "file": "services_ledger.xml",
+  "outs": [
+   "acctgTransId"
+  ],
+  "auto_out": []
+ },
+ "createPartyGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "PartyGlAccount",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePartyGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PartyGlAccount",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deletePartyGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "PartyGlAccount",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createGlAccountCategory": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlAccountCategory",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateGlAccountCategory": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "GlAccountCategory",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createGlAccountCategoryMember": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlAccountCategoryMember",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteGlAccountCategoryMember": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "GlAccountCategoryMember",
+  "location": null,
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateGlAccountCategoryMember": {
+  "engine": "simple",
+  "invoke": "updateGlAccountCategoryMember",
+  "entity": "GlAccountCategoryMember",
+  "location": "component://accounting/minilang/ledger/GeneralLedgerServices.xml",
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createUpdateCostCenter": {
+  "engine": "java",
+  "invoke": "createUpdateCostCenter",
+  "entity": null,
+  "location": "org.apache.ofbiz.accounting.ledger.GeneralLedgerServices",
+  "file": "services_ledger.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePayment": {
+  "engine": "groovy",
+  "invoke": "updatePayment",
+  "entity": "Payment",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy",
+  "file": "services_payment.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "setPaymentStatus": {
+  "engine": "groovy",
+  "invoke": "setPaymentStatus",
+  "entity": "Payment",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy",
+  "file": "services_payment.xml",
+  "outs": [
+   "oldStatusId"
+  ],
+  "auto_out": []
+ },
+ "quickSendPayment": {
+  "engine": "groovy",
+  "invoke": "quickSendPayment",
+  "entity": "Payment",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy",
+  "file": "services_payment.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createPaymentApplication": {
+  "engine": "groovy",
+  "invoke": "createPaymentApplication",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy",
+  "file": "services_payment.xml",
+  "outs": [
+   "amountApplied",
+   "paymentApplicationId",
+   "paymentTypeId"
+  ],
+  "auto_out": []
+ },
+ "updatePaymentApplicationDef": {
+  "engine": "java",
+  "invoke": "updatePaymentApplicationDef",
+  "entity": "PaymentApplication",
+  "location": "org.apache.ofbiz.accounting.invoice.InvoiceServices",
+  "file": "services_payment.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "removePaymentApplication": {
+  "engine": "groovy",
+  "invoke": "removePaymentApplication",
+  "entity": "PaymentApplication",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy",
+  "file": "services_payment.xml",
+  "outs": [],
+  "auto_out": [
+   "nonpk"
+  ]
+ },
+ "createPaymentAndApplication": {
+  "engine": "groovy",
+  "invoke": "createPaymentAndApplication",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy",
+  "file": "services_payment.xml",
+  "outs": [
+   "paymentApplicationId"
+  ],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "voidPayment": {
+  "engine": "groovy",
+  "invoke": "voidPayment",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy",
+  "file": "services_payment.xml",
+  "outs": [
+   "finAccountTransId",
+   "statusId"
+  ],
+  "auto_out": []
+ },
+ "getPaymentRunningTotal": {
+  "engine": "groovy",
+  "invoke": "getPaymentRunningTotal",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy",
+  "file": "services_payment.xml",
+  "outs": [
+   "paymentRunningTotal"
+  ],
+  "auto_out": []
+ },
+ "cancelPaymentBatch": {
+  "engine": "groovy",
+  "invoke": "cancelPaymentBatch",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy",
+  "file": "services_payment.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createPaymentAndPaymentGroupForInvoices": {
+  "engine": "groovy",
+  "invoke": "createPaymentAndPaymentGroupForInvoices",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy",
+  "file": "services_payment.xml",
+  "outs": [
+   "paymentGroupId"
+  ],
+  "auto_out": []
+ },
+ "cancelCheckRunPayments": {
+  "engine": "groovy",
+  "invoke": "cancelCheckRunPayments",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy",
+  "file": "services_payment.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "checkAndCreateBatchForValidPayments": {
+  "engine": "groovy",
+  "invoke": "checkAndCreateBatchForValidPayments",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy",
+  "file": "services_payment.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "massChangePaymentStatus": {
+  "engine": "groovy",
+  "invoke": "massChangePaymentStatus",
+  "entity": null,
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy",
+  "file": "services_payment.xml",
+  "outs": [
+   "errorMessage"
+  ],
+  "auto_out": []
+ },
+ "updatePaymentGatewayConfig": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGatewayConfig",
+  "location": null,
+  "file": "services_paymentgateway.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePaymentGatewayConfigSagePay": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGatewaySagePay",
+  "location": null,
+  "file": "services_paymentgateway.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePaymentGatewayConfigAuthorizeNet": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGatewayAuthorizeNet",
+  "location": null,
+  "file": "services_paymentgateway.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePaymentGatewayConfigClearCommerce": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGatewayClearCommerce",
+  "location": null,
+  "file": "services_paymentgateway.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePaymentGatewayConfigCyberSource": {
+  "engine": "simple",
+  "invoke": "updatePaymentGatewayConfigCyberSource",
+  "entity": null,
+  "location": "component://accounting/minilang/payment/PaymentGatewayConfigServices.xml",
+  "file": "services_paymentgateway.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePaymentGatewayConfigPayflowPro": {
+  "engine": "simple",
+  "invoke": "updatePaymentGatewayConfigPayflowPro",
+  "entity": null,
+  "location": "component://accounting/minilang/payment/PaymentGatewayConfigServices.xml",
+  "file": "services_paymentgateway.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePaymentGatewayConfigPayPal": {
+  "engine": "simple",
+  "invoke": "updatePaymentGatewayConfigPayPal",
+  "entity": null,
+  "location": "component://accounting/minilang/payment/PaymentGatewayConfigServices.xml",
+  "file": "services_paymentgateway.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePaymentGatewayConfigWorldPay": {
+  "engine": "simple",
+  "invoke": "updatePaymentGatewayConfigWorldPay",
+  "entity": null,
+  "location": "component://accounting/minilang/payment/PaymentGatewayConfigServices.xml",
+  "file": "services_paymentgateway.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePaymentGatewayConfigType": {
+  "engine": "simple",
+  "invoke": "updatePaymentGatewayConfigType",
+  "entity": null,
+  "location": "component://accounting/minilang/payment/PaymentGatewayConfigServices.xml",
+  "file": "services_paymentgateway.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePaymentGatewayConfigSecurePay": {
+  "engine": "simple",
+  "invoke": "updatePaymentGatewayConfigSecurePay",
+  "entity": null,
+  "location": "component://accounting/minilang/payment/PaymentGatewayConfigServices.xml",
+  "file": "services_paymentgateway.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePaymentGatewayConfigEway": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGatewayEway",
+  "location": null,
+  "file": "services_paymentgateway.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "manualForcedCcTransaction": {
+  "engine": "java",
+  "invoke": "processManualCcTx",
+  "entity": null,
+  "location": "org.apache.ofbiz.accounting.payment.PaymentGatewayServices",
+  "file": "services_paymentmethod.xml",
+  "outs": [
+   "referenceNum",
+   "tranRespMsgs"
+  ],
+  "auto_out": []
+ },
+ "authOrderPaymentPreference": {
+  "engine": "java",
+  "invoke": "authOrderPaymentPreference",
+  "entity": null,
+  "location": "org.apache.ofbiz.accounting.payment.PaymentGatewayServices",
+  "file": "services_paymentmethod.xml",
+  "outs": [
+   "finished",
+   "errors",
+   "messages",
+   "processAmount",
+   "authCode"
+  ],
+  "auto_out": []
+ },
+ "releaseOrderPaymentPreference": {
+  "engine": "java",
+  "invoke": "releaseOrderPaymentPreference",
+  "entity": null,
+  "location": "org.apache.ofbiz.accounting.payment.PaymentGatewayServices",
+  "file": "services_paymentmethod.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "capturePaymentsByInvoice": {
+  "engine": "java",
+  "invoke": "capturePaymentsByInvoice",
+  "entity": null,
+  "location": "org.apache.ofbiz.accounting.payment.PaymentGatewayServices",
+  "file": "services_paymentmethod.xml",
+  "outs": [
+   "processResult"
+  ],
+  "auto_out": []
+ },
+ "captureOrderPayments": {
+  "engine": "java",
+  "invoke": "captureOrderPayments",
+  "entity": null,
+  "location": "org.apache.ofbiz.accounting.payment.PaymentGatewayServices",
+  "file": "services_paymentmethod.xml",
+  "outs": [
+   "processResult"
+  ],
+  "auto_out": []
+ },
+ "refundOrderPaymentPreference": {
+  "engine": "java",
+  "invoke": "refundOrderPaymentPreference",
+  "entity": null,
+  "location": "org.apache.ofbiz.accounting.payment.PaymentGatewayServices",
+  "file": "services_paymentmethod.xml",
+  "outs": [
+   "refundAmount",
+   "paymentId"
+  ],
+  "auto_out": []
+ },
+ "createCreditCardTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "CreditCardTypeGlAccount",
+  "location": null,
+  "file": "services_paymentmethod.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateCreditCardTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "CreditCardTypeGlAccount",
+  "location": null,
+  "file": "services_paymentmethod.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteCreditCardTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "CreditCardTypeGlAccount",
+  "location": null,
+  "file": "services_paymentmethod.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePaymentMethodType": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentMethodType",
+  "location": null,
+  "file": "services_paymentmethod.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createPaymentGroup": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "PaymentGroup",
+  "location": null,
+  "file": "services_paymentmethod.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updatePaymentGroup": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGroup",
+  "location": null,
+  "file": "services_paymentmethod.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deletePaymentGroup": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "PaymentGroup",
+  "location": null,
+  "file": "services_paymentmethod.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createPaymentGroupMember": {
+  "engine": "simple",
+  "invoke": "createPaymentGroupMember",
+  "entity": "PaymentGroupMember",
+  "location": "component://accounting/minilang/payment/PaymentMethodServices.xml",
+  "file": "services_paymentmethod.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePaymentGroupMember": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGroupMember",
+  "location": null,
+  "file": "services_paymentmethod.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "expirePaymentGroupMember": {
+  "engine": "simple",
+  "invoke": "expirePaymentGroupMember",
+  "entity": "PaymentGroupMember",
+  "location": "component://accounting/minilang/payment/PaymentMethodServices.xml",
+  "file": "services_paymentmethod.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateRateAmount": {
+  "engine": "groovy",
+  "invoke": "updateRateAmount",
+  "entity": "RateAmount",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/rate/RateServices.groovy",
+  "file": "services_rate.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "expireRateAmount": {
+  "engine": "groovy",
+  "invoke": "expireRateAmount",
+  "entity": "RateAmount",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/rate/RateServices.groovy",
+  "file": "services_rate.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createTaxAuthority": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "TaxAuthority",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateTaxAuthority": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "TaxAuthority",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createTaxAuthorityAssoc": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "TaxAuthorityAssoc",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateTaxAuthorityAssoc": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "TaxAuthorityAssoc",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteTaxAuthorityAssoc": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "TaxAuthorityAssoc",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createTaxAuthorityCategory": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "TaxAuthorityCategory",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateTaxAuthorityCategory": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "TaxAuthorityCategory",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteTaxAuthorityCategory": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "TaxAuthorityCategory",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createTaxAuthorityGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "TaxAuthorityGlAccount",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updateTaxAuthorityGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "TaxAuthorityGlAccount",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteTaxAuthorityGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "TaxAuthorityGlAccount",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createTaxAuthorityRateProduct": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "TaxAuthorityRateProduct",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": [
+   "pk"
+  ]
+ },
+ "updateTaxAuthorityRateProduct": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "TaxAuthorityRateProduct",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deleteTaxAuthorityRateProduct": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "TaxAuthorityRateProduct",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "createPartyTaxAuthInfo": {
+  "engine": "groovy",
+  "invoke": "createPartyTaxAuthInfo",
+  "entity": "PartyTaxAuthInfo",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/tax/TaxAuthorityServicesScript.groovy",
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "updatePartyTaxAuthInfo": {
+  "engine": "groovy",
+  "invoke": "updatePartyTaxAuthInfo",
+  "entity": "PartyTaxAuthInfo",
+  "location": "component://accounting/src/main/groovy/org/apache/ofbiz/accounting/tax/TaxAuthorityServicesScript.groovy",
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ },
+ "deletePartyTaxAuthInfo": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "PartyTaxAuthInfo",
+  "location": null,
+  "file": "services_tax.xml",
+  "outs": [],
+  "auto_out": []
+ }
+}

@@ -1,0 +1,986 @@
+{
+ "addFixedAssetProduct": {
+  "kind": "AUTO",
+  "text": "    public AddFixedAssetProductResponse addFixedAssetProduct(AddFixedAssetProductRequest req) throws SQLException {\n        FixedAssetProduct e = new FixedAssetProduct();\n        ServiceInput.populate(e, req);\n        if (e.getFromDate() == null) e.setFromDate(nowTs());\n        fixedAssetProductDao.insert(e);\n        return ServiceResponse.ok(AddFixedAssetProductResponse::new, e);\n    }"
+ },
+ "addInvoiceItemTypeGlAssignment": {
+  "kind": "AUTO",
+  "text": "    public AddInvoiceItemTypeGlAssignmentResponse addInvoiceItemTypeGlAssignment(AddInvoiceItemTypeGlAssignmentRequest req) throws SQLException {\n        InvoiceItemTypeGlAccount e = new InvoiceItemTypeGlAccount();\n        ServiceInput.populate(e, req);\n        invoiceItemTypeGlAccountDao.insert(e);\n        return ServiceResponse.ok(AddInvoiceItemTypeGlAssignmentResponse::new, e);\n    }"
+ },
+ "addPaymentMethodTypeGlAssignment": {
+  "kind": "AUTO",
+  "text": "    public AddPaymentMethodTypeGlAssignmentResponse addPaymentMethodTypeGlAssignment(AddPaymentMethodTypeGlAssignmentRequest req) throws SQLException {\n        PaymentMethodTypeGlAccount e = new PaymentMethodTypeGlAccount();\n        ServiceInput.populate(e, req);\n        paymentMethodTypeGlAccountDao.insert(e);\n        return ServiceResponse.ok(AddPaymentMethodTypeGlAssignmentResponse::new, e);\n    }"
+ },
+ "addPaymentTypeGlAssignment": {
+  "kind": "AUTO",
+  "text": "    public AddPaymentTypeGlAssignmentResponse addPaymentTypeGlAssignment(AddPaymentTypeGlAssignmentRequest req) throws SQLException {\n        PaymentGlAccountTypeMap e = new PaymentGlAccountTypeMap();\n        ServiceInput.populate(e, req);\n        paymentGlAccountTypeMapDao.insert(e);\n        return ServiceResponse.ok(AddPaymentTypeGlAssignmentResponse::new, e);\n    }"
+ },
+ "addTaxOnInvoice": {
+  "kind": "STUB",
+  "text": "    public AddTaxOnInvoiceResponse addTaxOnInvoice(AddTaxOnInvoiceRequest req) { return notPortedYet(AddTaxOnInvoiceResponse::new, \"addTaxOnInvoice\"); }"
+ },
+ "assignGlRecToFinAccTrans": {
+  "kind": "STUB",
+  "text": "    public AssignGlRecToFinAccTransResponse assignGlRecToFinAccTrans(AssignGlRecToFinAccTransRequest req) { return notPortedYet(AssignGlRecToFinAccTransResponse::new, \"assignGlRecToFinAccTrans\"); }"
+ },
+ "authOrderPaymentPreference": {
+  "kind": "STUB",
+  "text": "    public AuthOrderPaymentPreferenceResponse authOrderPaymentPreference(AuthOrderPaymentPreferenceRequest req) { return notPortedYet(AuthOrderPaymentPreferenceResponse::new, \"authOrderPaymentPreference\"); }"
+ },
+ "cancelBankReconciliation": {
+  "kind": "STUB",
+  "text": "    public CancelBankReconciliationResponse cancelBankReconciliation(CancelBankReconciliationRequest req) { return notPortedYet(CancelBankReconciliationResponse::new, \"cancelBankReconciliation\"); }"
+ },
+ "cancelCheckRunPayments": {
+  "kind": "STUB",
+  "text": "    public CancelCheckRunPaymentsResponse cancelCheckRunPayments(CancelCheckRunPaymentsRequest req) { return notPortedYet(CancelCheckRunPaymentsResponse::new, \"cancelCheckRunPayments\"); }"
+ },
+ "cancelFixedAssetStdCost": {
+  "kind": "AUTO",
+  "text": "    public CancelFixedAssetStdCostResponse cancelFixedAssetStdCost(CancelFixedAssetStdCostRequest req) throws SQLException {\n        FixedAssetStdCost probe = new FixedAssetStdCost();\n        ServiceInput.populate(probe, req);\n        FixedAssetStdCost e = fixedAssetStdCostDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"FixedAssetStdCost not found\", CancelFixedAssetStdCostResponse::new);\n        e.setThruDate(nowTs());\n        fixedAssetStdCostDao.update(e);\n        return ServiceResponse.ok(CancelFixedAssetStdCostResponse::new, e);\n    }"
+ },
+ "cancelPaymentBatch": {
+  "kind": "STUB",
+  "text": "    public CancelPaymentBatchResponse cancelPaymentBatch(CancelPaymentBatchRequest req) { return notPortedYet(CancelPaymentBatchResponse::new, \"cancelPaymentBatch\"); }"
+ },
+ "captureOrderPayments": {
+  "kind": "STUB",
+  "text": "    public CaptureOrderPaymentsResponse captureOrderPayments(CaptureOrderPaymentsRequest req) { return notPortedYet(CaptureOrderPaymentsResponse::new, \"captureOrderPayments\"); }"
+ },
+ "capturePaymentsByInvoice": {
+  "kind": "STUB",
+  "text": "    public CapturePaymentsByInvoiceResponse capturePaymentsByInvoice(CapturePaymentsByInvoiceRequest req) { return notPortedYet(CapturePaymentsByInvoiceResponse::new, \"capturePaymentsByInvoice\"); }"
+ },
+ "checkAndCreateBatchForValidPayments": {
+  "kind": "STUB",
+  "text": "    public CheckAndCreateBatchForValidPaymentsResponse checkAndCreateBatchForValidPayments(CheckAndCreateBatchForValidPaymentsRequest req) { return notPortedYet(CheckAndCreateBatchForValidPaymentsResponse::new, \"checkAndCreateBatchForValidPayments\"); }"
+ },
+ "closeFinancialTimePeriod": {
+  "kind": "STUB",
+  "text": "    public CloseFinancialTimePeriodResponse closeFinancialTimePeriod(CloseFinancialTimePeriodRequest req) { return notPortedYet(CloseFinancialTimePeriodResponse::new, \"closeFinancialTimePeriod\"); }"
+ },
+ "completeAcctgTransEntries": {
+  "kind": "STUB",
+  "text": "    public CompleteAcctgTransEntriesResponse completeAcctgTransEntries(CompleteAcctgTransEntriesRequest req) { return notPortedYet(CompleteAcctgTransEntriesResponse::new, \"completeAcctgTransEntries\"); }"
+ },
+ "copyAcctgTransAndEntries": {
+  "kind": "STUB",
+  "text": "    public CopyAcctgTransAndEntriesResponse copyAcctgTransAndEntries(CopyAcctgTransAndEntriesRequest req) { return notPortedYet(CopyAcctgTransAndEntriesResponse::new, \"copyAcctgTransAndEntries\"); }"
+ },
+ "copyAgreement": {
+  "kind": "CURATED",
+  "text": "    public CopyAgreementResponse copyAgreement(CopyAgreementRequest req) throws SQLException {\n        String oldId = req.getAgreementId();\n        Agreement src = agreementDao.gett(oldId);\n        if (src == null) return ServiceResponse.error(\"Agreement not found: \" + oldId, CopyAgreementResponse::new);\n        Agreement dup = Beans.copy(src);\n        dup.setAgreementId(SequenceUtil.next());\n        agreementDao.insert(dup);\n        return ServiceResponse.ok(CopyAgreementResponse::new, dup);\n    }"
+ },
+ "copyInvoice": {
+  "kind": "CURATED",
+  "text": "    public CopyInvoiceResponse copyInvoice(CopyInvoiceRequest req) throws SQLException {\n        String oldId = req.getInvoiceId();\n        Invoice src = invoiceDao.gett(oldId);\n        if (src == null) return ServiceResponse.error(\"Invoice not found: \" + oldId, CopyInvoiceResponse::new);\n        Invoice dup = Beans.copy(src);\n        String newId = SequenceUtil.next();\n        dup.setInvoiceId(newId);\n        invoiceDao.insert(dup);\n        for (InvoiceItem item : invoiceItemDao.list(Filters.eq(\"invoiceId\", oldId))) {\n            InvoiceItem copy = Beans.copy(item);\n            copy.setInvoiceId(newId);\n            invoiceItemDao.insert(copy);\n        }\n        return ServiceResponse.ok(CopyInvoiceResponse::new, dup);\n    }"
+ },
+ "copyInvoiceToTemplate": {
+  "kind": "CURATED",
+  "text": "    public CopyInvoiceToTemplateResponse copyInvoiceToTemplate(CopyInvoiceToTemplateRequest req) throws SQLException {\n        String oldId = req.getInvoiceId();\n        Invoice src = invoiceDao.gett(oldId);\n        if (src == null) return ServiceResponse.error(\"Invoice not found: \" + oldId, CopyInvoiceToTemplateResponse::new);\n        Invoice dup = Beans.copy(src);\n        String newId = SequenceUtil.next();\n        dup.setInvoiceId(newId);\n        invoiceDao.insert(dup);\n        for (InvoiceItem item : invoiceItemDao.list(Filters.eq(\"invoiceId\", oldId))) {\n            InvoiceItem copy = Beans.copy(item);\n            copy.setInvoiceId(newId);\n            invoiceItemDao.insert(copy);\n        }\n        return ServiceResponse.ok(CopyInvoiceToTemplateResponse::new, dup);\n    }"
+ },
+ "createAcctgTrans": {
+  "kind": "AUTO",
+  "text": "    public CreateAcctgTransResponse createAcctgTrans(CreateAcctgTransRequest req) throws SQLException {\n        AcctgTrans e = new AcctgTrans();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getAcctgTransId())) e.setAcctgTransId(SequenceUtil.next());\n        acctgTransDao.insert(e);\n        return ServiceResponse.ok(CreateAcctgTransResponse::new, e);\n    }"
+ },
+ "createAcctgTransEntry": {
+  "kind": "AUTO",
+  "text": "    public CreateAcctgTransEntryResponse createAcctgTransEntry(CreateAcctgTransEntryRequest req) throws SQLException {\n        AcctgTransEntry e = new AcctgTransEntry();\n        ServiceInput.populate(e, req);\n        acctgTransEntryDao.insert(e);\n        return ServiceResponse.ok(CreateAcctgTransEntryResponse::new, e);\n    }"
+ },
+ "createAgreement": {
+  "kind": "AUTO",
+  "text": "    public CreateAgreementResponse createAgreement(CreateAgreementRequest req) throws SQLException {\n        Agreement e = new Agreement();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getAgreementId())) e.setAgreementId(SequenceUtil.next());\n        agreementDao.insert(e);\n        return ServiceResponse.ok(CreateAgreementResponse::new, e);\n    }"
+ },
+ "createAgreementFacilityAppl": {
+  "kind": "AUTO",
+  "text": "    public CreateAgreementFacilityApplResponse createAgreementFacilityAppl(CreateAgreementFacilityApplRequest req) throws SQLException {\n        AgreementFacilityAppl e = new AgreementFacilityAppl();\n        ServiceInput.populate(e, req);\n        agreementFacilityApplDao.insert(e);\n        return ServiceResponse.ok(CreateAgreementFacilityApplResponse::new, e);\n    }"
+ },
+ "createAgreementGeographicalApplic": {
+  "kind": "AUTO",
+  "text": "    public CreateAgreementGeographicalApplicResponse createAgreementGeographicalApplic(CreateAgreementGeographicalApplicRequest req) throws SQLException {\n        AgreementGeographicalApplic e = new AgreementGeographicalApplic();\n        ServiceInput.populate(e, req);\n        agreementGeographicalApplicDao.insert(e);\n        return ServiceResponse.ok(CreateAgreementGeographicalApplicResponse::new, e);\n    }"
+ },
+ "createAgreementItem": {
+  "kind": "AUTO",
+  "text": "    public CreateAgreementItemResponse createAgreementItem(CreateAgreementItemRequest req) throws SQLException {\n        AgreementItem e = new AgreementItem();\n        ServiceInput.populate(e, req);\n        agreementItemDao.insert(e);\n        return ServiceResponse.ok(CreateAgreementItemResponse::new, e);\n    }"
+ },
+ "createAgreementPartyApplic": {
+  "kind": "AUTO",
+  "text": "    public CreateAgreementPartyApplicResponse createAgreementPartyApplic(CreateAgreementPartyApplicRequest req) throws SQLException {\n        AgreementPartyApplic e = new AgreementPartyApplic();\n        ServiceInput.populate(e, req);\n        agreementPartyApplicDao.insert(e);\n        return ServiceResponse.ok(CreateAgreementPartyApplicResponse::new, e);\n    }"
+ },
+ "createAgreementProductAppl": {
+  "kind": "AUTO",
+  "text": "    public CreateAgreementProductApplResponse createAgreementProductAppl(CreateAgreementProductApplRequest req) throws SQLException {\n        AgreementProductAppl e = new AgreementProductAppl();\n        ServiceInput.populate(e, req);\n        agreementProductApplDao.insert(e);\n        return ServiceResponse.ok(CreateAgreementProductApplResponse::new, e);\n    }"
+ },
+ "createAgreementPromoAppl": {
+  "kind": "AUTO",
+  "text": "    public CreateAgreementPromoApplResponse createAgreementPromoAppl(CreateAgreementPromoApplRequest req) throws SQLException {\n        AgreementPromoAppl e = new AgreementPromoAppl();\n        ServiceInput.populate(e, req);\n        if (e.getFromDate() == null) e.setFromDate(nowTs());\n        agreementPromoApplDao.insert(e);\n        return ServiceResponse.ok(CreateAgreementPromoApplResponse::new, e);\n    }"
+ },
+ "createAgreementRole": {
+  "kind": "AUTO",
+  "text": "    public CreateAgreementRoleResponse createAgreementRole(CreateAgreementRoleRequest req) throws SQLException {\n        AgreementRole e = new AgreementRole();\n        ServiceInput.populate(e, req);\n        agreementRoleDao.insert(e);\n        return ServiceResponse.ok(CreateAgreementRoleResponse::new, e);\n    }"
+ },
+ "createAgreementTerm": {
+  "kind": "AUTO",
+  "text": "    public CreateAgreementTermResponse createAgreementTerm(CreateAgreementTermRequest req) throws SQLException {\n        AgreementTerm e = new AgreementTerm();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getAgreementTermId())) e.setAgreementTermId(SequenceUtil.next());\n        agreementTermDao.insert(e);\n        return ServiceResponse.ok(CreateAgreementTermResponse::new, e);\n    }"
+ },
+ "createAgreementWorkEffortApplic": {
+  "kind": "AUTO",
+  "text": "    public CreateAgreementWorkEffortApplicResponse createAgreementWorkEffortApplic(CreateAgreementWorkEffortApplicRequest req) throws SQLException {\n        AgreementWorkEffortApplic e = new AgreementWorkEffortApplic();\n        ServiceInput.populate(e, req);\n        agreementWorkEffortApplicDao.insert(e);\n        return ServiceResponse.ok(CreateAgreementWorkEffortApplicResponse::new, e);\n    }"
+ },
+ "createBillingAccount": {
+  "kind": "AUTO",
+  "text": "    public CreateBillingAccountResponse createBillingAccount(CreateBillingAccountRequest req) throws SQLException {\n        BillingAccount e = new BillingAccount();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getBillingAccountId())) e.setBillingAccountId(SequenceUtil.next());\n        billingAccountDao.insert(e);\n        return ServiceResponse.ok(CreateBillingAccountResponse::new, e);\n    }"
+ },
+ "createBillingAccountAndRole": {
+  "kind": "STUB",
+  "text": "    public CreateBillingAccountAndRoleResponse createBillingAccountAndRole(CreateBillingAccountAndRoleRequest req) { return notPortedYet(CreateBillingAccountAndRoleResponse::new, \"createBillingAccountAndRole\"); }"
+ },
+ "createBillingAccountRole": {
+  "kind": "AUTO",
+  "text": "    public CreateBillingAccountRoleResponse createBillingAccountRole(CreateBillingAccountRoleRequest req) throws SQLException {\n        BillingAccountRole e = new BillingAccountRole();\n        ServiceInput.populate(e, req);\n        if (e.getFromDate() == null) e.setFromDate(nowTs());\n        billingAccountRoleDao.insert(e);\n        return ServiceResponse.ok(CreateBillingAccountRoleResponse::new, e);\n    }"
+ },
+ "createBillingAccountTerm": {
+  "kind": "AUTO",
+  "text": "    public CreateBillingAccountTermResponse createBillingAccountTerm(CreateBillingAccountTermRequest req) throws SQLException {\n        BillingAccountTerm e = new BillingAccountTerm();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getBillingAccountTermId())) e.setBillingAccountTermId(SequenceUtil.next());\n        billingAccountTermDao.insert(e);\n        return ServiceResponse.ok(CreateBillingAccountTermResponse::new, e);\n    }"
+ },
+ "createBudget": {
+  "kind": "AUTO",
+  "text": "    public CreateBudgetResponse createBudget(CreateBudgetRequest req) throws SQLException {\n        Budget e = new Budget();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getBudgetId())) e.setBudgetId(SequenceUtil.next());\n        budgetDao.insert(e);\n        return ServiceResponse.ok(CreateBudgetResponse::new, e);\n    }"
+ },
+ "createBudgetItem": {
+  "kind": "AUTO",
+  "text": "    public CreateBudgetItemResponse createBudgetItem(CreateBudgetItemRequest req) throws SQLException {\n        BudgetItem e = new BudgetItem();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getBudgetItemSeqId())) e.setBudgetItemSeqId(SequenceUtil.next());\n        budgetItemDao.insert(e);\n        return ServiceResponse.ok(CreateBudgetItemResponse::new, e);\n    }"
+ },
+ "createBudgetReview": {
+  "kind": "AUTO",
+  "text": "    public CreateBudgetReviewResponse createBudgetReview(CreateBudgetReviewRequest req) throws SQLException {\n        BudgetReview e = new BudgetReview();\n        ServiceInput.populate(e, req);\n        budgetReviewDao.insert(e);\n        return ServiceResponse.ok(CreateBudgetReviewResponse::new, e);\n    }"
+ },
+ "createBudgetRole": {
+  "kind": "AUTO",
+  "text": "    public CreateBudgetRoleResponse createBudgetRole(CreateBudgetRoleRequest req) throws SQLException {\n        BudgetRole e = new BudgetRole();\n        ServiceInput.populate(e, req);\n        budgetRoleDao.insert(e);\n        return ServiceResponse.ok(CreateBudgetRoleResponse::new, e);\n    }"
+ },
+ "createCommissionInvoices": {
+  "kind": "STUB",
+  "text": "    public CreateCommissionInvoicesResponse createCommissionInvoices(CreateCommissionInvoicesRequest req) { return notPortedYet(CreateCommissionInvoicesResponse::new, \"createCommissionInvoices\"); }"
+ },
+ "createCostComponentCalc": {
+  "kind": "AUTO",
+  "text": "    public CreateCostComponentCalcResponse createCostComponentCalc(CreateCostComponentCalcRequest req) throws SQLException {\n        CostComponentCalc e = new CostComponentCalc();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getCostComponentCalcId())) e.setCostComponentCalcId(SequenceUtil.next());\n        costComponentCalcDao.insert(e);\n        return ServiceResponse.ok(CreateCostComponentCalcResponse::new, e);\n    }"
+ },
+ "createCreditCardTypeGlAccount": {
+  "kind": "AUTO",
+  "text": "    public CreateCreditCardTypeGlAccountResponse createCreditCardTypeGlAccount(CreateCreditCardTypeGlAccountRequest req) throws SQLException {\n        CreditCardTypeGlAccount e = new CreditCardTypeGlAccount();\n        ServiceInput.populate(e, req);\n        creditCardTypeGlAccountDao.insert(e);\n        return ServiceResponse.ok(CreateCreditCardTypeGlAccountResponse::new, e);\n    }"
+ },
+ "createCustomTimePeriod": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> createCustomTimePeriod(Map<String, Object> body) throws SQLException { CustomTimePeriod e = new CustomTimePeriod(); ServiceInput.populate(e, body); if (Strings.isEmpty(e.getCustomTimePeriodId())) e.setCustomTimePeriodId(SequenceUtil.next()); customTimePeriodDao.insert(e); return ServiceResponse.success(\"customTimePeriodId\", e.getCustomTimePeriodId()); }"
+ },
+ "createFinAccount": {
+  "kind": "AUTO",
+  "text": "    public CreateFinAccountResponse createFinAccount(CreateFinAccountRequest req) throws SQLException {\n        FinAccount e = new FinAccount();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getFinAccountId())) e.setFinAccountId(SequenceUtil.next());\n        finAccountDao.insert(e);\n        return ServiceResponse.ok(CreateFinAccountResponse::new, e);\n    }"
+ },
+ "createFinAccountAuth": {
+  "kind": "AUTO",
+  "text": "    public CreateFinAccountAuthResponse createFinAccountAuth(CreateFinAccountAuthRequest req) throws SQLException {\n        FinAccountAuth e = new FinAccountAuth();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getFinAccountAuthId())) e.setFinAccountAuthId(SequenceUtil.next());\n        finAccountAuthDao.insert(e);\n        return ServiceResponse.ok(CreateFinAccountAuthResponse::new, e);\n    }"
+ },
+ "createFinAccountRole": {
+  "kind": "AUTO",
+  "text": "    public CreateFinAccountRoleResponse createFinAccountRole(CreateFinAccountRoleRequest req) throws SQLException {\n        FinAccountRole e = new FinAccountRole();\n        ServiceInput.populate(e, req);\n        if (e.getFromDate() == null) e.setFromDate(nowTs());\n        finAccountRoleDao.insert(e);\n        return ServiceResponse.ok(CreateFinAccountRoleResponse::new, e);\n    }"
+ },
+ "createFinAccountTrans": {
+  "kind": "AUTO",
+  "text": "    public CreateFinAccountTransResponse createFinAccountTrans(CreateFinAccountTransRequest req) throws SQLException {\n        FinAccountTrans e = new FinAccountTrans();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getFinAccountTransId())) e.setFinAccountTransId(SequenceUtil.next());\n        finAccountTransDao.insert(e);\n        return ServiceResponse.ok(CreateFinAccountTransResponse::new, e);\n    }"
+ },
+ "createFinAccountTypeGlAccount": {
+  "kind": "AUTO",
+  "text": "    public CreateFinAccountTypeGlAccountResponse createFinAccountTypeGlAccount(CreateFinAccountTypeGlAccountRequest req) throws SQLException {\n        FinAccountTypeGlAccount e = new FinAccountTypeGlAccount();\n        ServiceInput.populate(e, req);\n        finAccountTypeGlAccountDao.insert(e);\n        return ServiceResponse.ok(CreateFinAccountTypeGlAccountResponse::new, e);\n    }"
+ },
+ "createFixedAsset": {
+  "kind": "AUTO",
+  "text": "    public CreateFixedAssetResponse createFixedAsset(CreateFixedAssetRequest req) throws SQLException {\n        FixedAsset e = new FixedAsset();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getFixedAssetId())) e.setFixedAssetId(SequenceUtil.next());\n        fixedAssetDao.insert(e);\n        return ServiceResponse.ok(CreateFixedAssetResponse::new, e);\n    }"
+ },
+ "createFixedAssetDepMethod": {
+  "kind": "AUTO",
+  "text": "    public CreateFixedAssetDepMethodResponse createFixedAssetDepMethod(CreateFixedAssetDepMethodRequest req) throws SQLException {\n        FixedAssetDepMethod e = new FixedAssetDepMethod();\n        ServiceInput.populate(e, req);\n        fixedAssetDepMethodDao.insert(e);\n        return ServiceResponse.ok(CreateFixedAssetDepMethodResponse::new, e);\n    }"
+ },
+ "createFixedAssetIdent": {
+  "kind": "AUTO",
+  "text": "    public CreateFixedAssetIdentResponse createFixedAssetIdent(CreateFixedAssetIdentRequest req) throws SQLException {\n        FixedAssetIdent e = new FixedAssetIdent();\n        ServiceInput.populate(e, req);\n        fixedAssetIdentDao.insert(e);\n        return ServiceResponse.ok(CreateFixedAssetIdentResponse::new, e);\n    }"
+ },
+ "createFixedAssetMaint": {
+  "kind": "AUTO",
+  "text": "    public CreateFixedAssetMaintResponse createFixedAssetMaint(CreateFixedAssetMaintRequest req) throws SQLException {\n        FixedAssetMaint e = new FixedAssetMaint();\n        ServiceInput.populate(e, req);\n        fixedAssetMaintDao.insert(e);\n        return ServiceResponse.ok(CreateFixedAssetMaintResponse::new, e);\n    }"
+ },
+ "createFixedAssetMaintOrder": {
+  "kind": "AUTO",
+  "text": "    public CreateFixedAssetMaintOrderResponse createFixedAssetMaintOrder(CreateFixedAssetMaintOrderRequest req) throws SQLException {\n        FixedAssetMaintOrder e = new FixedAssetMaintOrder();\n        ServiceInput.populate(e, req);\n        fixedAssetMaintOrderDao.insert(e);\n        return ServiceResponse.ok(CreateFixedAssetMaintOrderResponse::new, e);\n    }"
+ },
+ "createFixedAssetMeter": {
+  "kind": "AUTO",
+  "text": "    public CreateFixedAssetMeterResponse createFixedAssetMeter(CreateFixedAssetMeterRequest req) throws SQLException {\n        FixedAssetMeter e = new FixedAssetMeter();\n        ServiceInput.populate(e, req);\n        fixedAssetMeterDao.insert(e);\n        return ServiceResponse.ok(CreateFixedAssetMeterResponse::new, e);\n    }"
+ },
+ "createFixedAssetRegistration": {
+  "kind": "AUTO",
+  "text": "    public CreateFixedAssetRegistrationResponse createFixedAssetRegistration(CreateFixedAssetRegistrationRequest req) throws SQLException {\n        FixedAssetRegistration e = new FixedAssetRegistration();\n        ServiceInput.populate(e, req);\n        if (e.getFromDate() == null) e.setFromDate(nowTs());\n        fixedAssetRegistrationDao.insert(e);\n        return ServiceResponse.ok(CreateFixedAssetRegistrationResponse::new, e);\n    }"
+ },
+ "createFixedAssetStdCost": {
+  "kind": "AUTO",
+  "text": "    public CreateFixedAssetStdCostResponse createFixedAssetStdCost(CreateFixedAssetStdCostRequest req) throws SQLException {\n        FixedAssetStdCost e = new FixedAssetStdCost();\n        ServiceInput.populate(e, req);\n        if (e.getFromDate() == null) e.setFromDate(nowTs());\n        fixedAssetStdCostDao.insert(e);\n        return ServiceResponse.ok(CreateFixedAssetStdCostResponse::new, e);\n    }"
+ },
+ "createFixedAssetTypeGlAccount": {
+  "kind": "AUTO",
+  "text": "    public CreateFixedAssetTypeGlAccountResponse createFixedAssetTypeGlAccount(CreateFixedAssetTypeGlAccountRequest req) throws SQLException {\n        FixedAssetTypeGlAccount e = new FixedAssetTypeGlAccount();\n        ServiceInput.populate(e, req);\n        fixedAssetTypeGlAccountDao.insert(e);\n        return ServiceResponse.ok(CreateFixedAssetTypeGlAccountResponse::new, e);\n    }"
+ },
+ "createGlAccount": {
+  "kind": "AUTO",
+  "text": "    public CreateGlAccountResponse createGlAccount(CreateGlAccountRequest req) throws SQLException {\n        GlAccount e = new GlAccount();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getGlAccountId())) e.setGlAccountId(SequenceUtil.next());\n        glAccountDao.insert(e);\n        return ServiceResponse.ok(CreateGlAccountResponse::new, e);\n    }"
+ },
+ "createGlAccountCategory": {
+  "kind": "AUTO",
+  "text": "    public CreateGlAccountCategoryResponse createGlAccountCategory(CreateGlAccountCategoryRequest req) throws SQLException {\n        GlAccountCategory e = new GlAccountCategory();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getGlAccountCategoryId())) e.setGlAccountCategoryId(SequenceUtil.next());\n        glAccountCategoryDao.insert(e);\n        return ServiceResponse.ok(CreateGlAccountCategoryResponse::new, e);\n    }"
+ },
+ "createGlAccountCategoryMember": {
+  "kind": "AUTO",
+  "text": "    public CreateGlAccountCategoryMemberResponse createGlAccountCategoryMember(CreateGlAccountCategoryMemberRequest req) throws SQLException {\n        GlAccountCategoryMember e = new GlAccountCategoryMember();\n        ServiceInput.populate(e, req);\n        if (e.getFromDate() == null) e.setFromDate(nowTs());\n        glAccountCategoryMemberDao.insert(e);\n        return ServiceResponse.ok(CreateGlAccountCategoryMemberResponse::new, e);\n    }"
+ },
+ "createGlAccountOrganization": {
+  "kind": "AUTO",
+  "text": "    public CreateGlAccountOrganizationResponse createGlAccountOrganization(CreateGlAccountOrganizationRequest req) throws SQLException {\n        GlAccountOrganization e = new GlAccountOrganization();\n        ServiceInput.populate(e, req);\n        glAccountOrganizationDao.insert(e);\n        return ServiceResponse.ok(CreateGlAccountOrganizationResponse::new, e);\n    }"
+ },
+ "createGlAccountTypeDefault": {
+  "kind": "AUTO",
+  "text": "    public CreateGlAccountTypeDefaultResponse createGlAccountTypeDefault(CreateGlAccountTypeDefaultRequest req) throws SQLException {\n        GlAccountTypeDefault e = new GlAccountTypeDefault();\n        ServiceInput.populate(e, req);\n        glAccountTypeDefaultDao.insert(e);\n        return ServiceResponse.ok(CreateGlAccountTypeDefaultResponse::new, e);\n    }"
+ },
+ "createGlJournal": {
+  "kind": "AUTO",
+  "text": "    public CreateGlJournalResponse createGlJournal(CreateGlJournalRequest req) throws SQLException {\n        GlJournal e = new GlJournal();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getGlJournalId())) e.setGlJournalId(SequenceUtil.next());\n        glJournalDao.insert(e);\n        return ServiceResponse.ok(CreateGlJournalResponse::new, e);\n    }"
+ },
+ "createGlReconciliation": {
+  "kind": "AUTO",
+  "text": "    public CreateGlReconciliationResponse createGlReconciliation(CreateGlReconciliationRequest req) throws SQLException {\n        GlReconciliation e = new GlReconciliation();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getGlReconciliationId())) e.setGlReconciliationId(SequenceUtil.next());\n        glReconciliationDao.insert(e);\n        return ServiceResponse.ok(CreateGlReconciliationResponse::new, e);\n    }"
+ },
+ "createInvoice": {
+  "kind": "AUTO",
+  "text": "    public CreateInvoiceResponse createInvoice(CreateInvoiceRequest req) throws SQLException {\n        Invoice e = new Invoice();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getInvoiceId())) e.setInvoiceId(SequenceUtil.next());\n        invoiceDao.insert(e);\n        return ServiceResponse.ok(CreateInvoiceResponse::new, e);\n    }"
+ },
+ "createInvoiceItem": {
+  "kind": "AUTO",
+  "text": "    public CreateInvoiceItemResponse createInvoiceItem(CreateInvoiceItemRequest req) throws SQLException {\n        InvoiceItem e = new InvoiceItem();\n        ServiceInput.populate(e, req);\n        invoiceItemDao.insert(e);\n        return ServiceResponse.ok(CreateInvoiceItemResponse::new, e);\n    }"
+ },
+ "createInvoiceItemPayrol": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> createInvoiceItemPayrol(Map<String, Object> body) throws SQLException { InvoiceItem e = new InvoiceItem(); ServiceInput.populate(e, body); invoiceItemDao.insert(e); return ServiceResponse.success(\"invoiceId\", e.getInvoiceId()); }"
+ },
+ "createInvoiceRole": {
+  "kind": "AUTO",
+  "text": "    public CreateInvoiceRoleResponse createInvoiceRole(CreateInvoiceRoleRequest req) throws SQLException {\n        InvoiceRole e = new InvoiceRole();\n        ServiceInput.populate(e, req);\n        invoiceRoleDao.insert(e);\n        return ServiceResponse.ok(CreateInvoiceRoleResponse::new, e);\n    }"
+ },
+ "createInvoiceTerm": {
+  "kind": "AUTO",
+  "text": "    public CreateInvoiceTermResponse createInvoiceTerm(CreateInvoiceTermRequest req) throws SQLException {\n        InvoiceTerm e = new InvoiceTerm();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getInvoiceTermId())) e.setInvoiceTermId(SequenceUtil.next());\n        invoiceTermDao.insert(e);\n        return ServiceResponse.ok(CreateInvoiceTermResponse::new, e);\n    }"
+ },
+ "createPartyAcctgPreference": {
+  "kind": "AUTO",
+  "text": "    public CreatePartyAcctgPreferenceResponse createPartyAcctgPreference(CreatePartyAcctgPreferenceRequest req) throws SQLException {\n        PartyAcctgPreference e = new PartyAcctgPreference();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getPartyId())) e.setPartyId(SequenceUtil.next());\n        partyAcctgPreferenceDao.insert(e);\n        return ServiceResponse.ok(CreatePartyAcctgPreferenceResponse::new, e);\n    }"
+ },
+ "createPartyFixedAssetAssignment": {
+  "kind": "AUTO",
+  "text": "    public CreatePartyFixedAssetAssignmentResponse createPartyFixedAssetAssignment(CreatePartyFixedAssetAssignmentRequest req) throws SQLException {\n        PartyFixedAssetAssignment e = new PartyFixedAssetAssignment();\n        ServiceInput.populate(e, req);\n        if (e.getFromDate() == null) e.setFromDate(nowTs());\n        partyFixedAssetAssignmentDao.insert(e);\n        return ServiceResponse.ok(CreatePartyFixedAssetAssignmentResponse::new, e);\n    }"
+ },
+ "createPartyGlAccount": {
+  "kind": "AUTO",
+  "text": "    public CreatePartyGlAccountResponse createPartyGlAccount(CreatePartyGlAccountRequest req) throws SQLException {\n        PartyGlAccount e = new PartyGlAccount();\n        ServiceInput.populate(e, req);\n        partyGlAccountDao.insert(e);\n        return ServiceResponse.ok(CreatePartyGlAccountResponse::new, e);\n    }"
+ },
+ "createPartyPrefDocTypeTpl": {
+  "kind": "AUTO",
+  "text": "    public CreatePartyPrefDocTypeTplResponse createPartyPrefDocTypeTpl(CreatePartyPrefDocTypeTplRequest req) throws SQLException {\n        PartyPrefDocTypeTpl e = new PartyPrefDocTypeTpl();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getPartyPrefDocTypeTplId())) e.setPartyPrefDocTypeTplId(SequenceUtil.next());\n        partyPrefDocTypeTplDao.insert(e);\n        return ServiceResponse.ok(CreatePartyPrefDocTypeTplResponse::new, e);\n    }"
+ },
+ "createPartyTaxAuthInfo": {
+  "kind": "AUTO",
+  "text": "    public CreatePartyTaxAuthInfoResponse createPartyTaxAuthInfo(CreatePartyTaxAuthInfoRequest req) throws SQLException {\n        PartyTaxAuthInfo e = new PartyTaxAuthInfo();\n        ServiceInput.populate(e, req);\n        if (e.getFromDate() == null) e.setFromDate(nowTs());\n        partyTaxAuthInfoDao.insert(e);\n        return ServiceResponse.ok(CreatePartyTaxAuthInfoResponse::new, e);\n    }"
+ },
+ "createPaymentAndApplication": {
+  "kind": "CURATED",
+  "text": "    public CreatePaymentAndApplicationResponse createPaymentAndApplication(CreatePaymentAndApplicationRequest req) throws SQLException {\n        Payment payment = new Payment();\n        ServiceInput.populate(payment, req);\n        if (Strings.isEmpty(payment.getPaymentId())) payment.setPaymentId(SequenceUtil.next());\n        if (payment.getEffectiveDate() == null) payment.setEffectiveDate(nowTs());\n        paymentDao.insert(payment);\n        PaymentApplication appl = new PaymentApplication();\n        ServiceInput.populate(appl, req);\n        appl.setPaymentId(payment.getPaymentId());\n        if (Strings.isEmpty(appl.getPaymentApplicationId())) appl.setPaymentApplicationId(SequenceUtil.next());\n        paymentApplicationDao.insert(appl);\n        CreatePaymentAndApplicationResponse out = ServiceResponse.ok(CreatePaymentAndApplicationResponse::new);\n        out.setPaymentId(payment.getPaymentId());\n        out.setPaymentApplicationId(appl.getPaymentApplicationId());\n        return out;\n    }"
+ },
+ "createPaymentAndFinAccountTrans": {
+  "kind": "STUB",
+  "text": "    public CreatePaymentAndFinAccountTransResponse createPaymentAndFinAccountTrans(CreatePaymentAndFinAccountTransRequest req) { return notPortedYet(CreatePaymentAndFinAccountTransResponse::new, \"createPaymentAndFinAccountTrans\"); }"
+ },
+ "createPaymentAndPaymentGroupForInvoices": {
+  "kind": "STUB",
+  "text": "    public CreatePaymentAndPaymentGroupForInvoicesResponse createPaymentAndPaymentGroupForInvoices(CreatePaymentAndPaymentGroupForInvoicesRequest req) { return notPortedYet(CreatePaymentAndPaymentGroupForInvoicesResponse::new, \"createPaymentAndPaymentGroupForInvoices\"); }"
+ },
+ "createPaymentApplication": {
+  "kind": "AUTO",
+  "text": "    public CreatePaymentApplicationResponse createPaymentApplication(CreatePaymentApplicationRequest req) throws SQLException {\n        PaymentApplication e = new PaymentApplication();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getPaymentApplicationId())) e.setPaymentApplicationId(SequenceUtil.next());\n        paymentApplicationDao.insert(e);\n        return ServiceResponse.ok(CreatePaymentApplicationResponse::new, e);\n    }"
+ },
+ "createPaymentGroup": {
+  "kind": "AUTO",
+  "text": "    public CreatePaymentGroupResponse createPaymentGroup(CreatePaymentGroupRequest req) throws SQLException {\n        PaymentGroup e = new PaymentGroup();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getPaymentGroupId())) e.setPaymentGroupId(SequenceUtil.next());\n        paymentGroupDao.insert(e);\n        return ServiceResponse.ok(CreatePaymentGroupResponse::new, e);\n    }"
+ },
+ "createPaymentGroupMember": {
+  "kind": "AUTO",
+  "text": "    public CreatePaymentGroupMemberResponse createPaymentGroupMember(CreatePaymentGroupMemberRequest req) throws SQLException {\n        PaymentGroupMember e = new PaymentGroupMember();\n        ServiceInput.populate(e, req);\n        if (e.getFromDate() == null) e.setFromDate(nowTs());\n        paymentGroupMemberDao.insert(e);\n        return ServiceResponse.ok(CreatePaymentGroupMemberResponse::new, e);\n    }"
+ },
+ "createProductCategoryGlAccount": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> createProductCategoryGlAccount(Map<String, Object> body) { return notPortedYet(\"createProductCategoryGlAccount\"); }"
+ },
+ "createProductGlAccount": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> createProductGlAccount(Map<String, Object> body) { return notPortedYet(\"createProductGlAccount\"); }"
+ },
+ "createReconcileAccount": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> createReconcileAccount(Map<String, Object> body) { return notPortedYet(\"createReconcileAccount\"); }"
+ },
+ "createSupplierProduct": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> createSupplierProduct(Map<String, Object> body) { return notPortedYet(\"createSupplierProduct\"); }"
+ },
+ "createTaxAuthority": {
+  "kind": "AUTO",
+  "text": "    public CreateTaxAuthorityResponse createTaxAuthority(CreateTaxAuthorityRequest req) throws SQLException {\n        TaxAuthority e = new TaxAuthority();\n        ServiceInput.populate(e, req);\n        taxAuthorityDao.insert(e);\n        return ServiceResponse.ok(CreateTaxAuthorityResponse::new, e);\n    }"
+ },
+ "createTaxAuthorityAssoc": {
+  "kind": "AUTO",
+  "text": "    public CreateTaxAuthorityAssocResponse createTaxAuthorityAssoc(CreateTaxAuthorityAssocRequest req) throws SQLException {\n        TaxAuthorityAssoc e = new TaxAuthorityAssoc();\n        ServiceInput.populate(e, req);\n        if (e.getFromDate() == null) e.setFromDate(nowTs());\n        taxAuthorityAssocDao.insert(e);\n        return ServiceResponse.ok(CreateTaxAuthorityAssocResponse::new, e);\n    }"
+ },
+ "createTaxAuthorityCategory": {
+  "kind": "AUTO",
+  "text": "    public CreateTaxAuthorityCategoryResponse createTaxAuthorityCategory(CreateTaxAuthorityCategoryRequest req) throws SQLException {\n        TaxAuthorityCategory e = new TaxAuthorityCategory();\n        ServiceInput.populate(e, req);\n        taxAuthorityCategoryDao.insert(e);\n        return ServiceResponse.ok(CreateTaxAuthorityCategoryResponse::new, e);\n    }"
+ },
+ "createTaxAuthorityGlAccount": {
+  "kind": "AUTO",
+  "text": "    public CreateTaxAuthorityGlAccountResponse createTaxAuthorityGlAccount(CreateTaxAuthorityGlAccountRequest req) throws SQLException {\n        TaxAuthorityGlAccount e = new TaxAuthorityGlAccount();\n        ServiceInput.populate(e, req);\n        taxAuthorityGlAccountDao.insert(e);\n        return ServiceResponse.ok(CreateTaxAuthorityGlAccountResponse::new, e);\n    }"
+ },
+ "createTaxAuthorityRateProduct": {
+  "kind": "AUTO",
+  "text": "    public CreateTaxAuthorityRateProductResponse createTaxAuthorityRateProduct(CreateTaxAuthorityRateProductRequest req) throws SQLException {\n        TaxAuthorityRateProduct e = new TaxAuthorityRateProduct();\n        ServiceInput.populate(e, req);\n        if (Strings.isEmpty(e.getTaxAuthorityRateSeqId())) e.setTaxAuthorityRateSeqId(SequenceUtil.next());\n        taxAuthorityRateProductDao.insert(e);\n        return ServiceResponse.ok(CreateTaxAuthorityRateProductResponse::new, e);\n    }"
+ },
+ "createUpdateCostCenter": {
+  "kind": "STUB",
+  "text": "    public CreateUpdateCostCenterResponse createUpdateCostCenter(CreateUpdateCostCenterRequest req) { return notPortedYet(CreateUpdateCostCenterResponse::new, \"createUpdateCostCenter\"); }"
+ },
+ "createVarianceReasonGlAccount": {
+  "kind": "AUTO",
+  "text": "    public CreateVarianceReasonGlAccountResponse createVarianceReasonGlAccount(CreateVarianceReasonGlAccountRequest req) throws SQLException {\n        VarianceReasonGlAccount e = new VarianceReasonGlAccount();\n        ServiceInput.populate(e, req);\n        varianceReasonGlAccountDao.insert(e);\n        return ServiceResponse.ok(CreateVarianceReasonGlAccountResponse::new, e);\n    }"
+ },
+ "createVendor": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> createVendor(Map<String, Object> body) { return notPortedYet(\"createVendor\"); }"
+ },
+ "createWorkEffortAndPartyAssign": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> createWorkEffortAndPartyAssign(Map<String, Object> body) { return notPortedYet(\"createWorkEffortAndPartyAssign\"); }"
+ },
+ "deleteAcctgTransEntry": {
+  "kind": "AUTO",
+  "text": "    public DeleteAcctgTransEntryResponse deleteAcctgTransEntry(DeleteAcctgTransEntryRequest req) throws SQLException {\n        AcctgTransEntry pk = new AcctgTransEntry();\n        ServiceInput.populate(pk, req);\n        acctgTransEntryDao.delete(pk);\n        return ServiceResponse.ok(DeleteAcctgTransEntryResponse::new);\n    }"
+ },
+ "deleteAgreementRole": {
+  "kind": "AUTO",
+  "text": "    public DeleteAgreementRoleResponse deleteAgreementRole(DeleteAgreementRoleRequest req) throws SQLException {\n        AgreementRole pk = new AgreementRole();\n        ServiceInput.populate(pk, req);\n        agreementRoleDao.delete(pk);\n        return ServiceResponse.ok(DeleteAgreementRoleResponse::new);\n    }"
+ },
+ "deleteAgreementTerm": {
+  "kind": "AUTO",
+  "text": "    public DeleteAgreementTermResponse deleteAgreementTerm(DeleteAgreementTermRequest req) throws SQLException {\n        agreementTermDao.deleteById(req.getAgreementTermId());\n        return ServiceResponse.ok(DeleteAgreementTermResponse::new);\n    }"
+ },
+ "deleteAgreementWorkEffortApplic": {
+  "kind": "AUTO",
+  "text": "    public DeleteAgreementWorkEffortApplicResponse deleteAgreementWorkEffortApplic(DeleteAgreementWorkEffortApplicRequest req) throws SQLException {\n        AgreementWorkEffortApplic pk = new AgreementWorkEffortApplic();\n        ServiceInput.populate(pk, req);\n        agreementWorkEffortApplicDao.delete(pk);\n        return ServiceResponse.ok(DeleteAgreementWorkEffortApplicResponse::new);\n    }"
+ },
+ "deleteCreditCardTypeGlAccount": {
+  "kind": "AUTO",
+  "text": "    public DeleteCreditCardTypeGlAccountResponse deleteCreditCardTypeGlAccount(DeleteCreditCardTypeGlAccountRequest req) throws SQLException {\n        CreditCardTypeGlAccount pk = new CreditCardTypeGlAccount();\n        ServiceInput.populate(pk, req);\n        creditCardTypeGlAccountDao.delete(pk);\n        return ServiceResponse.ok(DeleteCreditCardTypeGlAccountResponse::new);\n    }"
+ },
+ "deleteCustomTimePeriod": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> deleteCustomTimePeriod(Map<String, Object> body) throws SQLException { return ServiceResponse.success(\"deletedRows\", customTimePeriodDao.deleteById(ServiceInput.str(body, \"customTimePeriodId\"))); }"
+ },
+ "deleteFinAccount": {
+  "kind": "AUTO",
+  "text": "    public DeleteFinAccountResponse deleteFinAccount(DeleteFinAccountRequest req) throws SQLException {\n        FinAccount e = finAccountDao.gett(req.getFinAccountId());\n        if (e == null) return ServiceResponse.error(\"FinAccount not found\", DeleteFinAccountResponse::new);\n        e.setThruDate(nowTs());\n        finAccountDao.update(e);\n        return ServiceResponse.ok(DeleteFinAccountResponse::new, e);\n    }"
+ },
+ "deleteFinAccountRole": {
+  "kind": "AUTO",
+  "text": "    public DeleteFinAccountRoleResponse deleteFinAccountRole(DeleteFinAccountRoleRequest req) throws SQLException {\n        FinAccountRole pk = new FinAccountRole();\n        ServiceInput.populate(pk, req);\n        finAccountRoleDao.delete(pk);\n        return ServiceResponse.ok(DeleteFinAccountRoleResponse::new);\n    }"
+ },
+ "deleteFinAccountTypeGlAccount": {
+  "kind": "AUTO",
+  "text": "    public DeleteFinAccountTypeGlAccountResponse deleteFinAccountTypeGlAccount(DeleteFinAccountTypeGlAccountRequest req) throws SQLException {\n        FinAccountTypeGlAccount pk = new FinAccountTypeGlAccount();\n        ServiceInput.populate(pk, req);\n        finAccountTypeGlAccountDao.delete(pk);\n        return ServiceResponse.ok(DeleteFinAccountTypeGlAccountResponse::new);\n    }"
+ },
+ "deleteFixedAssetDepMethod": {
+  "kind": "AUTO",
+  "text": "    public DeleteFixedAssetDepMethodResponse deleteFixedAssetDepMethod(DeleteFixedAssetDepMethodRequest req) throws SQLException {\n        FixedAssetDepMethod pk = new FixedAssetDepMethod();\n        ServiceInput.populate(pk, req);\n        fixedAssetDepMethodDao.delete(pk);\n        return ServiceResponse.ok(DeleteFixedAssetDepMethodResponse::new);\n    }"
+ },
+ "deleteFixedAssetMaint": {
+  "kind": "AUTO",
+  "text": "    public DeleteFixedAssetMaintResponse deleteFixedAssetMaint(DeleteFixedAssetMaintRequest req) throws SQLException {\n        FixedAssetMaint pk = new FixedAssetMaint();\n        ServiceInput.populate(pk, req);\n        fixedAssetMaintDao.delete(pk);\n        return ServiceResponse.ok(DeleteFixedAssetMaintResponse::new);\n    }"
+ },
+ "deleteFixedAssetMaintOrder": {
+  "kind": "AUTO",
+  "text": "    public DeleteFixedAssetMaintOrderResponse deleteFixedAssetMaintOrder(DeleteFixedAssetMaintOrderRequest req) throws SQLException {\n        FixedAssetMaintOrder pk = new FixedAssetMaintOrder();\n        ServiceInput.populate(pk, req);\n        fixedAssetMaintOrderDao.delete(pk);\n        return ServiceResponse.ok(DeleteFixedAssetMaintOrderResponse::new);\n    }"
+ },
+ "deleteFixedAssetMeter": {
+  "kind": "AUTO",
+  "text": "    public DeleteFixedAssetMeterResponse deleteFixedAssetMeter(DeleteFixedAssetMeterRequest req) throws SQLException {\n        FixedAssetMeter pk = new FixedAssetMeter();\n        ServiceInput.populate(pk, req);\n        fixedAssetMeterDao.delete(pk);\n        return ServiceResponse.ok(DeleteFixedAssetMeterResponse::new);\n    }"
+ },
+ "deleteFixedAssetRegistration": {
+  "kind": "AUTO",
+  "text": "    public DeleteFixedAssetRegistrationResponse deleteFixedAssetRegistration(DeleteFixedAssetRegistrationRequest req) throws SQLException {\n        FixedAssetRegistration pk = new FixedAssetRegistration();\n        ServiceInput.populate(pk, req);\n        fixedAssetRegistrationDao.delete(pk);\n        return ServiceResponse.ok(DeleteFixedAssetRegistrationResponse::new);\n    }"
+ },
+ "deleteFixedAssetTypeGlAccount": {
+  "kind": "AUTO",
+  "text": "    public DeleteFixedAssetTypeGlAccountResponse deleteFixedAssetTypeGlAccount(DeleteFixedAssetTypeGlAccountRequest req) throws SQLException {\n        FixedAssetTypeGlAccount pk = new FixedAssetTypeGlAccount();\n        ServiceInput.populate(pk, req);\n        fixedAssetTypeGlAccountDao.delete(pk);\n        return ServiceResponse.ok(DeleteFixedAssetTypeGlAccountResponse::new);\n    }"
+ },
+ "deleteGlAccountCategoryMember": {
+  "kind": "AUTO",
+  "text": "    public DeleteGlAccountCategoryMemberResponse deleteGlAccountCategoryMember(DeleteGlAccountCategoryMemberRequest req) throws SQLException {\n        GlAccountCategoryMember pk = new GlAccountCategoryMember();\n        ServiceInput.populate(pk, req);\n        glAccountCategoryMemberDao.delete(pk);\n        return ServiceResponse.ok(DeleteGlAccountCategoryMemberResponse::new);\n    }"
+ },
+ "deleteGlJournal": {
+  "kind": "AUTO",
+  "text": "    public DeleteGlJournalResponse deleteGlJournal(DeleteGlJournalRequest req) throws SQLException {\n        glJournalDao.deleteById(req.getGlJournalId());\n        return ServiceResponse.ok(DeleteGlJournalResponse::new);\n    }"
+ },
+ "deleteInvoiceTerm": {
+  "kind": "AUTO",
+  "text": "    public DeleteInvoiceTermResponse deleteInvoiceTerm(DeleteInvoiceTermRequest req) throws SQLException {\n        invoiceTermDao.deleteById(req.getInvoiceTermId());\n        return ServiceResponse.ok(DeleteInvoiceTermResponse::new);\n    }"
+ },
+ "deletePartyFixedAssetAssignment": {
+  "kind": "AUTO",
+  "text": "    public DeletePartyFixedAssetAssignmentResponse deletePartyFixedAssetAssignment(DeletePartyFixedAssetAssignmentRequest req) throws SQLException {\n        PartyFixedAssetAssignment pk = new PartyFixedAssetAssignment();\n        ServiceInput.populate(pk, req);\n        partyFixedAssetAssignmentDao.delete(pk);\n        return ServiceResponse.ok(DeletePartyFixedAssetAssignmentResponse::new);\n    }"
+ },
+ "deletePartyGlAccount": {
+  "kind": "AUTO",
+  "text": "    public DeletePartyGlAccountResponse deletePartyGlAccount(DeletePartyGlAccountRequest req) throws SQLException {\n        PartyGlAccount pk = new PartyGlAccount();\n        ServiceInput.populate(pk, req);\n        partyGlAccountDao.delete(pk);\n        return ServiceResponse.ok(DeletePartyGlAccountResponse::new);\n    }"
+ },
+ "deletePartyTaxAuthInfo": {
+  "kind": "AUTO",
+  "text": "    public DeletePartyTaxAuthInfoResponse deletePartyTaxAuthInfo(DeletePartyTaxAuthInfoRequest req) throws SQLException {\n        PartyTaxAuthInfo pk = new PartyTaxAuthInfo();\n        ServiceInput.populate(pk, req);\n        partyTaxAuthInfoDao.delete(pk);\n        return ServiceResponse.ok(DeletePartyTaxAuthInfoResponse::new);\n    }"
+ },
+ "deletePaymentGroup": {
+  "kind": "AUTO",
+  "text": "    public DeletePaymentGroupResponse deletePaymentGroup(DeletePaymentGroupRequest req) throws SQLException {\n        paymentGroupDao.deleteById(req.getPaymentGroupId());\n        return ServiceResponse.ok(DeletePaymentGroupResponse::new);\n    }"
+ },
+ "deleteProductCategoryGlAccount": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> deleteProductCategoryGlAccount(Map<String, Object> body) { return notPortedYet(\"deleteProductCategoryGlAccount\"); }"
+ },
+ "deleteProductGlAccount": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> deleteProductGlAccount(Map<String, Object> body) { return notPortedYet(\"deleteProductGlAccount\"); }"
+ },
+ "deleteTaxAuthorityAssoc": {
+  "kind": "AUTO",
+  "text": "    public DeleteTaxAuthorityAssocResponse deleteTaxAuthorityAssoc(DeleteTaxAuthorityAssocRequest req) throws SQLException {\n        TaxAuthorityAssoc pk = new TaxAuthorityAssoc();\n        ServiceInput.populate(pk, req);\n        taxAuthorityAssocDao.delete(pk);\n        return ServiceResponse.ok(DeleteTaxAuthorityAssocResponse::new);\n    }"
+ },
+ "deleteTaxAuthorityCategory": {
+  "kind": "AUTO",
+  "text": "    public DeleteTaxAuthorityCategoryResponse deleteTaxAuthorityCategory(DeleteTaxAuthorityCategoryRequest req) throws SQLException {\n        TaxAuthorityCategory pk = new TaxAuthorityCategory();\n        ServiceInput.populate(pk, req);\n        taxAuthorityCategoryDao.delete(pk);\n        return ServiceResponse.ok(DeleteTaxAuthorityCategoryResponse::new);\n    }"
+ },
+ "deleteTaxAuthorityGlAccount": {
+  "kind": "AUTO",
+  "text": "    public DeleteTaxAuthorityGlAccountResponse deleteTaxAuthorityGlAccount(DeleteTaxAuthorityGlAccountRequest req) throws SQLException {\n        TaxAuthorityGlAccount pk = new TaxAuthorityGlAccount();\n        ServiceInput.populate(pk, req);\n        taxAuthorityGlAccountDao.delete(pk);\n        return ServiceResponse.ok(DeleteTaxAuthorityGlAccountResponse::new);\n    }"
+ },
+ "deleteTaxAuthorityRateProduct": {
+  "kind": "AUTO",
+  "text": "    public DeleteTaxAuthorityRateProductResponse deleteTaxAuthorityRateProduct(DeleteTaxAuthorityRateProductRequest req) throws SQLException {\n        taxAuthorityRateProductDao.deleteById(req.getTaxAuthorityRateSeqId());\n        return ServiceResponse.ok(DeleteTaxAuthorityRateProductResponse::new);\n    }"
+ },
+ "deleteVarianceReasonGlAccount": {
+  "kind": "AUTO",
+  "text": "    public DeleteVarianceReasonGlAccountResponse deleteVarianceReasonGlAccount(DeleteVarianceReasonGlAccountRequest req) throws SQLException {\n        VarianceReasonGlAccount pk = new VarianceReasonGlAccount();\n        ServiceInput.populate(pk, req);\n        varianceReasonGlAccountDao.delete(pk);\n        return ServiceResponse.ok(DeleteVarianceReasonGlAccountResponse::new);\n    }"
+ },
+ "depositWithdrawPayments": {
+  "kind": "STUB",
+  "text": "    public DepositWithdrawPaymentsResponse depositWithdrawPayments(DepositWithdrawPaymentsRequest req) { return notPortedYet(DepositWithdrawPaymentsResponse::new, \"depositWithdrawPayments\"); }"
+ },
+ "expireAgreement": {
+  "kind": "AUTO",
+  "text": "    public ExpireAgreementResponse expireAgreement(ExpireAgreementRequest req) throws SQLException {\n        Agreement e = agreementDao.gett(req.getAgreementId());\n        if (e == null) return ServiceResponse.error(\"Agreement not found\", ExpireAgreementResponse::new);\n        e.setThruDate(nowTs());\n        agreementDao.update(e);\n        return ServiceResponse.ok(ExpireAgreementResponse::new, e);\n    }"
+ },
+ "expireFinAccountAuth": {
+  "kind": "AUTO",
+  "text": "    public ExpireFinAccountAuthResponse expireFinAccountAuth(ExpireFinAccountAuthRequest req) throws SQLException {\n        FinAccountAuth e = finAccountAuthDao.gett(req.getFinAccountAuthId());\n        if (e == null) return ServiceResponse.error(\"FinAccountAuth not found\", ExpireFinAccountAuthResponse::new);\n        e.setThruDate(nowTs());\n        finAccountAuthDao.update(e);\n        return ServiceResponse.ok(ExpireFinAccountAuthResponse::new, e);\n    }"
+ },
+ "expirePartyPrefDocTypeTpl": {
+  "kind": "AUTO",
+  "text": "    public ExpirePartyPrefDocTypeTplResponse expirePartyPrefDocTypeTpl(ExpirePartyPrefDocTypeTplRequest req) throws SQLException {\n        PartyPrefDocTypeTpl e = partyPrefDocTypeTplDao.gett(req.getPartyPrefDocTypeTplId());\n        if (e == null) return ServiceResponse.error(\"PartyPrefDocTypeTpl not found\", ExpirePartyPrefDocTypeTplResponse::new);\n        e.setThruDate(nowTs());\n        partyPrefDocTypeTplDao.update(e);\n        return ServiceResponse.ok(ExpirePartyPrefDocTypeTplResponse::new, e);\n    }"
+ },
+ "expirePaymentGroupMember": {
+  "kind": "AUTO",
+  "text": "    public ExpirePaymentGroupMemberResponse expirePaymentGroupMember(ExpirePaymentGroupMemberRequest req) throws SQLException {\n        PaymentGroupMember probe = new PaymentGroupMember();\n        ServiceInput.populate(probe, req);\n        PaymentGroupMember e = paymentGroupMemberDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"PaymentGroupMember not found\", ExpirePaymentGroupMemberResponse::new);\n        e.setThruDate(nowTs());\n        paymentGroupMemberDao.update(e);\n        return ServiceResponse.ok(ExpirePaymentGroupMemberResponse::new, e);\n    }"
+ },
+ "expireRateAmount": {
+  "kind": "CURATED",
+  "text": "    public ExpireRateAmountResponse expireRateAmount(ExpireRateAmountRequest req) throws SQLException {\n        RateAmount probe = new RateAmount();\n        ServiceInput.populate(probe, req);\n        RateAmount e = rateAmountDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"RateAmount not found\", ExpireRateAmountResponse::new);\n        e.setThruDate(nowTs());\n        rateAmountDao.update(e);\n        return ServiceResponse.ok(ExpireRateAmountResponse::new, e);\n    }"
+ },
+ "getFinAccountTransRunningTotalAndBalances": {
+  "kind": "STUB",
+  "text": "    public GetFinAccountTransRunningTotalAndBalancesResponse getFinAccountTransRunningTotalAndBalances(GetFinAccountTransRunningTotalAndBalancesRequest req) { return notPortedYet(GetFinAccountTransRunningTotalAndBalancesResponse::new, \"getFinAccountTransRunningTotalAndBalances\"); }"
+ },
+ "getInvoiceRunningTotal": {
+  "kind": "CURATED",
+  "text": "    public GetInvoiceRunningTotalResponse getInvoiceRunningTotal(GetInvoiceRunningTotalRequest req) throws SQLException {\n        BigDecimal total = BigDecimal.ZERO;\n        List<String> ids = req.getInvoiceIds();\n        if (ids != null) {\n            for (String invoiceId : ids) {\n                for (InvoiceItem item : invoiceItemDao.list(Filters.eq(\"invoiceId\", invoiceId))) {\n                    double qty = item.getQuantity() != 0 ? item.getQuantity() : 1d;\n                    total = total.add(BigDecimal.valueOf(item.getAmount()).multiply(BigDecimal.valueOf(qty)));\n                }\n            }\n        }\n        GetInvoiceRunningTotalResponse out = ServiceResponse.ok(GetInvoiceRunningTotalResponse::new);\n        out.setInvoiceRunningTotal(total.setScale(2, java.math.RoundingMode.HALF_UP).toPlainString());\n        return out;\n    }"
+ },
+ "getPaymentRunningTotal": {
+  "kind": "CURATED",
+  "text": "    public GetPaymentRunningTotalResponse getPaymentRunningTotal(GetPaymentRunningTotalRequest req) throws SQLException {\n        BigDecimal total = BigDecimal.ZERO;\n        List<String> ids = req.getPaymentIds();\n        if (ids != null) {\n            for (String paymentId : ids) {\n                Payment p = paymentDao.gett(paymentId);\n                if (p != null) total = total.add(BigDecimal.valueOf(p.getAmount()));\n            }\n        }\n        GetPaymentRunningTotalResponse out = ServiceResponse.ok(GetPaymentRunningTotalResponse::new);\n        out.setPaymentRunningTotal(total.setScale(2, java.math.RoundingMode.HALF_UP).toPlainString());\n        return out;\n    }"
+ },
+ "importInvoice": {
+  "kind": "STUB",
+  "text": "    public ImportInvoiceResponse importInvoice(ImportInvoiceRequest req) { return notPortedYet(ImportInvoiceResponse::new, \"importInvoice\"); }"
+ },
+ "manualForcedCcTransaction": {
+  "kind": "STUB",
+  "text": "    public ManualForcedCcTransactionResponse manualForcedCcTransaction(ManualForcedCcTransactionRequest req) { return notPortedYet(ManualForcedCcTransactionResponse::new, \"manualForcedCcTransaction\"); }"
+ },
+ "massChangeInvoiceStatus": {
+  "kind": "CURATED",
+  "text": "    public MassChangeInvoiceStatusResponse massChangeInvoiceStatus(MassChangeInvoiceStatusRequest req) throws SQLException {\n        List<String> ids = req.getInvoiceIds();\n        if (ids != null) {\n            for (String id : ids) {\n                SetInvoiceStatusRequest sub = new SetInvoiceStatusRequest();\n                sub.setInvoiceId(id);\n                sub.setStatusId(req.getStatusId());\n                SetInvoiceStatusResponse r = setInvoiceStatus(sub);\n                if (ServiceResponse.isError(r)) return ServiceResponse.errorOf(r, MassChangeInvoiceStatusResponse::new);\n            }\n        }\n        return ServiceResponse.ok(MassChangeInvoiceStatusResponse::new);\n    }"
+ },
+ "massChangePaymentStatus": {
+  "kind": "CURATED",
+  "text": "    public MassChangePaymentStatusResponse massChangePaymentStatus(MassChangePaymentStatusRequest req) throws SQLException {\n        List<String> ids = req.getPaymentIds();\n        if (ids != null) {\n            for (String id : ids) {\n                SetPaymentStatusRequest sub = new SetPaymentStatusRequest();\n                sub.setPaymentId(id);\n                sub.setStatusId(req.getStatusId());\n                SetPaymentStatusResponse r = setPaymentStatus(sub);\n                if (ServiceResponse.isError(r)) return ServiceResponse.errorOf(r, MassChangePaymentStatusResponse::new);\n            }\n        }\n        return ServiceResponse.ok(MassChangePaymentStatusResponse::new);\n    }"
+ },
+ "postAcctgTrans": {
+  "kind": "STUB",
+  "text": "    public PostAcctgTransResponse postAcctgTrans(PostAcctgTransRequest req) { return notPortedYet(PostAcctgTransResponse::new, \"postAcctgTrans\"); }"
+ },
+ "quickCreateAcctgTransAndEntries": {
+  "kind": "STUB",
+  "text": "    public QuickCreateAcctgTransAndEntriesResponse quickCreateAcctgTransAndEntries(QuickCreateAcctgTransAndEntriesRequest req) { return notPortedYet(QuickCreateAcctgTransAndEntriesResponse::new, \"quickCreateAcctgTransAndEntries\"); }"
+ },
+ "quickSendPayment": {
+  "kind": "STUB",
+  "text": "    public QuickSendPaymentResponse quickSendPayment(QuickSendPaymentRequest req) { return notPortedYet(QuickSendPaymentResponse::new, \"quickSendPayment\"); }"
+ },
+ "reconcileFinAccountTrans": {
+  "kind": "STUB",
+  "text": "    public ReconcileFinAccountTransResponse reconcileFinAccountTrans(ReconcileFinAccountTransRequest req) { return notPortedYet(ReconcileFinAccountTransResponse::new, \"reconcileFinAccountTrans\"); }"
+ },
+ "refundOrderPaymentPreference": {
+  "kind": "STUB",
+  "text": "    public RefundOrderPaymentPreferenceResponse refundOrderPaymentPreference(RefundOrderPaymentPreferenceRequest req) { return notPortedYet(RefundOrderPaymentPreferenceResponse::new, \"refundOrderPaymentPreference\"); }"
+ },
+ "releaseOrderPaymentPreference": {
+  "kind": "STUB",
+  "text": "    public ReleaseOrderPaymentPreferenceResponse releaseOrderPaymentPreference(ReleaseOrderPaymentPreferenceRequest req) { return notPortedYet(ReleaseOrderPaymentPreferenceResponse::new, \"releaseOrderPaymentPreference\"); }"
+ },
+ "removeAgreementContent": {
+  "kind": "AUTO",
+  "text": "    public RemoveAgreementContentResponse removeAgreementContent(RemoveAgreementContentRequest req) throws SQLException {\n        AgreementContent pk = new AgreementContent();\n        ServiceInput.populate(pk, req);\n        agreementContentDao.delete(pk);\n        return ServiceResponse.ok(RemoveAgreementContentResponse::new);\n    }"
+ },
+ "removeAgreementFacilityAppl": {
+  "kind": "AUTO",
+  "text": "    public RemoveAgreementFacilityApplResponse removeAgreementFacilityAppl(RemoveAgreementFacilityApplRequest req) throws SQLException {\n        AgreementFacilityAppl pk = new AgreementFacilityAppl();\n        ServiceInput.populate(pk, req);\n        agreementFacilityApplDao.delete(pk);\n        return ServiceResponse.ok(RemoveAgreementFacilityApplResponse::new);\n    }"
+ },
+ "removeAgreementGeographicalApplic": {
+  "kind": "AUTO",
+  "text": "    public RemoveAgreementGeographicalApplicResponse removeAgreementGeographicalApplic(RemoveAgreementGeographicalApplicRequest req) throws SQLException {\n        AgreementGeographicalApplic pk = new AgreementGeographicalApplic();\n        ServiceInput.populate(pk, req);\n        agreementGeographicalApplicDao.delete(pk);\n        return ServiceResponse.ok(RemoveAgreementGeographicalApplicResponse::new);\n    }"
+ },
+ "removeAgreementItem": {
+  "kind": "AUTO",
+  "text": "    public RemoveAgreementItemResponse removeAgreementItem(RemoveAgreementItemRequest req) throws SQLException {\n        AgreementItem pk = new AgreementItem();\n        ServiceInput.populate(pk, req);\n        agreementItemDao.delete(pk);\n        return ServiceResponse.ok(RemoveAgreementItemResponse::new);\n    }"
+ },
+ "removeAgreementPartyApplic": {
+  "kind": "AUTO",
+  "text": "    public RemoveAgreementPartyApplicResponse removeAgreementPartyApplic(RemoveAgreementPartyApplicRequest req) throws SQLException {\n        AgreementPartyApplic pk = new AgreementPartyApplic();\n        ServiceInput.populate(pk, req);\n        agreementPartyApplicDao.delete(pk);\n        return ServiceResponse.ok(RemoveAgreementPartyApplicResponse::new);\n    }"
+ },
+ "removeAgreementProductAppl": {
+  "kind": "AUTO",
+  "text": "    public RemoveAgreementProductApplResponse removeAgreementProductAppl(RemoveAgreementProductApplRequest req) throws SQLException {\n        AgreementProductAppl pk = new AgreementProductAppl();\n        ServiceInput.populate(pk, req);\n        agreementProductApplDao.delete(pk);\n        return ServiceResponse.ok(RemoveAgreementProductApplResponse::new);\n    }"
+ },
+ "removeAgreementPromoAppl": {
+  "kind": "AUTO",
+  "text": "    public RemoveAgreementPromoApplResponse removeAgreementPromoAppl(RemoveAgreementPromoApplRequest req) throws SQLException {\n        AgreementPromoAppl pk = new AgreementPromoAppl();\n        ServiceInput.populate(pk, req);\n        agreementPromoApplDao.delete(pk);\n        return ServiceResponse.ok(RemoveAgreementPromoApplResponse::new);\n    }"
+ },
+ "removeBillingAccountRole": {
+  "kind": "AUTO",
+  "text": "    public RemoveBillingAccountRoleResponse removeBillingAccountRole(RemoveBillingAccountRoleRequest req) throws SQLException {\n        BillingAccountRole pk = new BillingAccountRole();\n        ServiceInput.populate(pk, req);\n        billingAccountRoleDao.delete(pk);\n        return ServiceResponse.ok(RemoveBillingAccountRoleResponse::new);\n    }"
+ },
+ "removeBillingAccountTerm": {
+  "kind": "AUTO",
+  "text": "    public RemoveBillingAccountTermResponse removeBillingAccountTerm(RemoveBillingAccountTermRequest req) throws SQLException {\n        billingAccountTermDao.deleteById(req.getBillingAccountTermId());\n        return ServiceResponse.ok(RemoveBillingAccountTermResponse::new);\n    }"
+ },
+ "removeBudgetItem": {
+  "kind": "AUTO",
+  "text": "    public RemoveBudgetItemResponse removeBudgetItem(RemoveBudgetItemRequest req) throws SQLException {\n        BudgetItem pk = new BudgetItem();\n        ServiceInput.populate(pk, req);\n        budgetItemDao.delete(pk);\n        return ServiceResponse.ok(RemoveBudgetItemResponse::new);\n    }"
+ },
+ "removeBudgetReview": {
+  "kind": "AUTO",
+  "text": "    public RemoveBudgetReviewResponse removeBudgetReview(RemoveBudgetReviewRequest req) throws SQLException {\n        BudgetReview pk = new BudgetReview();\n        ServiceInput.populate(pk, req);\n        budgetReviewDao.delete(pk);\n        return ServiceResponse.ok(RemoveBudgetReviewResponse::new);\n    }"
+ },
+ "removeBudgetRole": {
+  "kind": "AUTO",
+  "text": "    public RemoveBudgetRoleResponse removeBudgetRole(RemoveBudgetRoleRequest req) throws SQLException {\n        BudgetRole pk = new BudgetRole();\n        ServiceInput.populate(pk, req);\n        budgetRoleDao.delete(pk);\n        return ServiceResponse.ok(RemoveBudgetRoleResponse::new);\n    }"
+ },
+ "removeCostComponentCalc": {
+  "kind": "AUTO",
+  "text": "    public RemoveCostComponentCalcResponse removeCostComponentCalc(RemoveCostComponentCalcRequest req) throws SQLException {\n        costComponentCalcDao.deleteById(req.getCostComponentCalcId());\n        return ServiceResponse.ok(RemoveCostComponentCalcResponse::new);\n    }"
+ },
+ "removeFinAccountTransFromReconciliation": {
+  "kind": "CURATED",
+  "text": "    public RemoveFinAccountTransFromReconciliationResponse removeFinAccountTransFromReconciliation(RemoveFinAccountTransFromReconciliationRequest req) throws SQLException {\n        String id = req.getFinAccountTransId();\n        FinAccountTrans tx = finAccountTransDao.gett(id);\n        if (tx == null) return ServiceResponse.error(\"FinAccountTrans not found: \" + id, RemoveFinAccountTransFromReconciliationResponse::new);\n        tx.setGlReconciliationId(null);\n        finAccountTransDao.update(tx);\n        return ServiceResponse.ok(RemoveFinAccountTransFromReconciliationResponse::new);\n    }"
+ },
+ "removeFixedAssetIdent": {
+  "kind": "AUTO",
+  "text": "    public RemoveFixedAssetIdentResponse removeFixedAssetIdent(RemoveFixedAssetIdentRequest req) throws SQLException {\n        FixedAssetIdent pk = new FixedAssetIdent();\n        ServiceInput.populate(pk, req);\n        fixedAssetIdentDao.delete(pk);\n        return ServiceResponse.ok(RemoveFixedAssetIdentResponse::new);\n    }"
+ },
+ "removeFixedAssetProduct": {
+  "kind": "AUTO",
+  "text": "    public RemoveFixedAssetProductResponse removeFixedAssetProduct(RemoveFixedAssetProductRequest req) throws SQLException {\n        FixedAssetProduct pk = new FixedAssetProduct();\n        ServiceInput.populate(pk, req);\n        fixedAssetProductDao.delete(pk);\n        return ServiceResponse.ok(RemoveFixedAssetProductResponse::new);\n    }"
+ },
+ "removeGlAccountTypeDefault": {
+  "kind": "AUTO",
+  "text": "    public RemoveGlAccountTypeDefaultResponse removeGlAccountTypeDefault(RemoveGlAccountTypeDefaultRequest req) throws SQLException {\n        GlAccountTypeDefault pk = new GlAccountTypeDefault();\n        ServiceInput.populate(pk, req);\n        glAccountTypeDefaultDao.delete(pk);\n        return ServiceResponse.ok(RemoveGlAccountTypeDefaultResponse::new);\n    }"
+ },
+ "removeInvoiceItem": {
+  "kind": "AUTO",
+  "text": "    public RemoveInvoiceItemResponse removeInvoiceItem(RemoveInvoiceItemRequest req) throws SQLException {\n        InvoiceItem pk = new InvoiceItem();\n        ServiceInput.populate(pk, req);\n        invoiceItemDao.delete(pk);\n        return ServiceResponse.ok(RemoveInvoiceItemResponse::new);\n    }"
+ },
+ "removeInvoiceItemTypeGlAssignment": {
+  "kind": "AUTO",
+  "text": "    public RemoveInvoiceItemTypeGlAssignmentResponse removeInvoiceItemTypeGlAssignment(RemoveInvoiceItemTypeGlAssignmentRequest req) throws SQLException {\n        InvoiceItemTypeGlAccount pk = new InvoiceItemTypeGlAccount();\n        ServiceInput.populate(pk, req);\n        invoiceItemTypeGlAccountDao.delete(pk);\n        return ServiceResponse.ok(RemoveInvoiceItemTypeGlAssignmentResponse::new);\n    }"
+ },
+ "removeInvoiceRole": {
+  "kind": "AUTO",
+  "text": "    public RemoveInvoiceRoleResponse removeInvoiceRole(RemoveInvoiceRoleRequest req) throws SQLException {\n        InvoiceRole pk = new InvoiceRole();\n        ServiceInput.populate(pk, req);\n        invoiceRoleDao.delete(pk);\n        return ServiceResponse.ok(RemoveInvoiceRoleResponse::new);\n    }"
+ },
+ "removePaymentApplication": {
+  "kind": "AUTO",
+  "text": "    public RemovePaymentApplicationResponse removePaymentApplication(RemovePaymentApplicationRequest req) throws SQLException {\n        paymentApplicationDao.deleteById(req.getPaymentApplicationId());\n        return ServiceResponse.ok(RemovePaymentApplicationResponse::new);\n    }"
+ },
+ "removePaymentMethodTypeGlAssignment": {
+  "kind": "AUTO",
+  "text": "    public RemovePaymentMethodTypeGlAssignmentResponse removePaymentMethodTypeGlAssignment(RemovePaymentMethodTypeGlAssignmentRequest req) throws SQLException {\n        PaymentMethodTypeGlAccount pk = new PaymentMethodTypeGlAccount();\n        ServiceInput.populate(pk, req);\n        paymentMethodTypeGlAccountDao.delete(pk);\n        return ServiceResponse.ok(RemovePaymentMethodTypeGlAssignmentResponse::new);\n    }"
+ },
+ "removePaymentTypeGlAssignment": {
+  "kind": "AUTO",
+  "text": "    public RemovePaymentTypeGlAssignmentResponse removePaymentTypeGlAssignment(RemovePaymentTypeGlAssignmentRequest req) throws SQLException {\n        PaymentGlAccountTypeMap pk = new PaymentGlAccountTypeMap();\n        ServiceInput.populate(pk, req);\n        paymentGlAccountTypeMapDao.delete(pk);\n        return ServiceResponse.ok(RemovePaymentTypeGlAssignmentResponse::new);\n    }"
+ },
+ "removeSupplierProduct": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> removeSupplierProduct(Map<String, Object> body) { return notPortedYet(\"removeSupplierProduct\"); }"
+ },
+ "sendInvoicePerEmail": {
+  "kind": "STUB",
+  "text": "    public SendInvoicePerEmailResponse sendInvoicePerEmail(SendInvoicePerEmailRequest req) { return notPortedYet(SendInvoicePerEmailResponse::new, \"sendInvoicePerEmail\"); }"
+ },
+ "setAcctgCompany": {
+  "kind": "STUB",
+  "text": "    public SetAcctgCompanyResponse setAcctgCompany(SetAcctgCompanyRequest req) { return notPortedYet(SetAcctgCompanyResponse::new, \"setAcctgCompany\"); }"
+ },
+ "setFinAccountTransStatus": {
+  "kind": "CURATED",
+  "text": "    public SetFinAccountTransStatusResponse setFinAccountTransStatus(SetFinAccountTransStatusRequest req) throws SQLException {\n        String id = req.getFinAccountTransId();\n        FinAccountTrans tx = finAccountTransDao.gett(id);\n        if (tx == null) return ServiceResponse.error(\"FinAccountTrans not found: \" + id, SetFinAccountTransStatusResponse::new);\n        SetFinAccountTransStatusResponse out = ServiceResponse.ok(SetFinAccountTransStatusResponse::new);\n        out.setOldStatusId(tx.getStatusId());\n        tx.setStatusId(req.getStatusId());\n        finAccountTransDao.update(tx);\n        return out;\n    }"
+ },
+ "setInvoiceStatus": {
+  "kind": "CURATED",
+  "text": "    public SetInvoiceStatusResponse setInvoiceStatus(SetInvoiceStatusRequest req) throws SQLException {\n        String invoiceId = req.getInvoiceId();\n        Invoice invoice = invoiceDao.gett(invoiceId);\n        if (invoice == null) return ServiceResponse.error(\"Invoice not found: \" + invoiceId, SetInvoiceStatusResponse::new);\n        String oldStatusId = invoice.getStatusId();\n        String newStatusId = req.getStatusId();\n        SetInvoiceStatusResponse out = ServiceResponse.ok(SetInvoiceStatusResponse::new);\n        out.setInvoiceTypeId(invoice.getInvoiceTypeId());\n        out.setOldStatusId(oldStatusId);\n        if (newStatusId == null || newStatusId.equals(oldStatusId)) return out;\n        if (oldStatusId != null) {\n            StatusValidChange probe = new StatusValidChange();\n            probe.setStatusId(oldStatusId);\n            probe.setStatusIdTo(newStatusId);\n            if (statusValidChangeDao.gett(probe) == null)\n                return ServiceResponse.error(\"Invalid invoice status change from \" + oldStatusId + \" to \" + newStatusId, SetInvoiceStatusResponse::new);\n        }\n        Timestamp statusDate = req.getStatusDate() != null ? req.getStatusDate() : nowTs();\n        invoice.setStatusId(newStatusId);\n        if (\"INVOICE_PAID\".equals(newStatusId))\n            invoice.setPaidDate(req.getPaidDate() != null ? req.getPaidDate() : statusDate);\n        invoiceDao.update(invoice);\n        InvoiceStatus hist = new InvoiceStatus();\n        hist.setInvoiceId(invoiceId);\n        hist.setStatusId(newStatusId);\n        hist.setStatusDate(statusDate);\n        hist.setChangeByUserLoginId(req.getUserLoginId());\n        invoiceStatusDao.insert(hist);\n        return out;\n    }"
+ },
+ "setPaymentStatus": {
+  "kind": "CURATED",
+  "text": "    public SetPaymentStatusResponse setPaymentStatus(SetPaymentStatusRequest req) throws SQLException {\n        String paymentId = req.getPaymentId();\n        Payment payment = paymentDao.gett(paymentId);\n        if (payment == null) return ServiceResponse.error(\"Payment not found: \" + paymentId, SetPaymentStatusResponse::new);\n        String oldStatusId = payment.getStatusId();\n        String newStatusId = req.getStatusId();\n        SetPaymentStatusResponse out = ServiceResponse.ok(SetPaymentStatusResponse::new);\n        out.setOldStatusId(oldStatusId);\n        if (newStatusId == null || newStatusId.equals(oldStatusId)) return out;\n        if (oldStatusId != null) {\n            StatusValidChange probe = new StatusValidChange();\n            probe.setStatusId(oldStatusId);\n            probe.setStatusIdTo(newStatusId);\n            if (statusValidChangeDao.gett(probe) == null)\n                return ServiceResponse.error(\"Invalid payment status change from \" + oldStatusId + \" to \" + newStatusId, SetPaymentStatusResponse::new);\n        }\n        payment.setStatusId(newStatusId);\n        if (payment.getEffectiveDate() == null && (\"PMNT_SENT\".equals(newStatusId) || \"PMNT_RECEIVED\".equals(newStatusId)))\n            payment.setEffectiveDate(nowTs());\n        paymentDao.update(payment);\n        return out;\n    }"
+ },
+ "updateAcctgTrans": {
+  "kind": "AUTO",
+  "text": "    public UpdateAcctgTransResponse updateAcctgTrans(UpdateAcctgTransRequest req) throws SQLException {\n        String id = req.getAcctgTransId();\n        AcctgTrans e = acctgTransDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"AcctgTrans not found: \" + id, UpdateAcctgTransResponse::new);\n        ServiceInput.populate(e, req);\n        acctgTransDao.update(e);\n        return ServiceResponse.ok(UpdateAcctgTransResponse::new, e);\n    }"
+ },
+ "updateAcctgTransEntry": {
+  "kind": "AUTO",
+  "text": "    public UpdateAcctgTransEntryResponse updateAcctgTransEntry(UpdateAcctgTransEntryRequest req) throws SQLException {\n        AcctgTransEntry probe = new AcctgTransEntry();\n        ServiceInput.populate(probe, req);\n        AcctgTransEntry e = acctgTransEntryDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"AcctgTransEntry not found\", UpdateAcctgTransEntryResponse::new);\n        ServiceInput.populate(e, req);\n        acctgTransEntryDao.update(e);\n        return ServiceResponse.ok(UpdateAcctgTransEntryResponse::new, e);\n    }"
+ },
+ "updateAgreement": {
+  "kind": "AUTO",
+  "text": "    public UpdateAgreementResponse updateAgreement(UpdateAgreementRequest req) throws SQLException {\n        String id = req.getAgreementId();\n        Agreement e = agreementDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"Agreement not found: \" + id, UpdateAgreementResponse::new);\n        ServiceInput.populate(e, req);\n        agreementDao.update(e);\n        return ServiceResponse.ok(UpdateAgreementResponse::new, e);\n    }"
+ },
+ "updateAgreementFacilityAppl": {
+  "kind": "AUTO",
+  "text": "    public UpdateAgreementFacilityApplResponse updateAgreementFacilityAppl(UpdateAgreementFacilityApplRequest req) throws SQLException {\n        AgreementFacilityAppl probe = new AgreementFacilityAppl();\n        ServiceInput.populate(probe, req);\n        AgreementFacilityAppl e = agreementFacilityApplDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"AgreementFacilityAppl not found\", UpdateAgreementFacilityApplResponse::new);\n        ServiceInput.populate(e, req);\n        agreementFacilityApplDao.update(e);\n        return ServiceResponse.ok(UpdateAgreementFacilityApplResponse::new, e);\n    }"
+ },
+ "updateAgreementItem": {
+  "kind": "AUTO",
+  "text": "    public UpdateAgreementItemResponse updateAgreementItem(UpdateAgreementItemRequest req) throws SQLException {\n        AgreementItem probe = new AgreementItem();\n        ServiceInput.populate(probe, req);\n        AgreementItem e = agreementItemDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"AgreementItem not found\", UpdateAgreementItemResponse::new);\n        ServiceInput.populate(e, req);\n        agreementItemDao.update(e);\n        return ServiceResponse.ok(UpdateAgreementItemResponse::new, e);\n    }"
+ },
+ "updateAgreementPartyApplic": {
+  "kind": "AUTO",
+  "text": "    public UpdateAgreementPartyApplicResponse updateAgreementPartyApplic(UpdateAgreementPartyApplicRequest req) throws SQLException {\n        AgreementPartyApplic probe = new AgreementPartyApplic();\n        ServiceInput.populate(probe, req);\n        AgreementPartyApplic e = agreementPartyApplicDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"AgreementPartyApplic not found\", UpdateAgreementPartyApplicResponse::new);\n        ServiceInput.populate(e, req);\n        agreementPartyApplicDao.update(e);\n        return ServiceResponse.ok(UpdateAgreementPartyApplicResponse::new, e);\n    }"
+ },
+ "updateAgreementProductAppl": {
+  "kind": "AUTO",
+  "text": "    public UpdateAgreementProductApplResponse updateAgreementProductAppl(UpdateAgreementProductApplRequest req) throws SQLException {\n        AgreementProductAppl probe = new AgreementProductAppl();\n        ServiceInput.populate(probe, req);\n        AgreementProductAppl e = agreementProductApplDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"AgreementProductAppl not found\", UpdateAgreementProductApplResponse::new);\n        ServiceInput.populate(e, req);\n        agreementProductApplDao.update(e);\n        return ServiceResponse.ok(UpdateAgreementProductApplResponse::new, e);\n    }"
+ },
+ "updateAgreementPromoAppl": {
+  "kind": "AUTO",
+  "text": "    public UpdateAgreementPromoApplResponse updateAgreementPromoAppl(UpdateAgreementPromoApplRequest req) throws SQLException {\n        AgreementPromoAppl probe = new AgreementPromoAppl();\n        ServiceInput.populate(probe, req);\n        AgreementPromoAppl e = agreementPromoApplDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"AgreementPromoAppl not found\", UpdateAgreementPromoApplResponse::new);\n        ServiceInput.populate(e, req);\n        agreementPromoApplDao.update(e);\n        return ServiceResponse.ok(UpdateAgreementPromoApplResponse::new, e);\n    }"
+ },
+ "updateAgreementRole": {
+  "kind": "AUTO",
+  "text": "    public UpdateAgreementRoleResponse updateAgreementRole(UpdateAgreementRoleRequest req) throws SQLException {\n        AgreementRole probe = new AgreementRole();\n        ServiceInput.populate(probe, req);\n        AgreementRole e = agreementRoleDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"AgreementRole not found\", UpdateAgreementRoleResponse::new);\n        ServiceInput.populate(e, req);\n        agreementRoleDao.update(e);\n        return ServiceResponse.ok(UpdateAgreementRoleResponse::new, e);\n    }"
+ },
+ "updateAgreementTerm": {
+  "kind": "AUTO",
+  "text": "    public UpdateAgreementTermResponse updateAgreementTerm(UpdateAgreementTermRequest req) throws SQLException {\n        String id = req.getAgreementTermId();\n        AgreementTerm e = agreementTermDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"AgreementTerm not found: \" + id, UpdateAgreementTermResponse::new);\n        ServiceInput.populate(e, req);\n        agreementTermDao.update(e);\n        return ServiceResponse.ok(UpdateAgreementTermResponse::new, e);\n    }"
+ },
+ "updateBillingAccount": {
+  "kind": "AUTO",
+  "text": "    public UpdateBillingAccountResponse updateBillingAccount(UpdateBillingAccountRequest req) throws SQLException {\n        String id = req.getBillingAccountId();\n        BillingAccount e = billingAccountDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"BillingAccount not found: \" + id, UpdateBillingAccountResponse::new);\n        ServiceInput.populate(e, req);\n        billingAccountDao.update(e);\n        return ServiceResponse.ok(UpdateBillingAccountResponse::new, e);\n    }"
+ },
+ "updateBillingAccountRole": {
+  "kind": "AUTO",
+  "text": "    public UpdateBillingAccountRoleResponse updateBillingAccountRole(UpdateBillingAccountRoleRequest req) throws SQLException {\n        BillingAccountRole probe = new BillingAccountRole();\n        ServiceInput.populate(probe, req);\n        BillingAccountRole e = billingAccountRoleDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"BillingAccountRole not found\", UpdateBillingAccountRoleResponse::new);\n        ServiceInput.populate(e, req);\n        billingAccountRoleDao.update(e);\n        return ServiceResponse.ok(UpdateBillingAccountRoleResponse::new, e);\n    }"
+ },
+ "updateBillingAccountTerm": {
+  "kind": "AUTO",
+  "text": "    public UpdateBillingAccountTermResponse updateBillingAccountTerm(UpdateBillingAccountTermRequest req) throws SQLException {\n        String id = req.getBillingAccountTermId();\n        BillingAccountTerm e = billingAccountTermDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"BillingAccountTerm not found: \" + id, UpdateBillingAccountTermResponse::new);\n        ServiceInput.populate(e, req);\n        billingAccountTermDao.update(e);\n        return ServiceResponse.ok(UpdateBillingAccountTermResponse::new, e);\n    }"
+ },
+ "updateBudget": {
+  "kind": "AUTO",
+  "text": "    public UpdateBudgetResponse updateBudget(UpdateBudgetRequest req) throws SQLException {\n        String id = req.getBudgetId();\n        Budget e = budgetDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"Budget not found: \" + id, UpdateBudgetResponse::new);\n        ServiceInput.populate(e, req);\n        budgetDao.update(e);\n        return ServiceResponse.ok(UpdateBudgetResponse::new, e);\n    }"
+ },
+ "updateBudgetItem": {
+  "kind": "AUTO",
+  "text": "    public UpdateBudgetItemResponse updateBudgetItem(UpdateBudgetItemRequest req) throws SQLException {\n        BudgetItem probe = new BudgetItem();\n        ServiceInput.populate(probe, req);\n        BudgetItem e = budgetItemDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"BudgetItem not found\", UpdateBudgetItemResponse::new);\n        ServiceInput.populate(e, req);\n        budgetItemDao.update(e);\n        return ServiceResponse.ok(UpdateBudgetItemResponse::new, e);\n    }"
+ },
+ "updateBudgetStatus": {
+  "kind": "CURATED",
+  "text": "    public UpdateBudgetStatusResponse updateBudgetStatus(UpdateBudgetStatusRequest req) throws SQLException {\n        String budgetId = req.getBudgetId();\n        Budget budget = budgetDao.gett(budgetId);\n        if (budget == null) return ServiceResponse.error(\"Budget not found: \" + budgetId, UpdateBudgetStatusResponse::new);\n        Timestamp statusDate = req.getStatusDate() != null ? req.getStatusDate() : nowTs();\n        BudgetStatus hist = new BudgetStatus();\n        hist.setBudgetId(budgetId);\n        hist.setStatusId(req.getStatusId());\n        hist.setStatusDate(statusDate);\n        hist.setComments(req.getComments());\n        hist.setChangeByUserLoginId(req.getChangeByUserLoginId());\n        budgetStatusDao.insert(hist);\n        return ServiceResponse.ok(UpdateBudgetStatusResponse::new);\n    }"
+ },
+ "updateCostComponentCalc": {
+  "kind": "AUTO",
+  "text": "    public UpdateCostComponentCalcResponse updateCostComponentCalc(UpdateCostComponentCalcRequest req) throws SQLException {\n        String id = req.getCostComponentCalcId();\n        CostComponentCalc e = costComponentCalcDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"CostComponentCalc not found: \" + id, UpdateCostComponentCalcResponse::new);\n        ServiceInput.populate(e, req);\n        costComponentCalcDao.update(e);\n        return ServiceResponse.ok(UpdateCostComponentCalcResponse::new, e);\n    }"
+ },
+ "updateCreditCardTypeGlAccount": {
+  "kind": "AUTO",
+  "text": "    public UpdateCreditCardTypeGlAccountResponse updateCreditCardTypeGlAccount(UpdateCreditCardTypeGlAccountRequest req) throws SQLException {\n        CreditCardTypeGlAccount probe = new CreditCardTypeGlAccount();\n        ServiceInput.populate(probe, req);\n        CreditCardTypeGlAccount e = creditCardTypeGlAccountDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"CreditCardTypeGlAccount not found\", UpdateCreditCardTypeGlAccountResponse::new);\n        ServiceInput.populate(e, req);\n        creditCardTypeGlAccountDao.update(e);\n        return ServiceResponse.ok(UpdateCreditCardTypeGlAccountResponse::new, e);\n    }"
+ },
+ "updateCustomTimePeriod": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> updateCustomTimePeriod(Map<String, Object> body) { return notPortedYet(\"updateCustomTimePeriod\"); }"
+ },
+ "updateFXConversion": {
+  "kind": "STUB",
+  "text": "    public UpdateFXConversionResponse updateFXConversion(UpdateFXConversionRequest req) { return notPortedYet(UpdateFXConversionResponse::new, \"updateFXConversion\"); }"
+ },
+ "updateFinAccount": {
+  "kind": "AUTO",
+  "text": "    public UpdateFinAccountResponse updateFinAccount(UpdateFinAccountRequest req) throws SQLException {\n        String id = req.getFinAccountId();\n        FinAccount e = finAccountDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"FinAccount not found: \" + id, UpdateFinAccountResponse::new);\n        ServiceInput.populate(e, req);\n        finAccountDao.update(e);\n        return ServiceResponse.ok(UpdateFinAccountResponse::new, e);\n    }"
+ },
+ "updateFinAccountRole": {
+  "kind": "AUTO",
+  "text": "    public UpdateFinAccountRoleResponse updateFinAccountRole(UpdateFinAccountRoleRequest req) throws SQLException {\n        FinAccountRole probe = new FinAccountRole();\n        ServiceInput.populate(probe, req);\n        FinAccountRole e = finAccountRoleDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"FinAccountRole not found\", UpdateFinAccountRoleResponse::new);\n        ServiceInput.populate(e, req);\n        finAccountRoleDao.update(e);\n        return ServiceResponse.ok(UpdateFinAccountRoleResponse::new, e);\n    }"
+ },
+ "updateFinAccountTypeGlAccount": {
+  "kind": "AUTO",
+  "text": "    public UpdateFinAccountTypeGlAccountResponse updateFinAccountTypeGlAccount(UpdateFinAccountTypeGlAccountRequest req) throws SQLException {\n        FinAccountTypeGlAccount probe = new FinAccountTypeGlAccount();\n        ServiceInput.populate(probe, req);\n        FinAccountTypeGlAccount e = finAccountTypeGlAccountDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"FinAccountTypeGlAccount not found\", UpdateFinAccountTypeGlAccountResponse::new);\n        ServiceInput.populate(e, req);\n        finAccountTypeGlAccountDao.update(e);\n        return ServiceResponse.ok(UpdateFinAccountTypeGlAccountResponse::new, e);\n    }"
+ },
+ "updateFixedAsset": {
+  "kind": "AUTO",
+  "text": "    public UpdateFixedAssetResponse updateFixedAsset(UpdateFixedAssetRequest req) throws SQLException {\n        String id = req.getFixedAssetId();\n        FixedAsset e = fixedAssetDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"FixedAsset not found: \" + id, UpdateFixedAssetResponse::new);\n        ServiceInput.populate(e, req);\n        fixedAssetDao.update(e);\n        return ServiceResponse.ok(UpdateFixedAssetResponse::new, e);\n    }"
+ },
+ "updateFixedAssetDepMethod": {
+  "kind": "AUTO",
+  "text": "    public UpdateFixedAssetDepMethodResponse updateFixedAssetDepMethod(UpdateFixedAssetDepMethodRequest req) throws SQLException {\n        FixedAssetDepMethod probe = new FixedAssetDepMethod();\n        ServiceInput.populate(probe, req);\n        FixedAssetDepMethod e = fixedAssetDepMethodDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"FixedAssetDepMethod not found\", UpdateFixedAssetDepMethodResponse::new);\n        ServiceInput.populate(e, req);\n        fixedAssetDepMethodDao.update(e);\n        return ServiceResponse.ok(UpdateFixedAssetDepMethodResponse::new, e);\n    }"
+ },
+ "updateFixedAssetIdent": {
+  "kind": "AUTO",
+  "text": "    public UpdateFixedAssetIdentResponse updateFixedAssetIdent(UpdateFixedAssetIdentRequest req) throws SQLException {\n        FixedAssetIdent probe = new FixedAssetIdent();\n        ServiceInput.populate(probe, req);\n        FixedAssetIdent e = fixedAssetIdentDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"FixedAssetIdent not found\", UpdateFixedAssetIdentResponse::new);\n        ServiceInput.populate(e, req);\n        fixedAssetIdentDao.update(e);\n        return ServiceResponse.ok(UpdateFixedAssetIdentResponse::new, e);\n    }"
+ },
+ "updateFixedAssetMaint": {
+  "kind": "AUTO",
+  "text": "    public UpdateFixedAssetMaintResponse updateFixedAssetMaint(UpdateFixedAssetMaintRequest req) throws SQLException {\n        FixedAssetMaint probe = new FixedAssetMaint();\n        ServiceInput.populate(probe, req);\n        FixedAssetMaint e = fixedAssetMaintDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"FixedAssetMaint not found\", UpdateFixedAssetMaintResponse::new);\n        ServiceInput.populate(e, req);\n        fixedAssetMaintDao.update(e);\n        return ServiceResponse.ok(UpdateFixedAssetMaintResponse::new, e);\n    }"
+ },
+ "updateFixedAssetMeter": {
+  "kind": "AUTO",
+  "text": "    public UpdateFixedAssetMeterResponse updateFixedAssetMeter(UpdateFixedAssetMeterRequest req) throws SQLException {\n        FixedAssetMeter probe = new FixedAssetMeter();\n        ServiceInput.populate(probe, req);\n        FixedAssetMeter e = fixedAssetMeterDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"FixedAssetMeter not found\", UpdateFixedAssetMeterResponse::new);\n        ServiceInput.populate(e, req);\n        fixedAssetMeterDao.update(e);\n        return ServiceResponse.ok(UpdateFixedAssetMeterResponse::new, e);\n    }"
+ },
+ "updateFixedAssetProduct": {
+  "kind": "AUTO",
+  "text": "    public UpdateFixedAssetProductResponse updateFixedAssetProduct(UpdateFixedAssetProductRequest req) throws SQLException {\n        FixedAssetProduct probe = new FixedAssetProduct();\n        ServiceInput.populate(probe, req);\n        FixedAssetProduct e = fixedAssetProductDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"FixedAssetProduct not found\", UpdateFixedAssetProductResponse::new);\n        ServiceInput.populate(e, req);\n        fixedAssetProductDao.update(e);\n        return ServiceResponse.ok(UpdateFixedAssetProductResponse::new, e);\n    }"
+ },
+ "updateFixedAssetRegistration": {
+  "kind": "AUTO",
+  "text": "    public UpdateFixedAssetRegistrationResponse updateFixedAssetRegistration(UpdateFixedAssetRegistrationRequest req) throws SQLException {\n        FixedAssetRegistration probe = new FixedAssetRegistration();\n        ServiceInput.populate(probe, req);\n        FixedAssetRegistration e = fixedAssetRegistrationDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"FixedAssetRegistration not found\", UpdateFixedAssetRegistrationResponse::new);\n        ServiceInput.populate(e, req);\n        fixedAssetRegistrationDao.update(e);\n        return ServiceResponse.ok(UpdateFixedAssetRegistrationResponse::new, e);\n    }"
+ },
+ "updateFixedAssetStdCost": {
+  "kind": "AUTO",
+  "text": "    public UpdateFixedAssetStdCostResponse updateFixedAssetStdCost(UpdateFixedAssetStdCostRequest req) throws SQLException {\n        FixedAssetStdCost probe = new FixedAssetStdCost();\n        ServiceInput.populate(probe, req);\n        FixedAssetStdCost e = fixedAssetStdCostDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"FixedAssetStdCost not found\", UpdateFixedAssetStdCostResponse::new);\n        ServiceInput.populate(e, req);\n        fixedAssetStdCostDao.update(e);\n        return ServiceResponse.ok(UpdateFixedAssetStdCostResponse::new, e);\n    }"
+ },
+ "updateGlAccount": {
+  "kind": "AUTO",
+  "text": "    public UpdateGlAccountResponse updateGlAccount(UpdateGlAccountRequest req) throws SQLException {\n        String id = req.getGlAccountId();\n        GlAccount e = glAccountDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"GlAccount not found: \" + id, UpdateGlAccountResponse::new);\n        ServiceInput.populate(e, req);\n        glAccountDao.update(e);\n        return ServiceResponse.ok(UpdateGlAccountResponse::new, e);\n    }"
+ },
+ "updateGlAccountCategory": {
+  "kind": "AUTO",
+  "text": "    public UpdateGlAccountCategoryResponse updateGlAccountCategory(UpdateGlAccountCategoryRequest req) throws SQLException {\n        String id = req.getGlAccountCategoryId();\n        GlAccountCategory e = glAccountCategoryDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"GlAccountCategory not found: \" + id, UpdateGlAccountCategoryResponse::new);\n        ServiceInput.populate(e, req);\n        glAccountCategoryDao.update(e);\n        return ServiceResponse.ok(UpdateGlAccountCategoryResponse::new, e);\n    }"
+ },
+ "updateGlAccountCategoryMember": {
+  "kind": "AUTO",
+  "text": "    public UpdateGlAccountCategoryMemberResponse updateGlAccountCategoryMember(UpdateGlAccountCategoryMemberRequest req) throws SQLException {\n        GlAccountCategoryMember probe = new GlAccountCategoryMember();\n        ServiceInput.populate(probe, req);\n        GlAccountCategoryMember e = glAccountCategoryMemberDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"GlAccountCategoryMember not found\", UpdateGlAccountCategoryMemberResponse::new);\n        ServiceInput.populate(e, req);\n        glAccountCategoryMemberDao.update(e);\n        return ServiceResponse.ok(UpdateGlAccountCategoryMemberResponse::new, e);\n    }"
+ },
+ "updateGlJournal": {
+  "kind": "AUTO",
+  "text": "    public UpdateGlJournalResponse updateGlJournal(UpdateGlJournalRequest req) throws SQLException {\n        String id = req.getGlJournalId();\n        GlJournal e = glJournalDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"GlJournal not found: \" + id, UpdateGlJournalResponse::new);\n        ServiceInput.populate(e, req);\n        glJournalDao.update(e);\n        return ServiceResponse.ok(UpdateGlJournalResponse::new, e);\n    }"
+ },
+ "updateGlReconciliation": {
+  "kind": "AUTO",
+  "text": "    public UpdateGlReconciliationResponse updateGlReconciliation(UpdateGlReconciliationRequest req) throws SQLException {\n        String id = req.getGlReconciliationId();\n        GlReconciliation e = glReconciliationDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"GlReconciliation not found: \" + id, UpdateGlReconciliationResponse::new);\n        ServiceInput.populate(e, req);\n        glReconciliationDao.update(e);\n        return ServiceResponse.ok(UpdateGlReconciliationResponse::new, e);\n    }"
+ },
+ "updateInvoice": {
+  "kind": "AUTO",
+  "text": "    public UpdateInvoiceResponse updateInvoice(UpdateInvoiceRequest req) throws SQLException {\n        String id = req.getInvoiceId();\n        Invoice e = invoiceDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"Invoice not found: \" + id, UpdateInvoiceResponse::new);\n        ServiceInput.populate(e, req);\n        invoiceDao.update(e);\n        return ServiceResponse.ok(UpdateInvoiceResponse::new, e);\n    }"
+ },
+ "updateInvoiceItem": {
+  "kind": "AUTO",
+  "text": "    public UpdateInvoiceItemResponse updateInvoiceItem(UpdateInvoiceItemRequest req) throws SQLException {\n        InvoiceItem probe = new InvoiceItem();\n        ServiceInput.populate(probe, req);\n        InvoiceItem e = invoiceItemDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"InvoiceItem not found\", UpdateInvoiceItemResponse::new);\n        ServiceInput.populate(e, req);\n        invoiceItemDao.update(e);\n        return ServiceResponse.ok(UpdateInvoiceItemResponse::new, e);\n    }"
+ },
+ "updateInvoiceItemType": {
+  "kind": "AUTO",
+  "text": "    public UpdateInvoiceItemTypeResponse updateInvoiceItemType(UpdateInvoiceItemTypeRequest req) throws SQLException {\n        String id = req.getInvoiceItemTypeId();\n        InvoiceItemType e = invoiceItemTypeDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"InvoiceItemType not found: \" + id, UpdateInvoiceItemTypeResponse::new);\n        ServiceInput.populate(e, req);\n        invoiceItemTypeDao.update(e);\n        return ServiceResponse.ok(UpdateInvoiceItemTypeResponse::new, e);\n    }"
+ },
+ "updateInvoiceTerm": {
+  "kind": "AUTO",
+  "text": "    public UpdateInvoiceTermResponse updateInvoiceTerm(UpdateInvoiceTermRequest req) throws SQLException {\n        String id = req.getInvoiceTermId();\n        InvoiceTerm e = invoiceTermDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"InvoiceTerm not found: \" + id, UpdateInvoiceTermResponse::new);\n        ServiceInput.populate(e, req);\n        invoiceTermDao.update(e);\n        return ServiceResponse.ok(UpdateInvoiceTermResponse::new, e);\n    }"
+ },
+ "updatePartyAcctgPreference": {
+  "kind": "AUTO",
+  "text": "    public UpdatePartyAcctgPreferenceResponse updatePartyAcctgPreference(UpdatePartyAcctgPreferenceRequest req) throws SQLException {\n        String id = req.getPartyId();\n        PartyAcctgPreference e = partyAcctgPreferenceDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PartyAcctgPreference not found: \" + id, UpdatePartyAcctgPreferenceResponse::new);\n        ServiceInput.populate(e, req);\n        partyAcctgPreferenceDao.update(e);\n        return ServiceResponse.ok(UpdatePartyAcctgPreferenceResponse::new, e);\n    }"
+ },
+ "updatePartyFixedAssetAssignment": {
+  "kind": "AUTO",
+  "text": "    public UpdatePartyFixedAssetAssignmentResponse updatePartyFixedAssetAssignment(UpdatePartyFixedAssetAssignmentRequest req) throws SQLException {\n        PartyFixedAssetAssignment probe = new PartyFixedAssetAssignment();\n        ServiceInput.populate(probe, req);\n        PartyFixedAssetAssignment e = partyFixedAssetAssignmentDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"PartyFixedAssetAssignment not found\", UpdatePartyFixedAssetAssignmentResponse::new);\n        ServiceInput.populate(e, req);\n        partyFixedAssetAssignmentDao.update(e);\n        return ServiceResponse.ok(UpdatePartyFixedAssetAssignmentResponse::new, e);\n    }"
+ },
+ "updatePartyGlAccount": {
+  "kind": "AUTO",
+  "text": "    public UpdatePartyGlAccountResponse updatePartyGlAccount(UpdatePartyGlAccountRequest req) throws SQLException {\n        PartyGlAccount probe = new PartyGlAccount();\n        ServiceInput.populate(probe, req);\n        PartyGlAccount e = partyGlAccountDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"PartyGlAccount not found\", UpdatePartyGlAccountResponse::new);\n        ServiceInput.populate(e, req);\n        partyGlAccountDao.update(e);\n        return ServiceResponse.ok(UpdatePartyGlAccountResponse::new, e);\n    }"
+ },
+ "updatePartyTaxAuthInfo": {
+  "kind": "AUTO",
+  "text": "    public UpdatePartyTaxAuthInfoResponse updatePartyTaxAuthInfo(UpdatePartyTaxAuthInfoRequest req) throws SQLException {\n        PartyTaxAuthInfo probe = new PartyTaxAuthInfo();\n        ServiceInput.populate(probe, req);\n        PartyTaxAuthInfo e = partyTaxAuthInfoDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"PartyTaxAuthInfo not found\", UpdatePartyTaxAuthInfoResponse::new);\n        ServiceInput.populate(e, req);\n        partyTaxAuthInfoDao.update(e);\n        return ServiceResponse.ok(UpdatePartyTaxAuthInfoResponse::new, e);\n    }"
+ },
+ "updatePayment": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentResponse updatePayment(UpdatePaymentRequest req) throws SQLException {\n        String id = req.getPaymentId();\n        Payment e = paymentDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"Payment not found: \" + id, UpdatePaymentResponse::new);\n        ServiceInput.populate(e, req);\n        paymentDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentResponse::new, e);\n    }"
+ },
+ "updatePaymentApplicationDef": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentApplicationDefResponse updatePaymentApplicationDef(UpdatePaymentApplicationDefRequest req) throws SQLException {\n        String id = req.getPaymentApplicationId();\n        PaymentApplication e = paymentApplicationDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentApplication not found: \" + id, UpdatePaymentApplicationDefResponse::new);\n        ServiceInput.populate(e, req);\n        paymentApplicationDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentApplicationDefResponse::new, e);\n    }"
+ },
+ "updatePaymentGatewayConfig": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentGatewayConfigResponse updatePaymentGatewayConfig(UpdatePaymentGatewayConfigRequest req) throws SQLException {\n        String id = req.getPaymentGatewayConfigId();\n        PaymentGatewayConfig e = paymentGatewayConfigDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentGatewayConfig not found: \" + id, UpdatePaymentGatewayConfigResponse::new);\n        ServiceInput.populate(e, req);\n        paymentGatewayConfigDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentGatewayConfigResponse::new, e);\n    }"
+ },
+ "updatePaymentGatewayConfigAuthorizeNet": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentGatewayConfigAuthorizeNetResponse updatePaymentGatewayConfigAuthorizeNet(UpdatePaymentGatewayConfigAuthorizeNetRequest req) throws SQLException {\n        String id = req.getPaymentGatewayConfigId();\n        PaymentGatewayAuthorizeNet e = paymentGatewayAuthorizeNetDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentGatewayAuthorizeNet not found: \" + id, UpdatePaymentGatewayConfigAuthorizeNetResponse::new);\n        ServiceInput.populate(e, req);\n        paymentGatewayAuthorizeNetDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentGatewayConfigAuthorizeNetResponse::new, e);\n    }"
+ },
+ "updatePaymentGatewayConfigClearCommerce": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentGatewayConfigClearCommerceResponse updatePaymentGatewayConfigClearCommerce(UpdatePaymentGatewayConfigClearCommerceRequest req) throws SQLException {\n        String id = req.getPaymentGatewayConfigId();\n        PaymentGatewayClearCommerce e = paymentGatewayClearCommerceDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentGatewayClearCommerce not found: \" + id, UpdatePaymentGatewayConfigClearCommerceResponse::new);\n        ServiceInput.populate(e, req);\n        paymentGatewayClearCommerceDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentGatewayConfigClearCommerceResponse::new, e);\n    }"
+ },
+ "updatePaymentGatewayConfigCyberSource": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentGatewayConfigCyberSourceResponse updatePaymentGatewayConfigCyberSource(UpdatePaymentGatewayConfigCyberSourceRequest req) throws SQLException {\n        String id = req.getPaymentGatewayConfigId();\n        PaymentGatewayCyberSource e = paymentGatewayCyberSourceDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentGatewayCyberSource not found: \" + id, UpdatePaymentGatewayConfigCyberSourceResponse::new);\n        ServiceInput.populate(e, req);\n        paymentGatewayCyberSourceDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentGatewayConfigCyberSourceResponse::new, e);\n    }"
+ },
+ "updatePaymentGatewayConfigEway": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentGatewayConfigEwayResponse updatePaymentGatewayConfigEway(UpdatePaymentGatewayConfigEwayRequest req) throws SQLException {\n        String id = req.getPaymentGatewayConfigId();\n        PaymentGatewayEway e = paymentGatewayEwayDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentGatewayEway not found: \" + id, UpdatePaymentGatewayConfigEwayResponse::new);\n        ServiceInput.populate(e, req);\n        paymentGatewayEwayDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentGatewayConfigEwayResponse::new, e);\n    }"
+ },
+ "updatePaymentGatewayConfigPayPal": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentGatewayConfigPayPalResponse updatePaymentGatewayConfigPayPal(UpdatePaymentGatewayConfigPayPalRequest req) throws SQLException {\n        String id = req.getPaymentGatewayConfigId();\n        PaymentGatewayPayPal e = paymentGatewayPayPalDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentGatewayPayPal not found: \" + id, UpdatePaymentGatewayConfigPayPalResponse::new);\n        ServiceInput.populate(e, req);\n        paymentGatewayPayPalDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentGatewayConfigPayPalResponse::new, e);\n    }"
+ },
+ "updatePaymentGatewayConfigPayflowPro": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentGatewayConfigPayflowProResponse updatePaymentGatewayConfigPayflowPro(UpdatePaymentGatewayConfigPayflowProRequest req) throws SQLException {\n        String id = req.getPaymentGatewayConfigId();\n        PaymentGatewayPayflowPro e = paymentGatewayPayflowProDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentGatewayPayflowPro not found: \" + id, UpdatePaymentGatewayConfigPayflowProResponse::new);\n        ServiceInput.populate(e, req);\n        paymentGatewayPayflowProDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentGatewayConfigPayflowProResponse::new, e);\n    }"
+ },
+ "updatePaymentGatewayConfigSagePay": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentGatewayConfigSagePayResponse updatePaymentGatewayConfigSagePay(UpdatePaymentGatewayConfigSagePayRequest req) throws SQLException {\n        String id = req.getPaymentGatewayConfigId();\n        PaymentGatewaySagePay e = paymentGatewaySagePayDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentGatewaySagePay not found: \" + id, UpdatePaymentGatewayConfigSagePayResponse::new);\n        ServiceInput.populate(e, req);\n        paymentGatewaySagePayDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentGatewayConfigSagePayResponse::new, e);\n    }"
+ },
+ "updatePaymentGatewayConfigSecurePay": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentGatewayConfigSecurePayResponse updatePaymentGatewayConfigSecurePay(UpdatePaymentGatewayConfigSecurePayRequest req) throws SQLException {\n        String id = req.getPaymentGatewayConfigId();\n        PaymentGatewaySecurePay e = paymentGatewaySecurePayDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentGatewaySecurePay not found: \" + id, UpdatePaymentGatewayConfigSecurePayResponse::new);\n        ServiceInput.populate(e, req);\n        paymentGatewaySecurePayDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentGatewayConfigSecurePayResponse::new, e);\n    }"
+ },
+ "updatePaymentGatewayConfigType": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentGatewayConfigTypeResponse updatePaymentGatewayConfigType(UpdatePaymentGatewayConfigTypeRequest req) throws SQLException {\n        String id = req.getPaymentGatewayConfigTypeId();\n        PaymentGatewayConfigType e = paymentGatewayConfigTypeDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentGatewayConfigType not found: \" + id, UpdatePaymentGatewayConfigTypeResponse::new);\n        ServiceInput.populate(e, req);\n        paymentGatewayConfigTypeDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentGatewayConfigTypeResponse::new, e);\n    }"
+ },
+ "updatePaymentGatewayConfigWorldPay": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentGatewayConfigWorldPayResponse updatePaymentGatewayConfigWorldPay(UpdatePaymentGatewayConfigWorldPayRequest req) throws SQLException {\n        String id = req.getPaymentGatewayConfigId();\n        PaymentGatewayWorldPay e = paymentGatewayWorldPayDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentGatewayWorldPay not found: \" + id, UpdatePaymentGatewayConfigWorldPayResponse::new);\n        ServiceInput.populate(e, req);\n        paymentGatewayWorldPayDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentGatewayConfigWorldPayResponse::new, e);\n    }"
+ },
+ "updatePaymentGroup": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentGroupResponse updatePaymentGroup(UpdatePaymentGroupRequest req) throws SQLException {\n        String id = req.getPaymentGroupId();\n        PaymentGroup e = paymentGroupDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentGroup not found: \" + id, UpdatePaymentGroupResponse::new);\n        ServiceInput.populate(e, req);\n        paymentGroupDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentGroupResponse::new, e);\n    }"
+ },
+ "updatePaymentGroupMember": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentGroupMemberResponse updatePaymentGroupMember(UpdatePaymentGroupMemberRequest req) throws SQLException {\n        PaymentGroupMember probe = new PaymentGroupMember();\n        ServiceInput.populate(probe, req);\n        PaymentGroupMember e = paymentGroupMemberDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"PaymentGroupMember not found\", UpdatePaymentGroupMemberResponse::new);\n        ServiceInput.populate(e, req);\n        paymentGroupMemberDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentGroupMemberResponse::new, e);\n    }"
+ },
+ "updatePaymentMethodType": {
+  "kind": "AUTO",
+  "text": "    public UpdatePaymentMethodTypeResponse updatePaymentMethodType(UpdatePaymentMethodTypeRequest req) throws SQLException {\n        String id = req.getPaymentMethodTypeId();\n        PaymentMethodType e = paymentMethodTypeDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"PaymentMethodType not found: \" + id, UpdatePaymentMethodTypeResponse::new);\n        ServiceInput.populate(e, req);\n        paymentMethodTypeDao.update(e);\n        return ServiceResponse.ok(UpdatePaymentMethodTypeResponse::new, e);\n    }"
+ },
+ "updateProductCategoryGlAccount": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> updateProductCategoryGlAccount(Map<String, Object> body) { return notPortedYet(\"updateProductCategoryGlAccount\"); }"
+ },
+ "updateProductGlAccount": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> updateProductGlAccount(Map<String, Object> body) { return notPortedYet(\"updateProductGlAccount\"); }"
+ },
+ "updateRateAmount": {
+  "kind": "STUB",
+  "text": "    public UpdateRateAmountResponse updateRateAmount(UpdateRateAmountRequest req) { return notPortedYet(UpdateRateAmountResponse::new, \"updateRateAmount\"); }"
+ },
+ "updateSupplierProduct": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> updateSupplierProduct(Map<String, Object> body) { return notPortedYet(\"updateSupplierProduct\"); }"
+ },
+ "updateTaxAuthority": {
+  "kind": "AUTO",
+  "text": "    public UpdateTaxAuthorityResponse updateTaxAuthority(UpdateTaxAuthorityRequest req) throws SQLException {\n        TaxAuthority probe = new TaxAuthority();\n        ServiceInput.populate(probe, req);\n        TaxAuthority e = taxAuthorityDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"TaxAuthority not found\", UpdateTaxAuthorityResponse::new);\n        ServiceInput.populate(e, req);\n        taxAuthorityDao.update(e);\n        return ServiceResponse.ok(UpdateTaxAuthorityResponse::new, e);\n    }"
+ },
+ "updateTaxAuthorityAssoc": {
+  "kind": "AUTO",
+  "text": "    public UpdateTaxAuthorityAssocResponse updateTaxAuthorityAssoc(UpdateTaxAuthorityAssocRequest req) throws SQLException {\n        TaxAuthorityAssoc probe = new TaxAuthorityAssoc();\n        ServiceInput.populate(probe, req);\n        TaxAuthorityAssoc e = taxAuthorityAssocDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"TaxAuthorityAssoc not found\", UpdateTaxAuthorityAssocResponse::new);\n        ServiceInput.populate(e, req);\n        taxAuthorityAssocDao.update(e);\n        return ServiceResponse.ok(UpdateTaxAuthorityAssocResponse::new, e);\n    }"
+ },
+ "updateTaxAuthorityCategory": {
+  "kind": "AUTO",
+  "text": "    public UpdateTaxAuthorityCategoryResponse updateTaxAuthorityCategory(UpdateTaxAuthorityCategoryRequest req) throws SQLException {\n        TaxAuthorityCategory probe = new TaxAuthorityCategory();\n        ServiceInput.populate(probe, req);\n        TaxAuthorityCategory e = taxAuthorityCategoryDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"TaxAuthorityCategory not found\", UpdateTaxAuthorityCategoryResponse::new);\n        ServiceInput.populate(e, req);\n        taxAuthorityCategoryDao.update(e);\n        return ServiceResponse.ok(UpdateTaxAuthorityCategoryResponse::new, e);\n    }"
+ },
+ "updateTaxAuthorityGlAccount": {
+  "kind": "AUTO",
+  "text": "    public UpdateTaxAuthorityGlAccountResponse updateTaxAuthorityGlAccount(UpdateTaxAuthorityGlAccountRequest req) throws SQLException {\n        TaxAuthorityGlAccount probe = new TaxAuthorityGlAccount();\n        ServiceInput.populate(probe, req);\n        TaxAuthorityGlAccount e = taxAuthorityGlAccountDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"TaxAuthorityGlAccount not found\", UpdateTaxAuthorityGlAccountResponse::new);\n        ServiceInput.populate(e, req);\n        taxAuthorityGlAccountDao.update(e);\n        return ServiceResponse.ok(UpdateTaxAuthorityGlAccountResponse::new, e);\n    }"
+ },
+ "updateTaxAuthorityRateProduct": {
+  "kind": "AUTO",
+  "text": "    public UpdateTaxAuthorityRateProductResponse updateTaxAuthorityRateProduct(UpdateTaxAuthorityRateProductRequest req) throws SQLException {\n        String id = req.getTaxAuthorityRateSeqId();\n        TaxAuthorityRateProduct e = taxAuthorityRateProductDao.gett(id);\n        if (e == null) return ServiceResponse.error(\"TaxAuthorityRateProduct not found: \" + id, UpdateTaxAuthorityRateProductResponse::new);\n        ServiceInput.populate(e, req);\n        taxAuthorityRateProductDao.update(e);\n        return ServiceResponse.ok(UpdateTaxAuthorityRateProductResponse::new, e);\n    }"
+ },
+ "updateTimeEntry": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> updateTimeEntry(Map<String, Object> body) { return notPortedYet(\"updateTimeEntry\"); }"
+ },
+ "updateVarianceReasonGlAccount": {
+  "kind": "AUTO",
+  "text": "    public UpdateVarianceReasonGlAccountResponse updateVarianceReasonGlAccount(UpdateVarianceReasonGlAccountRequest req) throws SQLException {\n        VarianceReasonGlAccount probe = new VarianceReasonGlAccount();\n        ServiceInput.populate(probe, req);\n        VarianceReasonGlAccount e = varianceReasonGlAccountDao.gett(probe);\n        if (e == null) return ServiceResponse.error(\"VarianceReasonGlAccount not found\", UpdateVarianceReasonGlAccountResponse::new);\n        ServiceInput.populate(e, req);\n        varianceReasonGlAccountDao.update(e);\n        return ServiceResponse.ok(UpdateVarianceReasonGlAccountResponse::new, e);\n    }"
+ },
+ "updateVendor": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> updateVendor(Map<String, Object> body) { return notPortedYet(\"updateVendor\"); }"
+ },
+ "updateWorkEffort": {
+  "kind": "MAP",
+  "text": "    public Map<String, Object> updateWorkEffort(Map<String, Object> body) { return notPortedYet(\"updateWorkEffort\"); }"
+ },
+ "uploadAgreementContentFile": {
+  "kind": "STUB",
+  "text": "    public UploadAgreementContentFileResponse uploadAgreementContentFile(UploadAgreementContentFileRequest req) { return notPortedYet(UploadAgreementContentFileResponse::new, \"uploadAgreementContentFile\"); }"
+ },
+ "voidPayment": {
+  "kind": "STUB",
+  "text": "    public VoidPaymentResponse voidPayment(VoidPaymentRequest req) { return notPortedYet(VoidPaymentResponse::new, \"voidPayment\"); }"
+ }
+}

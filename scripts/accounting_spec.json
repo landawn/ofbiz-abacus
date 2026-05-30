@@ -1,0 +1,5112 @@
+{
+ "setAcctgCompany": {
+  "engine": "groovy",
+  "invoke": "setAcctgCompany",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "SetAcctgCompanyRequest",
+  "resp_type": "SetAcctgCompanyResponse",
+  "outs": [
+   "organizationPartyId"
+  ]
+ },
+ "createReconcileAccount": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "PARAM"
+  ],
+  "req_type": null,
+  "resp_type": null,
+  "outs": []
+ },
+ "importInvoice": {
+  "engine": "java",
+  "invoke": "importInvoice",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "ImportInvoiceRequest",
+  "resp_type": "ImportInvoiceResponse",
+  "outs": [
+   "organizationPartyId"
+  ]
+ },
+ "updatePaymentGatewayConfig": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGatewayConfig",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentGatewayConfigRequest",
+  "resp_type": "UpdatePaymentGatewayConfigResponse",
+  "outs": [],
+  "dao_var": "paymentGatewayConfigDao",
+  "dao_cls": "PaymentGatewayConfigDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "paymentGatewayConfigId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "paymentGatewayConfigId": "String"
+  }
+ },
+ "updatePaymentGatewayConfigAuthorizeNet": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGatewayAuthorizeNet",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentGatewayConfigAuthorizeNetRequest",
+  "resp_type": "UpdatePaymentGatewayConfigAuthorizeNetResponse",
+  "outs": [],
+  "dao_var": "paymentGatewayAuthorizeNetDao",
+  "dao_cls": "PaymentGatewayAuthorizeNetDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "paymentGatewayConfigId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "paymentGatewayConfigId": "String"
+  }
+ },
+ "updatePaymentGatewayConfigClearCommerce": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGatewayClearCommerce",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentGatewayConfigClearCommerceRequest",
+  "resp_type": "UpdatePaymentGatewayConfigClearCommerceResponse",
+  "outs": [],
+  "dao_var": "paymentGatewayClearCommerceDao",
+  "dao_cls": "PaymentGatewayClearCommerceDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "paymentGatewayConfigId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "paymentGatewayConfigId": "String"
+  }
+ },
+ "updatePaymentGatewayConfigCyberSource": {
+  "engine": "simple",
+  "invoke": "updatePaymentGatewayConfigCyberSource",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentGatewayConfigCyberSourceRequest",
+  "resp_type": "UpdatePaymentGatewayConfigCyberSourceResponse",
+  "outs": []
+ },
+ "updatePaymentGatewayConfigEway": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGatewayEway",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentGatewayConfigEwayRequest",
+  "resp_type": "UpdatePaymentGatewayConfigEwayResponse",
+  "outs": [],
+  "dao_var": "paymentGatewayEwayDao",
+  "dao_cls": "PaymentGatewayEwayDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "paymentGatewayConfigId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "paymentGatewayConfigId": "String"
+  }
+ },
+ "updatePaymentGatewayConfigPayPal": {
+  "engine": "simple",
+  "invoke": "updatePaymentGatewayConfigPayPal",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentGatewayConfigPayPalRequest",
+  "resp_type": "UpdatePaymentGatewayConfigPayPalResponse",
+  "outs": []
+ },
+ "updatePaymentGatewayConfigPayflowPro": {
+  "engine": "simple",
+  "invoke": "updatePaymentGatewayConfigPayflowPro",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentGatewayConfigPayflowProRequest",
+  "resp_type": "UpdatePaymentGatewayConfigPayflowProResponse",
+  "outs": []
+ },
+ "updatePaymentGatewayConfigSagePay": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGatewaySagePay",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentGatewayConfigSagePayRequest",
+  "resp_type": "UpdatePaymentGatewayConfigSagePayResponse",
+  "outs": [],
+  "dao_var": "paymentGatewaySagePayDao",
+  "dao_cls": "PaymentGatewaySagePayDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "paymentGatewayConfigId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "paymentGatewayConfigId": "String"
+  }
+ },
+ "updatePaymentGatewayConfigSecurePay": {
+  "engine": "simple",
+  "invoke": "updatePaymentGatewayConfigSecurePay",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentGatewayConfigSecurePayRequest",
+  "resp_type": "UpdatePaymentGatewayConfigSecurePayResponse",
+  "outs": []
+ },
+ "updatePaymentGatewayConfigType": {
+  "engine": "simple",
+  "invoke": "updatePaymentGatewayConfigType",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentGatewayConfigTypeRequest",
+  "resp_type": "UpdatePaymentGatewayConfigTypeResponse",
+  "outs": []
+ },
+ "updatePaymentGatewayConfigWorldPay": {
+  "engine": "simple",
+  "invoke": "updatePaymentGatewayConfigWorldPay",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentGatewayConfigWorldPayRequest",
+  "resp_type": "UpdatePaymentGatewayConfigWorldPayResponse",
+  "outs": []
+ },
+ "createPaymentGroupMember": {
+  "engine": "simple",
+  "invoke": "createPaymentGroupMember",
+  "entity": "PaymentGroupMember",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreatePaymentGroupMemberRequest",
+  "resp_type": "CreatePaymentGroupMemberResponse",
+  "outs": []
+ },
+ "addFixedAssetProduct": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetProduct",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "AddFixedAssetProductRequest",
+  "resp_type": "AddFixedAssetProductResponse",
+  "outs": [],
+  "dao_var": "fixedAssetProductDao",
+  "dao_cls": "FixedAssetProductDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "fixedAssetId",
+   "productId",
+   "fixedAssetProductTypeId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "productId": "String",
+   "fixedAssetProductTypeId": "String",
+   "fromDate": "Timestamp"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "addPaymentMethodTypeGlAssignment": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "PaymentMethodTypeGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "AddPaymentMethodTypeGlAssignmentRequest",
+  "resp_type": "AddPaymentMethodTypeGlAssignmentResponse",
+  "outs": [],
+  "dao_var": "paymentMethodTypeGlAccountDao",
+  "dao_cls": "PaymentMethodTypeGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "paymentMethodTypeId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "paymentMethodTypeId": "String",
+   "organizationPartyId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "addPaymentTypeGlAssignment": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "PaymentGlAccountTypeMap",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "AddPaymentTypeGlAssignmentRequest",
+  "resp_type": "AddPaymentTypeGlAssignmentResponse",
+  "outs": [],
+  "dao_var": "paymentGlAccountTypeMapDao",
+  "dao_cls": "PaymentGlAccountTypeMapDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "paymentTypeId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "paymentTypeId": "String",
+   "organizationPartyId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "addInvoiceItemTypeGlAssignment": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "InvoiceItemTypeGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "AddInvoiceItemTypeGlAssignmentRequest",
+  "resp_type": "AddInvoiceItemTypeGlAssignmentResponse",
+  "outs": [],
+  "dao_var": "invoiceItemTypeGlAccountDao",
+  "dao_cls": "InvoiceItemTypeGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "invoiceItemTypeId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "invoiceItemTypeId": "String",
+   "organizationPartyId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "addTaxOnInvoice": {
+  "engine": "groovy",
+  "invoke": "addTaxOnInvoice",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "AddTaxOnInvoiceRequest",
+  "resp_type": "AddTaxOnInvoiceResponse",
+  "outs": []
+ },
+ "assignGlRecToFinAccTrans": {
+  "engine": "simple",
+  "invoke": "assignGlRecToFinAccTrans",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "PARAM"
+  ],
+  "req_type": null,
+  "resp_type": "AssignGlRecToFinAccTransResponse",
+  "outs": []
+ },
+ "reconcileFinAccountTrans": {
+  "engine": "simple",
+  "invoke": "reconcileFinAccountTrans",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "PARAM"
+  ],
+  "req_type": null,
+  "resp_type": "ReconcileFinAccountTransResponse",
+  "outs": []
+ },
+ "expireAgreement": {
+  "engine": "entity-auto",
+  "invoke": "expire",
+  "entity": "Agreement",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "ExpireAgreementRequest",
+  "resp_type": "ExpireAgreementResponse",
+  "outs": [],
+  "dao_var": "agreementDao",
+  "dao_cls": "AgreementDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "agreementId": "String"
+  }
+ },
+ "cancelBankReconciliation": {
+  "engine": "simple",
+  "invoke": "cancelBankReconciliation",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CancelBankReconciliationRequest",
+  "resp_type": "CancelBankReconciliationResponse",
+  "outs": []
+ },
+ "cancelCheckRunPayments": {
+  "engine": "groovy",
+  "invoke": "cancelCheckRunPayments",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CancelCheckRunPaymentsRequest",
+  "resp_type": "CancelCheckRunPaymentsResponse",
+  "outs": []
+ },
+ "cancelFixedAssetStdCost": {
+  "engine": "entity-auto",
+  "invoke": "expire",
+  "entity": "FixedAssetStdCost",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CancelFixedAssetStdCostRequest",
+  "resp_type": "CancelFixedAssetStdCostResponse",
+  "outs": [],
+  "dao_var": "fixedAssetStdCostDao",
+  "dao_cls": "FixedAssetStdCostDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "fixedAssetId",
+   "fixedAssetStdCostTypeId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "fixedAssetStdCostTypeId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "cancelPaymentBatch": {
+  "engine": "groovy",
+  "invoke": "cancelPaymentBatch",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CancelPaymentBatchRequest",
+  "resp_type": "CancelPaymentBatchResponse",
+  "outs": []
+ },
+ "capturePaymentsByInvoice": {
+  "engine": "java",
+  "invoke": "capturePaymentsByInvoice",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CapturePaymentsByInvoiceRequest",
+  "resp_type": "CapturePaymentsByInvoiceResponse",
+  "outs": [
+   "processResult"
+  ]
+ },
+ "closeFinancialTimePeriod": {
+  "engine": "simple",
+  "invoke": "closeFinancialTimePeriod",
+  "entity": "CustomTimePeriod",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CloseFinancialTimePeriodRequest",
+  "resp_type": "CloseFinancialTimePeriodResponse",
+  "outs": []
+ },
+ "completeAcctgTransEntries": {
+  "engine": "simple",
+  "invoke": "completeAcctgTransEntries",
+  "entity": "AcctgTrans",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CompleteAcctgTransEntriesRequest",
+  "resp_type": "CompleteAcctgTransEntriesResponse",
+  "outs": []
+ },
+ "copyAcctgTransAndEntries": {
+  "engine": "simple",
+  "invoke": "copyAcctgTransAndEntries",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CopyAcctgTransAndEntriesRequest",
+  "resp_type": "CopyAcctgTransAndEntriesResponse",
+  "outs": [
+   "acctgTransId"
+  ]
+ },
+ "copyAgreement": {
+  "engine": "groovy",
+  "invoke": "copyAgreement",
+  "entity": "Agreement",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CopyAgreementRequest",
+  "resp_type": "CopyAgreementResponse",
+  "outs": []
+ },
+ "copyInvoice": {
+  "engine": "groovy",
+  "invoke": "copyInvoice",
+  "entity": "Invoice",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CopyInvoiceRequest",
+  "resp_type": "CopyInvoiceResponse",
+  "outs": []
+ },
+ "copyInvoiceToTemplate": {
+  "engine": "groovy",
+  "invoke": "copyInvoiceToTemplate",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CopyInvoiceToTemplateRequest",
+  "resp_type": "CopyInvoiceToTemplateResponse",
+  "outs": [
+   "invoiceId"
+  ]
+ },
+ "createAcctgTrans": {
+  "engine": "groovy",
+  "invoke": "createAcctgTrans",
+  "entity": "AcctgTrans",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateAcctgTransRequest",
+  "resp_type": "CreateAcctgTransResponse",
+  "outs": []
+ },
+ "createAcctgTransEntry": {
+  "engine": "simple",
+  "invoke": "createAcctgTransEntry",
+  "entity": "AcctgTransEntry",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateAcctgTransEntryRequest",
+  "resp_type": "CreateAcctgTransEntryResponse",
+  "outs": []
+ },
+ "createAgreement": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "Agreement",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateAgreementRequest",
+  "resp_type": "CreateAgreementResponse",
+  "outs": [],
+  "dao_var": "agreementDao",
+  "dao_cls": "AgreementDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "agreementId": "String"
+  },
+  "seqField": "agreementId",
+  "fromDate": false
+ },
+ "createAgreementGeographicalApplic": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementGeographicalApplic",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateAgreementGeographicalApplicRequest",
+  "resp_type": "CreateAgreementGeographicalApplicResponse",
+  "outs": [],
+  "dao_var": "agreementGeographicalApplicDao",
+  "dao_cls": "AgreementGeographicalApplicDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "geoId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "geoId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createAgreementItem": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementItem",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateAgreementItemRequest",
+  "resp_type": "CreateAgreementItemResponse",
+  "outs": [],
+  "dao_var": "agreementItemDao",
+  "dao_cls": "AgreementItemDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createAgreementFacilityAppl": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementFacilityAppl",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateAgreementFacilityApplRequest",
+  "resp_type": "CreateAgreementFacilityApplResponse",
+  "outs": [],
+  "dao_var": "agreementFacilityApplDao",
+  "dao_cls": "AgreementFacilityApplDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "facilityId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "facilityId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createAgreementPartyApplic": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementPartyApplic",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateAgreementPartyApplicRequest",
+  "resp_type": "CreateAgreementPartyApplicResponse",
+  "outs": [],
+  "dao_var": "agreementPartyApplicDao",
+  "dao_cls": "AgreementPartyApplicDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "partyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "partyId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createAgreementProductAppl": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementProductAppl",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateAgreementProductApplRequest",
+  "resp_type": "CreateAgreementProductApplResponse",
+  "outs": [],
+  "dao_var": "agreementProductApplDao",
+  "dao_cls": "AgreementProductApplDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "productId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "productId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createSupplierProduct": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "createAgreementTerm": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementTerm",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateAgreementTermRequest",
+  "resp_type": "CreateAgreementTermResponse",
+  "outs": [],
+  "dao_var": "agreementTermDao",
+  "dao_cls": "AgreementTermDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementTermId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "agreementTermId": "String"
+  },
+  "seqField": "agreementTermId",
+  "fromDate": false
+ },
+ "createAgreementPromoAppl": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementPromoAppl",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateAgreementPromoApplRequest",
+  "resp_type": "CreateAgreementPromoApplResponse",
+  "outs": [],
+  "dao_var": "agreementPromoApplDao",
+  "dao_cls": "AgreementPromoApplDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "productPromoId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "productPromoId": "String",
+   "fromDate": "Timestamp"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createAgreementRole": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementRole",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateAgreementRoleRequest",
+  "resp_type": "CreateAgreementRoleResponse",
+  "outs": [],
+  "dao_var": "agreementRoleDao",
+  "dao_cls": "AgreementRoleDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId",
+   "partyId",
+   "roleTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "partyId": "String",
+   "roleTypeId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createAgreementWorkEffortApplic": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "AgreementWorkEffortApplic",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateAgreementWorkEffortApplicRequest",
+  "resp_type": "CreateAgreementWorkEffortApplicResponse",
+  "outs": [],
+  "dao_var": "agreementWorkEffortApplicDao",
+  "dao_cls": "AgreementWorkEffortApplicDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "workEffortId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "workEffortId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createBillingAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "BillingAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateBillingAccountRequest",
+  "resp_type": "CreateBillingAccountResponse",
+  "outs": [],
+  "dao_var": "billingAccountDao",
+  "dao_cls": "BillingAccountDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "billingAccountId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "billingAccountId": "String"
+  },
+  "seqField": "billingAccountId",
+  "fromDate": false
+ },
+ "createBillingAccountAndRole": {
+  "engine": "group",
+  "invoke": null,
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateBillingAccountAndRoleRequest",
+  "resp_type": "CreateBillingAccountAndRoleResponse",
+  "outs": []
+ },
+ "createBillingAccountRole": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "BillingAccountRole",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateBillingAccountRoleRequest",
+  "resp_type": "CreateBillingAccountRoleResponse",
+  "outs": [],
+  "dao_var": "billingAccountRoleDao",
+  "dao_cls": "BillingAccountRoleDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "billingAccountId",
+   "partyId",
+   "roleTypeId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "billingAccountId": "String",
+   "partyId": "String",
+   "roleTypeId": "String",
+   "fromDate": "Timestamp"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createBillingAccountTerm": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "BillingAccountTerm",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateBillingAccountTermRequest",
+  "resp_type": "CreateBillingAccountTermResponse",
+  "outs": [],
+  "dao_var": "billingAccountTermDao",
+  "dao_cls": "BillingAccountTermDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "billingAccountTermId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "billingAccountTermId": "String"
+  },
+  "seqField": "billingAccountTermId",
+  "fromDate": false
+ },
+ "createBudget": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "Budget",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateBudgetRequest",
+  "resp_type": "CreateBudgetResponse",
+  "outs": [],
+  "dao_var": "budgetDao",
+  "dao_cls": "BudgetDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "budgetId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "budgetId": "String"
+  },
+  "seqField": "budgetId",
+  "fromDate": false
+ },
+ "createBudgetItem": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "BudgetItem",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateBudgetItemRequest",
+  "resp_type": "CreateBudgetItemResponse",
+  "outs": [
+   "budgetItemSeqId"
+  ],
+  "dao_var": "budgetItemDao",
+  "dao_cls": "BudgetItemDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "budgetId",
+   "budgetItemSeqId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "budgetId": "String",
+   "budgetItemSeqId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createBudgetReview": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "BudgetReview",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateBudgetReviewRequest",
+  "resp_type": "CreateBudgetReviewResponse",
+  "outs": [],
+  "dao_var": "budgetReviewDao",
+  "dao_cls": "BudgetReviewDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "budgetId",
+   "budgetReviewId",
+   "partyId",
+   "budgetReviewResultTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "budgetId": "String",
+   "budgetReviewId": "String",
+   "partyId": "String",
+   "budgetReviewResultTypeId": "String"
+  },
+  "seqField": "budgetReviewId",
+  "fromDate": false
+ },
+ "createBudgetRole": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "BudgetRole",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateBudgetRoleRequest",
+  "resp_type": "CreateBudgetRoleResponse",
+  "outs": [],
+  "dao_var": "budgetRoleDao",
+  "dao_cls": "BudgetRoleDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "budgetId",
+   "partyId",
+   "roleTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "budgetId": "String",
+   "partyId": "String",
+   "roleTypeId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createCostComponentCalc": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "CostComponentCalc",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateCostComponentCalcRequest",
+  "resp_type": "CreateCostComponentCalcResponse",
+  "outs": [],
+  "dao_var": "costComponentCalcDao",
+  "dao_cls": "CostComponentCalcDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "costComponentCalcId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "costComponentCalcId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createCreditCardTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "CreditCardTypeGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateCreditCardTypeGlAccountRequest",
+  "resp_type": "CreateCreditCardTypeGlAccountResponse",
+  "outs": [],
+  "dao_var": "creditCardTypeGlAccountDao",
+  "dao_cls": "CreditCardTypeGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "cardType",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "cardType": "String",
+   "organizationPartyId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createCustomTimePeriod": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "createPaymentAndFinAccountTrans": {
+  "engine": "simple",
+  "invoke": "createPaymentAndFinAccountTrans",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreatePaymentAndFinAccountTransRequest",
+  "resp_type": "CreatePaymentAndFinAccountTransResponse",
+  "outs": [
+   "paymentId"
+  ]
+ },
+ "createFinAccount": {
+  "engine": "simple",
+  "invoke": "createFinAccount",
+  "entity": "FinAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFinAccountRequest",
+  "resp_type": "CreateFinAccountResponse",
+  "outs": []
+ },
+ "createFinAccountAuth": {
+  "engine": "simple",
+  "invoke": "createFinAccountAuth",
+  "entity": "FinAccountAuth",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFinAccountAuthRequest",
+  "resp_type": "CreateFinAccountAuthResponse",
+  "outs": []
+ },
+ "createFinAccountRole": {
+  "engine": "simple",
+  "invoke": "createFinAccountRole",
+  "entity": "FinAccountRole",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFinAccountRoleRequest",
+  "resp_type": "CreateFinAccountRoleResponse",
+  "outs": []
+ },
+ "createFinAccountTrans": {
+  "engine": "simple",
+  "invoke": "createFinAccountTrans",
+  "entity": "FinAccountTrans",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFinAccountTransRequest",
+  "resp_type": "CreateFinAccountTransResponse",
+  "outs": []
+ },
+ "createFinAccountTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FinAccountTypeGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFinAccountTypeGlAccountRequest",
+  "resp_type": "CreateFinAccountTypeGlAccountResponse",
+  "outs": [],
+  "dao_var": "finAccountTypeGlAccountDao",
+  "dao_cls": "FinAccountTypeGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "finAccountTypeId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "finAccountTypeId": "String",
+   "organizationPartyId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createFixedAsset": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAsset",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFixedAssetRequest",
+  "resp_type": "CreateFixedAssetResponse",
+  "outs": [],
+  "dao_var": "fixedAssetDao",
+  "dao_cls": "FixedAssetDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "fixedAssetId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "fixedAssetId": "String"
+  },
+  "seqField": "fixedAssetId",
+  "fromDate": false
+ },
+ "createFixedAssetDepMethod": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetDepMethod",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFixedAssetDepMethodRequest",
+  "resp_type": "CreateFixedAssetDepMethodResponse",
+  "outs": [],
+  "dao_var": "fixedAssetDepMethodDao",
+  "dao_cls": "FixedAssetDepMethodDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "depreciationCustomMethodId",
+   "fixedAssetId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "depreciationCustomMethodId": "String",
+   "fixedAssetId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createFixedAssetIdent": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetIdent",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFixedAssetIdentRequest",
+  "resp_type": "CreateFixedAssetIdentResponse",
+  "outs": [],
+  "dao_var": "fixedAssetIdentDao",
+  "dao_cls": "FixedAssetIdentDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "fixedAssetId",
+   "fixedAssetIdentTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "fixedAssetIdentTypeId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createFixedAssetMaint": {
+  "engine": "groovy",
+  "invoke": "createFixedAssetMaint",
+  "entity": "FixedAssetMaint",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFixedAssetMaintRequest",
+  "resp_type": "CreateFixedAssetMaintResponse",
+  "outs": []
+ },
+ "createFixedAssetMaintOrder": {
+  "engine": "groovy",
+  "invoke": "createFixedAssetMaintOrder",
+  "entity": "FixedAssetMaintOrder",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFixedAssetMaintOrderRequest",
+  "resp_type": "CreateFixedAssetMaintOrderResponse",
+  "outs": []
+ },
+ "createFixedAssetMeter": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetMeter",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFixedAssetMeterRequest",
+  "resp_type": "CreateFixedAssetMeterResponse",
+  "outs": [],
+  "dao_var": "fixedAssetMeterDao",
+  "dao_cls": "FixedAssetMeterDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "fixedAssetId",
+   "productMeterTypeId",
+   "readingDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "productMeterTypeId": "String",
+   "readingDate": "Timestamp"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createFixedAssetRegistration": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetRegistration",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFixedAssetRegistrationRequest",
+  "resp_type": "CreateFixedAssetRegistrationResponse",
+  "outs": [],
+  "dao_var": "fixedAssetRegistrationDao",
+  "dao_cls": "FixedAssetRegistrationDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "fixedAssetId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "fromDate": "Timestamp"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createFixedAssetStdCost": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetStdCost",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFixedAssetStdCostRequest",
+  "resp_type": "CreateFixedAssetStdCostResponse",
+  "outs": [],
+  "dao_var": "fixedAssetStdCostDao",
+  "dao_cls": "FixedAssetStdCostDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "fixedAssetId",
+   "fixedAssetStdCostTypeId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "fixedAssetStdCostTypeId": "String",
+   "fromDate": "Timestamp"
+  },
+  "seqField": null,
+  "fromDate": true
+ },
+ "createFixedAssetTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "FixedAssetTypeGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateFixedAssetTypeGlAccountRequest",
+  "resp_type": "CreateFixedAssetTypeGlAccountResponse",
+  "outs": [],
+  "dao_var": "fixedAssetTypeGlAccountDao",
+  "dao_cls": "FixedAssetTypeGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "fixedAssetTypeId",
+   "fixedAssetId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetTypeId": "String",
+   "fixedAssetId": "String",
+   "organizationPartyId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateGlAccountRequest",
+  "resp_type": "CreateGlAccountResponse",
+  "outs": [],
+  "dao_var": "glAccountDao",
+  "dao_cls": "GlAccountDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "glAccountId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "glAccountId": "String"
+  },
+  "seqField": "glAccountId",
+  "fromDate": false
+ },
+ "createGlAccountCategory": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlAccountCategory",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateGlAccountCategoryRequest",
+  "resp_type": "CreateGlAccountCategoryResponse",
+  "outs": [],
+  "dao_var": "glAccountCategoryDao",
+  "dao_cls": "GlAccountCategoryDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "glAccountCategoryId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "glAccountCategoryId": "String"
+  },
+  "seqField": "glAccountCategoryId",
+  "fromDate": false
+ },
+ "createGlAccountCategoryMember": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlAccountCategoryMember",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateGlAccountCategoryMemberRequest",
+  "resp_type": "CreateGlAccountCategoryMemberResponse",
+  "outs": [],
+  "dao_var": "glAccountCategoryMemberDao",
+  "dao_cls": "GlAccountCategoryMemberDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "glAccountId",
+   "glAccountCategoryId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "glAccountId": "String",
+   "glAccountCategoryId": "String",
+   "fromDate": "Timestamp"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createGlAccountOrganization": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlAccountOrganization",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateGlAccountOrganizationRequest",
+  "resp_type": "CreateGlAccountOrganizationResponse",
+  "outs": [],
+  "dao_var": "glAccountOrganizationDao",
+  "dao_cls": "GlAccountOrganizationDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "glAccountId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "glAccountId": "String",
+   "organizationPartyId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createGlAccountTypeDefault": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlAccountTypeDefault",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateGlAccountTypeDefaultRequest",
+  "resp_type": "CreateGlAccountTypeDefaultResponse",
+  "outs": [],
+  "dao_var": "glAccountTypeDefaultDao",
+  "dao_cls": "GlAccountTypeDefaultDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "glAccountTypeId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "glAccountTypeId": "String",
+   "organizationPartyId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createGlJournal": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlJournal",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateGlJournalRequest",
+  "resp_type": "CreateGlJournalResponse",
+  "outs": [],
+  "dao_var": "glJournalDao",
+  "dao_cls": "GlJournalDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "glJournalId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "glJournalId": "String"
+  },
+  "seqField": "glJournalId",
+  "fromDate": false
+ },
+ "createGlReconciliation": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "GlReconciliation",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateGlReconciliationRequest",
+  "resp_type": "CreateGlReconciliationResponse",
+  "outs": [],
+  "dao_var": "glReconciliationDao",
+  "dao_cls": "GlReconciliationDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "glReconciliationId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "glReconciliationId": "String"
+  },
+  "seqField": "glReconciliationId",
+  "fromDate": false
+ },
+ "createInvoice": {
+  "engine": "groovy",
+  "invoke": "createInvoice",
+  "entity": "Invoice",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateInvoiceRequest",
+  "resp_type": "CreateInvoiceResponse",
+  "outs": []
+ },
+ "createInvoiceItem": {
+  "engine": "groovy",
+  "invoke": "createInvoiceItem",
+  "entity": "InvoiceItem",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateInvoiceItemRequest",
+  "resp_type": "CreateInvoiceItemResponse",
+  "outs": []
+ },
+ "createInvoiceItemPayrol": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "PARAM"
+  ],
+  "req_type": null,
+  "resp_type": null,
+  "outs": []
+ },
+ "createInvoiceRole": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "InvoiceRole",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateInvoiceRoleRequest",
+  "resp_type": "CreateInvoiceRoleResponse",
+  "outs": [],
+  "dao_var": "invoiceRoleDao",
+  "dao_cls": "InvoiceRoleDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "invoiceId",
+   "partyId",
+   "roleTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "invoiceId": "String",
+   "partyId": "String",
+   "roleTypeId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createInvoiceTerm": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "InvoiceTerm",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateInvoiceTermRequest",
+  "resp_type": "CreateInvoiceTermResponse",
+  "outs": [],
+  "dao_var": "invoiceTermDao",
+  "dao_cls": "InvoiceTermDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "invoiceTermId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "invoiceTermId": "String"
+  },
+  "seqField": "invoiceTermId",
+  "fromDate": false
+ },
+ "createTaxAuthorityGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "TaxAuthorityGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateTaxAuthorityGlAccountRequest",
+  "resp_type": "CreateTaxAuthorityGlAccountResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityGlAccountDao",
+  "dao_cls": "TaxAuthorityGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthGeoId",
+   "taxAuthPartyId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "taxAuthGeoId": "String",
+   "taxAuthPartyId": "String",
+   "organizationPartyId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createPartyAcctgPreference": {
+  "engine": "groovy",
+  "invoke": "createPartyAcctgPreference",
+  "entity": "PartyAcctgPreference",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreatePartyAcctgPreferenceRequest",
+  "resp_type": "CreatePartyAcctgPreferenceResponse",
+  "outs": []
+ },
+ "createPartyFixedAssetAssignment": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "PartyFixedAssetAssignment",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreatePartyFixedAssetAssignmentRequest",
+  "resp_type": "CreatePartyFixedAssetAssignmentResponse",
+  "outs": [],
+  "dao_var": "partyFixedAssetAssignmentDao",
+  "dao_cls": "PartyFixedAssetAssignmentDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "partyId",
+   "roleTypeId",
+   "fixedAssetId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "partyId": "String",
+   "roleTypeId": "String",
+   "fixedAssetId": "String",
+   "fromDate": "Timestamp"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createPartyGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "PartyGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreatePartyGlAccountRequest",
+  "resp_type": "CreatePartyGlAccountResponse",
+  "outs": [],
+  "dao_var": "partyGlAccountDao",
+  "dao_cls": "PartyGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "organizationPartyId",
+   "partyId",
+   "roleTypeId",
+   "glAccountTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "organizationPartyId": "String",
+   "partyId": "String",
+   "roleTypeId": "String",
+   "glAccountTypeId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createPartyPrefDocTypeTpl": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "PartyPrefDocTypeTpl",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreatePartyPrefDocTypeTplRequest",
+  "resp_type": "CreatePartyPrefDocTypeTplResponse",
+  "outs": [
+   "partyPrefDocTypeTplId"
+  ],
+  "dao_var": "partyPrefDocTypeTplDao",
+  "dao_cls": "PartyPrefDocTypeTplDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "partyPrefDocTypeTplId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "partyPrefDocTypeTplId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createPaymentAndApplication": {
+  "engine": "groovy",
+  "invoke": "createPaymentAndApplication",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreatePaymentAndApplicationRequest",
+  "resp_type": "CreatePaymentAndApplicationResponse",
+  "outs": [
+   "paymentApplicationId"
+  ]
+ },
+ "createPaymentApplication": {
+  "engine": "groovy",
+  "invoke": "createPaymentApplication",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreatePaymentApplicationRequest",
+  "resp_type": "CreatePaymentApplicationResponse",
+  "outs": [
+   "amountApplied",
+   "paymentApplicationId",
+   "paymentTypeId"
+  ]
+ },
+ "checkAndCreateBatchForValidPayments": {
+  "engine": "groovy",
+  "invoke": "checkAndCreateBatchForValidPayments",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CheckAndCreateBatchForValidPaymentsRequest",
+  "resp_type": "CheckAndCreateBatchForValidPaymentsResponse",
+  "outs": []
+ },
+ "createPaymentGroup": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "PaymentGroup",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreatePaymentGroupRequest",
+  "resp_type": "CreatePaymentGroupResponse",
+  "outs": [],
+  "dao_var": "paymentGroupDao",
+  "dao_cls": "PaymentGroupDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "paymentGroupId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "paymentGroupId": "String"
+  },
+  "seqField": "paymentGroupId",
+  "fromDate": false
+ },
+ "createProductCategoryGlAccount": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "createProductGlAccount": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "createTaxAuthority": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "TaxAuthority",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateTaxAuthorityRequest",
+  "resp_type": "CreateTaxAuthorityResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityDao",
+  "dao_cls": "TaxAuthorityDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthGeoId",
+   "taxAuthPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "taxAuthGeoId": "String",
+   "taxAuthPartyId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createTaxAuthorityAssoc": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "TaxAuthorityAssoc",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateTaxAuthorityAssocRequest",
+  "resp_type": "CreateTaxAuthorityAssocResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityAssocDao",
+  "dao_cls": "TaxAuthorityAssocDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthGeoId",
+   "taxAuthPartyId",
+   "toTaxAuthGeoId",
+   "toTaxAuthPartyId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "taxAuthGeoId": "String",
+   "taxAuthPartyId": "String",
+   "toTaxAuthGeoId": "String",
+   "toTaxAuthPartyId": "String",
+   "fromDate": "Timestamp"
+  },
+  "seqField": null,
+  "fromDate": true
+ },
+ "createTaxAuthorityCategory": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "TaxAuthorityCategory",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateTaxAuthorityCategoryRequest",
+  "resp_type": "CreateTaxAuthorityCategoryResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityCategoryDao",
+  "dao_cls": "TaxAuthorityCategoryDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthGeoId",
+   "taxAuthPartyId",
+   "productCategoryId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "taxAuthGeoId": "String",
+   "taxAuthPartyId": "String",
+   "productCategoryId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createPartyTaxAuthInfo": {
+  "engine": "groovy",
+  "invoke": "createPartyTaxAuthInfo",
+  "entity": "PartyTaxAuthInfo",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreatePartyTaxAuthInfoRequest",
+  "resp_type": "CreatePartyTaxAuthInfoResponse",
+  "outs": []
+ },
+ "createTaxAuthorityRateProduct": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "TaxAuthorityRateProduct",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateTaxAuthorityRateProductRequest",
+  "resp_type": "CreateTaxAuthorityRateProductResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityRateProductDao",
+  "dao_cls": "TaxAuthorityRateProductDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthorityRateSeqId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "taxAuthorityRateSeqId": "String"
+  },
+  "seqField": "taxAuthorityRateSeqId",
+  "fromDate": false
+ },
+ "createUpdateCostCenter": {
+  "engine": "java",
+  "invoke": "createUpdateCostCenter",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "PARAM"
+  ],
+  "req_type": null,
+  "resp_type": "CreateUpdateCostCenterResponse",
+  "outs": []
+ },
+ "createVarianceReasonGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "create",
+  "entity": "VarianceReasonGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateVarianceReasonGlAccountRequest",
+  "resp_type": "CreateVarianceReasonGlAccountResponse",
+  "outs": [],
+  "dao_var": "varianceReasonGlAccountDao",
+  "dao_cls": "VarianceReasonGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "varianceReasonId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "varianceReasonId": "String",
+   "organizationPartyId": "String"
+  },
+  "seqField": null,
+  "fromDate": false
+ },
+ "createWorkEffortAndPartyAssign": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "deleteAcctgTransEntry": {
+  "engine": "simple",
+  "invoke": "deleteAcctgTransEntry",
+  "entity": "AcctgTransEntry",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteAcctgTransEntryRequest",
+  "resp_type": "DeleteAcctgTransEntryResponse",
+  "outs": []
+ },
+ "deleteAgreementRole": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementRole",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteAgreementRoleRequest",
+  "resp_type": "DeleteAgreementRoleResponse",
+  "outs": [],
+  "dao_var": "agreementRoleDao",
+  "dao_cls": "AgreementRoleDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId",
+   "partyId",
+   "roleTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "partyId": "String",
+   "roleTypeId": "String"
+  }
+ },
+ "deleteAgreementTerm": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementTerm",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteAgreementTermRequest",
+  "resp_type": "DeleteAgreementTermResponse",
+  "outs": [],
+  "dao_var": "agreementTermDao",
+  "dao_cls": "AgreementTermDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementTermId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "agreementTermId": "String"
+  }
+ },
+ "deleteAgreementWorkEffortApplic": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementWorkEffortApplic",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteAgreementWorkEffortApplicRequest",
+  "resp_type": "DeleteAgreementWorkEffortApplicResponse",
+  "outs": [],
+  "dao_var": "agreementWorkEffortApplicDao",
+  "dao_cls": "AgreementWorkEffortApplicDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "workEffortId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "workEffortId": "String"
+  }
+ },
+ "removeBillingAccountRole": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "BillingAccountRole",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveBillingAccountRoleRequest",
+  "resp_type": "RemoveBillingAccountRoleResponse",
+  "outs": [],
+  "dao_var": "billingAccountRoleDao",
+  "dao_cls": "BillingAccountRoleDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "billingAccountId",
+   "partyId",
+   "roleTypeId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "billingAccountId": "String",
+   "partyId": "String",
+   "roleTypeId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "removeCostComponentCalc": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "CostComponentCalc",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveCostComponentCalcRequest",
+  "resp_type": "RemoveCostComponentCalcResponse",
+  "outs": [],
+  "dao_var": "costComponentCalcDao",
+  "dao_cls": "CostComponentCalcDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "costComponentCalcId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "costComponentCalcId": "String"
+  }
+ },
+ "deleteCreditCardTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "CreditCardTypeGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteCreditCardTypeGlAccountRequest",
+  "resp_type": "DeleteCreditCardTypeGlAccountResponse",
+  "outs": [],
+  "dao_var": "creditCardTypeGlAccountDao",
+  "dao_cls": "CreditCardTypeGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "cardType",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "cardType": "String",
+   "organizationPartyId": "String"
+  }
+ },
+ "deleteCustomTimePeriod": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "deleteFinAccount": {
+  "engine": "entity-auto",
+  "invoke": "expire",
+  "entity": "FinAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteFinAccountRequest",
+  "resp_type": "DeleteFinAccountResponse",
+  "outs": [],
+  "dao_var": "finAccountDao",
+  "dao_cls": "FinAccountDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "finAccountId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "finAccountId": "String"
+  }
+ },
+ "deleteFinAccountRole": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FinAccountRole",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteFinAccountRoleRequest",
+  "resp_type": "DeleteFinAccountRoleResponse",
+  "outs": [],
+  "dao_var": "finAccountRoleDao",
+  "dao_cls": "FinAccountRoleDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "finAccountId",
+   "partyId",
+   "roleTypeId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "finAccountId": "String",
+   "partyId": "String",
+   "roleTypeId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "deleteFinAccountTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FinAccountTypeGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteFinAccountTypeGlAccountRequest",
+  "resp_type": "DeleteFinAccountTypeGlAccountResponse",
+  "outs": [],
+  "dao_var": "finAccountTypeGlAccountDao",
+  "dao_cls": "FinAccountTypeGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "finAccountTypeId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "finAccountTypeId": "String",
+   "organizationPartyId": "String"
+  }
+ },
+ "deleteFixedAssetDepMethod": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetDepMethod",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteFixedAssetDepMethodRequest",
+  "resp_type": "DeleteFixedAssetDepMethodResponse",
+  "outs": [],
+  "dao_var": "fixedAssetDepMethodDao",
+  "dao_cls": "FixedAssetDepMethodDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "depreciationCustomMethodId",
+   "fixedAssetId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "depreciationCustomMethodId": "String",
+   "fixedAssetId": "String"
+  }
+ },
+ "deleteFixedAssetMaint": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetMaint",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteFixedAssetMaintRequest",
+  "resp_type": "DeleteFixedAssetMaintResponse",
+  "outs": [],
+  "dao_var": "fixedAssetMaintDao",
+  "dao_cls": "FixedAssetMaintDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "fixedAssetId",
+   "maintHistSeqId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "maintHistSeqId": "String"
+  }
+ },
+ "deleteFixedAssetMaintOrder": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetMaintOrder",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteFixedAssetMaintOrderRequest",
+  "resp_type": "DeleteFixedAssetMaintOrderResponse",
+  "outs": [],
+  "dao_var": "fixedAssetMaintOrderDao",
+  "dao_cls": "FixedAssetMaintOrderDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "fixedAssetId",
+   "maintHistSeqId",
+   "orderId",
+   "orderItemSeqId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "maintHistSeqId": "String",
+   "orderId": "String",
+   "orderItemSeqId": "String"
+  }
+ },
+ "deleteFixedAssetMeter": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetMeter",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteFixedAssetMeterRequest",
+  "resp_type": "DeleteFixedAssetMeterResponse",
+  "outs": [],
+  "dao_var": "fixedAssetMeterDao",
+  "dao_cls": "FixedAssetMeterDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "fixedAssetId",
+   "productMeterTypeId",
+   "readingDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "productMeterTypeId": "String",
+   "readingDate": "Timestamp"
+  }
+ },
+ "deleteFixedAssetRegistration": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetRegistration",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteFixedAssetRegistrationRequest",
+  "resp_type": "DeleteFixedAssetRegistrationResponse",
+  "outs": [],
+  "dao_var": "fixedAssetRegistrationDao",
+  "dao_cls": "FixedAssetRegistrationDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "fixedAssetId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "deleteFixedAssetTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetTypeGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteFixedAssetTypeGlAccountRequest",
+  "resp_type": "DeleteFixedAssetTypeGlAccountResponse",
+  "outs": [],
+  "dao_var": "fixedAssetTypeGlAccountDao",
+  "dao_cls": "FixedAssetTypeGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "fixedAssetTypeId",
+   "fixedAssetId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetTypeId": "String",
+   "fixedAssetId": "String",
+   "organizationPartyId": "String"
+  }
+ },
+ "deleteGlAccountCategoryMember": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "GlAccountCategoryMember",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteGlAccountCategoryMemberRequest",
+  "resp_type": "DeleteGlAccountCategoryMemberResponse",
+  "outs": [],
+  "dao_var": "glAccountCategoryMemberDao",
+  "dao_cls": "GlAccountCategoryMemberDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "glAccountId",
+   "glAccountCategoryId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "glAccountId": "String",
+   "glAccountCategoryId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "deleteGlJournal": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "GlJournal",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteGlJournalRequest",
+  "resp_type": "DeleteGlJournalResponse",
+  "outs": [],
+  "dao_var": "glJournalDao",
+  "dao_cls": "GlJournalDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "glJournalId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "glJournalId": "String"
+  }
+ },
+ "deleteInvoiceTerm": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "InvoiceTerm",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteInvoiceTermRequest",
+  "resp_type": "DeleteInvoiceTermResponse",
+  "outs": [],
+  "dao_var": "invoiceTermDao",
+  "dao_cls": "InvoiceTermDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "invoiceTermId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "invoiceTermId": "String"
+  }
+ },
+ "deleteTaxAuthorityGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "TaxAuthorityGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteTaxAuthorityGlAccountRequest",
+  "resp_type": "DeleteTaxAuthorityGlAccountResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityGlAccountDao",
+  "dao_cls": "TaxAuthorityGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthGeoId",
+   "taxAuthPartyId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "taxAuthGeoId": "String",
+   "taxAuthPartyId": "String",
+   "organizationPartyId": "String"
+  }
+ },
+ "deletePartyFixedAssetAssignment": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "PartyFixedAssetAssignment",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeletePartyFixedAssetAssignmentRequest",
+  "resp_type": "DeletePartyFixedAssetAssignmentResponse",
+  "outs": [],
+  "dao_var": "partyFixedAssetAssignmentDao",
+  "dao_cls": "PartyFixedAssetAssignmentDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "partyId",
+   "roleTypeId",
+   "fixedAssetId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "partyId": "String",
+   "roleTypeId": "String",
+   "fixedAssetId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "deletePartyGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "PartyGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeletePartyGlAccountRequest",
+  "resp_type": "DeletePartyGlAccountResponse",
+  "outs": [],
+  "dao_var": "partyGlAccountDao",
+  "dao_cls": "PartyGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "organizationPartyId",
+   "partyId",
+   "roleTypeId",
+   "glAccountTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "organizationPartyId": "String",
+   "partyId": "String",
+   "roleTypeId": "String",
+   "glAccountTypeId": "String"
+  }
+ },
+ "deletePaymentGroup": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "PaymentGroup",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeletePaymentGroupRequest",
+  "resp_type": "DeletePaymentGroupResponse",
+  "outs": [],
+  "dao_var": "paymentGroupDao",
+  "dao_cls": "PaymentGroupDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "paymentGroupId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "paymentGroupId": "String"
+  }
+ },
+ "deleteProductCategoryGlAccount": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "deleteProductGlAccount": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "deleteTaxAuthorityAssoc": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "TaxAuthorityAssoc",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteTaxAuthorityAssocRequest",
+  "resp_type": "DeleteTaxAuthorityAssocResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityAssocDao",
+  "dao_cls": "TaxAuthorityAssocDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthGeoId",
+   "taxAuthPartyId",
+   "toTaxAuthGeoId",
+   "toTaxAuthPartyId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "taxAuthGeoId": "String",
+   "taxAuthPartyId": "String",
+   "toTaxAuthGeoId": "String",
+   "toTaxAuthPartyId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "deleteTaxAuthorityCategory": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "TaxAuthorityCategory",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteTaxAuthorityCategoryRequest",
+  "resp_type": "DeleteTaxAuthorityCategoryResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityCategoryDao",
+  "dao_cls": "TaxAuthorityCategoryDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthGeoId",
+   "taxAuthPartyId",
+   "productCategoryId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "taxAuthGeoId": "String",
+   "taxAuthPartyId": "String",
+   "productCategoryId": "String"
+  }
+ },
+ "deletePartyTaxAuthInfo": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "PartyTaxAuthInfo",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeletePartyTaxAuthInfoRequest",
+  "resp_type": "DeletePartyTaxAuthInfoResponse",
+  "outs": [],
+  "dao_var": "partyTaxAuthInfoDao",
+  "dao_cls": "PartyTaxAuthInfoDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "partyId",
+   "taxAuthGeoId",
+   "taxAuthPartyId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "partyId": "String",
+   "taxAuthGeoId": "String",
+   "taxAuthPartyId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "deleteTaxAuthorityRateProduct": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "TaxAuthorityRateProduct",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteTaxAuthorityRateProductRequest",
+  "resp_type": "DeleteTaxAuthorityRateProductResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityRateProductDao",
+  "dao_cls": "TaxAuthorityRateProductDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthorityRateSeqId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "taxAuthorityRateSeqId": "String"
+  }
+ },
+ "deleteVarianceReasonGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "VarianceReasonGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DeleteVarianceReasonGlAccountRequest",
+  "resp_type": "DeleteVarianceReasonGlAccountResponse",
+  "outs": [],
+  "dao_var": "varianceReasonGlAccountDao",
+  "dao_cls": "VarianceReasonGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "varianceReasonId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "varianceReasonId": "String",
+   "organizationPartyId": "String"
+  }
+ },
+ "depositWithdrawPayments": {
+  "engine": "simple",
+  "invoke": "depositWithdrawPayments",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "DepositWithdrawPaymentsRequest",
+  "resp_type": "DepositWithdrawPaymentsResponse",
+  "outs": [
+   "finAccountTransId",
+   "paymentGroupId"
+  ]
+ },
+ "sendInvoicePerEmail": {
+  "engine": "groovy",
+  "invoke": "sendInvoicePerEmail",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "SendInvoicePerEmailRequest",
+  "resp_type": "SendInvoicePerEmailResponse",
+  "outs": []
+ },
+ "expirePaymentGroupMember": {
+  "engine": "simple",
+  "invoke": "expirePaymentGroupMember",
+  "entity": "PaymentGroupMember",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "ExpirePaymentGroupMemberRequest",
+  "resp_type": "ExpirePaymentGroupMemberResponse",
+  "outs": []
+ },
+ "expireFinAccountAuth": {
+  "engine": "simple",
+  "invoke": "expireFinAccountAuth",
+  "entity": "FinAccountAuth",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "ExpireFinAccountAuthRequest",
+  "resp_type": "ExpireFinAccountAuthResponse",
+  "outs": []
+ },
+ "expirePartyPrefDocTypeTpl": {
+  "engine": "entity-auto",
+  "invoke": "expire",
+  "entity": "PartyPrefDocTypeTpl",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "ExpirePartyPrefDocTypeTplRequest",
+  "resp_type": "ExpirePartyPrefDocTypeTplResponse",
+  "outs": [],
+  "dao_var": "partyPrefDocTypeTplDao",
+  "dao_cls": "PartyPrefDocTypeTplDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "partyPrefDocTypeTplId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "partyPrefDocTypeTplId": "String"
+  }
+ },
+ "expireRateAmount": {
+  "engine": "groovy",
+  "invoke": "expireRateAmount",
+  "entity": "RateAmount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "ExpireRateAmountRequest",
+  "resp_type": "ExpireRateAmountResponse",
+  "outs": []
+ },
+ "getFinAccountTransRunningTotalAndBalances": {
+  "engine": "simple",
+  "invoke": "getFinAccountTransRunningTotalAndBalances",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "PARAM"
+  ],
+  "req_type": null,
+  "resp_type": "GetFinAccountTransRunningTotalAndBalancesResponse",
+  "outs": [
+   "runningTotal",
+   "numberOfTransactions",
+   "finAccountTransRunningTotal",
+   "endingBalance"
+  ]
+ },
+ "getInvoiceRunningTotal": {
+  "engine": "groovy",
+  "invoke": "getInvoiceRunningTotal",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "GetInvoiceRunningTotalRequest",
+  "resp_type": "GetInvoiceRunningTotalResponse",
+  "outs": [
+   "invoiceRunningTotal"
+  ]
+ },
+ "getPaymentRunningTotal": {
+  "engine": "groovy",
+  "invoke": "getPaymentRunningTotal",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "GetPaymentRunningTotalRequest",
+  "resp_type": "GetPaymentRunningTotalResponse",
+  "outs": [
+   "paymentRunningTotal"
+  ]
+ },
+ "postAcctgTrans": {
+  "engine": "simple",
+  "invoke": "postAcctgTrans",
+  "entity": "AcctgTrans",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "PostAcctgTransRequest",
+  "resp_type": "PostAcctgTransResponse",
+  "outs": []
+ },
+ "authOrderPaymentPreference": {
+  "engine": "java",
+  "invoke": "authOrderPaymentPreference",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "AuthOrderPaymentPreferenceRequest",
+  "resp_type": "AuthOrderPaymentPreferenceResponse",
+  "outs": [
+   "finished",
+   "errors",
+   "messages",
+   "processAmount",
+   "authCode"
+  ]
+ },
+ "captureOrderPayments": {
+  "engine": "java",
+  "invoke": "captureOrderPayments",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CaptureOrderPaymentsRequest",
+  "resp_type": "CaptureOrderPaymentsResponse",
+  "outs": [
+   "processResult"
+  ]
+ },
+ "createCommissionInvoices": {
+  "engine": "java",
+  "invoke": "createCommissionInvoices",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreateCommissionInvoicesRequest",
+  "resp_type": "CreateCommissionInvoicesResponse",
+  "outs": [
+   "invoicesCreated"
+  ]
+ },
+ "manualForcedCcTransaction": {
+  "engine": "java",
+  "invoke": "processManualCcTx",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "ManualForcedCcTransactionRequest",
+  "resp_type": "ManualForcedCcTransactionResponse",
+  "outs": [
+   "referenceNum",
+   "tranRespMsgs"
+  ]
+ },
+ "refundOrderPaymentPreference": {
+  "engine": "java",
+  "invoke": "refundOrderPaymentPreference",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RefundOrderPaymentPreferenceRequest",
+  "resp_type": "RefundOrderPaymentPreferenceResponse",
+  "outs": [
+   "refundAmount",
+   "paymentId"
+  ]
+ },
+ "releaseOrderPaymentPreference": {
+  "engine": "java",
+  "invoke": "releaseOrderPaymentPreference",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "ReleaseOrderPaymentPreferenceRequest",
+  "resp_type": "ReleaseOrderPaymentPreferenceResponse",
+  "outs": []
+ },
+ "quickCreateAcctgTransAndEntries": {
+  "engine": "simple",
+  "invoke": "quickCreateAcctgTransAndEntries",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "QuickCreateAcctgTransAndEntriesRequest",
+  "resp_type": "QuickCreateAcctgTransAndEntriesResponse",
+  "outs": [
+   "acctgTransId"
+  ]
+ },
+ "quickSendPayment": {
+  "engine": "groovy",
+  "invoke": "quickSendPayment",
+  "entity": "Payment",
+  "is_map": false,
+  "binding": [
+   "PARAM"
+  ],
+  "req_type": null,
+  "resp_type": "QuickSendPaymentResponse",
+  "outs": []
+ },
+ "removeAgreementContent": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementContent",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveAgreementContentRequest",
+  "resp_type": "RemoveAgreementContentResponse",
+  "outs": [],
+  "dao_var": "agreementContentDao",
+  "dao_cls": "AgreementContentDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "agreementContentTypeId",
+   "contentId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "agreementContentTypeId": "String",
+   "contentId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "removeAgreementGeographicalApplic": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementGeographicalApplic",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveAgreementGeographicalApplicRequest",
+  "resp_type": "RemoveAgreementGeographicalApplicResponse",
+  "outs": [],
+  "dao_var": "agreementGeographicalApplicDao",
+  "dao_cls": "AgreementGeographicalApplicDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "geoId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "geoId": "String"
+  }
+ },
+ "removeAgreementItem": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementItem",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveAgreementItemRequest",
+  "resp_type": "RemoveAgreementItemResponse",
+  "outs": [],
+  "dao_var": "agreementItemDao",
+  "dao_cls": "AgreementItemDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String"
+  }
+ },
+ "removeAgreementFacilityAppl": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementFacilityAppl",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveAgreementFacilityApplRequest",
+  "resp_type": "RemoveAgreementFacilityApplResponse",
+  "outs": [],
+  "dao_var": "agreementFacilityApplDao",
+  "dao_cls": "AgreementFacilityApplDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "facilityId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "facilityId": "String"
+  }
+ },
+ "removeAgreementPartyApplic": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementPartyApplic",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveAgreementPartyApplicRequest",
+  "resp_type": "RemoveAgreementPartyApplicResponse",
+  "outs": [],
+  "dao_var": "agreementPartyApplicDao",
+  "dao_cls": "AgreementPartyApplicDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "partyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "partyId": "String"
+  }
+ },
+ "removeAgreementProductAppl": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementProductAppl",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveAgreementProductApplRequest",
+  "resp_type": "RemoveAgreementProductApplResponse",
+  "outs": [],
+  "dao_var": "agreementProductApplDao",
+  "dao_cls": "AgreementProductApplDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "productId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "productId": "String"
+  }
+ },
+ "removeSupplierProduct": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "removeAgreementPromoAppl": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "AgreementPromoAppl",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveAgreementPromoApplRequest",
+  "resp_type": "RemoveAgreementPromoApplResponse",
+  "outs": [],
+  "dao_var": "agreementPromoApplDao",
+  "dao_cls": "AgreementPromoApplDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "productPromoId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "productPromoId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "removeBillingAccountTerm": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "BillingAccountTerm",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveBillingAccountTermRequest",
+  "resp_type": "RemoveBillingAccountTermResponse",
+  "outs": [],
+  "dao_var": "billingAccountTermDao",
+  "dao_cls": "BillingAccountTermDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "billingAccountTermId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "billingAccountTermId": "String"
+  }
+ },
+ "removeBudgetItem": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "BudgetItem",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveBudgetItemRequest",
+  "resp_type": "RemoveBudgetItemResponse",
+  "outs": [],
+  "dao_var": "budgetItemDao",
+  "dao_cls": "BudgetItemDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "budgetId",
+   "budgetItemSeqId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "budgetId": "String",
+   "budgetItemSeqId": "String"
+  }
+ },
+ "removeBudgetReview": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "BudgetReview",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveBudgetReviewRequest",
+  "resp_type": "RemoveBudgetReviewResponse",
+  "outs": [],
+  "dao_var": "budgetReviewDao",
+  "dao_cls": "BudgetReviewDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "budgetId",
+   "budgetReviewId",
+   "partyId",
+   "budgetReviewResultTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "budgetId": "String",
+   "budgetReviewId": "String",
+   "partyId": "String",
+   "budgetReviewResultTypeId": "String"
+  }
+ },
+ "removeBudgetRole": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "BudgetRole",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveBudgetRoleRequest",
+  "resp_type": "RemoveBudgetRoleResponse",
+  "outs": [],
+  "dao_var": "budgetRoleDao",
+  "dao_cls": "BudgetRoleDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "budgetId",
+   "partyId",
+   "roleTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "budgetId": "String",
+   "partyId": "String",
+   "roleTypeId": "String"
+  }
+ },
+ "removeFinAccountTransFromReconciliation": {
+  "engine": "simple",
+  "invoke": "removeFinAccountTransFromReconciliation",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveFinAccountTransFromReconciliationRequest",
+  "resp_type": "RemoveFinAccountTransFromReconciliationResponse",
+  "outs": []
+ },
+ "removeFixedAssetIdent": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetIdent",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveFixedAssetIdentRequest",
+  "resp_type": "RemoveFixedAssetIdentResponse",
+  "outs": [],
+  "dao_var": "fixedAssetIdentDao",
+  "dao_cls": "FixedAssetIdentDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "fixedAssetId",
+   "fixedAssetIdentTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "fixedAssetIdentTypeId": "String"
+  }
+ },
+ "removeFixedAssetProduct": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "FixedAssetProduct",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveFixedAssetProductRequest",
+  "resp_type": "RemoveFixedAssetProductResponse",
+  "outs": [],
+  "dao_var": "fixedAssetProductDao",
+  "dao_cls": "FixedAssetProductDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "fixedAssetId",
+   "productId",
+   "fixedAssetProductTypeId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "productId": "String",
+   "fixedAssetProductTypeId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "removeGlAccountTypeDefault": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "GlAccountTypeDefault",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveGlAccountTypeDefaultRequest",
+  "resp_type": "RemoveGlAccountTypeDefaultResponse",
+  "outs": [],
+  "dao_var": "glAccountTypeDefaultDao",
+  "dao_cls": "GlAccountTypeDefaultDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "glAccountTypeId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "glAccountTypeId": "String",
+   "organizationPartyId": "String"
+  }
+ },
+ "removePaymentApplication": {
+  "engine": "groovy",
+  "invoke": "removePaymentApplication",
+  "entity": "PaymentApplication",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemovePaymentApplicationRequest",
+  "resp_type": "RemovePaymentApplicationResponse",
+  "outs": []
+ },
+ "removeInvoiceItem": {
+  "engine": "groovy",
+  "invoke": "removeInvoiceItem",
+  "entity": "InvoiceItem",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveInvoiceItemRequest",
+  "resp_type": "RemoveInvoiceItemResponse",
+  "outs": []
+ },
+ "removeInvoiceRole": {
+  "engine": "entity-auto",
+  "invoke": "remove",
+  "entity": "InvoiceRole",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveInvoiceRoleRequest",
+  "resp_type": "RemoveInvoiceRoleResponse",
+  "outs": [],
+  "dao_var": "invoiceRoleDao",
+  "dao_cls": "InvoiceRoleDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "invoiceId",
+   "partyId",
+   "roleTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "invoiceId": "String",
+   "partyId": "String",
+   "roleTypeId": "String"
+  }
+ },
+ "removePaymentMethodTypeGlAssignment": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "PaymentMethodTypeGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemovePaymentMethodTypeGlAssignmentRequest",
+  "resp_type": "RemovePaymentMethodTypeGlAssignmentResponse",
+  "outs": [],
+  "dao_var": "paymentMethodTypeGlAccountDao",
+  "dao_cls": "PaymentMethodTypeGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "paymentMethodTypeId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "paymentMethodTypeId": "String",
+   "organizationPartyId": "String"
+  }
+ },
+ "removePaymentTypeGlAssignment": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "PaymentGlAccountTypeMap",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemovePaymentTypeGlAssignmentRequest",
+  "resp_type": "RemovePaymentTypeGlAssignmentResponse",
+  "outs": [],
+  "dao_var": "paymentGlAccountTypeMapDao",
+  "dao_cls": "PaymentGlAccountTypeMapDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "paymentTypeId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "paymentTypeId": "String",
+   "organizationPartyId": "String"
+  }
+ },
+ "removeInvoiceItemTypeGlAssignment": {
+  "engine": "entity-auto",
+  "invoke": "delete",
+  "entity": "InvoiceItemTypeGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "RemoveInvoiceItemTypeGlAssignmentRequest",
+  "resp_type": "RemoveInvoiceItemTypeGlAssignmentResponse",
+  "outs": [],
+  "dao_var": "invoiceItemTypeGlAccountDao",
+  "dao_cls": "InvoiceItemTypeGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "invoiceItemTypeId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "invoiceItemTypeId": "String",
+   "organizationPartyId": "String"
+  }
+ },
+ "setFinAccountTransStatus": {
+  "engine": "simple",
+  "invoke": "setFinAccountTransStatus",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "SetFinAccountTransStatusRequest",
+  "resp_type": "SetFinAccountTransStatusResponse",
+  "outs": [
+   "oldStatusId"
+  ]
+ },
+ "setInvoiceStatus": {
+  "engine": "groovy",
+  "invoke": "setInvoiceStatus",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "SetInvoiceStatusRequest",
+  "resp_type": "SetInvoiceStatusResponse",
+  "outs": [
+   "invoiceTypeId",
+   "oldStatusId"
+  ]
+ },
+ "setPaymentStatus": {
+  "engine": "groovy",
+  "invoke": "setPaymentStatus",
+  "entity": "Payment",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "SetPaymentStatusRequest",
+  "resp_type": "SetPaymentStatusResponse",
+  "outs": [
+   "oldStatusId"
+  ]
+ },
+ "updateTimeEntry": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "updateAcctgTrans": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AcctgTrans",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateAcctgTransRequest",
+  "resp_type": "UpdateAcctgTransResponse",
+  "outs": [],
+  "dao_var": "acctgTransDao",
+  "dao_cls": "AcctgTransDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "acctgTransId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "acctgTransId": "String"
+  }
+ },
+ "updateAcctgTransEntry": {
+  "engine": "simple",
+  "invoke": "updateAcctgTransEntry",
+  "entity": "AcctgTransEntry",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateAcctgTransEntryRequest",
+  "resp_type": "UpdateAcctgTransEntryResponse",
+  "outs": []
+ },
+ "updateAgreement": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "Agreement",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateAgreementRequest",
+  "resp_type": "UpdateAgreementResponse",
+  "outs": [],
+  "dao_var": "agreementDao",
+  "dao_cls": "AgreementDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "agreementId": "String"
+  }
+ },
+ "updateAgreementItem": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementItem",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateAgreementItemRequest",
+  "resp_type": "UpdateAgreementItemResponse",
+  "outs": [],
+  "dao_var": "agreementItemDao",
+  "dao_cls": "AgreementItemDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String"
+  }
+ },
+ "updateAgreementFacilityAppl": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementFacilityAppl",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateAgreementFacilityApplRequest",
+  "resp_type": "UpdateAgreementFacilityApplResponse",
+  "outs": [],
+  "dao_var": "agreementFacilityApplDao",
+  "dao_cls": "AgreementFacilityApplDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "facilityId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "facilityId": "String"
+  }
+ },
+ "updateAgreementPartyApplic": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementPartyApplic",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateAgreementPartyApplicRequest",
+  "resp_type": "UpdateAgreementPartyApplicResponse",
+  "outs": [],
+  "dao_var": "agreementPartyApplicDao",
+  "dao_cls": "AgreementPartyApplicDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "partyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "partyId": "String"
+  }
+ },
+ "updateAgreementProductAppl": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementProductAppl",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateAgreementProductApplRequest",
+  "resp_type": "UpdateAgreementProductApplResponse",
+  "outs": [],
+  "dao_var": "agreementProductApplDao",
+  "dao_cls": "AgreementProductApplDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "productId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "productId": "String"
+  }
+ },
+ "updateSupplierProduct": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "updateAgreementTerm": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementTerm",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateAgreementTermRequest",
+  "resp_type": "UpdateAgreementTermResponse",
+  "outs": [],
+  "dao_var": "agreementTermDao",
+  "dao_cls": "AgreementTermDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementTermId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "agreementTermId": "String"
+  }
+ },
+ "updateAgreementPromoAppl": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementPromoAppl",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateAgreementPromoApplRequest",
+  "resp_type": "UpdateAgreementPromoApplResponse",
+  "outs": [],
+  "dao_var": "agreementPromoApplDao",
+  "dao_cls": "AgreementPromoApplDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "agreementId",
+   "agreementItemSeqId",
+   "productPromoId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "agreementItemSeqId": "String",
+   "productPromoId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "updateAgreementRole": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "AgreementRole",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateAgreementRoleRequest",
+  "resp_type": "UpdateAgreementRoleResponse",
+  "outs": [],
+  "dao_var": "agreementRoleDao",
+  "dao_cls": "AgreementRoleDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "agreementId",
+   "partyId",
+   "roleTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "agreementId": "String",
+   "partyId": "String",
+   "roleTypeId": "String"
+  }
+ },
+ "updateBillingAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "BillingAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateBillingAccountRequest",
+  "resp_type": "UpdateBillingAccountResponse",
+  "outs": [],
+  "dao_var": "billingAccountDao",
+  "dao_cls": "BillingAccountDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "billingAccountId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "billingAccountId": "String"
+  }
+ },
+ "updateBillingAccountRole": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "BillingAccountRole",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateBillingAccountRoleRequest",
+  "resp_type": "UpdateBillingAccountRoleResponse",
+  "outs": [],
+  "dao_var": "billingAccountRoleDao",
+  "dao_cls": "BillingAccountRoleDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "billingAccountId",
+   "partyId",
+   "roleTypeId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "billingAccountId": "String",
+   "partyId": "String",
+   "roleTypeId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "updateBillingAccountTerm": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "BillingAccountTerm",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateBillingAccountTermRequest",
+  "resp_type": "UpdateBillingAccountTermResponse",
+  "outs": [],
+  "dao_var": "billingAccountTermDao",
+  "dao_cls": "BillingAccountTermDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "billingAccountTermId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "billingAccountTermId": "String"
+  }
+ },
+ "updateBudget": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "Budget",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateBudgetRequest",
+  "resp_type": "UpdateBudgetResponse",
+  "outs": [],
+  "dao_var": "budgetDao",
+  "dao_cls": "BudgetDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "budgetId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "budgetId": "String"
+  }
+ },
+ "updateBudgetItem": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "BudgetItem",
+  "is_map": false,
+  "binding": [
+   "PARAM"
+  ],
+  "req_type": null,
+  "resp_type": "UpdateBudgetItemResponse",
+  "outs": [],
+  "dao_var": "budgetItemDao",
+  "dao_cls": "BudgetItemDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "budgetId",
+   "budgetItemSeqId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "budgetId": "String",
+   "budgetItemSeqId": "String"
+  }
+ },
+ "updateBudgetStatus": {
+  "engine": "groovy",
+  "invoke": "updateBudgetStatus",
+  "entity": "BudgetStatus",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateBudgetStatusRequest",
+  "resp_type": "UpdateBudgetStatusResponse",
+  "outs": []
+ },
+ "updateCostComponentCalc": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "CostComponentCalc",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateCostComponentCalcRequest",
+  "resp_type": "UpdateCostComponentCalcResponse",
+  "outs": [],
+  "dao_var": "costComponentCalcDao",
+  "dao_cls": "CostComponentCalcDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "costComponentCalcId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "costComponentCalcId": "String"
+  }
+ },
+ "updateCreditCardTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "CreditCardTypeGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateCreditCardTypeGlAccountRequest",
+  "resp_type": "UpdateCreditCardTypeGlAccountResponse",
+  "outs": [],
+  "dao_var": "creditCardTypeGlAccountDao",
+  "dao_cls": "CreditCardTypeGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "cardType",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "cardType": "String",
+   "organizationPartyId": "String"
+  }
+ },
+ "updateCustomTimePeriod": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "updatePaymentGroup": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGroup",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentGroupRequest",
+  "resp_type": "UpdatePaymentGroupResponse",
+  "outs": [],
+  "dao_var": "paymentGroupDao",
+  "dao_cls": "PaymentGroupDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "paymentGroupId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "paymentGroupId": "String"
+  }
+ },
+ "updatePaymentGroupMember": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentGroupMember",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentGroupMemberRequest",
+  "resp_type": "UpdatePaymentGroupMemberResponse",
+  "outs": [],
+  "dao_var": "paymentGroupMemberDao",
+  "dao_cls": "PaymentGroupMemberDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "paymentGroupId",
+   "paymentId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "paymentGroupId": "String",
+   "paymentId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "updateFXConversion": {
+  "engine": "groovy",
+  "invoke": "updateFXConversion",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateFXConversionRequest",
+  "resp_type": "UpdateFXConversionResponse",
+  "outs": []
+ },
+ "updateFinAccount": {
+  "engine": "simple",
+  "invoke": "updateFinAccount",
+  "entity": "FinAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateFinAccountRequest",
+  "resp_type": "UpdateFinAccountResponse",
+  "outs": [
+   "oldStatusId",
+   "oldReplenishPaymentId",
+   "oldReplenishLevel",
+   "replenishPaymentId",
+   "replenishLevel"
+  ]
+ },
+ "updateGlReconciliation": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "GlReconciliation",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateGlReconciliationRequest",
+  "resp_type": "UpdateGlReconciliationResponse",
+  "outs": [],
+  "dao_var": "glReconciliationDao",
+  "dao_cls": "GlReconciliationDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "glReconciliationId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "glReconciliationId": "String"
+  }
+ },
+ "updateFinAccountRole": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FinAccountRole",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateFinAccountRoleRequest",
+  "resp_type": "UpdateFinAccountRoleResponse",
+  "outs": [],
+  "dao_var": "finAccountRoleDao",
+  "dao_cls": "FinAccountRoleDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "finAccountId",
+   "partyId",
+   "roleTypeId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "finAccountId": "String",
+   "partyId": "String",
+   "roleTypeId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "updateFinAccountTypeGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FinAccountTypeGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateFinAccountTypeGlAccountRequest",
+  "resp_type": "UpdateFinAccountTypeGlAccountResponse",
+  "outs": [],
+  "dao_var": "finAccountTypeGlAccountDao",
+  "dao_cls": "FinAccountTypeGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "finAccountTypeId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "finAccountTypeId": "String",
+   "organizationPartyId": "String"
+  }
+ },
+ "updateFixedAsset": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAsset",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateFixedAssetRequest",
+  "resp_type": "UpdateFixedAssetResponse",
+  "outs": [],
+  "dao_var": "fixedAssetDao",
+  "dao_cls": "FixedAssetDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "fixedAssetId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "fixedAssetId": "String"
+  }
+ },
+ "updateFixedAssetDepMethod": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAssetDepMethod",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateFixedAssetDepMethodRequest",
+  "resp_type": "UpdateFixedAssetDepMethodResponse",
+  "outs": [],
+  "dao_var": "fixedAssetDepMethodDao",
+  "dao_cls": "FixedAssetDepMethodDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "depreciationCustomMethodId",
+   "fixedAssetId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "depreciationCustomMethodId": "String",
+   "fixedAssetId": "String"
+  }
+ },
+ "updateFixedAssetIdent": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAssetIdent",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateFixedAssetIdentRequest",
+  "resp_type": "UpdateFixedAssetIdentResponse",
+  "outs": [],
+  "dao_var": "fixedAssetIdentDao",
+  "dao_cls": "FixedAssetIdentDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "fixedAssetId",
+   "fixedAssetIdentTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "fixedAssetIdentTypeId": "String"
+  }
+ },
+ "updateFixedAssetMaint": {
+  "engine": "groovy",
+  "invoke": "updateFixedAssetMaint",
+  "entity": "FixedAssetMaint",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateFixedAssetMaintRequest",
+  "resp_type": "UpdateFixedAssetMaintResponse",
+  "outs": [
+   "oldStatusId"
+  ]
+ },
+ "updateFixedAssetMeter": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAssetMeter",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateFixedAssetMeterRequest",
+  "resp_type": "UpdateFixedAssetMeterResponse",
+  "outs": [],
+  "dao_var": "fixedAssetMeterDao",
+  "dao_cls": "FixedAssetMeterDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "fixedAssetId",
+   "productMeterTypeId",
+   "readingDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "productMeterTypeId": "String",
+   "readingDate": "Timestamp"
+  }
+ },
+ "updateFixedAssetProduct": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAssetProduct",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateFixedAssetProductRequest",
+  "resp_type": "UpdateFixedAssetProductResponse",
+  "outs": [],
+  "dao_var": "fixedAssetProductDao",
+  "dao_cls": "FixedAssetProductDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "fixedAssetId",
+   "productId",
+   "fixedAssetProductTypeId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "productId": "String",
+   "fixedAssetProductTypeId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "updateFixedAssetRegistration": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAssetRegistration",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateFixedAssetRegistrationRequest",
+  "resp_type": "UpdateFixedAssetRegistrationResponse",
+  "outs": [],
+  "dao_var": "fixedAssetRegistrationDao",
+  "dao_cls": "FixedAssetRegistrationDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "fixedAssetId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "updateFixedAssetStdCost": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "FixedAssetStdCost",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateFixedAssetStdCostRequest",
+  "resp_type": "UpdateFixedAssetStdCostResponse",
+  "outs": [],
+  "dao_var": "fixedAssetStdCostDao",
+  "dao_cls": "FixedAssetStdCostDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "fixedAssetId",
+   "fixedAssetStdCostTypeId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "fixedAssetId": "String",
+   "fixedAssetStdCostTypeId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "updateGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "GlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateGlAccountRequest",
+  "resp_type": "UpdateGlAccountResponse",
+  "outs": [],
+  "dao_var": "glAccountDao",
+  "dao_cls": "GlAccountDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "glAccountId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "glAccountId": "String"
+  }
+ },
+ "updateGlAccountCategory": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "GlAccountCategory",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateGlAccountCategoryRequest",
+  "resp_type": "UpdateGlAccountCategoryResponse",
+  "outs": [],
+  "dao_var": "glAccountCategoryDao",
+  "dao_cls": "GlAccountCategoryDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "glAccountCategoryId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "glAccountCategoryId": "String"
+  }
+ },
+ "updateGlAccountCategoryMember": {
+  "engine": "simple",
+  "invoke": "updateGlAccountCategoryMember",
+  "entity": "GlAccountCategoryMember",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateGlAccountCategoryMemberRequest",
+  "resp_type": "UpdateGlAccountCategoryMemberResponse",
+  "outs": []
+ },
+ "updateGlJournal": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "GlJournal",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateGlJournalRequest",
+  "resp_type": "UpdateGlJournalResponse",
+  "outs": [],
+  "dao_var": "glJournalDao",
+  "dao_cls": "GlJournalDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "glJournalId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "glJournalId": "String"
+  }
+ },
+ "updateInvoice": {
+  "engine": "groovy",
+  "invoke": "updateInvoice",
+  "entity": "Invoice",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateInvoiceRequest",
+  "resp_type": "UpdateInvoiceResponse",
+  "outs": []
+ },
+ "updatePaymentApplicationDef": {
+  "engine": "java",
+  "invoke": "updatePaymentApplicationDef",
+  "entity": "PaymentApplication",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentApplicationDefRequest",
+  "resp_type": "UpdatePaymentApplicationDefResponse",
+  "outs": []
+ },
+ "updateInvoiceItem": {
+  "engine": "groovy",
+  "invoke": "updateInvoiceItem",
+  "entity": "InvoiceItem",
+  "is_map": false,
+  "binding": [
+   "PARAM"
+  ],
+  "req_type": null,
+  "resp_type": "UpdateInvoiceItemResponse",
+  "outs": []
+ },
+ "updateInvoiceItemType": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "InvoiceItemType",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateInvoiceItemTypeRequest",
+  "resp_type": "UpdateInvoiceItemTypeResponse",
+  "outs": [],
+  "dao_var": "invoiceItemTypeDao",
+  "dao_cls": "InvoiceItemTypeDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "invoiceItemTypeId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "invoiceItemTypeId": "String"
+  }
+ },
+ "updateInvoiceTerm": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "InvoiceTerm",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateInvoiceTermRequest",
+  "resp_type": "UpdateInvoiceTermResponse",
+  "outs": [],
+  "dao_var": "invoiceTermDao",
+  "dao_cls": "InvoiceTermDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "invoiceTermId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "invoiceTermId": "String"
+  }
+ },
+ "updateTaxAuthorityGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "TaxAuthorityGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateTaxAuthorityGlAccountRequest",
+  "resp_type": "UpdateTaxAuthorityGlAccountResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityGlAccountDao",
+  "dao_cls": "TaxAuthorityGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthGeoId",
+   "taxAuthPartyId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "taxAuthGeoId": "String",
+   "taxAuthPartyId": "String",
+   "organizationPartyId": "String"
+  }
+ },
+ "updatePartyAcctgPreference": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PartyAcctgPreference",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePartyAcctgPreferenceRequest",
+  "resp_type": "UpdatePartyAcctgPreferenceResponse",
+  "outs": [],
+  "dao_var": "partyAcctgPreferenceDao",
+  "dao_cls": "PartyAcctgPreferenceDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "partyId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "partyId": "String"
+  }
+ },
+ "updatePartyFixedAssetAssignment": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PartyFixedAssetAssignment",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePartyFixedAssetAssignmentRequest",
+  "resp_type": "UpdatePartyFixedAssetAssignmentResponse",
+  "outs": [],
+  "dao_var": "partyFixedAssetAssignmentDao",
+  "dao_cls": "PartyFixedAssetAssignmentDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "partyId",
+   "roleTypeId",
+   "fixedAssetId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "partyId": "String",
+   "roleTypeId": "String",
+   "fixedAssetId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "updatePartyGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PartyGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePartyGlAccountRequest",
+  "resp_type": "UpdatePartyGlAccountResponse",
+  "outs": [],
+  "dao_var": "partyGlAccountDao",
+  "dao_cls": "PartyGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "organizationPartyId",
+   "partyId",
+   "roleTypeId",
+   "glAccountTypeId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "organizationPartyId": "String",
+   "partyId": "String",
+   "roleTypeId": "String",
+   "glAccountTypeId": "String"
+  }
+ },
+ "updatePayment": {
+  "engine": "groovy",
+  "invoke": "updatePayment",
+  "entity": "Payment",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentRequest",
+  "resp_type": "UpdatePaymentResponse",
+  "outs": []
+ },
+ "updatePaymentMethodType": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "PaymentMethodType",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePaymentMethodTypeRequest",
+  "resp_type": "UpdatePaymentMethodTypeResponse",
+  "outs": [],
+  "dao_var": "paymentMethodTypeDao",
+  "dao_cls": "PaymentMethodTypeDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "paymentMethodTypeId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "paymentMethodTypeId": "String"
+  }
+ },
+ "updateProductCategoryGlAccount": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "updateProductGlAccount": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "updateRateAmount": {
+  "engine": "groovy",
+  "invoke": "updateRateAmount",
+  "entity": "RateAmount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateRateAmountRequest",
+  "resp_type": "UpdateRateAmountResponse",
+  "outs": []
+ },
+ "updateTaxAuthority": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "TaxAuthority",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateTaxAuthorityRequest",
+  "resp_type": "UpdateTaxAuthorityResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityDao",
+  "dao_cls": "TaxAuthorityDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthGeoId",
+   "taxAuthPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "taxAuthGeoId": "String",
+   "taxAuthPartyId": "String"
+  }
+ },
+ "updateTaxAuthorityAssoc": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "TaxAuthorityAssoc",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateTaxAuthorityAssocRequest",
+  "resp_type": "UpdateTaxAuthorityAssocResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityAssocDao",
+  "dao_cls": "TaxAuthorityAssocDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthGeoId",
+   "taxAuthPartyId",
+   "toTaxAuthGeoId",
+   "toTaxAuthPartyId",
+   "fromDate"
+  ],
+  "composite": true,
+  "pk_types": {
+   "taxAuthGeoId": "String",
+   "taxAuthPartyId": "String",
+   "toTaxAuthGeoId": "String",
+   "toTaxAuthPartyId": "String",
+   "fromDate": "Timestamp"
+  }
+ },
+ "updateTaxAuthorityCategory": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "TaxAuthorityCategory",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateTaxAuthorityCategoryRequest",
+  "resp_type": "UpdateTaxAuthorityCategoryResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityCategoryDao",
+  "dao_cls": "TaxAuthorityCategoryDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthGeoId",
+   "taxAuthPartyId",
+   "productCategoryId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "taxAuthGeoId": "String",
+   "taxAuthPartyId": "String",
+   "productCategoryId": "String"
+  }
+ },
+ "updatePartyTaxAuthInfo": {
+  "engine": "groovy",
+  "invoke": "updatePartyTaxAuthInfo",
+  "entity": "PartyTaxAuthInfo",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdatePartyTaxAuthInfoRequest",
+  "resp_type": "UpdatePartyTaxAuthInfoResponse",
+  "outs": []
+ },
+ "updateTaxAuthorityRateProduct": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "TaxAuthorityRateProduct",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateTaxAuthorityRateProductRequest",
+  "resp_type": "UpdateTaxAuthorityRateProductResponse",
+  "outs": [],
+  "dao_var": "taxAuthorityRateProductDao",
+  "dao_cls": "TaxAuthorityRateProductDao",
+  "dao_exists": true,
+  "dao_wired": true,
+  "pks": [
+   "taxAuthorityRateSeqId"
+  ],
+  "composite": false,
+  "pk_types": {
+   "taxAuthorityRateSeqId": "String"
+  }
+ },
+ "updateVarianceReasonGlAccount": {
+  "engine": "entity-auto",
+  "invoke": "update",
+  "entity": "VarianceReasonGlAccount",
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UpdateVarianceReasonGlAccountRequest",
+  "resp_type": "UpdateVarianceReasonGlAccountResponse",
+  "outs": [],
+  "dao_var": "varianceReasonGlAccountDao",
+  "dao_cls": "VarianceReasonGlAccountDao",
+  "dao_exists": true,
+  "dao_wired": false,
+  "pks": [
+   "varianceReasonId",
+   "organizationPartyId"
+  ],
+  "composite": true,
+  "pk_types": {
+   "varianceReasonId": "String",
+   "organizationPartyId": "String"
+  }
+ },
+ "updateWorkEffort": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "uploadAgreementContentFile": {
+  "engine": "group",
+  "invoke": null,
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "UploadAgreementContentFileRequest",
+  "resp_type": "UploadAgreementContentFileResponse",
+  "outs": []
+ },
+ "voidPayment": {
+  "engine": "groovy",
+  "invoke": "voidPayment",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "VoidPaymentRequest",
+  "resp_type": "VoidPaymentResponse",
+  "outs": [
+   "finAccountTransId",
+   "statusId"
+  ]
+ },
+ "createVendor": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "massChangeInvoiceStatus": {
+  "engine": "groovy",
+  "invoke": "massChangeInvoiceStatus",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "MassChangeInvoiceStatusRequest",
+  "resp_type": "MassChangeInvoiceStatusResponse",
+  "outs": []
+ },
+ "createPaymentAndPaymentGroupForInvoices": {
+  "engine": "groovy",
+  "invoke": "createPaymentAndPaymentGroupForInvoices",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "CreatePaymentAndPaymentGroupForInvoicesRequest",
+  "resp_type": "CreatePaymentAndPaymentGroupForInvoicesResponse",
+  "outs": [
+   "paymentGroupId"
+  ]
+ },
+ "updateVendor": {
+  "engine": null,
+  "invoke": null,
+  "entity": null,
+  "is_map": true,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "?",
+  "resp_type": null,
+  "outs": []
+ },
+ "massChangePaymentStatus": {
+  "engine": "groovy",
+  "invoke": "massChangePaymentStatus",
+  "entity": null,
+  "is_map": false,
+  "binding": [
+   "BODY"
+  ],
+  "req_type": "MassChangePaymentStatusRequest",
+  "resp_type": "MassChangePaymentStatusResponse",
+  "outs": [
+   "errorMessage"
+  ]
+ }
+}

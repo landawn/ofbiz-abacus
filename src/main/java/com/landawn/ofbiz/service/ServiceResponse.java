@@ -111,6 +111,27 @@ public final class ServiceResponse {
         return r;
     }
 
+    /**
+     * Build a typed success envelope and copy the non-null properties of {@code outBean} onto it —
+     * the boundary equivalent of OFBiz copying entity OUT attributes into the result. Used by the
+     * entity-auto service methods to surface the freshly-assigned primary key (e.g. an inserted
+     * {@code Invoice}'s {@code invoiceId}) on the response DTO. Properties absent on the DTO are
+     * silently skipped, so passing a full entity is safe.
+     */
+    public static <T extends ResponseBase> T ok(Supplier<T> factory, Object outBean) {
+        T r = ok(factory);
+        if (outBean != null) {
+            for (Map.Entry<String, Object> e : Beans.beanToMap(outBean, true).entrySet()) {
+                try {
+                    Beans.setPropValue(r, e.getKey(), e.getValue(), true);
+                } catch (RuntimeException ignored) {
+                    // property not present on the response DTO — skip
+                }
+            }
+        }
+        return r;
+    }
+
     /** Build a typed error envelope (responseMessage=error, errorMessage + errorMessageList set). */
     public static <T extends ResponseBase> T error(String message, Supplier<T> factory) {
         T r = factory.get();

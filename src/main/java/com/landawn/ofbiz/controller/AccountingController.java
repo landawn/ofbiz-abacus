@@ -2,6 +2,7 @@ package com.landawn.ofbiz.controller;
 
 import com.landawn.ofbiz.util.ServiceInput;
 import com.landawn.ofbiz.model.ResponseBase;
+import com.landawn.ofbiz.model.accounting.*;
 import com.landawn.ofbiz.model.accounting.AddFixedAssetProductRequest;
 import com.landawn.ofbiz.model.accounting.AddFixedAssetProductResponse;
 import com.landawn.ofbiz.model.accounting.AddInvoiceItemTypeGlAssignmentRequest;
@@ -495,8 +496,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/AdminMain")
     public ResponseEntity<SetAcctgCompanyResponse> setAcctgCompany(@RequestBody SetAcctgCompanyRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.setAcctgCompany(ServiceInput.toMap(request));
-        return wrap(result, SetAcctgCompanyResponse::new);
+        return wrap(service.setAcctgCompany(request));
     }
 
     /**
@@ -514,8 +514,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/ImportExport")
     public ResponseEntity<SetAcctgCompanyResponse> setAcctgCompanyImportExport(@RequestBody SetAcctgCompanyRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.setAcctgCompany(ServiceInput.toMap(request));
-        return wrap(result, SetAcctgCompanyResponse::new);
+        return wrap(service.setAcctgCompany(request));
     }
 
     /**
@@ -524,8 +523,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/ImportInvoice")
     public ResponseEntity<ImportInvoiceResponse> importInvoice(@RequestBody ImportInvoiceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.importInvoice(ServiceInput.toMap(request));
-        return wrap(result, ImportInvoiceResponse::new);
+        return wrap(service.importInvoice(request));
     }
 
     /**
@@ -534,8 +532,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/PartyAccountsSummary")
     public ResponseEntity<SetAcctgCompanyResponse> setAcctgCompanyPartyAccountsSummary(@RequestBody SetAcctgCompanyRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.setAcctgCompany(ServiceInput.toMap(request));
-        return wrap(result, SetAcctgCompanyResponse::new);
+        return wrap(service.setAcctgCompany(request));
     }
 
     /**
@@ -544,8 +541,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/PartyAcctgPreference")
     public ResponseEntity<SetAcctgCompanyResponse> setAcctgCompanyPartyAcctgPreference(@RequestBody SetAcctgCompanyRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.setAcctgCompany(ServiceInput.toMap(request));
-        return wrap(result, SetAcctgCompanyResponse::new);
+        return wrap(service.setAcctgCompany(request));
     }
 
     /**
@@ -554,8 +550,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfig")
     public ResponseEntity<UpdatePaymentGatewayConfigResponse> updatePaymentGatewayConfig(@RequestBody UpdatePaymentGatewayConfigRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGatewayConfig(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGatewayConfigResponse::new);
+        return wrap(service.updatePaymentGatewayConfig(request));
     }
 
     /**
@@ -564,8 +559,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigAuthorizeNet")
     public ResponseEntity<UpdatePaymentGatewayConfigAuthorizeNetResponse> updatePaymentGatewayConfigAuthorizeNet(@RequestBody UpdatePaymentGatewayConfigAuthorizeNetRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGatewayConfigAuthorizeNet(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGatewayConfigAuthorizeNetResponse::new);
+        return wrap(service.updatePaymentGatewayConfigAuthorizeNet(request));
     }
 
     /**
@@ -574,8 +568,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigClearCommerce")
     public ResponseEntity<UpdatePaymentGatewayConfigClearCommerceResponse> updatePaymentGatewayConfigClearCommerce(@RequestBody UpdatePaymentGatewayConfigClearCommerceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGatewayConfigClearCommerce(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGatewayConfigClearCommerceResponse::new);
+        return wrap(service.updatePaymentGatewayConfigClearCommerce(request));
     }
 
     /**
@@ -584,8 +577,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigCyberSource")
     public ResponseEntity<UpdatePaymentGatewayConfigCyberSourceResponse> updatePaymentGatewayConfigCyberSource(@RequestBody UpdatePaymentGatewayConfigCyberSourceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGatewayConfigCyberSource(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGatewayConfigCyberSourceResponse::new);
+        return wrap(service.updatePaymentGatewayConfigCyberSource(request));
     }
 
     /**
@@ -594,8 +586,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigEway")
     public ResponseEntity<UpdatePaymentGatewayConfigEwayResponse> updatePaymentGatewayConfigEway(@RequestBody UpdatePaymentGatewayConfigEwayRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGatewayConfigEway(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGatewayConfigEwayResponse::new);
+        return wrap(service.updatePaymentGatewayConfigEway(request));
     }
 
     /**
@@ -604,8 +595,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigPayPal")
     public ResponseEntity<UpdatePaymentGatewayConfigPayPalResponse> updatePaymentGatewayConfigPayPal(@RequestBody UpdatePaymentGatewayConfigPayPalRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGatewayConfigPayPal(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGatewayConfigPayPalResponse::new);
+        return wrap(service.updatePaymentGatewayConfigPayPal(request));
     }
 
     /**
@@ -614,8 +604,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigPayflowPro")
     public ResponseEntity<UpdatePaymentGatewayConfigPayflowProResponse> updatePaymentGatewayConfigPayflowPro(@RequestBody UpdatePaymentGatewayConfigPayflowProRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGatewayConfigPayflowPro(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGatewayConfigPayflowProResponse::new);
+        return wrap(service.updatePaymentGatewayConfigPayflowPro(request));
     }
 
     /**
@@ -624,8 +613,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigSagePay")
     public ResponseEntity<UpdatePaymentGatewayConfigSagePayResponse> updatePaymentGatewayConfigSagePay(@RequestBody UpdatePaymentGatewayConfigSagePayRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGatewayConfigSagePay(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGatewayConfigSagePayResponse::new);
+        return wrap(service.updatePaymentGatewayConfigSagePay(request));
     }
 
     /**
@@ -634,8 +622,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigSecurePay")
     public ResponseEntity<UpdatePaymentGatewayConfigSecurePayResponse> updatePaymentGatewayConfigSecurePay(@RequestBody UpdatePaymentGatewayConfigSecurePayRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGatewayConfigSecurePay(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGatewayConfigSecurePayResponse::new);
+        return wrap(service.updatePaymentGatewayConfigSecurePay(request));
     }
 
     /**
@@ -644,8 +631,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigType")
     public ResponseEntity<UpdatePaymentGatewayConfigTypeResponse> updatePaymentGatewayConfigType(@RequestBody UpdatePaymentGatewayConfigTypeRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGatewayConfigType(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGatewayConfigTypeResponse::new);
+        return wrap(service.updatePaymentGatewayConfigType(request));
     }
 
     /**
@@ -654,8 +640,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/UpdatePaymentGatewayConfigWorldPay")
     public ResponseEntity<UpdatePaymentGatewayConfigWorldPayResponse> updatePaymentGatewayConfigWorldPay(@RequestBody UpdatePaymentGatewayConfigWorldPayRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGatewayConfigWorldPay(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGatewayConfigWorldPayResponse::new);
+        return wrap(service.updatePaymentGatewayConfigWorldPay(request));
     }
 
     /**
@@ -664,8 +649,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/addDepositSlipMember")
     public ResponseEntity<CreatePaymentGroupMemberResponse> createPaymentGroupMember(@RequestBody CreatePaymentGroupMemberRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPaymentGroupMember(ServiceInput.toMap(request));
-        return wrap(result, CreatePaymentGroupMemberResponse::new);
+        return wrap(service.createPaymentGroupMember(request));
     }
 
     /**
@@ -674,8 +658,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/addFixedAssetProduct")
     public ResponseEntity<AddFixedAssetProductResponse> addFixedAssetProduct(@RequestBody AddFixedAssetProductRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.addFixedAssetProduct(ServiceInput.toMap(request));
-        return wrap(result, AddFixedAssetProductResponse::new);
+        return wrap(service.addFixedAssetProduct(request));
     }
 
     /**
@@ -684,8 +667,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/addPaymentMethodTypeGlAssignment")
     public ResponseEntity<AddPaymentMethodTypeGlAssignmentResponse> addPaymentMethodTypeGlAssignment(@RequestBody AddPaymentMethodTypeGlAssignmentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.addPaymentMethodTypeGlAssignment(ServiceInput.toMap(request));
-        return wrap(result, AddPaymentMethodTypeGlAssignmentResponse::new);
+        return wrap(service.addPaymentMethodTypeGlAssignment(request));
     }
 
     /**
@@ -694,8 +676,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/addPaymentTypeGlAssignment")
     public ResponseEntity<AddPaymentTypeGlAssignmentResponse> addPaymentTypeGlAssignment(@RequestBody AddPaymentTypeGlAssignmentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.addPaymentTypeGlAssignment(ServiceInput.toMap(request));
-        return wrap(result, AddPaymentTypeGlAssignmentResponse::new);
+        return wrap(service.addPaymentTypeGlAssignment(request));
     }
 
     /**
@@ -704,8 +685,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/addPurInvoiceItemTypeGlAssignment")
     public ResponseEntity<AddInvoiceItemTypeGlAssignmentResponse> addInvoiceItemTypeGlAssignment(@RequestBody AddInvoiceItemTypeGlAssignmentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.addInvoiceItemTypeGlAssignment(ServiceInput.toMap(request));
-        return wrap(result, AddInvoiceItemTypeGlAssignmentResponse::new);
+        return wrap(service.addInvoiceItemTypeGlAssignment(request));
     }
 
     /**
@@ -714,8 +694,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/addSalInvoiceItemTypeGlAssignment")
     public ResponseEntity<AddInvoiceItemTypeGlAssignmentResponse> addInvoiceItemTypeGlAssignmentAddSalInvoiceItemTypeGlAssignment(@RequestBody AddInvoiceItemTypeGlAssignmentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.addInvoiceItemTypeGlAssignment(ServiceInput.toMap(request));
-        return wrap(result, AddInvoiceItemTypeGlAssignmentResponse::new);
+        return wrap(service.addInvoiceItemTypeGlAssignment(request));
     }
 
     /**
@@ -724,8 +703,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/addtax")
     public ResponseEntity<AddTaxOnInvoiceResponse> addTaxOnInvoice(@RequestBody AddTaxOnInvoiceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.addTaxOnInvoice(ServiceInput.toMap(request));
-        return wrap(result, AddTaxOnInvoiceResponse::new);
+        return wrap(service.addTaxOnInvoice(request));
     }
 
     /**
@@ -733,9 +711,8 @@ public class AccountingController {
      * <p>service: assignGlRecToFinAccTrans  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/assignGlRecToFinAccTrans")
-    public ResponseEntity<AssignGlRecToFinAccTransResponse> assignGlRecToFinAccTrans(@RequestParam Map<String, String> params) throws java.sql.SQLException {
-        Map<String, Object> result = service.assignGlRecToFinAccTrans(java.util.Map.copyOf(params));
-        return wrap(result, AssignGlRecToFinAccTransResponse::new);
+    public ResponseEntity<AssignGlRecToFinAccTransResponse> assignGlRecToFinAccTrans(AssignGlRecToFinAccTransRequest request) throws java.sql.SQLException {
+        return wrap(service.assignGlRecToFinAccTrans(request));
     }
 
     /**
@@ -743,9 +720,8 @@ public class AccountingController {
      * <p>service: reconcileFinAccountTrans  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/callReconcileFinAccountTrans")
-    public ResponseEntity<ReconcileFinAccountTransResponse> reconcileFinAccountTrans(@RequestParam Map<String, String> params) throws java.sql.SQLException {
-        Map<String, Object> result = service.reconcileFinAccountTrans(java.util.Map.copyOf(params));
-        return wrap(result, ReconcileFinAccountTransResponse::new);
+    public ResponseEntity<ReconcileFinAccountTransResponse> reconcileFinAccountTrans(ReconcileFinAccountTransRequest request) throws java.sql.SQLException {
+        return wrap(service.reconcileFinAccountTrans(request));
     }
 
     /**
@@ -754,8 +730,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/cancelAgreement")
     public ResponseEntity<ExpireAgreementResponse> expireAgreement(@RequestBody ExpireAgreementRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.expireAgreement(ServiceInput.toMap(request));
-        return wrap(result, ExpireAgreementResponse::new);
+        return wrap(service.expireAgreement(request));
     }
 
     /**
@@ -764,8 +739,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/cancelBankReconciliation")
     public ResponseEntity<CancelBankReconciliationResponse> cancelBankReconciliation(@RequestBody CancelBankReconciliationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.cancelBankReconciliation(ServiceInput.toMap(request));
-        return wrap(result, CancelBankReconciliationResponse::new);
+        return wrap(service.cancelBankReconciliation(request));
     }
 
     /**
@@ -774,8 +748,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/cancelCheckRunPayments")
     public ResponseEntity<CancelCheckRunPaymentsResponse> cancelCheckRunPayments(@RequestBody CancelCheckRunPaymentsRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.cancelCheckRunPayments(ServiceInput.toMap(request));
-        return wrap(result, CancelCheckRunPaymentsResponse::new);
+        return wrap(service.cancelCheckRunPayments(request));
     }
 
     /**
@@ -784,8 +757,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/cancelFixedAssetStdCost")
     public ResponseEntity<CancelFixedAssetStdCostResponse> cancelFixedAssetStdCost(@RequestBody CancelFixedAssetStdCostRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.cancelFixedAssetStdCost(ServiceInput.toMap(request));
-        return wrap(result, CancelFixedAssetStdCostResponse::new);
+        return wrap(service.cancelFixedAssetStdCost(request));
     }
 
     /**
@@ -794,8 +766,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/cancelPaymentGroup")
     public ResponseEntity<CancelPaymentBatchResponse> cancelPaymentBatch(@RequestBody CancelPaymentBatchRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.cancelPaymentBatch(ServiceInput.toMap(request));
-        return wrap(result, CancelPaymentBatchResponse::new);
+        return wrap(service.cancelPaymentBatch(request));
     }
 
     /**
@@ -804,8 +775,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/cancelReconciliation")
     public ResponseEntity<CancelBankReconciliationResponse> cancelBankReconciliationCancelReconciliation(@RequestBody CancelBankReconciliationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.cancelBankReconciliation(ServiceInput.toMap(request));
-        return wrap(result, CancelBankReconciliationResponse::new);
+        return wrap(service.cancelBankReconciliation(request));
     }
 
     /**
@@ -814,8 +784,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/capturePaymentsByInvoice")
     public ResponseEntity<CapturePaymentsByInvoiceResponse> capturePaymentsByInvoice(@RequestBody CapturePaymentsByInvoiceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.capturePaymentsByInvoice(ServiceInput.toMap(request));
-        return wrap(result, CapturePaymentsByInvoiceResponse::new);
+        return wrap(service.capturePaymentsByInvoice(request));
     }
 
     /**
@@ -824,8 +793,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/closeFinancialTimePeriod")
     public ResponseEntity<CloseFinancialTimePeriodResponse> closeFinancialTimePeriod(@RequestBody CloseFinancialTimePeriodRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.closeFinancialTimePeriod(ServiceInput.toMap(request));
-        return wrap(result, CloseFinancialTimePeriodResponse::new);
+        return wrap(service.closeFinancialTimePeriod(request));
     }
 
     /**
@@ -834,8 +802,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/completeAcctgTransEntries")
     public ResponseEntity<CompleteAcctgTransEntriesResponse> completeAcctgTransEntries(@RequestBody CompleteAcctgTransEntriesRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.completeAcctgTransEntries(ServiceInput.toMap(request));
-        return wrap(result, CompleteAcctgTransEntriesResponse::new);
+        return wrap(service.completeAcctgTransEntries(request));
     }
 
     /**
@@ -844,8 +811,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/copyAcctgTransAndEntries")
     public ResponseEntity<CopyAcctgTransAndEntriesResponse> copyAcctgTransAndEntries(@RequestBody CopyAcctgTransAndEntriesRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.copyAcctgTransAndEntries(ServiceInput.toMap(request));
-        return wrap(result, CopyAcctgTransAndEntriesResponse::new);
+        return wrap(service.copyAcctgTransAndEntries(request));
     }
 
     /**
@@ -854,8 +820,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/copyAgreement")
     public ResponseEntity<CopyAgreementResponse> copyAgreement(@RequestBody CopyAgreementRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.copyAgreement(ServiceInput.toMap(request));
-        return wrap(result, CopyAgreementResponse::new);
+        return wrap(service.copyAgreement(request));
     }
 
     /**
@@ -864,8 +829,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/copyInvoice")
     public ResponseEntity<CopyInvoiceResponse> copyInvoice(@RequestBody CopyInvoiceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.copyInvoice(ServiceInput.toMap(request));
-        return wrap(result, CopyInvoiceResponse::new);
+        return wrap(service.copyInvoice(request));
     }
 
     /**
@@ -874,8 +838,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/copyInvoiceToTemplate")
     public ResponseEntity<CopyInvoiceToTemplateResponse> copyInvoiceToTemplate(@RequestBody CopyInvoiceToTemplateRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.copyInvoiceToTemplate(ServiceInput.toMap(request));
-        return wrap(result, CopyInvoiceToTemplateResponse::new);
+        return wrap(service.copyInvoiceToTemplate(request));
     }
 
     /**
@@ -884,8 +847,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createAcctgTrans")
     public ResponseEntity<CreateAcctgTransResponse> createAcctgTrans(@RequestBody CreateAcctgTransRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createAcctgTrans(ServiceInput.toMap(request));
-        return wrap(result, CreateAcctgTransResponse::new);
+        return wrap(service.createAcctgTrans(request));
     }
 
     /**
@@ -894,8 +856,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createAcctgTransEntry")
     public ResponseEntity<CreateAcctgTransEntryResponse> createAcctgTransEntry(@RequestBody CreateAcctgTransEntryRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createAcctgTransEntry(ServiceInput.toMap(request));
-        return wrap(result, CreateAcctgTransEntryResponse::new);
+        return wrap(service.createAcctgTransEntry(request));
     }
 
     /**
@@ -904,8 +865,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createAgreement")
     public ResponseEntity<CreateAgreementResponse> createAgreement(@RequestBody CreateAgreementRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createAgreement(ServiceInput.toMap(request));
-        return wrap(result, CreateAgreementResponse::new);
+        return wrap(service.createAgreement(request));
     }
 
     /**
@@ -914,8 +874,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createAgreementGeographicalApplic")
     public ResponseEntity<CreateAgreementGeographicalApplicResponse> createAgreementGeographicalApplic(@RequestBody CreateAgreementGeographicalApplicRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createAgreementGeographicalApplic(ServiceInput.toMap(request));
-        return wrap(result, CreateAgreementGeographicalApplicResponse::new);
+        return wrap(service.createAgreementGeographicalApplic(request));
     }
 
     /**
@@ -924,8 +883,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createAgreementItem")
     public ResponseEntity<CreateAgreementItemResponse> createAgreementItem(@RequestBody CreateAgreementItemRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createAgreementItem(ServiceInput.toMap(request));
-        return wrap(result, CreateAgreementItemResponse::new);
+        return wrap(service.createAgreementItem(request));
     }
 
     /**
@@ -934,8 +892,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createAgreementItemFacility")
     public ResponseEntity<CreateAgreementFacilityApplResponse> createAgreementFacilityAppl(@RequestBody CreateAgreementFacilityApplRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createAgreementFacilityAppl(ServiceInput.toMap(request));
-        return wrap(result, CreateAgreementFacilityApplResponse::new);
+        return wrap(service.createAgreementFacilityAppl(request));
     }
 
     /**
@@ -944,8 +901,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createAgreementItemParty")
     public ResponseEntity<CreateAgreementPartyApplicResponse> createAgreementPartyApplic(@RequestBody CreateAgreementPartyApplicRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createAgreementPartyApplic(ServiceInput.toMap(request));
-        return wrap(result, CreateAgreementPartyApplicResponse::new);
+        return wrap(service.createAgreementPartyApplic(request));
     }
 
     /**
@@ -954,8 +910,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createAgreementItemProduct")
     public ResponseEntity<CreateAgreementProductApplResponse> createAgreementProductAppl(@RequestBody CreateAgreementProductApplRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createAgreementProductAppl(ServiceInput.toMap(request));
-        return wrap(result, CreateAgreementProductApplResponse::new);
+        return wrap(service.createAgreementProductAppl(request));
     }
 
     /**
@@ -973,8 +928,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createAgreementItemTerm")
     public ResponseEntity<CreateAgreementTermResponse> createAgreementTerm(@RequestBody CreateAgreementTermRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createAgreementTerm(ServiceInput.toMap(request));
-        return wrap(result, CreateAgreementTermResponse::new);
+        return wrap(service.createAgreementTerm(request));
     }
 
     /**
@@ -983,8 +937,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createAgreementPromoAppl")
     public ResponseEntity<CreateAgreementPromoApplResponse> createAgreementPromoAppl(@RequestBody CreateAgreementPromoApplRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createAgreementPromoAppl(ServiceInput.toMap(request));
-        return wrap(result, CreateAgreementPromoApplResponse::new);
+        return wrap(service.createAgreementPromoAppl(request));
     }
 
     /**
@@ -993,8 +946,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createAgreementRole")
     public ResponseEntity<CreateAgreementRoleResponse> createAgreementRole(@RequestBody CreateAgreementRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createAgreementRole(ServiceInput.toMap(request));
-        return wrap(result, CreateAgreementRoleResponse::new);
+        return wrap(service.createAgreementRole(request));
     }
 
     /**
@@ -1003,8 +955,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createAgreementTerm")
     public ResponseEntity<CreateAgreementTermResponse> createAgreementTermCreateAgreementTerm(@RequestBody CreateAgreementTermRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createAgreementTerm(ServiceInput.toMap(request));
-        return wrap(result, CreateAgreementTermResponse::new);
+        return wrap(service.createAgreementTerm(request));
     }
 
     /**
@@ -1013,8 +964,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createAgreementWorkEffortApplic")
     public ResponseEntity<CreateAgreementWorkEffortApplicResponse> createAgreementWorkEffortApplic(@RequestBody CreateAgreementWorkEffortApplicRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createAgreementWorkEffortApplic(ServiceInput.toMap(request));
-        return wrap(result, CreateAgreementWorkEffortApplicResponse::new);
+        return wrap(service.createAgreementWorkEffortApplic(request));
     }
 
     /**
@@ -1023,8 +973,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createBillingAccount")
     public ResponseEntity<CreateBillingAccountResponse> createBillingAccount(@RequestBody CreateBillingAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createBillingAccount(ServiceInput.toMap(request));
-        return wrap(result, CreateBillingAccountResponse::new);
+        return wrap(service.createBillingAccount(request));
     }
 
     /**
@@ -1033,8 +982,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createBillingAccountAndRole")
     public ResponseEntity<CreateBillingAccountAndRoleResponse> createBillingAccountAndRole(@RequestBody CreateBillingAccountAndRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createBillingAccountAndRole(ServiceInput.toMap(request));
-        return wrap(result, CreateBillingAccountAndRoleResponse::new);
+        return wrap(service.createBillingAccountAndRole(request));
     }
 
     /**
@@ -1043,8 +991,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createBillingAccountRole")
     public ResponseEntity<CreateBillingAccountRoleResponse> createBillingAccountRole(@RequestBody CreateBillingAccountRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createBillingAccountRole(ServiceInput.toMap(request));
-        return wrap(result, CreateBillingAccountRoleResponse::new);
+        return wrap(service.createBillingAccountRole(request));
     }
 
     /**
@@ -1053,8 +1000,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createBillingAccountTerm")
     public ResponseEntity<CreateBillingAccountTermResponse> createBillingAccountTerm(@RequestBody CreateBillingAccountTermRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createBillingAccountTerm(ServiceInput.toMap(request));
-        return wrap(result, CreateBillingAccountTermResponse::new);
+        return wrap(service.createBillingAccountTerm(request));
     }
 
     /**
@@ -1063,8 +1009,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createBudget")
     public ResponseEntity<CreateBudgetResponse> createBudget(@RequestBody CreateBudgetRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createBudget(ServiceInput.toMap(request));
-        return wrap(result, CreateBudgetResponse::new);
+        return wrap(service.createBudget(request));
     }
 
     /**
@@ -1073,8 +1018,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createBudgetItem")
     public ResponseEntity<CreateBudgetItemResponse> createBudgetItem(@RequestBody CreateBudgetItemRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createBudgetItem(ServiceInput.toMap(request));
-        return wrap(result, CreateBudgetItemResponse::new);
+        return wrap(service.createBudgetItem(request));
     }
 
     /**
@@ -1083,8 +1027,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createBudgetReview")
     public ResponseEntity<CreateBudgetReviewResponse> createBudgetReview(@RequestBody CreateBudgetReviewRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createBudgetReview(ServiceInput.toMap(request));
-        return wrap(result, CreateBudgetReviewResponse::new);
+        return wrap(service.createBudgetReview(request));
     }
 
     /**
@@ -1093,8 +1036,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createBudgetRole")
     public ResponseEntity<CreateBudgetRoleResponse> createBudgetRole(@RequestBody CreateBudgetRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createBudgetRole(ServiceInput.toMap(request));
-        return wrap(result, CreateBudgetRoleResponse::new);
+        return wrap(service.createBudgetRole(request));
     }
 
     /**
@@ -1103,8 +1045,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createCostComponentCalc")
     public ResponseEntity<CreateCostComponentCalcResponse> createCostComponentCalc(@RequestBody CreateCostComponentCalcRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createCostComponentCalc(ServiceInput.toMap(request));
-        return wrap(result, CreateCostComponentCalcResponse::new);
+        return wrap(service.createCostComponentCalc(request));
     }
 
     /**
@@ -1113,8 +1054,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createCreditCardTypeGlAccount")
     public ResponseEntity<CreateCreditCardTypeGlAccountResponse> createCreditCardTypeGlAccount(@RequestBody CreateCreditCardTypeGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createCreditCardTypeGlAccount(ServiceInput.toMap(request));
-        return wrap(result, CreateCreditCardTypeGlAccountResponse::new);
+        return wrap(service.createCreditCardTypeGlAccount(request));
     }
 
     /**
@@ -1132,8 +1072,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createDepositPayment")
     public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTrans(@RequestBody CreatePaymentAndFinAccountTransRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPaymentAndFinAccountTrans(ServiceInput.toMap(request));
-        return wrap(result, CreatePaymentAndFinAccountTransResponse::new);
+        return wrap(service.createPaymentAndFinAccountTrans(request));
     }
 
     /**
@@ -1142,8 +1081,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFinAccount")
     public ResponseEntity<CreateFinAccountResponse> createFinAccount(@RequestBody CreateFinAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFinAccount(ServiceInput.toMap(request));
-        return wrap(result, CreateFinAccountResponse::new);
+        return wrap(service.createFinAccount(request));
     }
 
     /**
@@ -1152,8 +1090,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFinAccountAuth")
     public ResponseEntity<CreateFinAccountAuthResponse> createFinAccountAuth(@RequestBody CreateFinAccountAuthRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFinAccountAuth(ServiceInput.toMap(request));
-        return wrap(result, CreateFinAccountAuthResponse::new);
+        return wrap(service.createFinAccountAuth(request));
     }
 
     /**
@@ -1162,8 +1099,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFinAccountRole")
     public ResponseEntity<CreateFinAccountRoleResponse> createFinAccountRole(@RequestBody CreateFinAccountRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFinAccountRole(ServiceInput.toMap(request));
-        return wrap(result, CreateFinAccountRoleResponse::new);
+        return wrap(service.createFinAccountRole(request));
     }
 
     /**
@@ -1172,8 +1108,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFinAccountTrans")
     public ResponseEntity<CreateFinAccountTransResponse> createFinAccountTrans(@RequestBody CreateFinAccountTransRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFinAccountTrans(ServiceInput.toMap(request));
-        return wrap(result, CreateFinAccountTransResponse::new);
+        return wrap(service.createFinAccountTrans(request));
     }
 
     /**
@@ -1182,8 +1117,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFinAccountTypeGlAccount")
     public ResponseEntity<CreateFinAccountTypeGlAccountResponse> createFinAccountTypeGlAccount(@RequestBody CreateFinAccountTypeGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFinAccountTypeGlAccount(ServiceInput.toMap(request));
-        return wrap(result, CreateFinAccountTypeGlAccountResponse::new);
+        return wrap(service.createFinAccountTypeGlAccount(request));
     }
 
     /**
@@ -1192,8 +1126,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFixedAsset")
     public ResponseEntity<CreateFixedAssetResponse> createFixedAsset(@RequestBody CreateFixedAssetRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFixedAsset(ServiceInput.toMap(request));
-        return wrap(result, CreateFixedAssetResponse::new);
+        return wrap(service.createFixedAsset(request));
     }
 
     /**
@@ -1202,8 +1135,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFixedAssetDepMethod")
     public ResponseEntity<CreateFixedAssetDepMethodResponse> createFixedAssetDepMethod(@RequestBody CreateFixedAssetDepMethodRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFixedAssetDepMethod(ServiceInput.toMap(request));
-        return wrap(result, CreateFixedAssetDepMethodResponse::new);
+        return wrap(service.createFixedAssetDepMethod(request));
     }
 
     /**
@@ -1212,8 +1144,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFixedAssetIdent")
     public ResponseEntity<CreateFixedAssetIdentResponse> createFixedAssetIdent(@RequestBody CreateFixedAssetIdentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFixedAssetIdent(ServiceInput.toMap(request));
-        return wrap(result, CreateFixedAssetIdentResponse::new);
+        return wrap(service.createFixedAssetIdent(request));
     }
 
     /**
@@ -1222,8 +1153,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFixedAssetMaint")
     public ResponseEntity<CreateFixedAssetMaintResponse> createFixedAssetMaint(@RequestBody CreateFixedAssetMaintRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFixedAssetMaint(ServiceInput.toMap(request));
-        return wrap(result, CreateFixedAssetMaintResponse::new);
+        return wrap(service.createFixedAssetMaint(request));
     }
 
     /**
@@ -1232,8 +1162,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFixedAssetMaintOrder")
     public ResponseEntity<CreateFixedAssetMaintOrderResponse> createFixedAssetMaintOrder(@RequestBody CreateFixedAssetMaintOrderRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFixedAssetMaintOrder(ServiceInput.toMap(request));
-        return wrap(result, CreateFixedAssetMaintOrderResponse::new);
+        return wrap(service.createFixedAssetMaintOrder(request));
     }
 
     /**
@@ -1242,8 +1171,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFixedAssetMeter")
     public ResponseEntity<CreateFixedAssetMeterResponse> createFixedAssetMeter(@RequestBody CreateFixedAssetMeterRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFixedAssetMeter(ServiceInput.toMap(request));
-        return wrap(result, CreateFixedAssetMeterResponse::new);
+        return wrap(service.createFixedAssetMeter(request));
     }
 
     /**
@@ -1252,8 +1180,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFixedAssetRegistration")
     public ResponseEntity<CreateFixedAssetRegistrationResponse> createFixedAssetRegistration(@RequestBody CreateFixedAssetRegistrationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFixedAssetRegistration(ServiceInput.toMap(request));
-        return wrap(result, CreateFixedAssetRegistrationResponse::new);
+        return wrap(service.createFixedAssetRegistration(request));
     }
 
     /**
@@ -1262,8 +1189,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFixedAssetStdCost")
     public ResponseEntity<CreateFixedAssetStdCostResponse> createFixedAssetStdCost(@RequestBody CreateFixedAssetStdCostRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFixedAssetStdCost(ServiceInput.toMap(request));
-        return wrap(result, CreateFixedAssetStdCostResponse::new);
+        return wrap(service.createFixedAssetStdCost(request));
     }
 
     /**
@@ -1272,8 +1198,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFixedAssetTypeGlAccount")
     public ResponseEntity<CreateFixedAssetTypeGlAccountResponse> createFixedAssetTypeGlAccount(@RequestBody CreateFixedAssetTypeGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFixedAssetTypeGlAccount(ServiceInput.toMap(request));
-        return wrap(result, CreateFixedAssetTypeGlAccountResponse::new);
+        return wrap(service.createFixedAssetTypeGlAccount(request));
     }
 
     /**
@@ -1282,8 +1207,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createFixedAssetTypeGlAccountForFixedAsset")
     public ResponseEntity<CreateFixedAssetTypeGlAccountResponse> createFixedAssetTypeGlAccountCreateFixedAssetTypeGlAccountForFixedAsset(@RequestBody CreateFixedAssetTypeGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createFixedAssetTypeGlAccount(ServiceInput.toMap(request));
-        return wrap(result, CreateFixedAssetTypeGlAccountResponse::new);
+        return wrap(service.createFixedAssetTypeGlAccount(request));
     }
 
     /**
@@ -1292,8 +1216,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createGlAccount")
     public ResponseEntity<CreateGlAccountResponse> createGlAccount(@RequestBody CreateGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createGlAccount(ServiceInput.toMap(request));
-        return wrap(result, CreateGlAccountResponse::new);
+        return wrap(service.createGlAccount(request));
     }
 
     /**
@@ -1302,8 +1225,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createGlAccountCategory")
     public ResponseEntity<CreateGlAccountCategoryResponse> createGlAccountCategory(@RequestBody CreateGlAccountCategoryRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createGlAccountCategory(ServiceInput.toMap(request));
-        return wrap(result, CreateGlAccountCategoryResponse::new);
+        return wrap(service.createGlAccountCategory(request));
     }
 
     /**
@@ -1312,8 +1234,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createGlAccountCategoryMember")
     public ResponseEntity<CreateGlAccountCategoryMemberResponse> createGlAccountCategoryMember(@RequestBody CreateGlAccountCategoryMemberRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createGlAccountCategoryMember(ServiceInput.toMap(request));
-        return wrap(result, CreateGlAccountCategoryMemberResponse::new);
+        return wrap(service.createGlAccountCategoryMember(request));
     }
 
     /**
@@ -1322,8 +1243,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createGlAccountOrganization")
     public ResponseEntity<CreateGlAccountOrganizationResponse> createGlAccountOrganization(@RequestBody CreateGlAccountOrganizationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createGlAccountOrganization(ServiceInput.toMap(request));
-        return wrap(result, CreateGlAccountOrganizationResponse::new);
+        return wrap(service.createGlAccountOrganization(request));
     }
 
     /**
@@ -1332,8 +1252,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createGlAccountTypeDefault")
     public ResponseEntity<CreateGlAccountTypeDefaultResponse> createGlAccountTypeDefault(@RequestBody CreateGlAccountTypeDefaultRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createGlAccountTypeDefault(ServiceInput.toMap(request));
-        return wrap(result, CreateGlAccountTypeDefaultResponse::new);
+        return wrap(service.createGlAccountTypeDefault(request));
     }
 
     /**
@@ -1342,8 +1261,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createGlJournal")
     public ResponseEntity<CreateGlJournalResponse> createGlJournal(@RequestBody CreateGlJournalRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createGlJournal(ServiceInput.toMap(request));
-        return wrap(result, CreateGlJournalResponse::new);
+        return wrap(service.createGlJournal(request));
     }
 
     /**
@@ -1352,8 +1270,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createGlReconciliation")
     public ResponseEntity<CreateGlReconciliationResponse> createGlReconciliation(@RequestBody CreateGlReconciliationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createGlReconciliation(ServiceInput.toMap(request));
-        return wrap(result, CreateGlReconciliationResponse::new);
+        return wrap(service.createGlReconciliation(request));
     }
 
     /**
@@ -1362,8 +1279,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createInvoice")
     public ResponseEntity<CreateInvoiceResponse> createInvoice(@RequestBody CreateInvoiceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createInvoice(ServiceInput.toMap(request));
-        return wrap(result, CreateInvoiceResponse::new);
+        return wrap(service.createInvoice(request));
     }
 
     /**
@@ -1372,8 +1288,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createInvoiceItem")
     public ResponseEntity<CreateInvoiceItemResponse> createInvoiceItem(@RequestBody CreateInvoiceItemRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createInvoiceItem(ServiceInput.toMap(request));
-        return wrap(result, CreateInvoiceItemResponse::new);
+        return wrap(service.createInvoiceItem(request));
     }
 
     /**
@@ -1391,8 +1306,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createInvoiceRole")
     public ResponseEntity<CreateInvoiceRoleResponse> createInvoiceRole(@RequestBody CreateInvoiceRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createInvoiceRole(ServiceInput.toMap(request));
-        return wrap(result, CreateInvoiceRoleResponse::new);
+        return wrap(service.createInvoiceRole(request));
     }
 
     /**
@@ -1401,8 +1315,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createInvoiceTerm")
     public ResponseEntity<CreateInvoiceTermResponse> createInvoiceTerm(@RequestBody CreateInvoiceTermRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createInvoiceTerm(ServiceInput.toMap(request));
-        return wrap(result, CreateInvoiceTermResponse::new);
+        return wrap(service.createInvoiceTerm(request));
     }
 
     /**
@@ -1411,8 +1324,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createOrganizationTaxAuthorityGlAccount")
     public ResponseEntity<CreateTaxAuthorityGlAccountResponse> createTaxAuthorityGlAccount(@RequestBody CreateTaxAuthorityGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createTaxAuthorityGlAccount(ServiceInput.toMap(request));
-        return wrap(result, CreateTaxAuthorityGlAccountResponse::new);
+        return wrap(service.createTaxAuthorityGlAccount(request));
     }
 
     /**
@@ -1421,8 +1333,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createPartyAcctgPreference")
     public ResponseEntity<CreatePartyAcctgPreferenceResponse> createPartyAcctgPreference(@RequestBody CreatePartyAcctgPreferenceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPartyAcctgPreference(ServiceInput.toMap(request));
-        return wrap(result, CreatePartyAcctgPreferenceResponse::new);
+        return wrap(service.createPartyAcctgPreference(request));
     }
 
     /**
@@ -1431,8 +1342,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createPartyFixedAssetAssignment")
     public ResponseEntity<CreatePartyFixedAssetAssignmentResponse> createPartyFixedAssetAssignment(@RequestBody CreatePartyFixedAssetAssignmentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPartyFixedAssetAssignment(ServiceInput.toMap(request));
-        return wrap(result, CreatePartyFixedAssetAssignmentResponse::new);
+        return wrap(service.createPartyFixedAssetAssignment(request));
     }
 
     /**
@@ -1441,8 +1351,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createPartyGlAccount")
     public ResponseEntity<CreatePartyGlAccountResponse> createPartyGlAccount(@RequestBody CreatePartyGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPartyGlAccount(ServiceInput.toMap(request));
-        return wrap(result, CreatePartyGlAccountResponse::new);
+        return wrap(service.createPartyGlAccount(request));
     }
 
     /**
@@ -1451,8 +1360,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createPartyPrefDocTypeTpl")
     public ResponseEntity<CreatePartyPrefDocTypeTplResponse> createPartyPrefDocTypeTpl(@RequestBody CreatePartyPrefDocTypeTplRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPartyPrefDocTypeTpl(ServiceInput.toMap(request));
-        return wrap(result, CreatePartyPrefDocTypeTplResponse::new);
+        return wrap(service.createPartyPrefDocTypeTpl(request));
     }
 
     /**
@@ -1461,8 +1369,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createPayment")
     public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTransCreatePayment(@RequestBody CreatePaymentAndFinAccountTransRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPaymentAndFinAccountTrans(ServiceInput.toMap(request));
-        return wrap(result, CreatePaymentAndFinAccountTransResponse::new);
+        return wrap(service.createPaymentAndFinAccountTrans(request));
     }
 
     /**
@@ -1471,8 +1378,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createPaymentAndAssociateToBillingAccount")
     public ResponseEntity<CreatePaymentAndApplicationResponse> createPaymentAndApplication(@RequestBody CreatePaymentAndApplicationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPaymentAndApplication(ServiceInput.toMap(request));
-        return wrap(result, CreatePaymentAndApplicationResponse::new);
+        return wrap(service.createPaymentAndApplication(request));
     }
 
     /**
@@ -1481,8 +1387,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createPaymentApplication")
     public ResponseEntity<CreatePaymentApplicationResponse> createPaymentApplication(@RequestBody CreatePaymentApplicationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPaymentApplication(ServiceInput.toMap(request));
-        return wrap(result, CreatePaymentApplicationResponse::new);
+        return wrap(service.createPaymentApplication(request));
     }
 
     /**
@@ -1491,8 +1396,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createPaymentBatch")
     public ResponseEntity<CheckAndCreateBatchForValidPaymentsResponse> checkAndCreateBatchForValidPayments(@RequestBody CheckAndCreateBatchForValidPaymentsRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.checkAndCreateBatchForValidPayments(ServiceInput.toMap(request));
-        return wrap(result, CheckAndCreateBatchForValidPaymentsResponse::new);
+        return wrap(service.checkAndCreateBatchForValidPayments(request));
     }
 
     /**
@@ -1501,8 +1405,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createPaymentGroup")
     public ResponseEntity<CreatePaymentGroupResponse> createPaymentGroup(@RequestBody CreatePaymentGroupRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPaymentGroup(ServiceInput.toMap(request));
-        return wrap(result, CreatePaymentGroupResponse::new);
+        return wrap(service.createPaymentGroup(request));
     }
 
     /**
@@ -1511,8 +1414,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createPaymentGroupMember")
     public ResponseEntity<CreatePaymentGroupMemberResponse> createPaymentGroupMemberCreatePaymentGroupMember(@RequestBody CreatePaymentGroupMemberRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPaymentGroupMember(ServiceInput.toMap(request));
-        return wrap(result, CreatePaymentGroupMemberResponse::new);
+        return wrap(service.createPaymentGroupMember(request));
     }
 
     /**
@@ -1539,8 +1441,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createTaxAuthority")
     public ResponseEntity<CreateTaxAuthorityResponse> createTaxAuthority(@RequestBody CreateTaxAuthorityRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createTaxAuthority(ServiceInput.toMap(request));
-        return wrap(result, CreateTaxAuthorityResponse::new);
+        return wrap(service.createTaxAuthority(request));
     }
 
     /**
@@ -1549,8 +1450,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createTaxAuthorityAssoc")
     public ResponseEntity<CreateTaxAuthorityAssocResponse> createTaxAuthorityAssoc(@RequestBody CreateTaxAuthorityAssocRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createTaxAuthorityAssoc(ServiceInput.toMap(request));
-        return wrap(result, CreateTaxAuthorityAssocResponse::new);
+        return wrap(service.createTaxAuthorityAssoc(request));
     }
 
     /**
@@ -1559,8 +1459,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createTaxAuthorityCategory")
     public ResponseEntity<CreateTaxAuthorityCategoryResponse> createTaxAuthorityCategory(@RequestBody CreateTaxAuthorityCategoryRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createTaxAuthorityCategory(ServiceInput.toMap(request));
-        return wrap(result, CreateTaxAuthorityCategoryResponse::new);
+        return wrap(service.createTaxAuthorityCategory(request));
     }
 
     /**
@@ -1569,8 +1468,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createTaxAuthorityGlAccount")
     public ResponseEntity<CreateTaxAuthorityGlAccountResponse> createTaxAuthorityGlAccountCreateTaxAuthorityGlAccount(@RequestBody CreateTaxAuthorityGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createTaxAuthorityGlAccount(ServiceInput.toMap(request));
-        return wrap(result, CreateTaxAuthorityGlAccountResponse::new);
+        return wrap(service.createTaxAuthorityGlAccount(request));
     }
 
     /**
@@ -1579,8 +1477,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createTaxAuthorityPartyInfo")
     public ResponseEntity<CreatePartyTaxAuthInfoResponse> createPartyTaxAuthInfo(@RequestBody CreatePartyTaxAuthInfoRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPartyTaxAuthInfo(ServiceInput.toMap(request));
-        return wrap(result, CreatePartyTaxAuthInfoResponse::new);
+        return wrap(service.createPartyTaxAuthInfo(request));
     }
 
     /**
@@ -1589,8 +1486,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createTaxAuthorityRateProduct")
     public ResponseEntity<CreateTaxAuthorityRateProductResponse> createTaxAuthorityRateProduct(@RequestBody CreateTaxAuthorityRateProductRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createTaxAuthorityRateProduct(ServiceInput.toMap(request));
-        return wrap(result, CreateTaxAuthorityRateProductResponse::new);
+        return wrap(service.createTaxAuthorityRateProduct(request));
     }
 
     /**
@@ -1598,9 +1494,8 @@ public class AccountingController {
      * <p>service: createUpdateCostCenter  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/createUpdateCostCenter")
-    public ResponseEntity<CreateUpdateCostCenterResponse> createUpdateCostCenter(@RequestParam Map<String, String> params) throws java.sql.SQLException {
-        Map<String, Object> result = service.createUpdateCostCenter(java.util.Map.copyOf(params));
-        return wrap(result, CreateUpdateCostCenterResponse::new);
+    public ResponseEntity<CreateUpdateCostCenterResponse> createUpdateCostCenter(CreateUpdateCostCenterRequest request) throws java.sql.SQLException {
+        return wrap(service.createUpdateCostCenter(request));
     }
 
     /**
@@ -1609,8 +1504,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createVarianceReasonGlAccount")
     public ResponseEntity<CreateVarianceReasonGlAccountResponse> createVarianceReasonGlAccount(@RequestBody CreateVarianceReasonGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createVarianceReasonGlAccount(ServiceInput.toMap(request));
-        return wrap(result, CreateVarianceReasonGlAccountResponse::new);
+        return wrap(service.createVarianceReasonGlAccount(request));
     }
 
     /**
@@ -1619,8 +1513,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/createWithdrawalPayment")
     public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTransCreateWithdrawalPayment(@RequestBody CreatePaymentAndFinAccountTransRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPaymentAndFinAccountTrans(ServiceInput.toMap(request));
-        return wrap(result, CreatePaymentAndFinAccountTransResponse::new);
+        return wrap(service.createPaymentAndFinAccountTrans(request));
     }
 
     /**
@@ -1638,8 +1531,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteAcctgTransEntry")
     public ResponseEntity<DeleteAcctgTransEntryResponse> deleteAcctgTransEntry(@RequestBody DeleteAcctgTransEntryRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteAcctgTransEntry(ServiceInput.toMap(request));
-        return wrap(result, DeleteAcctgTransEntryResponse::new);
+        return wrap(service.deleteAcctgTransEntry(request));
     }
 
     /**
@@ -1648,8 +1540,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteAgreementRole")
     public ResponseEntity<DeleteAgreementRoleResponse> deleteAgreementRole(@RequestBody DeleteAgreementRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteAgreementRole(ServiceInput.toMap(request));
-        return wrap(result, DeleteAgreementRoleResponse::new);
+        return wrap(service.deleteAgreementRole(request));
     }
 
     /**
@@ -1658,8 +1549,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteAgreementTerm")
     public ResponseEntity<DeleteAgreementTermResponse> deleteAgreementTerm(@RequestBody DeleteAgreementTermRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteAgreementTerm(ServiceInput.toMap(request));
-        return wrap(result, DeleteAgreementTermResponse::new);
+        return wrap(service.deleteAgreementTerm(request));
     }
 
     /**
@@ -1668,8 +1558,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteAgreementWorkEffortApplic")
     public ResponseEntity<DeleteAgreementWorkEffortApplicResponse> deleteAgreementWorkEffortApplic(@RequestBody DeleteAgreementWorkEffortApplicRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteAgreementWorkEffortApplic(ServiceInput.toMap(request));
-        return wrap(result, DeleteAgreementWorkEffortApplicResponse::new);
+        return wrap(service.deleteAgreementWorkEffortApplic(request));
     }
 
     /**
@@ -1678,8 +1567,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteBillingAccountRole")
     public ResponseEntity<RemoveBillingAccountRoleResponse> removeBillingAccountRole(@RequestBody RemoveBillingAccountRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeBillingAccountRole(ServiceInput.toMap(request));
-        return wrap(result, RemoveBillingAccountRoleResponse::new);
+        return wrap(service.removeBillingAccountRole(request));
     }
 
     /**
@@ -1688,8 +1576,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteCostComponentCalc")
     public ResponseEntity<RemoveCostComponentCalcResponse> removeCostComponentCalc(@RequestBody RemoveCostComponentCalcRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeCostComponentCalc(ServiceInput.toMap(request));
-        return wrap(result, RemoveCostComponentCalcResponse::new);
+        return wrap(service.removeCostComponentCalc(request));
     }
 
     /**
@@ -1698,8 +1585,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteCreditCardTypeGlAccount")
     public ResponseEntity<DeleteCreditCardTypeGlAccountResponse> deleteCreditCardTypeGlAccount(@RequestBody DeleteCreditCardTypeGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteCreditCardTypeGlAccount(ServiceInput.toMap(request));
-        return wrap(result, DeleteCreditCardTypeGlAccountResponse::new);
+        return wrap(service.deleteCreditCardTypeGlAccount(request));
     }
 
     /**
@@ -1717,8 +1603,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteDepositSlip")
     public ResponseEntity<CancelPaymentBatchResponse> cancelPaymentBatchDeleteDepositSlip(@RequestBody CancelPaymentBatchRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.cancelPaymentBatch(ServiceInput.toMap(request));
-        return wrap(result, CancelPaymentBatchResponse::new);
+        return wrap(service.cancelPaymentBatch(request));
     }
 
     /**
@@ -1727,8 +1612,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteFinAccount")
     public ResponseEntity<DeleteFinAccountResponse> deleteFinAccount(@RequestBody DeleteFinAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteFinAccount(ServiceInput.toMap(request));
-        return wrap(result, DeleteFinAccountResponse::new);
+        return wrap(service.deleteFinAccount(request));
     }
 
     /**
@@ -1737,8 +1621,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteFinAccountRole")
     public ResponseEntity<DeleteFinAccountRoleResponse> deleteFinAccountRole(@RequestBody DeleteFinAccountRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteFinAccountRole(ServiceInput.toMap(request));
-        return wrap(result, DeleteFinAccountRoleResponse::new);
+        return wrap(service.deleteFinAccountRole(request));
     }
 
     /**
@@ -1747,8 +1630,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteFinAccountTypeGlAccount")
     public ResponseEntity<DeleteFinAccountTypeGlAccountResponse> deleteFinAccountTypeGlAccount(@RequestBody DeleteFinAccountTypeGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteFinAccountTypeGlAccount(ServiceInput.toMap(request));
-        return wrap(result, DeleteFinAccountTypeGlAccountResponse::new);
+        return wrap(service.deleteFinAccountTypeGlAccount(request));
     }
 
     /**
@@ -1757,8 +1639,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteFixedAssetDepMethod")
     public ResponseEntity<DeleteFixedAssetDepMethodResponse> deleteFixedAssetDepMethod(@RequestBody DeleteFixedAssetDepMethodRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteFixedAssetDepMethod(ServiceInput.toMap(request));
-        return wrap(result, DeleteFixedAssetDepMethodResponse::new);
+        return wrap(service.deleteFixedAssetDepMethod(request));
     }
 
     /**
@@ -1767,8 +1648,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteFixedAssetMaint")
     public ResponseEntity<DeleteFixedAssetMaintResponse> deleteFixedAssetMaint(@RequestBody DeleteFixedAssetMaintRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteFixedAssetMaint(ServiceInput.toMap(request));
-        return wrap(result, DeleteFixedAssetMaintResponse::new);
+        return wrap(service.deleteFixedAssetMaint(request));
     }
 
     /**
@@ -1777,8 +1657,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteFixedAssetMaintOrder")
     public ResponseEntity<DeleteFixedAssetMaintOrderResponse> deleteFixedAssetMaintOrder(@RequestBody DeleteFixedAssetMaintOrderRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteFixedAssetMaintOrder(ServiceInput.toMap(request));
-        return wrap(result, DeleteFixedAssetMaintOrderResponse::new);
+        return wrap(service.deleteFixedAssetMaintOrder(request));
     }
 
     /**
@@ -1787,8 +1666,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteFixedAssetMeter")
     public ResponseEntity<DeleteFixedAssetMeterResponse> deleteFixedAssetMeter(@RequestBody DeleteFixedAssetMeterRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteFixedAssetMeter(ServiceInput.toMap(request));
-        return wrap(result, DeleteFixedAssetMeterResponse::new);
+        return wrap(service.deleteFixedAssetMeter(request));
     }
 
     /**
@@ -1797,8 +1675,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteFixedAssetRegistration")
     public ResponseEntity<DeleteFixedAssetRegistrationResponse> deleteFixedAssetRegistration(@RequestBody DeleteFixedAssetRegistrationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteFixedAssetRegistration(ServiceInput.toMap(request));
-        return wrap(result, DeleteFixedAssetRegistrationResponse::new);
+        return wrap(service.deleteFixedAssetRegistration(request));
     }
 
     /**
@@ -1807,8 +1684,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteFixedAssetTypeGlAccount")
     public ResponseEntity<DeleteFixedAssetTypeGlAccountResponse> deleteFixedAssetTypeGlAccount(@RequestBody DeleteFixedAssetTypeGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteFixedAssetTypeGlAccount(ServiceInput.toMap(request));
-        return wrap(result, DeleteFixedAssetTypeGlAccountResponse::new);
+        return wrap(service.deleteFixedAssetTypeGlAccount(request));
     }
 
     /**
@@ -1817,8 +1693,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteFixedAssetTypeGlAccountForFixedAsset")
     public ResponseEntity<DeleteFixedAssetTypeGlAccountResponse> deleteFixedAssetTypeGlAccountDeleteFixedAssetTypeGlAccountForFixedAsset(@RequestBody DeleteFixedAssetTypeGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteFixedAssetTypeGlAccount(ServiceInput.toMap(request));
-        return wrap(result, DeleteFixedAssetTypeGlAccountResponse::new);
+        return wrap(service.deleteFixedAssetTypeGlAccount(request));
     }
 
     /**
@@ -1827,8 +1702,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteGlAccountCategoryMember")
     public ResponseEntity<DeleteGlAccountCategoryMemberResponse> deleteGlAccountCategoryMember(@RequestBody DeleteGlAccountCategoryMemberRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteGlAccountCategoryMember(ServiceInput.toMap(request));
-        return wrap(result, DeleteGlAccountCategoryMemberResponse::new);
+        return wrap(service.deleteGlAccountCategoryMember(request));
     }
 
     /**
@@ -1837,8 +1711,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteGlJournal")
     public ResponseEntity<DeleteGlJournalResponse> deleteGlJournal(@RequestBody DeleteGlJournalRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteGlJournal(ServiceInput.toMap(request));
-        return wrap(result, DeleteGlJournalResponse::new);
+        return wrap(service.deleteGlJournal(request));
     }
 
     /**
@@ -1847,8 +1720,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteInvoiceTerm")
     public ResponseEntity<DeleteInvoiceTermResponse> deleteInvoiceTerm(@RequestBody DeleteInvoiceTermRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteInvoiceTerm(ServiceInput.toMap(request));
-        return wrap(result, DeleteInvoiceTermResponse::new);
+        return wrap(service.deleteInvoiceTerm(request));
     }
 
     /**
@@ -1857,8 +1729,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteOrganizationTaxAuthorityGlAccount")
     public ResponseEntity<DeleteTaxAuthorityGlAccountResponse> deleteTaxAuthorityGlAccount(@RequestBody DeleteTaxAuthorityGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteTaxAuthorityGlAccount(ServiceInput.toMap(request));
-        return wrap(result, DeleteTaxAuthorityGlAccountResponse::new);
+        return wrap(service.deleteTaxAuthorityGlAccount(request));
     }
 
     /**
@@ -1867,8 +1738,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deletePartyFixedAssetAssignment")
     public ResponseEntity<DeletePartyFixedAssetAssignmentResponse> deletePartyFixedAssetAssignment(@RequestBody DeletePartyFixedAssetAssignmentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deletePartyFixedAssetAssignment(ServiceInput.toMap(request));
-        return wrap(result, DeletePartyFixedAssetAssignmentResponse::new);
+        return wrap(service.deletePartyFixedAssetAssignment(request));
     }
 
     /**
@@ -1877,8 +1747,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deletePartyGlAccount")
     public ResponseEntity<DeletePartyGlAccountResponse> deletePartyGlAccount(@RequestBody DeletePartyGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deletePartyGlAccount(ServiceInput.toMap(request));
-        return wrap(result, DeletePartyGlAccountResponse::new);
+        return wrap(service.deletePartyGlAccount(request));
     }
 
     /**
@@ -1887,8 +1756,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deletePaymentGroup")
     public ResponseEntity<DeletePaymentGroupResponse> deletePaymentGroup(@RequestBody DeletePaymentGroupRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deletePaymentGroup(ServiceInput.toMap(request));
-        return wrap(result, DeletePaymentGroupResponse::new);
+        return wrap(service.deletePaymentGroup(request));
     }
 
     /**
@@ -1915,8 +1783,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteTaxAuthorityAssoc")
     public ResponseEntity<DeleteTaxAuthorityAssocResponse> deleteTaxAuthorityAssoc(@RequestBody DeleteTaxAuthorityAssocRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteTaxAuthorityAssoc(ServiceInput.toMap(request));
-        return wrap(result, DeleteTaxAuthorityAssocResponse::new);
+        return wrap(service.deleteTaxAuthorityAssoc(request));
     }
 
     /**
@@ -1925,8 +1792,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteTaxAuthorityCategory")
     public ResponseEntity<DeleteTaxAuthorityCategoryResponse> deleteTaxAuthorityCategory(@RequestBody DeleteTaxAuthorityCategoryRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteTaxAuthorityCategory(ServiceInput.toMap(request));
-        return wrap(result, DeleteTaxAuthorityCategoryResponse::new);
+        return wrap(service.deleteTaxAuthorityCategory(request));
     }
 
     /**
@@ -1935,8 +1801,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteTaxAuthorityGlAccount")
     public ResponseEntity<DeleteTaxAuthorityGlAccountResponse> deleteTaxAuthorityGlAccountDeleteTaxAuthorityGlAccount(@RequestBody DeleteTaxAuthorityGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteTaxAuthorityGlAccount(ServiceInput.toMap(request));
-        return wrap(result, DeleteTaxAuthorityGlAccountResponse::new);
+        return wrap(service.deleteTaxAuthorityGlAccount(request));
     }
 
     /**
@@ -1945,8 +1810,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteTaxAuthorityPartyInfo")
     public ResponseEntity<DeletePartyTaxAuthInfoResponse> deletePartyTaxAuthInfo(@RequestBody DeletePartyTaxAuthInfoRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deletePartyTaxAuthInfo(ServiceInput.toMap(request));
-        return wrap(result, DeletePartyTaxAuthInfoResponse::new);
+        return wrap(service.deletePartyTaxAuthInfo(request));
     }
 
     /**
@@ -1955,8 +1819,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteTaxAuthorityRateProduct")
     public ResponseEntity<DeleteTaxAuthorityRateProductResponse> deleteTaxAuthorityRateProduct(@RequestBody DeleteTaxAuthorityRateProductRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteTaxAuthorityRateProduct(ServiceInput.toMap(request));
-        return wrap(result, DeleteTaxAuthorityRateProductResponse::new);
+        return wrap(service.deleteTaxAuthorityRateProduct(request));
     }
 
     /**
@@ -1965,8 +1828,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/deleteVarianceReasonGlAccount")
     public ResponseEntity<DeleteVarianceReasonGlAccountResponse> deleteVarianceReasonGlAccount(@RequestBody DeleteVarianceReasonGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteVarianceReasonGlAccount(ServiceInput.toMap(request));
-        return wrap(result, DeleteVarianceReasonGlAccountResponse::new);
+        return wrap(service.deleteVarianceReasonGlAccount(request));
     }
 
     /**
@@ -1975,8 +1837,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/depositWithdrawPayments")
     public ResponseEntity<DepositWithdrawPaymentsResponse> depositWithdrawPayments(@RequestBody DepositWithdrawPaymentsRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.depositWithdrawPayments(ServiceInput.toMap(request));
-        return wrap(result, DepositWithdrawPaymentsResponse::new);
+        return wrap(service.depositWithdrawPayments(request));
     }
 
     /**
@@ -1985,8 +1846,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/executeSendPerEmail")
     public ResponseEntity<SendInvoicePerEmailResponse> sendInvoicePerEmail(@RequestBody SendInvoicePerEmailRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.sendInvoicePerEmail(ServiceInput.toMap(request));
-        return wrap(result, SendInvoicePerEmailResponse::new);
+        return wrap(service.sendInvoicePerEmail(request));
     }
 
     /**
@@ -1995,8 +1855,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/expireDepositSlipMember")
     public ResponseEntity<ExpirePaymentGroupMemberResponse> expirePaymentGroupMember(@RequestBody ExpirePaymentGroupMemberRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.expirePaymentGroupMember(ServiceInput.toMap(request));
-        return wrap(result, ExpirePaymentGroupMemberResponse::new);
+        return wrap(service.expirePaymentGroupMember(request));
     }
 
     /**
@@ -2005,8 +1864,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/expireFinAccountAuth")
     public ResponseEntity<ExpireFinAccountAuthResponse> expireFinAccountAuth(@RequestBody ExpireFinAccountAuthRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.expireFinAccountAuth(ServiceInput.toMap(request));
-        return wrap(result, ExpireFinAccountAuthResponse::new);
+        return wrap(service.expireFinAccountAuth(request));
     }
 
     /**
@@ -2015,8 +1873,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/expirePartyPrefDocTypeTpl")
     public ResponseEntity<ExpirePartyPrefDocTypeTplResponse> expirePartyPrefDocTypeTpl(@RequestBody ExpirePartyPrefDocTypeTplRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.expirePartyPrefDocTypeTpl(ServiceInput.toMap(request));
-        return wrap(result, ExpirePartyPrefDocTypeTplResponse::new);
+        return wrap(service.expirePartyPrefDocTypeTpl(request));
     }
 
     /**
@@ -2025,8 +1882,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/expirePaymentGroupMember")
     public ResponseEntity<ExpirePaymentGroupMemberResponse> expirePaymentGroupMemberExpirePaymentGroupMember(@RequestBody ExpirePaymentGroupMemberRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.expirePaymentGroupMember(ServiceInput.toMap(request));
-        return wrap(result, ExpirePaymentGroupMemberResponse::new);
+        return wrap(service.expirePaymentGroupMember(request));
     }
 
     /**
@@ -2035,8 +1891,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/expireRateAmount")
     public ResponseEntity<ExpireRateAmountResponse> expireRateAmount(@RequestBody ExpireRateAmountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.expireRateAmount(ServiceInput.toMap(request));
-        return wrap(result, ExpireRateAmountResponse::new);
+        return wrap(service.expireRateAmount(request));
     }
 
     /**
@@ -2044,9 +1899,8 @@ public class AccountingController {
      * <p>service: getFinAccountTransRunningTotalAndBalances  entities: unknown  auth: -
      */
     @GetMapping("/accounting/control/getFinAccountTransRunningTotalAndBalances")
-    public ResponseEntity<GetFinAccountTransRunningTotalAndBalancesResponse> getFinAccountTransRunningTotalAndBalances(@RequestParam Map<String, String> params) throws java.sql.SQLException {
-        Map<String, Object> result = service.getFinAccountTransRunningTotalAndBalances(java.util.Map.copyOf(params));
-        return wrap(result, GetFinAccountTransRunningTotalAndBalancesResponse::new);
+    public ResponseEntity<GetFinAccountTransRunningTotalAndBalancesResponse> getFinAccountTransRunningTotalAndBalances(GetFinAccountTransRunningTotalAndBalancesRequest request) throws java.sql.SQLException {
+        return wrap(service.getFinAccountTransRunningTotalAndBalances(request));
     }
 
     /**
@@ -2055,8 +1909,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/getInvoiceRunningTotal")
     public ResponseEntity<GetInvoiceRunningTotalResponse> getInvoiceRunningTotal(@RequestBody GetInvoiceRunningTotalRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.getInvoiceRunningTotal(ServiceInput.toMap(request));
-        return wrap(result, GetInvoiceRunningTotalResponse::new);
+        return wrap(service.getInvoiceRunningTotal(request));
     }
 
     /**
@@ -2065,8 +1918,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/getPaymentRunningTotal")
     public ResponseEntity<GetPaymentRunningTotalResponse> getPaymentRunningTotal(@RequestBody GetPaymentRunningTotalRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.getPaymentRunningTotal(ServiceInput.toMap(request));
-        return wrap(result, GetPaymentRunningTotalResponse::new);
+        return wrap(service.getPaymentRunningTotal(request));
     }
 
     /**
@@ -2075,8 +1927,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/postAcctgTrans")
     public ResponseEntity<PostAcctgTransResponse> postAcctgTrans(@RequestBody PostAcctgTransRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.postAcctgTrans(ServiceInput.toMap(request));
-        return wrap(result, PostAcctgTransResponse::new);
+        return wrap(service.postAcctgTrans(request));
     }
 
     /**
@@ -2085,8 +1936,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/processAuthorizeTransaction")
     public ResponseEntity<AuthOrderPaymentPreferenceResponse> authOrderPaymentPreference(@RequestBody AuthOrderPaymentPreferenceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.authOrderPaymentPreference(ServiceInput.toMap(request));
-        return wrap(result, AuthOrderPaymentPreferenceResponse::new);
+        return wrap(service.authOrderPaymentPreference(request));
     }
 
     /**
@@ -2095,8 +1945,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/processCaptureTransaction")
     public ResponseEntity<CaptureOrderPaymentsResponse> captureOrderPayments(@RequestBody CaptureOrderPaymentsRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.captureOrderPayments(ServiceInput.toMap(request));
-        return wrap(result, CaptureOrderPaymentsResponse::new);
+        return wrap(service.captureOrderPayments(request));
     }
 
     /**
@@ -2105,8 +1954,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/processCommissionRun")
     public ResponseEntity<CreateCommissionInvoicesResponse> createCommissionInvoices(@RequestBody CreateCommissionInvoicesRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createCommissionInvoices(ServiceInput.toMap(request));
-        return wrap(result, CreateCommissionInvoicesResponse::new);
+        return wrap(service.createCommissionInvoices(request));
     }
 
     /**
@@ -2115,8 +1963,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/processManualCcTx")
     public ResponseEntity<ManualForcedCcTransactionResponse> manualForcedCcTransaction(@RequestBody ManualForcedCcTransactionRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.manualForcedCcTransaction(ServiceInput.toMap(request));
-        return wrap(result, ManualForcedCcTransactionResponse::new);
+        return wrap(service.manualForcedCcTransaction(request));
     }
 
     /**
@@ -2125,8 +1972,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/processRefundTransaction")
     public ResponseEntity<RefundOrderPaymentPreferenceResponse> refundOrderPaymentPreference(@RequestBody RefundOrderPaymentPreferenceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.refundOrderPaymentPreference(ServiceInput.toMap(request));
-        return wrap(result, RefundOrderPaymentPreferenceResponse::new);
+        return wrap(service.refundOrderPaymentPreference(request));
     }
 
     /**
@@ -2135,8 +1981,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/processReleaseTransaction")
     public ResponseEntity<ReleaseOrderPaymentPreferenceResponse> releaseOrderPaymentPreference(@RequestBody ReleaseOrderPaymentPreferenceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.releaseOrderPaymentPreference(ServiceInput.toMap(request));
-        return wrap(result, ReleaseOrderPaymentPreferenceResponse::new);
+        return wrap(service.releaseOrderPaymentPreference(request));
     }
 
     /**
@@ -2145,8 +1990,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/quickCreateAcctgTransAndEntries")
     public ResponseEntity<QuickCreateAcctgTransAndEntriesResponse> quickCreateAcctgTransAndEntries(@RequestBody QuickCreateAcctgTransAndEntriesRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.quickCreateAcctgTransAndEntries(ServiceInput.toMap(request));
-        return wrap(result, QuickCreateAcctgTransAndEntriesResponse::new);
+        return wrap(service.quickCreateAcctgTransAndEntries(request));
     }
 
     /**
@@ -2154,9 +1998,8 @@ public class AccountingController {
      * <p>service: quickSendPayment  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/quickSendPayment")
-    public ResponseEntity<QuickSendPaymentResponse> quickSendPayment(@RequestParam Map<String, String> params) throws java.sql.SQLException {
-        Map<String, Object> result = service.quickSendPayment(java.util.Map.copyOf(params));
-        return wrap(result, QuickSendPaymentResponse::new);
+    public ResponseEntity<QuickSendPaymentResponse> quickSendPayment(QuickSendPaymentRequest request) throws java.sql.SQLException {
+        return wrap(service.quickSendPayment(request));
     }
 
     /**
@@ -2164,9 +2007,8 @@ public class AccountingController {
      * <p>service: reconcileFinAccountTrans  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/reconcileFinAccountTrans")
-    public ResponseEntity<ReconcileFinAccountTransResponse> reconcileFinAccountTransReconcileFinAccountTrans(@RequestParam Map<String, String> params) throws java.sql.SQLException {
-        Map<String, Object> result = service.reconcileFinAccountTrans(java.util.Map.copyOf(params));
-        return wrap(result, ReconcileFinAccountTransResponse::new);
+    public ResponseEntity<ReconcileFinAccountTransResponse> reconcileFinAccountTransReconcileFinAccountTrans(ReconcileFinAccountTransRequest request) throws java.sql.SQLException {
+        return wrap(service.reconcileFinAccountTrans(request));
     }
 
     /**
@@ -2175,8 +2017,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeAgreementContent")
     public ResponseEntity<RemoveAgreementContentResponse> removeAgreementContent(@RequestBody RemoveAgreementContentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeAgreementContent(ServiceInput.toMap(request));
-        return wrap(result, RemoveAgreementContentResponse::new);
+        return wrap(service.removeAgreementContent(request));
     }
 
     /**
@@ -2185,8 +2026,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeAgreementGeographicalApplic")
     public ResponseEntity<RemoveAgreementGeographicalApplicResponse> removeAgreementGeographicalApplic(@RequestBody RemoveAgreementGeographicalApplicRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeAgreementGeographicalApplic(ServiceInput.toMap(request));
-        return wrap(result, RemoveAgreementGeographicalApplicResponse::new);
+        return wrap(service.removeAgreementGeographicalApplic(request));
     }
 
     /**
@@ -2195,8 +2035,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeAgreementItem")
     public ResponseEntity<RemoveAgreementItemResponse> removeAgreementItem(@RequestBody RemoveAgreementItemRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeAgreementItem(ServiceInput.toMap(request));
-        return wrap(result, RemoveAgreementItemResponse::new);
+        return wrap(service.removeAgreementItem(request));
     }
 
     /**
@@ -2205,8 +2044,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeAgreementItemFacility")
     public ResponseEntity<RemoveAgreementFacilityApplResponse> removeAgreementFacilityAppl(@RequestBody RemoveAgreementFacilityApplRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeAgreementFacilityAppl(ServiceInput.toMap(request));
-        return wrap(result, RemoveAgreementFacilityApplResponse::new);
+        return wrap(service.removeAgreementFacilityAppl(request));
     }
 
     /**
@@ -2215,8 +2053,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeAgreementItemParty")
     public ResponseEntity<RemoveAgreementPartyApplicResponse> removeAgreementPartyApplic(@RequestBody RemoveAgreementPartyApplicRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeAgreementPartyApplic(ServiceInput.toMap(request));
-        return wrap(result, RemoveAgreementPartyApplicResponse::new);
+        return wrap(service.removeAgreementPartyApplic(request));
     }
 
     /**
@@ -2225,8 +2062,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeAgreementItemProduct")
     public ResponseEntity<RemoveAgreementProductApplResponse> removeAgreementProductAppl(@RequestBody RemoveAgreementProductApplRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeAgreementProductAppl(ServiceInput.toMap(request));
-        return wrap(result, RemoveAgreementProductApplResponse::new);
+        return wrap(service.removeAgreementProductAppl(request));
     }
 
     /**
@@ -2244,8 +2080,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeAgreementItemTerm")
     public ResponseEntity<DeleteAgreementTermResponse> deleteAgreementTermRemoveAgreementItemTerm(@RequestBody DeleteAgreementTermRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.deleteAgreementTerm(ServiceInput.toMap(request));
-        return wrap(result, DeleteAgreementTermResponse::new);
+        return wrap(service.deleteAgreementTerm(request));
     }
 
     /**
@@ -2254,8 +2089,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeAgreementPromoAppl")
     public ResponseEntity<RemoveAgreementPromoApplResponse> removeAgreementPromoAppl(@RequestBody RemoveAgreementPromoApplRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeAgreementPromoAppl(ServiceInput.toMap(request));
-        return wrap(result, RemoveAgreementPromoApplResponse::new);
+        return wrap(service.removeAgreementPromoAppl(request));
     }
 
     /**
@@ -2264,8 +2098,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeBillingAccountTerm")
     public ResponseEntity<RemoveBillingAccountTermResponse> removeBillingAccountTerm(@RequestBody RemoveBillingAccountTermRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeBillingAccountTerm(ServiceInput.toMap(request));
-        return wrap(result, RemoveBillingAccountTermResponse::new);
+        return wrap(service.removeBillingAccountTerm(request));
     }
 
     /**
@@ -2274,8 +2107,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeBudgetItem")
     public ResponseEntity<RemoveBudgetItemResponse> removeBudgetItem(@RequestBody RemoveBudgetItemRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeBudgetItem(ServiceInput.toMap(request));
-        return wrap(result, RemoveBudgetItemResponse::new);
+        return wrap(service.removeBudgetItem(request));
     }
 
     /**
@@ -2284,8 +2116,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeBudgetReview")
     public ResponseEntity<RemoveBudgetReviewResponse> removeBudgetReview(@RequestBody RemoveBudgetReviewRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeBudgetReview(ServiceInput.toMap(request));
-        return wrap(result, RemoveBudgetReviewResponse::new);
+        return wrap(service.removeBudgetReview(request));
     }
 
     /**
@@ -2294,8 +2125,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeBudgetRole")
     public ResponseEntity<RemoveBudgetRoleResponse> removeBudgetRole(@RequestBody RemoveBudgetRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeBudgetRole(ServiceInput.toMap(request));
-        return wrap(result, RemoveBudgetRoleResponse::new);
+        return wrap(service.removeBudgetRole(request));
     }
 
     /**
@@ -2304,8 +2134,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeFinAccountTransFromReconciliation")
     public ResponseEntity<RemoveFinAccountTransFromReconciliationResponse> removeFinAccountTransFromReconciliation(@RequestBody RemoveFinAccountTransFromReconciliationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeFinAccountTransFromReconciliation(ServiceInput.toMap(request));
-        return wrap(result, RemoveFinAccountTransFromReconciliationResponse::new);
+        return wrap(service.removeFinAccountTransFromReconciliation(request));
     }
 
     /**
@@ -2314,8 +2143,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeFixedAssetIdent")
     public ResponseEntity<RemoveFixedAssetIdentResponse> removeFixedAssetIdent(@RequestBody RemoveFixedAssetIdentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeFixedAssetIdent(ServiceInput.toMap(request));
-        return wrap(result, RemoveFixedAssetIdentResponse::new);
+        return wrap(service.removeFixedAssetIdent(request));
     }
 
     /**
@@ -2324,8 +2152,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeFixedAssetProduct")
     public ResponseEntity<RemoveFixedAssetProductResponse> removeFixedAssetProduct(@RequestBody RemoveFixedAssetProductRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeFixedAssetProduct(ServiceInput.toMap(request));
-        return wrap(result, RemoveFixedAssetProductResponse::new);
+        return wrap(service.removeFixedAssetProduct(request));
     }
 
     /**
@@ -2334,8 +2161,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeGlAccountTypeDefault")
     public ResponseEntity<RemoveGlAccountTypeDefaultResponse> removeGlAccountTypeDefault(@RequestBody RemoveGlAccountTypeDefaultRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeGlAccountTypeDefault(ServiceInput.toMap(request));
-        return wrap(result, RemoveGlAccountTypeDefaultResponse::new);
+        return wrap(service.removeGlAccountTypeDefault(request));
     }
 
     /**
@@ -2344,8 +2170,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeInvoiceApplication")
     public ResponseEntity<RemovePaymentApplicationResponse> removePaymentApplication(@RequestBody RemovePaymentApplicationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removePaymentApplication(ServiceInput.toMap(request));
-        return wrap(result, RemovePaymentApplicationResponse::new);
+        return wrap(service.removePaymentApplication(request));
     }
 
     /**
@@ -2354,8 +2179,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeInvoiceItem")
     public ResponseEntity<RemoveInvoiceItemResponse> removeInvoiceItem(@RequestBody RemoveInvoiceItemRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeInvoiceItem(ServiceInput.toMap(request));
-        return wrap(result, RemoveInvoiceItemResponse::new);
+        return wrap(service.removeInvoiceItem(request));
     }
 
     /**
@@ -2364,8 +2188,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeInvoiceRole")
     public ResponseEntity<RemoveInvoiceRoleResponse> removeInvoiceRole(@RequestBody RemoveInvoiceRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeInvoiceRole(ServiceInput.toMap(request));
-        return wrap(result, RemoveInvoiceRoleResponse::new);
+        return wrap(service.removeInvoiceRole(request));
     }
 
     /**
@@ -2374,8 +2197,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removePaymentApplication")
     public ResponseEntity<RemovePaymentApplicationResponse> removePaymentApplicationRemovePaymentApplication(@RequestBody RemovePaymentApplicationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removePaymentApplication(ServiceInput.toMap(request));
-        return wrap(result, RemovePaymentApplicationResponse::new);
+        return wrap(service.removePaymentApplication(request));
     }
 
     /**
@@ -2384,8 +2206,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removePaymentMethodTypeGlAssignment")
     public ResponseEntity<RemovePaymentMethodTypeGlAssignmentResponse> removePaymentMethodTypeGlAssignment(@RequestBody RemovePaymentMethodTypeGlAssignmentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removePaymentMethodTypeGlAssignment(ServiceInput.toMap(request));
-        return wrap(result, RemovePaymentMethodTypeGlAssignmentResponse::new);
+        return wrap(service.removePaymentMethodTypeGlAssignment(request));
     }
 
     /**
@@ -2394,8 +2215,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removePaymentTypeGlAssignment")
     public ResponseEntity<RemovePaymentTypeGlAssignmentResponse> removePaymentTypeGlAssignment(@RequestBody RemovePaymentTypeGlAssignmentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removePaymentTypeGlAssignment(ServiceInput.toMap(request));
-        return wrap(result, RemovePaymentTypeGlAssignmentResponse::new);
+        return wrap(service.removePaymentTypeGlAssignment(request));
     }
 
     /**
@@ -2404,8 +2224,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removePurInvoiceItemTypeGlAssignment")
     public ResponseEntity<RemoveInvoiceItemTypeGlAssignmentResponse> removeInvoiceItemTypeGlAssignment(@RequestBody RemoveInvoiceItemTypeGlAssignmentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeInvoiceItemTypeGlAssignment(ServiceInput.toMap(request));
-        return wrap(result, RemoveInvoiceItemTypeGlAssignmentResponse::new);
+        return wrap(service.removeInvoiceItemTypeGlAssignment(request));
     }
 
     /**
@@ -2414,8 +2233,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/removeSalInvoiceItemTypeGlAssignment")
     public ResponseEntity<RemoveInvoiceItemTypeGlAssignmentResponse> removeInvoiceItemTypeGlAssignmentRemoveSalInvoiceItemTypeGlAssignment(@RequestBody RemoveInvoiceItemTypeGlAssignmentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeInvoiceItemTypeGlAssignment(ServiceInput.toMap(request));
-        return wrap(result, RemoveInvoiceItemTypeGlAssignmentResponse::new);
+        return wrap(service.removeInvoiceItemTypeGlAssignment(request));
     }
 
     /**
@@ -2424,8 +2242,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/reomveFinAccountTransAssociation")
     public ResponseEntity<RemoveFinAccountTransFromReconciliationResponse> removeFinAccountTransFromReconciliationReomveFinAccountTransAssociation(@RequestBody RemoveFinAccountTransFromReconciliationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.removeFinAccountTransFromReconciliation(ServiceInput.toMap(request));
-        return wrap(result, RemoveFinAccountTransFromReconciliationResponse::new);
+        return wrap(service.removeFinAccountTransFromReconciliation(request));
     }
 
     /**
@@ -2434,8 +2251,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/setFinAccountTransStatus")
     public ResponseEntity<SetFinAccountTransStatusResponse> setFinAccountTransStatus(@RequestBody SetFinAccountTransStatusRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.setFinAccountTransStatus(ServiceInput.toMap(request));
-        return wrap(result, SetFinAccountTransStatusResponse::new);
+        return wrap(service.setFinAccountTransStatus(request));
     }
 
     /**
@@ -2444,8 +2260,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/setInvoiceStatus")
     public ResponseEntity<SetInvoiceStatusResponse> setInvoiceStatus(@RequestBody SetInvoiceStatusRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.setInvoiceStatus(ServiceInput.toMap(request));
-        return wrap(result, SetInvoiceStatusResponse::new);
+        return wrap(service.setInvoiceStatus(request));
     }
 
     /**
@@ -2454,8 +2269,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/setPaymentStatus")
     public ResponseEntity<SetPaymentStatusResponse> setPaymentStatus(@RequestBody SetPaymentStatusRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.setPaymentStatus(ServiceInput.toMap(request));
-        return wrap(result, SetPaymentStatusResponse::new);
+        return wrap(service.setPaymentStatus(request));
     }
 
     /**
@@ -2473,8 +2287,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateAcctgTrans")
     public ResponseEntity<UpdateAcctgTransResponse> updateAcctgTrans(@RequestBody UpdateAcctgTransRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateAcctgTrans(ServiceInput.toMap(request));
-        return wrap(result, UpdateAcctgTransResponse::new);
+        return wrap(service.updateAcctgTrans(request));
     }
 
     /**
@@ -2483,8 +2296,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateAcctgTransEntry")
     public ResponseEntity<UpdateAcctgTransEntryResponse> updateAcctgTransEntry(@RequestBody UpdateAcctgTransEntryRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateAcctgTransEntry(ServiceInput.toMap(request));
-        return wrap(result, UpdateAcctgTransEntryResponse::new);
+        return wrap(service.updateAcctgTransEntry(request));
     }
 
     /**
@@ -2493,8 +2305,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateAgreement")
     public ResponseEntity<UpdateAgreementResponse> updateAgreement(@RequestBody UpdateAgreementRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateAgreement(ServiceInput.toMap(request));
-        return wrap(result, UpdateAgreementResponse::new);
+        return wrap(service.updateAgreement(request));
     }
 
     /**
@@ -2503,8 +2314,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateAgreementItem")
     public ResponseEntity<UpdateAgreementItemResponse> updateAgreementItem(@RequestBody UpdateAgreementItemRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateAgreementItem(ServiceInput.toMap(request));
-        return wrap(result, UpdateAgreementItemResponse::new);
+        return wrap(service.updateAgreementItem(request));
     }
 
     /**
@@ -2513,8 +2323,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateAgreementItemFacility")
     public ResponseEntity<UpdateAgreementFacilityApplResponse> updateAgreementFacilityAppl(@RequestBody UpdateAgreementFacilityApplRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateAgreementFacilityAppl(ServiceInput.toMap(request));
-        return wrap(result, UpdateAgreementFacilityApplResponse::new);
+        return wrap(service.updateAgreementFacilityAppl(request));
     }
 
     /**
@@ -2523,8 +2332,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateAgreementItemParty")
     public ResponseEntity<UpdateAgreementPartyApplicResponse> updateAgreementPartyApplic(@RequestBody UpdateAgreementPartyApplicRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateAgreementPartyApplic(ServiceInput.toMap(request));
-        return wrap(result, UpdateAgreementPartyApplicResponse::new);
+        return wrap(service.updateAgreementPartyApplic(request));
     }
 
     /**
@@ -2533,8 +2341,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateAgreementItemProduct")
     public ResponseEntity<UpdateAgreementProductApplResponse> updateAgreementProductAppl(@RequestBody UpdateAgreementProductApplRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateAgreementProductAppl(ServiceInput.toMap(request));
-        return wrap(result, UpdateAgreementProductApplResponse::new);
+        return wrap(service.updateAgreementProductAppl(request));
     }
 
     /**
@@ -2552,8 +2359,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateAgreementItemTerm")
     public ResponseEntity<UpdateAgreementTermResponse> updateAgreementTerm(@RequestBody UpdateAgreementTermRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateAgreementTerm(ServiceInput.toMap(request));
-        return wrap(result, UpdateAgreementTermResponse::new);
+        return wrap(service.updateAgreementTerm(request));
     }
 
     /**
@@ -2562,8 +2368,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateAgreementPromoAppl")
     public ResponseEntity<UpdateAgreementPromoApplResponse> updateAgreementPromoAppl(@RequestBody UpdateAgreementPromoApplRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateAgreementPromoAppl(ServiceInput.toMap(request));
-        return wrap(result, UpdateAgreementPromoApplResponse::new);
+        return wrap(service.updateAgreementPromoAppl(request));
     }
 
     /**
@@ -2572,8 +2377,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateAgreementRole")
     public ResponseEntity<UpdateAgreementRoleResponse> updateAgreementRole(@RequestBody UpdateAgreementRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateAgreementRole(ServiceInput.toMap(request));
-        return wrap(result, UpdateAgreementRoleResponse::new);
+        return wrap(service.updateAgreementRole(request));
     }
 
     /**
@@ -2582,8 +2386,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateAgreementTerm")
     public ResponseEntity<UpdateAgreementTermResponse> updateAgreementTermUpdateAgreementTerm(@RequestBody UpdateAgreementTermRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateAgreementTerm(ServiceInput.toMap(request));
-        return wrap(result, UpdateAgreementTermResponse::new);
+        return wrap(service.updateAgreementTerm(request));
     }
 
     /**
@@ -2592,8 +2395,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateBillingAccount")
     public ResponseEntity<UpdateBillingAccountResponse> updateBillingAccount(@RequestBody UpdateBillingAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateBillingAccount(ServiceInput.toMap(request));
-        return wrap(result, UpdateBillingAccountResponse::new);
+        return wrap(service.updateBillingAccount(request));
     }
 
     /**
@@ -2602,8 +2404,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateBillingAccountRole")
     public ResponseEntity<UpdateBillingAccountRoleResponse> updateBillingAccountRole(@RequestBody UpdateBillingAccountRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateBillingAccountRole(ServiceInput.toMap(request));
-        return wrap(result, UpdateBillingAccountRoleResponse::new);
+        return wrap(service.updateBillingAccountRole(request));
     }
 
     /**
@@ -2612,8 +2413,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateBillingAccountTerm")
     public ResponseEntity<UpdateBillingAccountTermResponse> updateBillingAccountTerm(@RequestBody UpdateBillingAccountTermRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateBillingAccountTerm(ServiceInput.toMap(request));
-        return wrap(result, UpdateBillingAccountTermResponse::new);
+        return wrap(service.updateBillingAccountTerm(request));
     }
 
     /**
@@ -2622,8 +2422,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateBudget")
     public ResponseEntity<UpdateBudgetResponse> updateBudget(@RequestBody UpdateBudgetRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateBudget(ServiceInput.toMap(request));
-        return wrap(result, UpdateBudgetResponse::new);
+        return wrap(service.updateBudget(request));
     }
 
     /**
@@ -2631,9 +2430,8 @@ public class AccountingController {
      * <p>service: updateBudgetItem  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/updateBudgetItem")
-    public ResponseEntity<UpdateBudgetItemResponse> updateBudgetItem(@RequestParam Map<String, String> params) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateBudgetItem(java.util.Map.copyOf(params));
-        return wrap(result, UpdateBudgetItemResponse::new);
+    public ResponseEntity<UpdateBudgetItemResponse> updateBudgetItem(UpdateBudgetItemRequest request) throws java.sql.SQLException {
+        return wrap(service.updateBudgetItem(request));
     }
 
     /**
@@ -2642,8 +2440,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateBudgetStatus")
     public ResponseEntity<UpdateBudgetStatusResponse> updateBudgetStatus(@RequestBody UpdateBudgetStatusRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateBudgetStatus(ServiceInput.toMap(request));
-        return wrap(result, UpdateBudgetStatusResponse::new);
+        return wrap(service.updateBudgetStatus(request));
     }
 
     /**
@@ -2652,8 +2449,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateCostComponentCalc")
     public ResponseEntity<UpdateCostComponentCalcResponse> updateCostComponentCalc(@RequestBody UpdateCostComponentCalcRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateCostComponentCalc(ServiceInput.toMap(request));
-        return wrap(result, UpdateCostComponentCalcResponse::new);
+        return wrap(service.updateCostComponentCalc(request));
     }
 
     /**
@@ -2662,8 +2458,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateCreditCardTypeGlAccount")
     public ResponseEntity<UpdateCreditCardTypeGlAccountResponse> updateCreditCardTypeGlAccount(@RequestBody UpdateCreditCardTypeGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateCreditCardTypeGlAccount(ServiceInput.toMap(request));
-        return wrap(result, UpdateCreditCardTypeGlAccountResponse::new);
+        return wrap(service.updateCreditCardTypeGlAccount(request));
     }
 
     /**
@@ -2681,8 +2476,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateDepositSlip")
     public ResponseEntity<UpdatePaymentGroupResponse> updatePaymentGroup(@RequestBody UpdatePaymentGroupRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGroup(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGroupResponse::new);
+        return wrap(service.updatePaymentGroup(request));
     }
 
     /**
@@ -2691,8 +2485,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateDepositSlipMember")
     public ResponseEntity<UpdatePaymentGroupMemberResponse> updatePaymentGroupMember(@RequestBody UpdatePaymentGroupMemberRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGroupMember(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGroupMemberResponse::new);
+        return wrap(service.updatePaymentGroupMember(request));
     }
 
     /**
@@ -2701,8 +2494,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateFXConversion")
     public ResponseEntity<UpdateFXConversionResponse> updateFXConversion(@RequestBody UpdateFXConversionRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateFXConversion(ServiceInput.toMap(request));
-        return wrap(result, UpdateFXConversionResponse::new);
+        return wrap(service.updateFXConversion(request));
     }
 
     /**
@@ -2711,8 +2503,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateFinAccount")
     public ResponseEntity<UpdateFinAccountResponse> updateFinAccount(@RequestBody UpdateFinAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateFinAccount(ServiceInput.toMap(request));
-        return wrap(result, UpdateFinAccountResponse::new);
+        return wrap(service.updateFinAccount(request));
     }
 
     /**
@@ -2721,8 +2512,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateFinAccountGlReconciliation")
     public ResponseEntity<UpdateGlReconciliationResponse> updateGlReconciliation(@RequestBody UpdateGlReconciliationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateGlReconciliation(ServiceInput.toMap(request));
-        return wrap(result, UpdateGlReconciliationResponse::new);
+        return wrap(service.updateGlReconciliation(request));
     }
 
     /**
@@ -2731,8 +2521,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateFinAccountRole")
     public ResponseEntity<UpdateFinAccountRoleResponse> updateFinAccountRole(@RequestBody UpdateFinAccountRoleRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateFinAccountRole(ServiceInput.toMap(request));
-        return wrap(result, UpdateFinAccountRoleResponse::new);
+        return wrap(service.updateFinAccountRole(request));
     }
 
     /**
@@ -2741,8 +2530,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateFinAccountTypeGlAccount")
     public ResponseEntity<UpdateFinAccountTypeGlAccountResponse> updateFinAccountTypeGlAccount(@RequestBody UpdateFinAccountTypeGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateFinAccountTypeGlAccount(ServiceInput.toMap(request));
-        return wrap(result, UpdateFinAccountTypeGlAccountResponse::new);
+        return wrap(service.updateFinAccountTypeGlAccount(request));
     }
 
     /**
@@ -2751,8 +2539,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateFixedAsset")
     public ResponseEntity<UpdateFixedAssetResponse> updateFixedAsset(@RequestBody UpdateFixedAssetRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateFixedAsset(ServiceInput.toMap(request));
-        return wrap(result, UpdateFixedAssetResponse::new);
+        return wrap(service.updateFixedAsset(request));
     }
 
     /**
@@ -2761,8 +2548,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateFixedAssetDepMethod")
     public ResponseEntity<UpdateFixedAssetDepMethodResponse> updateFixedAssetDepMethod(@RequestBody UpdateFixedAssetDepMethodRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateFixedAssetDepMethod(ServiceInput.toMap(request));
-        return wrap(result, UpdateFixedAssetDepMethodResponse::new);
+        return wrap(service.updateFixedAssetDepMethod(request));
     }
 
     /**
@@ -2771,8 +2557,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateFixedAssetIdent")
     public ResponseEntity<UpdateFixedAssetIdentResponse> updateFixedAssetIdent(@RequestBody UpdateFixedAssetIdentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateFixedAssetIdent(ServiceInput.toMap(request));
-        return wrap(result, UpdateFixedAssetIdentResponse::new);
+        return wrap(service.updateFixedAssetIdent(request));
     }
 
     /**
@@ -2781,8 +2566,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateFixedAssetMaint")
     public ResponseEntity<UpdateFixedAssetMaintResponse> updateFixedAssetMaint(@RequestBody UpdateFixedAssetMaintRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateFixedAssetMaint(ServiceInput.toMap(request));
-        return wrap(result, UpdateFixedAssetMaintResponse::new);
+        return wrap(service.updateFixedAssetMaint(request));
     }
 
     /**
@@ -2791,8 +2575,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateFixedAssetMeter")
     public ResponseEntity<UpdateFixedAssetMeterResponse> updateFixedAssetMeter(@RequestBody UpdateFixedAssetMeterRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateFixedAssetMeter(ServiceInput.toMap(request));
-        return wrap(result, UpdateFixedAssetMeterResponse::new);
+        return wrap(service.updateFixedAssetMeter(request));
     }
 
     /**
@@ -2801,8 +2584,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateFixedAssetProduct")
     public ResponseEntity<UpdateFixedAssetProductResponse> updateFixedAssetProduct(@RequestBody UpdateFixedAssetProductRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateFixedAssetProduct(ServiceInput.toMap(request));
-        return wrap(result, UpdateFixedAssetProductResponse::new);
+        return wrap(service.updateFixedAssetProduct(request));
     }
 
     /**
@@ -2811,8 +2593,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateFixedAssetRegistration")
     public ResponseEntity<UpdateFixedAssetRegistrationResponse> updateFixedAssetRegistration(@RequestBody UpdateFixedAssetRegistrationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateFixedAssetRegistration(ServiceInput.toMap(request));
-        return wrap(result, UpdateFixedAssetRegistrationResponse::new);
+        return wrap(service.updateFixedAssetRegistration(request));
     }
 
     /**
@@ -2821,8 +2602,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateFixedAssetStdCost")
     public ResponseEntity<UpdateFixedAssetStdCostResponse> updateFixedAssetStdCost(@RequestBody UpdateFixedAssetStdCostRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateFixedAssetStdCost(ServiceInput.toMap(request));
-        return wrap(result, UpdateFixedAssetStdCostResponse::new);
+        return wrap(service.updateFixedAssetStdCost(request));
     }
 
     /**
@@ -2831,8 +2611,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateGlAccount")
     public ResponseEntity<UpdateGlAccountResponse> updateGlAccount(@RequestBody UpdateGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateGlAccount(ServiceInput.toMap(request));
-        return wrap(result, UpdateGlAccountResponse::new);
+        return wrap(service.updateGlAccount(request));
     }
 
     /**
@@ -2841,8 +2620,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateGlAccountCategory")
     public ResponseEntity<UpdateGlAccountCategoryResponse> updateGlAccountCategory(@RequestBody UpdateGlAccountCategoryRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateGlAccountCategory(ServiceInput.toMap(request));
-        return wrap(result, UpdateGlAccountCategoryResponse::new);
+        return wrap(service.updateGlAccountCategory(request));
     }
 
     /**
@@ -2851,8 +2629,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateGlAccountCategoryMember")
     public ResponseEntity<UpdateGlAccountCategoryMemberResponse> updateGlAccountCategoryMember(@RequestBody UpdateGlAccountCategoryMemberRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateGlAccountCategoryMember(ServiceInput.toMap(request));
-        return wrap(result, UpdateGlAccountCategoryMemberResponse::new);
+        return wrap(service.updateGlAccountCategoryMember(request));
     }
 
     /**
@@ -2861,8 +2638,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateGlAccountOrganization")
     public ResponseEntity<UpdateGlAccountResponse> updateGlAccountUpdateGlAccountOrganization(@RequestBody UpdateGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateGlAccount(ServiceInput.toMap(request));
-        return wrap(result, UpdateGlAccountResponse::new);
+        return wrap(service.updateGlAccount(request));
     }
 
     /**
@@ -2871,8 +2647,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateGlJournal")
     public ResponseEntity<UpdateGlJournalResponse> updateGlJournal(@RequestBody UpdateGlJournalRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateGlJournal(ServiceInput.toMap(request));
-        return wrap(result, UpdateGlJournalResponse::new);
+        return wrap(service.updateGlJournal(request));
     }
 
     /**
@@ -2881,8 +2656,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateGlReconciliation")
     public ResponseEntity<UpdateGlReconciliationResponse> updateGlReconciliationUpdateGlReconciliation(@RequestBody UpdateGlReconciliationRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateGlReconciliation(ServiceInput.toMap(request));
-        return wrap(result, UpdateGlReconciliationResponse::new);
+        return wrap(service.updateGlReconciliation(request));
     }
 
     /**
@@ -2891,8 +2665,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateInvoice")
     public ResponseEntity<UpdateInvoiceResponse> updateInvoice(@RequestBody UpdateInvoiceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateInvoice(ServiceInput.toMap(request));
-        return wrap(result, UpdateInvoiceResponse::new);
+        return wrap(service.updateInvoice(request));
     }
 
     /**
@@ -2901,8 +2674,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateInvoiceApplication")
     public ResponseEntity<UpdatePaymentApplicationDefResponse> updatePaymentApplicationDef(@RequestBody UpdatePaymentApplicationDefRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentApplicationDef(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentApplicationDefResponse::new);
+        return wrap(service.updatePaymentApplicationDef(request));
     }
 
     /**
@@ -2910,9 +2682,8 @@ public class AccountingController {
      * <p>service: updateInvoiceItem  entities: unknown  auth: true
      */
     @GetMapping("/accounting/control/updateInvoiceItem")
-    public ResponseEntity<UpdateInvoiceItemResponse> updateInvoiceItem(@RequestParam Map<String, String> params) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateInvoiceItem(java.util.Map.copyOf(params));
-        return wrap(result, UpdateInvoiceItemResponse::new);
+    public ResponseEntity<UpdateInvoiceItemResponse> updateInvoiceItem(UpdateInvoiceItemRequest request) throws java.sql.SQLException {
+        return wrap(service.updateInvoiceItem(request));
     }
 
     /**
@@ -2921,8 +2692,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateInvoiceItemType")
     public ResponseEntity<UpdateInvoiceItemTypeResponse> updateInvoiceItemType(@RequestBody UpdateInvoiceItemTypeRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateInvoiceItemType(ServiceInput.toMap(request));
-        return wrap(result, UpdateInvoiceItemTypeResponse::new);
+        return wrap(service.updateInvoiceItemType(request));
     }
 
     /**
@@ -2931,8 +2701,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateInvoiceTerm")
     public ResponseEntity<UpdateInvoiceTermResponse> updateInvoiceTerm(@RequestBody UpdateInvoiceTermRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateInvoiceTerm(ServiceInput.toMap(request));
-        return wrap(result, UpdateInvoiceTermResponse::new);
+        return wrap(service.updateInvoiceTerm(request));
     }
 
     /**
@@ -2941,8 +2710,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateOrganizationTaxAuthorityGlAccount")
     public ResponseEntity<UpdateTaxAuthorityGlAccountResponse> updateTaxAuthorityGlAccount(@RequestBody UpdateTaxAuthorityGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateTaxAuthorityGlAccount(ServiceInput.toMap(request));
-        return wrap(result, UpdateTaxAuthorityGlAccountResponse::new);
+        return wrap(service.updateTaxAuthorityGlAccount(request));
     }
 
     /**
@@ -2951,8 +2719,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updatePartyAcctgPreference")
     public ResponseEntity<UpdatePartyAcctgPreferenceResponse> updatePartyAcctgPreference(@RequestBody UpdatePartyAcctgPreferenceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePartyAcctgPreference(ServiceInput.toMap(request));
-        return wrap(result, UpdatePartyAcctgPreferenceResponse::new);
+        return wrap(service.updatePartyAcctgPreference(request));
     }
 
     /**
@@ -2961,8 +2728,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updatePartyFixedAssetAssignment")
     public ResponseEntity<UpdatePartyFixedAssetAssignmentResponse> updatePartyFixedAssetAssignment(@RequestBody UpdatePartyFixedAssetAssignmentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePartyFixedAssetAssignment(ServiceInput.toMap(request));
-        return wrap(result, UpdatePartyFixedAssetAssignmentResponse::new);
+        return wrap(service.updatePartyFixedAssetAssignment(request));
     }
 
     /**
@@ -2971,8 +2737,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updatePartyGlAccount")
     public ResponseEntity<UpdatePartyGlAccountResponse> updatePartyGlAccount(@RequestBody UpdatePartyGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePartyGlAccount(ServiceInput.toMap(request));
-        return wrap(result, UpdatePartyGlAccountResponse::new);
+        return wrap(service.updatePartyGlAccount(request));
     }
 
     /**
@@ -2981,8 +2746,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updatePayment")
     public ResponseEntity<UpdatePaymentResponse> updatePayment(@RequestBody UpdatePaymentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePayment(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentResponse::new);
+        return wrap(service.updatePayment(request));
     }
 
     /**
@@ -2991,8 +2755,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updatePaymentApplication")
     public ResponseEntity<UpdatePaymentApplicationDefResponse> updatePaymentApplicationDefUpdatePaymentApplication(@RequestBody UpdatePaymentApplicationDefRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentApplicationDef(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentApplicationDefResponse::new);
+        return wrap(service.updatePaymentApplicationDef(request));
     }
 
     /**
@@ -3001,8 +2764,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updatePaymentGroup")
     public ResponseEntity<UpdatePaymentGroupResponse> updatePaymentGroupUpdatePaymentGroup(@RequestBody UpdatePaymentGroupRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGroup(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGroupResponse::new);
+        return wrap(service.updatePaymentGroup(request));
     }
 
     /**
@@ -3011,8 +2773,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updatePaymentGroupMember")
     public ResponseEntity<UpdatePaymentGroupMemberResponse> updatePaymentGroupMemberUpdatePaymentGroupMember(@RequestBody UpdatePaymentGroupMemberRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentGroupMember(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentGroupMemberResponse::new);
+        return wrap(service.updatePaymentGroupMember(request));
     }
 
     /**
@@ -3021,8 +2782,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updatePaymentMethodType")
     public ResponseEntity<UpdatePaymentMethodTypeResponse> updatePaymentMethodType(@RequestBody UpdatePaymentMethodTypeRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePaymentMethodType(ServiceInput.toMap(request));
-        return wrap(result, UpdatePaymentMethodTypeResponse::new);
+        return wrap(service.updatePaymentMethodType(request));
     }
 
     /**
@@ -3049,8 +2809,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateRateAmount")
     public ResponseEntity<UpdateRateAmountResponse> updateRateAmount(@RequestBody UpdateRateAmountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateRateAmount(ServiceInput.toMap(request));
-        return wrap(result, UpdateRateAmountResponse::new);
+        return wrap(service.updateRateAmount(request));
     }
 
     /**
@@ -3059,8 +2818,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateTaxAuthority")
     public ResponseEntity<UpdateTaxAuthorityResponse> updateTaxAuthority(@RequestBody UpdateTaxAuthorityRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateTaxAuthority(ServiceInput.toMap(request));
-        return wrap(result, UpdateTaxAuthorityResponse::new);
+        return wrap(service.updateTaxAuthority(request));
     }
 
     /**
@@ -3069,8 +2827,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateTaxAuthorityAssoc")
     public ResponseEntity<UpdateTaxAuthorityAssocResponse> updateTaxAuthorityAssoc(@RequestBody UpdateTaxAuthorityAssocRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateTaxAuthorityAssoc(ServiceInput.toMap(request));
-        return wrap(result, UpdateTaxAuthorityAssocResponse::new);
+        return wrap(service.updateTaxAuthorityAssoc(request));
     }
 
     /**
@@ -3079,8 +2836,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateTaxAuthorityCategory")
     public ResponseEntity<UpdateTaxAuthorityCategoryResponse> updateTaxAuthorityCategory(@RequestBody UpdateTaxAuthorityCategoryRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateTaxAuthorityCategory(ServiceInput.toMap(request));
-        return wrap(result, UpdateTaxAuthorityCategoryResponse::new);
+        return wrap(service.updateTaxAuthorityCategory(request));
     }
 
     /**
@@ -3089,8 +2845,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateTaxAuthorityPartyInfo")
     public ResponseEntity<UpdatePartyTaxAuthInfoResponse> updatePartyTaxAuthInfo(@RequestBody UpdatePartyTaxAuthInfoRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updatePartyTaxAuthInfo(ServiceInput.toMap(request));
-        return wrap(result, UpdatePartyTaxAuthInfoResponse::new);
+        return wrap(service.updatePartyTaxAuthInfo(request));
     }
 
     /**
@@ -3099,8 +2854,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateTaxAuthorityRateProduct")
     public ResponseEntity<UpdateTaxAuthorityRateProductResponse> updateTaxAuthorityRateProduct(@RequestBody UpdateTaxAuthorityRateProductRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateTaxAuthorityRateProduct(ServiceInput.toMap(request));
-        return wrap(result, UpdateTaxAuthorityRateProductResponse::new);
+        return wrap(service.updateTaxAuthorityRateProduct(request));
     }
 
     /**
@@ -3109,8 +2863,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/updateVarianceReasonGlAccount")
     public ResponseEntity<UpdateVarianceReasonGlAccountResponse> updateVarianceReasonGlAccount(@RequestBody UpdateVarianceReasonGlAccountRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.updateVarianceReasonGlAccount(ServiceInput.toMap(request));
-        return wrap(result, UpdateVarianceReasonGlAccountResponse::new);
+        return wrap(service.updateVarianceReasonGlAccount(request));
     }
 
     /**
@@ -3128,8 +2881,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/uploadAgreementContent")
     public ResponseEntity<UploadAgreementContentFileResponse> uploadAgreementContentFile(@RequestBody UploadAgreementContentFileRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.uploadAgreementContentFile(ServiceInput.toMap(request));
-        return wrap(result, UploadAgreementContentFileResponse::new);
+        return wrap(service.uploadAgreementContentFile(request));
     }
 
     /**
@@ -3138,8 +2890,7 @@ public class AccountingController {
      */
     @PostMapping("/accounting/control/voidPayment")
     public ResponseEntity<VoidPaymentResponse> voidPayment(@RequestBody VoidPaymentRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.voidPayment(ServiceInput.toMap(request));
-        return wrap(result, VoidPaymentResponse::new);
+        return wrap(service.voidPayment(request));
     }
 
     /**
@@ -3148,8 +2899,7 @@ public class AccountingController {
      */
     @PostMapping("/ap/control/cancelCheckRunPayments")
     public ResponseEntity<CancelCheckRunPaymentsResponse> cancelCheckRunPaymentsCancelCheckRunPayments(@RequestBody CancelCheckRunPaymentsRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.cancelCheckRunPayments(ServiceInput.toMap(request));
-        return wrap(result, CancelCheckRunPaymentsResponse::new);
+        return wrap(service.cancelCheckRunPayments(request));
     }
 
     /**
@@ -3158,8 +2908,7 @@ public class AccountingController {
      */
     @PostMapping("/ap/control/createInvoice")
     public ResponseEntity<CreateInvoiceResponse> createInvoiceCreateInvoice(@RequestBody CreateInvoiceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createInvoice(ServiceInput.toMap(request));
-        return wrap(result, CreateInvoiceResponse::new);
+        return wrap(service.createInvoice(request));
     }
 
     /**
@@ -3168,8 +2917,7 @@ public class AccountingController {
      */
     @PostMapping("/ap/control/createPayment")
     public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTransCreatePayment2(@RequestBody CreatePaymentAndFinAccountTransRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPaymentAndFinAccountTrans(ServiceInput.toMap(request));
-        return wrap(result, CreatePaymentAndFinAccountTransResponse::new);
+        return wrap(service.createPaymentAndFinAccountTrans(request));
     }
 
     /**
@@ -3187,8 +2935,7 @@ public class AccountingController {
      */
     @PostMapping("/ap/control/massChangeInvoiceStatus")
     public ResponseEntity<MassChangeInvoiceStatusResponse> massChangeInvoiceStatus(@RequestBody MassChangeInvoiceStatusRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.massChangeInvoiceStatus(ServiceInput.toMap(request));
-        return wrap(result, MassChangeInvoiceStatusResponse::new);
+        return wrap(service.massChangeInvoiceStatus(request));
     }
 
     /**
@@ -3197,8 +2944,7 @@ public class AccountingController {
      */
     @PostMapping("/ap/control/processMassCheckRun")
     public ResponseEntity<CreatePaymentAndPaymentGroupForInvoicesResponse> createPaymentAndPaymentGroupForInvoices(@RequestBody CreatePaymentAndPaymentGroupForInvoicesRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPaymentAndPaymentGroupForInvoices(ServiceInput.toMap(request));
-        return wrap(result, CreatePaymentAndPaymentGroupForInvoicesResponse::new);
+        return wrap(service.createPaymentAndPaymentGroupForInvoices(request));
     }
 
     /**
@@ -3216,8 +2962,7 @@ public class AccountingController {
      */
     @PostMapping("/ar/control/cancelPaymentGroup")
     public ResponseEntity<CancelPaymentBatchResponse> cancelPaymentBatchCancelPaymentGroup(@RequestBody CancelPaymentBatchRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.cancelPaymentBatch(ServiceInput.toMap(request));
-        return wrap(result, CancelPaymentBatchResponse::new);
+        return wrap(service.cancelPaymentBatch(request));
     }
 
     /**
@@ -3226,8 +2971,7 @@ public class AccountingController {
      */
     @PostMapping("/ar/control/createInvoice")
     public ResponseEntity<CreateInvoiceResponse> createInvoiceCreateInvoice2(@RequestBody CreateInvoiceRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createInvoice(ServiceInput.toMap(request));
-        return wrap(result, CreateInvoiceResponse::new);
+        return wrap(service.createInvoice(request));
     }
 
     /**
@@ -3236,8 +2980,7 @@ public class AccountingController {
      */
     @PostMapping("/ar/control/createPayment")
     public ResponseEntity<CreatePaymentAndFinAccountTransResponse> createPaymentAndFinAccountTransCreatePayment3(@RequestBody CreatePaymentAndFinAccountTransRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.createPaymentAndFinAccountTrans(ServiceInput.toMap(request));
-        return wrap(result, CreatePaymentAndFinAccountTransResponse::new);
+        return wrap(service.createPaymentAndFinAccountTrans(request));
     }
 
     /**
@@ -3246,8 +2989,7 @@ public class AccountingController {
      */
     @PostMapping("/ar/control/createPaymentBatch")
     public ResponseEntity<DepositWithdrawPaymentsResponse> depositWithdrawPaymentsCreatePaymentBatch(@RequestBody DepositWithdrawPaymentsRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.depositWithdrawPayments(ServiceInput.toMap(request));
-        return wrap(result, DepositWithdrawPaymentsResponse::new);
+        return wrap(service.depositWithdrawPayments(request));
     }
 
     /**
@@ -3256,8 +2998,7 @@ public class AccountingController {
      */
     @PostMapping("/ar/control/massChangeInvoiceStatus")
     public ResponseEntity<MassChangeInvoiceStatusResponse> massChangeInvoiceStatusMassChangeInvoiceStatus(@RequestBody MassChangeInvoiceStatusRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.massChangeInvoiceStatus(ServiceInput.toMap(request));
-        return wrap(result, MassChangeInvoiceStatusResponse::new);
+        return wrap(service.massChangeInvoiceStatus(request));
     }
 
     /**
@@ -3266,7 +3007,6 @@ public class AccountingController {
      */
     @PostMapping("/ar/control/massChangePaymentStatus")
     public ResponseEntity<MassChangePaymentStatusResponse> massChangePaymentStatus(@RequestBody MassChangePaymentStatusRequest request) throws java.sql.SQLException {
-        Map<String, Object> result = service.massChangePaymentStatus(ServiceInput.toMap(request));
-        return wrap(result, MassChangePaymentStatusResponse::new);
+        return wrap(service.massChangePaymentStatus(request));
     }
 }

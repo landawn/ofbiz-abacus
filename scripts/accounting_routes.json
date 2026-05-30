@@ -1,0 +1,5478 @@
+{
+ "endpoints": [
+  {
+   "verb": "POST",
+   "path": "/accounting/control/AdminMain",
+   "ctrl_method": "setAcctgCompany",
+   "svc_method": "setAcctgCompany",
+   "req_type": "SetAcctgCompanyRequest",
+   "resp_type": "SetAcctgCompanyResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "GET",
+   "path": "/accounting/control/EditGlReconciliation",
+   "ctrl_method": "createReconcileAccount",
+   "svc_method": "createReconcileAccount",
+   "req_type": "Map",
+   "resp_type": "MAP",
+   "binding": "PARAM"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/ImportExport",
+   "ctrl_method": "setAcctgCompanyImportExport",
+   "svc_method": "setAcctgCompany",
+   "req_type": "SetAcctgCompanyRequest",
+   "resp_type": "SetAcctgCompanyResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/ImportInvoice",
+   "ctrl_method": "importInvoice",
+   "svc_method": "importInvoice",
+   "req_type": "ImportInvoiceRequest",
+   "resp_type": "ImportInvoiceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/PartyAccountsSummary",
+   "ctrl_method": "setAcctgCompanyPartyAccountsSummary",
+   "svc_method": "setAcctgCompany",
+   "req_type": "SetAcctgCompanyRequest",
+   "resp_type": "SetAcctgCompanyResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/PartyAcctgPreference",
+   "ctrl_method": "setAcctgCompanyPartyAcctgPreference",
+   "svc_method": "setAcctgCompany",
+   "req_type": "SetAcctgCompanyRequest",
+   "resp_type": "SetAcctgCompanyResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/UpdatePaymentGatewayConfig",
+   "ctrl_method": "updatePaymentGatewayConfig",
+   "svc_method": "updatePaymentGatewayConfig",
+   "req_type": "UpdatePaymentGatewayConfigRequest",
+   "resp_type": "UpdatePaymentGatewayConfigResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/UpdatePaymentGatewayConfigAuthorizeNet",
+   "ctrl_method": "updatePaymentGatewayConfigAuthorizeNet",
+   "svc_method": "updatePaymentGatewayConfigAuthorizeNet",
+   "req_type": "UpdatePaymentGatewayConfigAuthorizeNetRequest",
+   "resp_type": "UpdatePaymentGatewayConfigAuthorizeNetResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/UpdatePaymentGatewayConfigClearCommerce",
+   "ctrl_method": "updatePaymentGatewayConfigClearCommerce",
+   "svc_method": "updatePaymentGatewayConfigClearCommerce",
+   "req_type": "UpdatePaymentGatewayConfigClearCommerceRequest",
+   "resp_type": "UpdatePaymentGatewayConfigClearCommerceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/UpdatePaymentGatewayConfigCyberSource",
+   "ctrl_method": "updatePaymentGatewayConfigCyberSource",
+   "svc_method": "updatePaymentGatewayConfigCyberSource",
+   "req_type": "UpdatePaymentGatewayConfigCyberSourceRequest",
+   "resp_type": "UpdatePaymentGatewayConfigCyberSourceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/UpdatePaymentGatewayConfigEway",
+   "ctrl_method": "updatePaymentGatewayConfigEway",
+   "svc_method": "updatePaymentGatewayConfigEway",
+   "req_type": "UpdatePaymentGatewayConfigEwayRequest",
+   "resp_type": "UpdatePaymentGatewayConfigEwayResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/UpdatePaymentGatewayConfigPayPal",
+   "ctrl_method": "updatePaymentGatewayConfigPayPal",
+   "svc_method": "updatePaymentGatewayConfigPayPal",
+   "req_type": "UpdatePaymentGatewayConfigPayPalRequest",
+   "resp_type": "UpdatePaymentGatewayConfigPayPalResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/UpdatePaymentGatewayConfigPayflowPro",
+   "ctrl_method": "updatePaymentGatewayConfigPayflowPro",
+   "svc_method": "updatePaymentGatewayConfigPayflowPro",
+   "req_type": "UpdatePaymentGatewayConfigPayflowProRequest",
+   "resp_type": "UpdatePaymentGatewayConfigPayflowProResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/UpdatePaymentGatewayConfigSagePay",
+   "ctrl_method": "updatePaymentGatewayConfigSagePay",
+   "svc_method": "updatePaymentGatewayConfigSagePay",
+   "req_type": "UpdatePaymentGatewayConfigSagePayRequest",
+   "resp_type": "UpdatePaymentGatewayConfigSagePayResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/UpdatePaymentGatewayConfigSecurePay",
+   "ctrl_method": "updatePaymentGatewayConfigSecurePay",
+   "svc_method": "updatePaymentGatewayConfigSecurePay",
+   "req_type": "UpdatePaymentGatewayConfigSecurePayRequest",
+   "resp_type": "UpdatePaymentGatewayConfigSecurePayResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/UpdatePaymentGatewayConfigType",
+   "ctrl_method": "updatePaymentGatewayConfigType",
+   "svc_method": "updatePaymentGatewayConfigType",
+   "req_type": "UpdatePaymentGatewayConfigTypeRequest",
+   "resp_type": "UpdatePaymentGatewayConfigTypeResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/UpdatePaymentGatewayConfigWorldPay",
+   "ctrl_method": "updatePaymentGatewayConfigWorldPay",
+   "svc_method": "updatePaymentGatewayConfigWorldPay",
+   "req_type": "UpdatePaymentGatewayConfigWorldPayRequest",
+   "resp_type": "UpdatePaymentGatewayConfigWorldPayResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/addDepositSlipMember",
+   "ctrl_method": "createPaymentGroupMember",
+   "svc_method": "createPaymentGroupMember",
+   "req_type": "CreatePaymentGroupMemberRequest",
+   "resp_type": "CreatePaymentGroupMemberResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/addFixedAssetProduct",
+   "ctrl_method": "addFixedAssetProduct",
+   "svc_method": "addFixedAssetProduct",
+   "req_type": "AddFixedAssetProductRequest",
+   "resp_type": "AddFixedAssetProductResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/addPaymentMethodTypeGlAssignment",
+   "ctrl_method": "addPaymentMethodTypeGlAssignment",
+   "svc_method": "addPaymentMethodTypeGlAssignment",
+   "req_type": "AddPaymentMethodTypeGlAssignmentRequest",
+   "resp_type": "AddPaymentMethodTypeGlAssignmentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/addPaymentTypeGlAssignment",
+   "ctrl_method": "addPaymentTypeGlAssignment",
+   "svc_method": "addPaymentTypeGlAssignment",
+   "req_type": "AddPaymentTypeGlAssignmentRequest",
+   "resp_type": "AddPaymentTypeGlAssignmentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/addPurInvoiceItemTypeGlAssignment",
+   "ctrl_method": "addInvoiceItemTypeGlAssignment",
+   "svc_method": "addInvoiceItemTypeGlAssignment",
+   "req_type": "AddInvoiceItemTypeGlAssignmentRequest",
+   "resp_type": "AddInvoiceItemTypeGlAssignmentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/addSalInvoiceItemTypeGlAssignment",
+   "ctrl_method": "addInvoiceItemTypeGlAssignmentAddSalInvoiceItemTypeGlAssignment",
+   "svc_method": "addInvoiceItemTypeGlAssignment",
+   "req_type": "AddInvoiceItemTypeGlAssignmentRequest",
+   "resp_type": "AddInvoiceItemTypeGlAssignmentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/addtax",
+   "ctrl_method": "addTaxOnInvoice",
+   "svc_method": "addTaxOnInvoice",
+   "req_type": "AddTaxOnInvoiceRequest",
+   "resp_type": "AddTaxOnInvoiceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "GET",
+   "path": "/accounting/control/assignGlRecToFinAccTrans",
+   "ctrl_method": "assignGlRecToFinAccTrans",
+   "svc_method": "assignGlRecToFinAccTrans",
+   "req_type": "Map",
+   "resp_type": "AssignGlRecToFinAccTransResponse",
+   "binding": "PARAM"
+  },
+  {
+   "verb": "GET",
+   "path": "/accounting/control/callReconcileFinAccountTrans",
+   "ctrl_method": "reconcileFinAccountTrans",
+   "svc_method": "reconcileFinAccountTrans",
+   "req_type": "Map",
+   "resp_type": "ReconcileFinAccountTransResponse",
+   "binding": "PARAM"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/cancelAgreement",
+   "ctrl_method": "expireAgreement",
+   "svc_method": "expireAgreement",
+   "req_type": "ExpireAgreementRequest",
+   "resp_type": "ExpireAgreementResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/cancelBankReconciliation",
+   "ctrl_method": "cancelBankReconciliation",
+   "svc_method": "cancelBankReconciliation",
+   "req_type": "CancelBankReconciliationRequest",
+   "resp_type": "CancelBankReconciliationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/cancelCheckRunPayments",
+   "ctrl_method": "cancelCheckRunPayments",
+   "svc_method": "cancelCheckRunPayments",
+   "req_type": "CancelCheckRunPaymentsRequest",
+   "resp_type": "CancelCheckRunPaymentsResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/cancelFixedAssetStdCost",
+   "ctrl_method": "cancelFixedAssetStdCost",
+   "svc_method": "cancelFixedAssetStdCost",
+   "req_type": "CancelFixedAssetStdCostRequest",
+   "resp_type": "CancelFixedAssetStdCostResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/cancelPaymentGroup",
+   "ctrl_method": "cancelPaymentBatch",
+   "svc_method": "cancelPaymentBatch",
+   "req_type": "CancelPaymentBatchRequest",
+   "resp_type": "CancelPaymentBatchResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/cancelReconciliation",
+   "ctrl_method": "cancelBankReconciliationCancelReconciliation",
+   "svc_method": "cancelBankReconciliation",
+   "req_type": "CancelBankReconciliationRequest",
+   "resp_type": "CancelBankReconciliationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/capturePaymentsByInvoice",
+   "ctrl_method": "capturePaymentsByInvoice",
+   "svc_method": "capturePaymentsByInvoice",
+   "req_type": "CapturePaymentsByInvoiceRequest",
+   "resp_type": "CapturePaymentsByInvoiceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/closeFinancialTimePeriod",
+   "ctrl_method": "closeFinancialTimePeriod",
+   "svc_method": "closeFinancialTimePeriod",
+   "req_type": "CloseFinancialTimePeriodRequest",
+   "resp_type": "CloseFinancialTimePeriodResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/completeAcctgTransEntries",
+   "ctrl_method": "completeAcctgTransEntries",
+   "svc_method": "completeAcctgTransEntries",
+   "req_type": "CompleteAcctgTransEntriesRequest",
+   "resp_type": "CompleteAcctgTransEntriesResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/copyAcctgTransAndEntries",
+   "ctrl_method": "copyAcctgTransAndEntries",
+   "svc_method": "copyAcctgTransAndEntries",
+   "req_type": "CopyAcctgTransAndEntriesRequest",
+   "resp_type": "CopyAcctgTransAndEntriesResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/copyAgreement",
+   "ctrl_method": "copyAgreement",
+   "svc_method": "copyAgreement",
+   "req_type": "CopyAgreementRequest",
+   "resp_type": "CopyAgreementResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/copyInvoice",
+   "ctrl_method": "copyInvoice",
+   "svc_method": "copyInvoice",
+   "req_type": "CopyInvoiceRequest",
+   "resp_type": "CopyInvoiceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/copyInvoiceToTemplate",
+   "ctrl_method": "copyInvoiceToTemplate",
+   "svc_method": "copyInvoiceToTemplate",
+   "req_type": "CopyInvoiceToTemplateRequest",
+   "resp_type": "CopyInvoiceToTemplateResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAcctgTrans",
+   "ctrl_method": "createAcctgTrans",
+   "svc_method": "createAcctgTrans",
+   "req_type": "CreateAcctgTransRequest",
+   "resp_type": "CreateAcctgTransResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAcctgTransEntry",
+   "ctrl_method": "createAcctgTransEntry",
+   "svc_method": "createAcctgTransEntry",
+   "req_type": "CreateAcctgTransEntryRequest",
+   "resp_type": "CreateAcctgTransEntryResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAgreement",
+   "ctrl_method": "createAgreement",
+   "svc_method": "createAgreement",
+   "req_type": "CreateAgreementRequest",
+   "resp_type": "CreateAgreementResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAgreementGeographicalApplic",
+   "ctrl_method": "createAgreementGeographicalApplic",
+   "svc_method": "createAgreementGeographicalApplic",
+   "req_type": "CreateAgreementGeographicalApplicRequest",
+   "resp_type": "CreateAgreementGeographicalApplicResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAgreementItem",
+   "ctrl_method": "createAgreementItem",
+   "svc_method": "createAgreementItem",
+   "req_type": "CreateAgreementItemRequest",
+   "resp_type": "CreateAgreementItemResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAgreementItemFacility",
+   "ctrl_method": "createAgreementFacilityAppl",
+   "svc_method": "createAgreementFacilityAppl",
+   "req_type": "CreateAgreementFacilityApplRequest",
+   "resp_type": "CreateAgreementFacilityApplResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAgreementItemParty",
+   "ctrl_method": "createAgreementPartyApplic",
+   "svc_method": "createAgreementPartyApplic",
+   "req_type": "CreateAgreementPartyApplicRequest",
+   "resp_type": "CreateAgreementPartyApplicResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAgreementItemProduct",
+   "ctrl_method": "createAgreementProductAppl",
+   "svc_method": "createAgreementProductAppl",
+   "req_type": "CreateAgreementProductApplRequest",
+   "resp_type": "CreateAgreementProductApplResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAgreementItemSupplierProduct",
+   "ctrl_method": "createSupplierProduct",
+   "svc_method": "createSupplierProduct",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAgreementItemTerm",
+   "ctrl_method": "createAgreementTerm",
+   "svc_method": "createAgreementTerm",
+   "req_type": "CreateAgreementTermRequest",
+   "resp_type": "CreateAgreementTermResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAgreementPromoAppl",
+   "ctrl_method": "createAgreementPromoAppl",
+   "svc_method": "createAgreementPromoAppl",
+   "req_type": "CreateAgreementPromoApplRequest",
+   "resp_type": "CreateAgreementPromoApplResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAgreementRole",
+   "ctrl_method": "createAgreementRole",
+   "svc_method": "createAgreementRole",
+   "req_type": "CreateAgreementRoleRequest",
+   "resp_type": "CreateAgreementRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAgreementTerm",
+   "ctrl_method": "createAgreementTermCreateAgreementTerm",
+   "svc_method": "createAgreementTerm",
+   "req_type": "CreateAgreementTermRequest",
+   "resp_type": "CreateAgreementTermResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createAgreementWorkEffortApplic",
+   "ctrl_method": "createAgreementWorkEffortApplic",
+   "svc_method": "createAgreementWorkEffortApplic",
+   "req_type": "CreateAgreementWorkEffortApplicRequest",
+   "resp_type": "CreateAgreementWorkEffortApplicResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createBillingAccount",
+   "ctrl_method": "createBillingAccount",
+   "svc_method": "createBillingAccount",
+   "req_type": "CreateBillingAccountRequest",
+   "resp_type": "CreateBillingAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createBillingAccountAndRole",
+   "ctrl_method": "createBillingAccountAndRole",
+   "svc_method": "createBillingAccountAndRole",
+   "req_type": "CreateBillingAccountAndRoleRequest",
+   "resp_type": "CreateBillingAccountAndRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createBillingAccountRole",
+   "ctrl_method": "createBillingAccountRole",
+   "svc_method": "createBillingAccountRole",
+   "req_type": "CreateBillingAccountRoleRequest",
+   "resp_type": "CreateBillingAccountRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createBillingAccountTerm",
+   "ctrl_method": "createBillingAccountTerm",
+   "svc_method": "createBillingAccountTerm",
+   "req_type": "CreateBillingAccountTermRequest",
+   "resp_type": "CreateBillingAccountTermResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createBudget",
+   "ctrl_method": "createBudget",
+   "svc_method": "createBudget",
+   "req_type": "CreateBudgetRequest",
+   "resp_type": "CreateBudgetResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createBudgetItem",
+   "ctrl_method": "createBudgetItem",
+   "svc_method": "createBudgetItem",
+   "req_type": "CreateBudgetItemRequest",
+   "resp_type": "CreateBudgetItemResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createBudgetReview",
+   "ctrl_method": "createBudgetReview",
+   "svc_method": "createBudgetReview",
+   "req_type": "CreateBudgetReviewRequest",
+   "resp_type": "CreateBudgetReviewResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createBudgetRole",
+   "ctrl_method": "createBudgetRole",
+   "svc_method": "createBudgetRole",
+   "req_type": "CreateBudgetRoleRequest",
+   "resp_type": "CreateBudgetRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createCostComponentCalc",
+   "ctrl_method": "createCostComponentCalc",
+   "svc_method": "createCostComponentCalc",
+   "req_type": "CreateCostComponentCalcRequest",
+   "resp_type": "CreateCostComponentCalcResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createCreditCardTypeGlAccount",
+   "ctrl_method": "createCreditCardTypeGlAccount",
+   "svc_method": "createCreditCardTypeGlAccount",
+   "req_type": "CreateCreditCardTypeGlAccountRequest",
+   "resp_type": "CreateCreditCardTypeGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createCustomTimePeriod",
+   "ctrl_method": "createCustomTimePeriod",
+   "svc_method": "createCustomTimePeriod",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createDepositPayment",
+   "ctrl_method": "createPaymentAndFinAccountTrans",
+   "svc_method": "createPaymentAndFinAccountTrans",
+   "req_type": "CreatePaymentAndFinAccountTransRequest",
+   "resp_type": "CreatePaymentAndFinAccountTransResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFinAccount",
+   "ctrl_method": "createFinAccount",
+   "svc_method": "createFinAccount",
+   "req_type": "CreateFinAccountRequest",
+   "resp_type": "CreateFinAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFinAccountAuth",
+   "ctrl_method": "createFinAccountAuth",
+   "svc_method": "createFinAccountAuth",
+   "req_type": "CreateFinAccountAuthRequest",
+   "resp_type": "CreateFinAccountAuthResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFinAccountRole",
+   "ctrl_method": "createFinAccountRole",
+   "svc_method": "createFinAccountRole",
+   "req_type": "CreateFinAccountRoleRequest",
+   "resp_type": "CreateFinAccountRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFinAccountTrans",
+   "ctrl_method": "createFinAccountTrans",
+   "svc_method": "createFinAccountTrans",
+   "req_type": "CreateFinAccountTransRequest",
+   "resp_type": "CreateFinAccountTransResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFinAccountTypeGlAccount",
+   "ctrl_method": "createFinAccountTypeGlAccount",
+   "svc_method": "createFinAccountTypeGlAccount",
+   "req_type": "CreateFinAccountTypeGlAccountRequest",
+   "resp_type": "CreateFinAccountTypeGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFixedAsset",
+   "ctrl_method": "createFixedAsset",
+   "svc_method": "createFixedAsset",
+   "req_type": "CreateFixedAssetRequest",
+   "resp_type": "CreateFixedAssetResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFixedAssetDepMethod",
+   "ctrl_method": "createFixedAssetDepMethod",
+   "svc_method": "createFixedAssetDepMethod",
+   "req_type": "CreateFixedAssetDepMethodRequest",
+   "resp_type": "CreateFixedAssetDepMethodResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFixedAssetIdent",
+   "ctrl_method": "createFixedAssetIdent",
+   "svc_method": "createFixedAssetIdent",
+   "req_type": "CreateFixedAssetIdentRequest",
+   "resp_type": "CreateFixedAssetIdentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFixedAssetMaint",
+   "ctrl_method": "createFixedAssetMaint",
+   "svc_method": "createFixedAssetMaint",
+   "req_type": "CreateFixedAssetMaintRequest",
+   "resp_type": "CreateFixedAssetMaintResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFixedAssetMaintOrder",
+   "ctrl_method": "createFixedAssetMaintOrder",
+   "svc_method": "createFixedAssetMaintOrder",
+   "req_type": "CreateFixedAssetMaintOrderRequest",
+   "resp_type": "CreateFixedAssetMaintOrderResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFixedAssetMeter",
+   "ctrl_method": "createFixedAssetMeter",
+   "svc_method": "createFixedAssetMeter",
+   "req_type": "CreateFixedAssetMeterRequest",
+   "resp_type": "CreateFixedAssetMeterResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFixedAssetRegistration",
+   "ctrl_method": "createFixedAssetRegistration",
+   "svc_method": "createFixedAssetRegistration",
+   "req_type": "CreateFixedAssetRegistrationRequest",
+   "resp_type": "CreateFixedAssetRegistrationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFixedAssetStdCost",
+   "ctrl_method": "createFixedAssetStdCost",
+   "svc_method": "createFixedAssetStdCost",
+   "req_type": "CreateFixedAssetStdCostRequest",
+   "resp_type": "CreateFixedAssetStdCostResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFixedAssetTypeGlAccount",
+   "ctrl_method": "createFixedAssetTypeGlAccount",
+   "svc_method": "createFixedAssetTypeGlAccount",
+   "req_type": "CreateFixedAssetTypeGlAccountRequest",
+   "resp_type": "CreateFixedAssetTypeGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createFixedAssetTypeGlAccountForFixedAsset",
+   "ctrl_method": "createFixedAssetTypeGlAccountCreateFixedAssetTypeGlAccountForFixedAsset",
+   "svc_method": "createFixedAssetTypeGlAccount",
+   "req_type": "CreateFixedAssetTypeGlAccountRequest",
+   "resp_type": "CreateFixedAssetTypeGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createGlAccount",
+   "ctrl_method": "createGlAccount",
+   "svc_method": "createGlAccount",
+   "req_type": "CreateGlAccountRequest",
+   "resp_type": "CreateGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createGlAccountCategory",
+   "ctrl_method": "createGlAccountCategory",
+   "svc_method": "createGlAccountCategory",
+   "req_type": "CreateGlAccountCategoryRequest",
+   "resp_type": "CreateGlAccountCategoryResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createGlAccountCategoryMember",
+   "ctrl_method": "createGlAccountCategoryMember",
+   "svc_method": "createGlAccountCategoryMember",
+   "req_type": "CreateGlAccountCategoryMemberRequest",
+   "resp_type": "CreateGlAccountCategoryMemberResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createGlAccountOrganization",
+   "ctrl_method": "createGlAccountOrganization",
+   "svc_method": "createGlAccountOrganization",
+   "req_type": "CreateGlAccountOrganizationRequest",
+   "resp_type": "CreateGlAccountOrganizationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createGlAccountTypeDefault",
+   "ctrl_method": "createGlAccountTypeDefault",
+   "svc_method": "createGlAccountTypeDefault",
+   "req_type": "CreateGlAccountTypeDefaultRequest",
+   "resp_type": "CreateGlAccountTypeDefaultResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createGlJournal",
+   "ctrl_method": "createGlJournal",
+   "svc_method": "createGlJournal",
+   "req_type": "CreateGlJournalRequest",
+   "resp_type": "CreateGlJournalResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createGlReconciliation",
+   "ctrl_method": "createGlReconciliation",
+   "svc_method": "createGlReconciliation",
+   "req_type": "CreateGlReconciliationRequest",
+   "resp_type": "CreateGlReconciliationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createInvoice",
+   "ctrl_method": "createInvoice",
+   "svc_method": "createInvoice",
+   "req_type": "CreateInvoiceRequest",
+   "resp_type": "CreateInvoiceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createInvoiceItem",
+   "ctrl_method": "createInvoiceItem",
+   "svc_method": "createInvoiceItem",
+   "req_type": "CreateInvoiceItemRequest",
+   "resp_type": "CreateInvoiceItemResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "GET",
+   "path": "/accounting/control/createInvoiceItemPayrol",
+   "ctrl_method": "createInvoiceItemPayrol",
+   "svc_method": "createInvoiceItemPayrol",
+   "req_type": "Map",
+   "resp_type": "MAP",
+   "binding": "PARAM"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createInvoiceRole",
+   "ctrl_method": "createInvoiceRole",
+   "svc_method": "createInvoiceRole",
+   "req_type": "CreateInvoiceRoleRequest",
+   "resp_type": "CreateInvoiceRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createInvoiceTerm",
+   "ctrl_method": "createInvoiceTerm",
+   "svc_method": "createInvoiceTerm",
+   "req_type": "CreateInvoiceTermRequest",
+   "resp_type": "CreateInvoiceTermResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createOrganizationTaxAuthorityGlAccount",
+   "ctrl_method": "createTaxAuthorityGlAccount",
+   "svc_method": "createTaxAuthorityGlAccount",
+   "req_type": "CreateTaxAuthorityGlAccountRequest",
+   "resp_type": "CreateTaxAuthorityGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createPartyAcctgPreference",
+   "ctrl_method": "createPartyAcctgPreference",
+   "svc_method": "createPartyAcctgPreference",
+   "req_type": "CreatePartyAcctgPreferenceRequest",
+   "resp_type": "CreatePartyAcctgPreferenceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createPartyFixedAssetAssignment",
+   "ctrl_method": "createPartyFixedAssetAssignment",
+   "svc_method": "createPartyFixedAssetAssignment",
+   "req_type": "CreatePartyFixedAssetAssignmentRequest",
+   "resp_type": "CreatePartyFixedAssetAssignmentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createPartyGlAccount",
+   "ctrl_method": "createPartyGlAccount",
+   "svc_method": "createPartyGlAccount",
+   "req_type": "CreatePartyGlAccountRequest",
+   "resp_type": "CreatePartyGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createPartyPrefDocTypeTpl",
+   "ctrl_method": "createPartyPrefDocTypeTpl",
+   "svc_method": "createPartyPrefDocTypeTpl",
+   "req_type": "CreatePartyPrefDocTypeTplRequest",
+   "resp_type": "CreatePartyPrefDocTypeTplResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createPayment",
+   "ctrl_method": "createPaymentAndFinAccountTransCreatePayment",
+   "svc_method": "createPaymentAndFinAccountTrans",
+   "req_type": "CreatePaymentAndFinAccountTransRequest",
+   "resp_type": "CreatePaymentAndFinAccountTransResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createPaymentAndAssociateToBillingAccount",
+   "ctrl_method": "createPaymentAndApplication",
+   "svc_method": "createPaymentAndApplication",
+   "req_type": "CreatePaymentAndApplicationRequest",
+   "resp_type": "CreatePaymentAndApplicationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createPaymentApplication",
+   "ctrl_method": "createPaymentApplication",
+   "svc_method": "createPaymentApplication",
+   "req_type": "CreatePaymentApplicationRequest",
+   "resp_type": "CreatePaymentApplicationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createPaymentBatch",
+   "ctrl_method": "checkAndCreateBatchForValidPayments",
+   "svc_method": "checkAndCreateBatchForValidPayments",
+   "req_type": "CheckAndCreateBatchForValidPaymentsRequest",
+   "resp_type": "CheckAndCreateBatchForValidPaymentsResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createPaymentGroup",
+   "ctrl_method": "createPaymentGroup",
+   "svc_method": "createPaymentGroup",
+   "req_type": "CreatePaymentGroupRequest",
+   "resp_type": "CreatePaymentGroupResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createPaymentGroupMember",
+   "ctrl_method": "createPaymentGroupMemberCreatePaymentGroupMember",
+   "svc_method": "createPaymentGroupMember",
+   "req_type": "CreatePaymentGroupMemberRequest",
+   "resp_type": "CreatePaymentGroupMemberResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createProductCategoryGlAccount",
+   "ctrl_method": "createProductCategoryGlAccount",
+   "svc_method": "createProductCategoryGlAccount",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createProductGlAccount",
+   "ctrl_method": "createProductGlAccount",
+   "svc_method": "createProductGlAccount",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createTaxAuthority",
+   "ctrl_method": "createTaxAuthority",
+   "svc_method": "createTaxAuthority",
+   "req_type": "CreateTaxAuthorityRequest",
+   "resp_type": "CreateTaxAuthorityResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createTaxAuthorityAssoc",
+   "ctrl_method": "createTaxAuthorityAssoc",
+   "svc_method": "createTaxAuthorityAssoc",
+   "req_type": "CreateTaxAuthorityAssocRequest",
+   "resp_type": "CreateTaxAuthorityAssocResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createTaxAuthorityCategory",
+   "ctrl_method": "createTaxAuthorityCategory",
+   "svc_method": "createTaxAuthorityCategory",
+   "req_type": "CreateTaxAuthorityCategoryRequest",
+   "resp_type": "CreateTaxAuthorityCategoryResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createTaxAuthorityGlAccount",
+   "ctrl_method": "createTaxAuthorityGlAccountCreateTaxAuthorityGlAccount",
+   "svc_method": "createTaxAuthorityGlAccount",
+   "req_type": "CreateTaxAuthorityGlAccountRequest",
+   "resp_type": "CreateTaxAuthorityGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createTaxAuthorityPartyInfo",
+   "ctrl_method": "createPartyTaxAuthInfo",
+   "svc_method": "createPartyTaxAuthInfo",
+   "req_type": "CreatePartyTaxAuthInfoRequest",
+   "resp_type": "CreatePartyTaxAuthInfoResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createTaxAuthorityRateProduct",
+   "ctrl_method": "createTaxAuthorityRateProduct",
+   "svc_method": "createTaxAuthorityRateProduct",
+   "req_type": "CreateTaxAuthorityRateProductRequest",
+   "resp_type": "CreateTaxAuthorityRateProductResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "GET",
+   "path": "/accounting/control/createUpdateCostCenter",
+   "ctrl_method": "createUpdateCostCenter",
+   "svc_method": "createUpdateCostCenter",
+   "req_type": "Map",
+   "resp_type": "CreateUpdateCostCenterResponse",
+   "binding": "PARAM"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createVarianceReasonGlAccount",
+   "ctrl_method": "createVarianceReasonGlAccount",
+   "svc_method": "createVarianceReasonGlAccount",
+   "req_type": "CreateVarianceReasonGlAccountRequest",
+   "resp_type": "CreateVarianceReasonGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createWithdrawalPayment",
+   "ctrl_method": "createPaymentAndFinAccountTransCreateWithdrawalPayment",
+   "svc_method": "createPaymentAndFinAccountTrans",
+   "req_type": "CreatePaymentAndFinAccountTransRequest",
+   "resp_type": "CreatePaymentAndFinAccountTransResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/createWorkEffortAndPartyAssign",
+   "ctrl_method": "createWorkEffortAndPartyAssign",
+   "svc_method": "createWorkEffortAndPartyAssign",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteAcctgTransEntry",
+   "ctrl_method": "deleteAcctgTransEntry",
+   "svc_method": "deleteAcctgTransEntry",
+   "req_type": "DeleteAcctgTransEntryRequest",
+   "resp_type": "DeleteAcctgTransEntryResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteAgreementRole",
+   "ctrl_method": "deleteAgreementRole",
+   "svc_method": "deleteAgreementRole",
+   "req_type": "DeleteAgreementRoleRequest",
+   "resp_type": "DeleteAgreementRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteAgreementTerm",
+   "ctrl_method": "deleteAgreementTerm",
+   "svc_method": "deleteAgreementTerm",
+   "req_type": "DeleteAgreementTermRequest",
+   "resp_type": "DeleteAgreementTermResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteAgreementWorkEffortApplic",
+   "ctrl_method": "deleteAgreementWorkEffortApplic",
+   "svc_method": "deleteAgreementWorkEffortApplic",
+   "req_type": "DeleteAgreementWorkEffortApplicRequest",
+   "resp_type": "DeleteAgreementWorkEffortApplicResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteBillingAccountRole",
+   "ctrl_method": "removeBillingAccountRole",
+   "svc_method": "removeBillingAccountRole",
+   "req_type": "RemoveBillingAccountRoleRequest",
+   "resp_type": "RemoveBillingAccountRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteCostComponentCalc",
+   "ctrl_method": "removeCostComponentCalc",
+   "svc_method": "removeCostComponentCalc",
+   "req_type": "RemoveCostComponentCalcRequest",
+   "resp_type": "RemoveCostComponentCalcResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteCreditCardTypeGlAccount",
+   "ctrl_method": "deleteCreditCardTypeGlAccount",
+   "svc_method": "deleteCreditCardTypeGlAccount",
+   "req_type": "DeleteCreditCardTypeGlAccountRequest",
+   "resp_type": "DeleteCreditCardTypeGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteCustomTimePeriod",
+   "ctrl_method": "deleteCustomTimePeriod",
+   "svc_method": "deleteCustomTimePeriod",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteDepositSlip",
+   "ctrl_method": "cancelPaymentBatchDeleteDepositSlip",
+   "svc_method": "cancelPaymentBatch",
+   "req_type": "CancelPaymentBatchRequest",
+   "resp_type": "CancelPaymentBatchResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteFinAccount",
+   "ctrl_method": "deleteFinAccount",
+   "svc_method": "deleteFinAccount",
+   "req_type": "DeleteFinAccountRequest",
+   "resp_type": "DeleteFinAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteFinAccountRole",
+   "ctrl_method": "deleteFinAccountRole",
+   "svc_method": "deleteFinAccountRole",
+   "req_type": "DeleteFinAccountRoleRequest",
+   "resp_type": "DeleteFinAccountRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteFinAccountTypeGlAccount",
+   "ctrl_method": "deleteFinAccountTypeGlAccount",
+   "svc_method": "deleteFinAccountTypeGlAccount",
+   "req_type": "DeleteFinAccountTypeGlAccountRequest",
+   "resp_type": "DeleteFinAccountTypeGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteFixedAssetDepMethod",
+   "ctrl_method": "deleteFixedAssetDepMethod",
+   "svc_method": "deleteFixedAssetDepMethod",
+   "req_type": "DeleteFixedAssetDepMethodRequest",
+   "resp_type": "DeleteFixedAssetDepMethodResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteFixedAssetMaint",
+   "ctrl_method": "deleteFixedAssetMaint",
+   "svc_method": "deleteFixedAssetMaint",
+   "req_type": "DeleteFixedAssetMaintRequest",
+   "resp_type": "DeleteFixedAssetMaintResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteFixedAssetMaintOrder",
+   "ctrl_method": "deleteFixedAssetMaintOrder",
+   "svc_method": "deleteFixedAssetMaintOrder",
+   "req_type": "DeleteFixedAssetMaintOrderRequest",
+   "resp_type": "DeleteFixedAssetMaintOrderResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteFixedAssetMeter",
+   "ctrl_method": "deleteFixedAssetMeter",
+   "svc_method": "deleteFixedAssetMeter",
+   "req_type": "DeleteFixedAssetMeterRequest",
+   "resp_type": "DeleteFixedAssetMeterResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteFixedAssetRegistration",
+   "ctrl_method": "deleteFixedAssetRegistration",
+   "svc_method": "deleteFixedAssetRegistration",
+   "req_type": "DeleteFixedAssetRegistrationRequest",
+   "resp_type": "DeleteFixedAssetRegistrationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteFixedAssetTypeGlAccount",
+   "ctrl_method": "deleteFixedAssetTypeGlAccount",
+   "svc_method": "deleteFixedAssetTypeGlAccount",
+   "req_type": "DeleteFixedAssetTypeGlAccountRequest",
+   "resp_type": "DeleteFixedAssetTypeGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteFixedAssetTypeGlAccountForFixedAsset",
+   "ctrl_method": "deleteFixedAssetTypeGlAccountDeleteFixedAssetTypeGlAccountForFixedAsset",
+   "svc_method": "deleteFixedAssetTypeGlAccount",
+   "req_type": "DeleteFixedAssetTypeGlAccountRequest",
+   "resp_type": "DeleteFixedAssetTypeGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteGlAccountCategoryMember",
+   "ctrl_method": "deleteGlAccountCategoryMember",
+   "svc_method": "deleteGlAccountCategoryMember",
+   "req_type": "DeleteGlAccountCategoryMemberRequest",
+   "resp_type": "DeleteGlAccountCategoryMemberResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteGlJournal",
+   "ctrl_method": "deleteGlJournal",
+   "svc_method": "deleteGlJournal",
+   "req_type": "DeleteGlJournalRequest",
+   "resp_type": "DeleteGlJournalResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteInvoiceTerm",
+   "ctrl_method": "deleteInvoiceTerm",
+   "svc_method": "deleteInvoiceTerm",
+   "req_type": "DeleteInvoiceTermRequest",
+   "resp_type": "DeleteInvoiceTermResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteOrganizationTaxAuthorityGlAccount",
+   "ctrl_method": "deleteTaxAuthorityGlAccount",
+   "svc_method": "deleteTaxAuthorityGlAccount",
+   "req_type": "DeleteTaxAuthorityGlAccountRequest",
+   "resp_type": "DeleteTaxAuthorityGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deletePartyFixedAssetAssignment",
+   "ctrl_method": "deletePartyFixedAssetAssignment",
+   "svc_method": "deletePartyFixedAssetAssignment",
+   "req_type": "DeletePartyFixedAssetAssignmentRequest",
+   "resp_type": "DeletePartyFixedAssetAssignmentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deletePartyGlAccount",
+   "ctrl_method": "deletePartyGlAccount",
+   "svc_method": "deletePartyGlAccount",
+   "req_type": "DeletePartyGlAccountRequest",
+   "resp_type": "DeletePartyGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deletePaymentGroup",
+   "ctrl_method": "deletePaymentGroup",
+   "svc_method": "deletePaymentGroup",
+   "req_type": "DeletePaymentGroupRequest",
+   "resp_type": "DeletePaymentGroupResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteProductCategoryGlAccount",
+   "ctrl_method": "deleteProductCategoryGlAccount",
+   "svc_method": "deleteProductCategoryGlAccount",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteProductGlAccount",
+   "ctrl_method": "deleteProductGlAccount",
+   "svc_method": "deleteProductGlAccount",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteTaxAuthorityAssoc",
+   "ctrl_method": "deleteTaxAuthorityAssoc",
+   "svc_method": "deleteTaxAuthorityAssoc",
+   "req_type": "DeleteTaxAuthorityAssocRequest",
+   "resp_type": "DeleteTaxAuthorityAssocResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteTaxAuthorityCategory",
+   "ctrl_method": "deleteTaxAuthorityCategory",
+   "svc_method": "deleteTaxAuthorityCategory",
+   "req_type": "DeleteTaxAuthorityCategoryRequest",
+   "resp_type": "DeleteTaxAuthorityCategoryResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteTaxAuthorityGlAccount",
+   "ctrl_method": "deleteTaxAuthorityGlAccountDeleteTaxAuthorityGlAccount",
+   "svc_method": "deleteTaxAuthorityGlAccount",
+   "req_type": "DeleteTaxAuthorityGlAccountRequest",
+   "resp_type": "DeleteTaxAuthorityGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteTaxAuthorityPartyInfo",
+   "ctrl_method": "deletePartyTaxAuthInfo",
+   "svc_method": "deletePartyTaxAuthInfo",
+   "req_type": "DeletePartyTaxAuthInfoRequest",
+   "resp_type": "DeletePartyTaxAuthInfoResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteTaxAuthorityRateProduct",
+   "ctrl_method": "deleteTaxAuthorityRateProduct",
+   "svc_method": "deleteTaxAuthorityRateProduct",
+   "req_type": "DeleteTaxAuthorityRateProductRequest",
+   "resp_type": "DeleteTaxAuthorityRateProductResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/deleteVarianceReasonGlAccount",
+   "ctrl_method": "deleteVarianceReasonGlAccount",
+   "svc_method": "deleteVarianceReasonGlAccount",
+   "req_type": "DeleteVarianceReasonGlAccountRequest",
+   "resp_type": "DeleteVarianceReasonGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/depositWithdrawPayments",
+   "ctrl_method": "depositWithdrawPayments",
+   "svc_method": "depositWithdrawPayments",
+   "req_type": "DepositWithdrawPaymentsRequest",
+   "resp_type": "DepositWithdrawPaymentsResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/executeSendPerEmail",
+   "ctrl_method": "sendInvoicePerEmail",
+   "svc_method": "sendInvoicePerEmail",
+   "req_type": "SendInvoicePerEmailRequest",
+   "resp_type": "SendInvoicePerEmailResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/expireDepositSlipMember",
+   "ctrl_method": "expirePaymentGroupMember",
+   "svc_method": "expirePaymentGroupMember",
+   "req_type": "ExpirePaymentGroupMemberRequest",
+   "resp_type": "ExpirePaymentGroupMemberResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/expireFinAccountAuth",
+   "ctrl_method": "expireFinAccountAuth",
+   "svc_method": "expireFinAccountAuth",
+   "req_type": "ExpireFinAccountAuthRequest",
+   "resp_type": "ExpireFinAccountAuthResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/expirePartyPrefDocTypeTpl",
+   "ctrl_method": "expirePartyPrefDocTypeTpl",
+   "svc_method": "expirePartyPrefDocTypeTpl",
+   "req_type": "ExpirePartyPrefDocTypeTplRequest",
+   "resp_type": "ExpirePartyPrefDocTypeTplResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/expirePaymentGroupMember",
+   "ctrl_method": "expirePaymentGroupMemberExpirePaymentGroupMember",
+   "svc_method": "expirePaymentGroupMember",
+   "req_type": "ExpirePaymentGroupMemberRequest",
+   "resp_type": "ExpirePaymentGroupMemberResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/expireRateAmount",
+   "ctrl_method": "expireRateAmount",
+   "svc_method": "expireRateAmount",
+   "req_type": "ExpireRateAmountRequest",
+   "resp_type": "ExpireRateAmountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "GET",
+   "path": "/accounting/control/getFinAccountTransRunningTotalAndBalances",
+   "ctrl_method": "getFinAccountTransRunningTotalAndBalances",
+   "svc_method": "getFinAccountTransRunningTotalAndBalances",
+   "req_type": "Map",
+   "resp_type": "GetFinAccountTransRunningTotalAndBalancesResponse",
+   "binding": "PARAM"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/getInvoiceRunningTotal",
+   "ctrl_method": "getInvoiceRunningTotal",
+   "svc_method": "getInvoiceRunningTotal",
+   "req_type": "GetInvoiceRunningTotalRequest",
+   "resp_type": "GetInvoiceRunningTotalResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/getPaymentRunningTotal",
+   "ctrl_method": "getPaymentRunningTotal",
+   "svc_method": "getPaymentRunningTotal",
+   "req_type": "GetPaymentRunningTotalRequest",
+   "resp_type": "GetPaymentRunningTotalResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/postAcctgTrans",
+   "ctrl_method": "postAcctgTrans",
+   "svc_method": "postAcctgTrans",
+   "req_type": "PostAcctgTransRequest",
+   "resp_type": "PostAcctgTransResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/processAuthorizeTransaction",
+   "ctrl_method": "authOrderPaymentPreference",
+   "svc_method": "authOrderPaymentPreference",
+   "req_type": "AuthOrderPaymentPreferenceRequest",
+   "resp_type": "AuthOrderPaymentPreferenceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/processCaptureTransaction",
+   "ctrl_method": "captureOrderPayments",
+   "svc_method": "captureOrderPayments",
+   "req_type": "CaptureOrderPaymentsRequest",
+   "resp_type": "CaptureOrderPaymentsResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/processCommissionRun",
+   "ctrl_method": "createCommissionInvoices",
+   "svc_method": "createCommissionInvoices",
+   "req_type": "CreateCommissionInvoicesRequest",
+   "resp_type": "CreateCommissionInvoicesResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/processManualCcTx",
+   "ctrl_method": "manualForcedCcTransaction",
+   "svc_method": "manualForcedCcTransaction",
+   "req_type": "ManualForcedCcTransactionRequest",
+   "resp_type": "ManualForcedCcTransactionResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/processRefundTransaction",
+   "ctrl_method": "refundOrderPaymentPreference",
+   "svc_method": "refundOrderPaymentPreference",
+   "req_type": "RefundOrderPaymentPreferenceRequest",
+   "resp_type": "RefundOrderPaymentPreferenceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/processReleaseTransaction",
+   "ctrl_method": "releaseOrderPaymentPreference",
+   "svc_method": "releaseOrderPaymentPreference",
+   "req_type": "ReleaseOrderPaymentPreferenceRequest",
+   "resp_type": "ReleaseOrderPaymentPreferenceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/quickCreateAcctgTransAndEntries",
+   "ctrl_method": "quickCreateAcctgTransAndEntries",
+   "svc_method": "quickCreateAcctgTransAndEntries",
+   "req_type": "QuickCreateAcctgTransAndEntriesRequest",
+   "resp_type": "QuickCreateAcctgTransAndEntriesResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "GET",
+   "path": "/accounting/control/quickSendPayment",
+   "ctrl_method": "quickSendPayment",
+   "svc_method": "quickSendPayment",
+   "req_type": "Map",
+   "resp_type": "QuickSendPaymentResponse",
+   "binding": "PARAM"
+  },
+  {
+   "verb": "GET",
+   "path": "/accounting/control/reconcileFinAccountTrans",
+   "ctrl_method": "reconcileFinAccountTransReconcileFinAccountTrans",
+   "svc_method": "reconcileFinAccountTrans",
+   "req_type": "Map",
+   "resp_type": "ReconcileFinAccountTransResponse",
+   "binding": "PARAM"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeAgreementContent",
+   "ctrl_method": "removeAgreementContent",
+   "svc_method": "removeAgreementContent",
+   "req_type": "RemoveAgreementContentRequest",
+   "resp_type": "RemoveAgreementContentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeAgreementGeographicalApplic",
+   "ctrl_method": "removeAgreementGeographicalApplic",
+   "svc_method": "removeAgreementGeographicalApplic",
+   "req_type": "RemoveAgreementGeographicalApplicRequest",
+   "resp_type": "RemoveAgreementGeographicalApplicResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeAgreementItem",
+   "ctrl_method": "removeAgreementItem",
+   "svc_method": "removeAgreementItem",
+   "req_type": "RemoveAgreementItemRequest",
+   "resp_type": "RemoveAgreementItemResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeAgreementItemFacility",
+   "ctrl_method": "removeAgreementFacilityAppl",
+   "svc_method": "removeAgreementFacilityAppl",
+   "req_type": "RemoveAgreementFacilityApplRequest",
+   "resp_type": "RemoveAgreementFacilityApplResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeAgreementItemParty",
+   "ctrl_method": "removeAgreementPartyApplic",
+   "svc_method": "removeAgreementPartyApplic",
+   "req_type": "RemoveAgreementPartyApplicRequest",
+   "resp_type": "RemoveAgreementPartyApplicResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeAgreementItemProduct",
+   "ctrl_method": "removeAgreementProductAppl",
+   "svc_method": "removeAgreementProductAppl",
+   "req_type": "RemoveAgreementProductApplRequest",
+   "resp_type": "RemoveAgreementProductApplResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeAgreementItemSupplierProduct",
+   "ctrl_method": "removeSupplierProduct",
+   "svc_method": "removeSupplierProduct",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeAgreementItemTerm",
+   "ctrl_method": "deleteAgreementTermRemoveAgreementItemTerm",
+   "svc_method": "deleteAgreementTerm",
+   "req_type": "DeleteAgreementTermRequest",
+   "resp_type": "DeleteAgreementTermResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeAgreementPromoAppl",
+   "ctrl_method": "removeAgreementPromoAppl",
+   "svc_method": "removeAgreementPromoAppl",
+   "req_type": "RemoveAgreementPromoApplRequest",
+   "resp_type": "RemoveAgreementPromoApplResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeBillingAccountTerm",
+   "ctrl_method": "removeBillingAccountTerm",
+   "svc_method": "removeBillingAccountTerm",
+   "req_type": "RemoveBillingAccountTermRequest",
+   "resp_type": "RemoveBillingAccountTermResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeBudgetItem",
+   "ctrl_method": "removeBudgetItem",
+   "svc_method": "removeBudgetItem",
+   "req_type": "RemoveBudgetItemRequest",
+   "resp_type": "RemoveBudgetItemResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeBudgetReview",
+   "ctrl_method": "removeBudgetReview",
+   "svc_method": "removeBudgetReview",
+   "req_type": "RemoveBudgetReviewRequest",
+   "resp_type": "RemoveBudgetReviewResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeBudgetRole",
+   "ctrl_method": "removeBudgetRole",
+   "svc_method": "removeBudgetRole",
+   "req_type": "RemoveBudgetRoleRequest",
+   "resp_type": "RemoveBudgetRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeFinAccountTransFromReconciliation",
+   "ctrl_method": "removeFinAccountTransFromReconciliation",
+   "svc_method": "removeFinAccountTransFromReconciliation",
+   "req_type": "RemoveFinAccountTransFromReconciliationRequest",
+   "resp_type": "RemoveFinAccountTransFromReconciliationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeFixedAssetIdent",
+   "ctrl_method": "removeFixedAssetIdent",
+   "svc_method": "removeFixedAssetIdent",
+   "req_type": "RemoveFixedAssetIdentRequest",
+   "resp_type": "RemoveFixedAssetIdentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeFixedAssetProduct",
+   "ctrl_method": "removeFixedAssetProduct",
+   "svc_method": "removeFixedAssetProduct",
+   "req_type": "RemoveFixedAssetProductRequest",
+   "resp_type": "RemoveFixedAssetProductResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeGlAccountTypeDefault",
+   "ctrl_method": "removeGlAccountTypeDefault",
+   "svc_method": "removeGlAccountTypeDefault",
+   "req_type": "RemoveGlAccountTypeDefaultRequest",
+   "resp_type": "RemoveGlAccountTypeDefaultResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeInvoiceApplication",
+   "ctrl_method": "removePaymentApplication",
+   "svc_method": "removePaymentApplication",
+   "req_type": "RemovePaymentApplicationRequest",
+   "resp_type": "RemovePaymentApplicationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeInvoiceItem",
+   "ctrl_method": "removeInvoiceItem",
+   "svc_method": "removeInvoiceItem",
+   "req_type": "RemoveInvoiceItemRequest",
+   "resp_type": "RemoveInvoiceItemResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeInvoiceRole",
+   "ctrl_method": "removeInvoiceRole",
+   "svc_method": "removeInvoiceRole",
+   "req_type": "RemoveInvoiceRoleRequest",
+   "resp_type": "RemoveInvoiceRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removePaymentApplication",
+   "ctrl_method": "removePaymentApplicationRemovePaymentApplication",
+   "svc_method": "removePaymentApplication",
+   "req_type": "RemovePaymentApplicationRequest",
+   "resp_type": "RemovePaymentApplicationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removePaymentMethodTypeGlAssignment",
+   "ctrl_method": "removePaymentMethodTypeGlAssignment",
+   "svc_method": "removePaymentMethodTypeGlAssignment",
+   "req_type": "RemovePaymentMethodTypeGlAssignmentRequest",
+   "resp_type": "RemovePaymentMethodTypeGlAssignmentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removePaymentTypeGlAssignment",
+   "ctrl_method": "removePaymentTypeGlAssignment",
+   "svc_method": "removePaymentTypeGlAssignment",
+   "req_type": "RemovePaymentTypeGlAssignmentRequest",
+   "resp_type": "RemovePaymentTypeGlAssignmentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removePurInvoiceItemTypeGlAssignment",
+   "ctrl_method": "removeInvoiceItemTypeGlAssignment",
+   "svc_method": "removeInvoiceItemTypeGlAssignment",
+   "req_type": "RemoveInvoiceItemTypeGlAssignmentRequest",
+   "resp_type": "RemoveInvoiceItemTypeGlAssignmentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/removeSalInvoiceItemTypeGlAssignment",
+   "ctrl_method": "removeInvoiceItemTypeGlAssignmentRemoveSalInvoiceItemTypeGlAssignment",
+   "svc_method": "removeInvoiceItemTypeGlAssignment",
+   "req_type": "RemoveInvoiceItemTypeGlAssignmentRequest",
+   "resp_type": "RemoveInvoiceItemTypeGlAssignmentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/reomveFinAccountTransAssociation",
+   "ctrl_method": "removeFinAccountTransFromReconciliationReomveFinAccountTransAssociation",
+   "svc_method": "removeFinAccountTransFromReconciliation",
+   "req_type": "RemoveFinAccountTransFromReconciliationRequest",
+   "resp_type": "RemoveFinAccountTransFromReconciliationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/setFinAccountTransStatus",
+   "ctrl_method": "setFinAccountTransStatus",
+   "svc_method": "setFinAccountTransStatus",
+   "req_type": "SetFinAccountTransStatusRequest",
+   "resp_type": "SetFinAccountTransStatusResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/setInvoiceStatus",
+   "ctrl_method": "setInvoiceStatus",
+   "svc_method": "setInvoiceStatus",
+   "req_type": "SetInvoiceStatusRequest",
+   "resp_type": "SetInvoiceStatusResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/setPaymentStatus",
+   "ctrl_method": "setPaymentStatus",
+   "svc_method": "setPaymentStatus",
+   "req_type": "SetPaymentStatusRequest",
+   "resp_type": "SetPaymentStatusResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/unlinkInvoiceFromTimeEntry",
+   "ctrl_method": "updateTimeEntry",
+   "svc_method": "updateTimeEntry",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateAcctgTrans",
+   "ctrl_method": "updateAcctgTrans",
+   "svc_method": "updateAcctgTrans",
+   "req_type": "UpdateAcctgTransRequest",
+   "resp_type": "UpdateAcctgTransResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateAcctgTransEntry",
+   "ctrl_method": "updateAcctgTransEntry",
+   "svc_method": "updateAcctgTransEntry",
+   "req_type": "UpdateAcctgTransEntryRequest",
+   "resp_type": "UpdateAcctgTransEntryResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateAgreement",
+   "ctrl_method": "updateAgreement",
+   "svc_method": "updateAgreement",
+   "req_type": "UpdateAgreementRequest",
+   "resp_type": "UpdateAgreementResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateAgreementItem",
+   "ctrl_method": "updateAgreementItem",
+   "svc_method": "updateAgreementItem",
+   "req_type": "UpdateAgreementItemRequest",
+   "resp_type": "UpdateAgreementItemResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateAgreementItemFacility",
+   "ctrl_method": "updateAgreementFacilityAppl",
+   "svc_method": "updateAgreementFacilityAppl",
+   "req_type": "UpdateAgreementFacilityApplRequest",
+   "resp_type": "UpdateAgreementFacilityApplResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateAgreementItemParty",
+   "ctrl_method": "updateAgreementPartyApplic",
+   "svc_method": "updateAgreementPartyApplic",
+   "req_type": "UpdateAgreementPartyApplicRequest",
+   "resp_type": "UpdateAgreementPartyApplicResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateAgreementItemProduct",
+   "ctrl_method": "updateAgreementProductAppl",
+   "svc_method": "updateAgreementProductAppl",
+   "req_type": "UpdateAgreementProductApplRequest",
+   "resp_type": "UpdateAgreementProductApplResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateAgreementItemSupplierProduct",
+   "ctrl_method": "updateSupplierProduct",
+   "svc_method": "updateSupplierProduct",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateAgreementItemTerm",
+   "ctrl_method": "updateAgreementTerm",
+   "svc_method": "updateAgreementTerm",
+   "req_type": "UpdateAgreementTermRequest",
+   "resp_type": "UpdateAgreementTermResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateAgreementPromoAppl",
+   "ctrl_method": "updateAgreementPromoAppl",
+   "svc_method": "updateAgreementPromoAppl",
+   "req_type": "UpdateAgreementPromoApplRequest",
+   "resp_type": "UpdateAgreementPromoApplResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateAgreementRole",
+   "ctrl_method": "updateAgreementRole",
+   "svc_method": "updateAgreementRole",
+   "req_type": "UpdateAgreementRoleRequest",
+   "resp_type": "UpdateAgreementRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateAgreementTerm",
+   "ctrl_method": "updateAgreementTermUpdateAgreementTerm",
+   "svc_method": "updateAgreementTerm",
+   "req_type": "UpdateAgreementTermRequest",
+   "resp_type": "UpdateAgreementTermResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateBillingAccount",
+   "ctrl_method": "updateBillingAccount",
+   "svc_method": "updateBillingAccount",
+   "req_type": "UpdateBillingAccountRequest",
+   "resp_type": "UpdateBillingAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateBillingAccountRole",
+   "ctrl_method": "updateBillingAccountRole",
+   "svc_method": "updateBillingAccountRole",
+   "req_type": "UpdateBillingAccountRoleRequest",
+   "resp_type": "UpdateBillingAccountRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateBillingAccountTerm",
+   "ctrl_method": "updateBillingAccountTerm",
+   "svc_method": "updateBillingAccountTerm",
+   "req_type": "UpdateBillingAccountTermRequest",
+   "resp_type": "UpdateBillingAccountTermResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateBudget",
+   "ctrl_method": "updateBudget",
+   "svc_method": "updateBudget",
+   "req_type": "UpdateBudgetRequest",
+   "resp_type": "UpdateBudgetResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "GET",
+   "path": "/accounting/control/updateBudgetItem",
+   "ctrl_method": "updateBudgetItem",
+   "svc_method": "updateBudgetItem",
+   "req_type": "Map",
+   "resp_type": "UpdateBudgetItemResponse",
+   "binding": "PARAM"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateBudgetStatus",
+   "ctrl_method": "updateBudgetStatus",
+   "svc_method": "updateBudgetStatus",
+   "req_type": "UpdateBudgetStatusRequest",
+   "resp_type": "UpdateBudgetStatusResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateCostComponentCalc",
+   "ctrl_method": "updateCostComponentCalc",
+   "svc_method": "updateCostComponentCalc",
+   "req_type": "UpdateCostComponentCalcRequest",
+   "resp_type": "UpdateCostComponentCalcResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateCreditCardTypeGlAccount",
+   "ctrl_method": "updateCreditCardTypeGlAccount",
+   "svc_method": "updateCreditCardTypeGlAccount",
+   "req_type": "UpdateCreditCardTypeGlAccountRequest",
+   "resp_type": "UpdateCreditCardTypeGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateCustomTimePeriod",
+   "ctrl_method": "updateCustomTimePeriod",
+   "svc_method": "updateCustomTimePeriod",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateDepositSlip",
+   "ctrl_method": "updatePaymentGroup",
+   "svc_method": "updatePaymentGroup",
+   "req_type": "UpdatePaymentGroupRequest",
+   "resp_type": "UpdatePaymentGroupResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateDepositSlipMember",
+   "ctrl_method": "updatePaymentGroupMember",
+   "svc_method": "updatePaymentGroupMember",
+   "req_type": "UpdatePaymentGroupMemberRequest",
+   "resp_type": "UpdatePaymentGroupMemberResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateFXConversion",
+   "ctrl_method": "updateFXConversion",
+   "svc_method": "updateFXConversion",
+   "req_type": "UpdateFXConversionRequest",
+   "resp_type": "UpdateFXConversionResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateFinAccount",
+   "ctrl_method": "updateFinAccount",
+   "svc_method": "updateFinAccount",
+   "req_type": "UpdateFinAccountRequest",
+   "resp_type": "UpdateFinAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateFinAccountGlReconciliation",
+   "ctrl_method": "updateGlReconciliation",
+   "svc_method": "updateGlReconciliation",
+   "req_type": "UpdateGlReconciliationRequest",
+   "resp_type": "UpdateGlReconciliationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateFinAccountRole",
+   "ctrl_method": "updateFinAccountRole",
+   "svc_method": "updateFinAccountRole",
+   "req_type": "UpdateFinAccountRoleRequest",
+   "resp_type": "UpdateFinAccountRoleResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateFinAccountTypeGlAccount",
+   "ctrl_method": "updateFinAccountTypeGlAccount",
+   "svc_method": "updateFinAccountTypeGlAccount",
+   "req_type": "UpdateFinAccountTypeGlAccountRequest",
+   "resp_type": "UpdateFinAccountTypeGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateFixedAsset",
+   "ctrl_method": "updateFixedAsset",
+   "svc_method": "updateFixedAsset",
+   "req_type": "UpdateFixedAssetRequest",
+   "resp_type": "UpdateFixedAssetResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateFixedAssetDepMethod",
+   "ctrl_method": "updateFixedAssetDepMethod",
+   "svc_method": "updateFixedAssetDepMethod",
+   "req_type": "UpdateFixedAssetDepMethodRequest",
+   "resp_type": "UpdateFixedAssetDepMethodResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateFixedAssetIdent",
+   "ctrl_method": "updateFixedAssetIdent",
+   "svc_method": "updateFixedAssetIdent",
+   "req_type": "UpdateFixedAssetIdentRequest",
+   "resp_type": "UpdateFixedAssetIdentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateFixedAssetMaint",
+   "ctrl_method": "updateFixedAssetMaint",
+   "svc_method": "updateFixedAssetMaint",
+   "req_type": "UpdateFixedAssetMaintRequest",
+   "resp_type": "UpdateFixedAssetMaintResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateFixedAssetMeter",
+   "ctrl_method": "updateFixedAssetMeter",
+   "svc_method": "updateFixedAssetMeter",
+   "req_type": "UpdateFixedAssetMeterRequest",
+   "resp_type": "UpdateFixedAssetMeterResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateFixedAssetProduct",
+   "ctrl_method": "updateFixedAssetProduct",
+   "svc_method": "updateFixedAssetProduct",
+   "req_type": "UpdateFixedAssetProductRequest",
+   "resp_type": "UpdateFixedAssetProductResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateFixedAssetRegistration",
+   "ctrl_method": "updateFixedAssetRegistration",
+   "svc_method": "updateFixedAssetRegistration",
+   "req_type": "UpdateFixedAssetRegistrationRequest",
+   "resp_type": "UpdateFixedAssetRegistrationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateFixedAssetStdCost",
+   "ctrl_method": "updateFixedAssetStdCost",
+   "svc_method": "updateFixedAssetStdCost",
+   "req_type": "UpdateFixedAssetStdCostRequest",
+   "resp_type": "UpdateFixedAssetStdCostResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateGlAccount",
+   "ctrl_method": "updateGlAccount",
+   "svc_method": "updateGlAccount",
+   "req_type": "UpdateGlAccountRequest",
+   "resp_type": "UpdateGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateGlAccountCategory",
+   "ctrl_method": "updateGlAccountCategory",
+   "svc_method": "updateGlAccountCategory",
+   "req_type": "UpdateGlAccountCategoryRequest",
+   "resp_type": "UpdateGlAccountCategoryResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateGlAccountCategoryMember",
+   "ctrl_method": "updateGlAccountCategoryMember",
+   "svc_method": "updateGlAccountCategoryMember",
+   "req_type": "UpdateGlAccountCategoryMemberRequest",
+   "resp_type": "UpdateGlAccountCategoryMemberResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateGlAccountOrganization",
+   "ctrl_method": "updateGlAccountUpdateGlAccountOrganization",
+   "svc_method": "updateGlAccount",
+   "req_type": "UpdateGlAccountRequest",
+   "resp_type": "UpdateGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateGlJournal",
+   "ctrl_method": "updateGlJournal",
+   "svc_method": "updateGlJournal",
+   "req_type": "UpdateGlJournalRequest",
+   "resp_type": "UpdateGlJournalResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateGlReconciliation",
+   "ctrl_method": "updateGlReconciliationUpdateGlReconciliation",
+   "svc_method": "updateGlReconciliation",
+   "req_type": "UpdateGlReconciliationRequest",
+   "resp_type": "UpdateGlReconciliationResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateInvoice",
+   "ctrl_method": "updateInvoice",
+   "svc_method": "updateInvoice",
+   "req_type": "UpdateInvoiceRequest",
+   "resp_type": "UpdateInvoiceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateInvoiceApplication",
+   "ctrl_method": "updatePaymentApplicationDef",
+   "svc_method": "updatePaymentApplicationDef",
+   "req_type": "UpdatePaymentApplicationDefRequest",
+   "resp_type": "UpdatePaymentApplicationDefResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "GET",
+   "path": "/accounting/control/updateInvoiceItem",
+   "ctrl_method": "updateInvoiceItem",
+   "svc_method": "updateInvoiceItem",
+   "req_type": "Map",
+   "resp_type": "UpdateInvoiceItemResponse",
+   "binding": "PARAM"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateInvoiceItemType",
+   "ctrl_method": "updateInvoiceItemType",
+   "svc_method": "updateInvoiceItemType",
+   "req_type": "UpdateInvoiceItemTypeRequest",
+   "resp_type": "UpdateInvoiceItemTypeResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateInvoiceTerm",
+   "ctrl_method": "updateInvoiceTerm",
+   "svc_method": "updateInvoiceTerm",
+   "req_type": "UpdateInvoiceTermRequest",
+   "resp_type": "UpdateInvoiceTermResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateOrganizationTaxAuthorityGlAccount",
+   "ctrl_method": "updateTaxAuthorityGlAccount",
+   "svc_method": "updateTaxAuthorityGlAccount",
+   "req_type": "UpdateTaxAuthorityGlAccountRequest",
+   "resp_type": "UpdateTaxAuthorityGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updatePartyAcctgPreference",
+   "ctrl_method": "updatePartyAcctgPreference",
+   "svc_method": "updatePartyAcctgPreference",
+   "req_type": "UpdatePartyAcctgPreferenceRequest",
+   "resp_type": "UpdatePartyAcctgPreferenceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updatePartyFixedAssetAssignment",
+   "ctrl_method": "updatePartyFixedAssetAssignment",
+   "svc_method": "updatePartyFixedAssetAssignment",
+   "req_type": "UpdatePartyFixedAssetAssignmentRequest",
+   "resp_type": "UpdatePartyFixedAssetAssignmentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updatePartyGlAccount",
+   "ctrl_method": "updatePartyGlAccount",
+   "svc_method": "updatePartyGlAccount",
+   "req_type": "UpdatePartyGlAccountRequest",
+   "resp_type": "UpdatePartyGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updatePayment",
+   "ctrl_method": "updatePayment",
+   "svc_method": "updatePayment",
+   "req_type": "UpdatePaymentRequest",
+   "resp_type": "UpdatePaymentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updatePaymentApplication",
+   "ctrl_method": "updatePaymentApplicationDefUpdatePaymentApplication",
+   "svc_method": "updatePaymentApplicationDef",
+   "req_type": "UpdatePaymentApplicationDefRequest",
+   "resp_type": "UpdatePaymentApplicationDefResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updatePaymentGroup",
+   "ctrl_method": "updatePaymentGroupUpdatePaymentGroup",
+   "svc_method": "updatePaymentGroup",
+   "req_type": "UpdatePaymentGroupRequest",
+   "resp_type": "UpdatePaymentGroupResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updatePaymentGroupMember",
+   "ctrl_method": "updatePaymentGroupMemberUpdatePaymentGroupMember",
+   "svc_method": "updatePaymentGroupMember",
+   "req_type": "UpdatePaymentGroupMemberRequest",
+   "resp_type": "UpdatePaymentGroupMemberResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updatePaymentMethodType",
+   "ctrl_method": "updatePaymentMethodType",
+   "svc_method": "updatePaymentMethodType",
+   "req_type": "UpdatePaymentMethodTypeRequest",
+   "resp_type": "UpdatePaymentMethodTypeResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateProductCategoryGlAccount",
+   "ctrl_method": "updateProductCategoryGlAccount",
+   "svc_method": "updateProductCategoryGlAccount",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateProductGlAccount",
+   "ctrl_method": "updateProductGlAccount",
+   "svc_method": "updateProductGlAccount",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateRateAmount",
+   "ctrl_method": "updateRateAmount",
+   "svc_method": "updateRateAmount",
+   "req_type": "UpdateRateAmountRequest",
+   "resp_type": "UpdateRateAmountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateTaxAuthority",
+   "ctrl_method": "updateTaxAuthority",
+   "svc_method": "updateTaxAuthority",
+   "req_type": "UpdateTaxAuthorityRequest",
+   "resp_type": "UpdateTaxAuthorityResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateTaxAuthorityAssoc",
+   "ctrl_method": "updateTaxAuthorityAssoc",
+   "svc_method": "updateTaxAuthorityAssoc",
+   "req_type": "UpdateTaxAuthorityAssocRequest",
+   "resp_type": "UpdateTaxAuthorityAssocResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateTaxAuthorityCategory",
+   "ctrl_method": "updateTaxAuthorityCategory",
+   "svc_method": "updateTaxAuthorityCategory",
+   "req_type": "UpdateTaxAuthorityCategoryRequest",
+   "resp_type": "UpdateTaxAuthorityCategoryResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateTaxAuthorityPartyInfo",
+   "ctrl_method": "updatePartyTaxAuthInfo",
+   "svc_method": "updatePartyTaxAuthInfo",
+   "req_type": "UpdatePartyTaxAuthInfoRequest",
+   "resp_type": "UpdatePartyTaxAuthInfoResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateTaxAuthorityRateProduct",
+   "ctrl_method": "updateTaxAuthorityRateProduct",
+   "svc_method": "updateTaxAuthorityRateProduct",
+   "req_type": "UpdateTaxAuthorityRateProductRequest",
+   "resp_type": "UpdateTaxAuthorityRateProductResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateVarianceReasonGlAccount",
+   "ctrl_method": "updateVarianceReasonGlAccount",
+   "svc_method": "updateVarianceReasonGlAccount",
+   "req_type": "UpdateVarianceReasonGlAccountRequest",
+   "resp_type": "UpdateVarianceReasonGlAccountResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/updateWorkEffort",
+   "ctrl_method": "updateWorkEffort",
+   "svc_method": "updateWorkEffort",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/uploadAgreementContent",
+   "ctrl_method": "uploadAgreementContentFile",
+   "svc_method": "uploadAgreementContentFile",
+   "req_type": "UploadAgreementContentFileRequest",
+   "resp_type": "UploadAgreementContentFileResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/accounting/control/voidPayment",
+   "ctrl_method": "voidPayment",
+   "svc_method": "voidPayment",
+   "req_type": "VoidPaymentRequest",
+   "resp_type": "VoidPaymentResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/ap/control/cancelCheckRunPayments",
+   "ctrl_method": "cancelCheckRunPaymentsCancelCheckRunPayments",
+   "svc_method": "cancelCheckRunPayments",
+   "req_type": "CancelCheckRunPaymentsRequest",
+   "resp_type": "CancelCheckRunPaymentsResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/ap/control/createInvoice",
+   "ctrl_method": "createInvoiceCreateInvoice",
+   "svc_method": "createInvoice",
+   "req_type": "CreateInvoiceRequest",
+   "resp_type": "CreateInvoiceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/ap/control/createPayment",
+   "ctrl_method": "createPaymentAndFinAccountTransCreatePayment2",
+   "svc_method": "createPaymentAndFinAccountTrans",
+   "req_type": "CreatePaymentAndFinAccountTransRequest",
+   "resp_type": "CreatePaymentAndFinAccountTransResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/ap/control/createVendor",
+   "ctrl_method": "createVendor",
+   "svc_method": "createVendor",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/ap/control/massChangeInvoiceStatus",
+   "ctrl_method": "massChangeInvoiceStatus",
+   "svc_method": "massChangeInvoiceStatus",
+   "req_type": "MassChangeInvoiceStatusRequest",
+   "resp_type": "MassChangeInvoiceStatusResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/ap/control/processMassCheckRun",
+   "ctrl_method": "createPaymentAndPaymentGroupForInvoices",
+   "svc_method": "createPaymentAndPaymentGroupForInvoices",
+   "req_type": "CreatePaymentAndPaymentGroupForInvoicesRequest",
+   "resp_type": "CreatePaymentAndPaymentGroupForInvoicesResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/ap/control/updateVendor",
+   "ctrl_method": "updateVendor",
+   "svc_method": "updateVendor",
+   "req_type": "?",
+   "resp_type": "MAP",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/ar/control/cancelPaymentGroup",
+   "ctrl_method": "cancelPaymentBatchCancelPaymentGroup",
+   "svc_method": "cancelPaymentBatch",
+   "req_type": "CancelPaymentBatchRequest",
+   "resp_type": "CancelPaymentBatchResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/ar/control/createInvoice",
+   "ctrl_method": "createInvoiceCreateInvoice2",
+   "svc_method": "createInvoice",
+   "req_type": "CreateInvoiceRequest",
+   "resp_type": "CreateInvoiceResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/ar/control/createPayment",
+   "ctrl_method": "createPaymentAndFinAccountTransCreatePayment3",
+   "svc_method": "createPaymentAndFinAccountTrans",
+   "req_type": "CreatePaymentAndFinAccountTransRequest",
+   "resp_type": "CreatePaymentAndFinAccountTransResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/ar/control/createPaymentBatch",
+   "ctrl_method": "depositWithdrawPaymentsCreatePaymentBatch",
+   "svc_method": "depositWithdrawPayments",
+   "req_type": "DepositWithdrawPaymentsRequest",
+   "resp_type": "DepositWithdrawPaymentsResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/ar/control/massChangeInvoiceStatus",
+   "ctrl_method": "massChangeInvoiceStatusMassChangeInvoiceStatus",
+   "svc_method": "massChangeInvoiceStatus",
+   "req_type": "MassChangeInvoiceStatusRequest",
+   "resp_type": "MassChangeInvoiceStatusResponse",
+   "binding": "BODY"
+  },
+  {
+   "verb": "POST",
+   "path": "/ar/control/massChangePaymentStatus",
+   "ctrl_method": "massChangePaymentStatus",
+   "svc_method": "massChangePaymentStatus",
+   "req_type": "MassChangePaymentStatusRequest",
+   "resp_type": "MassChangePaymentStatusResponse",
+   "binding": "BODY"
+  }
+ ],
+ "svc": {
+  "setAcctgCompany": {
+   "req_types": [
+    "SetAcctgCompanyRequest"
+   ],
+   "resp_types": [
+    "SetAcctgCompanyResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 4
+  },
+  "createReconcileAccount": {
+   "req_types": [
+    "Map"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "PARAM"
+   ],
+   "n": 1
+  },
+  "importInvoice": {
+   "req_types": [
+    "ImportInvoiceRequest"
+   ],
+   "resp_types": [
+    "ImportInvoiceResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentGatewayConfig": {
+   "req_types": [
+    "UpdatePaymentGatewayConfigRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentGatewayConfigResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentGatewayConfigAuthorizeNet": {
+   "req_types": [
+    "UpdatePaymentGatewayConfigAuthorizeNetRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentGatewayConfigAuthorizeNetResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentGatewayConfigClearCommerce": {
+   "req_types": [
+    "UpdatePaymentGatewayConfigClearCommerceRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentGatewayConfigClearCommerceResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentGatewayConfigCyberSource": {
+   "req_types": [
+    "UpdatePaymentGatewayConfigCyberSourceRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentGatewayConfigCyberSourceResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentGatewayConfigEway": {
+   "req_types": [
+    "UpdatePaymentGatewayConfigEwayRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentGatewayConfigEwayResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentGatewayConfigPayPal": {
+   "req_types": [
+    "UpdatePaymentGatewayConfigPayPalRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentGatewayConfigPayPalResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentGatewayConfigPayflowPro": {
+   "req_types": [
+    "UpdatePaymentGatewayConfigPayflowProRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentGatewayConfigPayflowProResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentGatewayConfigSagePay": {
+   "req_types": [
+    "UpdatePaymentGatewayConfigSagePayRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentGatewayConfigSagePayResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentGatewayConfigSecurePay": {
+   "req_types": [
+    "UpdatePaymentGatewayConfigSecurePayRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentGatewayConfigSecurePayResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentGatewayConfigType": {
+   "req_types": [
+    "UpdatePaymentGatewayConfigTypeRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentGatewayConfigTypeResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentGatewayConfigWorldPay": {
+   "req_types": [
+    "UpdatePaymentGatewayConfigWorldPayRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentGatewayConfigWorldPayResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createPaymentGroupMember": {
+   "req_types": [
+    "CreatePaymentGroupMemberRequest"
+   ],
+   "resp_types": [
+    "CreatePaymentGroupMemberResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "addFixedAssetProduct": {
+   "req_types": [
+    "AddFixedAssetProductRequest"
+   ],
+   "resp_types": [
+    "AddFixedAssetProductResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "addPaymentMethodTypeGlAssignment": {
+   "req_types": [
+    "AddPaymentMethodTypeGlAssignmentRequest"
+   ],
+   "resp_types": [
+    "AddPaymentMethodTypeGlAssignmentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "addPaymentTypeGlAssignment": {
+   "req_types": [
+    "AddPaymentTypeGlAssignmentRequest"
+   ],
+   "resp_types": [
+    "AddPaymentTypeGlAssignmentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "addInvoiceItemTypeGlAssignment": {
+   "req_types": [
+    "AddInvoiceItemTypeGlAssignmentRequest"
+   ],
+   "resp_types": [
+    "AddInvoiceItemTypeGlAssignmentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "addTaxOnInvoice": {
+   "req_types": [
+    "AddTaxOnInvoiceRequest"
+   ],
+   "resp_types": [
+    "AddTaxOnInvoiceResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "assignGlRecToFinAccTrans": {
+   "req_types": [
+    "Map"
+   ],
+   "resp_types": [
+    "AssignGlRecToFinAccTransResponse"
+   ],
+   "bindings": [
+    "PARAM"
+   ],
+   "n": 1
+  },
+  "reconcileFinAccountTrans": {
+   "req_types": [
+    "Map"
+   ],
+   "resp_types": [
+    "ReconcileFinAccountTransResponse"
+   ],
+   "bindings": [
+    "PARAM"
+   ],
+   "n": 2
+  },
+  "expireAgreement": {
+   "req_types": [
+    "ExpireAgreementRequest"
+   ],
+   "resp_types": [
+    "ExpireAgreementResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "cancelBankReconciliation": {
+   "req_types": [
+    "CancelBankReconciliationRequest"
+   ],
+   "resp_types": [
+    "CancelBankReconciliationResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "cancelCheckRunPayments": {
+   "req_types": [
+    "CancelCheckRunPaymentsRequest"
+   ],
+   "resp_types": [
+    "CancelCheckRunPaymentsResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "cancelFixedAssetStdCost": {
+   "req_types": [
+    "CancelFixedAssetStdCostRequest"
+   ],
+   "resp_types": [
+    "CancelFixedAssetStdCostResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "cancelPaymentBatch": {
+   "req_types": [
+    "CancelPaymentBatchRequest"
+   ],
+   "resp_types": [
+    "CancelPaymentBatchResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 3
+  },
+  "capturePaymentsByInvoice": {
+   "req_types": [
+    "CapturePaymentsByInvoiceRequest"
+   ],
+   "resp_types": [
+    "CapturePaymentsByInvoiceResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "closeFinancialTimePeriod": {
+   "req_types": [
+    "CloseFinancialTimePeriodRequest"
+   ],
+   "resp_types": [
+    "CloseFinancialTimePeriodResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "completeAcctgTransEntries": {
+   "req_types": [
+    "CompleteAcctgTransEntriesRequest"
+   ],
+   "resp_types": [
+    "CompleteAcctgTransEntriesResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "copyAcctgTransAndEntries": {
+   "req_types": [
+    "CopyAcctgTransAndEntriesRequest"
+   ],
+   "resp_types": [
+    "CopyAcctgTransAndEntriesResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "copyAgreement": {
+   "req_types": [
+    "CopyAgreementRequest"
+   ],
+   "resp_types": [
+    "CopyAgreementResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "copyInvoice": {
+   "req_types": [
+    "CopyInvoiceRequest"
+   ],
+   "resp_types": [
+    "CopyInvoiceResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "copyInvoiceToTemplate": {
+   "req_types": [
+    "CopyInvoiceToTemplateRequest"
+   ],
+   "resp_types": [
+    "CopyInvoiceToTemplateResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createAcctgTrans": {
+   "req_types": [
+    "CreateAcctgTransRequest"
+   ],
+   "resp_types": [
+    "CreateAcctgTransResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createAcctgTransEntry": {
+   "req_types": [
+    "CreateAcctgTransEntryRequest"
+   ],
+   "resp_types": [
+    "CreateAcctgTransEntryResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createAgreement": {
+   "req_types": [
+    "CreateAgreementRequest"
+   ],
+   "resp_types": [
+    "CreateAgreementResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createAgreementGeographicalApplic": {
+   "req_types": [
+    "CreateAgreementGeographicalApplicRequest"
+   ],
+   "resp_types": [
+    "CreateAgreementGeographicalApplicResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createAgreementItem": {
+   "req_types": [
+    "CreateAgreementItemRequest"
+   ],
+   "resp_types": [
+    "CreateAgreementItemResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createAgreementFacilityAppl": {
+   "req_types": [
+    "CreateAgreementFacilityApplRequest"
+   ],
+   "resp_types": [
+    "CreateAgreementFacilityApplResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createAgreementPartyApplic": {
+   "req_types": [
+    "CreateAgreementPartyApplicRequest"
+   ],
+   "resp_types": [
+    "CreateAgreementPartyApplicResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createAgreementProductAppl": {
+   "req_types": [
+    "CreateAgreementProductApplRequest"
+   ],
+   "resp_types": [
+    "CreateAgreementProductApplResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createSupplierProduct": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createAgreementTerm": {
+   "req_types": [
+    "CreateAgreementTermRequest"
+   ],
+   "resp_types": [
+    "CreateAgreementTermResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "createAgreementPromoAppl": {
+   "req_types": [
+    "CreateAgreementPromoApplRequest"
+   ],
+   "resp_types": [
+    "CreateAgreementPromoApplResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createAgreementRole": {
+   "req_types": [
+    "CreateAgreementRoleRequest"
+   ],
+   "resp_types": [
+    "CreateAgreementRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createAgreementWorkEffortApplic": {
+   "req_types": [
+    "CreateAgreementWorkEffortApplicRequest"
+   ],
+   "resp_types": [
+    "CreateAgreementWorkEffortApplicResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createBillingAccount": {
+   "req_types": [
+    "CreateBillingAccountRequest"
+   ],
+   "resp_types": [
+    "CreateBillingAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createBillingAccountAndRole": {
+   "req_types": [
+    "CreateBillingAccountAndRoleRequest"
+   ],
+   "resp_types": [
+    "CreateBillingAccountAndRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createBillingAccountRole": {
+   "req_types": [
+    "CreateBillingAccountRoleRequest"
+   ],
+   "resp_types": [
+    "CreateBillingAccountRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createBillingAccountTerm": {
+   "req_types": [
+    "CreateBillingAccountTermRequest"
+   ],
+   "resp_types": [
+    "CreateBillingAccountTermResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createBudget": {
+   "req_types": [
+    "CreateBudgetRequest"
+   ],
+   "resp_types": [
+    "CreateBudgetResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createBudgetItem": {
+   "req_types": [
+    "CreateBudgetItemRequest"
+   ],
+   "resp_types": [
+    "CreateBudgetItemResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createBudgetReview": {
+   "req_types": [
+    "CreateBudgetReviewRequest"
+   ],
+   "resp_types": [
+    "CreateBudgetReviewResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createBudgetRole": {
+   "req_types": [
+    "CreateBudgetRoleRequest"
+   ],
+   "resp_types": [
+    "CreateBudgetRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createCostComponentCalc": {
+   "req_types": [
+    "CreateCostComponentCalcRequest"
+   ],
+   "resp_types": [
+    "CreateCostComponentCalcResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createCreditCardTypeGlAccount": {
+   "req_types": [
+    "CreateCreditCardTypeGlAccountRequest"
+   ],
+   "resp_types": [
+    "CreateCreditCardTypeGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createCustomTimePeriod": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createPaymentAndFinAccountTrans": {
+   "req_types": [
+    "CreatePaymentAndFinAccountTransRequest"
+   ],
+   "resp_types": [
+    "CreatePaymentAndFinAccountTransResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 5
+  },
+  "createFinAccount": {
+   "req_types": [
+    "CreateFinAccountRequest"
+   ],
+   "resp_types": [
+    "CreateFinAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createFinAccountAuth": {
+   "req_types": [
+    "CreateFinAccountAuthRequest"
+   ],
+   "resp_types": [
+    "CreateFinAccountAuthResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createFinAccountRole": {
+   "req_types": [
+    "CreateFinAccountRoleRequest"
+   ],
+   "resp_types": [
+    "CreateFinAccountRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createFinAccountTrans": {
+   "req_types": [
+    "CreateFinAccountTransRequest"
+   ],
+   "resp_types": [
+    "CreateFinAccountTransResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createFinAccountTypeGlAccount": {
+   "req_types": [
+    "CreateFinAccountTypeGlAccountRequest"
+   ],
+   "resp_types": [
+    "CreateFinAccountTypeGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createFixedAsset": {
+   "req_types": [
+    "CreateFixedAssetRequest"
+   ],
+   "resp_types": [
+    "CreateFixedAssetResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createFixedAssetDepMethod": {
+   "req_types": [
+    "CreateFixedAssetDepMethodRequest"
+   ],
+   "resp_types": [
+    "CreateFixedAssetDepMethodResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createFixedAssetIdent": {
+   "req_types": [
+    "CreateFixedAssetIdentRequest"
+   ],
+   "resp_types": [
+    "CreateFixedAssetIdentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createFixedAssetMaint": {
+   "req_types": [
+    "CreateFixedAssetMaintRequest"
+   ],
+   "resp_types": [
+    "CreateFixedAssetMaintResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createFixedAssetMaintOrder": {
+   "req_types": [
+    "CreateFixedAssetMaintOrderRequest"
+   ],
+   "resp_types": [
+    "CreateFixedAssetMaintOrderResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createFixedAssetMeter": {
+   "req_types": [
+    "CreateFixedAssetMeterRequest"
+   ],
+   "resp_types": [
+    "CreateFixedAssetMeterResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createFixedAssetRegistration": {
+   "req_types": [
+    "CreateFixedAssetRegistrationRequest"
+   ],
+   "resp_types": [
+    "CreateFixedAssetRegistrationResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createFixedAssetStdCost": {
+   "req_types": [
+    "CreateFixedAssetStdCostRequest"
+   ],
+   "resp_types": [
+    "CreateFixedAssetStdCostResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createFixedAssetTypeGlAccount": {
+   "req_types": [
+    "CreateFixedAssetTypeGlAccountRequest"
+   ],
+   "resp_types": [
+    "CreateFixedAssetTypeGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "createGlAccount": {
+   "req_types": [
+    "CreateGlAccountRequest"
+   ],
+   "resp_types": [
+    "CreateGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createGlAccountCategory": {
+   "req_types": [
+    "CreateGlAccountCategoryRequest"
+   ],
+   "resp_types": [
+    "CreateGlAccountCategoryResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createGlAccountCategoryMember": {
+   "req_types": [
+    "CreateGlAccountCategoryMemberRequest"
+   ],
+   "resp_types": [
+    "CreateGlAccountCategoryMemberResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createGlAccountOrganization": {
+   "req_types": [
+    "CreateGlAccountOrganizationRequest"
+   ],
+   "resp_types": [
+    "CreateGlAccountOrganizationResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createGlAccountTypeDefault": {
+   "req_types": [
+    "CreateGlAccountTypeDefaultRequest"
+   ],
+   "resp_types": [
+    "CreateGlAccountTypeDefaultResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createGlJournal": {
+   "req_types": [
+    "CreateGlJournalRequest"
+   ],
+   "resp_types": [
+    "CreateGlJournalResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createGlReconciliation": {
+   "req_types": [
+    "CreateGlReconciliationRequest"
+   ],
+   "resp_types": [
+    "CreateGlReconciliationResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createInvoice": {
+   "req_types": [
+    "CreateInvoiceRequest"
+   ],
+   "resp_types": [
+    "CreateInvoiceResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 3
+  },
+  "createInvoiceItem": {
+   "req_types": [
+    "CreateInvoiceItemRequest"
+   ],
+   "resp_types": [
+    "CreateInvoiceItemResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createInvoiceItemPayrol": {
+   "req_types": [
+    "Map"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "PARAM"
+   ],
+   "n": 1
+  },
+  "createInvoiceRole": {
+   "req_types": [
+    "CreateInvoiceRoleRequest"
+   ],
+   "resp_types": [
+    "CreateInvoiceRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createInvoiceTerm": {
+   "req_types": [
+    "CreateInvoiceTermRequest"
+   ],
+   "resp_types": [
+    "CreateInvoiceTermResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createTaxAuthorityGlAccount": {
+   "req_types": [
+    "CreateTaxAuthorityGlAccountRequest"
+   ],
+   "resp_types": [
+    "CreateTaxAuthorityGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "createPartyAcctgPreference": {
+   "req_types": [
+    "CreatePartyAcctgPreferenceRequest"
+   ],
+   "resp_types": [
+    "CreatePartyAcctgPreferenceResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createPartyFixedAssetAssignment": {
+   "req_types": [
+    "CreatePartyFixedAssetAssignmentRequest"
+   ],
+   "resp_types": [
+    "CreatePartyFixedAssetAssignmentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createPartyGlAccount": {
+   "req_types": [
+    "CreatePartyGlAccountRequest"
+   ],
+   "resp_types": [
+    "CreatePartyGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createPartyPrefDocTypeTpl": {
+   "req_types": [
+    "CreatePartyPrefDocTypeTplRequest"
+   ],
+   "resp_types": [
+    "CreatePartyPrefDocTypeTplResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createPaymentAndApplication": {
+   "req_types": [
+    "CreatePaymentAndApplicationRequest"
+   ],
+   "resp_types": [
+    "CreatePaymentAndApplicationResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createPaymentApplication": {
+   "req_types": [
+    "CreatePaymentApplicationRequest"
+   ],
+   "resp_types": [
+    "CreatePaymentApplicationResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "checkAndCreateBatchForValidPayments": {
+   "req_types": [
+    "CheckAndCreateBatchForValidPaymentsRequest"
+   ],
+   "resp_types": [
+    "CheckAndCreateBatchForValidPaymentsResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createPaymentGroup": {
+   "req_types": [
+    "CreatePaymentGroupRequest"
+   ],
+   "resp_types": [
+    "CreatePaymentGroupResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createProductCategoryGlAccount": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createProductGlAccount": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createTaxAuthority": {
+   "req_types": [
+    "CreateTaxAuthorityRequest"
+   ],
+   "resp_types": [
+    "CreateTaxAuthorityResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createTaxAuthorityAssoc": {
+   "req_types": [
+    "CreateTaxAuthorityAssocRequest"
+   ],
+   "resp_types": [
+    "CreateTaxAuthorityAssocResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createTaxAuthorityCategory": {
+   "req_types": [
+    "CreateTaxAuthorityCategoryRequest"
+   ],
+   "resp_types": [
+    "CreateTaxAuthorityCategoryResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createPartyTaxAuthInfo": {
+   "req_types": [
+    "CreatePartyTaxAuthInfoRequest"
+   ],
+   "resp_types": [
+    "CreatePartyTaxAuthInfoResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createTaxAuthorityRateProduct": {
+   "req_types": [
+    "CreateTaxAuthorityRateProductRequest"
+   ],
+   "resp_types": [
+    "CreateTaxAuthorityRateProductResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createUpdateCostCenter": {
+   "req_types": [
+    "Map"
+   ],
+   "resp_types": [
+    "CreateUpdateCostCenterResponse"
+   ],
+   "bindings": [
+    "PARAM"
+   ],
+   "n": 1
+  },
+  "createVarianceReasonGlAccount": {
+   "req_types": [
+    "CreateVarianceReasonGlAccountRequest"
+   ],
+   "resp_types": [
+    "CreateVarianceReasonGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createWorkEffortAndPartyAssign": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteAcctgTransEntry": {
+   "req_types": [
+    "DeleteAcctgTransEntryRequest"
+   ],
+   "resp_types": [
+    "DeleteAcctgTransEntryResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteAgreementRole": {
+   "req_types": [
+    "DeleteAgreementRoleRequest"
+   ],
+   "resp_types": [
+    "DeleteAgreementRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteAgreementTerm": {
+   "req_types": [
+    "DeleteAgreementTermRequest"
+   ],
+   "resp_types": [
+    "DeleteAgreementTermResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "deleteAgreementWorkEffortApplic": {
+   "req_types": [
+    "DeleteAgreementWorkEffortApplicRequest"
+   ],
+   "resp_types": [
+    "DeleteAgreementWorkEffortApplicResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeBillingAccountRole": {
+   "req_types": [
+    "RemoveBillingAccountRoleRequest"
+   ],
+   "resp_types": [
+    "RemoveBillingAccountRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeCostComponentCalc": {
+   "req_types": [
+    "RemoveCostComponentCalcRequest"
+   ],
+   "resp_types": [
+    "RemoveCostComponentCalcResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteCreditCardTypeGlAccount": {
+   "req_types": [
+    "DeleteCreditCardTypeGlAccountRequest"
+   ],
+   "resp_types": [
+    "DeleteCreditCardTypeGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteCustomTimePeriod": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteFinAccount": {
+   "req_types": [
+    "DeleteFinAccountRequest"
+   ],
+   "resp_types": [
+    "DeleteFinAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteFinAccountRole": {
+   "req_types": [
+    "DeleteFinAccountRoleRequest"
+   ],
+   "resp_types": [
+    "DeleteFinAccountRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteFinAccountTypeGlAccount": {
+   "req_types": [
+    "DeleteFinAccountTypeGlAccountRequest"
+   ],
+   "resp_types": [
+    "DeleteFinAccountTypeGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteFixedAssetDepMethod": {
+   "req_types": [
+    "DeleteFixedAssetDepMethodRequest"
+   ],
+   "resp_types": [
+    "DeleteFixedAssetDepMethodResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteFixedAssetMaint": {
+   "req_types": [
+    "DeleteFixedAssetMaintRequest"
+   ],
+   "resp_types": [
+    "DeleteFixedAssetMaintResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteFixedAssetMaintOrder": {
+   "req_types": [
+    "DeleteFixedAssetMaintOrderRequest"
+   ],
+   "resp_types": [
+    "DeleteFixedAssetMaintOrderResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteFixedAssetMeter": {
+   "req_types": [
+    "DeleteFixedAssetMeterRequest"
+   ],
+   "resp_types": [
+    "DeleteFixedAssetMeterResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteFixedAssetRegistration": {
+   "req_types": [
+    "DeleteFixedAssetRegistrationRequest"
+   ],
+   "resp_types": [
+    "DeleteFixedAssetRegistrationResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteFixedAssetTypeGlAccount": {
+   "req_types": [
+    "DeleteFixedAssetTypeGlAccountRequest"
+   ],
+   "resp_types": [
+    "DeleteFixedAssetTypeGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "deleteGlAccountCategoryMember": {
+   "req_types": [
+    "DeleteGlAccountCategoryMemberRequest"
+   ],
+   "resp_types": [
+    "DeleteGlAccountCategoryMemberResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteGlJournal": {
+   "req_types": [
+    "DeleteGlJournalRequest"
+   ],
+   "resp_types": [
+    "DeleteGlJournalResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteInvoiceTerm": {
+   "req_types": [
+    "DeleteInvoiceTermRequest"
+   ],
+   "resp_types": [
+    "DeleteInvoiceTermResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteTaxAuthorityGlAccount": {
+   "req_types": [
+    "DeleteTaxAuthorityGlAccountRequest"
+   ],
+   "resp_types": [
+    "DeleteTaxAuthorityGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "deletePartyFixedAssetAssignment": {
+   "req_types": [
+    "DeletePartyFixedAssetAssignmentRequest"
+   ],
+   "resp_types": [
+    "DeletePartyFixedAssetAssignmentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deletePartyGlAccount": {
+   "req_types": [
+    "DeletePartyGlAccountRequest"
+   ],
+   "resp_types": [
+    "DeletePartyGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deletePaymentGroup": {
+   "req_types": [
+    "DeletePaymentGroupRequest"
+   ],
+   "resp_types": [
+    "DeletePaymentGroupResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteProductCategoryGlAccount": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteProductGlAccount": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteTaxAuthorityAssoc": {
+   "req_types": [
+    "DeleteTaxAuthorityAssocRequest"
+   ],
+   "resp_types": [
+    "DeleteTaxAuthorityAssocResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteTaxAuthorityCategory": {
+   "req_types": [
+    "DeleteTaxAuthorityCategoryRequest"
+   ],
+   "resp_types": [
+    "DeleteTaxAuthorityCategoryResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deletePartyTaxAuthInfo": {
+   "req_types": [
+    "DeletePartyTaxAuthInfoRequest"
+   ],
+   "resp_types": [
+    "DeletePartyTaxAuthInfoResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteTaxAuthorityRateProduct": {
+   "req_types": [
+    "DeleteTaxAuthorityRateProductRequest"
+   ],
+   "resp_types": [
+    "DeleteTaxAuthorityRateProductResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "deleteVarianceReasonGlAccount": {
+   "req_types": [
+    "DeleteVarianceReasonGlAccountRequest"
+   ],
+   "resp_types": [
+    "DeleteVarianceReasonGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "depositWithdrawPayments": {
+   "req_types": [
+    "DepositWithdrawPaymentsRequest"
+   ],
+   "resp_types": [
+    "DepositWithdrawPaymentsResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "sendInvoicePerEmail": {
+   "req_types": [
+    "SendInvoicePerEmailRequest"
+   ],
+   "resp_types": [
+    "SendInvoicePerEmailResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "expirePaymentGroupMember": {
+   "req_types": [
+    "ExpirePaymentGroupMemberRequest"
+   ],
+   "resp_types": [
+    "ExpirePaymentGroupMemberResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "expireFinAccountAuth": {
+   "req_types": [
+    "ExpireFinAccountAuthRequest"
+   ],
+   "resp_types": [
+    "ExpireFinAccountAuthResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "expirePartyPrefDocTypeTpl": {
+   "req_types": [
+    "ExpirePartyPrefDocTypeTplRequest"
+   ],
+   "resp_types": [
+    "ExpirePartyPrefDocTypeTplResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "expireRateAmount": {
+   "req_types": [
+    "ExpireRateAmountRequest"
+   ],
+   "resp_types": [
+    "ExpireRateAmountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "getFinAccountTransRunningTotalAndBalances": {
+   "req_types": [
+    "Map"
+   ],
+   "resp_types": [
+    "GetFinAccountTransRunningTotalAndBalancesResponse"
+   ],
+   "bindings": [
+    "PARAM"
+   ],
+   "n": 1
+  },
+  "getInvoiceRunningTotal": {
+   "req_types": [
+    "GetInvoiceRunningTotalRequest"
+   ],
+   "resp_types": [
+    "GetInvoiceRunningTotalResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "getPaymentRunningTotal": {
+   "req_types": [
+    "GetPaymentRunningTotalRequest"
+   ],
+   "resp_types": [
+    "GetPaymentRunningTotalResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "postAcctgTrans": {
+   "req_types": [
+    "PostAcctgTransRequest"
+   ],
+   "resp_types": [
+    "PostAcctgTransResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "authOrderPaymentPreference": {
+   "req_types": [
+    "AuthOrderPaymentPreferenceRequest"
+   ],
+   "resp_types": [
+    "AuthOrderPaymentPreferenceResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "captureOrderPayments": {
+   "req_types": [
+    "CaptureOrderPaymentsRequest"
+   ],
+   "resp_types": [
+    "CaptureOrderPaymentsResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createCommissionInvoices": {
+   "req_types": [
+    "CreateCommissionInvoicesRequest"
+   ],
+   "resp_types": [
+    "CreateCommissionInvoicesResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "manualForcedCcTransaction": {
+   "req_types": [
+    "ManualForcedCcTransactionRequest"
+   ],
+   "resp_types": [
+    "ManualForcedCcTransactionResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "refundOrderPaymentPreference": {
+   "req_types": [
+    "RefundOrderPaymentPreferenceRequest"
+   ],
+   "resp_types": [
+    "RefundOrderPaymentPreferenceResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "releaseOrderPaymentPreference": {
+   "req_types": [
+    "ReleaseOrderPaymentPreferenceRequest"
+   ],
+   "resp_types": [
+    "ReleaseOrderPaymentPreferenceResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "quickCreateAcctgTransAndEntries": {
+   "req_types": [
+    "QuickCreateAcctgTransAndEntriesRequest"
+   ],
+   "resp_types": [
+    "QuickCreateAcctgTransAndEntriesResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "quickSendPayment": {
+   "req_types": [
+    "Map"
+   ],
+   "resp_types": [
+    "QuickSendPaymentResponse"
+   ],
+   "bindings": [
+    "PARAM"
+   ],
+   "n": 1
+  },
+  "removeAgreementContent": {
+   "req_types": [
+    "RemoveAgreementContentRequest"
+   ],
+   "resp_types": [
+    "RemoveAgreementContentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeAgreementGeographicalApplic": {
+   "req_types": [
+    "RemoveAgreementGeographicalApplicRequest"
+   ],
+   "resp_types": [
+    "RemoveAgreementGeographicalApplicResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeAgreementItem": {
+   "req_types": [
+    "RemoveAgreementItemRequest"
+   ],
+   "resp_types": [
+    "RemoveAgreementItemResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeAgreementFacilityAppl": {
+   "req_types": [
+    "RemoveAgreementFacilityApplRequest"
+   ],
+   "resp_types": [
+    "RemoveAgreementFacilityApplResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeAgreementPartyApplic": {
+   "req_types": [
+    "RemoveAgreementPartyApplicRequest"
+   ],
+   "resp_types": [
+    "RemoveAgreementPartyApplicResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeAgreementProductAppl": {
+   "req_types": [
+    "RemoveAgreementProductApplRequest"
+   ],
+   "resp_types": [
+    "RemoveAgreementProductApplResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeSupplierProduct": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeAgreementPromoAppl": {
+   "req_types": [
+    "RemoveAgreementPromoApplRequest"
+   ],
+   "resp_types": [
+    "RemoveAgreementPromoApplResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeBillingAccountTerm": {
+   "req_types": [
+    "RemoveBillingAccountTermRequest"
+   ],
+   "resp_types": [
+    "RemoveBillingAccountTermResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeBudgetItem": {
+   "req_types": [
+    "RemoveBudgetItemRequest"
+   ],
+   "resp_types": [
+    "RemoveBudgetItemResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeBudgetReview": {
+   "req_types": [
+    "RemoveBudgetReviewRequest"
+   ],
+   "resp_types": [
+    "RemoveBudgetReviewResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeBudgetRole": {
+   "req_types": [
+    "RemoveBudgetRoleRequest"
+   ],
+   "resp_types": [
+    "RemoveBudgetRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeFinAccountTransFromReconciliation": {
+   "req_types": [
+    "RemoveFinAccountTransFromReconciliationRequest"
+   ],
+   "resp_types": [
+    "RemoveFinAccountTransFromReconciliationResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "removeFixedAssetIdent": {
+   "req_types": [
+    "RemoveFixedAssetIdentRequest"
+   ],
+   "resp_types": [
+    "RemoveFixedAssetIdentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeFixedAssetProduct": {
+   "req_types": [
+    "RemoveFixedAssetProductRequest"
+   ],
+   "resp_types": [
+    "RemoveFixedAssetProductResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeGlAccountTypeDefault": {
+   "req_types": [
+    "RemoveGlAccountTypeDefaultRequest"
+   ],
+   "resp_types": [
+    "RemoveGlAccountTypeDefaultResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removePaymentApplication": {
+   "req_types": [
+    "RemovePaymentApplicationRequest"
+   ],
+   "resp_types": [
+    "RemovePaymentApplicationResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "removeInvoiceItem": {
+   "req_types": [
+    "RemoveInvoiceItemRequest"
+   ],
+   "resp_types": [
+    "RemoveInvoiceItemResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeInvoiceRole": {
+   "req_types": [
+    "RemoveInvoiceRoleRequest"
+   ],
+   "resp_types": [
+    "RemoveInvoiceRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removePaymentMethodTypeGlAssignment": {
+   "req_types": [
+    "RemovePaymentMethodTypeGlAssignmentRequest"
+   ],
+   "resp_types": [
+    "RemovePaymentMethodTypeGlAssignmentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removePaymentTypeGlAssignment": {
+   "req_types": [
+    "RemovePaymentTypeGlAssignmentRequest"
+   ],
+   "resp_types": [
+    "RemovePaymentTypeGlAssignmentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "removeInvoiceItemTypeGlAssignment": {
+   "req_types": [
+    "RemoveInvoiceItemTypeGlAssignmentRequest"
+   ],
+   "resp_types": [
+    "RemoveInvoiceItemTypeGlAssignmentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "setFinAccountTransStatus": {
+   "req_types": [
+    "SetFinAccountTransStatusRequest"
+   ],
+   "resp_types": [
+    "SetFinAccountTransStatusResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "setInvoiceStatus": {
+   "req_types": [
+    "SetInvoiceStatusRequest"
+   ],
+   "resp_types": [
+    "SetInvoiceStatusResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "setPaymentStatus": {
+   "req_types": [
+    "SetPaymentStatusRequest"
+   ],
+   "resp_types": [
+    "SetPaymentStatusResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateTimeEntry": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateAcctgTrans": {
+   "req_types": [
+    "UpdateAcctgTransRequest"
+   ],
+   "resp_types": [
+    "UpdateAcctgTransResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateAcctgTransEntry": {
+   "req_types": [
+    "UpdateAcctgTransEntryRequest"
+   ],
+   "resp_types": [
+    "UpdateAcctgTransEntryResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateAgreement": {
+   "req_types": [
+    "UpdateAgreementRequest"
+   ],
+   "resp_types": [
+    "UpdateAgreementResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateAgreementItem": {
+   "req_types": [
+    "UpdateAgreementItemRequest"
+   ],
+   "resp_types": [
+    "UpdateAgreementItemResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateAgreementFacilityAppl": {
+   "req_types": [
+    "UpdateAgreementFacilityApplRequest"
+   ],
+   "resp_types": [
+    "UpdateAgreementFacilityApplResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateAgreementPartyApplic": {
+   "req_types": [
+    "UpdateAgreementPartyApplicRequest"
+   ],
+   "resp_types": [
+    "UpdateAgreementPartyApplicResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateAgreementProductAppl": {
+   "req_types": [
+    "UpdateAgreementProductApplRequest"
+   ],
+   "resp_types": [
+    "UpdateAgreementProductApplResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateSupplierProduct": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateAgreementTerm": {
+   "req_types": [
+    "UpdateAgreementTermRequest"
+   ],
+   "resp_types": [
+    "UpdateAgreementTermResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "updateAgreementPromoAppl": {
+   "req_types": [
+    "UpdateAgreementPromoApplRequest"
+   ],
+   "resp_types": [
+    "UpdateAgreementPromoApplResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateAgreementRole": {
+   "req_types": [
+    "UpdateAgreementRoleRequest"
+   ],
+   "resp_types": [
+    "UpdateAgreementRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateBillingAccount": {
+   "req_types": [
+    "UpdateBillingAccountRequest"
+   ],
+   "resp_types": [
+    "UpdateBillingAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateBillingAccountRole": {
+   "req_types": [
+    "UpdateBillingAccountRoleRequest"
+   ],
+   "resp_types": [
+    "UpdateBillingAccountRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateBillingAccountTerm": {
+   "req_types": [
+    "UpdateBillingAccountTermRequest"
+   ],
+   "resp_types": [
+    "UpdateBillingAccountTermResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateBudget": {
+   "req_types": [
+    "UpdateBudgetRequest"
+   ],
+   "resp_types": [
+    "UpdateBudgetResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateBudgetItem": {
+   "req_types": [
+    "Map"
+   ],
+   "resp_types": [
+    "UpdateBudgetItemResponse"
+   ],
+   "bindings": [
+    "PARAM"
+   ],
+   "n": 1
+  },
+  "updateBudgetStatus": {
+   "req_types": [
+    "UpdateBudgetStatusRequest"
+   ],
+   "resp_types": [
+    "UpdateBudgetStatusResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateCostComponentCalc": {
+   "req_types": [
+    "UpdateCostComponentCalcRequest"
+   ],
+   "resp_types": [
+    "UpdateCostComponentCalcResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateCreditCardTypeGlAccount": {
+   "req_types": [
+    "UpdateCreditCardTypeGlAccountRequest"
+   ],
+   "resp_types": [
+    "UpdateCreditCardTypeGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateCustomTimePeriod": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentGroup": {
+   "req_types": [
+    "UpdatePaymentGroupRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentGroupResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "updatePaymentGroupMember": {
+   "req_types": [
+    "UpdatePaymentGroupMemberRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentGroupMemberResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "updateFXConversion": {
+   "req_types": [
+    "UpdateFXConversionRequest"
+   ],
+   "resp_types": [
+    "UpdateFXConversionResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateFinAccount": {
+   "req_types": [
+    "UpdateFinAccountRequest"
+   ],
+   "resp_types": [
+    "UpdateFinAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateGlReconciliation": {
+   "req_types": [
+    "UpdateGlReconciliationRequest"
+   ],
+   "resp_types": [
+    "UpdateGlReconciliationResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "updateFinAccountRole": {
+   "req_types": [
+    "UpdateFinAccountRoleRequest"
+   ],
+   "resp_types": [
+    "UpdateFinAccountRoleResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateFinAccountTypeGlAccount": {
+   "req_types": [
+    "UpdateFinAccountTypeGlAccountRequest"
+   ],
+   "resp_types": [
+    "UpdateFinAccountTypeGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateFixedAsset": {
+   "req_types": [
+    "UpdateFixedAssetRequest"
+   ],
+   "resp_types": [
+    "UpdateFixedAssetResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateFixedAssetDepMethod": {
+   "req_types": [
+    "UpdateFixedAssetDepMethodRequest"
+   ],
+   "resp_types": [
+    "UpdateFixedAssetDepMethodResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateFixedAssetIdent": {
+   "req_types": [
+    "UpdateFixedAssetIdentRequest"
+   ],
+   "resp_types": [
+    "UpdateFixedAssetIdentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateFixedAssetMaint": {
+   "req_types": [
+    "UpdateFixedAssetMaintRequest"
+   ],
+   "resp_types": [
+    "UpdateFixedAssetMaintResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateFixedAssetMeter": {
+   "req_types": [
+    "UpdateFixedAssetMeterRequest"
+   ],
+   "resp_types": [
+    "UpdateFixedAssetMeterResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateFixedAssetProduct": {
+   "req_types": [
+    "UpdateFixedAssetProductRequest"
+   ],
+   "resp_types": [
+    "UpdateFixedAssetProductResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateFixedAssetRegistration": {
+   "req_types": [
+    "UpdateFixedAssetRegistrationRequest"
+   ],
+   "resp_types": [
+    "UpdateFixedAssetRegistrationResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateFixedAssetStdCost": {
+   "req_types": [
+    "UpdateFixedAssetStdCostRequest"
+   ],
+   "resp_types": [
+    "UpdateFixedAssetStdCostResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateGlAccount": {
+   "req_types": [
+    "UpdateGlAccountRequest"
+   ],
+   "resp_types": [
+    "UpdateGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "updateGlAccountCategory": {
+   "req_types": [
+    "UpdateGlAccountCategoryRequest"
+   ],
+   "resp_types": [
+    "UpdateGlAccountCategoryResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateGlAccountCategoryMember": {
+   "req_types": [
+    "UpdateGlAccountCategoryMemberRequest"
+   ],
+   "resp_types": [
+    "UpdateGlAccountCategoryMemberResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateGlJournal": {
+   "req_types": [
+    "UpdateGlJournalRequest"
+   ],
+   "resp_types": [
+    "UpdateGlJournalResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateInvoice": {
+   "req_types": [
+    "UpdateInvoiceRequest"
+   ],
+   "resp_types": [
+    "UpdateInvoiceResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentApplicationDef": {
+   "req_types": [
+    "UpdatePaymentApplicationDefRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentApplicationDefResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "updateInvoiceItem": {
+   "req_types": [
+    "Map"
+   ],
+   "resp_types": [
+    "UpdateInvoiceItemResponse"
+   ],
+   "bindings": [
+    "PARAM"
+   ],
+   "n": 1
+  },
+  "updateInvoiceItemType": {
+   "req_types": [
+    "UpdateInvoiceItemTypeRequest"
+   ],
+   "resp_types": [
+    "UpdateInvoiceItemTypeResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateInvoiceTerm": {
+   "req_types": [
+    "UpdateInvoiceTermRequest"
+   ],
+   "resp_types": [
+    "UpdateInvoiceTermResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateTaxAuthorityGlAccount": {
+   "req_types": [
+    "UpdateTaxAuthorityGlAccountRequest"
+   ],
+   "resp_types": [
+    "UpdateTaxAuthorityGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePartyAcctgPreference": {
+   "req_types": [
+    "UpdatePartyAcctgPreferenceRequest"
+   ],
+   "resp_types": [
+    "UpdatePartyAcctgPreferenceResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePartyFixedAssetAssignment": {
+   "req_types": [
+    "UpdatePartyFixedAssetAssignmentRequest"
+   ],
+   "resp_types": [
+    "UpdatePartyFixedAssetAssignmentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePartyGlAccount": {
+   "req_types": [
+    "UpdatePartyGlAccountRequest"
+   ],
+   "resp_types": [
+    "UpdatePartyGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePayment": {
+   "req_types": [
+    "UpdatePaymentRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePaymentMethodType": {
+   "req_types": [
+    "UpdatePaymentMethodTypeRequest"
+   ],
+   "resp_types": [
+    "UpdatePaymentMethodTypeResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateProductCategoryGlAccount": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateProductGlAccount": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateRateAmount": {
+   "req_types": [
+    "UpdateRateAmountRequest"
+   ],
+   "resp_types": [
+    "UpdateRateAmountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateTaxAuthority": {
+   "req_types": [
+    "UpdateTaxAuthorityRequest"
+   ],
+   "resp_types": [
+    "UpdateTaxAuthorityResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateTaxAuthorityAssoc": {
+   "req_types": [
+    "UpdateTaxAuthorityAssocRequest"
+   ],
+   "resp_types": [
+    "UpdateTaxAuthorityAssocResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateTaxAuthorityCategory": {
+   "req_types": [
+    "UpdateTaxAuthorityCategoryRequest"
+   ],
+   "resp_types": [
+    "UpdateTaxAuthorityCategoryResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updatePartyTaxAuthInfo": {
+   "req_types": [
+    "UpdatePartyTaxAuthInfoRequest"
+   ],
+   "resp_types": [
+    "UpdatePartyTaxAuthInfoResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateTaxAuthorityRateProduct": {
+   "req_types": [
+    "UpdateTaxAuthorityRateProductRequest"
+   ],
+   "resp_types": [
+    "UpdateTaxAuthorityRateProductResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateVarianceReasonGlAccount": {
+   "req_types": [
+    "UpdateVarianceReasonGlAccountRequest"
+   ],
+   "resp_types": [
+    "UpdateVarianceReasonGlAccountResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateWorkEffort": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "uploadAgreementContentFile": {
+   "req_types": [
+    "UploadAgreementContentFileRequest"
+   ],
+   "resp_types": [
+    "UploadAgreementContentFileResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "voidPayment": {
+   "req_types": [
+    "VoidPaymentRequest"
+   ],
+   "resp_types": [
+    "VoidPaymentResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "createVendor": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "massChangeInvoiceStatus": {
+   "req_types": [
+    "MassChangeInvoiceStatusRequest"
+   ],
+   "resp_types": [
+    "MassChangeInvoiceStatusResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 2
+  },
+  "createPaymentAndPaymentGroupForInvoices": {
+   "req_types": [
+    "CreatePaymentAndPaymentGroupForInvoicesRequest"
+   ],
+   "resp_types": [
+    "CreatePaymentAndPaymentGroupForInvoicesResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "updateVendor": {
+   "req_types": [
+    "?"
+   ],
+   "resp_types": [
+    "MAP"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  },
+  "massChangePaymentStatus": {
+   "req_types": [
+    "MassChangePaymentStatusRequest"
+   ],
+   "resp_types": [
+    "MassChangePaymentStatusResponse"
+   ],
+   "bindings": [
+    "BODY"
+   ],
+   "n": 1
+  }
+ }
+}

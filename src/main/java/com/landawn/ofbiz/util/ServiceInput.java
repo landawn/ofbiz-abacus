@@ -30,6 +30,16 @@ public final class ServiceInput {
     private ServiceInput() {}
 
     /**
+     * Typed convenience overload: project a {@link RequestBase} DTO onto an entity bean. Equivalent
+     * to {@code populate(bean, toMap(request))}, so the same type coercion and unknown-key tolerance
+     * apply. Null request properties are dropped (via {@link #toMap}), giving correct
+     * merge-without-clobber semantics when {@code bean} is a pre-loaded entity being updated.
+     */
+    public static <T> T populate(T bean, RequestBase request) {
+        return populate(bean, toMap(request));
+    }
+
+    /**
      * Copies every entry in {@code body} into the matching JavaBean property of {@code bean}, using
      * abacus's {@link Beans} for reflection-driven setters with built-in type coercion (so a
      * {@code String} ISO date in the map is converted to a {@link Timestamp} field, etc.). Unknown

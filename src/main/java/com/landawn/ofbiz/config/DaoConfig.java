@@ -686,4 +686,40 @@ public class DaoConfig {
     @Bean public com.landawn.ofbiz.dao.KeywordThesaurusDao keywordThesaurusDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.KeywordThesaurusDao.class, ds); }
     @Bean public com.landawn.ofbiz.dao.CarrierShipmentMethodDao carrierShipmentMethodDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.CarrierShipmentMethodDao.class, ds); }
     @Bean public com.landawn.ofbiz.dao.PicklistDao picklistDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PicklistDao.class, ds); }
+
+    // ---- DAOs added for AccountingController entity-auto services ----
+    @Bean public com.landawn.ofbiz.dao.AgreementContentDao agreementContentDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AgreementContentDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.AgreementFacilityApplDao agreementFacilityApplDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AgreementFacilityApplDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.AgreementGeographicalApplicDao agreementGeographicalApplicDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AgreementGeographicalApplicDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.AgreementPartyApplicDao agreementPartyApplicDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AgreementPartyApplicDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.AgreementPromoApplDao agreementPromoApplDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AgreementPromoApplDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.CreditCardTypeGlAccountDao creditCardTypeGlAccountDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.CreditCardTypeGlAccountDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FinAccountTypeGlAccountDao finAccountTypeGlAccountDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FinAccountTypeGlAccountDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FixedAssetDepMethodDao fixedAssetDepMethodDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FixedAssetDepMethodDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FixedAssetMaintOrderDao fixedAssetMaintOrderDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FixedAssetMaintOrderDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FixedAssetMeterDao fixedAssetMeterDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FixedAssetMeterDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FixedAssetProductDao fixedAssetProductDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FixedAssetProductDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FixedAssetTypeGlAccountDao fixedAssetTypeGlAccountDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FixedAssetTypeGlAccountDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.GlAccountCategoryMemberDao glAccountCategoryMemberDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.GlAccountCategoryMemberDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.GlAccountTypeDefaultDao glAccountTypeDefaultDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.GlAccountTypeDefaultDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.InvoiceItemTypeDao invoiceItemTypeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.InvoiceItemTypeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PartyFixedAssetAssignmentDao partyFixedAssetAssignmentDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PartyFixedAssetAssignmentDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PartyGlAccountDao partyGlAccountDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PartyGlAccountDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PartyPrefDocTypeTplDao partyPrefDocTypeTplDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PartyPrefDocTypeTplDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGatewayAuthorizeNetDao paymentGatewayAuthorizeNetDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGatewayAuthorizeNetDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGatewayClearCommerceDao paymentGatewayClearCommerceDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGatewayClearCommerceDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGatewayConfigDao paymentGatewayConfigDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGatewayConfigDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGatewayEwayDao paymentGatewayEwayDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGatewayEwayDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGatewaySagePayDao paymentGatewaySagePayDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGatewaySagePayDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGlAccountTypeMapDao paymentGlAccountTypeMapDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGlAccountTypeMapDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentMethodTypeDao paymentMethodTypeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentMethodTypeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.VarianceReasonGlAccountDao varianceReasonGlAccountDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.VarianceReasonGlAccountDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGatewayConfigTypeDao paymentGatewayConfigTypeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGatewayConfigTypeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGatewayCyberSourceDao paymentGatewayCyberSourceDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGatewayCyberSourceDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGatewayPayPalDao paymentGatewayPayPalDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGatewayPayPalDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGatewayPayflowProDao paymentGatewayPayflowProDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGatewayPayflowProDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGatewaySecurePayDao paymentGatewaySecurePayDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGatewaySecurePayDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGatewayWorldPayDao paymentGatewayWorldPayDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGatewayWorldPayDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.InvoiceStatusDao invoiceStatusDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.InvoiceStatusDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.BudgetStatusDao budgetStatusDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.BudgetStatusDao.class, ds); }
 }
