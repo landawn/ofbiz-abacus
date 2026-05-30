@@ -44,5 +44,7 @@
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
+    <!-- Suppress noisy per-method DAO proxy registration logs (each DAO logs ~600 lines at DEBUG). -->
+    <logger name="com.landawn.ofbiz.dao" level="INFO"/>
     <logger name="com.landawn.ofbiz" level="DEBUG"/>
 </configuration>

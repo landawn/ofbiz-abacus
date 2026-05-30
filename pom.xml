@@ -45,9 +45,9 @@
 		<maven.compiler.release>25</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<abacus-common.version>7.7.2</abacus-common.version>
-		<abacus-jdbc.version>4.7.2</abacus-jdbc.version>
-		<abacus-query.version>4.7.2</abacus-query.version>
+		<abacus-common.version>7.7.3</abacus-common.version>
+		<abacus-jdbc.version>4.7.3</abacus-jdbc.version>
+		<abacus-query.version>4.7.3</abacus-query.version>
 		<guava.version>33.4.0-jre</guava.version>
 		<lombok.version>1.18.46</lombok.version>
 	</properties>
@@ -144,6 +144,9 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<!-- The JVM default reserves ~1/4 of RAM (~16GB here). Pin a small heap
+					     for `mvn spring-boot:run`. -->
+					<jvmArguments>-Xms512m -Xmx1g</jvmArguments>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

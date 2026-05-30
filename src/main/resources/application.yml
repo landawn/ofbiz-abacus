@@ -2,6 +2,13 @@ spring:
   application:
     name: ofbiz-abacus
 
+  # Eager initialization: the ~294 abacus-jdbc DAO proxies build at context refresh.
+  # Safe again now that the proxy-build OOM is fixed in abacus-query 4.7.3. With the
+  # devtools restart classloader disabled (OfbizAbacusApplication.main()) eager build is
+  # ~26ms/proxy / ~8s.
+  main:
+    lazy-initialization: false
+
   datasource:
     url: jdbc:h2:mem:ofbiz;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
     driver-class-name: org.h2.Driver

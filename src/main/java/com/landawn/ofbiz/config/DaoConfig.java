@@ -61,6 +61,7 @@ import com.landawn.ofbiz.dao.WorkRequirementFulfillmentDao;
  * as additional services come online.
  */
 @Configuration
+@org.springframework.context.annotation.Lazy
 public class DaoConfig {
 
     @Bean
@@ -520,4 +521,169 @@ public class DaoConfig {
     @Bean public com.landawn.ofbiz.dao.FtpAddressDao ftpAddressDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FtpAddressDao.class, ds); }
     @Bean public com.landawn.ofbiz.dao.PartyAcctgPreferenceDao partyAcctgPreferenceDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PartyAcctgPreferenceDao.class, ds); }
     @Bean public com.landawn.ofbiz.dao.UserPreferenceDao userPreferenceDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.UserPreferenceDao.class, ds); }
+
+    // ---- DAOs added for Commonext + Content/Product entities used by other controllers ----
+    @Bean public com.landawn.ofbiz.dao.FacilityDao facilityDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FacilityDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProdCatalogDao prodCatalogDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProdCatalogDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductCategoryDao productCategoryDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductCategoryDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductStoreDao productStoreDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductStoreDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.WebSiteDao webSiteDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.WebSiteDao.class, ds); }
+
+    // ---- DAOs added for OrderController endpoints ----
+    @Bean public com.landawn.ofbiz.dao.OrderHeaderDao orderHeaderDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.OrderHeaderDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.OrderItemDao orderItemDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.OrderItemDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.OrderRoleDao orderRoleDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.OrderRoleDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.OrderStatusDao orderStatusDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.OrderStatusDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.OrderAdjustmentDao orderAdjustmentDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.OrderAdjustmentDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.OrderItemShipGroupDao orderItemShipGroupDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.OrderItemShipGroupDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.OrderItemShipGroupAssocDao orderItemShipGroupAssocDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.OrderItemShipGroupAssocDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.OrderTermDao orderTermDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.OrderTermDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.OrderDeliveryScheduleDao orderDeliveryScheduleDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.OrderDeliveryScheduleDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.OrderPaymentPreferenceDao orderPaymentPreferenceDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.OrderPaymentPreferenceDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.QuoteDao quoteDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.QuoteDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.QuoteItemDao quoteItemDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.QuoteItemDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.QuoteRoleDao quoteRoleDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.QuoteRoleDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.QuoteTermDao quoteTermDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.QuoteTermDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.QuoteAttributeDao quoteAttributeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.QuoteAttributeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.QuoteCoefficientDao quoteCoefficientDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.QuoteCoefficientDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.QuoteAdjustmentDao quoteAdjustmentDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.QuoteAdjustmentDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.QuoteWorkEffortDao quoteWorkEffortDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.QuoteWorkEffortDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ReturnHeaderDao returnHeaderDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ReturnHeaderDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ReturnItemDao returnItemDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ReturnItemDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ReturnAdjustmentDao returnAdjustmentDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ReturnAdjustmentDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ReturnContactMechDao returnContactMechDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ReturnContactMechDao.class, ds); }
+    // RequirementDao registered earlier; reusing.
+    @Bean public com.landawn.ofbiz.dao.RequirementRoleDao requirementRoleDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.RequirementRoleDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.RequirementStatusDao requirementStatusDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.RequirementStatusDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.AllocationPlanHeaderDao allocationPlanHeaderDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AllocationPlanHeaderDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.AllocationPlanItemDao allocationPlanItemDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AllocationPlanItemDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.CustRequestItemDao custRequestItemDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.CustRequestItemDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.CustRequestItemNoteDao custRequestItemNoteDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.CustRequestItemNoteDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.CustRequestPartyDao custRequestPartyDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.CustRequestPartyDao.class, ds); }
+
+    // ---- DAOs added for AccountingController endpoints ----
+    @Bean public com.landawn.ofbiz.dao.AcctgTransDao acctgTransDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AcctgTransDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.AcctgTransEntryDao acctgTransEntryDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AcctgTransEntryDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.AgreementDao agreementDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AgreementDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.AgreementItemDao agreementItemDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AgreementItemDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.AgreementRoleDao agreementRoleDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AgreementRoleDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.AgreementTermDao agreementTermDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AgreementTermDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.AgreementProductApplDao agreementProductApplDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AgreementProductApplDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.AgreementWorkEffortApplicDao agreementWorkEffortApplicDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.AgreementWorkEffortApplicDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.InvoiceItemTypeGlAccountDao invoiceItemTypeGlAccountDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.InvoiceItemTypeGlAccountDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentMethodTypeGlAccountDao paymentMethodTypeGlAccountDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentMethodTypeGlAccountDao.class, ds); }
+    // PaymentTypeGlAccountDao/entity doesn't exist — service stubbed in AccountingService.
+    @Bean public com.landawn.ofbiz.dao.GlAccountDao glAccountDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.GlAccountDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.GlAccountCategoryDao glAccountCategoryDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.GlAccountCategoryDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.GlAccountOrganizationDao glAccountOrganizationDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.GlAccountOrganizationDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.GlJournalDao glJournalDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.GlJournalDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.GlReconciliationDao glReconciliationDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.GlReconciliationDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentDao paymentDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentApplicationDao paymentApplicationDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentApplicationDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGroupDao paymentGroupDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGroupDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PaymentGroupMemberDao paymentGroupMemberDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PaymentGroupMemberDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FinAccountDao finAccountDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FinAccountDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FinAccountAuthDao finAccountAuthDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FinAccountAuthDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FinAccountRoleDao finAccountRoleDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FinAccountRoleDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FinAccountTransDao finAccountTransDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FinAccountTransDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FixedAssetDao fixedAssetDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FixedAssetDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FixedAssetIdentDao fixedAssetIdentDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FixedAssetIdentDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FixedAssetMaintDao fixedAssetMaintDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FixedAssetMaintDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FixedAssetRegistrationDao fixedAssetRegistrationDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FixedAssetRegistrationDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FixedAssetStdCostDao fixedAssetStdCostDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FixedAssetStdCostDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.TaxAuthorityDao taxAuthorityDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.TaxAuthorityDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.TaxAuthorityAssocDao taxAuthorityAssocDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.TaxAuthorityAssocDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.TaxAuthorityCategoryDao taxAuthorityCategoryDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.TaxAuthorityCategoryDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.TaxAuthorityGlAccountDao taxAuthorityGlAccountDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.TaxAuthorityGlAccountDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.TaxAuthorityRateProductDao taxAuthorityRateProductDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.TaxAuthorityRateProductDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.BudgetDao budgetDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.BudgetDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.BudgetItemDao budgetItemDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.BudgetItemDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.BudgetReviewDao budgetReviewDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.BudgetReviewDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.BudgetRoleDao budgetRoleDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.BudgetRoleDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.InvoiceRoleDao invoiceRoleDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.InvoiceRoleDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.InvoiceTermDao invoiceTermDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.InvoiceTermDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.BillingAccountTermDao billingAccountTermDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.BillingAccountTermDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.CustomTimePeriodDao customTimePeriodDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.CustomTimePeriodDao.class, ds); }
+    // PartyAcctgPreferenceDao already registered in the Party block above.
+
+    // ---- DAOs added for ContentController endpoints ----
+    @Bean public com.landawn.ofbiz.dao.ContentDao contentDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentAssocDao contentAssocDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentAssocDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentAssocPredicateDao contentAssocPredicateDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentAssocPredicateDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentAssocTypeDao contentAssocTypeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentAssocTypeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentAttributeDao contentAttributeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentAttributeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentKeywordDao contentKeywordDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentKeywordDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentMetaDataDao contentMetaDataDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentMetaDataDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentPurposeDao contentPurposeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentPurposeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentPurposeTypeDao contentPurposeTypeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentPurposeTypeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentRevisionDao contentRevisionDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentRevisionDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentRevisionItemDao contentRevisionItemDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentRevisionItemDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentRoleDao contentRoleDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentRoleDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentTypeDao contentTypeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentTypeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentTypeAttrDao contentTypeAttrDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentTypeAttrDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ContentApprovalDao contentApprovalDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ContentApprovalDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.DataResourceDao dataResourceDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.DataResourceDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.DataResourceAttributeDao dataResourceAttributeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.DataResourceAttributeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.DataResourceRoleDao dataResourceRoleDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.DataResourceRoleDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.DataResourceTypeDao dataResourceTypeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.DataResourceTypeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.DataResourceTypeAttrDao dataResourceTypeAttrDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.DataResourceTypeAttrDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.DataCategoryDao dataCategoryDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.DataCategoryDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.SurveyDao surveyDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.SurveyDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.SurveyPageDao surveyPageDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.SurveyPageDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.SurveyQuestionDao surveyQuestionDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.SurveyQuestionDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.SurveyQuestionApplDao surveyQuestionApplDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.SurveyQuestionApplDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.SurveyQuestionCategoryDao surveyQuestionCategoryDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.SurveyQuestionCategoryDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.SurveyQuestionOptionDao surveyQuestionOptionDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.SurveyQuestionOptionDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.SurveyResponseDao surveyResponseDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.SurveyResponseDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.SurveyResponseAnswerDao surveyResponseAnswerDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.SurveyResponseAnswerDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.WebSiteContentDao webSiteContentDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.WebSiteContentDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.WebSitePathAliasDao webSitePathAliasDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.WebSitePathAliasDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.WebAnalyticsConfigDao webAnalyticsConfigDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.WebAnalyticsConfigDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.MimeTypeDao mimeTypeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.MimeTypeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.MimeTypeHtmlTemplateDao mimeTypeHtmlTemplateDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.MimeTypeHtmlTemplateDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.CharacterSetDao characterSetDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.CharacterSetDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FileExtensionDao fileExtensionDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FileExtensionDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.MetaDataPredicateDao metaDataPredicateDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.MetaDataPredicateDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ElectronicTextDao electronicTextDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ElectronicTextDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.SubscriptionDao subscriptionDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.SubscriptionDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.SubscriptionResourceDao subscriptionResourceDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.SubscriptionResourceDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.SubscriptionAttributeDao subscriptionAttributeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.SubscriptionAttributeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.SubscriptionFulfillmentPieceDao subscriptionFulfillmentPieceDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.SubscriptionFulfillmentPieceDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.SubscriptionTypeAttrDao subscriptionTypeAttrDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.SubscriptionTypeAttrDao.class, ds); }
+
+    // ---- DAOs added for ProductController endpoints ----
+    @Bean public com.landawn.ofbiz.dao.ProductDao productDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductAssocDao productAssocDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductAssocDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductAttributeDao productAttributeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductAttributeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductContentDao productContentDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductContentDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductKeywordDao productKeywordDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductKeywordDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductPriceDao productPriceDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductPriceDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductCategoryAttributeDao productCategoryAttributeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductCategoryAttributeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductCategoryLinkDao productCategoryLinkDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductCategoryLinkDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductCategoryRollupDao productCategoryRollupDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductCategoryRollupDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductFeatureDao productFeatureDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductFeatureDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductFeatureApplDao productFeatureApplDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductFeatureApplDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductFeatureGroupDao productFeatureGroupDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductFeatureGroupDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductFeatureCategoryDao productFeatureCategoryDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductFeatureCategoryDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductFeatureTypeDao productFeatureTypeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductFeatureTypeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductStoreFacilityDao productStoreFacilityDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductStoreFacilityDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductStoreCatalogDao productStoreCatalogDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductStoreCatalogDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FacilityGroupDao facilityGroupDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FacilityGroupDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FacilityLocationDao facilityLocationDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FacilityLocationDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FacilityContentDao facilityContentDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FacilityContentDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.FacilityContactMechDao facilityContactMechDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.FacilityContactMechDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.InventoryItemDao inventoryItemDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.InventoryItemDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.InventoryItemDetailDao inventoryItemDetailDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.InventoryItemDetailDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.InventoryItemLabelDao inventoryItemLabelDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.InventoryItemLabelDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.InventoryTransferDao inventoryTransferDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.InventoryTransferDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.GoodIdentificationDao goodIdentificationDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.GoodIdentificationDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductPromoDao productPromoDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductPromoDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductPromoCodeDao productPromoCodeDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductPromoCodeDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductReviewDao productReviewDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductReviewDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ProductFacilityDao productFacilityDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ProductFacilityDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ShipmentDao shipmentDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ShipmentDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.ShipmentItemDao shipmentItemDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.ShipmentItemDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.KeywordThesaurusDao keywordThesaurusDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.KeywordThesaurusDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.CarrierShipmentMethodDao carrierShipmentMethodDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.CarrierShipmentMethodDao.class, ds); }
+    @Bean public com.landawn.ofbiz.dao.PicklistDao picklistDao(DataSource ds) { return JdbcUtil.createDao(com.landawn.ofbiz.dao.PicklistDao.class, ds); }
 }
