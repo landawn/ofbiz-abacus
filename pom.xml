@@ -45,9 +45,9 @@
 		<maven.compiler.release>25</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<abacus-common.version>7.7.3</abacus-common.version>
-		<abacus-jdbc.version>4.7.3</abacus-jdbc.version>
-		<abacus-query.version>4.7.3</abacus-query.version>
+		<abacus-common.version>7.7.6</abacus-common.version>
+		<abacus-jdbc.version>4.7.6</abacus-jdbc.version>
+		<abacus-query.version>4.7.6</abacus-query.version>
 		<guava.version>33.4.0-jre</guava.version>
 		<lombok.version>1.18.46</lombok.version>
 	</properties>
