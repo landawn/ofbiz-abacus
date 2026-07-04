@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.InventoryItemTypeAttr;
 
-public interface InventoryItemTypeAttrDao extends CrudDao<InventoryItemTypeAttr, InventoryItemTypeAttr, SqlBuilder.PSC, InventoryItemTypeAttrDao>, CrudJoinEntityHelper<InventoryItemTypeAttr, InventoryItemTypeAttr, SqlBuilder.PSC, InventoryItemTypeAttrDao> {
+public interface InventoryItemTypeAttrDao extends CrudDao<InventoryItemTypeAttr, InventoryItemTypeAttr, InventoryItemTypeAttrDao>, CrudJoinEntityHelper<InventoryItemTypeAttr, InventoryItemTypeAttr, InventoryItemTypeAttrDao> {
 }

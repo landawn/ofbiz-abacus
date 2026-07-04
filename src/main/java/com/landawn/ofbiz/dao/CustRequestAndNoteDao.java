@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CustRequestAndNote;
 
-public interface CustRequestAndNoteDao extends CrudDao<CustRequestAndNote, CustRequestAndNote, SqlBuilder.PSC, CustRequestAndNoteDao> {
+public interface CustRequestAndNoteDao extends CrudDao<CustRequestAndNote, CustRequestAndNote, CustRequestAndNoteDao> {
 }

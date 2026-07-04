@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.GlJournal;
 
-public interface GlJournalDao extends CrudDao<GlJournal, String, SqlBuilder.PSC, GlJournalDao>, CrudJoinEntityHelper<GlJournal, String, SqlBuilder.PSC, GlJournalDao> {
+public interface GlJournalDao extends CrudDao<GlJournal, String, GlJournalDao>, CrudJoinEntityHelper<GlJournal, String, GlJournalDao> {
 }

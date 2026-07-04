@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductCategoryTypeAttr;
 
-public interface ProductCategoryTypeAttrDao extends CrudDao<ProductCategoryTypeAttr, ProductCategoryTypeAttr, SqlBuilder.PSC, ProductCategoryTypeAttrDao>, CrudJoinEntityHelper<ProductCategoryTypeAttr, ProductCategoryTypeAttr, SqlBuilder.PSC, ProductCategoryTypeAttrDao> {
+public interface ProductCategoryTypeAttrDao extends CrudDao<ProductCategoryTypeAttr, ProductCategoryTypeAttr, ProductCategoryTypeAttrDao>, CrudJoinEntityHelper<ProductCategoryTypeAttr, ProductCategoryTypeAttr, ProductCategoryTypeAttrDao> {
 }

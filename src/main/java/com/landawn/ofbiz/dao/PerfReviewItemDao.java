@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PerfReviewItem;
 
-public interface PerfReviewItemDao extends CrudDao<PerfReviewItem, PerfReviewItem, SqlBuilder.PSC, PerfReviewItemDao>, CrudJoinEntityHelper<PerfReviewItem, PerfReviewItem, SqlBuilder.PSC, PerfReviewItemDao> {
+public interface PerfReviewItemDao extends CrudDao<PerfReviewItem, PerfReviewItem, PerfReviewItemDao>, CrudJoinEntityHelper<PerfReviewItem, PerfReviewItem, PerfReviewItemDao> {
 }

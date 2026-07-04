@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.VideoDataResource;
 
-public interface VideoDataResourceDao extends CrudDao<VideoDataResource, String, SqlBuilder.PSC, VideoDataResourceDao>, CrudJoinEntityHelper<VideoDataResource, String, SqlBuilder.PSC, VideoDataResourceDao> {
+public interface VideoDataResourceDao extends CrudDao<VideoDataResource, String, VideoDataResourceDao>, CrudJoinEntityHelper<VideoDataResource, String, VideoDataResourceDao> {
 }

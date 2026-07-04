@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OldPicklistStatusHistory;
 
-public interface OldPicklistStatusHistoryDao extends CrudDao<OldPicklistStatusHistory, OldPicklistStatusHistory, SqlBuilder.PSC, OldPicklistStatusHistoryDao>, CrudJoinEntityHelper<OldPicklistStatusHistory, OldPicklistStatusHistory, SqlBuilder.PSC, OldPicklistStatusHistoryDao> {
+public interface OldPicklistStatusHistoryDao extends CrudDao<OldPicklistStatusHistory, OldPicklistStatusHistory, OldPicklistStatusHistoryDao>, CrudJoinEntityHelper<OldPicklistStatusHistory, OldPicklistStatusHistory, OldPicklistStatusHistoryDao> {
 }

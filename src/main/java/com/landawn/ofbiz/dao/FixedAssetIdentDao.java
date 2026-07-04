@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.FixedAssetIdent;
 
-public interface FixedAssetIdentDao extends CrudDao<FixedAssetIdent, FixedAssetIdent, SqlBuilder.PSC, FixedAssetIdentDao>, CrudJoinEntityHelper<FixedAssetIdent, FixedAssetIdent, SqlBuilder.PSC, FixedAssetIdentDao> {
+public interface FixedAssetIdentDao extends CrudDao<FixedAssetIdent, FixedAssetIdent, FixedAssetIdentDao>, CrudJoinEntityHelper<FixedAssetIdent, FixedAssetIdent, FixedAssetIdentDao> {
 }

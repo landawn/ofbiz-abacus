@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PaymentGatewayOrbital;
 
-public interface PaymentGatewayOrbitalDao extends CrudDao<PaymentGatewayOrbital, String, SqlBuilder.PSC, PaymentGatewayOrbitalDao>, CrudJoinEntityHelper<PaymentGatewayOrbital, String, SqlBuilder.PSC, PaymentGatewayOrbitalDao> {
+public interface PaymentGatewayOrbitalDao extends CrudDao<PaymentGatewayOrbital, String, PaymentGatewayOrbitalDao>, CrudJoinEntityHelper<PaymentGatewayOrbital, String, PaymentGatewayOrbitalDao> {
 }

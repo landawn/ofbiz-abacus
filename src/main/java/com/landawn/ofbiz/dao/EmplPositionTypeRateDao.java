@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.EmplPositionTypeRate;
 
-public interface EmplPositionTypeRateDao extends CrudDao<EmplPositionTypeRate, EmplPositionTypeRate, SqlBuilder.PSC, EmplPositionTypeRateDao>, CrudJoinEntityHelper<EmplPositionTypeRate, EmplPositionTypeRate, SqlBuilder.PSC, EmplPositionTypeRateDao> {
+public interface EmplPositionTypeRateDao extends CrudDao<EmplPositionTypeRate, EmplPositionTypeRate, EmplPositionTypeRateDao>, CrudJoinEntityHelper<EmplPositionTypeRate, EmplPositionTypeRate, EmplPositionTypeRateDao> {
 }

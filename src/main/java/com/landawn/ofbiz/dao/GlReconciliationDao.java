@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.GlReconciliation;
 
-public interface GlReconciliationDao extends CrudDao<GlReconciliation, String, SqlBuilder.PSC, GlReconciliationDao>, CrudJoinEntityHelper<GlReconciliation, String, SqlBuilder.PSC, GlReconciliationDao> {
+public interface GlReconciliationDao extends CrudDao<GlReconciliation, String, GlReconciliationDao>, CrudJoinEntityHelper<GlReconciliation, String, GlReconciliationDao> {
 }

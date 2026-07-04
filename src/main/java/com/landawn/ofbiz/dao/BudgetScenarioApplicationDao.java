@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.BudgetScenarioApplication;
 
-public interface BudgetScenarioApplicationDao extends CrudDao<BudgetScenarioApplication, BudgetScenarioApplication, SqlBuilder.PSC, BudgetScenarioApplicationDao>, CrudJoinEntityHelper<BudgetScenarioApplication, BudgetScenarioApplication, SqlBuilder.PSC, BudgetScenarioApplicationDao> {
+public interface BudgetScenarioApplicationDao extends CrudDao<BudgetScenarioApplication, BudgetScenarioApplication, BudgetScenarioApplicationDao>, CrudJoinEntityHelper<BudgetScenarioApplication, BudgetScenarioApplication, BudgetScenarioApplicationDao> {
 }

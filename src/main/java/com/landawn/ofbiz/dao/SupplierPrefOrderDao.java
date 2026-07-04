@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SupplierPrefOrder;
 
-public interface SupplierPrefOrderDao extends CrudDao<SupplierPrefOrder, String, SqlBuilder.PSC, SupplierPrefOrderDao> {
+public interface SupplierPrefOrderDao extends CrudDao<SupplierPrefOrder, String, SupplierPrefOrderDao> {
 }

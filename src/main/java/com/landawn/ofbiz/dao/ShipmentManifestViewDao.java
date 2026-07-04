@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ShipmentManifestView;
 
-public interface ShipmentManifestViewDao extends CrudDao<ShipmentManifestView, ShipmentManifestView, SqlBuilder.PSC, ShipmentManifestViewDao> {
+public interface ShipmentManifestViewDao extends CrudDao<ShipmentManifestView, ShipmentManifestView, ShipmentManifestViewDao> {
 }

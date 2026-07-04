@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ZipSalesTaxLookup;
 
-public interface ZipSalesTaxLookupDao extends CrudDao<ZipSalesTaxLookup, ZipSalesTaxLookup, SqlBuilder.PSC, ZipSalesTaxLookupDao> {
+public interface ZipSalesTaxLookupDao extends CrudDao<ZipSalesTaxLookup, ZipSalesTaxLookup, ZipSalesTaxLookupDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ResponsibilityType;
 
-public interface ResponsibilityTypeDao extends CrudDao<ResponsibilityType, String, SqlBuilder.PSC, ResponsibilityTypeDao>, CrudJoinEntityHelper<ResponsibilityType, String, SqlBuilder.PSC, ResponsibilityTypeDao> {
+public interface ResponsibilityTypeDao extends CrudDao<ResponsibilityType, String, ResponsibilityTypeDao>, CrudJoinEntityHelper<ResponsibilityType, String, ResponsibilityTypeDao> {
 }

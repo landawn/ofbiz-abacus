@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PerfRatingType;
 
-public interface PerfRatingTypeDao extends CrudDao<PerfRatingType, String, SqlBuilder.PSC, PerfRatingTypeDao>, CrudJoinEntityHelper<PerfRatingType, String, SqlBuilder.PSC, PerfRatingTypeDao> {
+public interface PerfRatingTypeDao extends CrudDao<PerfRatingType, String, PerfRatingTypeDao>, CrudJoinEntityHelper<PerfRatingType, String, PerfRatingTypeDao> {
 }

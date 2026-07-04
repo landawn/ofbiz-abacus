@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PartyRate;
 
-public interface PartyRateDao extends CrudDao<PartyRate, PartyRate, SqlBuilder.PSC, PartyRateDao>, CrudJoinEntityHelper<PartyRate, PartyRate, SqlBuilder.PSC, PartyRateDao> {
+public interface PartyRateDao extends CrudDao<PartyRate, PartyRate, PartyRateDao>, CrudJoinEntityHelper<PartyRate, PartyRate, PartyRateDao> {
 }

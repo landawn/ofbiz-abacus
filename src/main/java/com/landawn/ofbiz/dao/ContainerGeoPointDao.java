@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ContainerGeoPoint;
 
-public interface ContainerGeoPointDao extends CrudDao<ContainerGeoPoint, ContainerGeoPoint, SqlBuilder.PSC, ContainerGeoPointDao>, CrudJoinEntityHelper<ContainerGeoPoint, ContainerGeoPoint, SqlBuilder.PSC, ContainerGeoPointDao> {
+public interface ContainerGeoPointDao extends CrudDao<ContainerGeoPoint, ContainerGeoPoint, ContainerGeoPointDao>, CrudJoinEntityHelper<ContainerGeoPoint, ContainerGeoPoint, ContainerGeoPointDao> {
 }

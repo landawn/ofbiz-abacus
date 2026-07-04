@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PlatformType;
 
-public interface PlatformTypeDao extends CrudDao<PlatformType, String, SqlBuilder.PSC, PlatformTypeDao> {
+public interface PlatformTypeDao extends CrudDao<PlatformType, String, PlatformTypeDao> {
 }

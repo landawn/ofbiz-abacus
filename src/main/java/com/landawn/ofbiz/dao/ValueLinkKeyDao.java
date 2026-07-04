@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ValueLinkKey;
 
-public interface ValueLinkKeyDao extends CrudDao<ValueLinkKey, String, SqlBuilder.PSC, ValueLinkKeyDao> {
+public interface ValueLinkKeyDao extends CrudDao<ValueLinkKey, String, ValueLinkKeyDao> {
 }

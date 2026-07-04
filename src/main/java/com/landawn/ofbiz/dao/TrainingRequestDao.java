@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TrainingRequest;
 
-public interface TrainingRequestDao extends CrudDao<TrainingRequest, String, SqlBuilder.PSC, TrainingRequestDao> {
+public interface TrainingRequestDao extends CrudDao<TrainingRequest, String, TrainingRequestDao> {
 }

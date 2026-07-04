@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductStoreTelecomSetting;
 
-public interface ProductStoreTelecomSettingDao extends CrudDao<ProductStoreTelecomSetting, ProductStoreTelecomSetting, SqlBuilder.PSC, ProductStoreTelecomSettingDao>, CrudJoinEntityHelper<ProductStoreTelecomSetting, ProductStoreTelecomSetting, SqlBuilder.PSC, ProductStoreTelecomSettingDao> {
+public interface ProductStoreTelecomSettingDao extends CrudDao<ProductStoreTelecomSetting, ProductStoreTelecomSetting, ProductStoreTelecomSettingDao>, CrudJoinEntityHelper<ProductStoreTelecomSetting, ProductStoreTelecomSetting, ProductStoreTelecomSettingDao> {
 }

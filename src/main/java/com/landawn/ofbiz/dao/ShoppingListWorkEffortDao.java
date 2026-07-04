@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ShoppingListWorkEffort;
 
-public interface ShoppingListWorkEffortDao extends CrudDao<ShoppingListWorkEffort, ShoppingListWorkEffort, SqlBuilder.PSC, ShoppingListWorkEffortDao>, CrudJoinEntityHelper<ShoppingListWorkEffort, ShoppingListWorkEffort, SqlBuilder.PSC, ShoppingListWorkEffortDao> {
+public interface ShoppingListWorkEffortDao extends CrudDao<ShoppingListWorkEffort, ShoppingListWorkEffort, ShoppingListWorkEffortDao>, CrudJoinEntityHelper<ShoppingListWorkEffort, ShoppingListWorkEffort, ShoppingListWorkEffortDao> {
 }

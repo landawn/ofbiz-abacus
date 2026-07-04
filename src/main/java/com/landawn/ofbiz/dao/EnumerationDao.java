@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.Enumeration;
 
-public interface EnumerationDao extends CrudDao<Enumeration, String, SqlBuilder.PSC, EnumerationDao>, CrudJoinEntityHelper<Enumeration, String, SqlBuilder.PSC, EnumerationDao> {
+public interface EnumerationDao extends CrudDao<Enumeration, String, EnumerationDao>, CrudJoinEntityHelper<Enumeration, String, EnumerationDao> {
 }

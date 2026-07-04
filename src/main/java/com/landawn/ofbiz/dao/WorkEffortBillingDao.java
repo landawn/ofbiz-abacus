@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortBilling;
 
-public interface WorkEffortBillingDao extends CrudDao<WorkEffortBilling, WorkEffortBilling, SqlBuilder.PSC, WorkEffortBillingDao>, CrudJoinEntityHelper<WorkEffortBilling, WorkEffortBilling, SqlBuilder.PSC, WorkEffortBillingDao> {
+public interface WorkEffortBillingDao extends CrudDao<WorkEffortBilling, WorkEffortBilling, WorkEffortBillingDao>, CrudJoinEntityHelper<WorkEffortBilling, WorkEffortBilling, WorkEffortBillingDao> {
 }

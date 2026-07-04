@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ContentAssocOptViewFrom;
 
-public interface ContentAssocOptViewFromDao extends CrudDao<ContentAssocOptViewFrom, ContentAssocOptViewFrom, SqlBuilder.PSC, ContentAssocOptViewFromDao> {
+public interface ContentAssocOptViewFromDao extends CrudDao<ContentAssocOptViewFrom, ContentAssocOptViewFrom, ContentAssocOptViewFromDao> {
 }

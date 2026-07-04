@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ApplicationSandbox;
 
-public interface ApplicationSandboxDao extends CrudDao<ApplicationSandbox, String, SqlBuilder.PSC, ApplicationSandboxDao>, CrudJoinEntityHelper<ApplicationSandbox, String, SqlBuilder.PSC, ApplicationSandboxDao> {
+public interface ApplicationSandboxDao extends CrudDao<ApplicationSandbox, String, ApplicationSandboxDao>, CrudJoinEntityHelper<ApplicationSandbox, String, ApplicationSandboxDao> {
 }

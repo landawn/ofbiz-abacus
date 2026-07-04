@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PartyInvitationRoleAssoc;
 
-public interface PartyInvitationRoleAssocDao extends CrudDao<PartyInvitationRoleAssoc, PartyInvitationRoleAssoc, SqlBuilder.PSC, PartyInvitationRoleAssocDao>, CrudJoinEntityHelper<PartyInvitationRoleAssoc, PartyInvitationRoleAssoc, SqlBuilder.PSC, PartyInvitationRoleAssocDao> {
+public interface PartyInvitationRoleAssocDao extends CrudDao<PartyInvitationRoleAssoc, PartyInvitationRoleAssoc, PartyInvitationRoleAssocDao>, CrudJoinEntityHelper<PartyInvitationRoleAssoc, PartyInvitationRoleAssoc, PartyInvitationRoleAssocDao> {
 }

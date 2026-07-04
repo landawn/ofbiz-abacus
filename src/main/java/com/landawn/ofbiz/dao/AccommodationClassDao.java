@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.AccommodationClass;
 
-public interface AccommodationClassDao extends CrudDao<AccommodationClass, String, SqlBuilder.PSC, AccommodationClassDao>, CrudJoinEntityHelper<AccommodationClass, String, SqlBuilder.PSC, AccommodationClassDao> {
+public interface AccommodationClassDao extends CrudDao<AccommodationClass, String, AccommodationClassDao>, CrudJoinEntityHelper<AccommodationClass, String, AccommodationClassDao> {
 }

@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortContactMechView;
 
-public interface WorkEffortContactMechViewDao extends CrudDao<WorkEffortContactMechView, WorkEffortContactMechView, SqlBuilder.PSC, WorkEffortContactMechViewDao> {
+public interface WorkEffortContactMechViewDao extends CrudDao<WorkEffortContactMechView, WorkEffortContactMechView, WorkEffortContactMechViewDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PartyTaxAuthInfo;
 
-public interface PartyTaxAuthInfoDao extends CrudDao<PartyTaxAuthInfo, PartyTaxAuthInfo, SqlBuilder.PSC, PartyTaxAuthInfoDao>, CrudJoinEntityHelper<PartyTaxAuthInfo, PartyTaxAuthInfo, SqlBuilder.PSC, PartyTaxAuthInfoDao> {
+public interface PartyTaxAuthInfoDao extends CrudDao<PartyTaxAuthInfo, PartyTaxAuthInfo, PartyTaxAuthInfoDao>, CrudJoinEntityHelper<PartyTaxAuthInfo, PartyTaxAuthInfo, PartyTaxAuthInfoDao> {
 }

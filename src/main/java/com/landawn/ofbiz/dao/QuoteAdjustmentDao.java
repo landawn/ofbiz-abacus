@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.QuoteAdjustment;
 
-public interface QuoteAdjustmentDao extends CrudDao<QuoteAdjustment, String, SqlBuilder.PSC, QuoteAdjustmentDao>, CrudJoinEntityHelper<QuoteAdjustment, String, SqlBuilder.PSC, QuoteAdjustmentDao> {
+public interface QuoteAdjustmentDao extends CrudDao<QuoteAdjustment, String, QuoteAdjustmentDao>, CrudJoinEntityHelper<QuoteAdjustment, String, QuoteAdjustmentDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ReorderGuideline;
 
-public interface ReorderGuidelineDao extends CrudDao<ReorderGuideline, String, SqlBuilder.PSC, ReorderGuidelineDao>, CrudJoinEntityHelper<ReorderGuideline, String, SqlBuilder.PSC, ReorderGuidelineDao> {
+public interface ReorderGuidelineDao extends CrudDao<ReorderGuideline, String, ReorderGuidelineDao>, CrudJoinEntityHelper<ReorderGuideline, String, ReorderGuidelineDao> {
 }

@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TelecomGatewayConfig;
 
-public interface TelecomGatewayConfigDao extends CrudDao<TelecomGatewayConfig, String, SqlBuilder.PSC, TelecomGatewayConfigDao> {
+public interface TelecomGatewayConfigDao extends CrudDao<TelecomGatewayConfig, String, TelecomGatewayConfigDao> {
 }

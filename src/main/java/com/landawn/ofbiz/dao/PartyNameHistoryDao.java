@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PartyNameHistory;
 
-public interface PartyNameHistoryDao extends CrudDao<PartyNameHistory, PartyNameHistory, SqlBuilder.PSC, PartyNameHistoryDao>, CrudJoinEntityHelper<PartyNameHistory, PartyNameHistory, SqlBuilder.PSC, PartyNameHistoryDao> {
+public interface PartyNameHistoryDao extends CrudDao<PartyNameHistory, PartyNameHistory, PartyNameHistoryDao>, CrudJoinEntityHelper<PartyNameHistory, PartyNameHistory, PartyNameHistoryDao> {
 }

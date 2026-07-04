@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.VarianceReasonGlAccount;
 
-public interface VarianceReasonGlAccountDao extends CrudDao<VarianceReasonGlAccount, VarianceReasonGlAccount, SqlBuilder.PSC, VarianceReasonGlAccountDao>, CrudJoinEntityHelper<VarianceReasonGlAccount, VarianceReasonGlAccount, SqlBuilder.PSC, VarianceReasonGlAccountDao> {
+public interface VarianceReasonGlAccountDao extends CrudDao<VarianceReasonGlAccount, VarianceReasonGlAccount, VarianceReasonGlAccountDao>, CrudJoinEntityHelper<VarianceReasonGlAccount, VarianceReasonGlAccount, VarianceReasonGlAccountDao> {
 }

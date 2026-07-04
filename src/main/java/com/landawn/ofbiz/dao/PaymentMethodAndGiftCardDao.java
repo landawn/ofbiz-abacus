@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PaymentMethodAndGiftCard;
 
-public interface PaymentMethodAndGiftCardDao extends CrudDao<PaymentMethodAndGiftCard, PaymentMethodAndGiftCard, SqlBuilder.PSC, PaymentMethodAndGiftCardDao> {
+public interface PaymentMethodAndGiftCardDao extends CrudDao<PaymentMethodAndGiftCard, PaymentMethodAndGiftCard, PaymentMethodAndGiftCardDao> {
 }

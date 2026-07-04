@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.InventoryTransfer;
 
-public interface InventoryTransferDao extends CrudDao<InventoryTransfer, String, SqlBuilder.PSC, InventoryTransferDao>, CrudJoinEntityHelper<InventoryTransfer, String, SqlBuilder.PSC, InventoryTransferDao> {
+public interface InventoryTransferDao extends CrudDao<InventoryTransfer, String, InventoryTransferDao>, CrudJoinEntityHelper<InventoryTransfer, String, InventoryTransferDao> {
 }

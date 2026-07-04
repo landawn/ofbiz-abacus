@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.UserPrefGroupType;
 
-public interface UserPrefGroupTypeDao extends CrudDao<UserPrefGroupType, String, SqlBuilder.PSC, UserPrefGroupTypeDao> {
+public interface UserPrefGroupTypeDao extends CrudDao<UserPrefGroupType, String, UserPrefGroupTypeDao> {
 }

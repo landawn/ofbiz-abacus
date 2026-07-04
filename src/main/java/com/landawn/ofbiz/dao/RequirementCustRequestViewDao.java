@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.RequirementCustRequestView;
 
-public interface RequirementCustRequestViewDao extends CrudDao<RequirementCustRequestView, RequirementCustRequestView, SqlBuilder.PSC, RequirementCustRequestViewDao> {
+public interface RequirementCustRequestViewDao extends CrudDao<RequirementCustRequestView, RequirementCustRequestView, RequirementCustRequestViewDao> {
 }

@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ContentAndRole;
 
-public interface ContentAndRoleDao extends CrudDao<ContentAndRole, ContentAndRole, SqlBuilder.PSC, ContentAndRoleDao> {
+public interface ContentAndRoleDao extends CrudDao<ContentAndRole, ContentAndRole, ContentAndRoleDao> {
 }

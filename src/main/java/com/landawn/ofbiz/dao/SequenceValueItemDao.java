@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SequenceValueItem;
 
-public interface SequenceValueItemDao extends CrudDao<SequenceValueItem, String, SqlBuilder.PSC, SequenceValueItemDao> {
+public interface SequenceValueItemDao extends CrudDao<SequenceValueItem, String, SequenceValueItemDao> {
 }

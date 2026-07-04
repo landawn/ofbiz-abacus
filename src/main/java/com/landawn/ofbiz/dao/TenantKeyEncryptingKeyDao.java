@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TenantKeyEncryptingKey;
 
-public interface TenantKeyEncryptingKeyDao extends CrudDao<TenantKeyEncryptingKey, String, SqlBuilder.PSC, TenantKeyEncryptingKeyDao>, CrudJoinEntityHelper<TenantKeyEncryptingKey, String, SqlBuilder.PSC, TenantKeyEncryptingKeyDao> {
+public interface TenantKeyEncryptingKeyDao extends CrudDao<TenantKeyEncryptingKey, String, TenantKeyEncryptingKeyDao>, CrudJoinEntityHelper<TenantKeyEncryptingKey, String, TenantKeyEncryptingKeyDao> {
 }

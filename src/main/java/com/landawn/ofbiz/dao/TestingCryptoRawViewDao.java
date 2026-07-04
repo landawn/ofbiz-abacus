@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TestingCryptoRawView;
 
-public interface TestingCryptoRawViewDao extends CrudDao<TestingCryptoRawView, TestingCryptoRawView, SqlBuilder.PSC, TestingCryptoRawViewDao> {
+public interface TestingCryptoRawViewDao extends CrudDao<TestingCryptoRawView, TestingCryptoRawView, TestingCryptoRawViewDao> {
 }

@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderHeaderAndShipGroups;
 
-public interface OrderHeaderAndShipGroupsDao extends CrudDao<OrderHeaderAndShipGroups, OrderHeaderAndShipGroups, SqlBuilder.PSC, OrderHeaderAndShipGroupsDao> {
+public interface OrderHeaderAndShipGroupsDao extends CrudDao<OrderHeaderAndShipGroups, OrderHeaderAndShipGroups, OrderHeaderAndShipGroupsDao> {
 }

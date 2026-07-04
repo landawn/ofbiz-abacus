@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CarrierShipmentMethod;
 
-public interface CarrierShipmentMethodDao extends CrudDao<CarrierShipmentMethod, CarrierShipmentMethod, SqlBuilder.PSC, CarrierShipmentMethodDao>, CrudJoinEntityHelper<CarrierShipmentMethod, CarrierShipmentMethod, SqlBuilder.PSC, CarrierShipmentMethodDao> {
+public interface CarrierShipmentMethodDao extends CrudDao<CarrierShipmentMethod, CarrierShipmentMethod, CarrierShipmentMethodDao>, CrudJoinEntityHelper<CarrierShipmentMethod, CarrierShipmentMethod, CarrierShipmentMethodDao> {
 }

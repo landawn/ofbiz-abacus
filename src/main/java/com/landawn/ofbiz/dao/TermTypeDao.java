@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TermType;
 
-public interface TermTypeDao extends CrudDao<TermType, String, SqlBuilder.PSC, TermTypeDao>, CrudJoinEntityHelper<TermType, String, SqlBuilder.PSC, TermTypeDao> {
+public interface TermTypeDao extends CrudDao<TermType, String, TermTypeDao>, CrudJoinEntityHelper<TermType, String, TermTypeDao> {
 }

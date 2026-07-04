@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.FileExtension;
 
-public interface FileExtensionDao extends CrudDao<FileExtension, String, SqlBuilder.PSC, FileExtensionDao>, CrudJoinEntityHelper<FileExtension, String, SqlBuilder.PSC, FileExtensionDao> {
+public interface FileExtensionDao extends CrudDao<FileExtension, String, FileExtensionDao>, CrudJoinEntityHelper<FileExtension, String, FileExtensionDao> {
 }

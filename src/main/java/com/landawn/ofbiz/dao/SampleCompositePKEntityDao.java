@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SampleSinglePKEntity;
 
-public interface SampleCompositePKEntityDao extends CrudDao<SampleSinglePKEntity, SampleSinglePKEntity, SqlBuilder.PSC, SampleCompositePKEntityDao> {
+public interface SampleCompositePKEntityDao extends CrudDao<SampleSinglePKEntity, SampleSinglePKEntity, SampleCompositePKEntityDao> {
 }

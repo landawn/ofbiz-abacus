@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TerminationType;
 
-public interface TerminationTypeDao extends CrudDao<TerminationType, String, SqlBuilder.PSC, TerminationTypeDao>, CrudJoinEntityHelper<TerminationType, String, SqlBuilder.PSC, TerminationTypeDao> {
+public interface TerminationTypeDao extends CrudDao<TerminationType, String, TerminationTypeDao>, CrudJoinEntityHelper<TerminationType, String, TerminationTypeDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CommEventContentAssoc;
 
-public interface CommEventContentAssocDao extends CrudDao<CommEventContentAssoc, CommEventContentAssoc, SqlBuilder.PSC, CommEventContentAssocDao>, CrudJoinEntityHelper<CommEventContentAssoc, CommEventContentAssoc, SqlBuilder.PSC, CommEventContentAssocDao> {
+public interface CommEventContentAssocDao extends CrudDao<CommEventContentAssoc, CommEventContentAssoc, CommEventContentAssocDao>, CrudJoinEntityHelper<CommEventContentAssoc, CommEventContentAssoc, CommEventContentAssocDao> {
 }

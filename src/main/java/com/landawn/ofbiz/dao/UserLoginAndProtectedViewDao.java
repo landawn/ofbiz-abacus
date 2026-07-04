@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.UserLoginAndProtectedView;
 
-public interface UserLoginAndProtectedViewDao extends CrudDao<UserLoginAndProtectedView, UserLoginAndProtectedView, SqlBuilder.PSC, UserLoginAndProtectedViewDao> {
+public interface UserLoginAndProtectedViewDao extends CrudDao<UserLoginAndProtectedView, UserLoginAndProtectedView, UserLoginAndProtectedViewDao> {
 }

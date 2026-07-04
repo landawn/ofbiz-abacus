@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.BillingAccount;
 
-public interface BillingAccountDao extends CrudDao<BillingAccount, String, SqlBuilder.PSC, BillingAccountDao>, CrudJoinEntityHelper<BillingAccount, String, SqlBuilder.PSC, BillingAccountDao> {
+public interface BillingAccountDao extends CrudDao<BillingAccount, String, BillingAccountDao>, CrudJoinEntityHelper<BillingAccount, String, BillingAccountDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.QuoteWorkEffort;
 
-public interface QuoteWorkEffortDao extends CrudDao<QuoteWorkEffort, QuoteWorkEffort, SqlBuilder.PSC, QuoteWorkEffortDao>, CrudJoinEntityHelper<QuoteWorkEffort, QuoteWorkEffort, SqlBuilder.PSC, QuoteWorkEffortDao> {
+public interface QuoteWorkEffortDao extends CrudDao<QuoteWorkEffort, QuoteWorkEffort, QuoteWorkEffortDao>, CrudJoinEntityHelper<QuoteWorkEffort, QuoteWorkEffort, QuoteWorkEffortDao> {
 }

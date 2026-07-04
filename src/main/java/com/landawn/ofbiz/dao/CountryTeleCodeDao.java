@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CountryTeleCode;
 
-public interface CountryTeleCodeDao extends CrudDao<CountryTeleCode, String, SqlBuilder.PSC, CountryTeleCodeDao>, CrudJoinEntityHelper<CountryTeleCode, String, SqlBuilder.PSC, CountryTeleCodeDao> {
+public interface CountryTeleCodeDao extends CrudDao<CountryTeleCode, String, CountryTeleCodeDao>, CrudJoinEntityHelper<CountryTeleCode, String, CountryTeleCodeDao> {
 }

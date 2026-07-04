@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductPromoUseCheck;
 
-public interface ProductPromoUseCheckDao extends CrudDao<ProductPromoUseCheck, ProductPromoUseCheck, SqlBuilder.PSC, ProductPromoUseCheckDao> {
+public interface ProductPromoUseCheckDao extends CrudDao<ProductPromoUseCheck, ProductPromoUseCheck, ProductPromoUseCheckDao> {
 }

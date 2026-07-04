@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PayPalPaymentMethod;
 
-public interface PayPalPaymentMethodDao extends CrudDao<PayPalPaymentMethod, String, SqlBuilder.PSC, PayPalPaymentMethodDao>, CrudJoinEntityHelper<PayPalPaymentMethod, String, SqlBuilder.PSC, PayPalPaymentMethodDao> {
+public interface PayPalPaymentMethodDao extends CrudDao<PayPalPaymentMethod, String, PayPalPaymentMethodDao>, CrudJoinEntityHelper<PayPalPaymentMethod, String, PayPalPaymentMethodDao> {
 }

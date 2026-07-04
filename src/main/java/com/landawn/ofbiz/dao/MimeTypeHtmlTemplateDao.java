@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.MimeTypeHtmlTemplate;
 
-public interface MimeTypeHtmlTemplateDao extends CrudDao<MimeTypeHtmlTemplate, String, SqlBuilder.PSC, MimeTypeHtmlTemplateDao>, CrudJoinEntityHelper<MimeTypeHtmlTemplate, String, SqlBuilder.PSC, MimeTypeHtmlTemplateDao> {
+public interface MimeTypeHtmlTemplateDao extends CrudDao<MimeTypeHtmlTemplate, String, MimeTypeHtmlTemplateDao>, CrudJoinEntityHelper<MimeTypeHtmlTemplate, String, MimeTypeHtmlTemplateDao> {
 }

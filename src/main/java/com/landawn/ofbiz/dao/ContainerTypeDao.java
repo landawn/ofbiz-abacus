@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ContainerType;
 
-public interface ContainerTypeDao extends CrudDao<ContainerType, String, SqlBuilder.PSC, ContainerTypeDao> {
+public interface ContainerTypeDao extends CrudDao<ContainerType, String, ContainerTypeDao> {
 }

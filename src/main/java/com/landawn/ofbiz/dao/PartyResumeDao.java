@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PartyResume;
 
-public interface PartyResumeDao extends CrudDao<PartyResume, String, SqlBuilder.PSC, PartyResumeDao>, CrudJoinEntityHelper<PartyResume, String, SqlBuilder.PSC, PartyResumeDao> {
+public interface PartyResumeDao extends CrudDao<PartyResume, String, PartyResumeDao>, CrudJoinEntityHelper<PartyResume, String, PartyResumeDao> {
 }

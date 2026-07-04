@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TimeEntry;
 
-public interface TimeEntryDao extends CrudDao<TimeEntry, String, SqlBuilder.PSC, TimeEntryDao>, CrudJoinEntityHelper<TimeEntry, String, SqlBuilder.PSC, TimeEntryDao> {
+public interface TimeEntryDao extends CrudDao<TimeEntry, String, TimeEntryDao>, CrudJoinEntityHelper<TimeEntry, String, TimeEntryDao> {
 }

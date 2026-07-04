@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SecurityGroupPermission;
 
-public interface SecurityGroupPermissionDao extends CrudDao<SecurityGroupPermission, SecurityGroupPermission, SqlBuilder.PSC, SecurityGroupPermissionDao>, CrudJoinEntityHelper<SecurityGroupPermission, SecurityGroupPermission, SqlBuilder.PSC, SecurityGroupPermissionDao> {
+public interface SecurityGroupPermissionDao extends CrudDao<SecurityGroupPermission, SecurityGroupPermission, SecurityGroupPermissionDao>, CrudJoinEntityHelper<SecurityGroupPermission, SecurityGroupPermission, SecurityGroupPermissionDao> {
 }

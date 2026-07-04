@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TrackingCodeOrderAndOrderHeader;
 
-public interface TrackingCodeOrderAndOrderHeaderDao extends CrudDao<TrackingCodeOrderAndOrderHeader, TrackingCodeOrderAndOrderHeader, SqlBuilder.PSC, TrackingCodeOrderAndOrderHeaderDao> {
+public interface TrackingCodeOrderAndOrderHeaderDao extends CrudDao<TrackingCodeOrderAndOrderHeader, TrackingCodeOrderAndOrderHeader, TrackingCodeOrderAndOrderHeaderDao> {
 }

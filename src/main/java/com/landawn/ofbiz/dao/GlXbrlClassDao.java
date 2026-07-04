@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.GlXbrlClass;
 
-public interface GlXbrlClassDao extends CrudDao<GlXbrlClass, String, SqlBuilder.PSC, GlXbrlClassDao>, CrudJoinEntityHelper<GlXbrlClass, String, SqlBuilder.PSC, GlXbrlClassDao> {
+public interface GlXbrlClassDao extends CrudDao<GlXbrlClass, String, GlXbrlClassDao>, CrudJoinEntityHelper<GlXbrlClass, String, GlXbrlClassDao> {
 }

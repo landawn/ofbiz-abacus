@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OldProductPromoCodeEmail;
 
-public interface OldProductPromoCodeEmailDao extends CrudDao<OldProductPromoCodeEmail, OldProductPromoCodeEmail, SqlBuilder.PSC, OldProductPromoCodeEmailDao>, CrudJoinEntityHelper<OldProductPromoCodeEmail, OldProductPromoCodeEmail, SqlBuilder.PSC, OldProductPromoCodeEmailDao> {
+public interface OldProductPromoCodeEmailDao extends CrudDao<OldProductPromoCodeEmail, OldProductPromoCodeEmail, OldProductPromoCodeEmailDao>, CrudJoinEntityHelper<OldProductPromoCodeEmail, OldProductPromoCodeEmail, OldProductPromoCodeEmailDao> {
 }

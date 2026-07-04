@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductCategoryMemberAndPrice;
 
-public interface ProductCategoryMemberAndPriceDao extends CrudDao<ProductCategoryMemberAndPrice, ProductCategoryMemberAndPrice, SqlBuilder.PSC, ProductCategoryMemberAndPriceDao> {
+public interface ProductCategoryMemberAndPriceDao extends CrudDao<ProductCategoryMemberAndPrice, ProductCategoryMemberAndPrice, ProductCategoryMemberAndPriceDao> {
 }

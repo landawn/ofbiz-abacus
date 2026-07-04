@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PartyPrefDocTypeTplAndCustomScreen;
 
-public interface PartyPrefDocTypeTplAndCustomScreenDao extends CrudDao<PartyPrefDocTypeTplAndCustomScreen, PartyPrefDocTypeTplAndCustomScreen, SqlBuilder.PSC, PartyPrefDocTypeTplAndCustomScreenDao> {
+public interface PartyPrefDocTypeTplAndCustomScreenDao extends CrudDao<PartyPrefDocTypeTplAndCustomScreen, PartyPrefDocTypeTplAndCustomScreen, PartyPrefDocTypeTplAndCustomScreenDao> {
 }

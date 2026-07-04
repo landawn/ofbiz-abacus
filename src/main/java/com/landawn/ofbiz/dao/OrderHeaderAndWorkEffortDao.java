@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderHeaderAndWorkEffort;
 
-public interface OrderHeaderAndWorkEffortDao extends CrudDao<OrderHeaderAndWorkEffort, OrderHeaderAndWorkEffort, SqlBuilder.PSC, OrderHeaderAndWorkEffortDao> {
+public interface OrderHeaderAndWorkEffortDao extends CrudDao<OrderHeaderAndWorkEffort, OrderHeaderAndWorkEffort, OrderHeaderAndWorkEffortDao> {
 }

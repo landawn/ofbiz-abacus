@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.QuantityBreakType;
 
-public interface QuantityBreakTypeDao extends CrudDao<QuantityBreakType, String, SqlBuilder.PSC, QuantityBreakTypeDao> {
+public interface QuantityBreakTypeDao extends CrudDao<QuantityBreakType, String, QuantityBreakTypeDao> {
 }

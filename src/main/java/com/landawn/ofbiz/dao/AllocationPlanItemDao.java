@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.AllocationPlanItem;
 
-public interface AllocationPlanItemDao extends CrudDao<AllocationPlanItem, AllocationPlanItem, SqlBuilder.PSC, AllocationPlanItemDao>, CrudJoinEntityHelper<AllocationPlanItem, AllocationPlanItem, SqlBuilder.PSC, AllocationPlanItemDao> {
+public interface AllocationPlanItemDao extends CrudDao<AllocationPlanItem, AllocationPlanItem, AllocationPlanItemDao>, CrudJoinEntityHelper<AllocationPlanItem, AllocationPlanItem, AllocationPlanItemDao> {
 }

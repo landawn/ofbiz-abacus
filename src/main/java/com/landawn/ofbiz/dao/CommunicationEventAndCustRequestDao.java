@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CommunicationEventAndCustRequest;
 
-public interface CommunicationEventAndCustRequestDao extends CrudDao<CommunicationEventAndCustRequest, CommunicationEventAndCustRequest, SqlBuilder.PSC, CommunicationEventAndCustRequestDao> {
+public interface CommunicationEventAndCustRequestDao extends CrudDao<CommunicationEventAndCustRequest, CommunicationEventAndCustRequest, CommunicationEventAndCustRequestDao> {
 }

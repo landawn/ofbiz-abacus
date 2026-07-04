@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.BenefitType;
 
-public interface BenefitTypeDao extends CrudDao<BenefitType, String, SqlBuilder.PSC, BenefitTypeDao>, CrudJoinEntityHelper<BenefitType, String, SqlBuilder.PSC, BenefitTypeDao> {
+public interface BenefitTypeDao extends CrudDao<BenefitType, String, BenefitTypeDao>, CrudJoinEntityHelper<BenefitType, String, BenefitTypeDao> {
 }

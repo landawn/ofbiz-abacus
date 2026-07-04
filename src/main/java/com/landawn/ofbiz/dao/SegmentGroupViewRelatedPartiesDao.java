@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SegmentGroupViewRelatedParties;
 
-public interface SegmentGroupViewRelatedPartiesDao extends CrudDao<SegmentGroupViewRelatedParties, SegmentGroupViewRelatedParties, SqlBuilder.PSC, SegmentGroupViewRelatedPartiesDao> {
+public interface SegmentGroupViewRelatedPartiesDao extends CrudDao<SegmentGroupViewRelatedParties, SegmentGroupViewRelatedParties, SegmentGroupViewRelatedPartiesDao> {
 }

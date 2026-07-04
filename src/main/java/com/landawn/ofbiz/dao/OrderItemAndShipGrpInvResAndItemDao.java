@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderItemAndShipGrpInvResAndItem;
 
-public interface OrderItemAndShipGrpInvResAndItemDao extends CrudDao<OrderItemAndShipGrpInvResAndItem, OrderItemAndShipGrpInvResAndItem, SqlBuilder.PSC, OrderItemAndShipGrpInvResAndItemDao> {
+public interface OrderItemAndShipGrpInvResAndItemDao extends CrudDao<OrderItemAndShipGrpInvResAndItem, OrderItemAndShipGrpInvResAndItem, OrderItemAndShipGrpInvResAndItemDao> {
 }

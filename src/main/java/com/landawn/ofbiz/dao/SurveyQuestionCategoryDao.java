@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SurveyQuestionCategory;
 
-public interface SurveyQuestionCategoryDao extends CrudDao<SurveyQuestionCategory, String, SqlBuilder.PSC, SurveyQuestionCategoryDao>, CrudJoinEntityHelper<SurveyQuestionCategory, String, SqlBuilder.PSC, SurveyQuestionCategoryDao> {
+public interface SurveyQuestionCategoryDao extends CrudDao<SurveyQuestionCategory, String, SurveyQuestionCategoryDao>, CrudJoinEntityHelper<SurveyQuestionCategory, String, SurveyQuestionCategoryDao> {
 }

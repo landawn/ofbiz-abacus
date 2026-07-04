@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ContactListCommStatus;
 
-public interface ContactListCommStatusDao extends CrudDao<ContactListCommStatus, ContactListCommStatus, SqlBuilder.PSC, ContactListCommStatusDao>, CrudJoinEntityHelper<ContactListCommStatus, ContactListCommStatus, SqlBuilder.PSC, ContactListCommStatusDao> {
+public interface ContactListCommStatusDao extends CrudDao<ContactListCommStatus, ContactListCommStatus, ContactListCommStatusDao>, CrudJoinEntityHelper<ContactListCommStatus, ContactListCommStatus, ContactListCommStatusDao> {
 }

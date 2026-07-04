@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.EmplPositionFulfillment;
 
-public interface EmplPositionFulfillmentDao extends CrudDao<EmplPositionFulfillment, EmplPositionFulfillment, SqlBuilder.PSC, EmplPositionFulfillmentDao>, CrudJoinEntityHelper<EmplPositionFulfillment, EmplPositionFulfillment, SqlBuilder.PSC, EmplPositionFulfillmentDao> {
+public interface EmplPositionFulfillmentDao extends CrudDao<EmplPositionFulfillment, EmplPositionFulfillment, EmplPositionFulfillmentDao>, CrudJoinEntityHelper<EmplPositionFulfillment, EmplPositionFulfillment, EmplPositionFulfillmentDao> {
 }

@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ServerHitType;
 
-public interface ServerHitTypeDao extends CrudDao<ServerHitType, String, SqlBuilder.PSC, ServerHitTypeDao> {
+public interface ServerHitTypeDao extends CrudDao<ServerHitType, String, ServerHitTypeDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CustRequestStatus;
 
-public interface CustRequestStatusDao extends CrudDao<CustRequestStatus, String, SqlBuilder.PSC, CustRequestStatusDao>, CrudJoinEntityHelper<CustRequestStatus, String, SqlBuilder.PSC, CustRequestStatusDao> {
+public interface CustRequestStatusDao extends CrudDao<CustRequestStatus, String, CustRequestStatusDao>, CrudJoinEntityHelper<CustRequestStatus, String, CustRequestStatusDao> {
 }

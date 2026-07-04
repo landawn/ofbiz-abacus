@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderHeaderAndRoleSummary;
 
-public interface OrderHeaderAndRoleSummaryDao extends CrudDao<OrderHeaderAndRoleSummary, OrderHeaderAndRoleSummary, SqlBuilder.PSC, OrderHeaderAndRoleSummaryDao> {
+public interface OrderHeaderAndRoleSummaryDao extends CrudDao<OrderHeaderAndRoleSummary, OrderHeaderAndRoleSummary, OrderHeaderAndRoleSummaryDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.InventoryItemLabelType;
 
-public interface InventoryItemLabelTypeDao extends CrudDao<InventoryItemLabelType, String, SqlBuilder.PSC, InventoryItemLabelTypeDao>, CrudJoinEntityHelper<InventoryItemLabelType, String, SqlBuilder.PSC, InventoryItemLabelTypeDao> {
+public interface InventoryItemLabelTypeDao extends CrudDao<InventoryItemLabelType, String, InventoryItemLabelTypeDao>, CrudJoinEntityHelper<InventoryItemLabelType, String, InventoryItemLabelTypeDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderHeaderNote;
 
-public interface OrderHeaderNoteDao extends CrudDao<OrderHeaderNote, OrderHeaderNote, SqlBuilder.PSC, OrderHeaderNoteDao>, CrudJoinEntityHelper<OrderHeaderNote, OrderHeaderNote, SqlBuilder.PSC, OrderHeaderNoteDao> {
+public interface OrderHeaderNoteDao extends CrudDao<OrderHeaderNote, OrderHeaderNote, OrderHeaderNoteDao>, CrudJoinEntityHelper<OrderHeaderNote, OrderHeaderNote, OrderHeaderNoteDao> {
 }

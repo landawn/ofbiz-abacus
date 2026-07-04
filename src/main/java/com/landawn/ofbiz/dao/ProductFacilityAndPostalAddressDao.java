@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductFacilityAndPostalAddress;
 
-public interface ProductFacilityAndPostalAddressDao extends CrudDao<ProductFacilityAndPostalAddress, ProductFacilityAndPostalAddress, SqlBuilder.PSC, ProductFacilityAndPostalAddressDao> {
+public interface ProductFacilityAndPostalAddressDao extends CrudDao<ProductFacilityAndPostalAddress, ProductFacilityAndPostalAddress, ProductFacilityAndPostalAddressDao> {
 }

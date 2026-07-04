@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortCostCalc;
 
-public interface WorkEffortCostCalcDao extends CrudDao<WorkEffortCostCalc, WorkEffortCostCalc, SqlBuilder.PSC, WorkEffortCostCalcDao>, CrudJoinEntityHelper<WorkEffortCostCalc, WorkEffortCostCalc, SqlBuilder.PSC, WorkEffortCostCalcDao> {
+public interface WorkEffortCostCalcDao extends CrudDao<WorkEffortCostCalc, WorkEffortCostCalc, WorkEffortCostCalcDao>, CrudJoinEntityHelper<WorkEffortCostCalc, WorkEffortCostCalc, WorkEffortCostCalcDao> {
 }

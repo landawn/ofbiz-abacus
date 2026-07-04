@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TaxAuthorityRateType;
 
-public interface TaxAuthorityRateTypeDao extends CrudDao<TaxAuthorityRateType, String, SqlBuilder.PSC, TaxAuthorityRateTypeDao> {
+public interface TaxAuthorityRateTypeDao extends CrudDao<TaxAuthorityRateType, String, TaxAuthorityRateTypeDao> {
 }

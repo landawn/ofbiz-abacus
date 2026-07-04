@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductStoreFinActSetting;
 
-public interface ProductStoreFinActSettingDao extends CrudDao<ProductStoreFinActSetting, ProductStoreFinActSetting, SqlBuilder.PSC, ProductStoreFinActSettingDao>, CrudJoinEntityHelper<ProductStoreFinActSetting, ProductStoreFinActSetting, SqlBuilder.PSC, ProductStoreFinActSettingDao> {
+public interface ProductStoreFinActSettingDao extends CrudDao<ProductStoreFinActSetting, ProductStoreFinActSetting, ProductStoreFinActSettingDao>, CrudJoinEntityHelper<ProductStoreFinActSetting, ProductStoreFinActSetting, ProductStoreFinActSettingDao> {
 }

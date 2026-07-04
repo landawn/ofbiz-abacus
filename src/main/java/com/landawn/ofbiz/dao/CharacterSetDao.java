@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CharacterSet;
 
-public interface CharacterSetDao extends CrudDao<CharacterSet, String, SqlBuilder.PSC, CharacterSetDao> {
+public interface CharacterSetDao extends CrudDao<CharacterSet, String, CharacterSetDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.RequirementType;
 
-public interface RequirementTypeDao extends CrudDao<RequirementType, String, SqlBuilder.PSC, RequirementTypeDao>, CrudJoinEntityHelper<RequirementType, String, SqlBuilder.PSC, RequirementTypeDao> {
+public interface RequirementTypeDao extends CrudDao<RequirementType, String, RequirementTypeDao>, CrudJoinEntityHelper<RequirementType, String, RequirementTypeDao> {
 }

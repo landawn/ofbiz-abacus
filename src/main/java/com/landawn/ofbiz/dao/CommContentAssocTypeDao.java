@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CommContentAssocType;
 
-public interface CommContentAssocTypeDao extends CrudDao<CommContentAssocType, String, SqlBuilder.PSC, CommContentAssocTypeDao> {
+public interface CommContentAssocTypeDao extends CrudDao<CommContentAssocType, String, CommContentAssocTypeDao> {
 }

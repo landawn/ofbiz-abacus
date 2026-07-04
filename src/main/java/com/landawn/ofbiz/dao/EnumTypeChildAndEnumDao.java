@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.EnumTypeChildAndEnum;
 
-public interface EnumTypeChildAndEnumDao extends CrudDao<EnumTypeChildAndEnum, EnumTypeChildAndEnum, SqlBuilder.PSC, EnumTypeChildAndEnumDao> {
+public interface EnumTypeChildAndEnumDao extends CrudDao<EnumTypeChildAndEnum, EnumTypeChildAndEnum, EnumTypeChildAndEnumDao> {
 }

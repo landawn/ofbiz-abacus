@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.BillingAccountAndRole;
 
-public interface BillingAccountAndRoleDao extends CrudDao<BillingAccountAndRole, BillingAccountAndRole, SqlBuilder.PSC, BillingAccountAndRoleDao> {
+public interface BillingAccountAndRoleDao extends CrudDao<BillingAccountAndRole, BillingAccountAndRole, BillingAccountAndRoleDao> {
 }

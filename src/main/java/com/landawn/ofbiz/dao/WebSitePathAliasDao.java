@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WebSitePathAlias;
 
-public interface WebSitePathAliasDao extends CrudDao<WebSitePathAlias, WebSitePathAlias, SqlBuilder.PSC, WebSitePathAliasDao>, CrudJoinEntityHelper<WebSitePathAlias, WebSitePathAlias, SqlBuilder.PSC, WebSitePathAliasDao> {
+public interface WebSitePathAliasDao extends CrudDao<WebSitePathAlias, WebSitePathAlias, WebSitePathAliasDao>, CrudJoinEntityHelper<WebSitePathAlias, WebSitePathAlias, WebSitePathAliasDao> {
 }

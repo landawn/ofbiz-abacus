@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TestingRemoveAll;
 
-public interface TestingRemoveAllDao extends CrudDao<TestingRemoveAll, String, SqlBuilder.PSC, TestingRemoveAllDao> {
+public interface TestingRemoveAllDao extends CrudDao<TestingRemoveAll, String, TestingRemoveAllDao> {
 }

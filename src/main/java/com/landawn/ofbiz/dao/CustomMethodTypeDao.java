@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CustomMethodType;
 
-public interface CustomMethodTypeDao extends CrudDao<CustomMethodType, String, SqlBuilder.PSC, CustomMethodTypeDao>, CrudJoinEntityHelper<CustomMethodType, String, SqlBuilder.PSC, CustomMethodTypeDao> {
+public interface CustomMethodTypeDao extends CrudDao<CustomMethodType, String, CustomMethodTypeDao>, CrudJoinEntityHelper<CustomMethodType, String, CustomMethodTypeDao> {
 }

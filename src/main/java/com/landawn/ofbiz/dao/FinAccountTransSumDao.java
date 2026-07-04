@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.FinAccountTransSum;
 
-public interface FinAccountTransSumDao extends CrudDao<FinAccountTransSum, FinAccountTransSum, SqlBuilder.PSC, FinAccountTransSumDao> {
+public interface FinAccountTransSumDao extends CrudDao<FinAccountTransSum, FinAccountTransSum, FinAccountTransSumDao> {
 }

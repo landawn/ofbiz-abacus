@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CommEventContentDataResource;
 
-public interface CommEventContentDataResourceDao extends CrudDao<CommEventContentDataResource, CommEventContentDataResource, SqlBuilder.PSC, CommEventContentDataResourceDao> {
+public interface CommEventContentDataResourceDao extends CrudDao<CommEventContentDataResource, CommEventContentDataResource, CommEventContentDataResourceDao> {
 }

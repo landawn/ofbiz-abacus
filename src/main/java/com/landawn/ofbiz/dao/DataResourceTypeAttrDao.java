@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.DataResourceTypeAttr;
 
-public interface DataResourceTypeAttrDao extends CrudDao<DataResourceTypeAttr, DataResourceTypeAttr, SqlBuilder.PSC, DataResourceTypeAttrDao>, CrudJoinEntityHelper<DataResourceTypeAttr, DataResourceTypeAttr, SqlBuilder.PSC, DataResourceTypeAttrDao> {
+public interface DataResourceTypeAttrDao extends CrudDao<DataResourceTypeAttr, DataResourceTypeAttr, DataResourceTypeAttrDao>, CrudJoinEntityHelper<DataResourceTypeAttr, DataResourceTypeAttr, DataResourceTypeAttrDao> {
 }

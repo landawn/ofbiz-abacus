@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.FacilityGroupRollup;
 
-public interface FacilityGroupRollupDao extends CrudDao<FacilityGroupRollup, FacilityGroupRollup, SqlBuilder.PSC, FacilityGroupRollupDao>, CrudJoinEntityHelper<FacilityGroupRollup, FacilityGroupRollup, SqlBuilder.PSC, FacilityGroupRollupDao> {
+public interface FacilityGroupRollupDao extends CrudDao<FacilityGroupRollup, FacilityGroupRollup, FacilityGroupRollupDao>, CrudJoinEntityHelper<FacilityGroupRollup, FacilityGroupRollup, FacilityGroupRollupDao> {
 }

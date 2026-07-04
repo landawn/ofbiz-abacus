@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderPurchaseProductSummary;
 
-public interface OrderPurchaseProductSummaryDao extends CrudDao<OrderPurchaseProductSummary, OrderPurchaseProductSummary, SqlBuilder.PSC, OrderPurchaseProductSummaryDao> {
+public interface OrderPurchaseProductSummaryDao extends CrudDao<OrderPurchaseProductSummary, OrderPurchaseProductSummary, OrderPurchaseProductSummaryDao> {
 }

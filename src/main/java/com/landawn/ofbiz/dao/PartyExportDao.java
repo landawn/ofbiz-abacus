@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PartyExport;
 
-public interface PartyExportDao extends CrudDao<PartyExport, PartyExport, SqlBuilder.PSC, PartyExportDao> {
+public interface PartyExportDao extends CrudDao<PartyExport, PartyExport, PartyExportDao> {
 }

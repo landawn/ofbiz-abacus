@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.EmplLeaveType;
 
-public interface EmplLeaveTypeDao extends CrudDao<EmplLeaveType, String, SqlBuilder.PSC, EmplLeaveTypeDao>, CrudJoinEntityHelper<EmplLeaveType, String, SqlBuilder.PSC, EmplLeaveTypeDao> {
+public interface EmplLeaveTypeDao extends CrudDao<EmplLeaveType, String, EmplLeaveTypeDao>, CrudJoinEntityHelper<EmplLeaveType, String, EmplLeaveTypeDao> {
 }

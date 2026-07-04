@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.UserLoginPasswordHistory;
 
-public interface UserLoginPasswordHistoryDao extends CrudDao<UserLoginPasswordHistory, UserLoginPasswordHistory, SqlBuilder.PSC, UserLoginPasswordHistoryDao>, CrudJoinEntityHelper<UserLoginPasswordHistory, UserLoginPasswordHistory, SqlBuilder.PSC, UserLoginPasswordHistoryDao> {
+public interface UserLoginPasswordHistoryDao extends CrudDao<UserLoginPasswordHistory, UserLoginPasswordHistory, UserLoginPasswordHistoryDao>, CrudJoinEntityHelper<UserLoginPasswordHistory, UserLoginPasswordHistory, UserLoginPasswordHistoryDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.InventoryItemStatus;
 
-public interface InventoryItemStatusDao extends CrudDao<InventoryItemStatus, InventoryItemStatus, SqlBuilder.PSC, InventoryItemStatusDao>, CrudJoinEntityHelper<InventoryItemStatus, InventoryItemStatus, SqlBuilder.PSC, InventoryItemStatusDao> {
+public interface InventoryItemStatusDao extends CrudDao<InventoryItemStatus, InventoryItemStatus, InventoryItemStatusDao>, CrudJoinEntityHelper<InventoryItemStatus, InventoryItemStatus, InventoryItemStatusDao> {
 }

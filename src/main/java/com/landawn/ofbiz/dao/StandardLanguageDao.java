@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.StandardLanguage;
 
-public interface StandardLanguageDao extends CrudDao<StandardLanguage, String, SqlBuilder.PSC, StandardLanguageDao> {
+public interface StandardLanguageDao extends CrudDao<StandardLanguage, String, StandardLanguageDao> {
 }

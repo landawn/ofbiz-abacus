@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PortalPageAndUserLogin;
 
-public interface PortalPageAndUserLoginDao extends CrudDao<PortalPageAndUserLogin, PortalPageAndUserLogin, SqlBuilder.PSC, PortalPageAndUserLoginDao> {
+public interface PortalPageAndUserLoginDao extends CrudDao<PortalPageAndUserLogin, PortalPageAndUserLogin, PortalPageAndUserLoginDao> {
 }

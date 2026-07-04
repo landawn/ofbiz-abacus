@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PartyContentType;
 
-public interface PartyContentTypeDao extends CrudDao<PartyContentType, String, SqlBuilder.PSC, PartyContentTypeDao>, CrudJoinEntityHelper<PartyContentType, String, SqlBuilder.PSC, PartyContentTypeDao> {
+public interface PartyContentTypeDao extends CrudDao<PartyContentType, String, PartyContentTypeDao>, CrudJoinEntityHelper<PartyContentType, String, PartyContentTypeDao> {
 }

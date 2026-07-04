@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ValidContactMechRole;
 
-public interface ValidContactMechRoleDao extends CrudDao<ValidContactMechRole, ValidContactMechRole, SqlBuilder.PSC, ValidContactMechRoleDao>, CrudJoinEntityHelper<ValidContactMechRole, ValidContactMechRole, SqlBuilder.PSC, ValidContactMechRoleDao> {
+public interface ValidContactMechRoleDao extends CrudDao<ValidContactMechRole, ValidContactMechRole, ValidContactMechRoleDao>, CrudJoinEntityHelper<ValidContactMechRole, ValidContactMechRole, ValidContactMechRoleDao> {
 }

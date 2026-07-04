@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderTaskList;
 
-public interface OrderTaskListDao extends CrudDao<OrderTaskList, OrderTaskList, SqlBuilder.PSC, OrderTaskListDao> {
+public interface OrderTaskListDao extends CrudDao<OrderTaskList, OrderTaskList, OrderTaskListDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PaymentGatewayAuthorizeNet;
 
-public interface PaymentGatewayAuthorizeNetDao extends CrudDao<PaymentGatewayAuthorizeNet, String, SqlBuilder.PSC, PaymentGatewayAuthorizeNetDao>, CrudJoinEntityHelper<PaymentGatewayAuthorizeNet, String, SqlBuilder.PSC, PaymentGatewayAuthorizeNetDao> {
+public interface PaymentGatewayAuthorizeNetDao extends CrudDao<PaymentGatewayAuthorizeNet, String, PaymentGatewayAuthorizeNetDao>, CrudJoinEntityHelper<PaymentGatewayAuthorizeNet, String, PaymentGatewayAuthorizeNetDao> {
 }

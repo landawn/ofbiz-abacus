@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.MrpEventView;
 
-public interface MrpEventViewDao extends CrudDao<MrpEventView, MrpEventView, SqlBuilder.PSC, MrpEventViewDao> {
+public interface MrpEventViewDao extends CrudDao<MrpEventView, MrpEventView, MrpEventViewDao> {
 }

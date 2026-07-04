@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ReturnItemShipment;
 
-public interface ReturnItemShipmentDao extends CrudDao<ReturnItemShipment, ReturnItemShipment, SqlBuilder.PSC, ReturnItemShipmentDao>, CrudJoinEntityHelper<ReturnItemShipment, ReturnItemShipment, SqlBuilder.PSC, ReturnItemShipmentDao> {
+public interface ReturnItemShipmentDao extends CrudDao<ReturnItemShipment, ReturnItemShipment, ReturnItemShipmentDao>, CrudJoinEntityHelper<ReturnItemShipment, ReturnItemShipment, ReturnItemShipmentDao> {
 }

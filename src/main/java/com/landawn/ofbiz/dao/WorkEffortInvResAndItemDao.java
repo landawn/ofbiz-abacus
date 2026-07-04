@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortInvResAndItem;
 
-public interface WorkEffortInvResAndItemDao extends CrudDao<WorkEffortInvResAndItem, WorkEffortInvResAndItem, SqlBuilder.PSC, WorkEffortInvResAndItemDao> {
+public interface WorkEffortInvResAndItemDao extends CrudDao<WorkEffortInvResAndItem, WorkEffortInvResAndItem, WorkEffortInvResAndItemDao> {
 }

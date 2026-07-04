@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductCategoryRollupAndRole;
 
-public interface ProductCategoryRollupAndRoleDao extends CrudDao<ProductCategoryRollupAndRole, ProductCategoryRollupAndRole, SqlBuilder.PSC, ProductCategoryRollupAndRoleDao> {
+public interface ProductCategoryRollupAndRoleDao extends CrudDao<ProductCategoryRollupAndRole, ProductCategoryRollupAndRole, ProductCategoryRollupAndRoleDao> {
 }

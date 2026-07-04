@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.AudioDataResource;
 
-public interface AudioDataResourceDao extends CrudDao<AudioDataResource, String, SqlBuilder.PSC, AudioDataResourceDao>, CrudJoinEntityHelper<AudioDataResource, String, SqlBuilder.PSC, AudioDataResourceDao> {
+public interface AudioDataResourceDao extends CrudDao<AudioDataResource, String, AudioDataResourceDao>, CrudJoinEntityHelper<AudioDataResource, String, AudioDataResourceDao> {
 }

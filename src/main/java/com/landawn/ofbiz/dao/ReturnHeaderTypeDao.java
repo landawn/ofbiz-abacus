@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ReturnHeaderType;
 
-public interface ReturnHeaderTypeDao extends CrudDao<ReturnHeaderType, String, SqlBuilder.PSC, ReturnHeaderTypeDao>, CrudJoinEntityHelper<ReturnHeaderType, String, SqlBuilder.PSC, ReturnHeaderTypeDao> {
+public interface ReturnHeaderTypeDao extends CrudDao<ReturnHeaderType, String, ReturnHeaderTypeDao>, CrudJoinEntityHelper<ReturnHeaderType, String, ReturnHeaderTypeDao> {
 }

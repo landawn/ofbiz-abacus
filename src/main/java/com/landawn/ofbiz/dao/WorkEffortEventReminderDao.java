@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortEventReminder;
 
-public interface WorkEffortEventReminderDao extends CrudDao<WorkEffortEventReminder, WorkEffortEventReminder, SqlBuilder.PSC, WorkEffortEventReminderDao>, CrudJoinEntityHelper<WorkEffortEventReminder, WorkEffortEventReminder, SqlBuilder.PSC, WorkEffortEventReminderDao> {
+public interface WorkEffortEventReminderDao extends CrudDao<WorkEffortEventReminder, WorkEffortEventReminder, WorkEffortEventReminderDao>, CrudJoinEntityHelper<WorkEffortEventReminder, WorkEffortEventReminder, WorkEffortEventReminderDao> {
 }

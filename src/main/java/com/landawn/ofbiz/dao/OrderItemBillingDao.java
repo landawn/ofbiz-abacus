@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderItemBilling;
 
-public interface OrderItemBillingDao extends CrudDao<OrderItemBilling, OrderItemBilling, SqlBuilder.PSC, OrderItemBillingDao>, CrudJoinEntityHelper<OrderItemBilling, OrderItemBilling, SqlBuilder.PSC, OrderItemBillingDao> {
+public interface OrderItemBillingDao extends CrudDao<OrderItemBilling, OrderItemBilling, OrderItemBillingDao>, CrudJoinEntityHelper<OrderItemBilling, OrderItemBilling, OrderItemBillingDao> {
 }

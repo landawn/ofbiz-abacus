@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.QuoteNoteView;
 
-public interface QuoteNoteViewDao extends CrudDao<QuoteNoteView, QuoteNoteView, SqlBuilder.PSC, QuoteNoteViewDao> {
+public interface QuoteNoteViewDao extends CrudDao<QuoteNoteView, QuoteNoteView, QuoteNoteViewDao> {
 }

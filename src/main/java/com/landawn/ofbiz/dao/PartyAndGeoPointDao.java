@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PartyAndGeoPoint;
 
-public interface PartyAndGeoPointDao extends CrudDao<PartyAndGeoPoint, PartyAndGeoPoint, SqlBuilder.PSC, PartyAndGeoPointDao> {
+public interface PartyAndGeoPointDao extends CrudDao<PartyAndGeoPoint, PartyAndGeoPoint, PartyAndGeoPointDao> {
 }

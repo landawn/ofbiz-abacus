@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ImageDataResource;
 
-public interface ImageDataResourceDao extends CrudDao<ImageDataResource, String, SqlBuilder.PSC, ImageDataResourceDao>, CrudJoinEntityHelper<ImageDataResource, String, SqlBuilder.PSC, ImageDataResourceDao> {
+public interface ImageDataResourceDao extends CrudDao<ImageDataResource, String, ImageDataResourceDao>, CrudJoinEntityHelper<ImageDataResource, String, ImageDataResourceDao> {
 }

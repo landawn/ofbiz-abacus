@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderTerm;
 
-public interface OrderTermDao extends CrudDao<OrderTerm, OrderTerm, SqlBuilder.PSC, OrderTermDao>, CrudJoinEntityHelper<OrderTerm, OrderTerm, SqlBuilder.PSC, OrderTermDao> {
+public interface OrderTermDao extends CrudDao<OrderTerm, OrderTerm, OrderTermDao>, CrudJoinEntityHelper<OrderTerm, OrderTerm, OrderTermDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PeriodType;
 
-public interface PeriodTypeDao extends CrudDao<PeriodType, String, SqlBuilder.PSC, PeriodTypeDao>, CrudJoinEntityHelper<PeriodType, String, SqlBuilder.PSC, PeriodTypeDao> {
+public interface PeriodTypeDao extends CrudDao<PeriodType, String, PeriodTypeDao>, CrudJoinEntityHelper<PeriodType, String, PeriodTypeDao> {
 }

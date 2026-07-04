@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.Geo;
 
-public interface GeoDao extends CrudDao<Geo, String, SqlBuilder.PSC, GeoDao>, CrudJoinEntityHelper<Geo, String, SqlBuilder.PSC, GeoDao> {
+public interface GeoDao extends CrudDao<Geo, String, GeoDao>, CrudJoinEntityHelper<Geo, String, GeoDao> {
 }

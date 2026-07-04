@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.DocumentTypeAttr;
 
-public interface DocumentTypeAttrDao extends CrudDao<DocumentTypeAttr, DocumentTypeAttr, SqlBuilder.PSC, DocumentTypeAttrDao>, CrudJoinEntityHelper<DocumentTypeAttr, DocumentTypeAttr, SqlBuilder.PSC, DocumentTypeAttrDao> {
+public interface DocumentTypeAttrDao extends CrudDao<DocumentTypeAttr, DocumentTypeAttr, DocumentTypeAttrDao>, CrudJoinEntityHelper<DocumentTypeAttr, DocumentTypeAttr, DocumentTypeAttrDao> {
 }

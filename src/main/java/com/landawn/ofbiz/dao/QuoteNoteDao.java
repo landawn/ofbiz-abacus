@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.QuoteNote;
 
-public interface QuoteNoteDao extends CrudDao<QuoteNote, QuoteNote, SqlBuilder.PSC, QuoteNoteDao>, CrudJoinEntityHelper<QuoteNote, QuoteNote, SqlBuilder.PSC, QuoteNoteDao> {
+public interface QuoteNoteDao extends CrudDao<QuoteNote, QuoteNote, QuoteNoteDao>, CrudJoinEntityHelper<QuoteNote, QuoteNote, QuoteNoteDao> {
 }

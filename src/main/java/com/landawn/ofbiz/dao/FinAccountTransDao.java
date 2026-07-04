@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.FinAccountTrans;
 
-public interface FinAccountTransDao extends CrudDao<FinAccountTrans, String, SqlBuilder.PSC, FinAccountTransDao>, CrudJoinEntityHelper<FinAccountTrans, String, SqlBuilder.PSC, FinAccountTransDao> {
+public interface FinAccountTransDao extends CrudDao<FinAccountTrans, String, FinAccountTransDao>, CrudJoinEntityHelper<FinAccountTrans, String, FinAccountTransDao> {
 }

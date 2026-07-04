@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TechDataCalendar;
 
-public interface TechDataCalendarDao extends CrudDao<TechDataCalendar, String, SqlBuilder.PSC, TechDataCalendarDao>, CrudJoinEntityHelper<TechDataCalendar, String, SqlBuilder.PSC, TechDataCalendarDao> {
+public interface TechDataCalendarDao extends CrudDao<TechDataCalendar, String, TechDataCalendarDao>, CrudJoinEntityHelper<TechDataCalendar, String, TechDataCalendarDao> {
 }

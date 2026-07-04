@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.RequirementBudgetAllocation;
 
-public interface RequirementBudgetAllocationDao extends CrudDao<RequirementBudgetAllocation, RequirementBudgetAllocation, SqlBuilder.PSC, RequirementBudgetAllocationDao>, CrudJoinEntityHelper<RequirementBudgetAllocation, RequirementBudgetAllocation, SqlBuilder.PSC, RequirementBudgetAllocationDao> {
+public interface RequirementBudgetAllocationDao extends CrudDao<RequirementBudgetAllocation, RequirementBudgetAllocation, RequirementBudgetAllocationDao>, CrudJoinEntityHelper<RequirementBudgetAllocation, RequirementBudgetAllocation, RequirementBudgetAllocationDao> {
 }

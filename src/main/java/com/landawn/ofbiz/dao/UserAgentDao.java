@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.UserAgent;
 
-public interface UserAgentDao extends CrudDao<UserAgent, String, SqlBuilder.PSC, UserAgentDao>, CrudJoinEntityHelper<UserAgent, String, SqlBuilder.PSC, UserAgentDao> {
+public interface UserAgentDao extends CrudDao<UserAgent, String, UserAgentDao>, CrudJoinEntityHelper<UserAgent, String, UserAgentDao> {
 }

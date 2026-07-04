@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.DeliverableType;
 
-public interface DeliverableTypeDao extends CrudDao<DeliverableType, String, SqlBuilder.PSC, DeliverableTypeDao> {
+public interface DeliverableTypeDao extends CrudDao<DeliverableType, String, DeliverableTypeDao> {
 }

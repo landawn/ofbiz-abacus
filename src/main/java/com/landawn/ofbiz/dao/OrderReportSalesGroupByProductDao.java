@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderReportSalesGroupByProduct;
 
-public interface OrderReportSalesGroupByProductDao extends CrudDao<OrderReportSalesGroupByProduct, OrderReportSalesGroupByProduct, SqlBuilder.PSC, OrderReportSalesGroupByProductDao> {
+public interface OrderReportSalesGroupByProductDao extends CrudDao<OrderReportSalesGroupByProduct, OrderReportSalesGroupByProduct, OrderReportSalesGroupByProductDao> {
 }

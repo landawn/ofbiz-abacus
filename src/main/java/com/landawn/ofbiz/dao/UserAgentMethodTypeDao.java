@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.UserAgentMethodType;
 
-public interface UserAgentMethodTypeDao extends CrudDao<UserAgentMethodType, String, SqlBuilder.PSC, UserAgentMethodTypeDao> {
+public interface UserAgentMethodTypeDao extends CrudDao<UserAgentMethodType, String, UserAgentMethodTypeDao> {
 }

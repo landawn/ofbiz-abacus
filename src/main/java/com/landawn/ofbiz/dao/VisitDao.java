@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.Visit;
 
-public interface VisitDao extends CrudDao<Visit, String, SqlBuilder.PSC, VisitDao>, CrudJoinEntityHelper<Visit, String, SqlBuilder.PSC, VisitDao> {
+public interface VisitDao extends CrudDao<Visit, String, VisitDao>, CrudJoinEntityHelper<Visit, String, VisitDao> {
 }

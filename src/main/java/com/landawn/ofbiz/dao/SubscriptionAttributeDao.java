@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SubscriptionAttribute;
 
-public interface SubscriptionAttributeDao extends CrudDao<SubscriptionAttribute, SubscriptionAttribute, SqlBuilder.PSC, SubscriptionAttributeDao>, CrudJoinEntityHelper<SubscriptionAttribute, SubscriptionAttribute, SqlBuilder.PSC, SubscriptionAttributeDao> {
+public interface SubscriptionAttributeDao extends CrudDao<SubscriptionAttribute, SubscriptionAttribute, SubscriptionAttributeDao>, CrudJoinEntityHelper<SubscriptionAttribute, SubscriptionAttribute, SubscriptionAttributeDao> {
 }

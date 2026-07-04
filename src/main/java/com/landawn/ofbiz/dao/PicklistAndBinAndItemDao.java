@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PicklistAndBinAndItem;
 
-public interface PicklistAndBinAndItemDao extends CrudDao<PicklistAndBinAndItem, PicklistAndBinAndItem, SqlBuilder.PSC, PicklistAndBinAndItemDao> {
+public interface PicklistAndBinAndItemDao extends CrudDao<PicklistAndBinAndItem, PicklistAndBinAndItem, PicklistAndBinAndItemDao> {
 }

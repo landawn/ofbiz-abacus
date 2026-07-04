@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.AcctgTransEntry;
 
-public interface AcctgTransEntryDao extends CrudDao<AcctgTransEntry, AcctgTransEntry, SqlBuilder.PSC, AcctgTransEntryDao>, CrudJoinEntityHelper<AcctgTransEntry, AcctgTransEntry, SqlBuilder.PSC, AcctgTransEntryDao> {
+public interface AcctgTransEntryDao extends CrudDao<AcctgTransEntry, AcctgTransEntry, AcctgTransEntryDao>, CrudJoinEntityHelper<AcctgTransEntry, AcctgTransEntry, AcctgTransEntryDao> {
 }

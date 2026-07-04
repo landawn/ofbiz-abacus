@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.EntitySyncInclude;
 
-public interface EntitySyncIncludeDao extends CrudDao<EntitySyncInclude, EntitySyncInclude, SqlBuilder.PSC, EntitySyncIncludeDao>, CrudJoinEntityHelper<EntitySyncInclude, EntitySyncInclude, SqlBuilder.PSC, EntitySyncIncludeDao> {
+public interface EntitySyncIncludeDao extends CrudDao<EntitySyncInclude, EntitySyncInclude, EntitySyncIncludeDao>, CrudJoinEntityHelper<EntitySyncInclude, EntitySyncInclude, EntitySyncIncludeDao> {
 }

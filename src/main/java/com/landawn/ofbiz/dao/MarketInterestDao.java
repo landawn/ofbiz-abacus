@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.MarketInterest;
 
-public interface MarketInterestDao extends CrudDao<MarketInterest, MarketInterest, SqlBuilder.PSC, MarketInterestDao>, CrudJoinEntityHelper<MarketInterest, MarketInterest, SqlBuilder.PSC, MarketInterestDao> {
+public interface MarketInterestDao extends CrudDao<MarketInterest, MarketInterest, MarketInterestDao>, CrudJoinEntityHelper<MarketInterest, MarketInterest, MarketInterestDao> {
 }

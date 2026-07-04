@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.StatusValidChangeToDetail;
 
-public interface StatusValidChangeToDetailDao extends CrudDao<StatusValidChangeToDetail, StatusValidChangeToDetail, SqlBuilder.PSC, StatusValidChangeToDetailDao> {
+public interface StatusValidChangeToDetailDao extends CrudDao<StatusValidChangeToDetail, StatusValidChangeToDetail, StatusValidChangeToDetailDao> {
 }

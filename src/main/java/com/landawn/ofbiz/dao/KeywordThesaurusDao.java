@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.KeywordThesaurus;
 
-public interface KeywordThesaurusDao extends CrudDao<KeywordThesaurus, KeywordThesaurus, SqlBuilder.PSC, KeywordThesaurusDao>, CrudJoinEntityHelper<KeywordThesaurus, KeywordThesaurus, SqlBuilder.PSC, KeywordThesaurusDao> {
+public interface KeywordThesaurusDao extends CrudDao<KeywordThesaurus, KeywordThesaurus, KeywordThesaurusDao>, CrudJoinEntityHelper<KeywordThesaurus, KeywordThesaurus, KeywordThesaurusDao> {
 }

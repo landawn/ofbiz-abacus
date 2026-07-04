@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TelecomNumber;
 
-public interface TelecomNumberDao extends CrudDao<TelecomNumber, String, SqlBuilder.PSC, TelecomNumberDao>, CrudJoinEntityHelper<TelecomNumber, String, SqlBuilder.PSC, TelecomNumberDao> {
+public interface TelecomNumberDao extends CrudDao<TelecomNumber, String, TelecomNumberDao>, CrudJoinEntityHelper<TelecomNumber, String, TelecomNumberDao> {
 }

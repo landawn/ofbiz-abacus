@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortPartyAssignByRole;
 
-public interface WorkEffortPartyAssignByRoleDao extends CrudDao<WorkEffortPartyAssignByRole, WorkEffortPartyAssignByRole, SqlBuilder.PSC, WorkEffortPartyAssignByRoleDao> {
+public interface WorkEffortPartyAssignByRoleDao extends CrudDao<WorkEffortPartyAssignByRole, WorkEffortPartyAssignByRole, WorkEffortPartyAssignByRoleDao> {
 }

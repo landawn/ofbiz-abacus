@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CostComponent;
 
-public interface CostComponentDao extends CrudDao<CostComponent, String, SqlBuilder.PSC, CostComponentDao>, CrudJoinEntityHelper<CostComponent, String, SqlBuilder.PSC, CostComponentDao> {
+public interface CostComponentDao extends CrudDao<CostComponent, String, CostComponentDao>, CrudJoinEntityHelper<CostComponent, String, CostComponentDao> {
 }

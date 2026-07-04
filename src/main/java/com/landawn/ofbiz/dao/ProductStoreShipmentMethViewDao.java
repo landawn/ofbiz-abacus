@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductStoreShipmentMethView;
 
-public interface ProductStoreShipmentMethViewDao extends CrudDao<ProductStoreShipmentMethView, ProductStoreShipmentMethView, SqlBuilder.PSC, ProductStoreShipmentMethViewDao> {
+public interface ProductStoreShipmentMethViewDao extends CrudDao<ProductStoreShipmentMethView, ProductStoreShipmentMethView, ProductStoreShipmentMethViewDao> {
 }

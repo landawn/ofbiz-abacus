@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.EmploymentApp;
 
-public interface EmploymentAppDao extends CrudDao<EmploymentApp, String, SqlBuilder.PSC, EmploymentAppDao>, CrudJoinEntityHelper<EmploymentApp, String, SqlBuilder.PSC, EmploymentAppDao> {
+public interface EmploymentAppDao extends CrudDao<EmploymentApp, String, EmploymentAppDao>, CrudJoinEntityHelper<EmploymentApp, String, EmploymentAppDao> {
 }

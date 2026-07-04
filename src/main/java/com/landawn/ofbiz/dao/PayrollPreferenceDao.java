@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PayrollPreference;
 
-public interface PayrollPreferenceDao extends CrudDao<PayrollPreference, PayrollPreference, SqlBuilder.PSC, PayrollPreferenceDao>, CrudJoinEntityHelper<PayrollPreference, PayrollPreference, SqlBuilder.PSC, PayrollPreferenceDao> {
+public interface PayrollPreferenceDao extends CrudDao<PayrollPreference, PayrollPreference, PayrollPreferenceDao>, CrudJoinEntityHelper<PayrollPreference, PayrollPreference, PayrollPreferenceDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WebUserPreference;
 
-public interface WebUserPreferenceDao extends CrudDao<WebUserPreference, WebUserPreference, SqlBuilder.PSC, WebUserPreferenceDao>, CrudJoinEntityHelper<WebUserPreference, WebUserPreference, SqlBuilder.PSC, WebUserPreferenceDao> {
+public interface WebUserPreferenceDao extends CrudDao<WebUserPreference, WebUserPreference, WebUserPreferenceDao>, CrudJoinEntityHelper<WebUserPreference, WebUserPreference, WebUserPreferenceDao> {
 }

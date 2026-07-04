@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PartyAcctgPrefAndGroup;
 
-public interface PartyAcctgPrefAndGroupDao extends CrudDao<PartyAcctgPrefAndGroup, PartyAcctgPrefAndGroup, SqlBuilder.PSC, PartyAcctgPrefAndGroupDao> {
+public interface PartyAcctgPrefAndGroupDao extends CrudDao<PartyAcctgPrefAndGroup, PartyAcctgPrefAndGroup, PartyAcctgPrefAndGroupDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TestingNode;
 
-public interface TestingNodeDao extends CrudDao<TestingNode, String, SqlBuilder.PSC, TestingNodeDao>, CrudJoinEntityHelper<TestingNode, String, SqlBuilder.PSC, TestingNodeDao> {
+public interface TestingNodeDao extends CrudDao<TestingNode, String, TestingNodeDao>, CrudJoinEntityHelper<TestingNode, String, TestingNodeDao> {
 }

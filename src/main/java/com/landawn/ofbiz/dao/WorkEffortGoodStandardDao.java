@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortGoodStandard;
 
-public interface WorkEffortGoodStandardDao extends CrudDao<WorkEffortGoodStandard, WorkEffortGoodStandard, SqlBuilder.PSC, WorkEffortGoodStandardDao>, CrudJoinEntityHelper<WorkEffortGoodStandard, WorkEffortGoodStandard, SqlBuilder.PSC, WorkEffortGoodStandardDao> {
+public interface WorkEffortGoodStandardDao extends CrudDao<WorkEffortGoodStandard, WorkEffortGoodStandard, WorkEffortGoodStandardDao>, CrudJoinEntityHelper<WorkEffortGoodStandard, WorkEffortGoodStandard, WorkEffortGoodStandardDao> {
 }

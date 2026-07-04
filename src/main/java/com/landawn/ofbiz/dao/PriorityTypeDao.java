@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PriorityType;
 
-public interface PriorityTypeDao extends CrudDao<PriorityType, String, SqlBuilder.PSC, PriorityTypeDao> {
+public interface PriorityTypeDao extends CrudDao<PriorityType, String, PriorityTypeDao> {
 }

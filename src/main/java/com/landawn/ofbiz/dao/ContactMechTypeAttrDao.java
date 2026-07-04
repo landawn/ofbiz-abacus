@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ContactMechTypeAttr;
 
-public interface ContactMechTypeAttrDao extends CrudDao<ContactMechTypeAttr, ContactMechTypeAttr, SqlBuilder.PSC, ContactMechTypeAttrDao>, CrudJoinEntityHelper<ContactMechTypeAttr, ContactMechTypeAttr, SqlBuilder.PSC, ContactMechTypeAttrDao> {
+public interface ContactMechTypeAttrDao extends CrudDao<ContactMechTypeAttr, ContactMechTypeAttr, ContactMechTypeAttrDao>, CrudJoinEntityHelper<ContactMechTypeAttr, ContactMechTypeAttr, ContactMechTypeAttrDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortInventoryAssign;
 
-public interface WorkEffortInventoryAssignDao extends CrudDao<WorkEffortInventoryAssign, WorkEffortInventoryAssign, SqlBuilder.PSC, WorkEffortInventoryAssignDao>, CrudJoinEntityHelper<WorkEffortInventoryAssign, WorkEffortInventoryAssign, SqlBuilder.PSC, WorkEffortInventoryAssignDao> {
+public interface WorkEffortInventoryAssignDao extends CrudDao<WorkEffortInventoryAssign, WorkEffortInventoryAssign, WorkEffortInventoryAssignDao>, CrudJoinEntityHelper<WorkEffortInventoryAssign, WorkEffortInventoryAssign, WorkEffortInventoryAssignDao> {
 }

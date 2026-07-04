@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SalesOpportunityTrckCode;
 
-public interface SalesOpportunityTrckCodeDao extends CrudDao<SalesOpportunityTrckCode, SalesOpportunityTrckCode, SqlBuilder.PSC, SalesOpportunityTrckCodeDao>, CrudJoinEntityHelper<SalesOpportunityTrckCode, SalesOpportunityTrckCode, SqlBuilder.PSC, SalesOpportunityTrckCodeDao> {
+public interface SalesOpportunityTrckCodeDao extends CrudDao<SalesOpportunityTrckCode, SalesOpportunityTrckCode, SalesOpportunityTrckCodeDao>, CrudJoinEntityHelper<SalesOpportunityTrckCode, SalesOpportunityTrckCode, SalesOpportunityTrckCodeDao> {
 }

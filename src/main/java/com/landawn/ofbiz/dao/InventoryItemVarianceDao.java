@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.InventoryItemVariance;
 
-public interface InventoryItemVarianceDao extends CrudDao<InventoryItemVariance, InventoryItemVariance, SqlBuilder.PSC, InventoryItemVarianceDao>, CrudJoinEntityHelper<InventoryItemVariance, InventoryItemVariance, SqlBuilder.PSC, InventoryItemVarianceDao> {
+public interface InventoryItemVarianceDao extends CrudDao<InventoryItemVariance, InventoryItemVariance, InventoryItemVarianceDao>, CrudJoinEntityHelper<InventoryItemVariance, InventoryItemVariance, InventoryItemVarianceDao> {
 }

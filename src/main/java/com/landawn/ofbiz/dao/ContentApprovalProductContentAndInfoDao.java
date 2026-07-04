@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ContentApprovalProductContentAndInfo;
 
-public interface ContentApprovalProductContentAndInfoDao extends CrudDao<ContentApprovalProductContentAndInfo, ContentApprovalProductContentAndInfo, SqlBuilder.PSC, ContentApprovalProductContentAndInfoDao> {
+public interface ContentApprovalProductContentAndInfoDao extends CrudDao<ContentApprovalProductContentAndInfo, ContentApprovalProductContentAndInfo, ContentApprovalProductContentAndInfoDao> {
 }

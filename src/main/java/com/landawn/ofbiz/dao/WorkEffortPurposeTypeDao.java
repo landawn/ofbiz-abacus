@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortPurposeType;
 
-public interface WorkEffortPurposeTypeDao extends CrudDao<WorkEffortPurposeType, String, SqlBuilder.PSC, WorkEffortPurposeTypeDao>, CrudJoinEntityHelper<WorkEffortPurposeType, String, SqlBuilder.PSC, WorkEffortPurposeTypeDao> {
+public interface WorkEffortPurposeTypeDao extends CrudDao<WorkEffortPurposeType, String, WorkEffortPurposeTypeDao>, CrudJoinEntityHelper<WorkEffortPurposeType, String, WorkEffortPurposeTypeDao> {
 }

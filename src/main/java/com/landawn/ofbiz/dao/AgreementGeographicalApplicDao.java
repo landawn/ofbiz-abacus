@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.AgreementGeographicalApplic;
 
-public interface AgreementGeographicalApplicDao extends CrudDao<AgreementGeographicalApplic, AgreementGeographicalApplic, SqlBuilder.PSC, AgreementGeographicalApplicDao>, CrudJoinEntityHelper<AgreementGeographicalApplic, AgreementGeographicalApplic, SqlBuilder.PSC, AgreementGeographicalApplicDao> {
+public interface AgreementGeographicalApplicDao extends CrudDao<AgreementGeographicalApplic, AgreementGeographicalApplic, AgreementGeographicalApplicDao>, CrudJoinEntityHelper<AgreementGeographicalApplic, AgreementGeographicalApplic, AgreementGeographicalApplicDao> {
 }

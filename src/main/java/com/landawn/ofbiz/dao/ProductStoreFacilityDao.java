@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductStoreFacility;
 
-public interface ProductStoreFacilityDao extends CrudDao<ProductStoreFacility, ProductStoreFacility, SqlBuilder.PSC, ProductStoreFacilityDao>, CrudJoinEntityHelper<ProductStoreFacility, ProductStoreFacility, SqlBuilder.PSC, ProductStoreFacilityDao> {
+public interface ProductStoreFacilityDao extends CrudDao<ProductStoreFacility, ProductStoreFacility, ProductStoreFacilityDao>, CrudJoinEntityHelper<ProductStoreFacility, ProductStoreFacility, ProductStoreFacilityDao> {
 }

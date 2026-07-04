@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ShortenedPath;
 
-public interface ShortenedPathDao extends CrudDao<ShortenedPath, String, SqlBuilder.PSC, ShortenedPathDao> {
+public interface ShortenedPathDao extends CrudDao<ShortenedPath, String, ShortenedPathDao> {
 }

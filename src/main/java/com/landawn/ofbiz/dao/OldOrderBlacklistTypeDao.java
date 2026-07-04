@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OldOrderBlacklistType;
 
-public interface OldOrderBlacklistTypeDao extends CrudDao<OldOrderBlacklistType, String, SqlBuilder.PSC, OldOrderBlacklistTypeDao> {
+public interface OldOrderBlacklistTypeDao extends CrudDao<OldOrderBlacklistType, String, OldOrderBlacklistTypeDao> {
 }

@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ItemIssuanceQuantitySum;
 
-public interface ItemIssuanceQuantitySumDao extends CrudDao<ItemIssuanceQuantitySum, ItemIssuanceQuantitySum, SqlBuilder.PSC, ItemIssuanceQuantitySumDao> {
+public interface ItemIssuanceQuantitySumDao extends CrudDao<ItemIssuanceQuantitySum, ItemIssuanceQuantitySum, ItemIssuanceQuantitySumDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortFixedAssetAssign;
 
-public interface WorkEffortFixedAssetAssignDao extends CrudDao<WorkEffortFixedAssetAssign, WorkEffortFixedAssetAssign, SqlBuilder.PSC, WorkEffortFixedAssetAssignDao>, CrudJoinEntityHelper<WorkEffortFixedAssetAssign, WorkEffortFixedAssetAssign, SqlBuilder.PSC, WorkEffortFixedAssetAssignDao> {
+public interface WorkEffortFixedAssetAssignDao extends CrudDao<WorkEffortFixedAssetAssign, WorkEffortFixedAssetAssign, WorkEffortFixedAssetAssignDao>, CrudJoinEntityHelper<WorkEffortFixedAssetAssign, WorkEffortFixedAssetAssign, WorkEffortFixedAssetAssignDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.FacilityLocationGeoPoint;
 
-public interface FacilityLocationGeoPointDao extends CrudDao<FacilityLocationGeoPoint, FacilityLocationGeoPoint, SqlBuilder.PSC, FacilityLocationGeoPointDao>, CrudJoinEntityHelper<FacilityLocationGeoPoint, FacilityLocationGeoPoint, SqlBuilder.PSC, FacilityLocationGeoPointDao> {
+public interface FacilityLocationGeoPointDao extends CrudDao<FacilityLocationGeoPoint, FacilityLocationGeoPoint, FacilityLocationGeoPointDao>, CrudJoinEntityHelper<FacilityLocationGeoPoint, FacilityLocationGeoPoint, FacilityLocationGeoPointDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.Picklist;
 
-public interface PicklistDao extends CrudDao<Picklist, String, SqlBuilder.PSC, PicklistDao>, CrudJoinEntityHelper<Picklist, String, SqlBuilder.PSC, PicklistDao> {
+public interface PicklistDao extends CrudDao<Picklist, String, PicklistDao>, CrudJoinEntityHelper<Picklist, String, PicklistDao> {
 }

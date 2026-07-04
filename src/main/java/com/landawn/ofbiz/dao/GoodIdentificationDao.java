@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.GoodIdentification;
 
-public interface GoodIdentificationDao extends CrudDao<GoodIdentification, GoodIdentification, SqlBuilder.PSC, GoodIdentificationDao>, CrudJoinEntityHelper<GoodIdentification, GoodIdentification, SqlBuilder.PSC, GoodIdentificationDao> {
+public interface GoodIdentificationDao extends CrudDao<GoodIdentification, GoodIdentification, GoodIdentificationDao>, CrudJoinEntityHelper<GoodIdentification, GoodIdentification, GoodIdentificationDao> {
 }

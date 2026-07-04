@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PersonTraining;
 
-public interface PersonTrainingDao extends CrudDao<PersonTraining, PersonTraining, SqlBuilder.PSC, PersonTrainingDao>, CrudJoinEntityHelper<PersonTraining, PersonTraining, SqlBuilder.PSC, PersonTrainingDao> {
+public interface PersonTrainingDao extends CrudDao<PersonTraining, PersonTraining, PersonTrainingDao>, CrudJoinEntityHelper<PersonTraining, PersonTraining, PersonTrainingDao> {
 }

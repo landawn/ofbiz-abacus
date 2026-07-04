@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductCategoryGlAccount;
 
-public interface ProductCategoryGlAccountDao extends CrudDao<ProductCategoryGlAccount, ProductCategoryGlAccount, SqlBuilder.PSC, ProductCategoryGlAccountDao>, CrudJoinEntityHelper<ProductCategoryGlAccount, ProductCategoryGlAccount, SqlBuilder.PSC, ProductCategoryGlAccountDao> {
+public interface ProductCategoryGlAccountDao extends CrudDao<ProductCategoryGlAccount, ProductCategoryGlAccount, ProductCategoryGlAccountDao>, CrudJoinEntityHelper<ProductCategoryGlAccount, ProductCategoryGlAccount, ProductCategoryGlAccountDao> {
 }

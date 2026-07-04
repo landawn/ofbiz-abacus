@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderDeliverySchedule;
 
-public interface OrderDeliveryScheduleDao extends CrudDao<OrderDeliverySchedule, OrderDeliverySchedule, SqlBuilder.PSC, OrderDeliveryScheduleDao>, CrudJoinEntityHelper<OrderDeliverySchedule, OrderDeliverySchedule, SqlBuilder.PSC, OrderDeliveryScheduleDao> {
+public interface OrderDeliveryScheduleDao extends CrudDao<OrderDeliverySchedule, OrderDeliverySchedule, OrderDeliveryScheduleDao>, CrudJoinEntityHelper<OrderDeliverySchedule, OrderDeliverySchedule, OrderDeliveryScheduleDao> {
 }

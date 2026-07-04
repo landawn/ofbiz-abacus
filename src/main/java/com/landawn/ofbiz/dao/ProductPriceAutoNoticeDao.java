@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductPriceAutoNotice;
 
-public interface ProductPriceAutoNoticeDao extends CrudDao<ProductPriceAutoNotice, String, SqlBuilder.PSC, ProductPriceAutoNoticeDao> {
+public interface ProductPriceAutoNoticeDao extends CrudDao<ProductPriceAutoNotice, String, ProductPriceAutoNoticeDao> {
 }

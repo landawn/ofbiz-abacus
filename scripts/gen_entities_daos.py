@@ -430,17 +430,16 @@ def render_dao(t: Table, has_fks: bool) -> str:
 
     if has_fks:
         extends_clause = (
-            f"CrudDao<{class_name}, {id_type}, SqlBuilder.PSC, {dao_name}>, "
-            f"CrudJoinEntityHelper<{class_name}, {id_type}, SqlBuilder.PSC, {dao_name}>"
+            f"CrudDao<{class_name}, {id_type}, {dao_name}>, "
+            f"CrudJoinEntityHelper<{class_name}, {id_type}, {dao_name}>"
         )
     else:
-        extends_clause = f"CrudDao<{class_name}, {id_type}, SqlBuilder.PSC, {dao_name}>"
+        extends_clause = f"CrudDao<{class_name}, {id_type}, {dao_name}>"
 
     body = (
         f"{DAO_LICENSE}"
         f"package com.landawn.ofbiz.dao;\n\n"
         f"{abacus_jdbc_block}"
-        f"import com.landawn.abacus.query.SqlBuilder;\n"
         f"{id_import_block}"
         f"import com.landawn.ofbiz.entity.{class_name};\n\n"
         f"public interface {dao_name} extends {extends_clause} {{\n"

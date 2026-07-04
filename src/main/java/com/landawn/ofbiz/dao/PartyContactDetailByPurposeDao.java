@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PartyContactDetailByPurpose;
 
-public interface PartyContactDetailByPurposeDao extends CrudDao<PartyContactDetailByPurpose, PartyContactDetailByPurpose, SqlBuilder.PSC, PartyContactDetailByPurposeDao> {
+public interface PartyContactDetailByPurposeDao extends CrudDao<PartyContactDetailByPurpose, PartyContactDetailByPurpose, PartyContactDetailByPurposeDao> {
 }

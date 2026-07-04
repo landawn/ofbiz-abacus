@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.EmailTemplateSetting;
 
-public interface EmailTemplateSettingDao extends CrudDao<EmailTemplateSetting, String, SqlBuilder.PSC, EmailTemplateSettingDao>, CrudJoinEntityHelper<EmailTemplateSetting, String, SqlBuilder.PSC, EmailTemplateSettingDao> {
+public interface EmailTemplateSettingDao extends CrudDao<EmailTemplateSetting, String, EmailTemplateSettingDao>, CrudJoinEntityHelper<EmailTemplateSetting, String, EmailTemplateSettingDao> {
 }

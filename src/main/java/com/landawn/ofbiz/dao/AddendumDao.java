@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.Addendum;
 
-public interface AddendumDao extends CrudDao<Addendum, String, SqlBuilder.PSC, AddendumDao>, CrudJoinEntityHelper<Addendum, String, SqlBuilder.PSC, AddendumDao> {
+public interface AddendumDao extends CrudDao<Addendum, String, AddendumDao>, CrudJoinEntityHelper<Addendum, String, AddendumDao> {
 }

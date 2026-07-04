@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ShipmentReceiptAndItem;
 
-public interface ShipmentReceiptAndItemDao extends CrudDao<ShipmentReceiptAndItem, ShipmentReceiptAndItem, SqlBuilder.PSC, ShipmentReceiptAndItemDao> {
+public interface ShipmentReceiptAndItemDao extends CrudDao<ShipmentReceiptAndItem, ShipmentReceiptAndItem, ShipmentReceiptAndItemDao> {
 }

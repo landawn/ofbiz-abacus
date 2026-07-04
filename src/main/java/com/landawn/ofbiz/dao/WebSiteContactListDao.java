@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WebSiteContactList;
 
-public interface WebSiteContactListDao extends CrudDao<WebSiteContactList, WebSiteContactList, SqlBuilder.PSC, WebSiteContactListDao>, CrudJoinEntityHelper<WebSiteContactList, WebSiteContactList, SqlBuilder.PSC, WebSiteContactListDao> {
+public interface WebSiteContactListDao extends CrudDao<WebSiteContactList, WebSiteContactList, WebSiteContactListDao>, CrudJoinEntityHelper<WebSiteContactList, WebSiteContactList, WebSiteContactListDao> {
 }

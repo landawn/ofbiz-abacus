@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.FacilityContentDetail;
 
-public interface FacilityContentDetailDao extends CrudDao<FacilityContentDetail, FacilityContentDetail, SqlBuilder.PSC, FacilityContentDetailDao> {
+public interface FacilityContentDetailDao extends CrudDao<FacilityContentDetail, FacilityContentDetail, FacilityContentDetailDao> {
 }

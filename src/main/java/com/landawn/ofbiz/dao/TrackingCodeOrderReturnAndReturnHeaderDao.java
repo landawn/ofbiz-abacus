@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TrackingCodeOrderReturnAndReturnHeader;
 
-public interface TrackingCodeOrderReturnAndReturnHeaderDao extends CrudDao<TrackingCodeOrderReturnAndReturnHeader, TrackingCodeOrderReturnAndReturnHeader, SqlBuilder.PSC, TrackingCodeOrderReturnAndReturnHeaderDao> {
+public interface TrackingCodeOrderReturnAndReturnHeaderDao extends CrudDao<TrackingCodeOrderReturnAndReturnHeader, TrackingCodeOrderReturnAndReturnHeader, TrackingCodeOrderReturnAndReturnHeaderDao> {
 }

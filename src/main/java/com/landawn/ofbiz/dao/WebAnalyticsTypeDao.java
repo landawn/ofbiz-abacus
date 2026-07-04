@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WebAnalyticsType;
 
-public interface WebAnalyticsTypeDao extends CrudDao<WebAnalyticsType, String, SqlBuilder.PSC, WebAnalyticsTypeDao>, CrudJoinEntityHelper<WebAnalyticsType, String, SqlBuilder.PSC, WebAnalyticsTypeDao> {
+public interface WebAnalyticsTypeDao extends CrudDao<WebAnalyticsType, String, WebAnalyticsTypeDao>, CrudJoinEntityHelper<WebAnalyticsType, String, WebAnalyticsTypeDao> {
 }

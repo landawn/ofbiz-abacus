@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PayHistory;
 
-public interface PayHistoryDao extends CrudDao<PayHistory, PayHistory, SqlBuilder.PSC, PayHistoryDao>, CrudJoinEntityHelper<PayHistory, PayHistory, SqlBuilder.PSC, PayHistoryDao> {
+public interface PayHistoryDao extends CrudDao<PayHistory, PayHistory, PayHistoryDao>, CrudJoinEntityHelper<PayHistory, PayHistory, PayHistoryDao> {
 }

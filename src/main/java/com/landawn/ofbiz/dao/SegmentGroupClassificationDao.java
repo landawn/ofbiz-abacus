@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SegmentGroupClassification;
 
-public interface SegmentGroupClassificationDao extends CrudDao<SegmentGroupClassification, SegmentGroupClassification, SqlBuilder.PSC, SegmentGroupClassificationDao>, CrudJoinEntityHelper<SegmentGroupClassification, SegmentGroupClassification, SqlBuilder.PSC, SegmentGroupClassificationDao> {
+public interface SegmentGroupClassificationDao extends CrudDao<SegmentGroupClassification, SegmentGroupClassification, SegmentGroupClassificationDao>, CrudJoinEntityHelper<SegmentGroupClassification, SegmentGroupClassification, SegmentGroupClassificationDao> {
 }

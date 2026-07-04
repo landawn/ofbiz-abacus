@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.VisualThemeResource;
 
-public interface VisualThemeResourceDao extends CrudDao<VisualThemeResource, VisualThemeResource, SqlBuilder.PSC, VisualThemeResourceDao>, CrudJoinEntityHelper<VisualThemeResource, VisualThemeResource, SqlBuilder.PSC, VisualThemeResourceDao> {
+public interface VisualThemeResourceDao extends CrudDao<VisualThemeResource, VisualThemeResource, VisualThemeResourceDao>, CrudJoinEntityHelper<VisualThemeResource, VisualThemeResource, VisualThemeResourceDao> {
 }

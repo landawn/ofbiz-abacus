@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderAdjustmentType;
 
-public interface OrderAdjustmentTypeDao extends CrudDao<OrderAdjustmentType, String, SqlBuilder.PSC, OrderAdjustmentTypeDao>, CrudJoinEntityHelper<OrderAdjustmentType, String, SqlBuilder.PSC, OrderAdjustmentTypeDao> {
+public interface OrderAdjustmentTypeDao extends CrudDao<OrderAdjustmentType, String, OrderAdjustmentTypeDao>, CrudJoinEntityHelper<OrderAdjustmentType, String, OrderAdjustmentTypeDao> {
 }

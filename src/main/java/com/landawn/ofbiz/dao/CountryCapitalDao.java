@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CountryCapital;
 
-public interface CountryCapitalDao extends CrudDao<CountryCapital, String, SqlBuilder.PSC, CountryCapitalDao>, CrudJoinEntityHelper<CountryCapital, String, SqlBuilder.PSC, CountryCapitalDao> {
+public interface CountryCapitalDao extends CrudDao<CountryCapital, String, CountryCapitalDao>, CrudJoinEntityHelper<CountryCapital, String, CountryCapitalDao> {
 }

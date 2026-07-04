@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ElectronicText;
 
-public interface ElectronicTextDao extends CrudDao<ElectronicText, String, SqlBuilder.PSC, ElectronicTextDao>, CrudJoinEntityHelper<ElectronicText, String, SqlBuilder.PSC, ElectronicTextDao> {
+public interface ElectronicTextDao extends CrudDao<ElectronicText, String, ElectronicTextDao>, CrudJoinEntityHelper<ElectronicText, String, ElectronicTextDao> {
 }

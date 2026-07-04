@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SalesForecastDetail;
 
-public interface SalesForecastDetailDao extends CrudDao<SalesForecastDetail, SalesForecastDetail, SqlBuilder.PSC, SalesForecastDetailDao>, CrudJoinEntityHelper<SalesForecastDetail, SalesForecastDetail, SqlBuilder.PSC, SalesForecastDetailDao> {
+public interface SalesForecastDetailDao extends CrudDao<SalesForecastDetail, SalesForecastDetail, SalesForecastDetailDao>, CrudJoinEntityHelper<SalesForecastDetail, SalesForecastDetail, SalesForecastDetailDao> {
 }

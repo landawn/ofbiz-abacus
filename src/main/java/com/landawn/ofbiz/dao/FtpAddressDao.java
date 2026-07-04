@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.FtpAddress;
 
-public interface FtpAddressDao extends CrudDao<FtpAddress, String, SqlBuilder.PSC, FtpAddressDao>, CrudJoinEntityHelper<FtpAddress, String, SqlBuilder.PSC, FtpAddressDao> {
+public interface FtpAddressDao extends CrudDao<FtpAddress, String, FtpAddressDao>, CrudJoinEntityHelper<FtpAddress, String, FtpAddressDao> {
 }

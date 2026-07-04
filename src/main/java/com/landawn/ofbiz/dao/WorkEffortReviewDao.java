@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortReview;
 
-public interface WorkEffortReviewDao extends CrudDao<WorkEffortReview, WorkEffortReview, SqlBuilder.PSC, WorkEffortReviewDao>, CrudJoinEntityHelper<WorkEffortReview, WorkEffortReview, SqlBuilder.PSC, WorkEffortReviewDao> {
+public interface WorkEffortReviewDao extends CrudDao<WorkEffortReview, WorkEffortReview, WorkEffortReviewDao>, CrudJoinEntityHelper<WorkEffortReview, WorkEffortReview, WorkEffortReviewDao> {
 }

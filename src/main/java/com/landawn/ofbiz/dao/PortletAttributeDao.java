@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PortletAttribute;
 
-public interface PortletAttributeDao extends CrudDao<PortletAttribute, PortletAttribute, SqlBuilder.PSC, PortletAttributeDao>, CrudJoinEntityHelper<PortletAttribute, PortletAttribute, SqlBuilder.PSC, PortletAttributeDao> {
+public interface PortletAttributeDao extends CrudDao<PortletAttribute, PortletAttribute, PortletAttributeDao>, CrudJoinEntityHelper<PortletAttribute, PortletAttribute, PortletAttributeDao> {
 }

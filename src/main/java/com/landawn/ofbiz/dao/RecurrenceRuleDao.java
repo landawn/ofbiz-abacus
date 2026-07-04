@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.RecurrenceRule;
 
-public interface RecurrenceRuleDao extends CrudDao<RecurrenceRule, String, SqlBuilder.PSC, RecurrenceRuleDao> {
+public interface RecurrenceRuleDao extends CrudDao<RecurrenceRule, String, RecurrenceRuleDao> {
 }

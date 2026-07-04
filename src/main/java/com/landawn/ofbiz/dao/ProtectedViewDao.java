@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProtectedView;
 
-public interface ProtectedViewDao extends CrudDao<ProtectedView, ProtectedView, SqlBuilder.PSC, ProtectedViewDao>, CrudJoinEntityHelper<ProtectedView, ProtectedView, SqlBuilder.PSC, ProtectedViewDao> {
+public interface ProtectedViewDao extends CrudDao<ProtectedView, ProtectedView, ProtectedViewDao>, CrudJoinEntityHelper<ProtectedView, ProtectedView, ProtectedViewDao> {
 }

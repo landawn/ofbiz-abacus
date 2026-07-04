@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PaymentGatewayEway;
 
-public interface PaymentGatewayEwayDao extends CrudDao<PaymentGatewayEway, String, SqlBuilder.PSC, PaymentGatewayEwayDao>, CrudJoinEntityHelper<PaymentGatewayEway, String, SqlBuilder.PSC, PaymentGatewayEwayDao> {
+public interface PaymentGatewayEwayDao extends CrudDao<PaymentGatewayEway, String, PaymentGatewayEwayDao>, CrudJoinEntityHelper<PaymentGatewayEway, String, PaymentGatewayEwayDao> {
 }

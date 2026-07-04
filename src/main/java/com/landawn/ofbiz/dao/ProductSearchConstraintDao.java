@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductSearchConstraint;
 
-public interface ProductSearchConstraintDao extends CrudDao<ProductSearchConstraint, ProductSearchConstraint, SqlBuilder.PSC, ProductSearchConstraintDao>, CrudJoinEntityHelper<ProductSearchConstraint, ProductSearchConstraint, SqlBuilder.PSC, ProductSearchConstraintDao> {
+public interface ProductSearchConstraintDao extends CrudDao<ProductSearchConstraint, ProductSearchConstraint, ProductSearchConstraintDao>, CrudJoinEntityHelper<ProductSearchConstraint, ProductSearchConstraint, ProductSearchConstraintDao> {
 }

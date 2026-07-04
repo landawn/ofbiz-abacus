@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TenantComponent;
 
-public interface TenantComponentDao extends CrudDao<TenantComponent, TenantComponent, SqlBuilder.PSC, TenantComponentDao>, CrudJoinEntityHelper<TenantComponent, TenantComponent, SqlBuilder.PSC, TenantComponentDao> {
+public interface TenantComponentDao extends CrudDao<TenantComponent, TenantComponent, TenantComponentDao>, CrudJoinEntityHelper<TenantComponent, TenantComponent, TenantComponentDao> {
 }

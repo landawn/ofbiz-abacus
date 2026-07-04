@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PortalPageColumn;
 
-public interface PortalPageColumnDao extends CrudDao<PortalPageColumn, PortalPageColumn, SqlBuilder.PSC, PortalPageColumnDao>, CrudJoinEntityHelper<PortalPageColumn, PortalPageColumn, SqlBuilder.PSC, PortalPageColumnDao> {
+public interface PortalPageColumnDao extends CrudDao<PortalPageColumn, PortalPageColumn, PortalPageColumnDao>, CrudJoinEntityHelper<PortalPageColumn, PortalPageColumn, PortalPageColumnDao> {
 }

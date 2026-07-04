@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.Uom;
 
-public interface UomDao extends CrudDao<Uom, String, SqlBuilder.PSC, UomDao>, CrudJoinEntityHelper<Uom, String, SqlBuilder.PSC, UomDao> {
+public interface UomDao extends CrudDao<Uom, String, UomDao>, CrudJoinEntityHelper<Uom, String, UomDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.BudgetItem;
 
-public interface BudgetItemDao extends CrudDao<BudgetItem, BudgetItem, SqlBuilder.PSC, BudgetItemDao>, CrudJoinEntityHelper<BudgetItem, BudgetItem, SqlBuilder.PSC, BudgetItemDao> {
+public interface BudgetItemDao extends CrudDao<BudgetItem, BudgetItem, BudgetItemDao>, CrudJoinEntityHelper<BudgetItem, BudgetItem, BudgetItemDao> {
 }

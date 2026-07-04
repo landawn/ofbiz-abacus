@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ContentAttribute;
 
-public interface ContentAttributeDao extends CrudDao<ContentAttribute, ContentAttribute, SqlBuilder.PSC, ContentAttributeDao>, CrudJoinEntityHelper<ContentAttribute, ContentAttribute, SqlBuilder.PSC, ContentAttributeDao> {
+public interface ContentAttributeDao extends CrudDao<ContentAttribute, ContentAttribute, ContentAttributeDao>, CrudJoinEntityHelper<ContentAttribute, ContentAttribute, ContentAttributeDao> {
 }

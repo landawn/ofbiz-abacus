@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TrackingCode;
 
-public interface TrackingCodeDao extends CrudDao<TrackingCode, String, SqlBuilder.PSC, TrackingCodeDao>, CrudJoinEntityHelper<TrackingCode, String, SqlBuilder.PSC, TrackingCodeDao> {
+public interface TrackingCodeDao extends CrudDao<TrackingCode, String, TrackingCodeDao>, CrudJoinEntityHelper<TrackingCode, String, TrackingCodeDao> {
 }

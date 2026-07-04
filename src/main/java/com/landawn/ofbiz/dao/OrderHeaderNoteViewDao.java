@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderHeaderNoteView;
 
-public interface OrderHeaderNoteViewDao extends CrudDao<OrderHeaderNoteView, OrderHeaderNoteView, SqlBuilder.PSC, OrderHeaderNoteViewDao> {
+public interface OrderHeaderNoteViewDao extends CrudDao<OrderHeaderNoteView, OrderHeaderNoteView, OrderHeaderNoteViewDao> {
 }

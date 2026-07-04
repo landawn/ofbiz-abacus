@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ContentRole;
 
-public interface ContentRoleDao extends CrudDao<ContentRole, ContentRole, SqlBuilder.PSC, ContentRoleDao>, CrudJoinEntityHelper<ContentRole, ContentRole, SqlBuilder.PSC, ContentRoleDao> {
+public interface ContentRoleDao extends CrudDao<ContentRole, ContentRole, ContentRoleDao>, CrudJoinEntityHelper<ContentRole, ContentRole, ContentRoleDao> {
 }

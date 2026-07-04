@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ReturnItemBilling;
 
-public interface ReturnItemBillingDao extends CrudDao<ReturnItemBilling, ReturnItemBilling, SqlBuilder.PSC, ReturnItemBillingDao>, CrudJoinEntityHelper<ReturnItemBilling, ReturnItemBilling, SqlBuilder.PSC, ReturnItemBillingDao> {
+public interface ReturnItemBillingDao extends CrudDao<ReturnItemBilling, ReturnItemBilling, ReturnItemBillingDao>, CrudJoinEntityHelper<ReturnItemBilling, ReturnItemBilling, ReturnItemBillingDao> {
 }

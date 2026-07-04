@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ShipmentPackage;
 
-public interface ShipmentPackageDao extends CrudDao<ShipmentPackage, ShipmentPackage, SqlBuilder.PSC, ShipmentPackageDao>, CrudJoinEntityHelper<ShipmentPackage, ShipmentPackage, SqlBuilder.PSC, ShipmentPackageDao> {
+public interface ShipmentPackageDao extends CrudDao<ShipmentPackage, ShipmentPackage, ShipmentPackageDao>, CrudJoinEntityHelper<ShipmentPackage, ShipmentPackage, ShipmentPackageDao> {
 }

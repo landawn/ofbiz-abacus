@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortAndContentDataResource;
 
-public interface WorkEffortAndContentDataResourceDao extends CrudDao<WorkEffortAndContentDataResource, WorkEffortAndContentDataResource, SqlBuilder.PSC, WorkEffortAndContentDataResourceDao> {
+public interface WorkEffortAndContentDataResourceDao extends CrudDao<WorkEffortAndContentDataResource, WorkEffortAndContentDataResource, WorkEffortAndContentDataResourceDao> {
 }

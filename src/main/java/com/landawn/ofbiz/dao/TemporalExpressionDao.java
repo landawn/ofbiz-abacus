@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TemporalExpression;
 
-public interface TemporalExpressionDao extends CrudDao<TemporalExpression, String, SqlBuilder.PSC, TemporalExpressionDao> {
+public interface TemporalExpressionDao extends CrudDao<TemporalExpression, String, TemporalExpressionDao> {
 }

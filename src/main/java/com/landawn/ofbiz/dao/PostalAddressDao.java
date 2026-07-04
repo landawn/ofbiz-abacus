@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PostalAddress;
 
-public interface PostalAddressDao extends CrudDao<PostalAddress, String, SqlBuilder.PSC, PostalAddressDao>, CrudJoinEntityHelper<PostalAddress, String, SqlBuilder.PSC, PostalAddressDao> {
+public interface PostalAddressDao extends CrudDao<PostalAddress, String, PostalAddressDao>, CrudJoinEntityHelper<PostalAddress, String, PostalAddressDao> {
 }

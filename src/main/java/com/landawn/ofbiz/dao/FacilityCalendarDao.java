@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.FacilityCalendar;
 
-public interface FacilityCalendarDao extends CrudDao<FacilityCalendar, FacilityCalendar, SqlBuilder.PSC, FacilityCalendarDao>, CrudJoinEntityHelper<FacilityCalendar, FacilityCalendar, SqlBuilder.PSC, FacilityCalendarDao> {
+public interface FacilityCalendarDao extends CrudDao<FacilityCalendar, FacilityCalendar, FacilityCalendarDao>, CrudJoinEntityHelper<FacilityCalendar, FacilityCalendar, FacilityCalendarDao> {
 }

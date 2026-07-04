@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.StatusValidChange;
 
-public interface StatusValidChangeDao extends CrudDao<StatusValidChange, StatusValidChange, SqlBuilder.PSC, StatusValidChangeDao>, CrudJoinEntityHelper<StatusValidChange, StatusValidChange, SqlBuilder.PSC, StatusValidChangeDao> {
+public interface StatusValidChangeDao extends CrudDao<StatusValidChange, StatusValidChange, StatusValidChangeDao>, CrudJoinEntityHelper<StatusValidChange, StatusValidChange, StatusValidChangeDao> {
 }

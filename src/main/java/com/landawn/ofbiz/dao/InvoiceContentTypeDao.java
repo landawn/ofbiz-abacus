@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.InvoiceContentType;
 
-public interface InvoiceContentTypeDao extends CrudDao<InvoiceContentType, String, SqlBuilder.PSC, InvoiceContentTypeDao>, CrudJoinEntityHelper<InvoiceContentType, String, SqlBuilder.PSC, InvoiceContentTypeDao> {
+public interface InvoiceContentTypeDao extends CrudDao<InvoiceContentType, String, InvoiceContentTypeDao>, CrudJoinEntityHelper<InvoiceContentType, String, InvoiceContentTypeDao> {
 }

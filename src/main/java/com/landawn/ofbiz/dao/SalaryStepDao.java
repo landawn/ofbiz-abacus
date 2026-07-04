@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SalaryStep;
 
-public interface SalaryStepDao extends CrudDao<SalaryStep, SalaryStep, SqlBuilder.PSC, SalaryStepDao>, CrudJoinEntityHelper<SalaryStep, SalaryStep, SqlBuilder.PSC, SalaryStepDao> {
+public interface SalaryStepDao extends CrudDao<SalaryStep, SalaryStep, SalaryStepDao>, CrudJoinEntityHelper<SalaryStep, SalaryStep, SalaryStepDao> {
 }

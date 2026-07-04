@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.Affiliate;
 
-public interface AffiliateDao extends CrudDao<Affiliate, String, SqlBuilder.PSC, AffiliateDao>, CrudJoinEntityHelper<Affiliate, String, SqlBuilder.PSC, AffiliateDao> {
+public interface AffiliateDao extends CrudDao<Affiliate, String, AffiliateDao>, CrudJoinEntityHelper<Affiliate, String, AffiliateDao> {
 }

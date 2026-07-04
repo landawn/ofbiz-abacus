@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductStoreFacilityByOrder;
 
-public interface ProductStoreFacilityByOrderDao extends CrudDao<ProductStoreFacilityByOrder, ProductStoreFacilityByOrder, SqlBuilder.PSC, ProductStoreFacilityByOrderDao> {
+public interface ProductStoreFacilityByOrderDao extends CrudDao<ProductStoreFacilityByOrder, ProductStoreFacilityByOrder, ProductStoreFacilityByOrderDao> {
 }

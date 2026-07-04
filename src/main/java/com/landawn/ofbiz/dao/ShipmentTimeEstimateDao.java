@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ShipmentTimeEstimate;
 
-public interface ShipmentTimeEstimateDao extends CrudDao<ShipmentTimeEstimate, ShipmentTimeEstimate, SqlBuilder.PSC, ShipmentTimeEstimateDao>, CrudJoinEntityHelper<ShipmentTimeEstimate, ShipmentTimeEstimate, SqlBuilder.PSC, ShipmentTimeEstimateDao> {
+public interface ShipmentTimeEstimateDao extends CrudDao<ShipmentTimeEstimate, ShipmentTimeEstimate, ShipmentTimeEstimateDao>, CrudJoinEntityHelper<ShipmentTimeEstimate, ShipmentTimeEstimate, ShipmentTimeEstimateDao> {
 }

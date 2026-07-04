@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ShipmentPackageRouteDetail;
 
-public interface ShipmentPackageRouteDetailDao extends CrudDao<ShipmentPackageRouteDetail, ShipmentPackageRouteDetail, SqlBuilder.PSC, ShipmentPackageRouteDetailDao> {
+public interface ShipmentPackageRouteDetailDao extends CrudDao<ShipmentPackageRouteDetail, ShipmentPackageRouteDetail, ShipmentPackageRouteDetailDao> {
 }

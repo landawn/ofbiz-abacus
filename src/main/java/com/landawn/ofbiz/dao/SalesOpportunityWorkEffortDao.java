@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SalesOpportunityWorkEffort;
 
-public interface SalesOpportunityWorkEffortDao extends CrudDao<SalesOpportunityWorkEffort, SalesOpportunityWorkEffort, SqlBuilder.PSC, SalesOpportunityWorkEffortDao>, CrudJoinEntityHelper<SalesOpportunityWorkEffort, SalesOpportunityWorkEffort, SqlBuilder.PSC, SalesOpportunityWorkEffortDao> {
+public interface SalesOpportunityWorkEffortDao extends CrudDao<SalesOpportunityWorkEffort, SalesOpportunityWorkEffort, SalesOpportunityWorkEffortDao>, CrudJoinEntityHelper<SalesOpportunityWorkEffort, SalesOpportunityWorkEffort, SalesOpportunityWorkEffortDao> {
 }

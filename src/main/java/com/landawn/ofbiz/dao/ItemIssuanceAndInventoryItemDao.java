@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ItemIssuanceAndInventoryItem;
 
-public interface ItemIssuanceAndInventoryItemDao extends CrudDao<ItemIssuanceAndInventoryItem, ItemIssuanceAndInventoryItem, SqlBuilder.PSC, ItemIssuanceAndInventoryItemDao> {
+public interface ItemIssuanceAndInventoryItemDao extends CrudDao<ItemIssuanceAndInventoryItem, ItemIssuanceAndInventoryItem, ItemIssuanceAndInventoryItemDao> {
 }

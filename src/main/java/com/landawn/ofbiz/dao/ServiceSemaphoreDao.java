@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ServiceSemaphore;
 
-public interface ServiceSemaphoreDao extends CrudDao<ServiceSemaphore, String, SqlBuilder.PSC, ServiceSemaphoreDao> {
+public interface ServiceSemaphoreDao extends CrudDao<ServiceSemaphore, String, ServiceSemaphoreDao> {
 }

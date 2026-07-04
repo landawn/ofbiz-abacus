@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.EntityAuditLog;
 
-public interface EntityAuditLogDao extends CrudDao<EntityAuditLog, String, SqlBuilder.PSC, EntityAuditLogDao> {
+public interface EntityAuditLogDao extends CrudDao<EntityAuditLog, String, EntityAuditLogDao> {
 }

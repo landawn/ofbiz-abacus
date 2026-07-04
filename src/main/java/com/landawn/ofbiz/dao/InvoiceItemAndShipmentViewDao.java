@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.InvoiceItemAndShipmentView;
 
-public interface InvoiceItemAndShipmentViewDao extends CrudDao<InvoiceItemAndShipmentView, InvoiceItemAndShipmentView, SqlBuilder.PSC, InvoiceItemAndShipmentViewDao> {
+public interface InvoiceItemAndShipmentViewDao extends CrudDao<InvoiceItemAndShipmentView, InvoiceItemAndShipmentView, InvoiceItemAndShipmentViewDao> {
 }

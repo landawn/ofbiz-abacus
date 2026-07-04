@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.RateAmount;
 
-public interface RateAmountDao extends CrudDao<RateAmount, RateAmount, SqlBuilder.PSC, RateAmountDao>, CrudJoinEntityHelper<RateAmount, RateAmount, SqlBuilder.PSC, RateAmountDao> {
+public interface RateAmountDao extends CrudDao<RateAmount, RateAmount, RateAmountDao>, CrudJoinEntityHelper<RateAmount, RateAmount, RateAmountDao> {
 }

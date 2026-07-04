@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.RecurrenceInfo;
 
-public interface RecurrenceInfoDao extends CrudDao<RecurrenceInfo, String, SqlBuilder.PSC, RecurrenceInfoDao>, CrudJoinEntityHelper<RecurrenceInfo, String, SqlBuilder.PSC, RecurrenceInfoDao> {
+public interface RecurrenceInfoDao extends CrudDao<RecurrenceInfo, String, RecurrenceInfoDao>, CrudJoinEntityHelper<RecurrenceInfo, String, RecurrenceInfoDao> {
 }

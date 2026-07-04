@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.AgreementAttribute;
 
-public interface AgreementAttributeDao extends CrudDao<AgreementAttribute, AgreementAttribute, SqlBuilder.PSC, AgreementAttributeDao>, CrudJoinEntityHelper<AgreementAttribute, AgreementAttribute, SqlBuilder.PSC, AgreementAttributeDao> {
+public interface AgreementAttributeDao extends CrudDao<AgreementAttribute, AgreementAttribute, AgreementAttributeDao>, CrudJoinEntityHelper<AgreementAttribute, AgreementAttribute, AgreementAttributeDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CustRequestItemNote;
 
-public interface CustRequestItemNoteDao extends CrudDao<CustRequestItemNote, CustRequestItemNote, SqlBuilder.PSC, CustRequestItemNoteDao>, CrudJoinEntityHelper<CustRequestItemNote, CustRequestItemNote, SqlBuilder.PSC, CustRequestItemNoteDao> {
+public interface CustRequestItemNoteDao extends CrudDao<CustRequestItemNote, CustRequestItemNote, CustRequestItemNoteDao>, CrudJoinEntityHelper<CustRequestItemNote, CustRequestItemNote, CustRequestItemNoteDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ProductStoreVendorPayment;
 
-public interface ProductStoreVendorPaymentDao extends CrudDao<ProductStoreVendorPayment, ProductStoreVendorPayment, SqlBuilder.PSC, ProductStoreVendorPaymentDao>, CrudJoinEntityHelper<ProductStoreVendorPayment, ProductStoreVendorPayment, SqlBuilder.PSC, ProductStoreVendorPaymentDao> {
+public interface ProductStoreVendorPaymentDao extends CrudDao<ProductStoreVendorPayment, ProductStoreVendorPayment, ProductStoreVendorPaymentDao>, CrudJoinEntityHelper<ProductStoreVendorPayment, ProductStoreVendorPayment, ProductStoreVendorPaymentDao> {
 }

@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.CustomScreen;
 
-public interface CustomScreenDao extends CrudDao<CustomScreen, String, SqlBuilder.PSC, CustomScreenDao>, CrudJoinEntityHelper<CustomScreen, String, SqlBuilder.PSC, CustomScreenDao> {
+public interface CustomScreenDao extends CrudDao<CustomScreen, String, CustomScreenDao>, CrudJoinEntityHelper<CustomScreen, String, CustomScreenDao> {
 }

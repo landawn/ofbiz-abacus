@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkRequirementFulfillment;
 
-public interface WorkRequirementFulfillmentDao extends CrudDao<WorkRequirementFulfillment, WorkRequirementFulfillment, SqlBuilder.PSC, WorkRequirementFulfillmentDao>, CrudJoinEntityHelper<WorkRequirementFulfillment, WorkRequirementFulfillment, SqlBuilder.PSC, WorkRequirementFulfillmentDao> {
+public interface WorkRequirementFulfillmentDao extends CrudDao<WorkRequirementFulfillment, WorkRequirementFulfillment, WorkRequirementFulfillmentDao>, CrudJoinEntityHelper<WorkRequirementFulfillment, WorkRequirementFulfillment, WorkRequirementFulfillmentDao> {
 }

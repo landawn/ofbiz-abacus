@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.JavaResource;
 
-public interface JavaResourceDao extends CrudDao<JavaResource, String, SqlBuilder.PSC, JavaResourceDao> {
+public interface JavaResourceDao extends CrudDao<JavaResource, String, JavaResourceDao> {
 }

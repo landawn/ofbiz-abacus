@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ShoppingListType;
 
-public interface ShoppingListTypeDao extends CrudDao<ShoppingListType, String, SqlBuilder.PSC, ShoppingListTypeDao> {
+public interface ShoppingListTypeDao extends CrudDao<ShoppingListType, String, ShoppingListTypeDao> {
 }

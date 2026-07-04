@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.QuoteCoefficient;
 
-public interface QuoteCoefficientDao extends CrudDao<QuoteCoefficient, QuoteCoefficient, SqlBuilder.PSC, QuoteCoefficientDao>, CrudJoinEntityHelper<QuoteCoefficient, QuoteCoefficient, SqlBuilder.PSC, QuoteCoefficientDao> {
+public interface QuoteCoefficientDao extends CrudDao<QuoteCoefficient, QuoteCoefficient, QuoteCoefficientDao>, CrudJoinEntityHelper<QuoteCoefficient, QuoteCoefficient, QuoteCoefficientDao> {
 }

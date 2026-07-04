@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.InventoryItemStatusForCount;
 
-public interface InventoryItemStatusForCountDao extends CrudDao<InventoryItemStatusForCount, InventoryItemStatusForCount, SqlBuilder.PSC, InventoryItemStatusForCountDao> {
+public interface InventoryItemStatusForCountDao extends CrudDao<InventoryItemStatusForCount, InventoryItemStatusForCount, InventoryItemStatusForCountDao> {
 }

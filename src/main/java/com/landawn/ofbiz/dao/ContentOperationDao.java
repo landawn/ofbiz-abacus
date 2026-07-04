@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.ContentOperation;
 
-public interface ContentOperationDao extends CrudDao<ContentOperation, String, SqlBuilder.PSC, ContentOperationDao> {
+public interface ContentOperationDao extends CrudDao<ContentOperation, String, ContentOperationDao> {
 }

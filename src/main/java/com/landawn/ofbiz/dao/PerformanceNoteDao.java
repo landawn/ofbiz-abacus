@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PerformanceNote;
 
-public interface PerformanceNoteDao extends CrudDao<PerformanceNote, PerformanceNote, SqlBuilder.PSC, PerformanceNoteDao>, CrudJoinEntityHelper<PerformanceNote, PerformanceNote, SqlBuilder.PSC, PerformanceNoteDao> {
+public interface PerformanceNoteDao extends CrudDao<PerformanceNote, PerformanceNote, PerformanceNoteDao>, CrudJoinEntityHelper<PerformanceNote, PerformanceNote, PerformanceNoteDao> {
 }

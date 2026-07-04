@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.MarketingCampaignNote;
 
-public interface MarketingCampaignNoteDao extends CrudDao<MarketingCampaignNote, MarketingCampaignNote, SqlBuilder.PSC, MarketingCampaignNoteDao>, CrudJoinEntityHelper<MarketingCampaignNote, MarketingCampaignNote, SqlBuilder.PSC, MarketingCampaignNoteDao> {
+public interface MarketingCampaignNoteDao extends CrudDao<MarketingCampaignNote, MarketingCampaignNote, MarketingCampaignNoteDao>, CrudJoinEntityHelper<MarketingCampaignNote, MarketingCampaignNote, MarketingCampaignNoteDao> {
 }

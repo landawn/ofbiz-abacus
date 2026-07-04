@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.Survey;
 
-public interface SurveyDao extends CrudDao<Survey, String, SqlBuilder.PSC, SurveyDao> {
+public interface SurveyDao extends CrudDao<Survey, String, SurveyDao> {
 }

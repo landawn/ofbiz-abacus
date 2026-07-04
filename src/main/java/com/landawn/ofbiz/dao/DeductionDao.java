@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.Deduction;
 
-public interface DeductionDao extends CrudDao<Deduction, String, SqlBuilder.PSC, DeductionDao>, CrudJoinEntityHelper<Deduction, String, SqlBuilder.PSC, DeductionDao> {
+public interface DeductionDao extends CrudDao<Deduction, String, DeductionDao>, CrudJoinEntityHelper<Deduction, String, DeductionDao> {
 }

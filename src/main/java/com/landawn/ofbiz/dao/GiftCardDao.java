@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.GiftCard;
 
-public interface GiftCardDao extends CrudDao<GiftCard, String, SqlBuilder.PSC, GiftCardDao>, CrudJoinEntityHelper<GiftCard, String, SqlBuilder.PSC, GiftCardDao> {
+public interface GiftCardDao extends CrudDao<GiftCard, String, GiftCardDao>, CrudJoinEntityHelper<GiftCard, String, GiftCardDao> {
 }

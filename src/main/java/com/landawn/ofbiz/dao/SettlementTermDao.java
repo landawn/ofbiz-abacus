@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SettlementTerm;
 
-public interface SettlementTermDao extends CrudDao<SettlementTerm, String, SqlBuilder.PSC, SettlementTermDao> {
+public interface SettlementTermDao extends CrudDao<SettlementTerm, String, SettlementTermDao> {
 }

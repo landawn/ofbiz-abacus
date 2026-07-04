@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortDeliverableProd;
 
-public interface WorkEffortDeliverableProdDao extends CrudDao<WorkEffortDeliverableProd, WorkEffortDeliverableProd, SqlBuilder.PSC, WorkEffortDeliverableProdDao>, CrudJoinEntityHelper<WorkEffortDeliverableProd, WorkEffortDeliverableProd, SqlBuilder.PSC, WorkEffortDeliverableProdDao> {
+public interface WorkEffortDeliverableProdDao extends CrudDao<WorkEffortDeliverableProd, WorkEffortDeliverableProd, WorkEffortDeliverableProdDao>, CrudJoinEntityHelper<WorkEffortDeliverableProd, WorkEffortDeliverableProd, WorkEffortDeliverableProdDao> {
 }

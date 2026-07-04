@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.TrainingClassType;
 
-public interface TrainingClassTypeDao extends CrudDao<TrainingClassType, String, SqlBuilder.PSC, TrainingClassTypeDao>, CrudJoinEntityHelper<TrainingClassType, String, SqlBuilder.PSC, TrainingClassTypeDao> {
+public interface TrainingClassTypeDao extends CrudDao<TrainingClassType, String, TrainingClassTypeDao>, CrudJoinEntityHelper<TrainingClassType, String, TrainingClassTypeDao> {
 }

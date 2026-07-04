@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WebSiteAndContent;
 
-public interface WebSiteAndContentDao extends CrudDao<WebSiteAndContent, WebSiteAndContent, SqlBuilder.PSC, WebSiteAndContentDao> {
+public interface WebSiteAndContentDao extends CrudDao<WebSiteAndContent, WebSiteAndContent, WebSiteAndContentDao> {
 }

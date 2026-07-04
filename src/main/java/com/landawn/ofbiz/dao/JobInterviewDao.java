@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.JobInterview;
 
-public interface JobInterviewDao extends CrudDao<JobInterview, String, SqlBuilder.PSC, JobInterviewDao>, CrudJoinEntityHelper<JobInterview, String, SqlBuilder.PSC, JobInterviewDao> {
+public interface JobInterviewDao extends CrudDao<JobInterview, String, JobInterviewDao>, CrudJoinEntityHelper<JobInterview, String, JobInterviewDao> {
 }

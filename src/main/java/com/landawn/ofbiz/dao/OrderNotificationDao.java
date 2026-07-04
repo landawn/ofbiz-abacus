@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.OrderNotification;
 
-public interface OrderNotificationDao extends CrudDao<OrderNotification, String, SqlBuilder.PSC, OrderNotificationDao>, CrudJoinEntityHelper<OrderNotification, String, SqlBuilder.PSC, OrderNotificationDao> {
+public interface OrderNotificationDao extends CrudDao<OrderNotification, String, OrderNotificationDao>, CrudJoinEntityHelper<OrderNotification, String, OrderNotificationDao> {
 }

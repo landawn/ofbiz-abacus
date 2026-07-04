@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.MaritalStatusType;
 
-public interface MaritalStatusTypeDao extends CrudDao<MaritalStatusType, String, SqlBuilder.PSC, MaritalStatusTypeDao>, CrudJoinEntityHelper<MaritalStatusType, String, SqlBuilder.PSC, MaritalStatusTypeDao> {
+public interface MaritalStatusTypeDao extends CrudDao<MaritalStatusType, String, MaritalStatusTypeDao>, CrudJoinEntityHelper<MaritalStatusType, String, MaritalStatusTypeDao> {
 }

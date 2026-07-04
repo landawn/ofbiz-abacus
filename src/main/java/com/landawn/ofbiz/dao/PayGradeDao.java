@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PayGrade;
 
-public interface PayGradeDao extends CrudDao<PayGrade, String, SqlBuilder.PSC, PayGradeDao> {
+public interface PayGradeDao extends CrudDao<PayGrade, String, PayGradeDao> {
 }

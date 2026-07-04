@@ -15,8 +15,7 @@ package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
 import com.landawn.abacus.jdbc.dao.CrudJoinEntityHelper;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.FixedAssetGeoPoint;
 
-public interface FixedAssetGeoPointDao extends CrudDao<FixedAssetGeoPoint, FixedAssetGeoPoint, SqlBuilder.PSC, FixedAssetGeoPointDao>, CrudJoinEntityHelper<FixedAssetGeoPoint, FixedAssetGeoPoint, SqlBuilder.PSC, FixedAssetGeoPointDao> {
+public interface FixedAssetGeoPointDao extends CrudDao<FixedAssetGeoPoint, FixedAssetGeoPoint, FixedAssetGeoPointDao>, CrudJoinEntityHelper<FixedAssetGeoPoint, FixedAssetGeoPoint, FixedAssetGeoPointDao> {
 }

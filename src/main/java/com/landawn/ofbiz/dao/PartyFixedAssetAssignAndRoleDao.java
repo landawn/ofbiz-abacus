@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.PartyFixedAssetAssignAndRole;
 
-public interface PartyFixedAssetAssignAndRoleDao extends CrudDao<PartyFixedAssetAssignAndRole, PartyFixedAssetAssignAndRole, SqlBuilder.PSC, PartyFixedAssetAssignAndRoleDao> {
+public interface PartyFixedAssetAssignAndRoleDao extends CrudDao<PartyFixedAssetAssignAndRole, PartyFixedAssetAssignAndRole, PartyFixedAssetAssignAndRoleDao> {
 }

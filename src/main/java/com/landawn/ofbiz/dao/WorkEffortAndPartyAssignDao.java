@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.WorkEffortAndPartyAssign;
 
-public interface WorkEffortAndPartyAssignDao extends CrudDao<WorkEffortAndPartyAssign, WorkEffortAndPartyAssign, SqlBuilder.PSC, WorkEffortAndPartyAssignDao> {
+public interface WorkEffortAndPartyAssignDao extends CrudDao<WorkEffortAndPartyAssign, WorkEffortAndPartyAssign, WorkEffortAndPartyAssignDao> {
 }

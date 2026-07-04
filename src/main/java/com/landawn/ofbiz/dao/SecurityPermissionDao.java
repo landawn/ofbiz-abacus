@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.SecurityPermission;
 
-public interface SecurityPermissionDao extends CrudDao<SecurityPermission, String, SqlBuilder.PSC, SecurityPermissionDao> {
+public interface SecurityPermissionDao extends CrudDao<SecurityPermission, String, SecurityPermissionDao> {
 }

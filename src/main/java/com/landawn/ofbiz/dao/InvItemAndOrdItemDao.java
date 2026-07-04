@@ -14,8 +14,7 @@
 package com.landawn.ofbiz.dao;
 
 import com.landawn.abacus.jdbc.dao.CrudDao;
-import com.landawn.abacus.query.SqlBuilder;
 import com.landawn.ofbiz.entity.InvItemAndOrdItem;
 
-public interface InvItemAndOrdItemDao extends CrudDao<InvItemAndOrdItem, InvItemAndOrdItem, SqlBuilder.PSC, InvItemAndOrdItemDao> {
+public interface InvItemAndOrdItemDao extends CrudDao<InvItemAndOrdItem, InvItemAndOrdItem, InvItemAndOrdItemDao> {
 }
